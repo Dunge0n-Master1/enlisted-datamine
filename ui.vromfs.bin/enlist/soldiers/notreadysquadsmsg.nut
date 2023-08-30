@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h2_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { defTxtColor, hoverTxtColor, blurBgColor, bigPadding, defBgColor, activeBgColor, warningColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let {addModalWindow, removeModalWindow} = require("%ui/components/modalWindows.nut")
@@ -23,7 +23,7 @@ let header = {
   rendObj = ROBJ_TEXT
   color = defTxtColor
   text = loc("notReadySquads/header")
-}.__update(h2_txt)
+}.__update(fontHeading2)
 
 let mkHint = @(canBattle) {
   size = [hdpx(1100), SIZE_TO_CONTENT]
@@ -32,7 +32,7 @@ let mkHint = @(canBattle) {
   halign = ALIGN_CENTER
   color = defTxtColor
   text = loc(canBattle ? "notReadySquads/canBattleHint" : "notReadySquads/hasCantBattleSquadsHint")
-}.__update(h2_txt)
+}.__update(fontHeading2)
 
 let mkText = @(text, color) { rendObj = ROBJ_TEXT, color = color, text = text }
 

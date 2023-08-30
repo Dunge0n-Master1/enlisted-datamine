@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h0_txt, h1_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontTitle, fontHeading1 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {
   bigPadding, titleTxtColor, defTxtColor, activeTxtColor, smallPadding, maxContentWidth,
   blurBgFillColor, isWide
@@ -26,7 +26,7 @@ let windowTitle = @(title){
       padding = [localGap, bigPadding * 3]
       rendObj = ROBJ_TEXT
       text = title
-    }.__update(isWide ? h0_txt : h1_txt),
+    }.__update(isWide ? fontTitle : fontHeading1),
     {
       offset = hdpx(15)
     }.__update(casualFlagStyle)

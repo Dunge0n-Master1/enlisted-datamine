@@ -2,7 +2,7 @@ import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
 let { TEAM0_COLOR_FG, TEAM1_COLOR_FG, DEFAULT_TEXT_COLOR } = require("%ui/hud/style.nut")
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {
   gunGameFriendlyTeamProgress, gunGameEnemyTeamProgress, gunGamePlayerProgress,
   gunGameLevelCount, gunGameLevelKillsDone, gunGameLevelKillsRequire,
@@ -11,7 +11,7 @@ let {
 let { localPlayerTeam, localPlayerEid } = require("%ui/hud/state/local_player.nut")
 
 let LEVELS_COLOR_BG = Color(50, 50, 50, 150)
-let levelsPointSize = [fsh(0.8).tointeger(), fsh(0.8).tointeger()]
+let levelsPointSize = [hdpxi(8), hdpxi(8)]
 let levelsPointSpacing = hdpx(18)
 let levelsLineHeight = fsh(0.5)
 
@@ -112,7 +112,7 @@ let currentLevelKillsInfo = {
         size = [hdpx(55), SIZE_TO_CONTENT]
         text = $"{gunGameLevelKillsDone.value} / {gunGameLevelKillsRequire.value}"
         color = DEFAULT_TEXT_COLOR
-      }.__update(body_txt)
+      }.__update(fontBody)
       {
         rendObj = ROBJ_IMAGE
         image = Picture("ui/skin#skull_white.svg:{0}:{0}:K".subst(hdpxi(32)))

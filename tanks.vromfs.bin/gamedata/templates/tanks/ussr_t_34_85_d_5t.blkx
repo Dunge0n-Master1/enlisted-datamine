@@ -4,6 +4,10 @@ ussr_t_34_85_d_5t{
   _extends:t="tank_t34_vehicle_tracks_sound"
   commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
   gunner_cam_limit__useCockpitDir:b=yes
+  item__iconOffset:p2=0.1, -0.0
+  item__iconScale:r=1.15
+  armorThicknessHull:p3=45.0, 45.0, 45.0
+  armorThicknessTurret:p3=54.0, 54.0, 54.0
 
   "vehicle_seats__seats:shared:array"{
 
@@ -155,6 +159,7 @@ ussr_t_34_85_d_5t_gunner_cockpit{
 
   "cockpit__slitTemplates:list<t>"{
     slit:t="ussr_tsh_15"
+    slit:t="default_periscope"
   }
 
   "cockpit__slitEids:list<eid>"{

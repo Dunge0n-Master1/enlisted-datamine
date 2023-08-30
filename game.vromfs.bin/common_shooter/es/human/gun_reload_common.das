@@ -1,11 +1,18 @@
 module gun_reload_common shared
 require daslib/enum_trait
 
+// NOTE: These Enum names are used to get states from animgraph
+// if you ever need to rename one, be sure to reflect this in animgraph
 enum GunReloadState
   NONE
-  PREPARE
-  BULLET_MULTIPLE
-  BULLET_SINGLE
-  POST
+  LOOP_PREPARE
+  LOOP_BULLET_MULTIPLE
+  LOOP_BULLET_SINGLE
+  LOOP_POST
 
 let GUN_RELOAD_STATE_NAMES = typeinfo(enum_names type<GunReloadState>)
+
+bitfield GunReloadStateFlags
+  None
+  CanLoop
+  CanInterrupt

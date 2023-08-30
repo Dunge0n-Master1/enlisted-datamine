@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { logerr } = require("dagor.debug")
 let { defTxtColor, titleTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
 let { MsgMarkedText } = require("%ui/style/colors.nut")
@@ -25,13 +25,13 @@ let textarea = @(text, color) {
   halign = ALIGN_CENTER
   color
   text
-}.__update(body_txt)
+}.__update(fontBody)
 
 let mkText = @(text) {
   rendObj = ROBJ_TEXT
   text
   color = defTxtColor
-}.__update(body_txt)
+}.__update(fontBody)
 
 let balanceText = @() {
     watch = [changeResearchBalance, changeResearchGoldCost, disableChangeResearch]

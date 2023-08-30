@@ -16,9 +16,37 @@ fmodLoglevel:t="warnings"
 loglevel:t="errors"
 banksFolder:t="sound"
 banksExtension:t=".bank"
+muteableVca:t="muteable"
 
 dsp{
   pan3DDecay:r=0.05
+}
+
+vca{
+
+  MASTER{
+  }
+
+  muteable{
+  }
+
+  ambient{
+  }
+
+  effects{
+  }
+
+  interface{
+  }
+
+  music{
+  }
+
+  voices{
+  }
+
+  weapon{
+  }
 }
 
 banks{
@@ -78,6 +106,15 @@ banks{
       }
 
       cmn_ambient_sea.assets{
+        async:b=yes
+      }
+
+      cmn_ambient_shipwreck{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      cmn_ambient_shipwreck.assets{
         async:b=yes
       }
 

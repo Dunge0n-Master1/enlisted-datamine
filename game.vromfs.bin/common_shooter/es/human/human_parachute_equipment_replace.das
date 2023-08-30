@@ -2,6 +2,15 @@ require ecs
 require ecs.safe
 require game.es.events
 
+def create_additional_items(item_eid : EntityId; owner_eid : EntityId)
+  query(item_eid) <| $ [es] (item__additionalSlotTemplates : Object)
+    for it in item__additionalSlotTemplates
+      let itemSlot = it.key
+      let itemTemplate = it.value ?? ""
+      let finalizeCreation <- @ <| (additionalItemEid : EntityId)
+        sendEventImmediate(owner_eid, [[CmdEquipItemDirect itemEid=additionalItemEid, slot=itemSlot, allowReorderSlots=false, dropPrevItem=true]])
+      createEntity(itemTemplate, finalizeCreation) <| $ [unused_argument(init)] (var init) {}
+
 [es(tag=server, on_appear, REQUIRE=(hasParachute, parachuteDeployed))]
 def replace_equipment_on_parachute_open(evt : Event; eid : EntityId; human_equipment__slots : Object)
   for it in human_equipment__slots
@@ -11,6 +20,7 @@ def replace_equipment_on_parachute_open(evt : Event; eid : EntityId; human_equip
       if empty(item__replaceOnParachuteOpen)
         return
       let finalizeCreation <- @ <| (itemEid : EntityId)
+        create_additional_items(itemEid, eid)
         sendEventImmediate(eid, [[CmdEquipItemDirect itemEid=itemEid, slot=slot, allowReorderSlots=false, dropPrevItem=true]])
         destroyEntity(item)
 

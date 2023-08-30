@@ -128,9 +128,3 @@ def human_parachute_animation_continuous(info : ParallelUpdateFrameDelayed;
   else
     if info.curTime < human_parachute_anim__closedAtTime + human_parachute_anim__closeDuration
       set_human_anim_state(eid, human_parachute_anim__closingStateId)
-
-
-[es(tag=gameClient, after=human_weap_block_aim_es, REQUIRE=parachuteDeployed)]
-def human_parachute_block_aiming(info : ParallelUpdateFrameDelayed;
-                                 var human_weap__blockAiming : bool&)
-  human_weap__blockAiming = true

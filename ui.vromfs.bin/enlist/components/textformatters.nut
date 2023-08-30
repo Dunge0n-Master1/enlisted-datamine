@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h1_txt, h2_txt, body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading1, fontHeading2, fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let openUrl = require("%ui/components/openUrl.nut")
 let { toIntegerSafe } = require("%sqstd/string.nut")
 
@@ -10,11 +10,11 @@ let defStyle = {
   ulGap = hdpx(5)
   ulBullet = {rendObj = ROBJ_TEXT text=" • "}
   ulNoBullet= { rendObj = ROBJ_TEXT, text="   " }
-  h1FontStyle = h1_txt
-  h2FontStyle = h2_txt
-  h3FontStyle = body_txt
-  textFontStyle = sub_txt
-  noteFontStyle = sub_txt
+  h1FontStyle = fontHeading1
+  h2FontStyle = fontHeading2
+  h3FontStyle = fontBody
+  textFontStyle = fontSub
+  noteFontStyle = fontSub
   h1Color = Color(220,220,250)
   h2Color = Color(200,250,200)
   h3Color = Color(200,250,250)

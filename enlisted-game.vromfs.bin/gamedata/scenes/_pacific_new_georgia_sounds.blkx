@@ -1,0 +1,91 @@
+import{
+  scene:t="content/enlisted/gamedata/scenes/_common_sounds.blk"
+}
+
+entity{
+  _template:t="battle_music"
+}
+
+entity{
+  _template:t="new_georgia_ambient_sound"
+}
+
+entity{
+  _template:t="game_object_spline_sound_generator"
+  game_object_spline_sound_generator__entityTemplate:t="river_sound"
+  game_object_spline_sound_generator__pointRadiusMul:r=1.0
+
+  "game_object_spline_sound_generator__gameObjects:list<t>"{
+    gameObject:t="river_sound_spline_a"
+  }
+}
+
+entity{
+  _template:t="game_object_ocean_sound_generator"
+  game_object_ocean_sound_generator__entityTemplate:t="ocean_sound"
+
+  "game_object_ocean_sound_generator__gameObjects:list<t>"{
+    gameObject:t="ocean_sound_spline_a"
+    gameObject:t="ocean_sound_spline_b"
+    gameObject:t="ocean_sound_spline_c"
+    gameObject:t="ocean_sound_spline_d"
+    gameObject:t="ocean_sound_spline_e"
+  }
+}
+
+entity{
+  _template:t="game_object_compound_sound_generator"
+
+  "game_object_compound_sound_generator__entityTypes:array"{
+
+    "entity:object"{
+      singleEntityTemplate:t="cave_volume_ambient_sound"
+      compoundEntityTemplate:t="cave_compound_ambient_sound"
+      soundName:t="cave"
+
+      "objectTypes:object"{
+        cave_sound:t="box"
+      }
+    }
+  }
+}
+
+entity{
+  _template:t="replicated_sound_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-521.0, 14.0, -441.0]]
+  replicated_sound_effect__path:t="ambient/positioned/waterfall"
+}
+
+entity{
+  _template:t="replicated_sound_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-433.0, 5.0, -1068.0]]
+  replicated_sound_effect__path:t="ambient/positioned/shipwreck_engine"
+}
+
+entity{
+  _template:t="replicated_volume_ambient_sound+box_sound_shape"
+  transform:m=[[99.1511, 0.0, 50.1465] [0.0, 4.0, 0.0] [-5.49825, 0.0, 10.8713] [-433.0, 0.0, -1068.88]]
+  game_object_sound__name:t="shipwreck_water"
+}
+
+entity{
+  _template:t="replicated_volume_ambient_sound+box_sound_shape"
+  transform:m=[[99.1511, 0.0, 50.1465] [0.0, 8.0, 0.0] [-5.49825, 0.0, 10.8713] [-433.0, 4.0, -1068.88]]
+  game_object_sound__name:t="shipwreck_rattles"
+}
+
+entity{
+  _template:t="replicated_volume_ambient_sound+capsule_sound_shape"
+  transform:m=[[123.461, 107.839, -59.4606] [185.956, -2.95976e-05, 386.11] [64.1501, -90.4787, -30.8956] [-348.465, 4.0, -817.317]]
+  game_object_sound__name:t="battle"
+}
+
+entity{
+  _template:t="replicated_compound_ambient_sound"
+  game_object_sound__name:t="shipwreck_siren"
+
+  "game_object_compound_sound__transforms:list<m>"{
+    tm:m=[[99.1511, 0.0, 50.1465] [0.0, 8.0, 0.0] [-5.49825, 0.0, 10.8713] [-433.0, 4.0, -1068.88]]
+    tm:m=[[16.9584, 0.0, 8.83893] [0.0, 5.84313, 0.0] [-7.14543, 0.0, 13.7093] [-432.854, 10.3362, -1068.61]]
+  }
+}

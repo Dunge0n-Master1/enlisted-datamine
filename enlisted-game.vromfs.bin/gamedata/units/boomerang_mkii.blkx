@@ -795,6 +795,13 @@ DamageEffects{
       tail_dm:r=1.0
     }
 
+    onHit{
+      damage:r=200.0
+      wingcontrol_dm:r=0.2
+      wingcontrol_l_dm:r=0.2
+      wingcontrol_r_dm:r=0.2
+    }
+
     onKill{
       tail_dm:r=1.0
       nothing:r=10.0
@@ -840,6 +847,13 @@ DamageEffects{
       damage:r=50.0
       tail_dm:r=1.0
       nothing:r=1.0
+    }
+
+    onKill{
+      damage:r=200.0
+      wingcontrol_dm:r=0.4
+      wingcontrol_l_dm:r=0.4
+      wingcontrol_r_dm:r=0.4
     }
   }
 

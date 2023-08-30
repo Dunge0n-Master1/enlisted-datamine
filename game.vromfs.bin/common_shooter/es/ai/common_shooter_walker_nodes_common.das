@@ -24,9 +24,9 @@ def is_point_safe(pos : float3; member_team : int)
 
 def check_human_reload(eid : EntityId; need_reload_ratio : float = 0.0)
   var reload = 0
-  query(eid) <| $ [es] (human_weap__reloadAtTime : float; human_weap__currentGunEid : EntityId)
+  query(eid) <| $ [es] (human_weap__reloadAtTime : float; human_weap__isReloading : bool; human_weap__currentGunEid : EntityId)
     let atTime = get_sync_time()
-    if atTime < human_weap__reloadAtTime
+    if atTime < human_weap__reloadAtTime || human_weap__isReloading
       reload = 1 // reloading
     else
       query(human_weap__currentGunEid) <| $ [es] (gun__ammo : int;

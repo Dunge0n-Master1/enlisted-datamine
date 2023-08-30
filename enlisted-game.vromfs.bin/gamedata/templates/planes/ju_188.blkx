@@ -15,7 +15,7 @@ ju_188{
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="pilot_dm"
       cameraNodeName:t=""
-      cameraOffset:p3=2.6, 0.692, 0.193
+      cameraOffset:p3=2.65, 0.692, 0.193
       cockpitTemplate:t="ju_188_driver_cockpit"
       roomSpace:i=0
 
@@ -57,7 +57,7 @@ ju_188{
       locName:t="vehicle_seats/gunner"
       attachNode:t="gunner2"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[-1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [-0.0, 0.0, -1.0] [0.0, 0.0, 0.0]]
+      attachTm:m=[[-0.970648, -0.0871559, 0.224125] [-0.104209, 0.992414, -0.0653894] [-0.216722, -0.0868243, -0.972348] [0.07, -0.02, -0.04]]
       seatComponent:t="isGunner"
       receiveDamageFromDMPart:t="gunner2_dm"
       directTurretControl:b=yes
@@ -625,7 +625,7 @@ planegun_ju_188_20mm_mg15120_turret_01{
   gun__shootNodeName:t="flare1"
   gun__maxAmmo:i=250
   turret__aimNodeName:t="turret1"
-  turret__limit:p4=-18.0, 40.0, -15.0, 15.0
+  turret__limit:p4=-18.0, 27.0, -10.0, 18.0
   turret__yawSpeed:r=100.0
   turret__pitchSpeed:r=100.0
 }
@@ -664,7 +664,7 @@ planegun_ju_188_7_92mm_mg81_turret_01{
   gun__shootNodeName:t="flare4"
   gun__maxAmmo:i=500
   turret__aimNodeName:t="turret4"
-  turret__limit:p4=-40.0, 40.0, -50.0, 2.0
+  turret__limit:p4=-24.0, 24.0, -50.0, 2.0
   turret__yawSpeed:r=100.0
   turret__pitchSpeed:r=100.0
 }
@@ -677,7 +677,7 @@ planegun_ju_188_7_92mm_mg81_turret_02{
   gun__shootNodeName:t="flare5"
   gun__maxAmmo:i=500
   turret__aimNodeName:t="turret4"
-  turret__limit:p4=-40.0, 40.0, -50.0, 2.0
+  turret__limit:p4=-24.0, 24.0, -50.0, 2.0
   turret__yawSpeed:r=100.0
   turret__pitchSpeed:r=100.0
 }

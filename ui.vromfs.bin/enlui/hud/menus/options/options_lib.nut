@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {body_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontBody} = require("%enlSqGlob/ui/fontsStyle.nut")
 let { get_setting_by_blk_path } = require("settings")
 let { fabs } = require("math")
 let { mkOnlineSaveData } = require("%enlSqGlob/mkOnlineSaveData.nut")
@@ -8,9 +8,9 @@ let mkSliderWithText = require("%ui/components/optionTextSlider.nut")
 let optionCheckBox = require("%ui/components/optionCheckBox.nut")
 let optionCombo = require("%ui/components/optionCombo.nut")
 let optionSlider = require("%ui/components/optionSlider.nut")
-let optionButton = require("%ui/components/optionButton.nut")
-let optionHSelect = require("%ui/components/optionHSelect.nut")
-let optionTextArea = require("%ui/components/optionTextArea.nut")
+//let optionButton = require("%ui/components/optionButton.nut")
+//let optionHSelect = require("%ui/components/optionHSelect.nut")
+//let optionTextArea = require("%ui/components/optionTextArea.nut")
 let optionSpinner = require("%ui/components/optionSpinner.nut")
 
 let getOnlineSaveData = memoize(@(saveId, defValueFunc, validateFunc = @(v) v) mkOnlineSaveData(saveId, defValueFunc, validateFunc), 1)
@@ -34,7 +34,7 @@ let optionDisabledText = @(text) {
   rendObj = ROBJ_TEXT //do not made this stext as it can eat all atlas
   text
   color = Color(90,90,90)
-}.__update(body_txt)
+}.__update(fontBody)
 
 let mkDisableableCtor = @(disableWatch, enabledCtor, disabledCtor = optionDisabledText)
   function(opt, group, xmbNode) {
@@ -86,10 +86,10 @@ return {
   optionPercentTextSliderCtor
   optionSlider
   optionCombo
-  optionHSelect
+//  optionHSelect
   optionCheckBox
-  optionButton
-  optionTextArea
+//  optionButton
+//  optionTextArea
   optionDisabledText
   mkDisableableCtor
   optionSpinner

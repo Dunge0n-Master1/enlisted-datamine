@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { Flat } = require("%ui/components/textButton.nut")
 let textButtonTextCtor = require("%ui/components/textButtonTextCtor.nut")
 let { mkItemCurrency } = require("%enlist/shop/currencyComp.nut")
@@ -44,7 +44,7 @@ let function mkCurrencyButton(
         priceCtor(sf)
       ]
     }, params, handler, group, sf)
-    textParams = body_txt
+    textParams = fontBody
     hplace = ALIGN_CENTER
     margin = 0
     isEnabled

@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h2_txt, body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2, fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { ceil } = require("%sqstd/math.nut")
 let spinner = require("%ui/components/spinner.nut")
 let { showMessageWithContent, showMsgbox } = require("%enlist/components/msgbox.nut")
@@ -31,19 +31,19 @@ let mkDismissWarning = @(armyId, guid, count, cb) showMessageWithContent({
         rendObj = ROBJ_TEXTAREA
         behavior = Behaviors.TextArea
         text = loc("retireSoldier/title")
-      }.__update(h2_txt)
+      }.__update(fontHeading2)
       {
         size = [sw(50), SIZE_TO_CONTENT]
         halign = ALIGN_CENTER
         rendObj = ROBJ_TEXTAREA
         behavior = Behaviors.TextArea
         text = loc("retireSoldier/desc")
-      }.__update(body_txt)
+      }.__update(fontBody)
       {
         flow = FLOW_HORIZONTAL
         gap = bigPadding
         children = [
-          txt(loc("retireSoldier/currencyWillReturn")).__update(sub_txt)
+          txt(loc("retireSoldier/currencyWillReturn")).__update(fontSub)
           mkItemCurrency({ currencyTpl = RETIRE_ORDER, count })
         ]
       }

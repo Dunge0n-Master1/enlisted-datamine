@@ -354,7 +354,7 @@ builded_cannon_germ_20mm_flak38_common{
 
 cannon_germ_towed_at_pak38_movable_preview{
   _extends:t="cannon_germ_towed_at_pak38_preview_common"
-  preview_phys__blk:t="content/tanks/gamedata/gen/units/tanks/towed_at_pak38.blk"
+  preview_phys__blk:t="content/tanks/gamedata/gen/units/tanks/towed_at_pak38_preview.blk"
   instantiateTemplate:t="builded_germ_towed_at_pak38_movable"
 }
 
@@ -377,7 +377,7 @@ cannon_germ_towed_at_pak38_preview_common{
   _extends:t="base_animchar_builder_preview"
   animchar__res:t="towed_at_pak38_char"
   collres__res:t="towed_at_pak38_collision"
-  preview_phys__blk:t="content/tanks/gamedata/gen/units/tanks/towed_at_pak38.blk"
+  preview_phys__blk:t="content/tanks/gamedata/gen/units/tanks/towed_at_pak38_preview.blk"
   avaliableAngles:p2=-10.0, 10.0
   buildingSoundTag:t="cannon"
   building_builder__maxTimeToBuild:r=20.0
@@ -442,7 +442,7 @@ cannon_towed_at_pak40_preview_common{
   _extends:t="base_animchar_builder_preview"
   animchar__res:t="towed_at_pak40_char"
   collres__res:t="towed_at_pak40_collision"
-  preview_phys__blk:t="content/tanks/gamedata/gen/units/tanks/towed_at_pak40.blk"
+  preview_phys__blk:t="content/tanks/gamedata/gen/units/tanks/towed_at_pak40_preview.blk"
   avaliableAngles:p2=-10.0, 10.0
   buildingSoundTag:t="cannon"
   building_builder__maxTimeToBuild:r=20.0
@@ -512,7 +512,7 @@ cannon_us_towed_at_m1_preview{
   _extends:t="base_animchar_builder_preview"
   animchar__res:t="towed_at_6pdr_char"
   collres__res:t="towed_at_6pdr_collision"
-  preview_phys__blk:t="content/tanks/gamedata/gen/units/tanks/towed_at_m1.blk"
+  preview_phys__blk:t="content/tanks/gamedata/gen/units/tanks/towed_at_m1_preview.blk"
   instantiateTemplate:t="builded_us_towed_at_m1"
   avaliableAngles:p2=-10.0, 10.0
   buildingSoundTag:t="cannon"
@@ -566,7 +566,7 @@ builded_us_towed_at_m1{
 
 cannon_ussr_towed_at_53k_movable_preview{
   _extends:t="cannon_ussr_towed_at_53k_preview"
-  preview_phys__blk:t="content/tanks/gamedata/gen/units/tanks/towed_at_53k.blk"
+  preview_phys__blk:t="content/tanks/gamedata/gen/units/tanks/towed_at_53k_preview.blk"
   instantiateTemplate:t="builded_ussr_towed_at_53k_movable"
 }
 
@@ -574,7 +574,7 @@ cannon_ussr_towed_at_53k_preview{
   _extends:t="base_animchar_builder_preview"
   animchar__res:t="towed_at_53k_char"
   collres__res:t="towed_at_53k_collision"
-  preview_phys__blk:t="content/tanks/gamedata/gen/units/tanks/towed_at_53k.blk"
+  preview_phys__blk:t="content/tanks/gamedata/gen/units/tanks/towed_at_53k_preview.blk"
   instantiateTemplate:t="builded_ussr_towed_at_53k"
   avaliableAngles:p2=-10.0, 10.0
   buildingSoundTag:t="cannon"
@@ -603,7 +603,7 @@ cannon_jp_towed_at_type_1_preview{
   _extends:t="base_animchar_builder_preview"
   animchar__res:t="towed_at_47mm_type_1_char"
   collres__res:t="towed_at_47mm_type_1_collision"
-  preview_phys__blk:t="content/tanks/gamedata/gen/units/tanks/towed_at_type_1.blk"
+  preview_phys__blk:t="content/tanks/gamedata/gen/units/tanks/towed_at_type_1_preview.blk"
   instantiateTemplate:t="builded_jp_towed_at_type_1_movable"
   avaliableAngles:p2=-10.0, 10.0
   buildingSoundTag:t="cannon"
@@ -1449,7 +1449,7 @@ sandbags_wall_type_93_hmg_preview{
 
     "item:object"{
       template:t="stationary_type_93_hmg_building_additive_preview"
-      tm:m=[[0.0, 0.0, 1.0] [0.0, 1.0, 0.0] [-1.0, 0.0, 0.0] [-0.85, -0.19, 0.0]]
+      tm:m=[[0.0, 0.0, 1.0] [0.0, 1.0, 0.0] [-1.0, 0.0, 0.0] [-0.85, 0.0, 0.0]]
       additiveUp:p3=0.0, 1.0, 0.0
     }
   }
@@ -1470,7 +1470,7 @@ sandbags_wall_type_93_hmg{
 
     "item:object"{
       template:t="builded_stationary_type_93_hmg_with_autodetach"
-      tm:m=[[0.0, 0.0, 1.0] [0.0, 1.0, 0.0] [-1.0, 0.0, 0.0] [-0.85, -0.19, 0.0]]
+      tm:m=[[0.0, 0.0, 1.0] [0.0, 1.0, 0.0] [-1.0, 0.0, 0.0] [-0.85, 0.0, 0.0]]
       additiveUp:p3=0.0, 1.0, 0.0
     }
   }
@@ -1551,7 +1551,7 @@ sandbags_wall_dshk_1942_preview{
 
     "item:object"{
       template:t="stationary_dshk_1942_building_additive_preview"
-      tm:m=[[0.0, 0.0, 1.0] [0.0, 1.0, 0.0] [-1.0, 0.0, 0.0] [-0.85, -0.19, 0.0]]
+      tm:m=[[0.0, 0.0, 1.0] [0.0, 1.0, 0.0] [-1.0, 0.0, 0.0] [-0.85, 0.0, 0.0]]
       additiveUp:p3=0.0, 1.0, 0.0
     }
   }
@@ -1572,7 +1572,7 @@ sandbags_wall_dshk_1942{
 
     "item:object"{
       template:t="builded_stationary_dshk_1942_with_autodetach"
-      tm:m=[[0.0, 0.0, 1.0] [0.0, 1.0, 0.0] [-1.0, 0.0, 0.0] [-0.85, -0.19, 0.0]]
+      tm:m=[[0.0, 0.0, 1.0] [0.0, 1.0, 0.0] [-1.0, 0.0, 0.0] [-0.85, 0.0, 0.0]]
       additiveUp:p3=0.0, 1.0, 0.0
     }
   }
@@ -1644,6 +1644,9 @@ additive_building_can_repair{
   _replicated:t="additiveBuildNeedRepair"
 
   "additiveBuildingEid:eid"{
+  }
+
+  "building__canRepairBroken:tag"{
   }
 }
 
@@ -1972,7 +1975,8 @@ base_rallypoint_preview{
   building_builder__maxUnderwaterDistance:r=0.5
   building_builder__maxTimeToBuild:r=25.0
   buildingCost:r=5.0
-  requiredSpaceAboveObject:r=2.3
+  requiredSpaceAboveObject:r=2.4
+  requiredSpaceAboveObjectOffset:r=0.35
   building_menu__text:t="building_tool/rallypoint"
   building_menu__image:t="custom_spawn_point"
 
@@ -2475,7 +2479,8 @@ christmas_tree_preview{
   ri_preview__name:t="tree_spruce_christmas_c"
   buildingSoundTag:t="fortification"
   buildingDistance:r=2.5
-  requiredSpaceAboveObject:r=2.5
+  requiredSpaceAboveObject:r=2.6
+  requiredSpaceAboveObjectOffset:r=0.35
   building_builder__maxUnderwaterDistance:r=0.1
   buildingCost:r=3.0
   building_builder__maxTimeToBuild:r=3.0

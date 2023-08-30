@@ -287,6 +287,7 @@ def launch_projectile_es(evt : CmdLaunchProjectile;
           init |> set("shell__shell_id__damage_id", int(launchDesc.shellId.damageId))
           init |> set("shell__shell_id__ballistics_id", int(launchDesc.shellId.ballisticsId))
           init |> set("projectile__traceRayMatId", gun__projectileRayMatId)
+          init |> set("projectile__visualPos", launchDesc.tm[3])
       else
         let localVel = float3(
           dot(launchDesc.tm[0], launchDesc.vel),
@@ -400,6 +401,7 @@ def calculate_penetration_materials_info(ri_desc : RendInstDesc#;
 
     let matIndex = material_with_thickness__ids |> find_index(projectile_trace_info__pmid)
     if matIndex < 0
+      projectile_trace_info__thicknessId = -1
       return false
 
     if projectile_trace_info__sceneIntersected
@@ -507,34 +509,6 @@ def trace_scene_after_update_projectile_es(info : ParallelUpdateFrameDelayed;
       return
 
 
-[es(after=(trace_scene_after_update_projectile_es), REQUIRE_NOT=projectile__inactive)]
-def trace_scene_after_update_projectile_canopy_es(info : ParallelUpdateFrameDelayed;
-                                                  eid : EntityId;
-                                                  projectile__prevPos : float3;
-                                                  projectile_trace_info__dir : float3;
-                                                  projectile_trace_info__len : float;
-                                                  projectile__maxAllowedCanopyIntersectionsForFx : int;
-                                                  var projectile__canopyIntersectionCount : int&)
-  let canopyTraceThreshold = 0.01
-  if projectile__canopyIntersectionCount >= projectile__maxAllowedCanopyIntersectionsForFx || projectile_trace_info__len < canopyTraceThreshold
-    return
-
-  var t = projectile_trace_info__len
-  var transparency = 0.0
-  var pmid = -1
-  let res = traceTransparencyRayRIGenNormalized(projectile__prevPos, projectile_trace_info__dir, t, canopyTraceThreshold,
-    pmid, transparency, -1, /*trace_canopy*/true)
-
-  if res
-    projectile__canopyIntersectionCount += 1
-    //We send immediate event so that event handlers are executed in ParallelUpdateFrameDelayed
-    sendEventImmediate(eid,
-                       [[EventProjectileHitCanopy
-                         pos=projectile__prevPos + projectile_trace_info__dir * t,
-                         matId=pmid,
-                         norm=projectile_trace_info__dir]])
-
-
 def is_bullet_stoppable_by_water(launch_desc : LaunchDesc)
   var res = false
   shell_entity_get_props(int(launch_desc.shellId.shellId)) <| $(entProps : ShellEntityTypeProps)
@@ -560,12 +534,13 @@ def projectile_on_hit_scene(pos : float3;
                             scene_hit_ricochet_stability : float;
                             ricochet_angle_threshold : float;
                             disable_ricochet_for_great_angles : bool;
+                            destroy_on_hit : bool;
                             var ballistics : ProjectileBallistics;
                             var proj_state : ProjectileState;
                             var vis_pos : float3&;
                             var is_underwater : bool&;
                             var result : ProjectileHitSceneRes&)
-  if pmid < 0 || result.shouldStop || result.penetration
+  if pmid < 0 || result.shouldStop || (result.penetration && !destroy_on_hit)
     return result
   result.shouldStop = true
 
@@ -577,7 +552,7 @@ def projectile_on_hit_scene(pos : float3;
     let prevDir = ballistics.state.vel * safeinv(prevSpeed)
 
     var penetrationSuccess = false
-    if dmPhysProps.armorThickness != 0.0
+    if dmPhysProps.armorThickness != 0.0 && !destroy_on_hit
       penetration_table_get_props(int(ldesc.shellId.shellId)) <| $(penetrationProps : PenetrationTableProps)
         let armorPower = penetrationProps.tbl |> interpolate_tab_float_interpolate(proj_state.penetrationDistance)
         if armorPower >= dmPhysProps.armorThickness
@@ -676,8 +651,8 @@ def on_projectile_hit_scene(projectile_eid : EntityId;
                                    var projectile__exploded : bool&;
                                    projectile__ricochetAngleThreshold : float = 0.0872; //~5 degrees
                                    projectile__sceneHitRicochetStability : float = 0.0;
-                                   disableRicochetForGreatAngles : Tag const?
-                                   )
+                                   disableRicochetForGreatAngles : Tag const?;
+                                   projectile__destroyOnHit : Tag const?)
     var damage = calc_kinetic_damage(int(launch_desc.shellId.shellId), projectile_dist)
     if damage < 1e-6
       let mass = projectile_ballistics_props.mass
@@ -708,6 +683,7 @@ def on_projectile_hit_scene(projectile_eid : EntityId;
                             projectile_ballistics_props,
                             projectile__sceneHitRicochetStability, projectile__ricochetAngleThreshold,
                             disableRicochetForGreatAngles != null,
+                            projectile__destroyOnHit != null,
                             projectile_ballistics, dm_projectile_state,
                             projectile__visualPos, is_underwater, result)
 
@@ -857,6 +833,7 @@ def after_update_projectile_es(info : ParallelUpdateFrameDelayed;
                                                 allowDetonation, true)
           if hitRes == ProjectileHitResult Ignore
             continue
+          broadcastEvent([[ProjectileOnIntersectEntityWithHp victim=isect.eid, offender=ownerEid]])
           entitiesIntersected = true
           if hitRes == ProjectileHitResult HitAndContinue
             projectile__penetratedEids |> push(isect.eid)
@@ -1084,6 +1061,7 @@ def projectile_create_smoke_occluders_on_explode(evt : CmdShellExplosionFx;
   create_smoke_occluders_impl(projectile__hitEffectDescriptor, projectile__explEffectDescriptor,
                               launch_desc, dm_projectile_state, projectile_ballistics, scene_hit_place__matId, projectile__isUnderwater,
                               scene_hit_place__pos, scene_hit_place__norm)
+
 
 [es]
 def process_projectile_on_hit_entity_with_hp(var evt : ProjectileOnHitEntityWithHp&)

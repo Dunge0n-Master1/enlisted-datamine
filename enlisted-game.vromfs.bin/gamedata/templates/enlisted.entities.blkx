@@ -409,10 +409,11 @@ knife_dig{
 }
 
 resupply_vehicle{
-  _extends:t="net_sound_descs"
   resupplyAtTime:r=-1.0
   resupplyStarted:b=no
   vehicle_resupply__type:t="air"
+  _tracked:t="resupplyStarted"
+  _replicated:t="resupplyStarted"
 
   _group{
     _tags:t="server"
@@ -421,21 +422,14 @@ resupply_vehicle{
   }
 
   _group{
-    _tags:t="gameClient"
-    resupply_vehicle__resupplyPassengersSound:t="player/walker/ww2_soldier/items/ammo/pick"
+    _tags:t="sound"
+    resupply_passengers_sound__path:t="player/walker/ww2_soldier/items/ammo/pick"
   }
 
-  "net_sound__descs:shared:object"{
-
-    "resupplyStart:object"{
-      path:t="aircraft/effects/resupply_start"
-      toPlayer:b=yes
-    }
-
-    "resupplyEnd:object"{
-      path:t="aircraft/effects/resupply_end"
-      toPlayer:b=yes
-    }
+  _group{
+    _tags:t="sound"
+    resupply_vehicle_sound__resupplyStartedPath:t="aircraft/effects/resupply_start"
+    resupply_vehicle_sound__resupplyPath:t="aircraft/effects/resupply_end"
   }
 }
 
@@ -630,6 +624,10 @@ base_xray{
   xray_resource{
     _tags:t="render"
   }
+
+  "xray_resource__animRemap:list<u32>"{
+    _tags:t="render"
+  }
 }
 
 vehicle_marker_ui{
@@ -647,6 +645,13 @@ vehicle_marker_ui{
 }
 
 base_tank{
+  item__iconOffset:p2=0.0, -0.2
+  item__iconScale:r=1.15
+  item__iconYaw:r=25.0
+  item__iconPitch:r=-3.0
+  item__iconRoll:r=15.0
+  item__lightZenith:r=180.0
+  item__lightAzimuth:r=140.0
   _override:b=yes
   _extends:t="base_xray"
   _extends:t="resupply_vehicle"
@@ -659,6 +664,15 @@ base_tank{
   vehicle__mapIcon:t="map_icon_tank"
   user_point__icon:t="map_icon_tank"
   destroyIfNoCrewLeft:b=yes
+
+  "separate_coll_objs:list<t>"{
+    node:t="cls_turret"
+    node:t="cls_turret_01"
+    node:t="cls_turret_02"
+    node:t="cls_turret_03"
+    node:t="cls_turret_04"
+    node:t="cls_turret_05"
+  }
 
   "animchar_render__nodeVisibleStgFilters:list<u8>"{
     _tags:t="render"
@@ -800,7 +814,6 @@ xray_context{
 menu_camera{
   _extends:t="static_cam"
   _extends:t="animated_camera"
-  menuTransform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   camera__active:b=yes
   fov:r=30.0
   menu_cam__angles_smooth_internal:p2=0.0, 0.0
@@ -1042,6 +1055,7 @@ background_menu_item{
 }
 
 menu_vehicle{
+  hitpoints__invulnerabiltyTime:r=0.0
 
   "menuVehicle:tag"{
   }
@@ -1292,7 +1306,7 @@ respawn_point_selector{
     }
   }
 
-  "respawn_icon__queueSize:i"{
+  "respawn_icon__playersCount:i"{
     value:i=0
     _track:b=yes
     _tags:t="ui"
@@ -1326,6 +1340,21 @@ enemy_attack_marker{
   }
 
   "enemy_attack_marker:tag"{
+  }
+}
+
+custom_marker{
+  _extends:t="replicating"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+
+  _group{
+    _tags:t="ui"
+    _track:b=yes
+    custom_marker__active:b=no
+    custom_marker__showForTeam:i=-1
+    custom_marker__icon:t="!ui/skin#enemy_attack_arrow.svg"
+    custom_marker__iconSize:p2=35.0, 35.0
+    custom_marker__iconColor:c=167, 55, 76, 255
   }
 }
 
@@ -1850,7 +1879,6 @@ paratroopers_supply_box{
   building_destroy__lastDamageAtTime:r=-1.0
   building_destroy__timeToResetDestructionTimer:r=15.0
   building_destroy__distanceVerifyThreshold:r=1.5
-  building_destroy__timeToDestroy:r=0.0
   building_destroy__maxTimeToDestroy:r=9.0
   building_menu__text:t="building_tool/paratroopers_supply_box"
   actionTimerColor:p3=255.0, 0.0, 0.0
@@ -1863,10 +1891,15 @@ paratroopers_supply_box{
   supply_box__useSound:t="player/walker/ww2_soldier/items/healing/pick"
   supply_box__initVel:p3=0.0, 0.0, 0.0
 
-  "building__destroyable:tag"{
+  "building__canDismantle:tag"{
   }
 
   "building_destroy__operator:eid"{
+  }
+
+  "building_destroy__timeToDestroy:r"{
+    value:r=0.0
+    _replicate:b=yes
   }
 
   "attaches_list:list<eid>"{
@@ -2473,6 +2506,7 @@ military_ranks_config{
 
 menu_item{
   menu_item__boundingBoxCenter:p3=0.0, 0.0, 0.0
+  menu_item__cameraCenterOffsetProportion:r=1.0
   animchar__turnDir:b=yes
 
   "menuItemObject:tag"{
@@ -2756,6 +2790,8 @@ armor_analyzer{
     armor_analyzer__mode:i=0
     armor_analyzer__screenPos:p2=0.0, 0.0
     armor_analyzer__partName:t=""
+    armor_analyzer__partId:i=-1
+    armor_analyzer__traceRes:r=-1.0
     armor_analyzer__thickness:r=0.0
     armor_analyzer__angle:r=0.0
     armor_analyzer__normalAngle:r=0.0
@@ -2837,6 +2873,12 @@ no_report_kill{
   reportKill:b=no
 }
 
+disable_battle_area_damage{
+
+  "notTakeDamageFromBattleArea:tag"{
+  }
+}
+
 stats_count_as_kill{
 
   "statsCountAsKill:tag"{
@@ -2855,13 +2897,11 @@ ai_aircraft_crew_soldier_base{
   _extends:t="human_simple_vehicle_anim"
   _extends:t="disable_update"
   _extends:t="ger_summer_2"
+  _extends:t="disable_battle_area_damage"
   killLogName:t=""
   animchar__appliedAnimSpeed:r=0.0
 
   "aiAircraftCrewSoldier:tag"{
-  }
-
-  "notTakeDamageFromBattleArea:tag"{
   }
 
   "human_equipment__initialEquip:object"{
@@ -3070,6 +3110,78 @@ gravity_zone{
 enable_gravity_zones{
 
   "enableGravityZones:tag"{
+  }
+}
+
+prefab_save_on_finish_create{
+  prefab__createdCount:i=0
+}
+
+prefab{
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+
+  _group{
+    _tags:t="server"
+    prev_transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+    prefab__name:t=""
+    prefab__id:i=-1
+  }
+}
+
+prefab_object{
+
+  _group{
+    _tags:t="server"
+    prefab__parentId:i=-1
+    prefab__localTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  }
+}
+
+scene_ladder{
+  _extends:t="replicating"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+
+  "ladder__height:r"{
+    value:r=3.0
+
+    _info{
+      desc:t="Ladder height"
+    }
+  }
+
+  "ladder__width:r"{
+    value:r=1.0
+
+    _info{
+      desc:t="Ladder width"
+    }
+  }
+
+  "ladder__thickness:r"{
+    value:r=0.15
+
+    _info{
+      desc:t="Ladder thickness"
+    }
+  }
+
+  "ladder__sceneIndex:u32"{
+    value:i=-1
+    _hide:b=yes
+  }
+
+  "ladder__numSteps:u16"{
+    value:i=10
+
+    _info{
+      desc:t="Num of ladder steps"
+    }
+  }
+
+  _group{
+    _tags:t="server"
+    ladder__updateGameObjectTimerSec:r=0.0
+    ladder__updateGameObjectTimeSec:r=1.0
   }
 }
 
@@ -3511,6 +3623,7 @@ cinematic_mode_settings{
   "settings_override__graphicsSettings:object"{
     "video/antiAliasingMode":i=2
     "video/fsr":t="off"
+    "video/ssaa":b=no
     "video/staticResolutionScale":r=100.0
   }
 
@@ -3563,11 +3676,137 @@ pushable_object{
 }
 
 landmesh_hole_zone{
+  _extends:t="replicating"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 
   "landmesh_hole_zone:tag"{
   }
 
   "box_zone:tag"{
+  }
+}
+
+battle_perfstat{
+
+  _group{
+    _tags:t="gameClient"
+    battle_perfstat__rendering:b=no
+    battle_perfstat__peakMemoryKb:i=0
+    battle_perfstat__refTime:i64=0
+    battle_perfstat__displayResolution:ip2=0, 0
+    battle_perfstat__renderingResolution:ip2=0, 0
+    battle_perfstat__vsyncRefreshRate:r=0.0
+    battle_perfstat__segment_0_5:r=0.0
+    battle_perfstat__segment_5_15:r=0.0
+    battle_perfstat__segment_15_25:r=0.0
+    battle_perfstat__segment_25_30:r=0.0
+    battle_perfstat__segment_30_45:r=0.0
+    battle_perfstat__segment_45_60:r=0.0
+    battle_perfstat__segment_60_75:r=0.0
+    battle_perfstat__segment_75_85:r=0.0
+    battle_perfstat__segment_85_100:r=0.0
+    battle_perfstat__segment_100_120:r=0.0
+    battle_perfstat__segment_120_144:r=0.0
+    battle_perfstat__segment_144_165:r=0.0
+    battle_perfstat__segment_165_180:r=0.0
+    battle_perfstat__segment_180_200:r=0.0
+    battle_perfstat__segment_200_240:r=0.0
+    battle_perfstat__segment_240_280:r=0.0
+    battle_perfstat__segment_280_360:r=0.0
+    battle_perfstat__segment_360_400:r=0.0
+    battle_perfstat__segment_400_500:r=0.0
+    battle_perfstat__segment_500_600:r=0.0
+    battle_perfstat__segment_600_800:r=0.0
+    battle_perfstat__segment_800_1000:r=0.0
+    battle_perfstat__segment_1000_plus:r=0.0
+  }
+}
+
+muzzle_flash_manager{
+  _tags:t="render"
+  _singleton:b=yes
+  muzzle_flash_manager__effect_pos:p3=0.0, 0.0, 0.0
+  muzzle_flash_manager__effect_lifetime:r=0.0
+  muzzle_flash_manager__effect_color:p3=0.0, 0.0, 0.0
+  muzzle_flash_manager__effect_stength:r=0.0
+  muzzle_flash_manager__effect_size:r=0.0
+  muzzle_flash_manager__fadeout:r=0.67
+  muzzle_flash_manager__base_effect_color:p3=1.0, 0.5, 0.2
+  muzzle_flash_manager__base_effect_lifetime:r=0.05
+  muzzle_flash_manager__base_effect_size:r=0.33
+  muzzle_flash_manager__base_effect_stength:r=0.5
+  muzzle_flash_manager__effect_offset:r=0.1
+}
+
+game_options{
+  _extends:t="replicating"
+  _singleton:b=yes
+  _tracked:t="game_option__friendlyFire"
+
+  _group{
+    _tags:t="server"
+    game_option__friendlyFire:b=no
+    game_option__friendlyFireKick:b=yes
+  }
+
+  _group{
+    _replicate:b=yes
+    game_option__allowSwitchChatMode:b=no
+  }
+}
+
+asset_manager{
+  _tags:t="render"
+  _extends:t="base_asset_manager"
+}
+
+poly_area{
+  _tags:t="server"
+  _tracked:t="poly_area__points"
+
+  "poly_area__points:list<p3>"{
+  }
+
+  _group{
+    _tags:t="dev"
+
+    "poly_area__pointMovers:list<eid>"{
+    }
+  }
+}
+
+poly_area_point_mover{
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  poly_area_point_mover__index:i=-1
+
+  "poly_area_point_mover__areaEid:eid"{
+  }
+
+  "poly_area_point_mover:tag"{
+  }
+}
+
+voxel_grid{
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  voxel_grid__resolution:i=10
+  voxel_grid__step:r=0.3
+
+  "voxel_grid__voxels:list<b>"{
+  }
+
+  "voxel_grid__checkConnectivity:tag"{
+  }
+}
+
+voxel_grid_init_manager{
+  voxel_grid_init__trianglesPerUpdate:i=100
+  voxel_grid_init__currentRi:i=0
+  voxel_grid_init__currentTriangle:i=0
+  voxel_grid_init__currentNode:i=0
+
+  "voxel_grid_init__riExtras:list<u64>"{
+  }
+
+  "voxel_grid_init__inProgress:tag"{
   }
 }

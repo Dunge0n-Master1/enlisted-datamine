@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h1_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading1 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { switch_to_menu_scene } = require("app")
 let textarea = require("%ui/components/textarea.nut").smallTextarea
 let JB = require("%ui/control/gui_buttons.nut")
@@ -11,7 +11,7 @@ let loseColor = Color(200,40,20,200)
 let neutralColor = Color(150,180,250,150)
 let textFx = {
   halign = ALIGN_CENTER
-}.__update(h1_txt, strokeStyle)
+}.__update(fontHeading1, strokeStyle)
 
 
 const shortDebriefingTime = 5

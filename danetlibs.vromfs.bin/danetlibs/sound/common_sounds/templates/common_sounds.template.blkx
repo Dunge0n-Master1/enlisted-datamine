@@ -18,6 +18,13 @@ sound_effect{
   }
 }
 
+replicated_sound_effect{
+  _extends:t="sound_effect"
+  _extends:t="replicating"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  replicated_sound_effect__path:t=""
+}
+
 disable_sound_effect{
   _extends:t="disable_sound_control"
 }
@@ -151,5 +158,42 @@ game_effect_sound{
 
   "game_effect_sound__event:SoundEvent"{
     _tags:t="sound"
+  }
+}
+
+sound_landmesh_queries{
+
+  _group{
+    _tags:t="sound"
+    sound_landmesh_queries__lastQueryTime:r=-1.0
+    sound_landmesh_queries__biomePhysMatId:i=-1
+    sound_landmesh_queries__biomeOverridesWater:b=no
+    sound_landmesh_queries__biomeQueryId:i=-1
+    sound_landmesh_queries__puddleDepth:r=0.0
+    sound_landmesh_queries__puddleQueryId:i=-1
+    sound_landmesh_queries_vars__speedSq:r=0.0
+    sound_landmesh_queries_vars__isOnGround:b=yes
+    sound_landmesh_queries__farawayThreshold:r=15.0
+    sound_landmesh_queries__zeroSpeedThreshold:r=0.01
+    sound_landmesh_queries__heroSpeedToQueryInterval:p4=0.0, 4.0, 1.0, 0.2
+    sound_landmesh_queries__enemySpeedToQueryInterval:p4=0.0, 4.0, 1.5, 0.5
+    sound_landmesh_queries__heroEnemyInAirInterval:p2=0.1, 0.5
+    sound_landmesh_queries__lmeshDiff:r=2.0
+    sound_landmesh_queries__puddleQueryToDepth:p4=0.1, 0.4, 0.0, 0.05
+
+    "sound_landmesh_queries__biomeToMaterial:list<ip2>"{
+    }
+
+    "sound_landmesh_queries__biomes:object"{
+
+      "mud:object"{
+        physmat:t="mud"
+      }
+
+      "snow:object"{
+        physmat:t="snow"
+        overrideWater:b=yes
+      }
+    }
   }
 }

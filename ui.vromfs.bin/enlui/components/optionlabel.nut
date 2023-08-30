@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {body_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontBody} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {HIGHLIGHT_COLOR} = require("%ui/hud/style.nut")
 
 
@@ -27,7 +27,7 @@ let function optionLabel(opt, _group) {
       sound = {
         hover = "ui/menu_highlight_settings"
       }
-    }.__update(body_txt)
+    }.__update(fontBody)
   }
 }
 

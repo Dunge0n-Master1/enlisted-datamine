@@ -12,11 +12,11 @@ p_38g1{
       seatOwnsEntityControl:b=yes
       attachNode:t="pilot1"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.05, -0.15]]
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, -0.15]]
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="pilot_dm"
       cameraNodeName:t=""
-      cameraOffset:p3=0.6, 0.73, 0.0
+      cameraOffset:p3=0.4, 0.73, 0.0
       cockpitTemplate:t="p_38g1_driver_cockpit"
       roomSpace:i=0
 

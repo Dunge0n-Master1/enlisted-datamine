@@ -1,5 +1,5 @@
 from "%enlSqGlob/ui_library.nut" import *
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { smallPadding, bigPadding, activeBgColor, defTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { smallCampaignIcon } = require("%enlist/gameModes/roomsPkg.nut")
@@ -13,7 +13,7 @@ let portraitSize = hdpxi(132)
 
 let mkText = @(text, color = defTxtColor) {
   rendObj = ROBJ_TEXT, color, text
-}.__update(sub_txt)
+}.__update(fontSub)
 
 let mkTextWithIcon = @(icon, text) {
   flow = FLOW_HORIZONTAL

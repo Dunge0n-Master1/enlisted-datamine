@@ -1,15 +1,16 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { ceil } = require("%sqstd/math.nut")
-let { sub_txt, body_txt, h2_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub, fontBody, fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { bigPadding, brightAccentColor, defTxtColor, smallPadding
+} = require("%enlSqGlob/ui/designConst.nut")
+let { ceil, getRomanNumeral } = require("%sqstd/math.nut")
 let faComp = require("%ui/components/faComp.nut")
 let msgbox = require("%enlist/components/msgbox.nut")
 let mkTextRow = require("%darg/helpers/mkTextRow.nut")
 let mkItemWithMods = require("%enlist/soldiers/mkItemWithMods.nut")
 let { TextNormal, TextHover, textMargin
 } = require("%ui/components/textButton.style.nut")
-let { Bordered } = require("%ui/components/textButton.nut")
-let { setTooltip, normalTooltipTop } = require("%ui/style/cursors.nut")
+let { Bordered } = require("%ui/components/txtButton.nut")
 let getPayItemsData = require("%enlist/soldiers/model/getPayItemsData.nut")
 let textButtonTextCtor = require("%ui/components/textButtonTextCtor.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
@@ -17,9 +18,7 @@ let { curCampItems } = require("%enlist/soldiers/model/state.nut")
 let { upgradeItem, disposeItem } = require("%enlist/soldiers/model/itemActions.nut")
 let { allItemTemplates, findItemTemplate
 } = require("%enlist/soldiers/model/all_items_templates.nut")
-let { defTxtColor, bigPadding, unitSize, smallPadding
-} = require("%enlSqGlob/ui/viewConst.nut")
-let { diffUpgrades } = require("itemDetailsPkg.nut")
+let { diffUpgrades, mkUpgradesStatsComp } = require("itemDetailsPkg.nut")
 let { markUpgradesUsed } = require("%enlist/soldiers/model/unseenUpgrades.nut")
 let { mkItemCurrency, mkCurrencyImage } = require("%enlist/shop/currencyComp.nut")
 let { primaryFlatButtonStyle } = require("%enlSqGlob/ui/buttonsStyle.nut")
@@ -28,9 +27,12 @@ let { mkGuidsCountTbl } = require("%enlist/items/itemModify.nut")
 let { HighlightFailure } = require("%ui/style/colors.nut")
 let { getCurrencyPresentation } = require("%enlist/shop/currencyPresentation.nut")
 let JB = require("%ui/control/gui_buttons.nut")
+let colorize = require("%ui/components/colorize.nut")
+
+let itemSize = [hdpx(315), hdpx(90)]
 
 let mkFaComp = @(text) faComp(text, {
-  size = [SIZE_TO_CONTENT, 2.0 * unitSize]
+  size = [SIZE_TO_CONTENT, itemSize[1]]
   valign = ALIGN_CENTER
   fontSize = hdpx(30)
   color = defTxtColor
@@ -43,15 +45,16 @@ let orderViews = @(priceOptions, countWatchedVal) priceOptions
   .map(@(option) mkItemCurrency({
     currencyTpl = option.orderTpl,
     count = option.ordersInStock,
-    textStyle = { color = TextNormal }.__update(body_txt)
+    textStyle = { color = TextNormal }.__update(fontBody)
   }))
 
 let function mkUpgradeItemInfo(currentItem, upgradedItem, upgradesList,
   priceOptions, countWatched) {
 
   let itemMaxCount = max(currentItem.count, currentItem?.guids.len() ?? 0)
-
-  return {
+  let { tier } = upgradedItem
+  return @() {
+    watch = countWatched
     size = [sw(90), SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL
     gap = fsh(5)
@@ -63,26 +66,26 @@ let function mkUpgradeItemInfo(currentItem, upgradedItem, upgradesList,
         children = [
           txt(loc("upgradeItemMsgHeader")).__update({
             hplace = ALIGN_CENTER
-          }.__update(body_txt))
-          @() {
+          }.__update(fontBody))
+          {
             flow = FLOW_HORIZONTAL
             hplace = ALIGN_RIGHT
             valign = ALIGN_CENTER
             gap = fsh(2)
-            watch = countWatched
             children = orderViews(priceOptions, countWatched.value)
           }
         ]
       }
       {
+        size = [flex(), SIZE_TO_CONTENT]
         flow = FLOW_HORIZONTAL
         gap = 5 * bigPadding
-        valign = ALIGN_TOP
+        halign = ALIGN_CENTER
         padding = 5 * bigPadding
         children = [
           mkItemWithMods({
-            item = currentItem.__merge({ count = 1 })
-            itemSize = [7.0 * unitSize, 2.0 * unitSize]
+            item = currentItem.__merge({ count = countWatched.value })
+            itemSize
             isInteractive = false
           })
           arrowComp
@@ -91,36 +94,42 @@ let function mkUpgradeItemInfo(currentItem, upgradedItem, upgradesList,
             gap = bigPadding
             children = [
               mkItemWithMods({
-                item = upgradedItem.__merge({ count = 1 })
-                itemSize = [7.0 * unitSize, 2.0 * unitSize]
+                item = upgradedItem.__merge({ count = countWatched.value })
+                itemSize
                 isInteractive = false
               })
-              upgradesList.len() <= 0 ? null : {
-                rendObj = ROBJ_TEXTAREA
-                size = [flex(), SIZE_TO_CONTENT]
-                text = "\n".join(upgradesList)
-                behavior = Behaviors.TextArea
-                color = defTxtColor
-              }
+              upgradesList.len() <= 0 ? null : mkUpgradesStatsComp(upgradesList)
             ]
           }
         ]
       }
-      currentItem.itemtype == "vehicle" ? null : {
-        flow = FLOW_HORIZONTAL
-        gap = bigPadding * 2
+      currentItem.itemtype == "vehicle" || itemMaxCount <= 1 ? null : {
+        size = [flex(), SIZE_TO_CONTENT]
+        gap = bigPadding
+        flow = FLOW_VERTICAL
+        halign = ALIGN_CENTER
         children = [
-          mkCounter(itemMaxCount, countWatched),
-          Bordered(loc("btn/upgrade/allItems"),
-            @() countWatched(itemMaxCount),
-            {
-              margin = 0
-              size = [ SIZE_TO_CONTENT, hdpx(40)]
-              cursor = normalTooltipTop
-              onHover = function(on) {
-                setTooltip(on ? loc("btn/upgrade/allItemsTooltip") : null)
-              }
+          {
+            rendObj = ROBJ_TEXTAREA
+            size = [flex(), SIZE_TO_CONTENT]
+            halign = ALIGN_CENTER
+            behavior = Behaviors.TextArea
+            text = loc("weapon/upgradesCount", {
+              tier = colorize(brightAccentColor, getRomanNumeral(tier))
+              count = countWatched.value
+              maxCount = itemMaxCount
             })
+            color = defTxtColor
+          }.__update(fontBody)
+          {
+            flow = FLOW_HORIZONTAL
+            gap = bigPadding * 2
+            valign = ALIGN_CENTER
+            children = [
+              mkCounter(itemMaxCount, countWatched),
+              Bordered(loc("btn/upgrade/allItems"), @() countWatched(itemMaxCount))
+            ]
+          }
         ]
       }
     ]
@@ -151,14 +160,14 @@ let mkUpgradeItemButtons = function(guids, priceOptions, count) {
             children = mkTextRow(loc("btn/upgrade/useOrders"),
               @(t) txt(t).__update({
                 color = sf & S_HOVER ? TextHover : TextNormal
-              }, body_txt),
+              }, fontBody),
               {
                 ["{orders}"] = mkItemCurrency({ //warning disable: -forgot-subst
                   currencyTpl = order.orderTpl
                   count = order.orderReq * count
                   textStyle = {
                     color = sf & S_HOVER ? TextHover : TextNormal
-                  }.__update(body_txt)
+                  }.__update(fontBody)
                 })
               })
           }
@@ -178,14 +187,14 @@ let notEnoughMsg = @(currencyData) msgbox.showMsgbox({
       {
         rendObj = ROBJ_TEXT
         text = loc("notEnoughOrders")
-      }.__update(h2_txt)
+      }.__update(fontHeading2)
       {
         flow = FLOW_HORIZONTAL
         children = [
           {
             rendObj = ROBJ_TEXT
             text = loc("needMoreOrders")
-          }.__update(h2_txt)
+          }.__update(fontHeading2)
           {
             flow = FLOW_HORIZONTAL
             gap = {
@@ -193,7 +202,7 @@ let notEnoughMsg = @(currencyData) msgbox.showMsgbox({
               text = loc("mainmenu/or")
               vplace = ALIGN_BOTTOM
               padding = bigPadding
-            }.__update(sub_txt)
+            }.__update(fontSub)
             children = currencyData.map(@(curr) {
               flow = FLOW_HORIZONTAL
               gap = smallPadding
@@ -202,7 +211,7 @@ let notEnoughMsg = @(currencyData) msgbox.showMsgbox({
                   rendObj = ROBJ_TEXT
                   text = curr.orderReq - curr.ordersInStock
                   color = HighlightFailure
-                }.__update(h2_txt)
+                }.__update(fontHeading2)
                 mkCurrencyImage(getCurrencyPresentation(curr.orderTpl)?.icon)
               ]
             })
@@ -214,7 +223,7 @@ let notEnoughMsg = @(currencyData) msgbox.showMsgbox({
         size = [flex(), SIZE_TO_CONTENT]
         behavior = Behaviors.TextArea
         text = loc("dontHaveEnoughOrders")
-      }.__update(h2_txt)
+      }.__update(fontHeading2)
     ]
   }
 })
@@ -300,14 +309,14 @@ let function openDisposeItemMsg(currentItem, disposeData) {
                       rendObj = ROBJ_TEXT
                       text
                       color = sf & S_HOVER ? TextHover : TextNormal
-                    }.__update(body_txt),
+                    }.__update(fontBody),
                     {
                       ["{orders}"] = mkItemCurrency({ //warning disable: -forgot-subst
                         currencyTpl = orderTpl
                         count = ceil(orderCount * (countWatched.value / batchSize))
                         textStyle = {
                           color = sf & S_HOVER ? TextHover : TextNormal
-                        }.__update(body_txt)
+                        }.__update(fontBody)
                       })
                     }
                   )
@@ -321,7 +330,7 @@ let function openDisposeItemMsg(currentItem, disposeData) {
 
   local children = mkItemWithMods({
     item = currentItem.__merge({ count = 1 })
-    itemSize = [7.0 * unitSize, 2.0 * unitSize]
+    itemSize
     isInteractive = false
   })
   if (!isDestructible) {
@@ -337,16 +346,10 @@ let function openDisposeItemMsg(currentItem, disposeData) {
         children = [
           mkItemWithMods({
             item = downgradedItem.__merge({ count = 1 })
-            itemSize = [7.0 * unitSize, 2.0 * unitSize]
+            itemSize
             isInteractive = false
           })
-          upgradesList.len() <= 0 ? null : {
-            rendObj = ROBJ_TEXTAREA
-            size = [flex(), SIZE_TO_CONTENT]
-            text = "\n".join(upgradesList)
-            behavior = Behaviors.TextArea
-            color = defTxtColor
-          }
+          upgradesList.len() <= 0 ? null : mkUpgradesStatsComp(upgradesList)
         ]
       }
     ]
@@ -354,7 +357,7 @@ let function openDisposeItemMsg(currentItem, disposeData) {
 
   let guidsCount = guids.len()
   let content = {
-    size = [sw(90), SIZE_TO_CONTENT]
+    size = [hdpx(90), SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL
     halign = ALIGN_CENTER
     children = [
@@ -365,7 +368,7 @@ let function openDisposeItemMsg(currentItem, disposeData) {
           : "downgradeItemMsgHeader")
         hplace = ALIGN_CENTER
         margin = [0, 0, fsh(5), 0]
-      }.__update(body_txt)
+      }.__update(fontBody)
       {
         flow = FLOW_HORIZONTAL
         gap = 5 * bigPadding

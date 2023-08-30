@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { opaqueBgColor } = require("%enlSqGlob/ui/viewConst.nut")
-let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 
 
 let animations = @(leftAppearance) [ leftAppearance
@@ -49,7 +49,7 @@ let function serviceMessages(messageTbl, params = {}){
           ellipsis = true
           textOverflowY = TOVERFLOW_LINE
           text = "\n".join(messageTbl.map(@(n) n.message))
-        }.__update(isInBattle ? sub_txt : body_txt)
+        }.__update(isInBattle ? fontSub : fontBody)
       ]
     }.__update(params)
   }

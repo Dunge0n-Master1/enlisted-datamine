@@ -13,8 +13,8 @@ let myEnemyMarkColor = Color(251,24,34,250)
 let myDefMarkColor = Color(250,250,50,250)
 let forDefMarkColor = Color(180,180,250,250)
 
-let markSz = [fsh(2), fsh(2.6)].map(@(v) v.tointeger())
-let vehicleMarkSz = [fsh(3), fsh(3)].map(@(v) v.tointeger())
+let markSz = [hdpxi(21), hdpxi(28)]
+let vehicleMarkSz = [hdpxi(32), hdpxi(32)]
 let buildingMarkSz = vehicleMarkSz
 let main_user_mark = Picture("!ui/skin#map_pin.svg:{0}:{1}:K".subst(markSz[0],markSz[1]))
 let enemy_user_mark = Picture("!ui/skin#unit_inner.svg:{0}:{1}:K".subst(markSz[0],markSz[1]))

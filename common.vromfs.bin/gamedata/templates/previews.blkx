@@ -44,7 +44,7 @@ base_builder_preview{
   "builder_preview:tag"{
   }
 
-  "building__destroyable:tag"{
+  "building__canDismantle:tag"{
   }
 
   "previewCollobj:CollisionObject"{

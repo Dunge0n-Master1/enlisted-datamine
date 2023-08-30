@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h2_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let navState = require("navState.nut")
 let {room, roomIsLobby, leaveRoom} = require("state/roomState.nut")
 
@@ -29,7 +29,7 @@ let cancelGameLaunchBtn = textButton(loc("mainmenu/btnCancel"),
   @() leaveRoom(function(...){}),
   {
     halign = ALIGN_CENTER
-    textParams = h2_txt
+    textParams = fontHeading2
     style = { BgNormal = Color(0,0,0,250)}
   }
 )

@@ -8,30 +8,30 @@ let { mkMineIcon } = require("%ui/hud/huds/player_info/mineIcon.nut")
 let mkMedkitIcon = require("%ui/hud/huds/player_info/medkitIcon.nut")
 let mkFlaskIcon = require("%ui/hud/huds/player_info/flaskIcon.nut")
 let { kindIcon } = require("%enlSqGlob/ui/soldiersUiComps.nut")
-let { defTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
 let { controlledHeroEid } = require("%ui/hud/state/controlled_hero.nut")
 let {AI_ACTION_UNKNOWN, AI_ACTION_STAND, AI_ACTION_HEAL,
   AI_ACTION_HIDE, AI_ACTION_MOVE, AI_ACTION_ATTACK, AI_ACTION_IN_COVER, AI_ACTION_RELOADING, AI_ACTION_DOWNED} = require("ai")
+let { defTxtColor } = require("%enlSqGlob/ui/designConst.nut")
 
 let calcIconHpColor = @(ratio, defColor) ratio < 0.3 ? Color(200,50,50)
   : ratio < 0.75 ? Color(200,100,100)
   : defColor
 
-let mkGrenadeIconByMember = @(member, size) member.isAlive && member.grenadeType != null
-  ? mkGrenadeIcon(member.grenadeType, size, defTxtColor)
-  : null
+let mkGrenadeIconByMember = @(member, size, color = defTxtColor)
+  member.isAlive && member.grenadeType != null
+    ? mkGrenadeIcon(member.grenadeType, size, color)
+    : null
 
-let mkMineIconByMember = @(member, size) member.isAlive && member.mineType != null
-  ? mkMineIcon(member.mineType, size, defTxtColor)
-  : null
+let mkMineIconByMember = @(member, size, color = defTxtColor)
+  member.isAlive && member.mineType != null
+    ? mkMineIcon(member.mineType, size, color)
+    : null
 
-let mkMemberHealsBlock = @(member, size) member.isAlive && member.targetHealCount > 0
-  ? mkMedkitIcon(size, defTxtColor)
-  : null
+let mkMemberHealsBlock = @(member, size, color = defTxtColor)
+  member.isAlive && member.targetHealCount > 0 ? mkMedkitIcon(size, color) : null
 
-let mkMemberFlaskBlock = @(member, size) member.isAlive && member.hasFlask
-  ? mkFlaskIcon(size, defTxtColor)
-  : null
+let mkMemberFlaskBlock = @(member, size, color = defTxtColor)
+  member.isAlive && member.hasFlask ? mkFlaskIcon(size, color) : null
 
 let animByTrigger = @(color, time, trigger) trigger
   ? { prop=AnimProp.color, from=color, easing=OutCubic, duration=time, trigger=trigger }
@@ -53,7 +53,7 @@ let mkAiImage = memoize(function(image, size) {
   return Picture($"ui/skin#{image}:{size}:{size}:K")
 })
 
-let function mkAiActionIcon(member, size) {
+let function mkAiActionIcon(member, size, color = defTxtColor) {
   let image = aiActionIcons?[member.currentAiAction]
   if (member.eid == controlledHeroEid.value || !member.isAlive || !member.hasAI || !image)
     return null
@@ -64,7 +64,7 @@ let function mkAiActionIcon(member, size) {
     size = [size, size]
     rendObj = ROBJ_IMAGE
     image = mkAiImage(image, size)
-    color = member.maxHp > 0 ? calcIconHpColor(member.hp / member.maxHp, 0xFFFFFFFF) : 0xFFFFFFFF
+    color = member.maxHp > 0 ? calcIconHpColor(member.hp / member.maxHp, color) : color
     animations = [
       animByTrigger(Color(200, 0, 0, 200), 1.0, member.hitTriggers[HitResult.HIT_RES_NORMAL])
       animByTrigger(Color(200, 0, 0, 200), 1.0, member.hitTriggers[ATTACK_RES])

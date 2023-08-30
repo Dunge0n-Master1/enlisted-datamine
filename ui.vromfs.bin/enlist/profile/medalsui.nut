@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let hoverHoldAction = require("%darg/helpers/hoverHoldAction.nut")
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let { unlockedCampaigns } = require("%enlist/meta/campaigns.nut")
@@ -33,7 +33,7 @@ let function mkMedalBlock(medal, isUnseen) {
         hoverHoldAction("merkSeenDecorator", id, @(v) markSeenMedal(v))(on)
     }
     xmbNode = XmbNode({
-      canFocus = @() true
+      canFocus = true
       wrap = false
       isGridLine=true
       scrollToEdge = [false, true]
@@ -56,7 +56,7 @@ let function mkCampaignMedals(campaignId, medalsByCamp, campCfg, unseen) {
       txt({
         text = loc(campCfg?[campaignId].title)
         margin = bigPadding
-      }).__update(body_txt)
+      }).__update(fontBody)
       wrap(campaignMedals.map(function(medal) {
         let isUnseen = medal.id in unseen
         return {
@@ -81,7 +81,7 @@ let function medalsListUi() {
   return {
     xmbNode = XmbContainer({
       isGridLine = true
-      canFocus = @() false
+      canFocus = false
       wrap = false
       scrollSpeed = [0, 2.0]
     })

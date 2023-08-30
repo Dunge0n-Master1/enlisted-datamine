@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontMedium } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { mainContentOffset, bigPadding, startBtnWidth, midPadding, contentOffset, commonBtnHeight,
   defItemBlur, darkTxtColor, transpPanelBgColor, hoverSlotBgColor, titleTxtColor, defTxtColor,
   accentColor, smallPadding
@@ -91,7 +91,7 @@ let function mkMainSceneContent() {
         color = sf & S_ACTIVE ? titleTxtColor
           : sf & S_HOVER ? darkTxtColor
           : defTxtColor
-      }.__update(fontMedium)
+      }.__update(fontBody)
     })
   }
 
@@ -157,7 +157,7 @@ let function mkMainSceneContent() {
     gap = { size = flex() }
     children = [
       @() {
-        watch = serviceNotificationsList
+        watch = [serviceNotificationsList, hasBaseEvent]
         size = [flex(), SIZE_TO_CONTENT]
         flow = FLOW_VERTICAL
         gap = midPadding
@@ -166,7 +166,7 @@ let function mkMainSceneContent() {
           : [
               bpBlockUi
               mkOffersPanel(isOfferExpandLocked)
-              customMatchesBtn
+              hasBaseEvent.value ? customMatchesBtn : null
             ]
       }
       startPlay

@@ -6,10 +6,11 @@ maxDistance:r=2000.0
 modelName:t="tank_bullet_ball"
 normalizationPreset:t="default"
 ricochetPreset:t="default"
+groundRicochetPreset:t="default"
 stabilityThreshold:r=0.05
 stabilityCaliberToArmorThreshold:r=5.0
 stabilityReductionAfterRicochet:r=0.5
-stabilityReductionAfterPenetration:r=0.3
+bulletType:t="he_ball"
 slopeEffectPreset:t="ap"
 onHitChanceMultFire:r=4.0
 effectiveDistance:r=400.0
@@ -20,6 +21,8 @@ explodeArmorPower:r=2.5
 explodeRadius:p2=0.03, 0.035
 relativeVelArmorShift:p2=200.0, 1000.0
 hitPowerMult:r=2.5
+waterRicochetEffect:t="hit_8_11mm_water"
+groundRicochetEffect:t="hit_8_11mm_dirt_ap"
 
 stabilityRicochetModifier{
   mod1:p2=0.0, 0.05

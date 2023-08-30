@@ -14,6 +14,5 @@ let safeAreaBorders = Computed(
 return {
   safeAreaBorders,
   safeAreaSize = Computed(@() [sw(100) - safeAreaBorders.value[1] - safeAreaBorders.value[3], sh(100) - safeAreaBorders.value[0] - safeAreaBorders.value[2]])
-  safeAreaAmount,
-  isWideScreen = sw(100).tofloat() / sh(100) > 1.5
+  safeAreaAmount
 }

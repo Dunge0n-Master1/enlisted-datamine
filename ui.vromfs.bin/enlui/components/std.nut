@@ -11,7 +11,7 @@ let function panel(elem_, ...) {
     else
       add_children.extend(v)
   }
-  if (type(children) in ["table","class","function"] )
+  if (["table", "class", "function"].contains(type(children)))
     children = [children]
 
   children.extend(add_children)

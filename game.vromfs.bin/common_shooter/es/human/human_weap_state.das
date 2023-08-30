@@ -243,14 +243,3 @@ def human_drop_grenade_es(evt : EventOnLootDrop;
 
   if !take_grenade_in_hand(eid, human_weap__gunEids, phys)
     switch_to_first_weap_with_ammo(human_weap__gunEids, phys)
-
-[es(track=human_weap__lockWeaponSwitch)]
-def human_lock_weap_switch_es(evt : Event;
-                              eid : ecs::EntityId;
-                              human_weap__gunEids : ecs::EidList;
-                              human_weap__lockWeaponSwitch : bool;
-                              var human_net_phys : HumanActor)
-  human_net_phys.phys.canSwitchWeapon = !human_weap__lockWeaponSwitch
-  if !human_net_phys.phys.canSwitchWeapon
-    let slot = determine_current_weapon_slot(get_sync_time(), human_net_phys)
-    forcibly_lock_weap_slot(eid, int(slot), human_weap__gunEids, human_net_phys)

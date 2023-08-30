@@ -2,9 +2,10 @@ ussr_t_34_85_zis_53{
   _extends:t="base_t_34_85_zis_53"
   _extends:t="tank_t34_engine_sound"
   _extends:t="tank_t34_vehicle_tracks_sound"
-  item__iconOffset:p2=0.0, 0.2
   commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
   gunner_cam_limit__useCockpitDir:b=yes
+  item__iconOffset:p2=0.1, 0.2
+  item__iconScale:r=1.4
 
   "vehicle_seats__seatsProvideOrder:tag"{
   }
@@ -189,6 +190,7 @@ ussr_t_34_85_zis_53_gunner_cockpit{
 
   "cockpit__slitTemplates:list<t>"{
     slit:t="ussr_tsh_16"
+    slit:t="default_periscope"
   }
 
   "cockpit__slitEids:list<eid>"{
@@ -228,7 +230,7 @@ ussr_t_34_85_zis_53_commander_cockpit{
   }
 
   "cockpit__periscopeLimits:list<p4>"{
-    slit:p4=-180.0, 180.0, -5.0, 25.0
+    slit:p4=-90.0, 90.0, -5.0, 25.0
   }
 
   "cockpit__periscopeSpeed:list<p2>"{
@@ -244,6 +246,13 @@ ussr_t_34_85_zis_53_commander_cockpit{
 
   "cockpit__slitZoomTime:list<r>"{
     slit:r=0.0
+  }
+
+  "cockpit__slitTemplates:list<t>"{
+    slit:t="default_periscope"
+  }
+
+  "cockpit__slitEids:list<eid>"{
   }
 }
 

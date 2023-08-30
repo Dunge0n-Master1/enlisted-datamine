@@ -7,8 +7,10 @@ require DaWeaponProps
 require WeapHelpers
 require DngWeapon
 require DagorMath
+require DagorSystem
 require Gun
 require game.es.events
+require enlisted.events_enlisted
 
 
 enum ReloadAmmoMode
@@ -354,6 +356,27 @@ def find_smallest_holder_with_enough_bullets(item_container : EidList;
   return holderInfo
 
 
+def create_ammo_holder_copy_with_bullets_for_gun(gun_eid : EntityId;
+                                                 holder_to_copy_eid : EntityId;
+                                                 bullets : int)
+  query(holder_to_copy_eid) <| $ [es] (ammo_holder__templateName : string = "")
+    if ammo_holder__templateName == ""
+      logerr("Can't copy ammo holder {holder_to_copy_eid}<{getEntityTemplateName(holder_to_copy_eid)}> for gun and weapon as ammo_holder__templateName was empty")
+      return
+
+    let finalizeCreation <- @ <| (created_holder_eid : EntityId)
+      set_ammo_holder(gun_eid, created_holder_eid)
+
+    createEntity(ammo_holder__templateName, finalizeCreation) <| $(init)
+      init |> set("ammo_holder__ammoCount", bullets)
+
+
+// finds ammo holder with least bullets and at least ammo_to_reload
+// amount in owner's item_container and puts them into gun_eid.
+// used bullets are removed from selected ammo holder
+// if selected holder became empty - gets deleted on the server
+// !does not change gun's ammo holder
+// !if it was not present (gun__ammoHolderEid == INVALID_ENTITY_ID) - creates a new one
 def reload_with_bullets(owner : EntityId;
                         var item_container : EidList&;
                         gun_eid : EntityId;
@@ -391,20 +414,31 @@ def reload_with_bullets(owner : EntityId;
 
     sendEventImmediate(gun_eid, [[CmdLoadAmmo ammoNum=newAmmoCount]])
 
-    if is_server()
-      if ammoHolderInfo.holderId != INVALID_ITEM_ID
-        set_ammo_holder(gun_eid, itemEid)
-      if mode == ReloadAmmoMode CONSUME
-        item_container |> erase(ammoHolderInfo.itemContainerId)
-        destroyEntity(gun__ammoHolderEid)
-        let ammoLeftInHolder = ammoHolderInfo.ammo - ammo_to_reload
-        if ammoLeftInHolder > 0 && ammoHolderInfo.holderId != INVALID_ITEM_ID
-          put_ammo_to_container(ammoLeftInHolder, itemEid, owner)
-        elif ammoHolderInfo.holderId == INVALID_ITEM_ID
-          destroyEntity(itemEid)
-      elif itemEid != gun__ammoHolderEid
-        // We have infinite ammo holders and just changed ammo holder, destroy old one.
-        destroyEntity(gun__ammoHolderEid)
-
     reloaded = true
+
+    // creation/deletion of an ammo holder can be done by the server only
+    // everything else is done on both server and client
+    // for now this is important for staged reload so that the client does not wait for ammo holder info replication from the server
+    // otherwise client and server might play different animations
+    // TODO: this is not great as it can lead to ui ammo counter desync (it's still replicated from the server)
+    if gun__ammoHolderEid == INVALID_ENTITY_ID
+      if is_server()
+        create_ammo_holder_copy_with_bullets_for_gun(gun_eid, itemEid, newAmmoCount)
+    else
+      query(gun__ammoHolderEid) <| $ [es] (var ammo_holder__ammoCount : int&)
+        ammo_holder__ammoCount = newAmmoCount
+
+    // skip updating the holder from which we took ammo = infinite ammo
+    if mode == ReloadAmmoMode INFINITE
+      return
+
+    query(itemEid) <| $ [es] (var ammo_holder__ammoCount : int&)
+      ammo_holder__ammoCount -= ammo_to_reload
+      if ammo_holder__ammoCount <= 0
+        if is_server()
+          destroyEntity(itemEid)
+        item_container |> erase(ammoHolderInfo.itemContainerId)
+      else
+        sendEvent(owner, [[EventUpdatedItemContainer]])
+
   return reloaded

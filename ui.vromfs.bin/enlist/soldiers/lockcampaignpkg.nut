@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt, sub_txt, tiny_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody, fontSub, fontTiny } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { defTxtColor, bigPadding, blurBgColor, blurBgFillColor, bigGap
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { textarea } = require("%enlist/components/text.nut")
@@ -36,8 +36,8 @@ let mkCampaignLockInfo = @(unlockList) {
   halign = ALIGN_CENTER
   flow = FLOW_VERTICAL
   children = [
-    textarea(loc("campaign/locked")).__update({ halign = ALIGN_CENTER }, body_txt)
-    textarea(loc("campaign/lockedProgress/desc")).__update({ halign = ALIGN_CENTER, color = defTxtColor }, body_txt)
+    textarea(loc("campaign/locked")).__update({ halign = ALIGN_CENTER }, fontBody)
+    textarea(loc("campaign/lockedProgress/desc")).__update({ halign = ALIGN_CENTER, color = defTxtColor }, fontBody)
     mkUnlockBtn(unlockList)
   ]
 }
@@ -70,7 +70,7 @@ let function unlockCampaignPromo(override = {}) {
         textarea(loc("campaign/lockedProgress/desc/short")).__update({
           size = [flex(), SIZE_TO_CONTENT]
           color = defTxtColor
-        }, tiny_txt)
+        }, fontTiny)
         FAButton("shopping-cart",
           @() buyShopItem({ shopItem = sItem.value }),
           { borderWidth = 0, borderRadius = 0 })
@@ -99,7 +99,7 @@ let mkUnlockCampaignBlock = @(unlockList) {
           behavior = Behaviors.TextArea
           halign = ALIGN_CENTER
           text = loc("campaign/locked")
-        }.__update(body_txt)
+        }.__update(fontBody)
         {
           rendObj = ROBJ_TEXTAREA
           behavior = Behaviors.TextArea
@@ -107,7 +107,7 @@ let mkUnlockCampaignBlock = @(unlockList) {
           color = defTxtColor
           size = [flex(), SIZE_TO_CONTENT]
           text = loc("campaign/lockedProgress/descSmall")
-        }.__update(sub_txt)
+        }.__update(fontSub)
       ]
     }
     mkUnlockBtn(unlockList)

@@ -1,6 +1,5 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-#explicit-this
 
 let lbDataType = require("%enlSqGlob/leaderboard/lbDataType.nut")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")

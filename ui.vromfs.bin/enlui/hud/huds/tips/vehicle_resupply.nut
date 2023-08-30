@@ -1,12 +1,12 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { heroActiveResupplyZonesEids } = require("%ui/hud/state/resupplyZones.nut")
 let {tipCmp} = require("%ui/hud/huds/tips/tipComponent.nut")
 let {HUD_TIPS_FAIL_TEXT_COLOR} = require("%ui/hud/style.nut")
 
-let tip = tipCmp({text = loc("resupply/tip"), textColor = HUD_TIPS_FAIL_TEXT_COLOR}.__update(body_txt))
+let tip = tipCmp({text = loc("resupply/tip"), textColor = HUD_TIPS_FAIL_TEXT_COLOR}.__update(fontBody))
 
 let isResupplyTipShown = Watched(false)
 

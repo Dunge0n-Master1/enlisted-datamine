@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { defTxtColor } = require("%enlSqGlob/ui/designConst.nut")
 let { isMailboxVisible, unreadNum, hasUnread
 } = require("%enlist/mainScene/invitationsLogState.nut")
@@ -14,7 +14,7 @@ let animsCounter = [
   {prop = AnimProp.scale from =[3.0, 3.0] to = [1.0,1.0]  duration = 0.5 trigger="new_mail" easing = OutCubic}
 ]
 let soundNewMail = "ui/enlist/notification"
-let hintTxtStyle = { color = defTxtColor }.__update(sub_txt)
+let hintTxtStyle = { color = defTxtColor }.__update(fontSub)
 
 let function readNumCounter(){
   let num = unreadNum.value
@@ -29,7 +29,7 @@ let function readNumCounter(){
     transform = { pivot = [0.5,0.5] }
     fontFxColor = Color(0, 0, 0, 255)
     animations = animsCounter
-  }.__update(sub_txt)
+  }.__update(fontSub)
 }
 
 local prevUnread = unreadNum.value

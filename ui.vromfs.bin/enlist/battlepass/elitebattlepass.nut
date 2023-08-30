@@ -2,22 +2,18 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { seasonIndex, premiumUnlock } = require("%enlist/unlocks/taskRewardsState.nut")
 let { purchaseInProgress } = require("%enlist/shop/armyShopState.nut")
-let { purchasesCount } = require("%enlist/meta/profile.nut")
 let { unlockProgress } = require("%enlSqGlob/userstats/unlocksState.nut")
-let { shopItemsBase, shopItems } = require("%enlist/shop/shopItems.nut")
+let { shopItems } = require("%enlist/shop/shopItems.nut")
+let { userstatStats } = require("%enlSqGlob/userstats/userstat.nut")
 
+const PREMPASS_STAT = "prempass_active_stat_s{0}"
 
 let elitePassItem = Computed(@() shopItems.value
   .findvalue(@(i) i?.prempass_active_stat_season == seasonIndex.value))
 
 let isDebugBP = mkWatched(persist, "isDebugBP", false)
-let hasEliteBattlePassBase = Computed(function() {
-  let purchases = purchasesCount.value
-  let season = seasonIndex.value
-  return shopItemsBase.value
-    .findvalue(@(item, guid) item?.prempass_active_stat_season == season && (purchases?[guid].amount ?? 0) > 0)
-    != null
-})
+let hasEliteBattlePassBase = Computed(@()
+  (userstatStats.value?.stats.battle_pass.main_game[PREMPASS_STAT.subst(seasonIndex.value)] ?? 0) > 0)
 
 let eliteBpUnlockId = Computed(@() premiumUnlock.value?.requirement)
 let premRewardsAllowed = Computed(@() eliteBpUnlockId.value == null

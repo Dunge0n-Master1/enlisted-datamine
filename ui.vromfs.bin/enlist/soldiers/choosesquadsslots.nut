@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let faComp = require("%ui/components/faComp.nut")
 let fontIconButton = require("%ui/components/fontIconButton.nut")
 let mkCountdownTimer = require("%enlSqGlob/ui/mkCountdownTimer.nut")
@@ -157,7 +157,7 @@ let tutorialIcon = @(squadType, isHovered, isSelected) watchElemState(@(sf) {
 let mkHorizontalSlot = kwarg(function (guid, squadId, idx, onClick, manageLocId,
   isSelected = Watched(false), onInfoCb = null, onDropCb = null, group = null, addChildren = null,
   icon = "", squadType = "", level = 0, vehicle = null, squadSize = null, battleExpBonus = 0,
-  isOwn = true, fixedSlots = -1, override = {}, premIcon = null, isLocked = false, unlocObj = null,
+  isOwn = true, fixedSlots = -1, override = {}, premIcon = null, isLocked = false, unlockObj = null,
   needMoveCursor = false, firstSlotToAnim = null, secondSlotToAnim = null, stateFlags = null,
   needSquadTutorial = false, expireTime = 0, size = null
 ) {
@@ -190,7 +190,7 @@ let mkHorizontalSlot = kwarg(function (guid, squadId, idx, onClick, manageLocId,
 
   let squadIcon = mkSquadIcon(icon, { size = squadIconSize, margin = bigPadding })
 
-  let squadPremIcon = mkSquadPremIcon(premIcon, { margin = [0, hdpx(5), 0, hdpx(2)] })
+  let squadPremIcon = mkSquadPremIcon(premIcon, { margin = [hdpx(2), 0] })
 
   let watch = [isSelected, stateFlags, isDropTarget, needHighlight, isGamepad]
   let infoBtnStateFlags = Watched(0)
@@ -224,7 +224,12 @@ let mkHorizontalSlot = kwarg(function (guid, squadId, idx, onClick, manageLocId,
           gap = bigPadding
           color = bgColor
           children = [
-            squadIcon
+            {
+              children = [
+                squadIcon
+                squadPremIcon
+              ]
+            }
             {
               size = flex()
               flow = FLOW_VERTICAL
@@ -234,14 +239,10 @@ let mkHorizontalSlot = kwarg(function (guid, squadId, idx, onClick, manageLocId,
               children = [
                 {
                   size = [flex(), SIZE_TO_CONTENT]
-                  group = group
-                  behavior = Behaviors.Marquee
+                  group
+                  behavior = group == null ? [Behaviors.Marquee, Behaviors.Button] : Behaviors.Marquee
                   scrollOnHover = true
-                  flow = FLOW_HORIZONTAL
-                  children = [
-                    squadPremIcon
-                    mkCardText(loc(manageLocId), sf, selected)
-                  ]
+                  children = mkCardText(loc(manageLocId), sf, selected)
                 }
                 {
                   size = SIZE_TO_CONTENT
@@ -267,7 +268,7 @@ let mkHorizontalSlot = kwarg(function (guid, squadId, idx, onClick, manageLocId,
               ]
             }
             timerObj
-            unlocObj
+            unlockObj
             needSquadTutorial ? tutorialIcon(squadType, sf & S_HOVER, selected) : null
             onInfoCb != null && !isGamepad.value
               ? mkInfoBtn(onInfoCb, squadId,
@@ -320,7 +321,7 @@ let horSlotText = @(hasBlink, isDropTarget, text, style = {}) {
         duration = 1, play = true, loop = true, easing = Blink
       }]
     : null
-}.__merge(sub_txt, style)
+}.__merge(fontSub, style)
 
 let angleLeft = faComp("angle-left", { hplace = ALIGN_RIGHT, padding = [0, hdpx(15)], fontSize = hdpx(30)})
 

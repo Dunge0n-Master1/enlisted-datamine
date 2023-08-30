@@ -1,16 +1,17 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { colPart, fullTransparentBgColor, defBdColor } = require("%enlSqGlob/ui/designConst.nut")
+let { fullTransparentBgColor, defBdColor } = require("%enlSqGlob/ui/designConst.nut")
 let { PI } = require("%sqstd/math.nut")
 
 
-return function(height = colPart(0.64), opacity = 0.3, color = 0x03202020) {
+return function(height = hdpxi(40), opacity = 0.3, color = 0x03202020) {
   let acceleration = 0.05
   let fullCircle = 2 * PI
   local angle = 0.0
   local dir = true
-  let halfHeight = height / 2
   let lineWidth = height / 5
+  let innerHeight = height - lineWidth
+  let halfHeight = innerHeight / 2
   return {
     size = [height, height]
     hplace = ALIGN_CENTER
@@ -21,7 +22,7 @@ return function(height = colPart(0.64), opacity = 0.3, color = 0x03202020) {
     children = [
       {
         rendObj = ROBJ_VECTOR_CANVAS
-        size = [height, height]
+        size = [innerHeight, innerHeight]
         color
         fillColor = fullTransparentBgColor
         commands = [
@@ -31,7 +32,7 @@ return function(height = colPart(0.64), opacity = 0.3, color = 0x03202020) {
       }
       {
         rendObj = ROBJ_VECTOR_CANVAS
-        size = [height, height]
+        size = [innerHeight, innerHeight]
         fillColor = fullTransparentBgColor
         function draw(ctx, _rect) {
           angle += acceleration

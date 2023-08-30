@@ -1,0 +1,135 @@
+rangefinderProgressBarColor1:c=0, 255, 0, 64
+rangefinderProgressBarColor2:c=255, 255, 255, 64
+rangefinderTextScale:r=1.0
+rangefinderVerticalOffset:r=10.0
+rangefinderHorizontalOffset:r=25.0
+fontSizeMult:r=2.0
+lineSizeMult:r=2.0
+distancePos:p2=0.008, 0.0
+drawCentralLineVert:b=no
+drawCentralLineHorz:b=no
+crosshairDistHorSizeMain:p2=0.03, 0.02
+crosshairDistHorSizeAdditional:p2=0.017, 0.017
+distanceCorrectionPos:p2=-0.03, -0.05
+drawDistanceCorrection:b=yes
+drawAdditionalLines:b=no
+
+crosshair_hor_ranges{
+}
+
+crosshair_distances{
+}
+
+drawLines{
+
+  line{
+    line:p4=-0.0127983, 0.0, 0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.00853217, -0.0241689, 0.00853217, -0.0241689
+  }
+
+  line{
+    line:p4=-0.024511, -0.0170644, -0.024511, 0.0
+  }
+
+  line{
+    line:p4=-0.00853217, -0.037656, 0.00853217, -0.037656
+  }
+
+  line{
+    line:p4=-0.00853217, -0.0639516, 0.00853217, -0.0639516
+  }
+
+  line{
+    line:p4=-0.0125587, -0.0763099, 0.0125587, -0.0763099
+  }
+
+  line{
+    line:p4=-0.0125587, -0.0512072, 0.0125587, -0.0512072
+  }
+
+  line{
+    line:p4=0.0, 0.0, 0.0127983, 0.0
+  }
+
+  line{
+    line:p4=5.23583e-06, -0.0127983, -5.44251e-06, 0.0
+  }
+
+  line{
+    line:p4=5.33917e-06, 0.0, -5.33917e-06, 0.0127983
+  }
+
+  line{
+    line:p4=-0.0506999, -0.0170644, -0.0506999, 0.0
+  }
+
+  line{
+    line:p4=-0.074644, -0.0170644, -0.074644, 0.0
+  }
+
+  line{
+    line:p4=-0.101332, -0.0170644, -0.101332, 0.0
+  }
+
+  line{
+    line:p4=-0.128269, -0.0170644, -0.128269, 0.0
+  }
+
+  line{
+    line:p4=-0.115548, -0.0127983, -0.115548, -0.00213305
+  }
+
+  line{
+    line:p4=-0.0877633, -0.0127983, -0.0877633, -0.00213305
+  }
+
+  line{
+    line:p4=-0.0628715, -0.0127983, -0.0628715, -0.00213305
+  }
+
+  line{
+    line:p4=-0.0371315, -0.0127983, -0.0371315, -0.00213305
+  }
+
+  line{
+    line:p4=0.024511, -0.0170644, 0.024511, 0.0
+  }
+
+  line{
+    line:p4=0.0506999, -0.0170644, 0.0506999, 0.0
+  }
+
+  line{
+    line:p4=0.074644, -0.0170644, 0.074644, 0.0
+  }
+
+  line{
+    line:p4=0.101332, -0.0170644, 0.101332, 0.0
+  }
+
+  line{
+    line:p4=0.128269, -0.0170644, 0.128269, 0.0
+  }
+
+  line{
+    line:p4=0.115548, -0.0127983, 0.115548, -0.00213305
+  }
+
+  line{
+    line:p4=0.0877633, -0.0127983, 0.0877633, -0.00213305
+  }
+
+  line{
+    line:p4=0.0628715, -0.0127983, 0.0628715, -0.00213305
+  }
+
+  line{
+    line:p4=0.0371315, -0.0127983, 0.0371315, -0.00213305
+  }
+}
+
+drawCircles{
+}

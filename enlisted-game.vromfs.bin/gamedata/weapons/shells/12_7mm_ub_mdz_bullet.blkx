@@ -13,7 +13,7 @@ stabilityThreshold:r=0.05
 stabilityCaliberToArmorThreshold:r=5.0
 stabilityReductionAfterRicochet:r=0.5
 stabilityReductionAfterPenetration:r=0.3
-slopeEffectPreset:t="ap"
+bulletType:t="he_i_ball"
 onHitChanceMultFire:r=2.0
 effectiveDistance:r=3000.0
 relativeVelHitShift:p2=300.0, 3000.0
@@ -58,6 +58,26 @@ armorpower{
   ArmorPower1000m:p2=3.0, 1000.0
   ArmorPower1450m:p2=0.1, 1450.0
   ArmorPower1500m:p2=0.0, 1500.0
+}
+
+damage{
+
+  shatter{
+    useRealShatters:b=yes
+    countPortion:r=0.3
+
+    segment{
+      radiusScale:r=1.085
+      penetrationScale:r=1.0
+      damageScale:r=1.0
+      angles:p2=0.0, 180.0
+      countPortion:r=1.0
+    }
+  }
+}
+
+shatterDamage{
+  breachConeAngle:r=45.0
 }
 
 tracer{

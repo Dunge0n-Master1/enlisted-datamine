@@ -87,7 +87,8 @@ let optXboxGraphicsPreset = optionCtor({
       {blkPath = "video/temporalUpsamplingRatio", val = (is_xboxone_X || is_xbox_scarlett ? 80.0 : 100.0)},
       {blkPath = "graphics/ssss", val = ((v == "HighQuality" && is_xboxone_X) || is_xbox_scarlett ? "high" : "off")},
       {blkPath = "graphics/cloudsQuality", val = (is_xbox_scarlett ? (v == "HighQuality" && is_xbox_anaconda ? "volumetric" : "highres") : "default")},
-      {blkPath = "graphics/volumeFogQuality", val = "close"}
+      {blkPath = "graphics/volumeFogQuality", val = "close"},
+      {blkPath = "graphics/waterQuality", val = ((is_xbox_scarlett && v == "HighQuality") ? "medium" : "low")}
     ]
   }
 })
@@ -122,7 +123,8 @@ let optPSGraphicsPreset = optionCtor({
       {blkPath = "graphics/skiesQuality", val = (is_ps4_simple ? "low" : (v == "HighFPS" ? "medium" : "high"))},
       {blkPath = "video/antiAliasingMode", val = (is_ps4_pro ? 3 : 2)}, //3 = TSR 2 = TAA
       {blkPath = "video/temporalUpsamplingRatio", val = (is_ps4_pro ? 80.0 : 100.0)},
-      {blkPath = "graphics/ssss", val = ((v == "HighQuality" && is_ps4_pro) || is_ps5 ? "high" : "off")}
+      {blkPath = "graphics/ssss", val = ((v == "HighQuality" && is_ps4_pro) || is_ps5 ? "high" : "off")},
+      {blkPath = "graphics/waterQuality", val = ((is_ps5 && v == "HighQuality") ? "medium" : "low")}
     ]
   }
 })

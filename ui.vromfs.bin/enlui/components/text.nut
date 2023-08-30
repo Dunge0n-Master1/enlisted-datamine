@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {body_txt, h2_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontBody, fontHeading2} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {DEFAULT_TEXT_COLOR} = require("%ui/hud/style.nut")
 
 let function text(txt, params={}) {
@@ -9,7 +9,7 @@ let function text(txt, params={}) {
     margin = hdpx(2)
     color = DEFAULT_TEXT_COLOR
     text = txt
-  }.__update(h2_txt, params)
+  }.__update(fontHeading2, params)
 }
 
 local function dtext(val, params={}, addchildren = null) {
@@ -43,7 +43,7 @@ local function dtext(val, params={}, addchildren = null) {
     rendObj = ROBJ_TEXT
     size = SIZE_TO_CONTENT
     halign = ALIGN_LEFT
-  }.__update(body_txt, params, {text = txt, children})
+  }.__update(fontBody, params, {text = txt, children})
   if (watch || watchedtext)
     return @() ret
   else

@@ -2,12 +2,12 @@ from "daRg" import gui_scene
 let {get_setting_by_blk_path} = require("settings")
 let {DBGLEVEL} = require("dagor.system")
 
-let {sub_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontSub} = require("%enlSqGlob/ui/fontsStyle.nut")
 
-if (sub_txt!=null) {
+if (fontSub!=null) {
   gui_scene.setConfigProps({
-    defaultFont = sub_txt?.font ?? gui_scene.config.defaultFont
-    defaultFontSize = sub_txt?.fontSize ?? gui_scene.config.defaultFontSize
+    defaultFont = fontSub?.font ?? gui_scene.config.defaultFont
+    defaultFontSize = fontSub?.fontSize ?? gui_scene.config.defaultFontSize
   })
 }
 

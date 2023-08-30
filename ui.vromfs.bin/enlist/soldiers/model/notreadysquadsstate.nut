@@ -15,7 +15,7 @@ let armiesForBattle = Computed(@() matchRandomTeam.value ? curArmiesList.value :
 
 let function calcSquadReady(squad, soldiers, statuses) {
   let unreadySoldiers = soldiers.filter(@(s) statuses?[s.guid] != null && statuses[s.guid] != READY
-    && (statuses[s.guid] & OUT_OF_VEHICLE) != 1)
+    && !(statuses[s.guid] & OUT_OF_VEHICLE))
   let notReadyCount = unreadySoldiers.len()
   let minCount = squad.size
   let canBattle = (soldiers.len() - notReadyCount) >= minCount

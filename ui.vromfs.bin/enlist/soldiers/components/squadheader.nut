@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let faComp = require("%ui/components/faComp.nut")
 let {
   gap, noteTxtColor, defTxtColor, disabledTxtColor, smallPadding, bigPadding
@@ -40,7 +40,7 @@ let classAmountHint = @(sClassLimits) @() {
       children = [
         txt({ text = $"{c.used}/{c.total}", size = [hdpx(30), SIZE_TO_CONTENT], halign = ALIGN_RIGHT })
         kindIcon(c.sKind, hdpx(30))
-        kindName(c.sKind).__update(sub_txt, { color = defTxtColor })
+        kindName(c.sKind).__update(fontSub, { color = defTxtColor })
       ]
     }))
 }
@@ -146,7 +146,7 @@ let function squadHeader(curSquad, curSquadParams, soldiersList, vehicleCapacity
                 group
                 text = utf8ToUpper(loc(squad?.titleLocId))
                 color = noteTxtColor
-                textParams = sub_txt
+                textParams = fontSub
               })
             }
           ]

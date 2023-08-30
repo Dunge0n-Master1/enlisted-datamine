@@ -7,6 +7,8 @@ us_m4a3e2_76w_sherman_jumbo_common{
   _extends:t="tank_heavy_vehicle_tracks_sound"
   commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
   gunner_cam_limit__useCockpitDir:b=yes
+  item__iconOffset:p2=0.03, 0.18
+  item__iconScale:r=1.3
 
   "turrets__initAmmoDistribution:array"{
 
@@ -24,18 +26,6 @@ us_m4a3e2_76w_sherman_jumbo_common{
       slot:i=4
       count:i=7
     }
-  }
-
-  "bullet_holes__ignoreCollisionNodes:array"{
-    _tags:t="render"
-  }
-
-  "bullet_holes__movingCollisionNodes:array"{
-    _tags:t="render"
-    movingCollisionNodes:t="cls_turret_01"
-    movingCollisionNodes:t="turret_front"
-    movingCollisionNodes:t="turret_side"
-    movingCollisionNodes:t="gun_mask"
   }
 
   "vehicle_seats__seats:shared:array"{
@@ -152,7 +142,7 @@ us_m4a3e2_76w_sherman_jumbo_commander_cockpit{
   }
 
   "cockpit__periscopeLimits:list<p4>"{
-    slit:p4=-180.0, 180.0, -0.0, 25.0
+    slit:p4=-90.0, 90.0, -0.0, 25.0
   }
 
   "cockpit__periscopeSpeed:list<p2>"{

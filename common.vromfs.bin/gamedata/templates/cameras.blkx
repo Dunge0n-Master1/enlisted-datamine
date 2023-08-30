@@ -177,6 +177,7 @@ camera_aim_data{
   aim_data__isAiming:b=no
   aim_data__isAimingThroughScope:b=no
   aim_data__nightVision:b=no
+  aim_data__thermalVision:b=no
   aim_data__nearDofEnabled:b=no
   aim_data__farDofEnabled:b=no
   aim_data__simplifiedAimDof:b=no

@@ -13,6 +13,11 @@ it_ab_41_common{
   _extends:t="tank_with_wheels_vehicle_tracks_sound"
   commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
   gunner_cam_limit__useCockpitDir:b=yes
+  item__iconOffset:p2=0.0, -0.0
+  item__iconScale:r=1.1
+
+  "dm_parts__repairGroups:object"{
+  }
 
   "vehicle_seats__seats:shared:array"{
 
@@ -193,6 +198,7 @@ it_ab_41_gunner_cockpit{
 
   "cockpit__slitTemplates:list<t>"{
     slit:t="it_se_75_18"
+    slit:t="default_periscope"
   }
 
   "cockpit__slitEids:list<eid>"{

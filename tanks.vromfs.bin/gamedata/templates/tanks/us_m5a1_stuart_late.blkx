@@ -18,9 +18,10 @@ us_m5a1_stuart_late{
 us_m5a1_stuart_late_common{
   _extends:t="base_m5a1_stuart_late"
   _extends:t="tank_light_vehicle_tracks_sound"
-  item__iconOffset:p2=0.0, 0.2
   commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
   gunner_cam_limit__useCockpitDir:b=yes
+  item__iconOffset:p2=0.0, 0.18
+  item__iconScale:r=1.37
 
   "bullet_holes__ignoreCollisionNodes:array"{
     _tags:t="render"
@@ -214,6 +215,7 @@ us_m5a1_stuart_late_gunner_cockpit{
 
   "cockpit__slitTemplates:list<t>"{
     slit:t="us_m70d"
+    slit:t="default_periscope"
   }
 
   "cockpit__slitEids:list<eid>"{
@@ -265,6 +267,13 @@ us_m5a1_stuart_late_commander_cockpit{
 
   "cockpit__slitZoomTime:list<r>"{
     slit:r=0.0
+  }
+
+  "cockpit__slitTemplates:list<t>"{
+    slit:t="default_periscope"
+  }
+
+  "cockpit__slitEids:list<eid>"{
   }
 }
 

@@ -1,35 +1,19 @@
 entity{
   _template:t="ri_gpu_object"
   ri_gpu_object__name:t="decal_broken_glass_a"
-  ri_gpu_object__biom_indexes:p4=33.0, -1.0, -1.0, -1.0
+  ri_gpu_object__biom_indexes:p4=51.0, 33.0, -1.0, -1.0
   ri_gpu_object__grid_size:i=8
-  ri_gpu_object__grid_tiling:i=1
-  ri_gpu_object__cell_size:r=8.0
-  ri_gpu_object__incline_delta:r=0.0
-  ri_gpu_object__scale_range:p2=1.0, 1.75
-  ri_gpu_object__rotate_range:p2=180.0, 360.0
-  ri_gpu_object__seed:i=3
-  ri_gpu_object__is_using_normal:b=yes
-  ri_gpu_object__up_vector:p3=0.0, 1.0, 0.0
-  ri_gpu_object__decal:b=yes
-  ri_gpu_object__transparent:b=yes
-}
-
-entity{
-  _template:t="ri_gpu_object"
-  ri_gpu_object__name:t="decal_broken_glass_a"
-  ri_gpu_object__biom_indexes:p4=51.0, -1.0, -1.0, -1.0
-  ri_gpu_object__grid_size:i=8
-  ri_gpu_object__grid_tiling:i=1
+  ri_gpu_object__grid_tiling:i=5
   ri_gpu_object__cell_size:r=16.0
   ri_gpu_object__incline_delta:r=0.0
   ri_gpu_object__scale_range:p2=1.0, 1.25
-  ri_gpu_object__rotate_range:p2=180.0, 360.0
+  ri_gpu_object__rotate_range:p2=-180.0, 180.0
   ri_gpu_object__seed:i=3
   ri_gpu_object__is_using_normal:b=no
   ri_gpu_object__up_vector:p3=0.0, 1.0, 0.0
   ri_gpu_object__decal:b=yes
   ri_gpu_object__transparent:b=yes
+  ri_gpu_object__sparse_weight:r=4.5
 
   "ri_gpu_object__multiple_objects:array"{
 
@@ -47,14 +31,14 @@ entity{
 
 entity{
   _template:t="ri_gpu_object"
-  ri_gpu_object__name:t="debris_bricks_a"
+  ri_gpu_object__name:t="debris_bricks"
   ri_gpu_object__biom_indexes:p4=33.0, 51.0, 50.0, -1.0
   ri_gpu_object__grid_size:i=8
   ri_gpu_object__grid_tiling:i=5
   ri_gpu_object__cell_size:r=16.0
   ri_gpu_object__incline_delta:r=10.0
   ri_gpu_object__scale_range:p2=0.9, 1.05
-  ri_gpu_object__rotate_range:p2=0.0, 960.0
+  ri_gpu_object__rotate_range:p2=-180.0, 180.0
   ri_gpu_object__seed:i=812
   ri_gpu_object__is_using_normal:b=yes
 
@@ -104,14 +88,14 @@ entity{
 
 entity{
   _template:t="ri_gpu_object"
-  ri_gpu_object__name:t="debris_bricks_a"
+  ri_gpu_object__name:t="debris_trash"
   ri_gpu_object__biom_indexes:p4=33.0, 50.0, -1.0, -1.0
   ri_gpu_object__grid_size:i=8
   ri_gpu_object__grid_tiling:i=5
   ri_gpu_object__cell_size:r=16.0
   ri_gpu_object__incline_delta:r=0.0
   ri_gpu_object__scale_range:p2=0.9, 1.05
-  ri_gpu_object__rotate_range:p2=0.0, 960.0
+  ri_gpu_object__rotate_range:p2=-180.0, 180.0
   ri_gpu_object__seed:i=112
   ri_gpu_object__is_using_normal:b=yes
 
@@ -172,8 +156,8 @@ entity{
   ri_gpu_object__grid_tiling:i=1
   ri_gpu_object__cell_size:r=16.0
   ri_gpu_object__incline_delta:r=0.0
-  ri_gpu_object__scale_range:p2=0.9, 1.5
-  ri_gpu_object__rotate_range:p2=0.0, 960.0
+  ri_gpu_object__scale_range:p2=0.6, 0.8
+  ri_gpu_object__rotate_range:p2=-180.0, 180.0
   ri_gpu_object__seed:i=112
   ri_gpu_object__is_using_normal:b=yes
 
@@ -181,7 +165,7 @@ entity{
 
     "gpu_object:object"{
       name:t="tree_burnt_branches_small_a"
-      weight:r=0.5
+      weight:r=1.0
     }
 
     "gpu_object:object"{
@@ -191,11 +175,77 @@ entity{
 
     "gpu_object:object"{
       name:t="tree_burnt_branches_small_c"
-      weight:r=1.0
+      weight:r=0.75
     }
 
     "gpu_object:object"{
       name:t="tree_burnt_branches_small_d"
+      weight:r=0.5
+    }
+  }
+}
+
+entity{
+  _template:t="ri_gpu_object"
+  ri_gpu_object__name:t="tree_fraxinus_bush_medium_burnt_a"
+  ri_gpu_object__biom_indexes:p4=18.0, 17.0, 55.0, -1.0
+  ri_gpu_object__grid_size:i=8
+  ri_gpu_object__grid_tiling:i=1
+  ri_gpu_object__cell_size:r=16.0
+  ri_gpu_object__incline_delta:r=0.0
+  ri_gpu_object__scale_range:p2=0.6, 0.7
+  ri_gpu_object__rotate_range:p2=-180.0, 180.0
+  ri_gpu_object__seed:i=412
+  ri_gpu_object__is_using_normal:b=no
+  ri_gpu_object__sparse_weight:r=4.0
+
+  "ri_gpu_object__multiple_objects:array"{
+
+    "gpu_object:object"{
+      name:t="tree_fraxinus_bush_medium_burnt_a"
+      weight:r=1.0
+    }
+
+    "gpu_object:object"{
+      name:t="tree_fraxinus_bush_medium_burnt_b"
+      weight:r=1.0
+    }
+
+    "gpu_object:object"{
+      name:t="tree_fraxinus_bush_small_burnt_a"
+      weight:r=0.6
+    }
+
+    "gpu_object:object"{
+      name:t="tree_fraxinus_bush_small_burnt_b"
+      weight:r=0.6
+    }
+  }
+}
+
+entity{
+  _template:t="ri_gpu_object"
+  ri_gpu_object__name:t="tree_fraxinus_bush_small_a"
+  ri_gpu_object__biom_indexes:p4=19.0, -1.0, -1.0, -1.0
+  ri_gpu_object__grid_size:i=8
+  ri_gpu_object__grid_tiling:i=1
+  ri_gpu_object__cell_size:r=16.0
+  ri_gpu_object__incline_delta:r=0.0
+  ri_gpu_object__scale_range:p2=0.6, 1.0
+  ri_gpu_object__rotate_range:p2=-180.0, 180.0
+  ri_gpu_object__seed:i=612
+  ri_gpu_object__is_using_normal:b=no
+  ri_gpu_object__sparse_weight:r=8.0
+
+  "ri_gpu_object__multiple_objects:array"{
+
+    "gpu_object:object"{
+      name:t="tree_fraxinus_bush_small_a"
+      weight:r=1.0
+    }
+
+    "gpu_object:object"{
+      name:t="tree_fraxinus_bush_small_b"
       weight:r=1.0
     }
   }

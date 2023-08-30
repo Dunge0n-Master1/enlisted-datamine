@@ -95,7 +95,7 @@ let function header(size) {
     rendObj = debug_borders_robj()
     color = debug_colors()
     flow = FLOW_HORIZONTAL
-    padding = [0,fsh(2),0,fsh(2)]
+    padding = [0, fsh(2)]
   }
 }
 

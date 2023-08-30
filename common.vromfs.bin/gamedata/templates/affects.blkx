@@ -147,3 +147,12 @@ flask_affect{
   "flaskAffect:tag"{
   }
 }
+
+human_on_ladder_animation{
+  _extends:t="replicated_game_effect"
+  game_effect__forceAnimState:t="climb_ladder"
+  game_effect__forceAnimStateId:i=-1
+
+  "human_on_ladder_animation:tag"{
+  }
+}

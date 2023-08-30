@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let mkDotPaginator = require("%enlist/components/mkDotPaginator.nut")
 let { accentTitleTxtColor, activeTxtColor, defBgColor, smallPadding
 } = require("%enlSqGlob/ui/viewConst.nut")
@@ -85,7 +85,7 @@ let header = @(text) {
   text
   color = accentTitleTxtColor
   hplace = ALIGN_CENTER
-}.__update(body_txt)
+}.__update(fontBody)
 
 let offersPaginator = mkDotPaginator({
   id = "offers"

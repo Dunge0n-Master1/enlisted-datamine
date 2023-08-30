@@ -16,6 +16,7 @@ def spline_sound_update(evt : Event;
                         spline_sound__points : Point4List;
                         var spline_sound__pointId : int&;
                         var spline_sound__pos : float3&;
+                        var spline_sound__eventPos : float3&;
                         var spline_sound__radius : float&;
                         var spline_sound__isInside : bool&;
                         spline_sound__range : float;
@@ -49,40 +50,39 @@ def spline_sound_update(evt : Event;
 
   if spline_sound__pointId + 1 >= length(spline_sound__points)
     spline_sound__pointId = 0
-    spline_sound__isInside = false;
+    spline_sound__isInside = false
+    spline_sound__eventPos = spline_sound__pos
 
     if spline_sound__radius > 0.
       if spline_sound__floorOnWater
-        let diff = listener.xz - spline_sound__pos.xz
+        let diff = listener.xz - spline_sound__eventPos.xz
         spline_sound__isInside = length_sq(diff) < square(spline_sound__radius)
         if spline_sound__isInside
-          spline_sound__pos = listener
-          spline_sound__pos.y = 0.
-          traceht_water(spline_sound__pos, spline_sound__pos.y)
+          spline_sound__eventPos = listener
+          traceht_water(spline_sound__eventPos, spline_sound__eventPos.y)
         else
-          spline_sound__pos.y = 0.
-          traceht_water(spline_sound__pos, spline_sound__pos.y)
+          traceht_water(spline_sound__eventPos, spline_sound__eventPos.y)
           let offset = normalize(diff) * spline_sound__radius
-          spline_sound__pos.x += offset.x
-          spline_sound__pos.z += offset.y
+          spline_sound__eventPos.x += offset.x
+          spline_sound__eventPos.z += offset.y
       else
-        spline_sound__isInside = length_sq(listener - spline_sound__pos) < square(spline_sound__radius)
+        spline_sound__isInside = length_sq(listener - spline_sound__eventPos) < square(spline_sound__radius)
         if spline_sound__isInside
-          spline_sound__pos = listener
+          spline_sound__eventPos = listener
         else
-          spline_sound__pos += normalize(listener - spline_sound__pos) * spline_sound__radius
+          spline_sound__eventPos += normalize(listener - spline_sound__eventPos) * spline_sound__radius
 
-    let inRange = (spline_sound__event.enabled ? (distance_sq(spline_sound__pos, listener) < square(spline_sound__range)) :
-                                                 (distance_sq(spline_sound__pos, listener) < square(spline_sound__range * 0.9)))
+    let inRange = (spline_sound__event.enabled ? (distance_sq(spline_sound__eventPos, listener) < square(spline_sound__range)) :
+                                                 (distance_sq(spline_sound__eventPos, listener) < square(spline_sound__range * 0.9)))
 
     if spline_sound__event.enabled != inRange
       spline_sound__event.enabled = inRange
       release_immediate(spline_sound__event.handle)
       if spline_sound__event.enabled
-        spline_sound__event |> play(spline_sound__path, spline_sound__pos)
+        spline_sound__event |> play(spline_sound__path, spline_sound__eventPos)
 
     if spline_sound__event.enabled && !spline_sound__isInside
-      set_pos(spline_sound__event.handle, spline_sound__pos)
+      set_pos(spline_sound__event.handle, spline_sound__eventPos)
 
 
 // NOT ParallelUpdateFrameDelayed because should accurate bring event to camera(important)
@@ -91,12 +91,12 @@ def spline_sound_update(evt : Event;
 def spline_sound_update_event_pos(info : UpdateStageInfoAct;
                                   spline_sound__isInside : bool;
                                   spline_sound__event : SoundEvent;
-                                  spline_sound__pos : float3;
+                                  spline_sound__eventPos : float3;
                                   spline_sound__floorOnWater : bool)
   if spline_sound__isInside && spline_sound__event.enabled
     let listener = get_listener_pos()
     if spline_sound__floorOnWater
-      let pos = float3(listener.x, spline_sound__pos.y, listener.z)
+      let pos = float3(listener.x, spline_sound__eventPos.y, listener.z)
       set_pos(spline_sound__event.handle, pos)
     else
       set_pos(spline_sound__event.handle, listener)

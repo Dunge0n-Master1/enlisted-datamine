@@ -92,7 +92,7 @@ def reset_squad_mate_behaviour(squadMemberEid : EntityId;
                                                                              beh_tree__data__findCoverAroundLeaderAwayBeh : string;
                                                                              beh_tree__data__findCoverAroundPointBeh : string;
                                                                              beh_tree__data__checkCoverAroundPointBeh : string;
-                                                                             beh_tree__data__agressiveBeh : string;
+                                                                             beh_tree__data__aggressiveBeh : string;
                                                                              beh_tree__data__passiveBeh : string;
                                                                              beh_tree__data__defendPoint : string;
                                                                              var beh_tree__refs__behaviour : das_string&;
@@ -119,9 +119,9 @@ def reset_squad_mate_behaviour(squadMemberEid : EntityId;
           beh_tree__refs__findCoverRef := beh_tree__data__findCoverBeh
           beh_tree__refs__checkCoverRef := beh_tree__data__checkCoverBeh
 
-        if squad__squadBehaviour == int(SquadBehaviour ESB_AGRESSIVE)
+        if squad__squadBehaviour == int(SquadBehaviour ESB_AGGRESSIVE)
           reset_squad_mate_behaviour(squadMemberEid,
-                                     beh_tree__data__agressiveBeh,
+                                     beh_tree__data__aggressiveBeh,
                                      beh_tree__refs__behaviour)
         else
           reset_squad_mate_behaviour(squadMemberEid,

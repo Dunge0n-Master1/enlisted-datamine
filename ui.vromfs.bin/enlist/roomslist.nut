@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let {receivedFiles, requestedFiles, requestFilesByHashes} = require("modFiles.nut")
-let {sub_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontSub} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {showCreateRoom} = require("mpRoom/showCreateRoom.nut")
 let roomsListState = require("roomsListState.nut")
 let roomState = require("state/roomState.nut")
@@ -164,7 +164,7 @@ let function itemText(text, options={}) {
     text
     margin = fsh(1)
     size = ("pw" in options) ? [flex(options.pw), SIZE_TO_CONTENT] : SIZE_TO_CONTENT
-  }.__update(sub_txt)
+  }.__update(fontSub)
 }
 
 
@@ -182,7 +182,7 @@ let function listItem(roomInfo) {
     if (selectedRoom.value && (roomInfo.roomId == selectedRoom.value.roomId))
       color = SelectedItemBg
     else
-      color = (stateFlags.value & S_HOVER) ? HoverItemBg : Color(0,0,0,0)
+      color = stateFlags.value & S_HOVER ? HoverItemBg : Color(0,0,0,0)
 
     let modTitle = roomInfo?.modTitles?[gameLanguage]
       ?? roomInfo?.modTitles.title ?? roomInfo?.mod ?? ""
@@ -303,7 +303,7 @@ let function roomFilter() {
           {
             placeholder=loc("search by name")
             onEscape = @() nameFilter("")
-          }.__update(sub_txt))
+          }.__update(fontSub))
       }
     ]
   }

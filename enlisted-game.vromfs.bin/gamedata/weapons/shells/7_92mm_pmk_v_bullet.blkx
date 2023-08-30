@@ -6,15 +6,17 @@ maxDistance:r=2000.0
 modelName:t="tank_bullet_ball"
 normalizationPreset:t="default"
 ricochetPreset:t="default"
+groundRicochetPreset:t="default"
 stabilityThreshold:r=0.05
 stabilityCaliberToArmorThreshold:r=5.0
-stabilityReductionAfterRicochet:r=0.5
+stabilityReductionAfterPenetration:r=0.3
 bulletType:t="ap_i_ball"
 slopeEffectPreset:t="ap"
 onHitChanceMultFire:r=5.0
 effectiveDistance:r=400.0
 relativeVelHitShift:p2=300.0, 1000.0
-relativeVelArmorShift:p2=200.0, 1000.0
+waterRicochetEffect:t="hit_8_11mm_water"
+groundRicochetEffect:t="hit_8_11mm_dirt_ap"
 
 stabilityRicochetModifier{
   mod1:p2=0.0, 0.05
@@ -23,11 +25,14 @@ stabilityRicochetModifier{
   mod3:p2=45.0, 0.3
 }
 
-visual{
-  range_percent_of_ammo:p2=100.0, 0.0
-  traceFreq:i=1
-  tracer:t="noColor"
-  trail:t="black"
+armorpower{
+  ArmorPower0m:p2=7.5, 10.0
+  ArmorPower100m:p2=7.5, 100.0
+  ArmorPower300m:p2=6.5, 300.0
+  ArmorPower500m:p2=5.0, 600.0
+  ArmorPower1000m:p2=3.0, 1000.0
+  ArmorPower150m:p2=1.5, 1500.0
+  ArmorPower1600m:p2=0.0, 1600.0
 }
 
 hitpower{
@@ -40,14 +45,11 @@ hitpower{
   HitPower1500m:p2=0.01, 1500.0
 }
 
-armorpower{
-  ArmorPower0m:p2=13.0, 10.0
-  ArmorPower100m:p2=12.0, 100.0
-  ArmorPower300m:p2=9.0, 300.0
-  ArmorPower500m:p2=6.0, 600.0
-  ArmorPower1000m:p2=3.0, 1000.0
-  ArmorPower150m:p2=1.5, 1500.0
-  ArmorPower1600m:p2=0.0, 1600.0
+visual{
+  range_percent_of_ammo:p2=100.0, 0.0
+  traceFreq:i=1
+  tracer:t="noColor"
+  trail:t="black"
 }
 
 tracer{

@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { controlledHeroEid } = require("%ui/hud/state/controlled_hero.nut")
 let { isDowned } = require("%ui/hud/state/health_state.nut")
 let { heroSquadNumAliveMembers } = require("%ui/hud/state/hero_squad.nut")
@@ -28,7 +28,7 @@ let switchSquadSoldierTip = tipAlternate(tipDefaults.__merge({
     { inputId = "Human.SquadNext", text = loc("controls/Human.SquadNext") }
     { inputId = "HUD.SquadSoldiersMenu", text = loc("controls/HUD.SquadSoldiersMenu") }
   ]
-}, sub_txt))
+}, fontSub))
 
 let function switch_soldier_tip(){
   let res = { watch = needSwitchSoldierTip }

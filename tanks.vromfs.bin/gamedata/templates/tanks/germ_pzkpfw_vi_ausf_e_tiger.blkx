@@ -52,9 +52,12 @@ germ_pzkpfw_VI_ausf_E_tiger_common{
   _extends:t="base_pzkpfw_vi_ausf_e_tiger"
   _extends:t="tank_panzer3_engine_sound"
   _extends:t="tank_tiger_vehicle_tracks_sound"
-  item__iconOffset:p2=0.0, 0.1
+  item__iconOffset:p2=0.07, 0.07
+  item__iconScale:r=1.27
   commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
   gunner_cam_limit__useCockpitDir:b=yes
+  armorThicknessHull:p3=102.0, 82.0, 82.0
+  armorThicknessTurret:p3=100.0, 82.0, 82.0
 
   "bullet_holes__ignoreCollisionNodes:array"{
     _tags:t="render"

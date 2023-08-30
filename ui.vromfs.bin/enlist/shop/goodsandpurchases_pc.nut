@@ -8,13 +8,12 @@ let goodsInfo = mkWatched(persist, "goodsInfo", {}) //purchases info from online
 
 let isGoodsRequested = Watched(false)
 let marketIds = Watched([])
-let guidsList = Computed(@() marketIds.value.map(@(val) val.guid))
 
 let function requestGoodsInfo() {
   if (!userInfo.value)
     return
 
-  let guids = guidsList.value.filter(@(guid) guid not in goodsInfo.value)
+  let guids = marketIds.value.filter(@(guid) guid not in goodsInfo.value)
   if (guids.len() == 0)
     return
 
@@ -39,7 +38,7 @@ let function requestGoodsInfo() {
 }
 
 userInfo.subscribe(@(_) requestGoodsInfo())
-guidsList.subscribe(function(guids) {
+marketIds.subscribe(function(guids) {
   purchases.addGuids(guids)
   requestGoodsInfo()
 })

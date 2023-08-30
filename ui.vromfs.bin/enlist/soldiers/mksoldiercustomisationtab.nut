@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let textInput = require("%ui/components/textInput.nut")
 let { defTxtColor, commonBtnHeight } = require("%enlSqGlob/ui/viewConst.nut")
 let { curCampItems, curCampItemsCount } = require("model/state.nut")
@@ -45,7 +45,7 @@ let tiOptions = {
   maxChars = MAX_CHARS
   colors = { backGroundColor = Color(0, 0, 0, 255) }
   placeholder = loc("customize/writeCallsign")
-}.__update(body_txt)
+}.__update(fontBody)
 
 let function callnameChangeAction(soldier, prevCallname, callname) {
   if (prevCallname == callname)
@@ -86,7 +86,7 @@ let stdText = @(text){
   hplace = ALIGN_CENTER
   color = defTxtColor
   text
-}.__update(sub_txt)
+}.__update(fontSub)
 
 let soldierNameColorized = function(soldier, callname){
   let { name, surname } = localizeSoldierName(soldier)
@@ -129,14 +129,14 @@ let function mkCallnameBlock(soldier){
       {
         rendObj = ROBJ_TEXT
         text = loc("customize/callnameTitle")
-      }.__update(sub_txt)
+      }.__update(fontSub)
       {
         rendObj = ROBJ_TEXTAREA
         behavior = Behaviors.TextArea
         size = [flex(), SIZE_TO_CONTENT]
         color = defTxtColor
         text = loc("customize/callnameDescription")
-      }.__update(sub_txt)
+      }.__update(fontSub)
       textInput(callnameEditWatch,
         tiOptions.__merge({
           onEscape = @() callnameEditWatch(prevCallname)
@@ -250,14 +250,14 @@ local function mkAppearanceBlock(soldier){
         rendObj = ROBJ_TEXT
         text = loc("customize/appearanceTitle")
         hplace = ALIGN_CENTER
-      }.__update(sub_txt)
+      }.__update(fontSub)
       {
         rendObj = ROBJ_TEXTAREA
         behavior = Behaviors.TextArea
         size = [flex(), SIZE_TO_CONTENT]
         color = defTxtColor
         text = loc("customize/appearanceDescription")
-      }.__update(sub_txt)
+      }.__update(fontSub)
       {
         flow = FLOW_HORIZONTAL
         hplace = ALIGN_CENTER

@@ -29,15 +29,15 @@ let nextPremiumStage = Computed(@() getStageByIndex(premiumUnlock.value, premium
 
 let servProgress = Computed(@() userstatUnlocks.value?.unlocks ?? {})
 
-let seasonIndex = Computed(@()
-  userstatStats.value?.stats[basicUnlock.value?.table]["$index"] ?? 0)
+let seasonData = Computed(@() userstatStats.value?.stats[basicUnlock.value?.table])
+let seasonIndex = Computed(@() seasonData.value?["$index"] ?? 0)
+let seasonTimeout = Computed(@() seasonData.value?["$endsAt"].tointeger() ?? 0)
+let timeLeft = Computed(function() {
+  let time = seasonTimeout.value - serverTime.value
+  return time > 0 ? time : 0
+})
 
 let hasBattlePass = Computed(@() basicUnlockId.value != null)
-
-let timeLeft = Computed(function() {
-  let time = userstatStats.value?.stats[basicUnlock.value?.table]["$endsAt"].tointeger() ?? 0
-  return max(time - serverTime.value, 0)
-})
 
 let topStageProgress = @(arr) arr && arr.len() > 0 ? arr.top().progress : 0
 let taskRewardsCounters = Computed(function() {

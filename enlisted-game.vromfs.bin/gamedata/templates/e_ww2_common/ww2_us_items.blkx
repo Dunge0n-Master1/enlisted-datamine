@@ -239,6 +239,14 @@ attachable_wear_usmc_m43_hbt_jump_smock_item{
   item__uniqueName:t="attachable_wear_usmc_m43_hbt_jump_smock_item"
   animchar__res:t="usmc_m43_hbt_jump_smock_char"
   collres__res:t="usmc_m43_hbt_jump_smock_collision"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="belt1"
+  }
 }
 
 attachable_wear_usmc_m43_hbt_jump_smock_green_item{
@@ -274,6 +282,14 @@ attachable_wear_usmc_m43_hbt_jump_smock_t5_parachute_item{
   animchar__res:t="usmc_m43_hbt_jump_smock_t5_parachute_char"
   collres__res:t="usmc_m43_hbt_jump_smock_t5_parachute_collision"
   item__replaceOnParachuteOpen:t="attachable_wear_usmc_m43_hbt_jump_smock_item"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="belt1"
+  }
 }
 
 attachable_wear_usmc_m43_hbt_jump_smock_green_t5_parachute_item{
@@ -358,6 +374,16 @@ attachable_wear_shirt_camo_M44_item{
   item__uniqueName:t="attachable_wear_shirt_camo_M44_item"
   animchar__res:t="shirt_camo_M44_char"
   collres__res:t="shirt_camo_M44_collision"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="belt1"
+    slot:t="backpack"
+  }
 }
 
 attachable_wear_shirt_camo_M44_b_item{
@@ -404,6 +430,15 @@ attachable_wear_us_m44_jacket_medic_item{
   item__uniqueName:t="attachable_wear_us_m44_jacket_medic_item"
   animchar__res:t="us_m44_jacket_medic_char"
   collres__res:t="us_m44_jacket_medic_collision"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="backpack"
+  }
 }
 
 attachable_wear_us_m44_jacket_medic_b_item{
@@ -421,7 +456,16 @@ attachable_wear_jacket_m41_item{
   item__uniqueName:t="attachable_wear_jacket_m41_item"
   animchar__res:t="jacket_m41_char"
   collres__res:t="jacket_m41_collision"
+  _tracked:t="attaches_list"
   animchar_fast_phys__res:t="jacket_m41_fastphys"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="belt1"
+  }
 
   animchar_fast_phys{
     _tags:t="gameClient"
@@ -433,7 +477,16 @@ attachable_wear_jacket_m41_custom_item{
   item__uniqueName:t="attachable_wear_jacket_m41_custom_item"
   animchar__res:t="jacket_m41_custom_char"
   collres__res:t="jacket_m41_custom_collision"
+  _tracked:t="attaches_list"
   animchar_fast_phys__res:t="jacket_m41_custom_fastphys"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="belt1"
+  }
 
   animchar_fast_phys{
     _tags:t="gameClient"
@@ -445,7 +498,15 @@ attachable_wear_us_jacket_usmpc_m42_item{
   item__uniqueName:t="attachable_wear_us_jacket_usmpc_m42_item"
   animchar__res:t="us_jacket_usmpc_m42_char"
   collres__res:t="us_jacket_usmpc_m42_collision"
+  _tracked:t="attaches_list"
   animchar_fast_phys__res:t="us_jacket_usmpc_m42_fastphys"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+  }
 
   animchar_fast_phys{
     _tags:t="gameClient"
@@ -529,6 +590,14 @@ attachable_wear_airborne_jacket_item{
   item__uniqueName:t="attachable_wear_airborne_jacket_item"
   animchar__res:t="airborne_jacket_char"
   collres__res:t="airborne_jacket_collision"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+  }
 }
 
 attachable_wear_airborne_jacket_light_item{
@@ -563,8 +632,16 @@ attachable_wear_airborne_jacket_w_parachute_item{
   item__uniqueName:t="attachable_wear_airborne_jacket_w_parachute_item"
   animchar__res:t="airborne_jacket_w_parachute_char"
   collres__res:t="airborne_jacket_w_parachute_collision"
+  _tracked:t="attaches_list"
   item__replaceOnParachuteOpen:t="attachable_wear_airborne_jacket_item"
   item__replaceOnSpawnOnGround:t="attachable_wear_airborne_jacket_item"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+  }
 }
 
 attachable_wear_airborne_jacket_light_w_parachute_item{
@@ -606,9 +683,18 @@ attachable_wear_coat_01_us_winter_item{
   animchar__res:t="coat_01_us_winter_char"
   collres__res:t="coat_01_us_winter_collision"
   animchar_fast_phys__res:t="coat_01_us_winter_fastphys"
+  _tracked:t="attaches_list"
 
   animchar_fast_phys{
     _tags:t="gameClient"
+  }
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="belt1"
   }
 }
 
@@ -656,6 +742,16 @@ attachable_wear_tanker_overall_item{
   item__uniqueName:t="attachable_wear_tanker_overall_item"
   animchar__res:t="tanker_overall_char"
   collres__res:t="tanker_overall_collision"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="front_belt_l"
+    slot:t="backpack"
+  }
 }
 
 attachable_wear_tanker_overall_green_item{
@@ -690,13 +786,21 @@ attachable_wear_tanker_jacket_us_item{
   item__uniqueName:t="attachable_wear_tanker_jacket_us_item"
   animchar__res:t="tanker_jacket_us_char"
   collres__res:t="tanker_jacket_us_collision"
+  _tracked:t="attaches_list"
 
   "hides:array"{
-    hides:t="front_belt_l"
-    hides:t="front_belt_r"
     hides:t="belt_1"
     hides:t="flask"
     hides:t="rear_belt_l"
+  }
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="front_belt_l"
+    slot:t="backpack"
   }
 }
 
@@ -705,6 +809,39 @@ attachable_wear_tanker_jacket_wb_us_item{
   item__uniqueName:t="attachable_wear_tanker_jacket_wb_us_item"
   animchar__res:t="tanker_jacket_wb_us_char"
   collres__res:t="tanker_jacket_wb_us_collision"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="front_belt_l"
+    slot:t="backpack"
+  }
+}
+
+attachable_wear_pilot_jacket_us_item{
+  _extends:t="attachable_tunic"
+  item__uniqueName:t="attachable_wear_pilot_jacket_us_item"
+  animchar__res:t="pilot_jacket_us_char"
+  collres__res:t="pilot_jacket_us_collision"
+  _tracked:t="attaches_list"
+
+  "hides:array"{
+    hides:t="front_belt_l"
+    hides:t="belt_1"
+    hides:t="flask"
+    hides:t="rear_belt_l"
+  }
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="backpack"
+  }
 }
 
 attachable_wear_jacket_m43_item{
@@ -712,6 +849,16 @@ attachable_wear_jacket_m43_item{
   item__uniqueName:t="attachable_wear_jacket_m43_item"
   animchar__res:t="jacket_m43_char"
   collres__res:t="jacket_m43_collision"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="belt1"
+    slot:t="backpack"
+  }
 }
 
 attachable_wear_us_m43_jacket_medic_item{
@@ -719,6 +866,14 @@ attachable_wear_us_m43_jacket_medic_item{
   item__uniqueName:t="attachable_wear_us_m43_jacket_medic_item"
   animchar__res:t="us_m43_jacket_medic_char"
   collres__res:t="us_m43_jacket_medic_collision"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+  }
 }
 
 attachable_wear_jacket_m43_no_insig_item{
@@ -726,6 +881,15 @@ attachable_wear_jacket_m43_no_insig_item{
   item__uniqueName:t="attachable_wear_jacket_m43_no_insig_item"
   animchar__res:t="jacket_m43_no_insig_char"
   collres__res:t="jacket_m43_no_insig_collision"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="belt1"
+  }
 
   "animchar__objTexReplace:object"{
     "us_jacket_m43_tex_d*":t="us_jacket_m43_beige_tex_d*"
@@ -778,6 +942,15 @@ attachable_wear_m37_combat_shirt_item{
   item__uniqueName:t="attachable_wear_m37_combat_shirt_item"
   animchar__res:t="m37_combat_shirt_char"
   collres__res:t="m37_combat_shirt_collision"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="belt1"
+  }
 }
 
 attachable_wear_utility_hbt_usmc_p44_shirt_item{
@@ -1607,6 +1780,22 @@ attachable_wear_backpack_m_28_03_us_summer_item{
   }
 }
 
+attachable_wear_m28_backpack_item{
+  _extends:t="attachable_backpack"
+  animchar__res:t="m28_backpack_char"
+  collres__res:t="m28_backpack_collision"
+  item__uniqueName:t="attachable_wear_m28_backpack_item"
+  animchar_fast_phys__res:t="m28_backpack_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+
+  "skeleton_attach__remapParentSlots:list<t>"{
+    slot:t="tunic"
+  }
+}
+
 attachable_wear_backpack_m28_shirt_m44_camo_item{
   _extends:t="attachable_backpack"
   animchar__res:t="backpack_m28_shirt_m44_camo_char"
@@ -2122,12 +2311,58 @@ attachable_wear_us_m1_rigger_pouch_airborn_item{
   collres__res:t="us_m1_rigger_pouch_airborn_collision"
 }
 
+attachable_wear_us_m1_rigger_pouch_belt_front_r_item{
+  _extends:t="attachable_front_belt_r"
+  item__uniqueName:t="attachable_wear_us_m1_rigger_pouch_belt_front_r_item"
+  animchar__res:t="us_m1_rigger_pouch_belt_front_r_char"
+  collres__res:t="us_m1_rigger_pouch_belt_front_r_collision"
+
+  "skeleton_attach__remapParentSlots:list<t>"{
+    slot:t="belt_1"
+    slot:t="belt_2"
+    slot:t="tunic"
+  }
+
+  "skeleton_attach__skipParentsRemapNodes:list<t>"{
+    node:t="d_belt_front_right_a"
+    node:t="d_belt_front_right_b"
+  }
+}
+
 attachable_wear_us_thompson_drum_pouch_m41_jacket_item{
   _extends:t="attachable_front_belt_r"
   item__uniqueName:t="attachable_wear_us_thompson_drum_pouch_m41_jacket_item"
   animchar__res:t="us_thompson_drum_pouch_m41_jacket_char"
   collres__res:t="us_thompson_drum_pouch_m41_jacket_collision"
   menu_item__rotationOffset:p3=0.13, 0.06, -0.15
+}
+
+us_thompson_drum_pouch_belt_front_r_blacklist{
+
+  "animationBlacklistForMenu:list<t>"{
+    anim:t="enlisted_idle_104_weapon"
+    anim:t="enlisted_idle_14_weapon"
+    anim:t="enlisted_idle_16_weapon"
+  }
+}
+
+attachable_wear_us_thompson_drum_pouch_belt_front_r_item{
+  _extends:t="attachable_front_belt_r"
+  _extends:t="us_thompson_drum_pouch_belt_front_r_blacklist"
+  item__uniqueName:t="attachable_wear_us_thompson_drum_pouch_belt_front_r_item"
+  animchar__res:t="us_thompson_drum_pouch_belt_front_r_char"
+  collres__res:t="us_thompson_drum_pouch_belt_front_r_collision"
+
+  "skeleton_attach__remapParentSlots:list<t>"{
+    slot:t="belt_1"
+    slot:t="belt_2"
+    slot:t="tunic"
+  }
+
+  "skeleton_attach__skipParentsRemapNodes:list<t>"{
+    node:t="d_belt_front_right_a"
+    node:t="d_belt_front_right_b"
+  }
 }
 
 attachable_wear_us_thompson_drum_pouch_l_m43_jacket_item{
@@ -2300,13 +2535,6 @@ attachable_wear_us_belt_m36_tanker_coverall_w_jacket_item{
   collres__res:t="us_belt_m36_tanker_coverall_w_jacket_collision"
 }
 
-attachable_wear_ammo_belt_02_us_summer_item{
-  _extends:t="attachable_belt1"
-  item__uniqueName:t="attachable_wear_ammo_belt_02_us_summer_item"
-  animchar__res:t="ammo_belt_02_us_summer_char"
-  collres__res:t="ammo_belt_02_us_summer_collision"
-}
-
 attachable_wear_mgun_belt_jacket_m43_item{
   _extends:t="attachable_chest"
   item__uniqueName:t="attachable_wear_mgun_belt_jacket_m43_item"
@@ -2387,20 +2615,6 @@ attachable_wear_m6_gasbag_m43_jacket_item{
   }
 }
 
-attachable_wear_us_m23_cartridge_belt_up_jacket_m41_item{
-  _extends:t="attachable_chest"
-  item__uniqueName:t="attachable_wear_us_m23_cartridge_belt_up_jacket_m41_item"
-  animchar__res:t="us_m23_cartridge_belt_up_jacket_m41_char"
-  collres__res:t="us_m23_cartridge_belt_up_jacket_m41_collision"
-}
-
-attachable_wear_us_m23_cartridge_belt_jump_smock_item{
-  _extends:t="attachable_belt1"
-  item__uniqueName:t="attachable_wear_us_m23_cartridge_belt_jump_smock_item"
-  animchar__res:t="us_m23_cartridge_belt_jump_smock_char"
-  collres__res:t="us_m23_cartridge_belt_jump_smock_collision"
-}
-
 attachable_wear_backpack_m_36_02_us_summer_item{
   _extends:t="attachable_backpack"
   animchar__res:t="backpack_m_36_02_us_summer_char"
@@ -2411,6 +2625,22 @@ attachable_wear_backpack_m_36_02_us_summer_item{
 
   animchar_fast_phys{
     _tags:t="gameClient"
+  }
+}
+
+attachable_wear_backpack_m_36_item{
+  _extends:t="attachable_backpack"
+  animchar__res:t="backpack_m_36_char"
+  collres__res:t="backpack_m_36_collision"
+  item__uniqueName:t="attachable_wear_backpack_m_36_item"
+  animchar_fast_phys__res:t="backpack_m_36_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+
+  "skeleton_attach__remapParentSlots:list<t>"{
+    slot:t="tunic"
   }
 }
 
@@ -2532,20 +2762,6 @@ attachable_wear_us_belt_m36_usmcp_jacket_item{
   collres__res:t="us_belt_m36_usmcp_jacket_collision"
 }
 
-attachable_wear_us_m23_cartridge_belt_jacket_m41_item{
-  _extends:t="attachable_belt1"
-  item__uniqueName:t="attachable_wear_us_m23_cartridge_belt_jacket_m41_item"
-  animchar__res:t="us_m23_cartridge_belt_jacket_m41_char"
-  collres__res:t="us_m23_cartridge_belt_jacket_m41_collision"
-}
-
-attachable_wear_us_m23_cartridge_belt_hbt_usmc_p44_jacket_item{
-  _extends:t="attachable_belt1"
-  item__uniqueName:t="attachable_wear_us_m23_cartridge_belt_hbt_usmc_p44_jacket_item"
-  animchar__res:t="us_m23_cartridge_belt_hbt_usmc_p44_jacket_char"
-  collres__res:t="us_m23_cartridge_belt_hbt_usmc_p44_jacket_collision"
-}
-
 attachable_wear_belt_m36_03_us_summer_item{
   _extends:t="attachable_belt1"
   item__uniqueName:t="attachable_wear_belt_m36_03_us_summer_item"
@@ -2586,25 +2802,66 @@ attachable_wear_belt_m36_01_us_winter_item{
   collres__res:t="belt_m36_01_us_winter_collision"
 }
 
-attachable_wear_ammo_belt_02_us_winter_item{
+attachable_wear_ammo_belt_m43_item{
   _extends:t="attachable_belt1"
-  item__uniqueName:t="attachable_wear_ammo_belt_02_us_winter_item"
-  animchar__res:t="ammo_belt_02_us_winter_char"
-  collres__res:t="ammo_belt_02_us_winter_collision"
-}
+  item__uniqueName:t="attachable_wear_ammo_belt_m43_item"
+  animchar__res:t="ammo_belt_m43_char"
+  collres__res:t="ammo_belt_m43_collision"
+  _tracked:t="attaches_list"
 
-attachable_wear_ammo_belt_m43_shirt_m44_camo_item{
-  _extends:t="attachable_belt1"
-  item__uniqueName:t="attachable_wear_ammo_belt_m43_shirt_m44_camo_item"
-  animchar__res:t="ammo_belt_m43_shirt_m44_camo_char"
-  collres__res:t="ammo_belt_m43_shirt_m44_camo_collision"
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="front_belt_l"
+  }
+
+  "skeleton_attach__remapParentSlots:list<t>"{
+    slot:t="tunic"
+  }
 }
 
 attachable_wear_ammo_belt_m43_jacket_m43_item{
   _extends:t="attachable_belt1"
-  item__uniqueName:t="attachable_wear_ammo_belt_m43_jacket_m43_item"
-  animchar__res:t="ammo_belt_m43_jacket_m43_char"
-  collres__res:t="ammo_belt_m43_jacket_m43_collision"
+  _extends:t="attachable_wear_ammo_belt_m43_item"
+}
+
+attachable_wear_ammo_belt_m43_shirt_m44_camo_item{
+  _extends:t="attachable_belt1"
+  _extends:t="attachable_wear_ammo_belt_m43_item"
+}
+
+attachable_wear_ammo_belt_02_us_winter_item{
+  _extends:t="attachable_belt1"
+  _extends:t="attachable_wear_ammo_belt_m43_item"
+}
+
+attachable_wear_ammo_belt_02_us_summer_item{
+  _extends:t="attachable_belt1"
+  _extends:t="attachable_wear_ammo_belt_m43_item"
+}
+
+attachable_wear_us_m23_cartridge_belt_up_jacket_m41_item{
+  _extends:t="attachable_chest"
+  item__uniqueName:t="attachable_wear_us_m23_cartridge_belt_up_jacket_m41_item"
+  animchar__res:t="us_m23_cartridge_belt_up_jacket_m41_char"
+  collres__res:t="us_m23_cartridge_belt_up_jacket_m41_collision"
+}
+
+attachable_wear_us_m23_cartridge_belt_jump_smock_item{
+  _extends:t="attachable_belt1"
+  _extends:t="attachable_wear_ammo_belt_m43_item"
+}
+
+attachable_wear_us_m23_cartridge_belt_jacket_m41_item{
+  _extends:t="attachable_belt1"
+  _extends:t="attachable_wear_ammo_belt_m43_item"
+}
+
+attachable_wear_us_m23_cartridge_belt_hbt_usmc_p44_jacket_item{
+  _extends:t="attachable_belt1"
+  _extends:t="attachable_wear_ammo_belt_m43_item"
 }
 
 attachable_wear_belt_tanker_overall_m36_item{
@@ -2622,7 +2879,6 @@ attachable_wear_belt_tanker_overall_cloth_item{
 
   "hides:array"{
     hides:t="front_belt_l"
-    hides:t="front_belt_r"
     hides:t="flask"
   }
 }
@@ -2745,12 +3001,47 @@ attachable_wear_us_3pouch_grenade_pouch_r_m43_jacket_item{
   menu_item__rotationOffset:p3=0.08, 0.0, -0.12
 }
 
+attachable_wear_us_3pouch_grenade_pouch_belt_front_r_item{
+  _extends:t="attachable_front_belt_r"
+  item__uniqueName:t="attachable_wear_us_3pouch_grenade_pouch_belt_front_r_item"
+  animchar__res:t="us_3pouch_grenade_pouch_belt_front_r_char"
+  collres__res:t="us_3pouch_grenade_pouch_belt_front_r_collision"
+
+  "skeleton_attach__remapParentSlots:list<t>"{
+    slot:t="belt_1"
+    slot:t="tunic"
+  }
+
+  "skeleton_attach__skipParentsRemapNodes:list<t>"{
+    node:t="d_belt_front_right_a"
+    node:t="d_belt_front_right_b"
+  }
+}
+
 attachable_wear_us_2pouch_grenade_pouch_r_m43_jacket_item{
   _extends:t="attachable_front_belt_r"
   item__uniqueName:t="attachable_wear_us_2pouch_grenade_pouch_r_m43_jacket_item"
   animchar__res:t="us_2pouch_grenade_pouch_r_m43_jacket_char"
   collres__res:t="us_2pouch_grenade_pouch_r_m43_jacket_collision"
   menu_item__rotationOffset:p3=0.12, 0.06, -0.16
+}
+
+attachable_wear_us_2pouch_grenade_pouch_belt_front_r_item{
+  _extends:t="attachable_front_belt_r"
+  item__uniqueName:t="attachable_wear_us_2pouch_grenade_pouch_belt_front_r_item"
+  animchar__res:t="us_2pouch_grenade_pouch_belt_front_r_char"
+  collres__res:t="us_2pouch_grenade_pouch_belt_front_r_collision"
+
+  "skeleton_attach__remapParentSlots:list<t>"{
+    slot:t="belt_1"
+    slot:t="belt_2"
+    slot:t="tunic"
+  }
+
+  "skeleton_attach__skipParentsRemapNodes:list<t>"{
+    node:t="d_belt_front_right_a"
+    node:t="d_belt_front_right_b"
+  }
 }
 
 attachable_wear_us_2pouch_grenade_pouch_r_m44_shirt_item{
@@ -2762,6 +3053,24 @@ attachable_wear_us_2pouch_grenade_pouch_r_m44_shirt_item{
 
   animchar_fast_phys{
     _tags:t="gameClient"
+  }
+}
+
+attachable_wear_us_1pouch_grenade_pouch_belt_front_r_item{
+  _extends:t="attachable_front_belt_r"
+  item__uniqueName:t="attachable_wear_us_1pouch_grenade_pouch_belt_front_r_item"
+  animchar__res:t="us_1pouch_grenade_pouch_belt_front_r_char"
+  collres__res:t="us_1pouch_grenade_pouch_belt_front_r_collision"
+
+  "skeleton_attach__remapParentSlots:list<t>"{
+    slot:t="belt_1"
+    slot:t="belt_2"
+    slot:t="tunic"
+  }
+
+  "skeleton_attach__skipParentsRemapNodes:list<t>"{
+    node:t="d_belt_front_right_a"
+    node:t="d_belt_front_right_b"
   }
 }
 

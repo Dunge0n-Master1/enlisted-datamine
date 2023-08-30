@@ -22,9 +22,15 @@ us_m10_wolverine_common{
   _extends:t="base_m10_wolverine"
   _extends:t="tank_m10_engine_sound"
   _extends:t="tank_heavy_vehicle_tracks_sound"
-  item__iconOffset:p2=0.0, 0.1
   commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
   gunner_cam_limit__useCockpitDir:b=yes
+  item__iconOffset:p2=0.05, 0.1
+  item__iconScale:r=1.3
+  armorThicknessHull:p3=51.0, 25.0, 25.0
+  armorThicknessTurret:p3=57.15, 25.4, 25.4
+
+  "vehicle_seats__effectors:array"{
+  }
 
   "vehicle_seats__seats:shared:array"{
 
@@ -33,7 +39,7 @@ us_m10_wolverine_common{
       locName:t="vehicle_seats/gunner"
       attachNode:t="gunner"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.65, -0.19, 0.1]]
+      attachTm:m=[[0.541101, -0.39072, -0.744687] [0.379759, 0.903478, -0.198094] [0.750314, -0.175638, 0.637343] [-0.08, -0.1, 0.15]]
       seatComponent:t="isGunner"
       nextSeat:t="driver"
       shouldHideOwner:b=no
@@ -41,14 +47,16 @@ us_m10_wolverine_common{
       cameraNodeName:t="bone_camera_gunner"
       cockpitTemplate:t="us_m10_wolverine_gunner_cockpit"
       isHoldGunModeAllowed:b=no
-      maxPosWithOpenHatch:r=0.2
 
       "turretNames:array"{
         turretNames:t="turret_01"
       }
 
-      "hatchNodes:array"{
-        node:t="bone_camera_gunner"
+      "effectors:object"{
+        r.hand:t="righthand_2"
+        l.hand:t="lefthand_2"
+        r.foot:t="pedal_rfoot_2"
+        l.foot:t="pedal_lfoot_2"
       }
     }
 
@@ -58,13 +66,22 @@ us_m10_wolverine_common{
       seatOwnsEntityControl:b=yes
       attachNode:t="driver"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.25, 0.0]]
+      attachTm:m=[[0.956315, -0.292366, -0.0] [0.292366, 0.956315, 0.0] [0.0, -0.0, 1.00024] [-0.12, -0.27, -0.06]]
       seatComponent:t="isDriver"
       nextSeat:t="main_gunner"
-      shouldHideOwner:b=yes
+      shouldHideOwner:b=no
       receiveDamageFromDMPart:t="driver"
       cameraNodeName:t="bone_camera_driver"
       cockpitTemplate:t="us_m10_wolverine_driver_cockpit"
+      seatAnimUpper:t="drive_passenger"
+      seatAnimLower:t="drive_passenger"
+
+      "effectors:object"{
+        r.hand:t="righthand_4"
+        l.hand:t="lefthand_4"
+        r.foot:t="pedal_rfoot_4"
+        l.foot:t="pedal_lfoot_4"
+      }
     }
 
     "seats:object"{
@@ -74,8 +91,8 @@ us_m10_wolverine_common{
       attachNode:t="commander"
       shouldHideOwner:b=no
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.42, -0.1, 0.03]]
-      maxPosWithOpenHatch:r=0.3
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.0, -0.1, 0.03]]
+      maxPosWithOpenHatch:r=0.2
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="commander"
       cockpitTemplate:t="us_m10_wolverine_commander_cockpit"
@@ -91,13 +108,18 @@ us_m10_wolverine_common{
       "hatchTurretNames:array"{
         turret:t="turret_02"
       }
+
+      "effectors:object"{
+        r.hand:t="righthand_1"
+        l.hand:t="lefthand_1"
+      }
     }
 
     "seats:object"{
       attachNode:t="loader"
       locName:t="vehicle_seats/loader"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.15, -0.05, -0.2]]
+      attachTm:m=[[0.939573, -0.342007, 0.0164379] [0.339121, 0.936117, 0.0930977] [-0.0472288, -0.0818993, 0.995553] [-0.08, 0.06, 0.21]]
       seatComponent:t="isPassenger"
       shouldHideOwner:b=no
       receiveDamageFromDMPart:t="loader"
@@ -109,17 +131,32 @@ us_m10_wolverine_common{
       "loaderTurretNames:array"{
         turret:t="turret_01"
       }
+
+      "effectors:object"{
+        l.hand:t="lefthand_5"
+        r.foot:t="pedal_rfoot_5"
+        l.foot:t="pedal_lfoot_5"
+      }
     }
 
     "seats:object"{
       attachNode:t="machine_gunner"
       locName:t="vehicle_seats/radioman"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.25, -0.5, 0.0]]
+      attachTm:m=[[0.98769, 0.156434, 0.0] [-0.156434, 0.98769, 0.0] [0.0, 0.0, 1.0] [-0.05, -0.35, 0.07]]
       seatComponent:t="isPassenger"
-      shouldHideOwner:b=yes
+      shouldHideOwner:b=no
       receiveDamageFromDMPart:t="machine_gunner"
       cameraNodeName:t="bone_camera_driver"
+      seatAnimUpper:t="drive_passenger"
+      seatAnimLower:t="drive_passenger"
+
+      "effectors:object"{
+        r.hand:t="righthand_3"
+        l.hand:t="lefthand_3"
+        r.foot:t="pedal_rfoot_3"
+        l.foot:t="pedal_lfoot_3"
+      }
     }
   }
 }
@@ -191,6 +228,13 @@ us_m10_wolverine_commander_cockpit{
 
   "cockpit__slitZoomTime:list<r>"{
     slit:r=0.0
+  }
+
+  "cockpit__slitTemplates:list<t>"{
+    slit:t="default_periscope"
+  }
+
+  "cockpit__slitEids:list<eid>"{
   }
 }
 

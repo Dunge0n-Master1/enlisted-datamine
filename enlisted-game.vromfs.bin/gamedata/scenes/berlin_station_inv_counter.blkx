@@ -1,13 +1,1199 @@
 import{
   scene:t="content/enlisted/gamedata/scenes/_berlin_opera_gpu_objects.blk"
+}
+
+import{
   scene:t="content/enlisted/gamedata/scenes/_berlin_opera_biom_fx.blk"
+}
+
+import{
   scene:t="content/enlisted/gamedata/scenes/_berlin_opera_background_fx.blk"
+}
+
+import{
   scene:t="content/enlisted/gamedata/scenes/_berlin_opera_projectors.blk"
+}
+
+import{
   scene:t="content/enlisted/gamedata/scenes/_berlin_opera_tracers.blk"
 }
 
 import{
-  scene:t="content/enlisted/gamedata/scenes/_berlin_opera_level.blk"
+  scene:t="content/enlisted/gamedata/scenes/_berlin_station_level.blk"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-532.227, -3.56172, 413.78]]
+  battle_area_polygon_point__forBattleAreaId:t="5_area1"
+  battle_area_polygon_point__id:t="point1"
+  battle_area_polygon_point__nextId:t="point2"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-435.21, -3.56172, 499.094]]
+  battle_area_polygon_point__forBattleAreaId:t="5_area1"
+  battle_area_polygon_point__id:t="point2"
+  battle_area_polygon_point__nextId:t="point3"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-348.553, -6.31248, 626.832]]
+  battle_area_polygon_point__forBattleAreaId:t="5_area1"
+  battle_area_polygon_point__id:t="point3"
+  battle_area_polygon_point__nextId:t="point4"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-547.069, 3.29846, 765.99]]
+  battle_area_polygon_point__forBattleAreaId:t="5_area1"
+  battle_area_polygon_point__id:t="point4"
+  battle_area_polygon_point__nextId:t="point5"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-588.242, -1.3885, 605.766]]
+  battle_area_polygon_point__forBattleAreaId:t="5_area1"
+  battle_area_polygon_point__id:t="point5"
+  battle_area_polygon_point__nextId:t="point6"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-633.553, -1.3885, 558.224]]
+  battle_area_polygon_point__forBattleAreaId:t="5_area1"
+  battle_area_polygon_point__id:t="point6"
+  battle_area_polygon_point__nextId:t="point1"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-468.252, -2.97419, 540.966]]
+  battle_area_polygon_point__forBattleAreaId:t="5_area2"
+  battle_area_polygon_point__id:t="point1"
+  battle_area_polygon_point__nextId:t="point2"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-597.885, 3.57157, 595.513]]
+  battle_area_polygon_point__forBattleAreaId:t="5_area2"
+  battle_area_polygon_point__id:t="point2"
+  battle_area_polygon_point__nextId:t="point3"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-597.885, 3.57157, 595.513]]
+  battle_area_polygon_point__forBattleAreaId:t="5_area2"
+  battle_area_polygon_point__id:t="point3"
+  battle_area_polygon_point__nextId:t="point4"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-700.957, 3.29326, 488.419]]
+  battle_area_polygon_point__forBattleAreaId:t="5_area2"
+  battle_area_polygon_point__id:t="point4"
+  battle_area_polygon_point__nextId:t="point5"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-622.785, 2.31469, 369.06]]
+  battle_area_polygon_point__forBattleAreaId:t="5_area2"
+  battle_area_polygon_point__id:t="point5"
+  battle_area_polygon_point__nextId:t="point6"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-532.5, -2.34683, 413.587]]
+  battle_area_polygon_point__forBattleAreaId:t="5_area2"
+  battle_area_polygon_point__id:t="point6"
+  battle_area_polygon_point__nextId:t="point7"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-438.924, 3.29834, 496.026]]
+  battle_area_polygon_point__forBattleAreaId:t="5_area2"
+  battle_area_polygon_point__id:t="point7"
+  battle_area_polygon_point__nextId:t="point1"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-253.517, 3.29863, 850.946]]
+  battle_area_polygon_point__forBattleAreaId:t="4a_area1"
+  battle_area_polygon_point__id:t="point1"
+  battle_area_polygon_point__nextId:t="point2"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-526.09, 3.29863, 844.738]]
+  battle_area_polygon_point__forBattleAreaId:t="4a_area1"
+  battle_area_polygon_point__id:t="point2"
+  battle_area_polygon_point__nextId:t="point3"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-569.451, 3.30663, 767.193]]
+  battle_area_polygon_point__forBattleAreaId:t="4a_area1"
+  battle_area_polygon_point__id:t="point3"
+  battle_area_polygon_point__nextId:t="point4"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-585.073, 3.29846, 631.607]]
+  battle_area_polygon_point__forBattleAreaId:t="4a_area1"
+  battle_area_polygon_point__id:t="point4"
+  battle_area_polygon_point__nextId:t="point5"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-524.573, 3.29846, 616.056]]
+  battle_area_polygon_point__forBattleAreaId:t="4a_area1"
+  battle_area_polygon_point__id:t="point5"
+  battle_area_polygon_point__nextId:t="point6"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-499.369, 3.29846, 568.409]]
+  battle_area_polygon_point__forBattleAreaId:t="4a_area1"
+  battle_area_polygon_point__id:t="point6"
+  battle_area_polygon_point__nextId:t="point7"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-430.499, 3.29846, 508.043]]
+  battle_area_polygon_point__forBattleAreaId:t="4a_area1"
+  battle_area_polygon_point__id:t="point7"
+  battle_area_polygon_point__nextId:t="point8"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-349.486, 3.26374, 625.964]]
+  battle_area_polygon_point__forBattleAreaId:t="4a_area1"
+  battle_area_polygon_point__id:t="point8"
+  battle_area_polygon_point__nextId:t="point9"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-253.982, 3.26374, 692.708]]
+  battle_area_polygon_point__forBattleAreaId:t="4a_area1"
+  battle_area_polygon_point__id:t="point9"
+  battle_area_polygon_point__nextId:t="point1"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-684.757, 3.31256, 503.414]]
+  battle_area_polygon_point__forBattleAreaId:t="4a_area2"
+  battle_area_polygon_point__id:t="point1"
+  battle_area_polygon_point__nextId:t="point2"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-589.857, -2.32784, 370.298]]
+  battle_area_polygon_point__forBattleAreaId:t="4a_area2"
+  battle_area_polygon_point__id:t="point2"
+  battle_area_polygon_point__nextId:t="point3"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-430.55, 3.42757, 508.046]]
+  battle_area_polygon_point__forBattleAreaId:t="4a_area2"
+  battle_area_polygon_point__id:t="point3"
+  battle_area_polygon_point__nextId:t="point4"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-371.002, 3.25752, 595.071]]
+  battle_area_polygon_point__forBattleAreaId:t="4a_area2"
+  battle_area_polygon_point__id:t="point4"
+  battle_area_polygon_point__nextId:t="point5"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-440.301, 3.25752, 647.133]]
+  battle_area_polygon_point__forBattleAreaId:t="4a_area2"
+  battle_area_polygon_point__id:t="point5"
+  battle_area_polygon_point__nextId:t="point6"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-459.613, 3.29864, 681.956]]
+  battle_area_polygon_point__forBattleAreaId:t="4a_area2"
+  battle_area_polygon_point__id:t="point6"
+  battle_area_polygon_point__nextId:t="point7"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-564.753, 3.29864, 703.5]]
+  battle_area_polygon_point__forBattleAreaId:t="4a_area2"
+  battle_area_polygon_point__id:t="point7"
+  battle_area_polygon_point__nextId:t="point8"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-588.267, -0.924737, 605.735]]
+  battle_area_polygon_point__forBattleAreaId:t="4a_area2"
+  battle_area_polygon_point__id:t="point8"
+  battle_area_polygon_point__nextId:t="point1"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-253.517, 3.29863, 850.946]]
+  battle_area_polygon_point__forBattleAreaId:t="4b_area1"
+  battle_area_polygon_point__id:t="point1"
+  battle_area_polygon_point__nextId:t="point2"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-504.839, 3.29863, 843.483]]
+  battle_area_polygon_point__forBattleAreaId:t="4b_area1"
+  battle_area_polygon_point__id:t="point2"
+  battle_area_polygon_point__nextId:t="point3"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-544.627, 3.30663, 770.171]]
+  battle_area_polygon_point__forBattleAreaId:t="4b_area1"
+  battle_area_polygon_point__id:t="point3"
+  battle_area_polygon_point__nextId:t="point4"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-579.499, 3.29846, 630.836]]
+  battle_area_polygon_point__forBattleAreaId:t="4b_area1"
+  battle_area_polygon_point__id:t="point4"
+  battle_area_polygon_point__nextId:t="point5"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-521.605, 3.29846, 613.771]]
+  battle_area_polygon_point__forBattleAreaId:t="4b_area1"
+  battle_area_polygon_point__id:t="point5"
+  battle_area_polygon_point__nextId:t="point6"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-499.082, 3.29846, 572.091]]
+  battle_area_polygon_point__forBattleAreaId:t="4b_area1"
+  battle_area_polygon_point__id:t="point6"
+  battle_area_polygon_point__nextId:t="point7"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-430.499, 3.29846, 508.043]]
+  battle_area_polygon_point__forBattleAreaId:t="4b_area1"
+  battle_area_polygon_point__id:t="point7"
+  battle_area_polygon_point__nextId:t="point8"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-349.486, 3.26374, 625.964]]
+  battle_area_polygon_point__forBattleAreaId:t="4b_area1"
+  battle_area_polygon_point__id:t="point8"
+  battle_area_polygon_point__nextId:t="point9"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-253.982, 3.26374, 692.708]]
+  battle_area_polygon_point__forBattleAreaId:t="4b_area1"
+  battle_area_polygon_point__id:t="point9"
+  battle_area_polygon_point__nextId:t="point1"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-673.433, 3.31256, 515.322]]
+  battle_area_polygon_point__forBattleAreaId:t="4b_area2"
+  battle_area_polygon_point__id:t="point1"
+  battle_area_polygon_point__nextId:t="point2"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-570.337, -2.32784, 382.152]]
+  battle_area_polygon_point__forBattleAreaId:t="4b_area2"
+  battle_area_polygon_point__id:t="point2"
+  battle_area_polygon_point__nextId:t="point3"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-430.55, 3.42757, 508.046]]
+  battle_area_polygon_point__forBattleAreaId:t="4b_area2"
+  battle_area_polygon_point__id:t="point3"
+  battle_area_polygon_point__nextId:t="point4"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-371.137, 3.25752, 594.822]]
+  battle_area_polygon_point__forBattleAreaId:t="4b_area2"
+  battle_area_polygon_point__id:t="point4"
+  battle_area_polygon_point__nextId:t="point5"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-440.483, 3.25752, 646.885]]
+  battle_area_polygon_point__forBattleAreaId:t="4b_area2"
+  battle_area_polygon_point__id:t="point5"
+  battle_area_polygon_point__nextId:t="point6"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-458.558, 3.29864, 688.026]]
+  battle_area_polygon_point__forBattleAreaId:t="4b_area2"
+  battle_area_polygon_point__id:t="point6"
+  battle_area_polygon_point__nextId:t="point7"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-555.128, 3.29864, 712.476]]
+  battle_area_polygon_point__forBattleAreaId:t="4b_area2"
+  battle_area_polygon_point__id:t="point7"
+  battle_area_polygon_point__nextId:t="point8"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-588.267, -0.924737, 605.735]]
+  battle_area_polygon_point__forBattleAreaId:t="4b_area2"
+  battle_area_polygon_point__id:t="point8"
+  battle_area_polygon_point__nextId:t="point1"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[0.743249, 0.0, 0.669015] [0.0, 1.0, 0.0] [-0.669015, 0.0, 0.743249] [-511.052, 3.30368, 837.871]]
+  battle_area_polygon_point__forBattleAreaId:t="3_area1"
+  battle_area_polygon_point__id:t="point1"
+  battle_area_polygon_point__nextId:t="point2"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[0.743249, 0.0, 0.669015] [0.0, 1.0, 0.0] [-0.669015, 0.0, 0.743249] [-551.227, 3.30368, 759.081]]
+  battle_area_polygon_point__forBattleAreaId:t="3_area1"
+  battle_area_polygon_point__id:t="point2"
+  battle_area_polygon_point__nextId:t="point3"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[0.21857, 0.0, 0.975822] [0.0, 1.0, 0.0] [-0.975822, 0.0, 0.21857] [-560.741, 1.50723, 722.593]]
+  battle_area_polygon_point__forBattleAreaId:t="3_area1"
+  battle_area_polygon_point__id:t="point3"
+  battle_area_polygon_point__nextId:t="point4"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[0.872419, 0.0, -0.488759] [0.0, 1.0, 0.0] [0.488759, 0.0, 0.872419] [-406.608, 3.19952, 649.953]]
+  battle_area_polygon_point__forBattleAreaId:t="3_area1"
+  battle_area_polygon_point__id:t="point4"
+  battle_area_polygon_point__nextId:t="point5"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[0.743249, 0.0, 0.669015] [0.0, 1.0, 0.0] [-0.669015, 0.0, 0.743249] [-361.781, -3.24627, 606.079]]
+  battle_area_polygon_point__forBattleAreaId:t="3_area1"
+  battle_area_polygon_point__id:t="point5"
+  battle_area_polygon_point__nextId:t="point6"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[0.743249, 0.0, 0.669015] [0.0, 1.0, 0.0] [-0.669015, 0.0, 0.743249] [-348.655, 3.29864, 627.487]]
+  battle_area_polygon_point__forBattleAreaId:t="3_area1"
+  battle_area_polygon_point__id:t="point6"
+  battle_area_polygon_point__nextId:t="point7"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[0.743249, 0.0, 0.669015] [0.0, 1.0, 0.0] [-0.669015, 0.0, 0.743249] [-253.833, 3.29864, 692.888]]
+  battle_area_polygon_point__forBattleAreaId:t="3_area1"
+  battle_area_polygon_point__id:t="point7"
+  battle_area_polygon_point__nextId:t="point8"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[0.998814, 0.0, 0.0486864] [0.0, 1.0, 0.0] [-0.0486864, 0.0, 0.998814] [-255.731, 3.29864, 935.529]]
+  battle_area_polygon_point__forBattleAreaId:t="3_area1"
+  battle_area_polygon_point__id:t="point8"
+  battle_area_polygon_point__nextId:t="point9"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[-0.167039, 0.0, 0.98595] [0.0, 1.0, 0.0] [-0.98595, 0.0, -0.167039] [-481.506, 3.29864, 935.278]]
+  battle_area_polygon_point__forBattleAreaId:t="3_area1"
+  battle_area_polygon_point__id:t="point9"
+  battle_area_polygon_point__nextId:t="point1"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-290.231, 3.20111, 667.456]]
+  battle_area_polygon_point__forBattleAreaId:t="3_area2"
+  battle_area_polygon_point__id:t="point1"
+  battle_area_polygon_point__nextId:t="point2"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-340.925, 0.538459, 747.629]]
+  battle_area_polygon_point__forBattleAreaId:t="3_area2"
+  battle_area_polygon_point__id:t="point2"
+  battle_area_polygon_point__nextId:t="point3"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-453.468, 3.29999, 741.02]]
+  battle_area_polygon_point__forBattleAreaId:t="3_area2"
+  battle_area_polygon_point__id:t="point3"
+  battle_area_polygon_point__nextId:t="point4"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[0.973931, 0.0, -0.226843] [0.0, 1.0, 0.0] [0.226843, 0.0, 0.973931] [-558.05, 3.3, 732.523]]
+  battle_area_polygon_point__forBattleAreaId:t="3_area2"
+  battle_area_polygon_point__id:t="point4"
+  battle_area_polygon_point__nextId:t="point5"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-599.595, 3.42937, 556.991]]
+  battle_area_polygon_point__forBattleAreaId:t="3_area2"
+  battle_area_polygon_point__id:t="point5"
+  battle_area_polygon_point__nextId:t="point6"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-514.805, -1.3098, 426.757]]
+  battle_area_polygon_point__forBattleAreaId:t="3_area2"
+  battle_area_polygon_point__id:t="point6"
+  battle_area_polygon_point__nextId:t="point7"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-430.808, -1.09986, 507.631]]
+  battle_area_polygon_point__forBattleAreaId:t="3_area2"
+  battle_area_polygon_point__id:t="point7"
+  battle_area_polygon_point__nextId:t="point8"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-348.862, -1.09986, 626.988]]
+  battle_area_polygon_point__forBattleAreaId:t="3_area2"
+  battle_area_polygon_point__id:t="point8"
+  battle_area_polygon_point__nextId:t="point1"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[0.743249, 0.0, 0.669015] [0.0, 1.0, 0.0] [-0.669015, 0.0, 0.743249] [-387.152, 3.30368, 1016.08]]
+  battle_area_polygon_point__forBattleAreaId:t="2a_area1"
+  battle_area_polygon_point__id:t="point1"
+  battle_area_polygon_point__nextId:t="point2"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[0.743249, 0.0, 0.669015] [0.0, 1.0, 0.0] [-0.669015, 0.0, 0.743249] [-484.802, 3.30368, 997.336]]
+  battle_area_polygon_point__forBattleAreaId:t="2a_area1"
+  battle_area_polygon_point__id:t="point2"
+  battle_area_polygon_point__nextId:t="point3"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[0.743249, 0.0, 0.669015] [0.0, 1.0, 0.0] [-0.669015, 0.0, 0.743249] [-483.716, 3.30368, 943.757]]
+  battle_area_polygon_point__forBattleAreaId:t="2a_area1"
+  battle_area_polygon_point__id:t="point3"
+  battle_area_polygon_point__nextId:t="point4"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[0.743249, 0.0, 0.669015] [0.0, 1.0, 0.0] [-0.669015, 0.0, 0.743249] [-510.768, 3.30368, 837.911]]
+  battle_area_polygon_point__forBattleAreaId:t="2a_area1"
+  battle_area_polygon_point__id:t="point4"
+  battle_area_polygon_point__nextId:t="point5"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[0.743249, 0.0, 0.669015] [0.0, 1.0, 0.0] [-0.669015, 0.0, 0.743249] [-550.898, 3.30368, 758.945]]
+  battle_area_polygon_point__forBattleAreaId:t="2a_area1"
+  battle_area_polygon_point__id:t="point5"
+  battle_area_polygon_point__nextId:t="point6"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[0.743249, 0.0, 0.669015] [0.0, 1.0, 0.0] [-0.669015, 0.0, 0.743249] [-478.276, 3.30519, 726.374]]
+  battle_area_polygon_point__forBattleAreaId:t="2a_area1"
+  battle_area_polygon_point__id:t="point6"
+  battle_area_polygon_point__nextId:t="point7"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[0.999993, 0.0, 0.00374891] [0.0, 1.0, 0.0] [-0.00374891, 0.0, 0.999993] [-253.974, 3.30053, 742.532]]
+  battle_area_polygon_point__forBattleAreaId:t="2a_area1"
+  battle_area_polygon_point__id:t="point7"
+  battle_area_polygon_point__nextId:t="point8"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[0.743249, 0.0, 0.669015] [0.0, 1.0, 0.0] [-0.669015, 0.0, 0.743249] [-252.415, 3.29864, 1024.17]]
+  battle_area_polygon_point__forBattleAreaId:t="2a_area1"
+  battle_area_polygon_point__id:t="point8"
+  battle_area_polygon_point__nextId:t="point1"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-252.941, 3.20111, 849.525]]
+  battle_area_polygon_point__forBattleAreaId:t="2a_area2"
+  battle_area_polygon_point__id:t="point1"
+  battle_area_polygon_point__nextId:t="point2"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-510.93, 0.538459, 838.22]]
+  battle_area_polygon_point__forBattleAreaId:t="2a_area2"
+  battle_area_polygon_point__id:t="point2"
+  battle_area_polygon_point__nextId:t="point3"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-551.195, 3.29999, 758.985]]
+  battle_area_polygon_point__forBattleAreaId:t="2a_area2"
+  battle_area_polygon_point__id:t="point3"
+  battle_area_polygon_point__nextId:t="point4"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-575.865, 3.3, 654.844]]
+  battle_area_polygon_point__forBattleAreaId:t="2a_area2"
+  battle_area_polygon_point__id:t="point4"
+  battle_area_polygon_point__nextId:t="point5"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-419.377, 3.42937, 525.129]]
+  battle_area_polygon_point__forBattleAreaId:t="2a_area2"
+  battle_area_polygon_point__id:t="point5"
+  battle_area_polygon_point__nextId:t="point6"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-349.086, -1.3098, 627.552]]
+  battle_area_polygon_point__forBattleAreaId:t="2a_area2"
+  battle_area_polygon_point__id:t="point6"
+  battle_area_polygon_point__nextId:t="point7"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-253.933, -1.09986, 692.721]]
+  battle_area_polygon_point__forBattleAreaId:t="2a_area2"
+  battle_area_polygon_point__id:t="point7"
+  battle_area_polygon_point__nextId:t="point1"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[0.743249, 0.0, 0.669015] [0.0, 1.0, 0.0] [-0.669015, 0.0, 0.743249] [-387.152, 3.30368, 1016.08]]
+  battle_area_polygon_point__forBattleAreaId:t="2b_area1"
+  battle_area_polygon_point__id:t="point1"
+  battle_area_polygon_point__nextId:t="point2"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[0.743249, 0.0, 0.669015] [0.0, 1.0, 0.0] [-0.669015, 0.0, 0.743249] [-484.802, 3.30368, 997.336]]
+  battle_area_polygon_point__forBattleAreaId:t="2b_area1"
+  battle_area_polygon_point__id:t="point2"
+  battle_area_polygon_point__nextId:t="point3"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[0.743249, 0.0, 0.669015] [0.0, 1.0, 0.0] [-0.669015, 0.0, 0.743249] [-483.716, 3.30368, 943.757]]
+  battle_area_polygon_point__forBattleAreaId:t="2b_area1"
+  battle_area_polygon_point__id:t="point3"
+  battle_area_polygon_point__nextId:t="point4"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[0.743249, 0.0, 0.669015] [0.0, 1.0, 0.0] [-0.669015, 0.0, 0.743249] [-516.779, 3.30368, 824.955]]
+  battle_area_polygon_point__forBattleAreaId:t="2b_area1"
+  battle_area_polygon_point__id:t="point4"
+  battle_area_polygon_point__nextId:t="point5"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[0.743249, 0.0, 0.669015] [0.0, 1.0, 0.0] [-0.669015, 0.0, 0.743249] [-550.898, 3.30368, 758.945]]
+  battle_area_polygon_point__forBattleAreaId:t="2b_area1"
+  battle_area_polygon_point__id:t="point5"
+  battle_area_polygon_point__nextId:t="point6"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[0.743249, 0.0, 0.669015] [0.0, 1.0, 0.0] [-0.669015, 0.0, 0.743249] [-564.692, 3.30519, 703.492]]
+  battle_area_polygon_point__forBattleAreaId:t="2b_area1"
+  battle_area_polygon_point__id:t="point6"
+  battle_area_polygon_point__nextId:t="point7"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[0.743249, 0.0, 0.669015] [0.0, 1.0, 0.0] [-0.669015, 0.0, 0.743249] [-253.887, 3.30053, 719.523]]
+  battle_area_polygon_point__forBattleAreaId:t="2b_area1"
+  battle_area_polygon_point__id:t="point7"
+  battle_area_polygon_point__nextId:t="point8"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[0.743249, 0.0, 0.669015] [0.0, 1.0, 0.0] [-0.669015, 0.0, 0.743249] [-252.415, 3.29864, 1024.17]]
+  battle_area_polygon_point__forBattleAreaId:t="2b_area1"
+  battle_area_polygon_point__id:t="point8"
+  battle_area_polygon_point__nextId:t="point1"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-252.941, 3.20111, 827.935]]
+  battle_area_polygon_point__forBattleAreaId:t="2b_area2"
+  battle_area_polygon_point__id:t="point1"
+  battle_area_polygon_point__nextId:t="point2"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-515.371, 0.538459, 828.016]]
+  battle_area_polygon_point__forBattleAreaId:t="2b_area2"
+  battle_area_polygon_point__id:t="point2"
+  battle_area_polygon_point__nextId:t="point3"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-551.195, 3.29999, 758.985]]
+  battle_area_polygon_point__forBattleAreaId:t="2b_area2"
+  battle_area_polygon_point__id:t="point3"
+  battle_area_polygon_point__nextId:t="point4"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[0.968076, 0.0, -0.250656] [0.0, 1.0, 0.0] [0.250656, 0.0, 0.968076] [-579.19, 3.3, 642.002]]
+  battle_area_polygon_point__forBattleAreaId:t="2b_area2"
+  battle_area_polygon_point__id:t="point4"
+  battle_area_polygon_point__nextId:t="point5"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-419.377, 3.42937, 525.129]]
+  battle_area_polygon_point__forBattleAreaId:t="2b_area2"
+  battle_area_polygon_point__id:t="point5"
+  battle_area_polygon_point__nextId:t="point6"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-349.086, -1.3098, 627.552]]
+  battle_area_polygon_point__forBattleAreaId:t="2b_area2"
+  battle_area_polygon_point__id:t="point6"
+  battle_area_polygon_point__nextId:t="point7"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-253.933, -1.09986, 692.721]]
+  battle_area_polygon_point__forBattleAreaId:t="2b_area2"
+  battle_area_polygon_point__id:t="point7"
+  battle_area_polygon_point__nextId:t="point1"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-252.683, 3.00711, 1024.37]]
+  battle_area_polygon_point__forBattleAreaId:t="1a_area1"
+  battle_area_polygon_point__id:t="point1"
+  battle_area_polygon_point__nextId:t="point2"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-387.165, 3.52678, 1016.01]]
+  battle_area_polygon_point__forBattleAreaId:t="1a_area1"
+  battle_area_polygon_point__id:t="point2"
+  battle_area_polygon_point__nextId:t="point3"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-484.914, 3.52678, 997.353]]
+  battle_area_polygon_point__forBattleAreaId:t="1a_area1"
+  battle_area_polygon_point__id:t="point3"
+  battle_area_polygon_point__nextId:t="point4"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-483.647, 3.52678, 943.898]]
+  battle_area_polygon_point__forBattleAreaId:t="1a_area1"
+  battle_area_polygon_point__id:t="point4"
+  battle_area_polygon_point__nextId:t="point5"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-499.561, 3.52678, 883.091]]
+  battle_area_polygon_point__forBattleAreaId:t="1a_area1"
+  battle_area_polygon_point__id:t="point5"
+  battle_area_polygon_point__nextId:t="point6"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-506.617, 3.52678, 861.564]]
+  battle_area_polygon_point__forBattleAreaId:t="1a_area1"
+  battle_area_polygon_point__id:t="point6"
+  battle_area_polygon_point__nextId:t="point7"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-511.256, 3.1995, 850.373]]
+  battle_area_polygon_point__forBattleAreaId:t="1a_area1"
+  battle_area_polygon_point__id:t="point7"
+  battle_area_polygon_point__nextId:t="point8"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-253.574, 3.30047, 862.836]]
+  battle_area_polygon_point__forBattleAreaId:t="1a_area1"
+  battle_area_polygon_point__id:t="point8"
+  battle_area_polygon_point__nextId:t="point1"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-253.401, 3.29059, 950.293]]
+  battle_area_polygon_point__forBattleAreaId:t="1a_area2"
+  battle_area_polygon_point__id:t="point1"
+  battle_area_polygon_point__nextId:t="point2"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-484.949, 3.24389, 938.086]]
+  battle_area_polygon_point__forBattleAreaId:t="1a_area2"
+  battle_area_polygon_point__id:t="point2"
+  battle_area_polygon_point__nextId:t="point3"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-499.724, 3.66207, 882.71]]
+  battle_area_polygon_point__forBattleAreaId:t="1a_area2"
+  battle_area_polygon_point__id:t="point3"
+  battle_area_polygon_point__nextId:t="point4"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-510.788, 3.3261, 837.987]]
+  battle_area_polygon_point__forBattleAreaId:t="1a_area2"
+  battle_area_polygon_point__id:t="point4"
+  battle_area_polygon_point__nextId:t="point5"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-550.922, 3.3261, 759.019]]
+  battle_area_polygon_point__forBattleAreaId:t="1a_area2"
+  battle_area_polygon_point__id:t="point5"
+  battle_area_polygon_point__nextId:t="point6"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-566.38, 3.3261, 697.593]]
+  battle_area_polygon_point__forBattleAreaId:t="1a_area2"
+  battle_area_polygon_point__id:t="point6"
+  battle_area_polygon_point__nextId:t="point7"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-310.942, 3.19367, 652.686]]
+  battle_area_polygon_point__forBattleAreaId:t="1a_area2"
+  battle_area_polygon_point__id:t="point7"
+  battle_area_polygon_point__nextId:t="point8"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-253.784, 4.06082, 692.5]]
+  battle_area_polygon_point__forBattleAreaId:t="1a_area2"
+  battle_area_polygon_point__id:t="point8"
+  battle_area_polygon_point__nextId:t="point1"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-252.683, 3.00711, 1024.37]]
+  battle_area_polygon_point__forBattleAreaId:t="1b_area1"
+  battle_area_polygon_point__id:t="point1"
+  battle_area_polygon_point__nextId:t="point2"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-387.165, 3.52678, 1016.01]]
+  battle_area_polygon_point__forBattleAreaId:t="1b_area1"
+  battle_area_polygon_point__id:t="point2"
+  battle_area_polygon_point__nextId:t="point3"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-484.914, 3.52678, 997.353]]
+  battle_area_polygon_point__forBattleAreaId:t="1b_area1"
+  battle_area_polygon_point__id:t="point3"
+  battle_area_polygon_point__nextId:t="point4"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-483.647, 3.52678, 943.898]]
+  battle_area_polygon_point__forBattleAreaId:t="1b_area1"
+  battle_area_polygon_point__id:t="point4"
+  battle_area_polygon_point__nextId:t="point5"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-499.561, 3.52678, 883.091]]
+  battle_area_polygon_point__forBattleAreaId:t="1b_area1"
+  battle_area_polygon_point__id:t="point5"
+  battle_area_polygon_point__nextId:t="point6"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-511.086, 3.52678, 838.56]]
+  battle_area_polygon_point__forBattleAreaId:t="1b_area1"
+  battle_area_polygon_point__id:t="point6"
+  battle_area_polygon_point__nextId:t="point7"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[0.997325, 0.0, 0.073102] [0.0, 1.0, 0.0] [-0.0731019, 0.0, 0.997324] [-518.254, 3.1995, 822.633]]
+  battle_area_polygon_point__forBattleAreaId:t="1b_area1"
+  battle_area_polygon_point__id:t="point7"
+  battle_area_polygon_point__nextId:t="point8"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-420.461, 3.30047, 827.722]]
+  battle_area_polygon_point__forBattleAreaId:t="1b_area1"
+  battle_area_polygon_point__id:t="point8"
+  battle_area_polygon_point__nextId:t="point9"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-374.174, 4.38244, 853.599]]
+  battle_area_polygon_point__forBattleAreaId:t="1b_area1"
+  battle_area_polygon_point__id:t="point9"
+  battle_area_polygon_point__nextId:t="point10"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-254.702, 3.19386, 860.956]]
+  battle_area_polygon_point__forBattleAreaId:t="1b_area1"
+  battle_area_polygon_point__id:t="point10"
+  battle_area_polygon_point__nextId:t="point1"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-253.401, 3.29059, 950.293]]
+  battle_area_polygon_point__forBattleAreaId:t="1b_area2"
+  battle_area_polygon_point__id:t="point1"
+  battle_area_polygon_point__nextId:t="point2"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-484.949, 3.24389, 938.086]]
+  battle_area_polygon_point__forBattleAreaId:t="1b_area2"
+  battle_area_polygon_point__id:t="point2"
+  battle_area_polygon_point__nextId:t="point3"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-499.724, 3.66207, 882.71]]
+  battle_area_polygon_point__forBattleAreaId:t="1b_area2"
+  battle_area_polygon_point__id:t="point3"
+  battle_area_polygon_point__nextId:t="point4"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-510.788, 3.3261, 837.987]]
+  battle_area_polygon_point__forBattleAreaId:t="1b_area2"
+  battle_area_polygon_point__id:t="point4"
+  battle_area_polygon_point__nextId:t="point5"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-550.922, 3.3261, 759.019]]
+  battle_area_polygon_point__forBattleAreaId:t="1b_area2"
+  battle_area_polygon_point__id:t="point5"
+  battle_area_polygon_point__nextId:t="point6"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-566.38, 3.3261, 697.593]]
+  battle_area_polygon_point__forBattleAreaId:t="1b_area2"
+  battle_area_polygon_point__id:t="point6"
+  battle_area_polygon_point__nextId:t="point7"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-310.942, 3.19367, 652.686]]
+  battle_area_polygon_point__forBattleAreaId:t="1b_area2"
+  battle_area_polygon_point__id:t="point7"
+  battle_area_polygon_point__nextId:t="point8"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-253.784, 4.06082, 692.5]]
+  battle_area_polygon_point__forBattleAreaId:t="1b_area2"
+  battle_area_polygon_point__id:t="point8"
+  battle_area_polygon_point__nextId:t="point1"
+}
+
+entity{
+  _template:t="poly_battle_area"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-422.855, 3.11635, 587.561]]
+  battleAreaId:t="5_area1"
+  battle_area__team:i=1
+  groupName:t="sector_5"
+  active:b=no
+}
+
+entity{
+  _template:t="poly_battle_area"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-318.03, 3.25957, 374.885]]
+  battleAreaId:t="5_area2"
+  battle_area__team:i=2
+  groupName:t="sector_5"
+  active:b=no
+}
+
+entity{
+  _template:t="poly_battle_area"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-317.47, 3.25957, 376.831]]
+  battleAreaId:t="4a_area1"
+  battle_area__team:i=1
+  groupName:t="sector_4_a"
+  active:b=no
+}
+
+entity{
+  _template:t="poly_battle_area"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-313.15, 3.25957, 372.804]]
+  battleAreaId:t="4a_area2"
+  battle_area__team:i=2
+  groupName:t="sector_4_a"
+  active:b=no
+}
+
+entity{
+  _template:t="poly_battle_area"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-317.47, 3.25957, 376.831]]
+  battleAreaId:t="4b_area1"
+  battle_area__team:i=1
+  groupName:t="sector_4_b"
+  active:b=no
+}
+
+entity{
+  _template:t="poly_battle_area"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-313.15, 3.25957, 372.804]]
+  battleAreaId:t="4b_area2"
+  battle_area__team:i=2
+  groupName:t="sector_4_b"
+  active:b=no
+}
+
+entity{
+  _template:t="poly_battle_area"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-291.104, 3.29863, 276.27]]
+  battleAreaId:t="3_area1"
+  groupName:t="sector_3"
+  battle_area__team:i=1
+  active:b=no
+}
+
+entity{
+  _template:t="poly_battle_area"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-408.525, 3.1995, 676.293]]
+  battleAreaId:t="3_area2"
+  groupName:t="sector_3"
+  battle_area__team:i=2
+  active:b=no
+}
+
+entity{
+  _template:t="poly_battle_area"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-291.104, 3.29863, 276.27]]
+  battleAreaId:t="2a_area1"
+  groupName:t="sector_2_a"
+  battle_area__team:i=1
+  active:b=no
+}
+
+entity{
+  _template:t="poly_battle_area"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-408.525, 3.1995, 676.293]]
+  battleAreaId:t="2a_area2"
+  groupName:t="sector_2_a"
+  battle_area__team:i=2
+  active:b=no
+}
+
+entity{
+  _template:t="poly_battle_area"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-291.104, 3.29863, 276.27]]
+  battleAreaId:t="2b_area1"
+  groupName:t="sector_2_b"
+  battle_area__team:i=1
+  active:b=no
+}
+
+entity{
+  _template:t="poly_battle_area"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-408.525, 3.1995, 676.293]]
+  battleAreaId:t="2b_area2"
+  groupName:t="sector_2_b"
+  battle_area__team:i=2
+  active:b=no
+}
+
+entity{
+  _template:t="poly_battle_area"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-392.462, 3.19951, 747.883]]
+  battleAreaId:t="1a_area1"
+  groupName:t="sector_1_a"
+  battle_area__team:i=1
+  active:b=no
+}
+
+entity{
+  _template:t="poly_battle_area"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-392.522, 3.19951, 750.648]]
+  battleAreaId:t="1a_area2"
+  battle_area__team:i=2
+  groupName:t="sector_1_a"
+  active:b=no
+}
+
+entity{
+  _template:t="poly_battle_area"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-392.462, 3.19951, 747.883]]
+  battleAreaId:t="1b_area1"
+  groupName:t="sector_1_b"
+  battle_area__team:i=1
+  active:b=no
+}
+
+entity{
+  _template:t="poly_battle_area"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-392.522, 3.19951, 750.648]]
+  battleAreaId:t="1b_area2"
+  battle_area__team:i=2
+  groupName:t="sector_1_b"
+  active:b=no
+}
+
+entity{
+  _template:t="aircraft_box_battle_area"
+  transform:m=[[25814.7, 0.0, 112.793] [0.0, 8000.36, 0.0] [-111.84, 0.0, 25814.3] [-123.334, 240.916, 421.197]]
+  battle_area__team:i=-1
 }
 
 entity{
@@ -821,7 +2007,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respVehicle"
-  transform:m=[[0.486085, 0.0, 0.873913] [0.0, 1.0, 0.0] [-0.873913, 0.0, 0.486085] [-395.997, 4.3436, 682.044]]
+  transform:m=[[0.176109, 0.0, 0.984372] [0.0, 1.0, -0.0] [-0.984372, 0.0, 0.176109] [-368.302, 3.54687, 719.364]]
   team:i=2
   groupName:t="sector_1_a"
   respTime:i=150
@@ -903,19 +2089,13 @@ entity{
 
 entity{
   _template:t="respawnChooser+respVehicle"
-  transform:m=[[0.486085, 0.0, 0.873913] [0.0, 1.0, 0.0] [-0.873913, 0.0, 0.486085] [-395.388, 4.3436, 683.023]]
+  transform:m=[[-0.997337, 0.0, 0.0729515] [0.0, 1.0, 0.0] [-0.0729515, 0.0, -0.997337] [-395.835, 3.4508, 719.604]]
   team:i=2
   groupName:t="sector_1_b"
   respTime:i=150
   maxVehicleOnSpawn:i=2
   active:b=no
   respawnBaseGroup:i=1
-}
-
-entity{
-  _template:t="aircraft_box_battle_area"
-  transform:m=[[25814.7, 0.0, 112.793] [0.0, 8000.36, 0.0] [-111.84, 0.0, 25814.3] [-123.334, 240.916, 421.197]]
-  battle_area__team:i=-1
 }
 
 entity{
@@ -1000,1174 +2180,6 @@ entity{
   team:i=1
   maxVehicleOnSpawn:i=1
   respTime:i=120
-}
-
-entity{
-  _template:t="poly_battle_area"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-422.855, 3.11635, 587.561]]
-  battleAreaId:t="5_area1"
-  battle_area__team:i=1
-  groupName:t="sector_5"
-  active:b=no
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-532.227, -3.56172, 413.78]]
-  battle_area_polygon_point__forBattleAreaId:t="5_area1"
-  battle_area_polygon_point__id:t="point1"
-  battle_area_polygon_point__nextId:t="point2"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-435.21, -3.56172, 499.094]]
-  battle_area_polygon_point__forBattleAreaId:t="5_area1"
-  battle_area_polygon_point__id:t="point2"
-  battle_area_polygon_point__nextId:t="point3"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-348.553, -6.31248, 626.832]]
-  battle_area_polygon_point__forBattleAreaId:t="5_area1"
-  battle_area_polygon_point__id:t="point3"
-  battle_area_polygon_point__nextId:t="point4"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-547.069, 3.29846, 765.99]]
-  battle_area_polygon_point__forBattleAreaId:t="5_area1"
-  battle_area_polygon_point__id:t="point4"
-  battle_area_polygon_point__nextId:t="point5"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-588.242, -1.3885, 605.766]]
-  battle_area_polygon_point__forBattleAreaId:t="5_area1"
-  battle_area_polygon_point__id:t="point5"
-  battle_area_polygon_point__nextId:t="point6"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-633.553, -1.3885, 558.224]]
-  battle_area_polygon_point__forBattleAreaId:t="5_area1"
-  battle_area_polygon_point__id:t="point6"
-  battle_area_polygon_point__nextId:t="point1"
-}
-
-entity{
-  _template:t="poly_battle_area"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-318.03, 3.25957, 374.885]]
-  battleAreaId:t="5_area2"
-  battle_area__team:i=2
-  groupName:t="sector_5"
-  active:b=no
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-468.252, -2.97419, 540.966]]
-  battle_area_polygon_point__forBattleAreaId:t="5_area2"
-  battle_area_polygon_point__id:t="point1"
-  battle_area_polygon_point__nextId:t="point2"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-597.885, 3.57157, 595.513]]
-  battle_area_polygon_point__forBattleAreaId:t="5_area2"
-  battle_area_polygon_point__id:t="point2"
-  battle_area_polygon_point__nextId:t="point3"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-597.885, 3.57157, 595.513]]
-  battle_area_polygon_point__forBattleAreaId:t="5_area2"
-  battle_area_polygon_point__id:t="point3"
-  battle_area_polygon_point__nextId:t="point4"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-700.957, 3.29326, 488.419]]
-  battle_area_polygon_point__forBattleAreaId:t="5_area2"
-  battle_area_polygon_point__id:t="point4"
-  battle_area_polygon_point__nextId:t="point5"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-622.785, 2.31469, 369.06]]
-  battle_area_polygon_point__forBattleAreaId:t="5_area2"
-  battle_area_polygon_point__id:t="point5"
-  battle_area_polygon_point__nextId:t="point6"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-532.5, -2.34683, 413.587]]
-  battle_area_polygon_point__forBattleAreaId:t="5_area2"
-  battle_area_polygon_point__id:t="point6"
-  battle_area_polygon_point__nextId:t="point7"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-438.924, 3.29834, 496.026]]
-  battle_area_polygon_point__forBattleAreaId:t="5_area2"
-  battle_area_polygon_point__id:t="point7"
-  battle_area_polygon_point__nextId:t="point1"
-}
-
-entity{
-  _template:t="poly_battle_area"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-317.47, 3.25957, 376.831]]
-  battleAreaId:t="4a_area1"
-  battle_area__team:i=1
-  groupName:t="sector_4_a"
-  active:b=no
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-253.517, 3.29863, 850.946]]
-  battle_area_polygon_point__forBattleAreaId:t="4a_area1"
-  battle_area_polygon_point__id:t="point1"
-  battle_area_polygon_point__nextId:t="point2"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-526.09, 3.29863, 844.738]]
-  battle_area_polygon_point__forBattleAreaId:t="4a_area1"
-  battle_area_polygon_point__id:t="point2"
-  battle_area_polygon_point__nextId:t="point3"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-569.451, 3.30663, 767.193]]
-  battle_area_polygon_point__forBattleAreaId:t="4a_area1"
-  battle_area_polygon_point__id:t="point3"
-  battle_area_polygon_point__nextId:t="point4"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-585.073, 3.29846, 631.607]]
-  battle_area_polygon_point__forBattleAreaId:t="4a_area1"
-  battle_area_polygon_point__id:t="point4"
-  battle_area_polygon_point__nextId:t="point5"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-524.573, 3.29846, 616.056]]
-  battle_area_polygon_point__forBattleAreaId:t="4a_area1"
-  battle_area_polygon_point__id:t="point5"
-  battle_area_polygon_point__nextId:t="point6"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-499.369, 3.29846, 568.409]]
-  battle_area_polygon_point__forBattleAreaId:t="4a_area1"
-  battle_area_polygon_point__id:t="point6"
-  battle_area_polygon_point__nextId:t="point7"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-430.499, 3.29846, 508.043]]
-  battle_area_polygon_point__forBattleAreaId:t="4a_area1"
-  battle_area_polygon_point__id:t="point7"
-  battle_area_polygon_point__nextId:t="point8"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-349.486, 3.26374, 625.964]]
-  battle_area_polygon_point__forBattleAreaId:t="4a_area1"
-  battle_area_polygon_point__id:t="point8"
-  battle_area_polygon_point__nextId:t="point9"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-253.982, 3.26374, 692.708]]
-  battle_area_polygon_point__forBattleAreaId:t="4a_area1"
-  battle_area_polygon_point__id:t="point9"
-  battle_area_polygon_point__nextId:t="point1"
-}
-
-entity{
-  _template:t="poly_battle_area"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-313.15, 3.25957, 372.804]]
-  battleAreaId:t="4a_area2"
-  battle_area__team:i=2
-  groupName:t="sector_4_a"
-  active:b=no
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-684.757, 3.31256, 503.414]]
-  battle_area_polygon_point__forBattleAreaId:t="4a_area2"
-  battle_area_polygon_point__id:t="point1"
-  battle_area_polygon_point__nextId:t="point2"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-589.857, -2.32784, 370.298]]
-  battle_area_polygon_point__forBattleAreaId:t="4a_area2"
-  battle_area_polygon_point__id:t="point2"
-  battle_area_polygon_point__nextId:t="point3"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-430.55, 3.42757, 508.046]]
-  battle_area_polygon_point__forBattleAreaId:t="4a_area2"
-  battle_area_polygon_point__id:t="point3"
-  battle_area_polygon_point__nextId:t="point4"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-371.002, 3.25752, 595.071]]
-  battle_area_polygon_point__forBattleAreaId:t="4a_area2"
-  battle_area_polygon_point__id:t="point4"
-  battle_area_polygon_point__nextId:t="point5"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-440.301, 3.25752, 647.133]]
-  battle_area_polygon_point__forBattleAreaId:t="4a_area2"
-  battle_area_polygon_point__id:t="point5"
-  battle_area_polygon_point__nextId:t="point6"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-459.613, 3.29864, 681.956]]
-  battle_area_polygon_point__forBattleAreaId:t="4a_area2"
-  battle_area_polygon_point__id:t="point6"
-  battle_area_polygon_point__nextId:t="point7"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-564.753, 3.29864, 703.5]]
-  battle_area_polygon_point__forBattleAreaId:t="4a_area2"
-  battle_area_polygon_point__id:t="point7"
-  battle_area_polygon_point__nextId:t="point8"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-588.267, -0.924737, 605.735]]
-  battle_area_polygon_point__forBattleAreaId:t="4a_area2"
-  battle_area_polygon_point__id:t="point8"
-  battle_area_polygon_point__nextId:t="point1"
-}
-
-entity{
-  _template:t="poly_battle_area"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-317.47, 3.25957, 376.831]]
-  battleAreaId:t="4b_area1"
-  battle_area__team:i=1
-  groupName:t="sector_4_b"
-  active:b=no
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-253.517, 3.29863, 850.946]]
-  battle_area_polygon_point__forBattleAreaId:t="4b_area1"
-  battle_area_polygon_point__id:t="point1"
-  battle_area_polygon_point__nextId:t="point2"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-504.839, 3.29863, 843.483]]
-  battle_area_polygon_point__forBattleAreaId:t="4b_area1"
-  battle_area_polygon_point__id:t="point2"
-  battle_area_polygon_point__nextId:t="point3"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-544.627, 3.30663, 770.171]]
-  battle_area_polygon_point__forBattleAreaId:t="4b_area1"
-  battle_area_polygon_point__id:t="point3"
-  battle_area_polygon_point__nextId:t="point4"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-579.499, 3.29846, 630.836]]
-  battle_area_polygon_point__forBattleAreaId:t="4b_area1"
-  battle_area_polygon_point__id:t="point4"
-  battle_area_polygon_point__nextId:t="point5"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-521.605, 3.29846, 613.771]]
-  battle_area_polygon_point__forBattleAreaId:t="4b_area1"
-  battle_area_polygon_point__id:t="point5"
-  battle_area_polygon_point__nextId:t="point6"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-499.082, 3.29846, 572.091]]
-  battle_area_polygon_point__forBattleAreaId:t="4b_area1"
-  battle_area_polygon_point__id:t="point6"
-  battle_area_polygon_point__nextId:t="point7"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-430.499, 3.29846, 508.043]]
-  battle_area_polygon_point__forBattleAreaId:t="4b_area1"
-  battle_area_polygon_point__id:t="point7"
-  battle_area_polygon_point__nextId:t="point8"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-349.486, 3.26374, 625.964]]
-  battle_area_polygon_point__forBattleAreaId:t="4b_area1"
-  battle_area_polygon_point__id:t="point8"
-  battle_area_polygon_point__nextId:t="point9"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-253.982, 3.26374, 692.708]]
-  battle_area_polygon_point__forBattleAreaId:t="4b_area1"
-  battle_area_polygon_point__id:t="point9"
-  battle_area_polygon_point__nextId:t="point1"
-}
-
-entity{
-  _template:t="poly_battle_area"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-313.15, 3.25957, 372.804]]
-  battleAreaId:t="4b_area2"
-  battle_area__team:i=2
-  groupName:t="sector_4_b"
-  active:b=no
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-673.433, 3.31256, 515.322]]
-  battle_area_polygon_point__forBattleAreaId:t="4b_area2"
-  battle_area_polygon_point__id:t="point1"
-  battle_area_polygon_point__nextId:t="point2"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-570.337, -2.32784, 382.152]]
-  battle_area_polygon_point__forBattleAreaId:t="4b_area2"
-  battle_area_polygon_point__id:t="point2"
-  battle_area_polygon_point__nextId:t="point3"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-430.55, 3.42757, 508.046]]
-  battle_area_polygon_point__forBattleAreaId:t="4b_area2"
-  battle_area_polygon_point__id:t="point3"
-  battle_area_polygon_point__nextId:t="point4"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-371.137, 3.25752, 594.822]]
-  battle_area_polygon_point__forBattleAreaId:t="4b_area2"
-  battle_area_polygon_point__id:t="point4"
-  battle_area_polygon_point__nextId:t="point5"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-440.483, 3.25752, 646.885]]
-  battle_area_polygon_point__forBattleAreaId:t="4b_area2"
-  battle_area_polygon_point__id:t="point5"
-  battle_area_polygon_point__nextId:t="point6"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-458.558, 3.29864, 688.026]]
-  battle_area_polygon_point__forBattleAreaId:t="4b_area2"
-  battle_area_polygon_point__id:t="point6"
-  battle_area_polygon_point__nextId:t="point7"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-555.128, 3.29864, 712.476]]
-  battle_area_polygon_point__forBattleAreaId:t="4b_area2"
-  battle_area_polygon_point__id:t="point7"
-  battle_area_polygon_point__nextId:t="point8"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-588.267, -0.924737, 605.735]]
-  battle_area_polygon_point__forBattleAreaId:t="4b_area2"
-  battle_area_polygon_point__id:t="point8"
-  battle_area_polygon_point__nextId:t="point1"
-}
-
-entity{
-  _template:t="poly_battle_area"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-291.104, 3.29863, 276.27]]
-  battleAreaId:t="3_area1"
-  groupName:t="sector_3"
-  battle_area__team:i=1
-  active:b=no
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[0.743249, 0.0, 0.669015] [0.0, 1.0, 0.0] [-0.669015, 0.0, 0.743249] [-511.052, 3.30368, 837.871]]
-  battle_area_polygon_point__forBattleAreaId:t="3_area1"
-  battle_area_polygon_point__id:t="point1"
-  battle_area_polygon_point__nextId:t="point2"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[0.743249, 0.0, 0.669015] [0.0, 1.0, 0.0] [-0.669015, 0.0, 0.743249] [-551.227, 3.30368, 759.081]]
-  battle_area_polygon_point__forBattleAreaId:t="3_area1"
-  battle_area_polygon_point__id:t="point2"
-  battle_area_polygon_point__nextId:t="point3"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[0.21857, 0.0, 0.975822] [0.0, 1.0, 0.0] [-0.975822, 0.0, 0.21857] [-560.741, 1.50723, 722.593]]
-  battle_area_polygon_point__forBattleAreaId:t="3_area1"
-  battle_area_polygon_point__id:t="point3"
-  battle_area_polygon_point__nextId:t="point4"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[0.872419, 0.0, -0.488759] [0.0, 1.0, 0.0] [0.488759, 0.0, 0.872419] [-406.608, 3.19952, 649.953]]
-  battle_area_polygon_point__forBattleAreaId:t="3_area1"
-  battle_area_polygon_point__id:t="point4"
-  battle_area_polygon_point__nextId:t="point5"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[0.743249, 0.0, 0.669015] [0.0, 1.0, 0.0] [-0.669015, 0.0, 0.743249] [-361.781, -3.24627, 606.079]]
-  battle_area_polygon_point__forBattleAreaId:t="3_area1"
-  battle_area_polygon_point__id:t="point5"
-  battle_area_polygon_point__nextId:t="point6"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[0.743249, 0.0, 0.669015] [0.0, 1.0, 0.0] [-0.669015, 0.0, 0.743249] [-348.655, 3.29864, 627.487]]
-  battle_area_polygon_point__forBattleAreaId:t="3_area1"
-  battle_area_polygon_point__id:t="point6"
-  battle_area_polygon_point__nextId:t="point7"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[0.743249, 0.0, 0.669015] [0.0, 1.0, 0.0] [-0.669015, 0.0, 0.743249] [-253.833, 3.29864, 692.888]]
-  battle_area_polygon_point__forBattleAreaId:t="3_area1"
-  battle_area_polygon_point__id:t="point7"
-  battle_area_polygon_point__nextId:t="point8"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[0.998814, 0.0, 0.0486864] [0.0, 1.0, 0.0] [-0.0486864, 0.0, 0.998814] [-255.731, 3.29864, 935.529]]
-  battle_area_polygon_point__forBattleAreaId:t="3_area1"
-  battle_area_polygon_point__id:t="point8"
-  battle_area_polygon_point__nextId:t="point9"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[-0.167039, 0.0, 0.98595] [0.0, 1.0, 0.0] [-0.98595, 0.0, -0.167039] [-481.506, 3.29864, 935.278]]
-  battle_area_polygon_point__forBattleAreaId:t="3_area1"
-  battle_area_polygon_point__id:t="point9"
-  battle_area_polygon_point__nextId:t="point1"
-}
-
-entity{
-  _template:t="poly_battle_area"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-408.525, 3.1995, 676.293]]
-  battleAreaId:t="3_area2"
-  groupName:t="sector_3"
-  battle_area__team:i=2
-  active:b=no
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-290.231, 3.20111, 667.456]]
-  battle_area_polygon_point__forBattleAreaId:t="3_area2"
-  battle_area_polygon_point__id:t="point1"
-  battle_area_polygon_point__nextId:t="point2"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-340.925, 0.538459, 747.629]]
-  battle_area_polygon_point__forBattleAreaId:t="3_area2"
-  battle_area_polygon_point__id:t="point2"
-  battle_area_polygon_point__nextId:t="point3"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-453.468, 3.29999, 741.02]]
-  battle_area_polygon_point__forBattleAreaId:t="3_area2"
-  battle_area_polygon_point__id:t="point3"
-  battle_area_polygon_point__nextId:t="point4"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[0.973931, 0.0, -0.226843] [0.0, 1.0, 0.0] [0.226843, 0.0, 0.973931] [-558.05, 3.3, 732.523]]
-  battle_area_polygon_point__forBattleAreaId:t="3_area2"
-  battle_area_polygon_point__id:t="point4"
-  battle_area_polygon_point__nextId:t="point5"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-599.595, 3.42937, 556.991]]
-  battle_area_polygon_point__forBattleAreaId:t="3_area2"
-  battle_area_polygon_point__id:t="point5"
-  battle_area_polygon_point__nextId:t="point6"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-514.805, -1.3098, 426.757]]
-  battle_area_polygon_point__forBattleAreaId:t="3_area2"
-  battle_area_polygon_point__id:t="point6"
-  battle_area_polygon_point__nextId:t="point7"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-430.808, -1.09986, 507.631]]
-  battle_area_polygon_point__forBattleAreaId:t="3_area2"
-  battle_area_polygon_point__id:t="point7"
-  battle_area_polygon_point__nextId:t="point8"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-348.862, -1.09986, 626.988]]
-  battle_area_polygon_point__forBattleAreaId:t="3_area2"
-  battle_area_polygon_point__id:t="point8"
-  battle_area_polygon_point__nextId:t="point1"
-}
-
-entity{
-  _template:t="poly_battle_area"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-291.104, 3.29863, 276.27]]
-  battleAreaId:t="2a_area1"
-  groupName:t="sector_2_a"
-  battle_area__team:i=1
-  active:b=no
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[0.743249, 0.0, 0.669015] [0.0, 1.0, 0.0] [-0.669015, 0.0, 0.743249] [-387.152, 3.30368, 1016.08]]
-  battle_area_polygon_point__forBattleAreaId:t="2a_area1"
-  battle_area_polygon_point__id:t="point1"
-  battle_area_polygon_point__nextId:t="point2"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[0.743249, 0.0, 0.669015] [0.0, 1.0, 0.0] [-0.669015, 0.0, 0.743249] [-484.802, 3.30368, 997.336]]
-  battle_area_polygon_point__forBattleAreaId:t="2a_area1"
-  battle_area_polygon_point__id:t="point2"
-  battle_area_polygon_point__nextId:t="point3"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[0.743249, 0.0, 0.669015] [0.0, 1.0, 0.0] [-0.669015, 0.0, 0.743249] [-483.716, 3.30368, 943.757]]
-  battle_area_polygon_point__forBattleAreaId:t="2a_area1"
-  battle_area_polygon_point__id:t="point3"
-  battle_area_polygon_point__nextId:t="point4"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[0.743249, 0.0, 0.669015] [0.0, 1.0, 0.0] [-0.669015, 0.0, 0.743249] [-510.768, 3.30368, 837.911]]
-  battle_area_polygon_point__forBattleAreaId:t="2a_area1"
-  battle_area_polygon_point__id:t="point4"
-  battle_area_polygon_point__nextId:t="point5"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[0.743249, 0.0, 0.669015] [0.0, 1.0, 0.0] [-0.669015, 0.0, 0.743249] [-550.898, 3.30368, 758.945]]
-  battle_area_polygon_point__forBattleAreaId:t="2a_area1"
-  battle_area_polygon_point__id:t="point5"
-  battle_area_polygon_point__nextId:t="point6"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[0.743249, 0.0, 0.669015] [0.0, 1.0, 0.0] [-0.669015, 0.0, 0.743249] [-478.276, 3.30519, 726.374]]
-  battle_area_polygon_point__forBattleAreaId:t="2a_area1"
-  battle_area_polygon_point__id:t="point6"
-  battle_area_polygon_point__nextId:t="point7"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[0.999993, 0.0, 0.00374891] [0.0, 1.0, 0.0] [-0.00374891, 0.0, 0.999993] [-253.974, 3.30053, 742.532]]
-  battle_area_polygon_point__forBattleAreaId:t="2a_area1"
-  battle_area_polygon_point__id:t="point7"
-  battle_area_polygon_point__nextId:t="point8"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[0.743249, 0.0, 0.669015] [0.0, 1.0, 0.0] [-0.669015, 0.0, 0.743249] [-252.415, 3.29864, 1024.17]]
-  battle_area_polygon_point__forBattleAreaId:t="2a_area1"
-  battle_area_polygon_point__id:t="point8"
-  battle_area_polygon_point__nextId:t="point1"
-}
-
-entity{
-  _template:t="poly_battle_area"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-408.525, 3.1995, 676.293]]
-  battleAreaId:t="2a_area2"
-  groupName:t="sector_2_a"
-  battle_area__team:i=2
-  active:b=no
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-252.941, 3.20111, 849.525]]
-  battle_area_polygon_point__forBattleAreaId:t="2a_area2"
-  battle_area_polygon_point__id:t="point1"
-  battle_area_polygon_point__nextId:t="point2"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-510.93, 0.538459, 838.22]]
-  battle_area_polygon_point__forBattleAreaId:t="2a_area2"
-  battle_area_polygon_point__id:t="point2"
-  battle_area_polygon_point__nextId:t="point3"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-551.195, 3.29999, 758.985]]
-  battle_area_polygon_point__forBattleAreaId:t="2a_area2"
-  battle_area_polygon_point__id:t="point3"
-  battle_area_polygon_point__nextId:t="point4"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-575.865, 3.3, 654.844]]
-  battle_area_polygon_point__forBattleAreaId:t="2a_area2"
-  battle_area_polygon_point__id:t="point4"
-  battle_area_polygon_point__nextId:t="point5"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-419.377, 3.42937, 525.129]]
-  battle_area_polygon_point__forBattleAreaId:t="2a_area2"
-  battle_area_polygon_point__id:t="point5"
-  battle_area_polygon_point__nextId:t="point6"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-349.086, -1.3098, 627.552]]
-  battle_area_polygon_point__forBattleAreaId:t="2a_area2"
-  battle_area_polygon_point__id:t="point6"
-  battle_area_polygon_point__nextId:t="point7"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-253.933, -1.09986, 692.721]]
-  battle_area_polygon_point__forBattleAreaId:t="2a_area2"
-  battle_area_polygon_point__id:t="point7"
-  battle_area_polygon_point__nextId:t="point1"
-}
-
-entity{
-  _template:t="poly_battle_area"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-291.104, 3.29863, 276.27]]
-  battleAreaId:t="2b_area1"
-  groupName:t="sector_2_b"
-  battle_area__team:i=1
-  active:b=no
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[0.743249, 0.0, 0.669015] [0.0, 1.0, 0.0] [-0.669015, 0.0, 0.743249] [-387.152, 3.30368, 1016.08]]
-  battle_area_polygon_point__forBattleAreaId:t="2b_area1"
-  battle_area_polygon_point__id:t="point1"
-  battle_area_polygon_point__nextId:t="point2"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[0.743249, 0.0, 0.669015] [0.0, 1.0, 0.0] [-0.669015, 0.0, 0.743249] [-484.802, 3.30368, 997.336]]
-  battle_area_polygon_point__forBattleAreaId:t="2b_area1"
-  battle_area_polygon_point__id:t="point2"
-  battle_area_polygon_point__nextId:t="point3"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[0.743249, 0.0, 0.669015] [0.0, 1.0, 0.0] [-0.669015, 0.0, 0.743249] [-483.716, 3.30368, 943.757]]
-  battle_area_polygon_point__forBattleAreaId:t="2b_area1"
-  battle_area_polygon_point__id:t="point3"
-  battle_area_polygon_point__nextId:t="point4"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[0.743249, 0.0, 0.669015] [0.0, 1.0, 0.0] [-0.669015, 0.0, 0.743249] [-516.779, 3.30368, 824.955]]
-  battle_area_polygon_point__forBattleAreaId:t="2b_area1"
-  battle_area_polygon_point__id:t="point4"
-  battle_area_polygon_point__nextId:t="point5"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[0.743249, 0.0, 0.669015] [0.0, 1.0, 0.0] [-0.669015, 0.0, 0.743249] [-550.898, 3.30368, 758.945]]
-  battle_area_polygon_point__forBattleAreaId:t="2b_area1"
-  battle_area_polygon_point__id:t="point5"
-  battle_area_polygon_point__nextId:t="point6"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[0.743249, 0.0, 0.669015] [0.0, 1.0, 0.0] [-0.669015, 0.0, 0.743249] [-564.692, 3.30519, 703.492]]
-  battle_area_polygon_point__forBattleAreaId:t="2b_area1"
-  battle_area_polygon_point__id:t="point6"
-  battle_area_polygon_point__nextId:t="point7"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[0.743249, 0.0, 0.669015] [0.0, 1.0, 0.0] [-0.669015, 0.0, 0.743249] [-253.887, 3.30053, 719.523]]
-  battle_area_polygon_point__forBattleAreaId:t="2b_area1"
-  battle_area_polygon_point__id:t="point7"
-  battle_area_polygon_point__nextId:t="point8"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[0.743249, 0.0, 0.669015] [0.0, 1.0, 0.0] [-0.669015, 0.0, 0.743249] [-252.415, 3.29864, 1024.17]]
-  battle_area_polygon_point__forBattleAreaId:t="2b_area1"
-  battle_area_polygon_point__id:t="point8"
-  battle_area_polygon_point__nextId:t="point1"
-}
-
-entity{
-  _template:t="poly_battle_area"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-408.525, 3.1995, 676.293]]
-  battleAreaId:t="2b_area2"
-  groupName:t="sector_2_b"
-  battle_area__team:i=2
-  active:b=no
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-252.941, 3.20111, 827.935]]
-  battle_area_polygon_point__forBattleAreaId:t="2b_area2"
-  battle_area_polygon_point__id:t="point1"
-  battle_area_polygon_point__nextId:t="point2"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-515.371, 0.538459, 828.016]]
-  battle_area_polygon_point__forBattleAreaId:t="2b_area2"
-  battle_area_polygon_point__id:t="point2"
-  battle_area_polygon_point__nextId:t="point3"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-551.195, 3.29999, 758.985]]
-  battle_area_polygon_point__forBattleAreaId:t="2b_area2"
-  battle_area_polygon_point__id:t="point3"
-  battle_area_polygon_point__nextId:t="point4"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[0.968076, 0.0, -0.250656] [0.0, 1.0, 0.0] [0.250656, 0.0, 0.968076] [-579.19, 3.3, 642.002]]
-  battle_area_polygon_point__forBattleAreaId:t="2b_area2"
-  battle_area_polygon_point__id:t="point4"
-  battle_area_polygon_point__nextId:t="point5"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-419.377, 3.42937, 525.129]]
-  battle_area_polygon_point__forBattleAreaId:t="2b_area2"
-  battle_area_polygon_point__id:t="point5"
-  battle_area_polygon_point__nextId:t="point6"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-349.086, -1.3098, 627.552]]
-  battle_area_polygon_point__forBattleAreaId:t="2b_area2"
-  battle_area_polygon_point__id:t="point6"
-  battle_area_polygon_point__nextId:t="point7"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-253.933, -1.09986, 692.721]]
-  battle_area_polygon_point__forBattleAreaId:t="2b_area2"
-  battle_area_polygon_point__id:t="point7"
-  battle_area_polygon_point__nextId:t="point1"
-}
-
-entity{
-  _template:t="poly_battle_area"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-392.462, 3.19951, 747.883]]
-  battleAreaId:t="1a_area1"
-  groupName:t="sector_1_a"
-  battle_area__team:i=1
-  active:b=no
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-252.683, 3.00711, 1024.37]]
-  battle_area_polygon_point__forBattleAreaId:t="1a_area1"
-  battle_area_polygon_point__id:t="point1"
-  battle_area_polygon_point__nextId:t="point2"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-387.165, 3.52678, 1016.01]]
-  battle_area_polygon_point__forBattleAreaId:t="1a_area1"
-  battle_area_polygon_point__id:t="point2"
-  battle_area_polygon_point__nextId:t="point3"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-484.914, 3.52678, 997.353]]
-  battle_area_polygon_point__forBattleAreaId:t="1a_area1"
-  battle_area_polygon_point__id:t="point3"
-  battle_area_polygon_point__nextId:t="point4"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-483.647, 3.52678, 943.898]]
-  battle_area_polygon_point__forBattleAreaId:t="1a_area1"
-  battle_area_polygon_point__id:t="point4"
-  battle_area_polygon_point__nextId:t="point5"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-499.561, 3.52678, 883.091]]
-  battle_area_polygon_point__forBattleAreaId:t="1a_area1"
-  battle_area_polygon_point__id:t="point5"
-  battle_area_polygon_point__nextId:t="point6"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-506.617, 3.52678, 861.564]]
-  battle_area_polygon_point__forBattleAreaId:t="1a_area1"
-  battle_area_polygon_point__id:t="point6"
-  battle_area_polygon_point__nextId:t="point7"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-511.256, 3.1995, 850.373]]
-  battle_area_polygon_point__forBattleAreaId:t="1a_area1"
-  battle_area_polygon_point__id:t="point7"
-  battle_area_polygon_point__nextId:t="point8"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-253.574, 3.30047, 862.836]]
-  battle_area_polygon_point__forBattleAreaId:t="1a_area1"
-  battle_area_polygon_point__id:t="point8"
-  battle_area_polygon_point__nextId:t="point1"
-}
-
-entity{
-  _template:t="poly_battle_area"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-392.522, 3.19951, 750.648]]
-  battleAreaId:t="1a_area2"
-  battle_area__team:i=2
-  groupName:t="sector_1_a"
-  active:b=no
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-253.401, 3.29059, 950.293]]
-  battle_area_polygon_point__forBattleAreaId:t="1a_area2"
-  battle_area_polygon_point__id:t="point1"
-  battle_area_polygon_point__nextId:t="point2"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-484.949, 3.24389, 938.086]]
-  battle_area_polygon_point__forBattleAreaId:t="1a_area2"
-  battle_area_polygon_point__id:t="point2"
-  battle_area_polygon_point__nextId:t="point3"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-499.724, 3.66207, 882.71]]
-  battle_area_polygon_point__forBattleAreaId:t="1a_area2"
-  battle_area_polygon_point__id:t="point3"
-  battle_area_polygon_point__nextId:t="point4"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-510.788, 3.3261, 837.987]]
-  battle_area_polygon_point__forBattleAreaId:t="1a_area2"
-  battle_area_polygon_point__id:t="point4"
-  battle_area_polygon_point__nextId:t="point5"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-550.922, 3.3261, 759.019]]
-  battle_area_polygon_point__forBattleAreaId:t="1a_area2"
-  battle_area_polygon_point__id:t="point5"
-  battle_area_polygon_point__nextId:t="point6"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-566.38, 3.3261, 697.593]]
-  battle_area_polygon_point__forBattleAreaId:t="1a_area2"
-  battle_area_polygon_point__id:t="point6"
-  battle_area_polygon_point__nextId:t="point7"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-310.942, 3.19367, 652.686]]
-  battle_area_polygon_point__forBattleAreaId:t="1a_area2"
-  battle_area_polygon_point__id:t="point7"
-  battle_area_polygon_point__nextId:t="point8"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-253.784, 4.06082, 692.5]]
-  battle_area_polygon_point__forBattleAreaId:t="1a_area2"
-  battle_area_polygon_point__id:t="point8"
-  battle_area_polygon_point__nextId:t="point1"
-}
-
-entity{
-  _template:t="poly_battle_area"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-392.462, 3.19951, 747.883]]
-  battleAreaId:t="1b_area1"
-  groupName:t="sector_1_b"
-  battle_area__team:i=1
-  active:b=no
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-252.683, 3.00711, 1024.37]]
-  battle_area_polygon_point__forBattleAreaId:t="1b_area1"
-  battle_area_polygon_point__id:t="point1"
-  battle_area_polygon_point__nextId:t="point2"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-387.165, 3.52678, 1016.01]]
-  battle_area_polygon_point__forBattleAreaId:t="1b_area1"
-  battle_area_polygon_point__id:t="point2"
-  battle_area_polygon_point__nextId:t="point3"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-484.914, 3.52678, 997.353]]
-  battle_area_polygon_point__forBattleAreaId:t="1b_area1"
-  battle_area_polygon_point__id:t="point3"
-  battle_area_polygon_point__nextId:t="point4"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-483.647, 3.52678, 943.898]]
-  battle_area_polygon_point__forBattleAreaId:t="1b_area1"
-  battle_area_polygon_point__id:t="point4"
-  battle_area_polygon_point__nextId:t="point5"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-499.561, 3.52678, 883.091]]
-  battle_area_polygon_point__forBattleAreaId:t="1b_area1"
-  battle_area_polygon_point__id:t="point5"
-  battle_area_polygon_point__nextId:t="point6"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-511.086, 3.52678, 838.56]]
-  battle_area_polygon_point__forBattleAreaId:t="1b_area1"
-  battle_area_polygon_point__id:t="point6"
-  battle_area_polygon_point__nextId:t="point7"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[0.997325, 0.0, 0.073102] [0.0, 1.0, 0.0] [-0.0731019, 0.0, 0.997324] [-518.254, 3.1995, 822.633]]
-  battle_area_polygon_point__forBattleAreaId:t="1b_area1"
-  battle_area_polygon_point__id:t="point7"
-  battle_area_polygon_point__nextId:t="point8"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-420.461, 3.30047, 827.722]]
-  battle_area_polygon_point__forBattleAreaId:t="1b_area1"
-  battle_area_polygon_point__id:t="point8"
-  battle_area_polygon_point__nextId:t="point9"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-374.174, 4.38244, 853.599]]
-  battle_area_polygon_point__forBattleAreaId:t="1b_area1"
-  battle_area_polygon_point__id:t="point9"
-  battle_area_polygon_point__nextId:t="point10"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-254.702, 3.19386, 860.956]]
-  battle_area_polygon_point__forBattleAreaId:t="1b_area1"
-  battle_area_polygon_point__id:t="point10"
-  battle_area_polygon_point__nextId:t="point1"
-}
-
-entity{
-  _template:t="poly_battle_area"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-392.522, 3.19951, 750.648]]
-  battleAreaId:t="1b_area2"
-  battle_area__team:i=2
-  groupName:t="sector_1_b"
-  active:b=no
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-253.401, 3.29059, 950.293]]
-  battle_area_polygon_point__forBattleAreaId:t="1b_area2"
-  battle_area_polygon_point__id:t="point1"
-  battle_area_polygon_point__nextId:t="point2"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-484.949, 3.24389, 938.086]]
-  battle_area_polygon_point__forBattleAreaId:t="1b_area2"
-  battle_area_polygon_point__id:t="point2"
-  battle_area_polygon_point__nextId:t="point3"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-499.724, 3.66207, 882.71]]
-  battle_area_polygon_point__forBattleAreaId:t="1b_area2"
-  battle_area_polygon_point__id:t="point3"
-  battle_area_polygon_point__nextId:t="point4"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-510.788, 3.3261, 837.987]]
-  battle_area_polygon_point__forBattleAreaId:t="1b_area2"
-  battle_area_polygon_point__id:t="point4"
-  battle_area_polygon_point__nextId:t="point5"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-550.922, 3.3261, 759.019]]
-  battle_area_polygon_point__forBattleAreaId:t="1b_area2"
-  battle_area_polygon_point__id:t="point5"
-  battle_area_polygon_point__nextId:t="point6"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-566.38, 3.3261, 697.593]]
-  battle_area_polygon_point__forBattleAreaId:t="1b_area2"
-  battle_area_polygon_point__id:t="point6"
-  battle_area_polygon_point__nextId:t="point7"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-310.942, 3.19367, 652.686]]
-  battle_area_polygon_point__forBattleAreaId:t="1b_area2"
-  battle_area_polygon_point__id:t="point7"
-  battle_area_polygon_point__nextId:t="point8"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-253.784, 4.06082, 692.5]]
-  battle_area_polygon_point__forBattleAreaId:t="1b_area2"
-  battle_area_polygon_point__id:t="point8"
-  battle_area_polygon_point__nextId:t="point1"
 }
 
 entity{
@@ -2421,7 +2433,7 @@ entity{
 entity{
   _template:t="respawnChooser+respMotorcycle"
   active:b=no
-  transform:m=[[0.486085, 0.0, 0.873913] [0.0, 1.0, 0.0] [-0.873913, 0.0, 0.486085] [-395.997, 4.3436, 682.044]]
+  transform:m=[[0.176109, 0.0, 0.984372] [0.0, 1.0, -0.0] [-0.984372, 0.0, 0.176109] [-367.936, 3.54687, 719.268]]
   team:i=2
   groupName:t="sector_1_a"
 }
@@ -2437,7 +2449,7 @@ entity{
 entity{
   _template:t="respawnChooser+respMotorcycle"
   active:b=no
-  transform:m=[[0.486085, 0.0, 0.873913] [0.0, 1.0, 0.0] [-0.873913, 0.0, 0.486085] [-395.388, 4.3436, 683.023]]
+  transform:m=[[-0.997337, 0.0, 0.0729515] [0.0, 1.0, 0.0] [-0.0729515, 0.0, -0.997337] [-395.793, 3.4508, 719.881]]
   team:i=2
   groupName:t="sector_1_b"
 }
@@ -2548,7 +2560,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[0.486085, 0.0, 0.873913] [0.0, 1.0, 0.0] [-0.873913, 0.0, 0.486085] [-395.997, 4.3436, 682.044]]
+  transform:m=[[0.176109, 0.0, 0.984372] [0.0, 1.0, -0.0] [-0.984372, 0.0, 0.176109] [-368.196, 3.54687, 719.022]]
   resupply_zone__team:i=2
   groupName:t="sector_1_a"
   active:b=no
@@ -2564,7 +2576,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[0.486085, 0.0, 0.873913] [0.0, 1.0, 0.0] [-0.873913, 0.0, 0.486085] [-395.388, 4.3436, 683.023]]
+  transform:m=[[-0.997337, 0.0, 0.0729515] [0.0, 1.0, 0.0] [-0.0729515, 0.0, -0.997337] [-395.587, 3.4508, 719.749]]
   resupply_zone__team:i=2
   groupName:t="sector_1_b"
   active:b=no

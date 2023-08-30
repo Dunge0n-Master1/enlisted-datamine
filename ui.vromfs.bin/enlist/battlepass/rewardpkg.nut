@@ -1,16 +1,16 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontSmall } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { accentColor, mkTimerIcon, colPart, transpBgColor, defItemBlur
+let { fontTiny } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { accentColor, mkTimerIcon, transpBgColor, defItemBlur, smallPadding
 } = require("%enlSqGlob/ui/designConst.nut")
 let { secondsToHoursLoc } = require("%ui/helpers/time.nut")
 let { rewardsPresentation } = require("%enlist/items/itemsPresentation.nut")
 let { taskSlotPadding } = require("%enlSqGlob/ui/tasksPkg.nut")
 
 
-let accentTxtStyle = { color = accentColor }.__update(fontSmall)
-let timerSize = colPart(0.22)
-let rewardIconWidth = colPart(0.68)
+let accentTxtStyle = { color = accentColor }.__update(fontTiny)
+let timerSize = hdpxi(13)
+let rewardIconWidth = hdpxi(42)
 
 
 let function prepareRewards(rewards, itemMapping = {}) {
@@ -27,7 +27,7 @@ let function prepareRewards(rewards, itemMapping = {}) {
 let getOneReward = @(rewards, itemMapping = {}) prepareRewards(rewards, itemMapping)?[0]
 
 
-let function mkRewardIcon(reward, size = colPart(0.49), override = {}) {
+let function mkRewardIcon(reward, size = hdpxi(30), override = {}) {
   let { icon = null } = reward
   if (icon == null)
     return null
@@ -46,7 +46,7 @@ let mkSeasonTime = @(timeLeft, override = {}) {
   padding = taskSlotPadding
   flow = FLOW_HORIZONTAL
   valign = ALIGN_CENTER
-  gap = hdpx(2)
+  gap = smallPadding
   children = [
     mkTimerIcon(timerSize, { color = accentColor })
     {

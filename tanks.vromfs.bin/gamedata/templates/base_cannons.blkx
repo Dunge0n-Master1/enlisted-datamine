@@ -47,11 +47,6 @@ base_cannon_no_phys{
   drowningHeight:r=0.5
   zones_visitor__triggerTag:t="vehicleTriggerable"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  _tracked:t="transform"
-  _tracked:t="isAlive"
-  _tracked:t="vehicle__localControls"
-  _tracked:t="vehicleCameraType"
-  _tracked:t="isTpsView"
   squad:i=-1
   team:i=-1
   vehicle_seats__exitTime:r=0.25
@@ -87,6 +82,10 @@ base_cannon_no_phys{
   _replicated:t="lastDamagedNode"
   _replicated:t="lastGunPropsIdDamagedWith"
   _replicated:t="isAlive"
+  _tracked:t="isAlive"
+  _tracked:t="vehicle__localControls"
+  _tracked:t="vehicleCameraType"
+  _tracked:t="isTpsView"
   grid_obj__gridType:t="vehicles"
   grid_obj__fixedTmScale:r=-1.0
 
@@ -96,6 +95,9 @@ base_cannon_no_phys{
 
   "vehicle_seats__applyPerks:tag"{
     _tags:t="server"
+  }
+
+  "grid_obj__updateAlways:tag"{
   }
 
   grid_obj{

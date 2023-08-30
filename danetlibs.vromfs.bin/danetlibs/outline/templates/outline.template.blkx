@@ -7,7 +7,7 @@ outline_renderer{
   "outline_renderer:OutlineRenderer"{
   }
 
-  "outline_render_node:FrameGraphNodePtr"{
+  "outline_render_node:dabfg::NodeHandle"{
   }
 }
 

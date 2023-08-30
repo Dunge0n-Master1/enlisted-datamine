@@ -38,6 +38,10 @@ let rankIcons = {
   stalingrad_axis     = GERMANY_ICONS
   pacific_allies   = USA_ICONS
   pacific_axis     = GERMANY_ICONS
+  common_ussr    = USSR_ICONS
+  common_usa     = USA_ICONS
+  common_ger     = GERMANY_ICONS
+  common_jap     = GERMANY_ICONS
 }
 
 // ■□▢▣▤

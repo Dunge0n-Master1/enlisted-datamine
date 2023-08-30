@@ -50,7 +50,6 @@ let isContactOnline = function(userId, onlineStatusVal) {
 }
 
 let mkContactOnlineStatus = @(userId) Computed(@() onlineStatus.value?[userId])
-let mkContactIsOnline = @(userId) Computed(@() isContactOnline(userId, onlineStatus.value))
 
 return {
   presences
@@ -60,5 +59,4 @@ return {
 
   isContactOnline
   mkContactOnlineStatus
-  mkContactIsOnline
 }

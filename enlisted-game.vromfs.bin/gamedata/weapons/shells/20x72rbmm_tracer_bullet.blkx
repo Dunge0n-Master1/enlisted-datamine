@@ -1,6 +1,7 @@
 mass:r=0.127
 caliber:r=0.02
 speed:r=588.0
+Cx:r=0.45
 maxDistance:r=2000.0
 normalizationPreset:t="default"
 modelName:t="tank_bullet_ap"
@@ -16,6 +17,11 @@ effectiveDistance:r=300.0
 slopeEffectPreset:t="ap"
 relativeVelHitShift:p2=300.0, 1000.0
 relativeVelArmorShift:p2=200.0, 1000.0
+selfDestructionFx:t="explosion_air_selfexplosion_small"
+explosionEffect:t="hit_19_27mm_metal_ap"
+groundCollisionEffect:t="hit_19_27mm_dirt_ap"
+ricochetEffect:t="hit_19_27mm_metal_ap"
+waterCollisionEffect:t="hit_19_27mm_water"
 
 stabilityRicochetModifier{
   mod1:p2=0.0, 0.05

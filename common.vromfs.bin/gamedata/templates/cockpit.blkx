@@ -16,7 +16,6 @@ base_cockpit{
   cockpit__currentSlit:i=0
   cockpit__forwardOffset:r=-0.2
   cockpit__minForwardOffset:r=-0.2
-  cockpit__isZoom:b=no
   cockpit__cameraTime:r=1.0
   cockpit__slitTransitionDuration:r=0.66
   cockpit__forwardOffsetTime:r=0.0

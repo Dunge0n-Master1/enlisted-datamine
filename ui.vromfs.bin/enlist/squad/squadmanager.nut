@@ -1,6 +1,5 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-#explicit-this
 
 let {checkMultiplayerPermissions} = require("%enlist/permissions/permissions.nut")
 let { debounce } = require("%sqstd/timers.nut")
@@ -34,6 +33,7 @@ let { consoleCompare, canInterractCrossPlatformByCrossplay } = require("%enlSqGl
 let { availableSquadMaxMembers } = require("%enlist/state/queueState.nut")
 let { check_version } = require("%sqstd/version_compare.nut")
 let { hasValidBalance } = require("%enlist/currency/currencies.nut")
+let JB = require("%ui/control/gui_buttons.nut")
 
 const INVITE_ACTION_ID = "squad_invite_action"
 const SQUAD_OVERDRAFT = 0
@@ -358,13 +358,13 @@ let function addInviteByContact(inviter) {
     return
 
   if (inviter.userId in blockedUids.value) {
-    logSq("got squad invite from blacklisted user", inviter.value)
-    MSquadAPI.rejectInvite(inviter.value.uid)
+    logSq("got squad invite from blacklisted user", inviter)
+    MSquadAPI.rejectInvite(inviter.uid)
     return
   }
 
   if (!canInterractCrossPlatformByCrossplay(inviter.realnick, crossnetworkPlay.value)) {
-    logSq($"got squad invite from crossplatform user, is crosschat available: {crossnetworkChat.value}", inviter.value)
+    logSq($"got squad invite from crossplatform user, is crosschat available: {crossnetworkChat.value}", inviter)
     MSquadAPI.rejectInvite(inviter.uid)
     return
   }
@@ -481,8 +481,8 @@ let function leaveSquad(cb = null) {
   msgbox.show({
     text = loc("squad/leaveSquadQst")
     buttons = [
-      { text = loc("Yes"), action = @() leaveSquadSilent(cb) }
-      { text = loc("No") }
+      { text = loc("Yes"), action = @() leaveSquadSilent(cb), isCurrent = true }
+      { text = loc("No"), customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] }}
     ]
   })
 }
@@ -678,6 +678,7 @@ subscribeGroup(INVITE_ACTION_ID, {
           removeNotify(notify)
           MSquadAPI.rejectInvite(notify.inviterUid)
         }
+        customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] }
       }
     ]
   } : {

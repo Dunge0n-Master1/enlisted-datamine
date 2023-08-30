@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { resupply_zones_GetWatched, heroActiveResupplyZonesEids } = require("%ui/hud/state/resupplyZones.nut")
 let {DEFAULT_TEXT_COLOR} = require("%ui/hud/style.nut")
 let {safeAreaVerPadding, safeAreaHorPadding} = require("%enlSqGlob/safeArea.nut")
@@ -123,7 +123,7 @@ let distanceText = @(eid, radius) function() {
       targetEid = eid
       radius
       minDistance = 0
-    }, sub_txt)
+    }, fontSub)
   return res
 }
 

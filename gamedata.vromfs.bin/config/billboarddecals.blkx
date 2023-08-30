@@ -19,8 +19,8 @@ wood_bullet_hole{
 }
 
 metal_bullet_hole{
-  diffuseTex:t="decal_bullethole_metal_a_tex_d*"
-  normalTex:t="decal_bullethole_metal_a_tex_n*"
+  diffuseTex:t="decal_bullethole_metal_pr_gen_tex_d*"
+  normalTex:t="decal_bullethole_metal_pr_gen_tex_n*"
 }
 
 blood_decal{

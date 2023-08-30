@@ -413,12 +413,13 @@ def is_point_valid_for_bot_to_build(build_what : int; build_pos : float3; build 
         return
 
     let requiredSpaceAboveObject = getTemplateComponent(*previewTmpl, "requiredSpaceAboveObject") ?? 0.0
+    let requiredSpaceAboveObjectOffset = getTemplateComponent(*previewTmpl, "requiredSpaceAboveObjectOffset") ?? 0.0
     if requiredSpaceAboveObject > 0.0
       let buildingBoxMin = get_Point3(getTemplateComponent(*previewTmpl, "buildingBoxMin")) ?? float3()
       let buildingBoxMax = get_Point3(getTemplateComponent(*previewTmpl, "buildingBoxMax")) ?? float3()
       let bBoxDiagonal = buildingBoxMax - buildingBoxMin
       let bBoxDiagonalXZLength = length(bBoxDiagonal.xz)
-      if !is_required_space_above_object_free(build_pos, bBoxDiagonalXZLength, requiredSpaceAboveObject)
+      if !is_required_space_above_object_free(build_pos, bBoxDiagonalXZLength, requiredSpaceAboveObject, requiredSpaceAboveObjectOffset)
         log_ai_building(aiBuilding__debugMsgs, 250, build_pos)
         return
 

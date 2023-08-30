@@ -1983,3 +1983,35 @@ DamageEffects{
     }
   }
 }
+
+MetaParts{
+
+  closed_fightning_compartment{
+    part:t="driver"
+    part:t="loader"
+    part:t="gunner"
+    part:t="cannon_breech"
+    part:t="radio_station"
+    part:t="drive_turret_v"
+    part:t="drive_turret_h"
+    part:t="drive_turret_v_01"
+    part:t="drive_turret_h_01"
+    part:t="drive_turret_v_02"
+    part:t="drive_turret_h_02"
+    part:t="ammo_body_01"
+    part:t="ammo_body_02"
+    part:t="fuel_tank_01"
+
+    effect{
+      conditionDamageType:t="explosion"
+      conditionDamage:r=1.0
+      pressure:b=yes
+    }
+
+    effect{
+      conditionDamageType:t="shatter"
+      conditionDamage:r=1.0
+      pressure:b=yes
+    }
+  }
+}

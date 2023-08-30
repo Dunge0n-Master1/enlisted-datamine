@@ -1,0 +1,3 @@
+mass:r=1.0
+maxDistance:r=10000.0
+bulletType:t="ball"

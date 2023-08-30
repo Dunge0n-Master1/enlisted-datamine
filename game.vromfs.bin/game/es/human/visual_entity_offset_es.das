@@ -7,6 +7,7 @@ require game.utils.hero
 require DngHuman
 require Dacoll
 require RendInst
+require enlisted.events_enlisted
 
 [es(tag=gameClient, on_appear)]
 def visual_entity_offset_init(evt : Event;
@@ -27,7 +28,7 @@ def visual_entity_offset_init(evt : Event;
     logerr("'{posNodeName}'' node not found in '{animchar__res}'!")
 
 [es(tag=gameClient)]
-def visual_offset_updater_es(info : UpdateStageInfoAct; transform : float3x4; camera__active : bool; isHeroCockpitCam : bool = false)
+def visual_offset_updater_es(info : ParallelUpdateFrameDelayed; transform : float3x4; camera__active : bool; isHeroCockpitCam : bool = false)
   if !camera__active || isHeroCockpitCam
     return
 

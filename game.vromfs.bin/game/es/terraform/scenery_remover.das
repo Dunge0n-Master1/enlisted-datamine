@@ -8,7 +8,7 @@ require DagorMath
 require DagorMathUtils
 require DagorSystem
 require ecs.ecs_template
-
+require gameObject
 
 def remover_log(start_time : int64; msg : string)
   let elapsedTime = float(get_time_usec(start_time)) * 0.001
@@ -76,6 +76,14 @@ def is_sphere_intersects_rbox(center : float3; radius : float; rbox : RemoveBox)
     return false
   return true
 
+def find_ladder_eid(id : uint)
+  var outEid = INVALID_ENTITY_ID
+  find_query() <| $ [es] (eid : EntityId; ladder__sceneIndex : uint)
+    if ladder__sceneIndex == id
+      outEid = eid
+      return true
+    return false
+  return outEid
 
 def scan_scenery(transform : float3x4; dist_coef : float; var scanned : StringList&)
   let MAX_SCANNED_AMOUNT = 100
@@ -97,6 +105,12 @@ def scan_scenery(transform : float3x4; dist_coef : float; var scanned : StringLi
               scanned |> push(riName)
             elif length(scanned) == MAX_SCANNED_AMOUNT
               scanned |> push("...")
+
+  query() <| $ [es] (game_objects : GameObjects)
+    if game_objects.ladders == null
+      return
+    tiled_scene_boxCull(*game_objects.ladders, rbox.bb, /*use_flags*/uint(0), /*use_pools*/uint(0)) <| $ [unused_argument(m)] (index : uint; m : mat44f)
+      scanned |> push("ladder<{int(index)}>")
 
 
 def remove_scenery(transform : float3x4; dist_coef : float; excludes : StringList; keep_ri_with_entity : bool)
@@ -128,7 +142,17 @@ def remove_scenery(transform : float3x4; dist_coef : float; excludes : StringLis
           rendinst_delRIGenExtra(out_desc.riExtraHandle)
           ++count
 
-  remover_log(startTime, "removed {count} instances")
+  var removedLaddersCount = 0
+  query() <| $ [es] (var game_objects : GameObjects&)
+    if game_objects.ladders == null
+      return
+    tiled_scene_boxCull(*game_objects.ladders, rbox.bb, /*use_flags*/uint(0), /*use_pools*/uint(0)) <| $ [unused_argument(m)] (index : uint; m : mat44f)
+      if keep_ri_with_entity && find_ladder_eid(index) != INVALID_ENTITY_ID
+        return
+      destroy(*game_objects.ladders, index)
+      ++removedLaddersCount
+
+  remover_log(startTime, "removed {count} instances and ladders {removedLaddersCount}")
 
 def damage_scenery(transform : float3x4; dist_coef : float)
   let rad = min(length(transform[0]), min(length(transform[1]), length(transform[2])))

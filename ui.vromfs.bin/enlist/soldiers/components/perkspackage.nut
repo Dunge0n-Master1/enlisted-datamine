@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { doesLocTextExist } = require("dagor.localize")
 let { setTooltip } = require("%ui/style/cursors.nut")
 let tooltipBox = require("%ui/style/tooltipBox.nut")
@@ -32,7 +32,7 @@ let PERK_UNAVAILABLE_COLOR = Color(120, 120, 120, 255)
 let mkText = @(txt) {
   rendObj = ROBJ_TEXT
   text = txt
-}.__update(sub_txt)
+}.__update(fontSub)
 
 let flexTextArea = @(params) {
   size = [flex(), SIZE_TO_CONTENT]
@@ -41,7 +41,7 @@ let flexTextArea = @(params) {
   color = defTxtColor
   vplace = ALIGN_CENTER
   halign = ALIGN_LEFT
-}.__update(sub_txt, params)
+}.__update(fontSub, params)
 
 
 let perkPointIcon = @(icon, color = defTxtColor, pPointSize = hdpxi(32)) {
@@ -251,7 +251,7 @@ let perkUi = @(armyId, perkId, customStyle = {}, params = {}) function() {
     halign = customStyle?.halign ?? ALIGN_LEFT
   }.__update(customStyle?.font!=null && customStyle?.fontSize!=null
     ? {font=customStyle.font, fontSize=customStyle.fontSize}
-    : (customStyle?.fontStyle ?? sub_txt))
+    : (customStyle?.fontStyle ?? fontSub))
   let statType = isUnavailable ? perk?.cost.keys()[0] : ""
   let iconSettings = {perk, iconSize, isUnavailable, statType, customStyle}
   return {
@@ -335,7 +335,7 @@ let tierTitle = @(tier) tier?.locId
       behavior = Behaviors.TextArea
       color = titleTxtColor
       text = loc(tier.locId)
-    }.__update(sub_txt)
+    }.__update(fontSub)
   : null
 
 let perkPointsInfoTooltip = {
@@ -434,7 +434,7 @@ let function mkStatList(content, sClassesCfg, isLocked = false) {
   return {
     flow = FLOW_HORIZONTAL
     halign = ALIGN_LEFT
-    size = [hdpx(260), hdpx(32)]
+    size = [SIZE_TO_CONTENT, hdpx(32)]
     gap = bigPadding
     children = pPointsList.map(@(x) statsRange(stats, x, isLocked))
   }

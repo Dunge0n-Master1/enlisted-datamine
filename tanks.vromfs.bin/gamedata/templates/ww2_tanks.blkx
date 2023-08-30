@@ -408,7 +408,7 @@ base_tank_without_xray{
 }
 
 vehicle_maintenance{
-  repairable__baseRepairTotalTime:r=5.0
+  repairable__baseRepairTotalTime:r=3.0
   repairable__baseRecoveryRatio:r=0.3
   repairable__recoveryRatio:r=0.3
 
@@ -433,8 +433,12 @@ vehicle_maintenance{
     _replicate:b=yes
     repairable__repairTotalTime:r=-1.0
     repairable__repairTime:r=-1.0
+    repairable__repairPart:i=-1
     repairable__repairRequired:b=no
     repairable__extinguishRequired:b=no
+
+    "repairable__repairTimeByPart:list<r>"{
+    }
   }
 }
 
@@ -1008,6 +1012,11 @@ base_tank_sound{
   _extends:t="tank_vehicle_gear_sound"
   _extends:t="tank_vehicle_collision_sound_setup"
   _extends:t="tank_vehicle_damage_sound_setup"
+
+  _group{
+    _tags:t="sound"
+    vehicle_sound_vars__noiseSpeedThreshold:r=0.1
+  }
 }
 
 base_vehicle_sight{
@@ -1295,7 +1304,99 @@ vehicle_view{
   }
 }
 
+dm_parts_repair{
+
+  "dm_parts_repair_names:list<t>"{
+    part:t="part:t="
+    part:t="drive_turret_h"
+    part:t="drive_turret_v"
+    part:t="cannon_breech"
+    part:t="fuel_tank"
+    part:t="fuel_tank_r_01"
+    part:t="fuel_tank_r_02"
+    part:t="fuel_tank_l_01"
+    part:t="fuel_tank_l_02"
+    part:t="radiator"
+    part:t="engine"
+    part:t="transmission"
+    part:t="gun_barrel"
+    part:t="gun_barrel_01"
+    part:t="gun_barrel_02"
+    part:t="gun_barrel_03"
+    part:t="gun_barrel_04"
+    part:t="gun_barrel_05"
+    part:t="track_r"
+    part:t="track_l"
+    part:t="track_r_01"
+    part:t="track_l_01"
+    part:t="wheel_l_back"
+    part:t="wheel_l_front"
+    part:t="wheel_l_drive"
+    part:t="wheel_r_back"
+    part:t="wheel_r_front"
+    part:t="wheel_r_drive"
+    part:t="wheel_r_01"
+    part:t="wheel_r_02"
+    part:t="wheel_r_03"
+    part:t="wheel_r_04"
+    part:t="wheel_r_05"
+    part:t="wheel_r_06"
+    part:t="wheel_r_07"
+    part:t="wheel_r_08"
+    part:t="wheel_l_01"
+    part:t="wheel_l_02"
+    part:t="wheel_l_03"
+    part:t="wheel_l_04"
+    part:t="wheel_l_05"
+    part:t="wheel_l_06"
+    part:t="wheel_l_07"
+    part:t="wheel_l_08"
+  }
+
+  "dm_parts__canRepair:list<b>"{
+  }
+
+  "dm_parts__repairPartGroupIds:list<u8>"{
+  }
+
+  "dm_parts__repairGroups:object"{
+
+    "1:list<t>"{
+      part:t="track_r"
+      part:t="track_r_01"
+      part:t="wheel_r_back"
+      part:t="wheel_r_front"
+      part:t="wheel_r_drive"
+      part:t="wheel_r_01"
+      part:t="wheel_r_02"
+      part:t="wheel_r_03"
+      part:t="wheel_r_04"
+      part:t="wheel_r_05"
+      part:t="wheel_r_06"
+      part:t="wheel_r_07"
+      part:t="wheel_r_08"
+    }
+
+    "2:list<t>"{
+      part:t="track_l"
+      part:t="track_l_01"
+      part:t="wheel_l_back"
+      part:t="wheel_l_front"
+      part:t="wheel_l_drive"
+      part:t="wheel_l_01"
+      part:t="wheel_l_02"
+      part:t="wheel_l_03"
+      part:t="wheel_l_04"
+      part:t="wheel_l_05"
+      part:t="wheel_l_06"
+      part:t="wheel_l_07"
+      part:t="wheel_l_08"
+    }
+  }
+}
+
 base_tank{
+  _extends:t="dm_parts_repair"
   _extends:t="base_tank_without_xray"
   _extends:t="tank_camera_setup"
   _extends:t="base_tank_seat_templates"
@@ -1720,7 +1821,7 @@ t17e2{
 }
 
 _componentFilters{
-  dm_state:t="filter_possessed_and_spectated_vehicle"
+  dm_state:t="filter_possessed_spectated_maintenance_vehicle"
   turret_aim_drives_mult:t="filter_possessed_and_spectated_vehicle"
   turret_guidance__reductionAtYawAngleDeg:t="filter_possessed_spectated_attachables_and_vehicle"
   turret_guidance__pitchMultWhenAimingYaw:t="filter_possessed_spectated_attachables_and_vehicle"

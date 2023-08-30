@@ -4,8 +4,12 @@ require DagorDataBlock
 require DagorConsole
 require DagorSystem
 require enlisted.events_enlisted
+require ecs.ecs_template
 
 
+[ecs_template]
+struct hero_spawned_once
+  hero_spawned_once : Tag
 
 // Please, note that apply_dev_mode_* divided into several es systems to avoid situations
 // when the whole dev mode stops to function because of some missing components. This is critical for Sandbox!
@@ -81,3 +85,23 @@ def apply_devmode_on_player_got_suicide_penalty(evt : Event)
 def apply_devmode_on_player_creation(evt : Event)
   if is_devmode_enabled_in_settings()
     broadcastEvent([[EventApplyDevMode]])
+
+def exec_commands_from_block_name(name : string)
+  let cmds = dgs_get_settings() |> datablock_get_block_by_name(name)
+  if cmds == null
+    return
+  for i in 0u..cmds.paramCount
+    if *cmds |> datablock_getParamType(i) == int(DataBlockParamType TYPE_STRING)
+      console_command(*cmds |> datablock_getStr(int(i)))
+
+[es(tag=dev, on_event=EventLevelLoaded)]
+def exec_console_commands_on_level_load(evt : Event)
+  exec_commands_from_block_name("execute_cmds_on_load")
+
+[es(tag=dev, on_appear, REQUIRE=hero)]
+def exec_console_commands_on_fisrt_player_spawn(evt : Event)
+  let isFirstHeroSpawn = !(find_query() <| $ [es(REQUIRE=hero_spawned_once)] () => true)
+  if !isFirstHeroSpawn
+    return
+  createEntity("hero_spawned_once")
+  exec_commands_from_block_name("execute_cmds_on_spawn")

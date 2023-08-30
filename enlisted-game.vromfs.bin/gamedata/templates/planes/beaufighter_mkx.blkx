@@ -11,7 +11,7 @@ beaufighter_mkx{
       seatOwnsEntityControl:b=yes
       attachNode:t="pilot1"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.15, 0.05, -0.15]]
+      attachTm:m=[[0.994516, 0.104528, 0.0] [-0.104527, 0.994505, 0.0] [0.0, 0.0, 0.999986] [0.04, 0.05, -0.14]]
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="pilot_dm"
       cameraNodeName:t=""

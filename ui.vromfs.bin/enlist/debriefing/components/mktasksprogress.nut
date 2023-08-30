@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { sound_play } = require("%dngscripts/sound_system.nut")
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { bigPadding, smallPadding } = require("%enlSqGlob/ui/viewConst.nut")
 let { getDescription } = require("%enlSqGlob/ui/unlocksText.nut")
 let { progressBar } = require("%enlSqGlob/ui/defcomps.nut")
@@ -24,7 +24,7 @@ let function debriefingTaskHeader(unlockDesc, progress){
         behavior = Behaviors.TextArea
         text = unlockTxt
         color = taskColor
-      }.__update(sub_txt)
+      }.__update(fontSub)
       required == 0 ? null
         : {
             rendObj = ROBJ_TEXT

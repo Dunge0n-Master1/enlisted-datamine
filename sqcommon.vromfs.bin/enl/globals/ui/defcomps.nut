@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h2_txt, tiny_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2, fontTiny } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {defTxtColor, noteTxtColor, bigPadding, textBgBlurColor, smallPadding,
   hoverBgColor, defBgColor, hoverTxtColor, activeTxtColor} = require("%enlSqGlob/ui/viewConst.nut")
 
@@ -12,14 +12,14 @@ let txt = @(text) {
 let note = @(text) {
   rendObj = ROBJ_TEXT
   color = noteTxtColor
-}.__update(typeof text != "table" ? { text = text } : text, tiny_txt)
+}.__update(typeof text != "table" ? { text = text } : text, fontTiny)
 
 let noteTextArea = @(text) {
   size = [flex(), SIZE_TO_CONTENT]
   rendObj = ROBJ_TEXTAREA
   behavior = Behaviors.TextArea
   color = noteTxtColor
-}.__update(typeof text != "table" ? { text } : text, tiny_txt)
+}.__update(typeof text != "table" ? { text } : text, fontTiny)
 
 let function bigTextWithNote(noteText, mainText) {
   let mainTextParams = (typeof mainText == "table") ? mainText : { text = mainText }
@@ -31,7 +31,7 @@ let function bigTextWithNote(noteText, mainText) {
         rendObj = ROBJ_TEXT
         color = defTxtColor
         margin = [0, bigPadding]
-      }.__update(h2_txt, mainTextParams)
+      }.__update(fontHeading2, mainTextParams)
     ]
   }
 }
@@ -40,7 +40,7 @@ let sceneHeaderText = @(text) {
   rendObj = ROBJ_TEXT
   text
   color = defTxtColor
-}.__update(h2_txt)
+}.__update(fontHeading2)
 
 let sceneHeader = @(text) {
   rendObj = ROBJ_WORLD_BLUR_PANEL
@@ -53,8 +53,8 @@ let function btn(params){
   let sFlags = params?.stateFlags ?? Watched(0)
   let group = params?.group ?? ElemGroup()
   let text = params?.text
-  let fillColorCtr = params?.fillColorCtr ?? @(flags) (flags & S_HOVER) ? hoverBgColor : defBgColor
-  let colorCtr = params?.colorCtr ?? @(flags) (flags & S_HOVER) ? hoverTxtColor : defTxtColor
+  let fillColorCtr = params?.fillColorCtr ?? @(flags) flags & S_HOVER ? hoverBgColor : defBgColor
+  let colorCtr = params?.colorCtr ?? @(flags) flags & S_HOVER ? hoverTxtColor : defTxtColor
   return @() {
     watch = [sFlags]
     onElemState = @(sf) sFlags.update(sf)

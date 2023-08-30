@@ -67,7 +67,7 @@ germ_pzkpfw_III_ausf_N_common{
   _extends:t="base_pzkpfw_iii_ausf_n"
   _extends:t="tank_panzer3_engine_sound"
   item__iconOffset:p2=0.0, 0.2
-  item__iconScale:r=1.1
+  item__iconScale:r=1.4
   commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
   gunner_cam_limit__useCockpitDir:b=yes
 

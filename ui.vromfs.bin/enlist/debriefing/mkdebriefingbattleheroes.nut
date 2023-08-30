@@ -1,7 +1,7 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h2_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { smallPadding, activeBgColor } = require("%enlSqGlob/ui/viewConst.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { remap_nick } = require("%enlSqGlob/remap_nick.nut")
@@ -41,7 +41,7 @@ let mkBattleHeroPlayerNameText = @(playerName, isLocalPlayer) {
   clipChildren = true
   color = isLocalPlayer ? localBattleHeroNameColor : battleHeroNameColor
   text = playerName
-}.__update(h2_txt)
+}.__update(fontHeading2)
 
 let function mkBattleHeroAwards(awards, isActive) {
   local sortedAwards = [].extend(awards).sort(@(a,b) awardPriority[b] <=> awardPriority[a])
@@ -126,12 +126,12 @@ let mkSoldierName = @(soldier, isLocalPlayer) isLocalPlayer && (soldier?.callnam
       maxWidth = SIZE_TO_CONTENT
       size = [PORTRAIT_SIZE, SIZE_TO_CONTENT]
       behavior = Behaviors.Marquee
-    }.__update(sub_txt)
+    }.__update(fontSub)
   : {
       rendObj = ROBJ_TEXTAREA
       behavior = Behaviors.TextArea
       text = soldierNameSlicer(soldier, isLocalPlayer)
-    }.__update(sub_txt)
+    }.__update(fontSub)
 
 let mkBattleHeroArmyMult = @(mult) txt({text=$"x{mult}", color=awardMultTxtColor})
 

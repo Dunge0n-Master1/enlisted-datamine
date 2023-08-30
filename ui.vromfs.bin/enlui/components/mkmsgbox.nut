@@ -135,7 +135,9 @@ let function mkMsgbox(id, defStyling = require("msgbox.style.nut")){
         key = buttonsBlockKey
         size = SIZE_TO_CONTENT
         flow = FLOW_HORIZONTAL
+        valign = ALIGN_CENTER
         gap = hdpx(40)
+        margin = [fsh(2),0]
 
         children = btnsDesc.value.map(function(desc, idx) {
           let conHover = desc?.onHover
@@ -174,13 +176,19 @@ let function mkMsgbox(id, defStyling = require("msgbox.style.nut")){
       }
     }
 
+    let rootUpperDecor = styling?.rootUpperDecor
+    let rootLowerDecor = styling?.rootLowerDecor
+
     let root = styling.Root.__merge({
       key = uid
       flow = FLOW_VERTICAL
       halign = ALIGN_CENTER
       children = [
+        rootUpperDecor
         styling.messageText(params.__merge({ handleButton = handleButton }))
+        styling?.bottomChildren
         buttonsBlock()
+        rootLowerDecor
       ]
     })
 

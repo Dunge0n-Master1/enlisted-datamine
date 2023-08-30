@@ -672,6 +672,13 @@ DamageEffects{
       wing_l_dm:r=0.5
     }
 
+    onHit{
+      damage:r=200.0
+      wingcontrol_dm:r=0.2
+      wingcontrol_l_dm:r=0.2
+      wingcontrol_r_dm:r=0.2
+    }
+
     onKill{
       wingcontrol_l_dm:r=1.0
       wingcontrol_r_dm:r=1.0
@@ -712,6 +719,13 @@ DamageEffects{
       wing_l_dm:r=1.0
       wing_r_dm:r=1.0
     }
+
+    onKill{
+      damage:r=200.0
+      wingcontrol_dm:r=0.4
+      wingcontrol_l_dm:r=0.4
+      wingcontrol_r_dm:r=0.4
+    }
   }
 
   part{
@@ -735,6 +749,13 @@ DamageEffects{
     onHit{
       damage:r=50.0
       tail_dm:r=1.0
+    }
+
+    onHit{
+      damage:r=200.0
+      wingcontrol_dm:r=0.2
+      wingcontrol_l_dm:r=0.2
+      wingcontrol_r_dm:r=0.2
     }
 
     onKill{
@@ -782,6 +803,13 @@ DamageEffects{
       damage:r=50.0
       tail_dm:r=1.0
       nothing:r=1.0
+    }
+
+    onKill{
+      damage:r=200.0
+      wingcontrol_dm:r=0.4
+      wingcontrol_l_dm:r=0.4
+      wingcontrol_r_dm:r=0.4
     }
   }
 

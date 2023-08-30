@@ -5,6 +5,7 @@ germ_pzkpfw_II_ausf_C{
   vehicle_net_phys__blk:t="content/tanks/gamedata/units/tanks/pzkpfw_ii_ausf_c.blk:VehiclePhys"
   damage_model__blk:t="content/tanks/gamedata/units/tanks/pzkpfw_ii_ausf_c.blk"
   item__iconOffset:p2=0.0, 0.3
+  item__iconScale:r=1.55
   commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
   gunner_cam_limit__useCockpitDir:b=yes
 

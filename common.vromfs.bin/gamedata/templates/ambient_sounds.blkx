@@ -88,6 +88,16 @@ tropics_ambient_sound{
   }
 }
 
+new_georgia_ambient_sound{
+  _extends:t="ambient_sound"
+  _singleton:b=yes
+
+  _group{
+    _tags:t="sound"
+    ambient_sound__path:t="ambient/new_georgia"
+  }
+}
+
 menu_ambient_sound{
   _extends:t="ambient_sound"
   _singleton:b=yes

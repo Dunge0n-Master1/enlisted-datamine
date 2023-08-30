@@ -14,6 +14,7 @@ let RENDER_PARAMS = @"ui/skin#render{
   {paintColor}
   {blendFactor}
   {recalcAnimation}
+  {shaderColors}
 }.render"
 
 let iconWidgetDef = {
@@ -39,6 +40,20 @@ let function getPicture(source) {
 
 let getTMatrixString = @(m)
   "[{0}]".subst(" ".join(array(4).map(@(_, i) $"[{m[i].x}, {m[i].y}, {m[i].z}]")))
+
+let function getShaderColorsString(item) {
+  let { shaderColors = null } = item
+  if (shaderColors == null || type(shaderColors) != "table")
+    return ""
+  let list = []
+  list.append("shaderColors{")
+  foreach (name, value in shaderColors){
+    if (type(value) == "array" && value.len() > 3)
+    list.append($"{name}:p4={value[0]},{value[1]},{value[2]},{value[3]};")
+  }
+  list.append("}")
+  return "".join(list)
+}
 
 let function iconWidget(item, params = iconWidgetDef, iconAttachments = null) {
   let { children = null } = params
@@ -66,6 +81,7 @@ let function iconWidget(item, params = iconWidgetDef, iconAttachments = null) {
   let azimuth = item?.lightAzimuth ? $"azimuth:r={item.lightAzimuth};" : ""
   let objTexReplace = getTexReplaceString(item)
   let objTexSet = getTexSetString(item)
+  let shaderColors = getShaderColorsString(item)
 
   let haveActiveAttachments = iconAttachments != null
   let attachments = []
@@ -110,6 +126,7 @@ let function iconWidget(item, params = iconWidgetDef, iconAttachments = null) {
     paintColor = paintColorParam
     blendFactor = item?.blendFactor ? $"blendfactor:r={item?.blendFactor}" : ""
     recalcAnimation = item?.recalcAnimation ? "recalcAnimation:b=yes" : ""
+    shaderColors
   })
   let image = getPicture(imageSource)
 

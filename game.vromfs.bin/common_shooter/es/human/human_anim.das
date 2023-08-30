@@ -228,10 +228,10 @@ def human_anim_es(info : ParallelUpdateFrameDelayed;
                   human_net_phys__isClimbing : bool = false;
                   human_weap__reloadAtTime : float = -1.0;
                   human_weap__reloadStartTime : float = -1.0;
+                  human_weap__isReloading : bool = false;
                   human_weap__weapModActivateStartTime : float = -1.0;
                   human_weap__weapModActivateFinishTime : float = -1.0;
                   human_vehicle__isHoldingGunPassenger : bool = false;
-                  human_ladder__attached : bool = false;
                   isGunner : bool = false;
                   isInVehicle : bool = false;
                   human_weap__throwMode : bool = false;
@@ -372,7 +372,7 @@ def human_anim_es(info : ParallelUpdateFrameDelayed;
                                                                     : HumanStateUpperBody E_FAST_THROW)
   elif phys.currentState.weapEquipState.curState == HUWeaponEquipState EES_EQUIPED
     let reload = (curTime >= human_weap__reloadStartTime &&
-                  curTime <= human_weap__reloadAtTime)
+                  curTime <= human_weap__reloadAtTime) || human_weap__isReloading
     let weapModActivate = (curTime >= human_weap__weapModActivateStartTime &&
                            curTime <= human_weap__weapModActivateFinishTime)
     stateUpperBody = ((reload || weapModActivate) ? HumanStateUpperBody E_RELOAD :
@@ -448,8 +448,6 @@ def human_anim_es(info : ParallelUpdateFrameDelayed;
     state_flags |= uint(HumanAnimStateFlags Gunner)
   if isClimbing
     state_flags |= uint(HumanAnimStateFlags Climbing)
-  if human_ladder__attached
-    state_flags |= uint(HumanAnimStateFlags Ladder)
 
   // Jumping and falling animation
   let moveVThres = 0.01

@@ -1,6 +1,7 @@
 import:t="gen_ww2_aircraft_base.blk"
 import:t="#content/enlisted/gamedata/templates/aircraft_gunsound.blk"
 import:t="gen_ww2_aircraft.blk"
+import:t="ww2_aircraft_icon.blk"
 import:t="ww2_aircraft_custom.blk"
 import:t="planes/hs_123a_1_no_bomb.blk"
 import:t="ww2_aircraft_bullets_replace.blk"
@@ -56,40 +57,11 @@ bf_109g_6_grey_3_battlepass_premium_driver_cockpit{
   }
 }
 
-bf_109g_14{
-  _override:b=yes
-
-  "disableDMParts:list<t>"{
-    node:t="pylon_bomb1"
-    node:t="pylon_bomb2"
-    node:t="210mm_tube_l"
-    node:t="210mm_tube_r"
-  }
-}
-
-bf_109g_14_driver_cockpit{
-  _override:b=yes
-
-  "disableDMParts:list<t>"{
-    node:t="pylon_bomb1"
-    node:t="pylon_bomb2"
-    node:t="210mm_tube_l"
-    node:t="210mm_tube_r"
-  }
-}
-
 bf_109g_14_30mm_underwing_premium{
   _override:b=yes
 
   "animchar__objTexReplace:object"{
     "bf_109g_14_a*":t="bf_109g_14_winter44_a*"
-  }
-
-  "disableDMParts:list<t>"{
-    node:t="pylon_bomb1"
-    node:t="pylon_bomb2"
-    node:t="210mm_tube_l"
-    node:t="210mm_tube_r"
   }
 }
 
@@ -98,13 +70,6 @@ bf_109g_14_30mm_underwing_premium_driver_cockpit{
 
   "animchar__objTexReplace:object"{
     "bf_109g_14_a*":t="bf_109g_14_winter44_a*"
-  }
-
-  "disableDMParts:list<t>"{
-    node:t="pylon_bomb1"
-    node:t="pylon_bomb2"
-    node:t="210mm_tube_l"
-    node:t="210mm_tube_r"
   }
 }
 
@@ -242,7 +207,7 @@ bf_109g_14_petrle_battlepass_premium{
       seatOwnsEntityControl:b=yes
       attachNode:t="pilot1"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.05, 0.1, -0.1]]
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.05, 0.13, -0.14]]
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="pilot_dm"
       cameraNodeName:t=""
@@ -254,6 +219,8 @@ bf_109g_14_petrle_battlepass_premium{
         turret:t="turret_01"
         turret:t="turret_02"
         turret:t="turret_03"
+        turret:t="turret_04"
+        turret:t="turret_05"
       }
 
       "cockpitEffectors:object"{
@@ -263,6 +230,118 @@ bf_109g_14_petrle_battlepass_premium{
         l.foot:t="pedal_lfoot_1"
       }
     }
+  }
+
+  "turret_control__emitterNodes:shared:array"{
+    node:t="flare6"
+    node:t="flare7"
+    node:t="flare1"
+    node:t="flare2"
+    node:t="flare3"
+  }
+
+  "turret_control__animVars:shared:array"{
+
+    "vars:object"{
+      curYawParamName:t="weapon_01_yaw"
+      curPitchParamName:t="weapon_01_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_02_yaw"
+      curPitchParamName:t="weapon_02_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_03_yaw"
+      curPitchParamName:t="weapon_03_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_04_yaw"
+      curPitchParamName:t="weapon_04_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_05_yaw"
+      curPitchParamName:t="weapon_05_pitch"
+    }
+  }
+
+  "turret_control__turretInfo:shared:array"{
+
+    "turretInfo:object"{
+      turretName:t="turret_01"
+      turretGroup:t="additional_turrets"
+      trigger:t="additional_guns"
+      gun:t="planegun_bf_109g_14_20mm_mg15120_underwing_01"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_02"
+      turretGroup:t="additional_turrets"
+      trigger:t="additional_guns"
+      gun:t="planegun_bf_109g_14_20mm_mg15120_underwing_02"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_03"
+      turretGroup:t="main_turrets"
+      trigger:t="machine_guns"
+      gun:t="planegun_bf_109g_14_13mm_mg131_01"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_04"
+      turretGroup:t="main_turrets"
+      trigger:t="machine_guns"
+      gun:t="planegun_bf_109g_14_13mm_mg131_02"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_05"
+      turretGroup:t="cannon_turrets"
+      trigger:t="cannons"
+      gun:t="planegun_bf_109g_14_20mm_mg15120_01"
+    }
+  }
+
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="flare6"
+    node:t="flare7"
+    node:t="flare1"
+    node:t="flare2"
+    node:t="flare3"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t="muzzle_air_20mm"
+    fx:t="muzzle_air_20mm"
+    fx:t="muzzle_air_15mm"
+    fx:t="muzzle_air_15mm"
+    fx:t="muzzle_air_20mm"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+  }
+
+  "disableDMParts:list<t>"{
+    part:t="cannon2_dm"
+    part:t="cannon5_dm"
+    part:t="cannon6_dm"
+    part:t="cover7_dm"
+    part:t="cover8_dm"
+    part:t="210mm_tube_l"
+    part:t="210mm_tube_r"
+    part:t="pylon_cannon_l"
+    part:t="pylon_cannon_r"
+    part:t="pylon_bomb1"
+    part:t="pylon_bomb2"
   }
 }
 
@@ -2028,7 +2107,7 @@ p_51c_10_redtail_premium{
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="pilot_dm"
       cameraNodeName:t=""
-      cameraOffset:p3=-1.08, 1.031, 0.0
+      cameraOffset:p3=-1.15, 1.031, 0.0
       cockpitTemplate:t="p_51c_10_redtail_premium_driver_cockpit"
 
       "turretNames:array"{
@@ -2296,7 +2375,7 @@ sbd_3_pacific{
       seatOwnsEntityControl:b=yes
       attachNode:t="pilot1"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.15, 0.05, -0.15]]
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.01, 0.05, -0.15]]
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="pilot_dm"
       cameraNodeName:t=""
@@ -2906,6 +2985,59 @@ l2d_driver_cockpit{
   }
 }
 
+a6m3_premium{
+  _extends:t="a6m3"
+
+  "animchar__objTexReplace:object"{
+    "a6m3_a*":t="a6m3_42_2_c*"
+    "a6m3_n*":t="a6m3_42_n*"
+  }
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/pilot"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="pilot1"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[0.999713, 0.0174501, 0.0] [-0.0174506, 0.999746, 0.0] [0.0, 0.0, 0.999971] [-0.21, 0.07, -0.13]]
+      seatComponent:t="isDriver"
+      receiveDamageFromDMPart:t="pilot_dm"
+      cameraNodeName:t=""
+      cameraOffset:p3=-1.05, 0.79, -0.032
+      cockpitTemplate:t="a6m3_premium_driver_cockpit"
+      roomSpace:i=0
+
+      "turretNames:array"{
+        turret:t="turret_01"
+        turret:t="turret_02"
+        turret:t="turret_03"
+        turret:t="turret_04"
+        turret:t="turret_05"
+        turret:t="turret_06"
+        turret:t="turret_07"
+      }
+
+      "cockpitEffectors:object"{
+        r.hand:t="stick_rhand_1"
+        l.hand:t="throttle_lhand_1"
+        r.foot:t="pedal_rfoot_1"
+        l.foot:t="pedal_lfoot_1"
+      }
+    }
+  }
+}
+
+a6m3_premium_driver_cockpit{
+  _extends:t="a6m3_driver_cockpit"
+
+  "animchar__objTexReplace:object"{
+    "a6m3_a*":t="a6m3_42_2_c*"
+    "a6m3_n*":t="a6m3_42_n*"
+  }
+}
+
 su_2_m82{
   _override:b=yes
 
@@ -3365,24 +3497,6 @@ spitfire_vc_trop_driver_cockpit{
   }
 }
 
-bf_109f_4_trop{
-  _override:b=yes
-
-  "disableDMParts:list<t>"{
-    part:t="pylon_bomb1"
-    part:t="pylon_bomb2"
-  }
-}
-
-bf_109f_4_trop_driver_cockpit{
-  _override:b=yes
-
-  "disableDMParts:list<t>"{
-    part:t="pylon_bomb1"
-    part:t="pylon_bomb2"
-  }
-}
-
 fw_190a_1{
   _override:b=yes
 
@@ -3671,6 +3785,7 @@ plane{
   _extends:t="plane_base"
   _extends:t="plane_sound"
   _extends:t="plane_turret_controls"
+  _extends:t="plane_overload_warning"
   _extends:t="propeller_collision_damage"
   _extends:t="aircraft_marker"
   _extends:t="base_phys_modifications"
@@ -3724,6 +3839,13 @@ plane_with_cockpit{
   _extends:t="plane"
   cockpit__cameraDir:p3=1.0, 0.0, 0.0
   _tracked:t="cockpit__eid"
+  item__iconOffset:p2=0.0, -0.2
+  item__iconScale:r=1.35
+  item__iconYaw:r=25.0
+  item__iconPitch:r=-5.0
+  item__iconRoll:r=25.0
+  item__lightZenith:r=180.0
+  item__lightAzimuth:r=140.0
 
   cockpit_animchar_res_preload{
     _tags:t="gameClient"
@@ -3823,11 +3945,10 @@ base_aircraft_attach{
   }
 }
 
-bomb_launcher_without_sound{
+bomb_launcher_without_sound_and_effect{
   _extends:t="tankgun"
   _extends:t="animchar"
   _extends:t="base_aircraft_attach"
-  _extends:t="hit_effect_group_bomb"
   gun__icon:t="aircraft/bomb.svg"
   gun__projectileTemplate:t="bomb_projectile+disable_ricochet"
   gun__projectileDebugTemplate:t="bomb_projectile+disable_ricochet+bomb_projectile_debug"
@@ -3839,6 +3960,11 @@ bomb_launcher_without_sound{
 
   "gun__isLauncher:tag"{
   }
+}
+
+bomb_launcher_without_sound{
+  _extends:t="bomb_launcher_without_sound_and_effect"
+  _extends:t="hit_effect_group_bomb"
 }
 
 base_bomb_launcher{
@@ -4198,4 +4324,37 @@ type_94mod_10_launcher{
   gun__projectileTemplate:t="250kg_gp_bomb_projectile"
   gun__projectileDebugTemplate:t="250kg_gp_bomb_projectile+bomb_projectile_debug"
   animchar__res:t="su_fab100_char"
+}
+
+330_liters_a_6m_launcher{
+  _extends:t="bomb_launcher_without_sound_and_effect"
+  _extends:t="hit_effect_group_flame_bomb"
+  _extends:t="gunsound_base_bomb_launcher_aircraft"
+  gun__projectileTemplate:t="330_liters_a_6m_bomb_projectile"
+  gun__projectileDebugTemplate:t="330_liters_a_6m_bomb_projectile+bomb_projectile_debug"
+  animchar__res:t="jp_330_liters_drop_tank_char"
+}
+
+150gal_drop_tank_launcher{
+  _extends:t="bomb_launcher_without_sound_and_effect"
+  _extends:t="hit_effect_group_flame_bomb"
+  _extends:t="gunsound_base_bomb_launcher_aircraft"
+  gun__projectileTemplate:t="150gal_drop_tank_bomb_projectile"
+  gun__projectileDebugTemplate:t="150gal_drop_tank_bomb_projectile+bomb_projectile_debug"
+  animchar__res:t="us_150gal_drop_tank_char"
+}
+
+dummy_gun{
+  _extends:t="equipable_gun"
+  gun__projectileTemplate:t=""
+  animchar__res:t="tz_45_char"
+  gun__blk:t="content/enlisted/gamedata/weapons/tz_45.blk"
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="beretta_m38_40_round_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons/bullets/effect_dummy.blk"
+  }
 }

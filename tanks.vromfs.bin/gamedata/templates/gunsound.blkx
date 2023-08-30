@@ -64,11 +64,11 @@ gunsound_7_7mm_type_97{
 }
 
 gunsound_7_92mm_besa{
-  _extends:t="gunsound_12_7mm_m2_hb"
+  _extends:t="gunsound_7_62mm_m1919a4"
 }
 
 gunsound_7_7mm_vikkers{
-  _extends:t="gunsound_12_7mm_m2_hb"
+  _extends:t="gunsound_7_62mm_m1919a4"
 }
 
 gunsound_7_92mm_mg34{
@@ -108,7 +108,7 @@ gunsound_8mm_breda_mod38{
 
   _group{
     _tags:t="sound"
-    gun_sound__startLoopWithNOneshots:i=0
+    gun_sound__forceOneshot:b=yes
   }
 
   "gun_sound__shotPath:shared:object"{

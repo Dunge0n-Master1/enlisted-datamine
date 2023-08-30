@@ -5,7 +5,8 @@ jp_type_1_chi_he_pacific_premium{
 jp_type_1_chi_he_common{
   _extends:t="base_type_1_chi_he"
   _extends:t="tank_m10_engine_sound"
-  item__iconOffset:p2=0.0, 0.0
+  item__iconOffset:p2=0.0, 0.15
+  item__iconScale:r=1.28
   commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
   gunner_cam_limit__useCockpitDir:b=yes
 

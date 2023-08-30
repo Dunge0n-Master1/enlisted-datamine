@@ -22,6 +22,8 @@ lagg_3_11{
       "turretNames:array"{
         turret:t="turret_01"
         turret:t="turret_02"
+        turret:t="turret_03"
+        turret:t="turret_04"
       }
 
       "cockpitEffectors:object"{
@@ -34,6 +36,8 @@ lagg_3_11{
   }
 
   "turret_control__emitterNodes:shared:array"{
+    node:t="bomb1"
+    node:t="bomb2"
     node:t="flare1"
     node:t="flare2"
   }
@@ -49,19 +53,43 @@ lagg_3_11{
       curYawParamName:t="weapon_02_yaw"
       curPitchParamName:t="weapon_02_pitch"
     }
+
+    "vars:object"{
+      curYawParamName:t="weapon_03_yaw"
+      curPitchParamName:t="weapon_03_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_04_yaw"
+      curPitchParamName:t="weapon_04_pitch"
+    }
   }
 
   "turret_control__turretInfo:shared:array"{
 
     "turretInfo:object"{
       turretName:t="turret_01"
+      turretGroup:t="bomb_turrets"
+      trigger:t="bombs"
+      gun:t="planegun_lagg_3_11_fab_100_launcher_01"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_02"
+      turretGroup:t="bomb_turrets"
+      trigger:t="bombs"
+      gun:t="planegun_lagg_3_11_fab_100_launcher_02"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_03"
       turretGroup:t="main_turrets"
       trigger:t="machine_guns"
       gun:t="planegun_lagg_3_11_12_7mm_ubs_01"
     }
 
     "turretInfo:object"{
-      turretName:t="turret_02"
+      turretName:t="turret_04"
       turretGroup:t="cannon_turrets"
       trigger:t="cannons"
       gun:t="planegun_lagg_3_11_20mm_shvak_01"
@@ -69,11 +97,15 @@ lagg_3_11{
   }
 
   "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="bomb1"
+    node:t="bomb2"
     node:t="flare1"
     node:t="flare2"
   }
 
   "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t=""
+    fx:t=""
     fx:t="muzzle_air_15mm"
     fx:t="muzzle_air_20mm"
   }
@@ -81,6 +113,17 @@ lagg_3_11{
   "turret_gun_flash_fx__flashFxScale:shared:array"{
     scale:r=1.0
     scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+  }
+
+  "disableDMParts:list<t>"{
+    part:t="pylon_rocket1"
+    part:t="pylon_rocket2"
+    part:t="pylon_rocket3"
+    part:t="pylon_rocket4"
+    part:t="pylon_rocket6"
+    part:t="pylon_rocket5"
   }
 }
 
@@ -178,6 +221,60 @@ base_lagg_3_11_20mm_shvak{
       }
     }
   }
+}
+
+base_lagg_3_11_fab_100_launcher{
+  item__name:t="guns/su_fab100"
+  gun__blk:t="gamedata/weapons/lagg_3_11/fab_100_launcher.blk"
+  gun__shotFreq:r=10.0
+  gun__locName:t="su_fab100"
+  gun__shootNodeName:t="bone_mg_gun_twin"
+  gun__maxAmmo:i=1
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="manual"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="bolt_action"
+  }
+
+  "gun__shellsAmmo:array"{
+    ammo:i=1
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "default:array"{
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/fab_100.blk"
+        name:t="fab_100"
+        type:t="he_frag_tank"
+      }
+    }
+  }
+}
+
+planegun_lagg_3_11_fab_100_launcher_01{
+  _extends:t="fab_100_launcher"
+  _extends:t="base_lagg_3_11_fab_100_launcher"
+  _extends:t="gunsound_fab_100_launcher_aircraft"
+  gun__shootNodeName:t="bomb1"
+  slot_attach__slotName:t="bomb1"
+  gun__maxAmmo:i=1
+}
+
+planegun_lagg_3_11_fab_100_launcher_02{
+  _extends:t="fab_100_launcher"
+  _extends:t="base_lagg_3_11_fab_100_launcher"
+  _extends:t="gunsound_fab_100_launcher_aircraft"
+  gun__shootNodeName:t="bomb2"
+  slot_attach__slotName:t="bomb2"
+  gun__maxAmmo:i=1
 }
 
 planegun_lagg_3_11_12_7mm_ubs_01{

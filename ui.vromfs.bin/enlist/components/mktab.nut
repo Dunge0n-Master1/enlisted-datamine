@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
-let { fontLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { bigPadding, midPadding, titleTxtColor, defTxtColor, commonBorderRadius,
-  colPart, hoverSlotBgColor, darkTxtColor
+  hoverSlotBgColor, darkTxtColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
 let { blinkUnseen } = require("%ui/components/unseenComponents.nut")
@@ -20,13 +20,13 @@ let function requestMoveToElem(elem) {
 
 
 let tabTxtStyle = @(sf, isSelected) {
-  color = (sf & S_HOVER) ? darkTxtColor
+  color = sf & S_HOVER ? darkTxtColor
     : (sf & S_ACTIVE) || isSelected ? titleTxtColor
     : defTxtColor
-  fontFx = (sf & S_HOVER) ? null : FFT_GLOW
+  fontFx = sf & S_HOVER ? null : FFT_GLOW
   fontFxFactor = min(24, hdpx(24))
   fontFxColor = 0xDD000000
-}.__update(fontLarge)
+}.__update(fontBody)
 
 
 let tabBottomPadding = midPadding * 2
@@ -44,7 +44,7 @@ let function mkTab(section, action, curSection) {
     halign = ALIGN_CENTER
     behavior = Behaviors.Button
     sound = soundActive
-    minWidth = colPart(1.5)
+    minWidth = fsh(8.5)
     onClick = action
     skipDirPadNav = true
     children = [
@@ -91,7 +91,7 @@ let backgroundMarker = freeze({
   valign = ALIGN_BOTTOM
   children = {
     rendObj = ROBJ_BOX
-    size = [flex(), colPart(0.06)]
+    size = [flex(), hdpxi(4)]
     borderWidth = 0
     borderRadius = commonBorderRadius
     fillColor = Color(255,255,255)

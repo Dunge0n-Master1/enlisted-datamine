@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontawesome } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontawesome } = require("%enlSqGlob/ui/fontsStyle.nut")
 let faComp = require("%ui/components/faComp.nut")
 let { CheckBoxContentActive, CheckBoxContentHover, CheckBoxContentDefault, ControlBg
 } = require("%ui/style/colors.nut")
@@ -13,26 +13,29 @@ let getGamepadHotkeys = require("%ui/components/getGamepadHotkeys.nut")
 
 let checkFontSize = hdpx(12)
 let boxSize = hdpx(20)
-let calcColor = @(sf)
-  (sf & S_ACTIVE) ? CheckBoxContentActive
-  : (sf & S_HOVER) ? CheckBoxContentHover
+let calcColor = @(sf) sf & S_ACTIVE ? CheckBoxContentActive
+  : sf & S_HOVER ? CheckBoxContentHover
   : CheckBoxContentDefault
 
-let box = @(stateFlags, state) function() {
-  let color = calcColor(stateFlags.value)
-  return {
-    watch = stateFlags
-    size = [boxSize, boxSize]
-    rendObj = ROBJ_BOX
-    fillColor = ControlBg
-    borderWidth = hdpx(1)
-    borderColor = color
-    borderRadius = hdpx(3)
-    halign = ALIGN_CENTER
-    valign = ALIGN_CENTER
-    children = state.value
-      ? faComp("check", {color, fontSize = checkFontSize})
-      : null
+let function box(stateFlags, state) {
+  let size = [boxSize, boxSize]
+  let watch = [stateFlags, state]
+  return function() {
+    let color = calcColor(stateFlags.value)
+    return {
+      watch
+      size
+      rendObj = ROBJ_BOX
+      fillColor = ControlBg
+      borderWidth = hdpx(1)
+      borderColor = color
+      borderRadius = hdpx(3)
+      halign = ALIGN_CENTER
+      valign = ALIGN_CENTER
+      children = state.value
+        ? faComp("check", {color, fontSize = checkFontSize})
+        : null
+    }
   }
 }
 

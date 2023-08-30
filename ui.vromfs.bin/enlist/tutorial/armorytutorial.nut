@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { bigPadding, activeTxtColor, smallPadding, accentTitleTxtColor} = require("%enlSqGlob/ui/viewConst.nut")
 let { noteTextArea, txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { itemTypeIcon } = require("%enlist/soldiers/components/itemTypesData.nut")
@@ -22,7 +22,7 @@ let function soldierIconWithType(soldierIcon, soldierName) {
     minWidth = hdpx(150)
     children = [
       itemTypeIcon(itemType, itemSubType)
-      txt(soldierName).__update(body_txt, { color = accentTitleTxtColor })
+      txt(soldierName).__update(fontBody, { color = accentTitleTxtColor })
     ]
   }
 }
@@ -38,7 +38,7 @@ let function weaponIconWithType(weapons){
       gap = smallPadding
       children = [
         itemTypeIcon(itemType, itemSubType)
-        txt(weapon.values()[0]).__update(body_txt)
+        txt(weapon.values()[0]).__update(fontBody)
       ]
     }
   })
@@ -68,7 +68,7 @@ let function mkSoldierInfoRow(soldierIcon, soldierName, soldiersWeapons){
 let textAreaParams = {
   halign = ALIGN_CENTER
   color = activeTxtColor
-}.__update(body_txt)
+}.__update(fontBody)
 
 let windowDescription = {
   size = [flex(), SIZE_TO_CONTENT]

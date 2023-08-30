@@ -40,6 +40,57 @@ repeat{
     }
   }
 
+  orderedSelector{
+
+    isVarsIntEqual{
+      lhs:t="forceMove"
+      rhs_value:i=0
+    }
+
+    success{
+
+      sequencer{
+
+        setIntVar{
+          to:t="forceMove"
+          value:i=0
+        }
+
+        wait{
+          range:p2=0.5, 1.0
+          resetable:b=yes
+        }
+
+        wait{
+          range:p2=0.1, 0.5
+          resetable:b=yes
+        }
+
+        parallel{
+
+          moveToPos{
+            posParam:t="forceMovePos"
+            sprintTimerRange:p2=10.0, 20.0
+            minDistToSprint:r=1.5
+            lookVisc:r=0.1
+            tryClimbing:b=no
+            maxStanceParam:t="maxStance"
+            stuckDirParam:t="stuckDir"
+            timeToStuck:r=0.5
+            incObstacles:b=yes
+            avoidAiObstacles:b=no
+            distThreshold:r=1.0
+          }
+
+          wait{
+            range:p2=0.5, 1.0
+            resetable:b=yes
+          }
+        }
+      }
+    }
+  }
+
   subTree{
     name:t=""
     refId:t="behaviour"

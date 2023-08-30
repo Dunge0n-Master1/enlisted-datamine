@@ -8,7 +8,7 @@ let { notChoosenPerkArmies } = require("%enlist/soldiers/model/soldierPerks.nut"
 let { unseenArmiesWeaponry } = require("%enlist/soldiers/model/unseenWeaponry.nut")
 let { unseenArmiesVehicle } = require("%enlist/vehicles/unseenVehicles.nut")
 let { settings } = require("%enlist/options/onlineSettings.nut")
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { soldierWndWidth } = require("%enlSqGlob/ui/viewConst.nut")
 let blinkingIcon = require("%enlSqGlob/ui/blinkingIcon.nut")
 
@@ -86,7 +86,7 @@ let animatedParams = {
 
 let notifierHint = function() {
   if (needShowAlert.value == null)
-    return null
+    return { watch = needShowAlert }
   let notifierId = needShowAlert.value
   let params = notifierId not in seenData.value ? animatedParams : {}
   let { icon, locId } = notifierConfig[notifierId]
@@ -101,7 +101,7 @@ let notifierHint = function() {
         rendObj = ROBJ_TEXTAREA
         behavior = Behaviors.TextArea
         text = loc(locId)
-      }.__update(sub_txt)
+      }.__update(fontSub)
     ]
   }.__update(params)
 }

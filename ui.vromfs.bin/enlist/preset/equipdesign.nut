@@ -4,13 +4,13 @@ let { defTxtColor, titleTxtColor, disabledTxtColor, darkPanelBgColor, panelBgCol
   hoverPanelBgColor, defSlotBgColor, fullTransparentBgColor, commonBtnHeight, midPadding,
   attentionTxtColor
 } = require("%enlSqGlob/ui/designConst.nut")
-let { fontLarge, fontMedium, fontSmall } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 
-let defTxtStyle = { color = defTxtColor }.__update(fontLarge)
-let hoverTxtStyle = { color = titleTxtColor }.__update(fontLarge)
-let disabledTxtStyle = { color = disabledTxtColor }.__update(fontLarge)
-let notFoundHeader = { color = attentionTxtColor }.__update(fontLarge)
-let noteStyle = { color = titleTxtColor }.__update(fontSmall)
+let defTxtStyle = { color = defTxtColor }.__update(fontBody)
+let hoverTxtStyle = { color = titleTxtColor }.__update(fontBody)
+let disabledTxtStyle = { color = disabledTxtColor }.__update(fontBody)
+let notFoundHeader = { color = attentionTxtColor }.__update(fontBody)
+let noteStyle = { color = titleTxtColor }.__update(fontSub)
 
 let styles = freeze({
   notFoundMsg = defTxtStyle
@@ -20,18 +20,20 @@ let styles = freeze({
 
   closeBtnStyle = {
     padding = midPadding
-    fontSize = fontMedium.fontSize
+    fontSize = fontBody.fontSize
     color = defTxtColor
   }
 
   textState = @(sf, isPrem) {
     padding = midPadding
   }.__update(sf & S_HOVER ? hoverTxtStyle
-    : isPrem ? disabledTxtStyle : defTxtStyle)
+    : isPrem ? disabledTxtStyle
+    : defTxtStyle)
 
   bgState = @(sf, isPrem) {
     fillColor = sf & S_HOVER ? hoverPanelBgColor
-      : isPrem ? darkPanelBgColor : panelBgColor
+      : isPrem ? darkPanelBgColor
+      : panelBgColor
   }
 
   innerBtnStyle = {
@@ -48,7 +50,7 @@ let styles = freeze({
       textColor = defTxtColor
       backGroundColor = defSlotBgColor
     }
-  }.__update(fontLarge)
+  }.__update(fontBody)
 
   hoverInputStyle = {
     padding = [0, 0, 0, midPadding]
@@ -56,7 +58,7 @@ let styles = freeze({
       textColor = titleTxtColor,
       backGroundColor = hoverPanelBgColor
     }
-  }.__update(fontLarge)
+  }.__update(fontBody)
 
 })
 

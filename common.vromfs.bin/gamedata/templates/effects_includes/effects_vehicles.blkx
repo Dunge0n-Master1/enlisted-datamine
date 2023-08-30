@@ -1,6 +1,5 @@
 global_track_fx_info{
   _singleton:b=yes
-  _extends:t="replicating"
 
   "global_track_fx__materialToGroupMap:object"{
   }

@@ -34,12 +34,16 @@ let mmContext = persist("ctx", function() {
 })
 
 let function onMinimap(_eid, comp){
-  let isFarMap = (inPlane.value && (comp["farMapTex"] != null))
+  let hasBackMap = (inPlane.value && (comp.farMapTex != null))
   mmContext.setup(config.__merge({
-    mapTex = isFarMap ? comp["farMapTex"] : comp["mapTex"]
-    right_bottom = isFarMap ? comp["farRightBottom"] : comp["right_bottom"]
-    left_top = isFarMap ? comp["farLeftTop"] : comp["left_top"]
-    northAngle = comp["northAngle"]
+    mapTex = comp.mapTex
+    right_bottom = comp.right_bottom
+    left_top = comp.left_top
+    northAngle = comp.northAngle
+  }).__merge(!hasBackMap ? {} : {
+    backMapTex = comp.farMapTex
+    back_left_top = comp.farLeftTop
+    back_right_bottom = comp.farRightBottom
   }))
 }
 
@@ -51,4 +55,3 @@ ecs.register_es("minimap_ui_es", { onInit = onMinimap}, mmapComps)
 
 
 return mmContext
-

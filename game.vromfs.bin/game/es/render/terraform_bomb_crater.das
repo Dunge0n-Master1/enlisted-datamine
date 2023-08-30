@@ -35,9 +35,18 @@ def make_outlined_available_crater_parts_for_decal(available_parts_mask : uint64
           parts_mask = parts_mask | make_crater_part_available(available_parts_mask, part_grid_width, partPos + offset)
   return parts_mask
 
+def get_decal_id(physmat_id : int;
+                 decal_ids : IntList;
+                 decal_physmats_ids : IntList)
+  if empty(decal_ids)
+    return -1
+
+  let physmatIdx = find_index(decal_physmats_ids, physmat_id)
+  let decalId = decal_ids?[physmatIdx] ?? decal_ids?[0] ?? -1
+  return decalId
+
 [es(tag=render)]
 def heightmap_change_invalidation_on_terraform_bomb_crater(evt : EventBombCraterTerraformed)
-  erase_grass(evt.pos, evt.outerRadius);
   invalidate_after_heightmap_change(BBox3(evt.pos, 2.0 * evt.outerRadius))
 
 [es(tag=render, on_event=EventLevelLoaded)]
@@ -69,21 +78,21 @@ def terraform_crater_decals_init(evt : Event;
 [es(tag=render)]
 def terraform_crater_create_land_decal(evt : EventBombCraterTerraformed;
                                        bomb_crater_config__decalIds : IntList;
-                                       bomb_crater_config__decalPhysmatsIds : IntList)
+                                       bomb_crater_config__decalPhysmatsIds : IntList;
+                                       bomb_crater_config__decalScale : float)
   erase_bullet_holes(evt.pos, evt.outerRadius)
 
-  if empty(bomb_crater_config__decalIds)
-    return
+  let decalId = get_decal_id(evt.mainPhysmatId, bomb_crater_config__decalIds, bomb_crater_config__decalPhysmatsIds)
+  let eraseRadiusMult = decalId >= 0 ? bomb_crater_config__decalScale : 1.0
+  let eraseRadius = evt.outerRadius * eraseRadiusMult
+  erase_grass(evt.pos, eraseRadius)
+  erase_gpu_objects(evt.pos, eraseRadius)
 
-  let physmatIdx = find_index(bomb_crater_config__decalPhysmatsIds, evt.mainPhysmatId)
-  let decalId = bomb_crater_config__decalIds?[physmatIdx] ?? bomb_crater_config__decalIds?[0] ?? -1
-  if decalId < 0
-    return
-
-  let pos = evt.pos.xz
-  let decalSize = float2(evt.outerRadius)
-  let partsMask = make_outlined_available_crater_parts_for_decal(evt.availablePartsMask, evt.partsGridWidth)
-  create_clipmap_decal(decalId, pos, rnd_float(0.0, PI * 2.0), decalSize, 0, false, partsMask, evt.partsGridWidth)
+  if decalId >= 0
+    let pos = evt.pos.xz
+    let decalSize = float2(evt.outerRadius) * bomb_crater_config__decalScale
+    let partsMask = make_outlined_available_crater_parts_for_decal(evt.availablePartsMask, evt.partsGridWidth)
+    create_clipmap_decal(decalId, pos, rnd_float(0.0, PI * 2.0), decalSize, 0, false, partsMask, evt.partsGridWidth)
 
 [es(tag=render)]
 def create_smoke_emitter_on_terraform_bomb_crater(evt : EventBombCraterTerraformed;

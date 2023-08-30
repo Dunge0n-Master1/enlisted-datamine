@@ -1,11 +1,11 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { accentColor, colPart, titleTxtColor, defTxtColor, smallPadding, darkTxtColor,
-  hoverPanelBgColor, darkPanelBgColor
+let { accentColor, titleTxtColor, defTxtColor, smallPadding, darkTxtColor, hoverPanelBgColor,
+  darkPanelBgColor
 } = require("%enlSqGlob/ui/designConst.nut")
-let { fontSmall } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 
-let knobSize = [colPart(0.22), colPart(0.22)]
+let knobSize = [hdpxi(14), hdpxi(14)]
 
 let calcEmptyFrameColor = @(sf, isEnabled) !isEnabled ? hoverPanelBgColor
   : sf & S_HOVER ? darkPanelBgColor
@@ -20,12 +20,12 @@ let calcKnobFrameColor = @(sf, isEnabled) !isEnabled ? hoverPanelBgColor
 
 let defLabelStyle = {
   color = defTxtColor
-}.__update(fontSmall)
+}.__update(fontSub)
 
 
 let hoverLabelStyle = {
   color = titleTxtColor
-}.__update(fontSmall)
+}.__update(fontSub)
 
 
 let function mkSlider(var, label, options = {}) {
@@ -51,7 +51,7 @@ let function mkSlider(var, label, options = {}) {
     rendObj = ROBJ_TEXT
     group
     text
-  }.__update(isEnabled && (sf & S_HOVER) != 0 ? hoverLabelStyle : defLabelStyle)
+  }.__update(isEnabled && (sf & S_HOVER) ? hoverLabelStyle : defLabelStyle)
 
 
   let function onChange(factor){
@@ -91,7 +91,7 @@ let function mkSlider(var, label, options = {}) {
           children = [
             {
               flow = FLOW_HORIZONTAL
-              size = [flex(), colPart(0.1)]
+              size = [flex(), hdpx(6)]
               children = [
                 {
                   group

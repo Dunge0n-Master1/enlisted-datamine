@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { showMsgbox } = require("%enlist/components/msgbox.nut")
-let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let checkbox = require("%ui/components/checkbox.nut")
 let crossplayIcon = require("%enlist/components/crossplayIcon.nut")
 let {
@@ -76,7 +76,7 @@ let function setRandTeamValue(val) {
 let randTeamBoxStyle = {
   text = loc("queue/join_any_team")
   margin = 0
-}.__update(body_txt)
+}.__update(fontBody)
 
 let randTeamCheckbox = checkbox(matchRandomTeam, randTeamBoxStyle, {
   setValue = setRandTeamValue
@@ -113,7 +113,7 @@ let crossplayCheckbox = checkbox(isCrossplayStateOn,
     text = loc("queue/switchCrossplay")
     color = Color(255,255,255)
     margin = 0
-  }.__update(body_txt),
+  }.__update(fontBody),
   {
     setValue = activateCrossplay
     textOnTheLeft = true
@@ -134,7 +134,7 @@ let crossplayHint = @() {
             txt({
               text = loc("queueCrossplayHint")
               color = titleTxtColor
-            }).__update(sub_txt)
+            }).__update(fontSub)
             canSwitchCrossplayState.value ? crossplayCheckbox : null
           ]
         }

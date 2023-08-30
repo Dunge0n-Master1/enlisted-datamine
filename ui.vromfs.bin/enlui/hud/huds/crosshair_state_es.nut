@@ -22,7 +22,7 @@ let defValue = freeze({
 })
 let { state, stateSetValue } = mkFrameIncrementObservable(defValue, "state")
 let {
-  crossHairEid, canShoot, teammateAim, isAiming, isAimPressed, overheat, debugForceCrosshair,
+  crossHairEid, teammateAim, isAiming, isAimPressed, overheat, debugForceCrosshair,
   crosshairType, crosshairColor, crosshairReloadEndTime, crosshairReloadTotalTime,
   showCustomCrosshair, crosshairCustomType
 } = watchedTable2TableOfWatched(state)
@@ -33,7 +33,6 @@ ecs.register_es("script_chrosshair_state_es",
     [["onChange","onInit"]] = function(_, eid, comp){
       stateSetValue({
         crossHairEid = eid
-        canShoot = comp["ui_crosshair_state__canShoot"]
         teammateAim = comp["ui_crosshair_state__teammateAim"]
         isAiming = comp["ui_crosshair_state__isAiming"]
         isAimPressed = comp["ui_crosshair_state__isAimPressed"]
@@ -53,7 +52,6 @@ ecs.register_es("script_chrosshair_state_es",
     comps_track = [
       ["ui_crosshair_state__reloadEndTime", ecs.TYPE_FLOAT],
       ["ui_crosshair_state__reloadTotalTime", ecs.TYPE_FLOAT],
-      ["ui_crosshair_state__canShoot", ecs.TYPE_BOOL],
       ["ui_crosshair_state__teammateAim", ecs.TYPE_BOOL],
       ["ui_crosshair_state__isAiming", ecs.TYPE_BOOL],
       ["ui_crosshair_state__isAimPressed", ecs.TYPE_BOOL],
@@ -69,7 +67,7 @@ ecs.register_es("script_chrosshair_state_es",
 
 return {
   crossHairEid
-  canShoot
+  //canShoot
   teammateAim
   overheat
   isAiming

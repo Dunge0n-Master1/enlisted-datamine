@@ -39,6 +39,11 @@ def remove_building_marker_es(evt : Event; eid aka building_eid : EntityId)
       return true
     return false
 
+[es(tag=server, on_appear, REQUIRE=userPointBuilding)]
+def remove_building_marker_if_target_doesnt_exist(evt : Event; eid : EntityId; userPointTarget : EntityId)
+  if !doesEntityExist(userPointTarget)
+    destroyEntity(eid)
+
 [es(tag = server)]
 def clear_all_map_user_point_es(evt : CmdClearAllAttachedUserPoint;
                                 eid : ecs::EntityId;

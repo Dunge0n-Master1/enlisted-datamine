@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let exclamation = require("%enlist/components/exclamation.nut")
 let { doesLocTextExist } = require("dagor.localize")
-let { sub_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { bgColor, txtColor, borderColor } = require("profilePkg.nut")
 let {
   bigPadding, smallPadding, disabledTxtColor, smallOffset, defTxtColor
@@ -16,7 +16,7 @@ let wpSize = hdpxi(190)
 let wpHeaderWidth = hdpxi(150)
 let iconSize = hdpxi(60)
 
-let weakTxtColor = @(sf) (sf & S_HOVER) ? darkTxtColor : disabledTxtColor
+let weakTxtColor = @(sf) sf & S_HOVER ? darkTxtColor : disabledTxtColor
 
 let mkText = @(text, style) {
   rendObj = ROBJ_TEXT
@@ -35,7 +35,7 @@ let mkTextArea = @(text, style, sf=0) {
 let mkTitleColumn = @(text, sf) {
   size = [wpHeaderWidth, SIZE_TO_CONTENT]
   halign = ALIGN_RIGHT
-  children = mkText(text, { color = weakTxtColor(sf) }.__update(sub_txt))
+  children = mkText(text, { color = weakTxtColor(sf) }.__update(fontSub))
 }
 
 let mkWpRow = @(locId, rowTitleText, txtStyle, isEmptyHidden = false, sf = 0)
@@ -80,8 +80,8 @@ let function mkWpBottomRow(wallposter, sf) {
             size = [pw(50), hdpx(1)]
             color = borderColor(0)
           }
-          mkText(loc(armyId), { color = weakTxtColor(sf) }.__update(body_txt))
-          mkText(loc(campaignTitle), { color = weakTxtColor(sf) }.__update(sub_txt))
+          mkText(loc(armyId), { color = weakTxtColor(sf) }.__update(fontBody))
+          mkText(loc(campaignTitle), { color = weakTxtColor(sf) }.__update(fontSub))
         ]
       }
     ]
@@ -120,10 +120,10 @@ let function mkWallposter(wallposter, sf = 0, isUnseen = false) {
             flow = FLOW_VERTICAL
             gap = bigPadding
             children = [
-              mkWpRow(nameLocId, loc("wp/name"), body_txt, false, sf)
+              mkWpRow(nameLocId, loc("wp/name"), fontBody, false, sf)
               { size = [flex(), smallOffset] }
-              mkWpRow(descLocId, loc("wp/desc"), sub_txt, true, sf)
-              mkWpRow(hintLocId, loc("wp/toToGet"), sub_txt, true, sf)
+              mkWpRow(descLocId, loc("wp/desc"), fontSub, true, sf)
+              mkWpRow(hintLocId, loc("wp/toToGet"), fontSub, true, sf)
               mkWpBottomRow(wallposter, sf)
             ]
           }
@@ -149,7 +149,7 @@ let function makeBigWpImage(wallposter, onClick) {
       mkTextArea(loc(nameLocId), {
         size = [pw(80), SIZE_TO_CONTENT]
         halign = ALIGN_CENTER
-      }.__update(body_txt))
+      }.__update(fontBody))
       {
         rendObj = ROBJ_IMAGE
         size = flex()

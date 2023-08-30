@@ -122,6 +122,7 @@ Aerodynamics{
   OilRadiatorCd:r=0.002
   FuseCd:r=0.0
   AirbrakeCd:r=0.0
+  CockpitDoorCd:r=0.07
   ClToCmCoeff:r=0.01
   UseSpinLoss:b=yes
   SpinClLoss:r=0.2

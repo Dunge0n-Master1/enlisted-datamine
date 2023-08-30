@@ -318,3 +318,14 @@ def get_new_respawn_group(team : int) : int
       return true
     return false
   return groupId
+
+def create_respawn_icon_with_params(tm : float3x4; group : int; icon_type : string; team : int; players_count : int = 0; active : bool = true) : EntityId
+  return createEntity("respawn_point_selector") <| $(var init : ComponentsInitializer)
+    set(init, "respawn_icon__active", active)
+    set(init, "transform", tm)
+    set(init, "respawn_icon__position", tm[3])
+    set(init, "selectedGroup", group)
+    set(init, "respawnIconType", icon_type)
+    set(init, "team", team)
+    if players_count != 0
+      set(init, "respawn_icon__playersCount", players_count)

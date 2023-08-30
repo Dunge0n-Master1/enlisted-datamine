@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { battlesUserLogs, UserLogType } = require("userLogState.nut")
-let { defTxtColor, smallPadding, hoverSlotBgColor, panelBgColor
+let { defTxtColor, smallPadding, hoverSlotBgColor, panelBgColor, selectedPanelBgColor, miniPadding
 } = require("%enlSqGlob/ui/designConst.nut")
 let { mkUserLogHeader, mkRowText, rowStyle, userLogStyle, userLogRowStyle
 } = require("userLogPkg.nut")
@@ -10,7 +10,6 @@ let { BattleResult } = require("%enlSqGlob/battleParams.nut")
 
 let selectedIdx = Watched(0)
 
-let selectedColor = mul_color(panelBgColor, 1.5)
 let mkArmyExpLogRow = @(row) {
   children = mkRowText(loc("listWithDot", {
     text = loc("userLogRow/armyExp", {
@@ -63,11 +62,9 @@ let function mkLog(uLog, idx) {
     behavior = Behaviors.Button
     xmbNode = XmbNode()
     onClick = @() selectedIdx(idx)
-    //borderColor = borderColor(sf, isSelected.value)
-    //borderWidth = hdpx(1)
-    fillColor = sf & S_HOVER
-      ? hoverSlotBgColor
-      : isSelected.value ? selectedColor : panelBgColor
+    fillColor = sf & S_HOVER ? hoverSlotBgColor
+      : isSelected.value ? selectedPanelBgColor
+      : panelBgColor
     children = mkBattleLog(uLog, isSelected.value, sf)
   })
 }
@@ -77,12 +74,11 @@ return @() {
   size = [flex(), SIZE_TO_CONTENT]
   flow = FLOW_VERTICAL
   xmbNode = XmbContainer({
-    canFocus = @() false
+    canFocus = false
     wrap = false
     scrollSpeed = 10.0
     isViewport = true
   })
-  gap = hdpx(2)
-  //gap = bigPadding
+  gap = miniPadding
   children = battlesUserLogs.value.map(mkLog)
 }

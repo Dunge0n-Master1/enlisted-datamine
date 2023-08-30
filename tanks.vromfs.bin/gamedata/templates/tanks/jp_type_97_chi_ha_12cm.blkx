@@ -6,9 +6,18 @@ jp_type_97_chi_ha_12cm_common{
   _extends:t="base_type_97_chi_ha_12cm"
   _extends:t="tank_m10_engine_sound"
   _extends:t="tank_light_vehicle_tracks_sound"
-  item__iconOffset:p2=0.0, 0.0
+  item__iconOffset:p2=0.0, 0.05
+  item__iconScale:r=1.11
   commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
   gunner_cam_limit__useCockpitDir:b=yes
+
+  "turrets__initAmmoDistribution:array"{
+
+    "ammo:object"{
+      slot:i=1
+      fill:b=yes
+    }
+  }
 
   "vehicle_seats__seats:shared:array"{
 
@@ -101,19 +110,6 @@ jp_type_97_chi_ha_12cm_common{
       "loaderTurretNames:array"{
         turret:t="turret_01"
       }
-    }
-  }
-
-  "turrets__initAmmoDistribution:array"{
-
-    "ammo:object"{
-      slot:i=0
-      fill:b=yes
-    }
-
-    "ammo:object"{
-      slot:i=2
-      fill:b=yes
     }
   }
 }

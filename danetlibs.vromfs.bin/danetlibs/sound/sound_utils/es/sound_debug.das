@@ -8,7 +8,15 @@ require DagorSystem
 require DagorDebug3D
 require DagorConsole
 require math.color
+require math.base
 require strings
+
+
+[es(tag=(sound, render, dev), no_order, REQUIRE=soundDebugDrawTemplate)]
+def sound_debug_draw_template(act : UpdateStageInfoRenderDebug;
+                              eid : EntityId;
+                              transform : float3x4)
+  add_debug_text_mark(transform[3], "{eid}={getEntityTemplateName(eid)}", -1, 0., E3DCOLOR(0xFFFFFFFF))
 
 
 [es(tag=(sound, render, dev), no_order)]

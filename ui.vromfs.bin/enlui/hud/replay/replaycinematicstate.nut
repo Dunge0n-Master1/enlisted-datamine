@@ -185,12 +185,9 @@ ecs.register_es("ui_cinematic_mode_es",
   }
 )
 
-let function changeWeatherPreset(newVal) {
-  if (newVal == null)
-    return
-  ecs.g_entity_mgr.broadcastEvent( CmdWeather({ preset = (typeof newVal == "string")
-    ? newVal
-    : weatherPresetList.value[newVal].preset }))
+let function changeWeatherPreset(preset) {
+  if (preset != null)
+    ecs.g_entity_mgr.broadcastEvent( CmdWeather({ preset }))
 }
 
 ecs.register_es("ui_cinematic_weather_presets_es",
@@ -200,7 +197,7 @@ ecs.register_es("ui_cinematic_weather_presets_es",
       res = res.map(@(v) {
         loc = loc($"weatherPreset/{v}")
         preset = v
-        setValue = changeWeatherPreset
+        setValue = @(_) changeWeatherPreset(v)
       })
       weatherPresetList(res)
     }

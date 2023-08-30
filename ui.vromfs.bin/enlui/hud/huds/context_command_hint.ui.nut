@@ -1,7 +1,7 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {tipCmp} = require("%ui/hud/huds/tips/tipComponent.nut")
 let contextCommandState = require("%ui/hud/state/contextCommandState.nut")
 let { ContextCommand } = require("%enlSqGlob/dasenums.nut")
@@ -59,7 +59,7 @@ return function () {
     tip = tipCmp({
       text,
       inputId = "Human.ContextCommand",
-    }.__update(sub_txt))
+    }.__update(fontSub))
   }
 
   return {

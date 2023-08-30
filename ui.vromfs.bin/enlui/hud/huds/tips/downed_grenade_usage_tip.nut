@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { controlledHeroEid } = require("%ui/hud/state/controlled_hero.nut")
 let { isDowned } = require("%ui/hud/state/health_state.nut")
 let { hasAnyGrenade } = require("%ui/hud/state/hero_weapons.nut")
@@ -31,7 +31,7 @@ let tipDefaults = {
 let grenadeUsageTip = tipCmp(tipDefaults.__merge({
   text = loc("tips/useGrenade")
   inputId = "Human.ThrowDowned"
-}, sub_txt))
+}, fontSub))
 
 
 let downed_grenade_usage_tip = @() {

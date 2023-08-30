@@ -40,4 +40,4 @@ def human_inventory_use_flask(evt : CmdFlaskUse;
 
 [es(tag=server, REQUIRE_NOT=deadEntity)]
 def human_inventory_use_flask_cancel(evt : CmdFlaskUseCancel; eid : EntityId)
-  inventory::stop_use_item(eid)
+  stop_use_item2(eid)

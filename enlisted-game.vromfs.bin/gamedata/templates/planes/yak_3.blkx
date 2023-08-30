@@ -12,11 +12,11 @@ yak_3{
       seatOwnsEntityControl:b=yes
       attachNode:t="pilot1"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.15, 0.15, -0.15]]
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.06, 0.05, -0.15]]
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="pilot_dm"
       cameraNodeName:t=""
-      cameraOffset:p3=-0.788, 0.607, 0.0
+      cameraOffset:p3=-0.9, 0.607, 0.0
       cockpitTemplate:t="yak_3_driver_cockpit"
       roomSpace:i=0
 

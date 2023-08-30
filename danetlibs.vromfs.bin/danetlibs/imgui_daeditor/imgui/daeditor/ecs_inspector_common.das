@@ -447,7 +447,7 @@ def draw_EntityId(eid : array<EntityId> implicit; flags : uint; name : string; r
 
   if imgui::BeginPopup("eid_menu_{name}{eid[0]}")
     for i in range(1, 4)
-      if imgui::Button("Insector #{i+1}##{i+1}")
+      if imgui::Button("Inspector #{i+1}##{i+1}")
         imgui::CloseCurrentPopup()
         open_inspector(i, *val, "")
     imgui::EndPopup()
@@ -1087,7 +1087,7 @@ def inspect_item(uid : int; var filter : ImGuiTextFilter; eids : array<EntityId>
     for i in range(1, 4)
       if i > 1
         imgui::SameLine()
-      if imgui::Button("Insector #{i+1}##{i+1}")
+      if imgui::Button("Inspector #{i+1}##{i+1}")
         imgui::CloseCurrentPopup()
         open_inspector(i, eid, imgui_get_blk_val("ecs_inspector_{uid}", "filter", ""))
 
@@ -1113,15 +1113,16 @@ def inspect_item(uid : int; var filter : ImGuiTextFilter; eids : array<EntityId>
         editor_save_entity(eid, blk)
         imgui::SetClipboardText(string(blk))
 
+    imgui::Separator()
+
+    let fullTmplText = templateName |> replace("+daeditor_selected+", "+") |> replace("+daeditor_selected", "")
     if imgui::Button("copy")
       imgui::CloseCurrentPopup()
-      imgui::SetClipboardText(templateName |> replace("+daeditor_selected+", "+") |> replace("+daeditor_selected", ""))
+      imgui::SetClipboardText(fullTmplText)
 
     imgui::SameLine()
-    imgui::Text(templateName)
-    imgui::SameLine()
+    imgui::Text(fullTmplText)
 
-    imgui::Separator()
 
     let names <- split_template(templateName)
     for idx, n in iter_range(names), names
@@ -1130,6 +1131,12 @@ def inspect_item(uid : int; var filter : ImGuiTextFilter; eids : array<EntityId>
         imgui::SetClipboardText(n)
       imgui::SameLine()
       imgui::Text(n)
+
+    imgui::Separator()
+
+    if imgui::Button("Destroy entity")
+      imgui::CloseCurrentPopup()
+      destroyEntity(eid)
 
     imgui::EndPopup()
 

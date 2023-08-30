@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h0_txt, h1_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontTitle, fontHeading1 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { respawnsInBot, canUseRespawnbaseByType, needSpawnMenu, selectedRespawnGroupId, isFirstSpawn, respRequested, paratroopersPointSelectorOn } = require("%ui/hud/state/respawnState.nut")
 let { localPlayerTeam } = require("%ui/hud/state/local_player.nut")
 let { isReplay } = require("%ui/hud/state/replay_state.nut")
@@ -14,16 +14,16 @@ let spawnIconColor = Color(86,131,212,250)
 let inactiveSpawnIconColor = Color(160,160,160,150)
 let playerSpawnActiveColor = Color(57, 99, 255)
 
-let mkIconSize = @(size) array(2, size.tointeger())
+let mkIconSize = @(size) array(2, size)
 
 //Temporarily same icons as spawn points icons for soldiers
-let spawnIconSize = mkIconSize(fsh(9))
-let selectedSpawnIconSize = mkIconSize(fsh(12))
-let customSpawnSize = mkIconSize(fsh(6))
-let selectedCustomSpawnSize = mkIconSize(fsh(9))
-let playerSpawnSize = mkIconSize(fsh(6))
-let selectedPlayerSpawnSize = mkIconSize(fsh(8))
-let counterSpawnSize =mkIconSize(fsh(3))
+let spawnIconSize = mkIconSize(hdpxi(98))
+let selectedSpawnIconSize = mkIconSize(hdpxi(130))
+let customSpawnSize = mkIconSize(hdpxi(64))
+let selectedCustomSpawnSize = mkIconSize(hdpxi(98))
+let playerSpawnSize = mkIconSize(hdpxi(64))
+let selectedPlayerSpawnSize = mkIconSize(hdpxi(86))
+let counterSpawnSize =mkIconSize(hdpxi(32))
 
 
 
@@ -58,7 +58,7 @@ let playerSpawnPointInfo = {
 }
 
 let paratroopersSpawnPointInfo = {
-  icon = @(isSelected) isSelected ? paratroopers_spawn_point : spawn_point
+  icon = @(_isSelected) paratroopers_spawn_point
   size = @(isSelected) isSelected ? selectedSpawnIconSize : spawnIconSize
   color = @(isActive) isActive ? playerSpawnActiveColor : inactiveSpawnIconColor
   offset = -0.25
@@ -85,8 +85,8 @@ let function paratroopers_icon_click(event){
 let defTransform = {}
 let defPos = [0, -fsh(1)]
 
-let  function mkQueueCounter(spawnIconInfo, isSelected, isActive, queueSize) {
-  let res = queueSize > 0 ? {
+let  function mkQueueCounter(spawnIconInfo, isSelected, isActive, playersCount) {
+  let res = playersCount > 0 ? {
     pos = [0, -spawnIconInfo.size(isSelected)[1]*0.7]
     flow = FLOW_HORIZONTAL
     children = [
@@ -95,10 +95,10 @@ let  function mkQueueCounter(spawnIconInfo, isSelected, isActive, queueSize) {
         color = Color(255, 255, 255)
         halign = ALIGN_LEFT
         valign = ALIGN_CENTER
-        text = queueSize
+        text = playersCount
         transform = defTransform
         size = SIZE_TO_CONTENT
-      }.__update(h1_txt),
+      }.__update(fontHeading1),
       {
         rendObj = ROBJ_IMAGE
         halign = ALIGN_CENTER
@@ -114,26 +114,27 @@ let  function mkQueueCounter(spawnIconInfo, isSelected, isActive, queueSize) {
   return res
 }
 
-let mkRespawnPoint = @(eid, isSelected, spawnIconInfo, selectedGroup, isActive, queueSize, additiveAngle, iconType) {
-    additiveAngle
-    targetEid = eid
-    transform = defTransform
-    behavior = Behaviors.RotateRelativeToDir
-    children = @() {
-      watch = isReplay
-      rendObj = ROBJ_IMAGE
-      halign = ALIGN_CENTER
-      valign = ALIGN_CENTER
-      size = spawnIconInfo.size(isSelected)
-      color = spawnIconInfo.color(isActive)
-      image = spawnIconInfo.icon(isSelected)
-      pos = [0, spawnIconInfo.size(isSelected)[1]*(spawnIconInfo?.offset ?? -0.1)]
-      behavior = isReplay.value ? null : Behaviors.Button
-      onClick = @(event) iconType == "paratroopers" ? paratroopers_icon_click(event) : selectedRespawnGroupId.mutate(@(v) v[iconType] <- selectedGroup)
-      onDoubleClick = @() respRequested(true)
-      children = mkQueueCounter(spawnIconInfo, isSelected, isActive, queueSize)
-    }
+let mkRespawnPoint = @(eid, isSelected, spawnIconInfo, selectedGroup, isActive, playersCount, additiveAngle, iconType) {
+  additiveAngle
+  targetEid = eid
+  transform = defTransform
+  behavior = Behaviors.RotateRelativeToDir
+  children = @() {
+    watch = isReplay
+    rendObj = ROBJ_IMAGE
+    halign = ALIGN_CENTER
+    valign = ALIGN_CENTER
+    size = spawnIconInfo.size(isSelected)
+    color = spawnIconInfo.color(isActive)
+    image = spawnIconInfo.icon(isSelected)
+    pos = [0, spawnIconInfo.size(isSelected)[1]*(spawnIconInfo?.offset ?? -0.1)]
+    behavior = isReplay.value ? null : Behaviors.Button
+    onClick = @(event) iconType == "paratroopers" ? paratroopers_icon_click(event) : selectedRespawnGroupId.mutate(@(v) v[iconType] <- selectedGroup)
+    onDoubleClick = @() respRequested(true)
+    children = mkQueueCounter(spawnIconInfo, isSelected, isActive, playersCount)
   }
+}
+
 let mkTextPlayerGroupmate = @(num, isSelected) {
   rendObj = ROBJ_TEXT
   color = Color(255, 255, 255)
@@ -141,7 +142,7 @@ let mkTextPlayerGroupmate = @(num, isSelected) {
   transform = defTransform
   pos = defPos
   size = SIZE_TO_CONTENT
-}.__update(isSelected ? h0_txt : h1_txt)
+}.__update(isSelected ? fontTitle : fontHeading1)
 
 let isAllZonesHidden = Computed(@() (isFirstSpawn.value && !paratroopersPointSelectorOn.value) || respawnsInBot.value || !needSpawnMenu.value)
 
@@ -158,7 +159,7 @@ let mk_respawn_point = memoize(function(eid) {
     markerState, isReplay]
 
   return function() {
-    let {selectedGroup, iconType, iconIndex, forTeam, isCustom, isPlayerSpawn, isActive, queueSize, additiveAngle} = markerState.value
+    let {selectedGroup, iconType, iconIndex, forTeam, isCustom, isPlayerSpawn, isActive, playersCount, additiveAngle} = markerState.value
     local spawnIconInfo = spawnPointsTypesInfo?[iconType] ?? spawnPointsTypesInfo.human
     if (isPlayerSpawn)
       spawnIconInfo = playerSpawnPointInfo
@@ -184,7 +185,7 @@ let mk_respawn_point = memoize(function(eid) {
       sortOrder = eid
       children = isHidden ? null : [
             mkRespawnPoint(
-              eid, isSelected, spawnIconInfo, selectedGroup, isActive, queueSize, additiveAngle, iconType
+              eid, isSelected, spawnIconInfo, selectedGroup, isActive, playersCount, additiveAngle, iconType
             )
             iconIndex > 0 ? mkTextPlayerGroupmate(iconIndex, isSelected) : null
           ]

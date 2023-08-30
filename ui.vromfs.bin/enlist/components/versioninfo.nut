@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { tiny_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontTiny } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {isProductionCircuit, circuit, version, build_number} = require("%dngscripts/appInfo.nut")
 
 let function version_info(){
@@ -18,7 +18,7 @@ let function version_info(){
     pos = [-hdpx(18), -hdpx(2)]
     opacity = 0.2
     zOrder = Layers.MsgBox
-  }.__update(tiny_txt)
+  }.__update(fontTiny)
 }
 
 return version_info

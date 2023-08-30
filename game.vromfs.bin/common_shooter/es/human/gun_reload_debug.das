@@ -25,6 +25,7 @@ def gun_reload_debug_command()
 def gun_reload_display_state_info(info : ParallelUpdateFrameDelayed)
   query() <| $ [es] (eid : EntityId;
                      gun_reload__isReloading : bool;
+                     gun_reload__stateAcceptsInterruptRequest : bool;
                      gun_reload__state : int;
                      gun_reload__stateStartTime : float;
                      gun_reload__stateEndTime : float)
@@ -35,4 +36,4 @@ def gun_reload_display_state_info(info : ParallelUpdateFrameDelayed)
                       gun_reload__stateStartTime,
                       gun_reload__stateEndTime,
                       0.0, 1.0)
-    visual_log("State: {GUN_RELOAD_STATE_NAMES[gun_reload__state]}  Progress: {progress}  for {eid}<{getEntityTemplateName(eid)}>")
+    visual_log("State: {GUN_RELOAD_STATE_NAMES[gun_reload__state]}  CanInterrupt: {gun_reload__stateAcceptsInterruptRequest}  Progress: {progress}  for {eid}<{getEntityTemplateName(eid)}>")

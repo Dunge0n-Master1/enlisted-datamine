@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let {heroCurrentGunSlot, heroModsByWeaponSlot, weaponSlotsStatic} = require("%ui/hud/state/hero_weapons.nut")
-let {sub_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontSub} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {SELECTION_BORDER_COLOR} = require("%ui/hud/style.nut")
 let { blurBack } = require("style.nut")
 let iconWidget = require("%ui/components/icon3d.nut")
@@ -17,7 +17,7 @@ let function itemAppearing(duration=0.2) {
   return {prop=AnimProp.opacity, from=0, to=1, duration=duration, play=true, easing=InOutCubic}
 }
 let wWidth = hdpx(280)
-let aHgt = calc_str_box("A", sub_txt)[1]*2 //we want to be sure that weapon name and icon could be displayed without big overlapping
+let aHgt = calc_str_box("A", fontSub)[1]*2 //we want to be sure that weapon name and icon could be displayed without big overlapping
 let wHeight = max(aHgt+hdpx(2), hdpx(40))
 
 let weapIdPadding = freeze([0,0,hdpx(2),hdpx(2)])
@@ -42,7 +42,7 @@ let function weaponId(weaponName, isCurrent, params={width=flex() height=wHeight
         fontFx = FFT_BLUR
         fontFxColor = Color(0,0,0,30)
         color = isCurrent.value ? curColor : color
-      }.__update(sub_txt)
+      }.__update(fontSub)
     }
   }
 }

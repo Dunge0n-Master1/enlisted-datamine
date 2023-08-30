@@ -689,6 +689,9 @@ base_human_hero_components{
     _hide:b=yes
   }
 
+  "hitcam__owner:tag"{
+  }
+
   _group{
     _tags:t="ui"
     _track:b=yes
@@ -742,6 +745,12 @@ human_ladder_interaction{
   _replicated:t="human_ladder__ladderTm"
   _replicated:t="human_ladder__attached"
   _replicated:t="human_ladder__numSteps"
+  _tracked:t="human_ladder__attached"
+  human_ladder__curLadderTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  human_ladder__curNumSteps:i=0
+
+  "human_on_ladder__animation:eid"{
+  }
 }
 
 human_last_vehicle_tracker{
@@ -913,7 +922,6 @@ base_human{
   phys__lowFreqTickrate:b=yes
   aim_assist_target__nodeName:t="Bip01 Spine1"
   aim_assist_target__nodeIdx:i=-1
-  nonCreatableObj:b=yes
   isAlive:b=yes
   isDowned:b=no
   stunTimer:r=-1.0
@@ -955,6 +963,9 @@ base_human{
   "hitpoints__resetOffenderAfterHealThreshold:r"{
     value:r=9.0
     _tags:t="server"
+  }
+
+  "grid_obj__updateAlways:tag"{
   }
 
   "human:tag"{
@@ -1017,6 +1028,16 @@ base_human{
   }
 
   "dmgzoneVulnerable:tag"{
+  }
+
+  "dmgzone__voxelVictimNodes:list<t>"{
+    node:t="Bip01 Head"
+    node:t="Bip01 Spine"
+    node:t="Bip01 L Calf"
+    node:t="Bip01 R Calf"
+  }
+
+  "dmgzone__voxelVictimNodeIds:list<i>"{
   }
 }
 
@@ -1349,6 +1370,11 @@ base_human_anim{
     _tags:t="gameClient"
     human_head_dir__interpolationSpeed:r=0.3
     human_head_dir__addHeadRotation:p3=0.0, 0.0, 0.0
+    human_anim__pelvisMoveEnabledId:i=-1
+    human_anim__pelvisMoveOffsetId:i=-1
+    human_anim__pelvisMoveOffsetCourseId:i=-1
+    human_anim__pelvisMoveLeanCompensation:p2=0.03, 0.1
+    human_anim__pelvisMoveGunPitchCompensation:p2=0.03, 0.1
   }
 
   human_anim{
@@ -1469,6 +1495,7 @@ human_vehicle_maintenance{
     extinguisher__active:b=no
     repair__active:b=no
     repair__hasRepairKit:b=no
+    repair__repairKitWeapCreated:b=no
     extinguisher__hasExtinguisher:b=no
     maintenance__canMaintainVehicle:b=no
 
@@ -1520,6 +1547,11 @@ grenade_rethrow{
   }
 }
 
+human_hold_breath{
+  human_hold_breath__isAvailable:b=no
+  _tracked:t="human_hold_breath__isAvailable"
+}
+
 human{
   _extends:t="base_human"
   _extends:t="human_item_use"
@@ -1529,6 +1561,7 @@ human{
   _extends:t="human_limited_visibility"
   _extends:t="human_hands_shake"
   _extends:t="human_concussion"
+  _extends:t="human_hold_breath"
   _extends:t="human_hands_ik"
   _extends:t="human_anim_ladder_nodes"
   _extends:t="human_hit_tagging"
@@ -2167,6 +2200,8 @@ base_human_weap{
   human_weap_anim__reloadVarId:i=-1
   human_weap_anim__throwProgressVarId:i=-1
   human_weap__prevGunAngles:p2=0.0, 0.0
+  dm_parts__repairDistance:r=1.75
+  dm_parts__repairTraceDistance:r=2.5
   human_weap__gunAngleSpeed:p2=0.0, 0.0
   human_weap__gunAngleTau:r=0.05
   human_weap__gunAngleSpeedToRollMult:r=1.5
@@ -2266,6 +2301,7 @@ base_human_weap{
   human_inventory__capacity:r=25.0
   team:i=1
   beh_tree__enabled:b=no
+  human_weap__isReloading:b=no
   human_weap__isReloadRequested:b=no
   human_weap__reloadAtTime:r=-1.0
   human_weap__reloadPrevTime:r=-1.0

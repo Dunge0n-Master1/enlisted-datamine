@@ -10,6 +10,10 @@ uk_crusader_mk_3_common{
   _extends:t="base_crusader_mk_3"
   commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
   gunner_cam_limit__useCockpitDir:b=yes
+  item__iconOffset:p2=0.0, -0.0
+  item__iconScale:r=1.11
+  armorThicknessHull:p3=20.0, 14.0, 14.0
+  armorThicknessTurret:p3=30.0, 28.0, 28.0
 
   "vehicle_seats__seats:shared:array"{
 
@@ -189,6 +193,13 @@ uk_crusader_mk_3_commander_cockpit{
 
   "cockpit__slitZoomTime:list<r>"{
     slit:r=0.0
+  }
+
+  "cockpit__slitTemplates:list<t>"{
+    slit:t="default_periscope"
+  }
+
+  "cockpit__slitEids:list<eid>"{
   }
 }
 

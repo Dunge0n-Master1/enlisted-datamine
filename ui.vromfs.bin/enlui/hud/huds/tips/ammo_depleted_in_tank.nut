@@ -7,18 +7,21 @@ let style = require("%ui/hud/style.nut")
 
 let showTip = Watched(true)
 
+let hideTip = @() showTip(false)
+let hideTipAfterDelay = @() gui_scene.resetTimeout(6, hideTip)
+
 let tipAmmoCurDepleted = tipCmp({
   text = loc("resupply/ammo_depleted", "Ammo depleted")
   textColor = style.HUD_TIPS_FAIL_TEXT_COLOR
   size = SIZE_TO_CONTENT
-  style = {onAttach = @() gui_scene.setTimeout(6, @() showTip(false))}
+  style = { onAttach = hideTipAfterDelay }
 })
 
 let tipEngineerAmmoDepleted = tipCmp({
   text = loc("resupply/engineer_ammo_depleted", "Ammunition replenish by engineer required")
   textColor = style.HUD_TIPS_FAIL_TEXT_COLOR
   size = SIZE_TO_CONTENT
-  style = {onAttach = @() gui_scene.setTimeout(6, @() showTip(false))}
+  style = { onAttach = hideTipAfterDelay }
 })
 
 

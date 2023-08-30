@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h1_txt, h2_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading1, fontHeading2, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { missionName, missionType } = require("%enlSqGlob/missionParams.nut")
 let {set_fully_covering} = require("loading")
 let {levelIsLoading} = require("%ui/hud/state/appState.nut")
@@ -78,7 +78,7 @@ let animatedLoading = @(){
       rendObj = ROBJ_TEXT
       text = loc("Loading")
       color = color
-    }.__update(h1_txt)
+    }.__update(fontHeading1)
     {size=[hdpx(4),0]}
     animatedEllipsis
   ]
@@ -143,7 +143,7 @@ let activeTipHdr = tipCmp({
   text = loc("loading/controlsHelpTip")
   inputId = "HUD.Briefing"
   style = { rendObj = null }
-}.__update(h2_txt))
+}.__update(fontHeading2))
 
 
 let tipText = @() {
@@ -156,7 +156,7 @@ let tipText = @() {
   transform = {}
   speed = [hdpx(10),hdpx(200)]
   delay = 3
-}.__update(body_txt)
+}.__update(fontBody)
 
 let activeTipText = {
   size = [min(sw(80), sh(100)), SIZE_TO_CONTENT]
@@ -217,7 +217,7 @@ let missionTitle = @(){
   fontFx = FFT_SHADOW
   fontFxOffsX = min(2,hdpx(2))
   fontFxOffsY = min(2, hdpx(2))
-}.__update(h1_txt)
+}.__update(fontHeading1)
 let screen = {
   size = flex()
   children = [

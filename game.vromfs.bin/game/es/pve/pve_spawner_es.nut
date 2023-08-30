@@ -35,6 +35,7 @@ ecs.register_es("pve_stage_active_es",
           for (local i = 0; i < spawner["count"]; ++i) {
             spawnSquad({
               squad = squad
+              existedVehicleEid = ecs.INVALID_ENTITY_ID
               team = comp["pve__botTeam"]
               playerEid = ecs.INVALID_ENTITY_ID
               memberId = squad.findindex(@(val) val.guid == spawner["soldierGuid"])

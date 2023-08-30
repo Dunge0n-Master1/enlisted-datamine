@@ -33,6 +33,11 @@ bike_7_92mm_mg34{
     }
   }
 
+  _group{
+    _tags:t="sound"
+    gun_sound__startLoopWithNOneshots:i=3
+  }
+
   "gun_sound__shotPath:shared:object"{
     _tags:t="sound"
     path:t="/weapon/mgun/mg_34"

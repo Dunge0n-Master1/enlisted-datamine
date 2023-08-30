@@ -10,7 +10,7 @@ let { utf8ToUpper } = require("%sqstd/string.nut")
 let { detailsStatusTier } = require("%enlist/soldiers/components/itemDetailsComp.nut")
 let { getItemName } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { tierText } = require("%enlSqGlob/ui/soldiersUiComps.nut")
-let { accentColor, smallPadding, defTxtColor, hoverSlotBgColor, panelBgColor
+let { accentColor, smallPadding, defTxtColor, hoverSlotBgColor, panelBgColor, selectedPanelBgColor
 } = require("%enlSqGlob/ui/designConst.nut")
 
 let selectedIdx = Watched(0)
@@ -89,7 +89,6 @@ let function mkPurchaseLog(uLog, shopItem, allTpl, isSelected, sf) {
     ]
   }.__update(userLogStyle)
 }
-let selectedColor = mul_color(panelBgColor, 1.5)
 let function mkLog(uLog, idx, sItems, allTpl) {
   let shopItem = sItems?[uLog.shopItemId]
   if (shopItem == null)
@@ -104,9 +103,9 @@ let function mkLog(uLog, idx, sItems, allTpl) {
     onClick = @() selectedIdx(idx)
     xmbNode = XmbNode()
     borderColor = accentColor
-    fillColor = sf & S_HOVER
-      ? hoverSlotBgColor
-      : isSelected.value ? selectedColor : panelBgColor
+    fillColor = sf & S_HOVER ? hoverSlotBgColor
+      : isSelected.value ? selectedPanelBgColor
+      : panelBgColor
     borderWidth = isSelected.value ? [0, 0, hdpx(2), 0] : 0
     children = mkPurchaseLog(uLog, shopItem, allTpl, isSelected.value, sf)
   })
@@ -122,7 +121,7 @@ return function() {
     gap = hdpx(2)
     //gap = bigPadding
     xmbNode = XmbContainer({
-      canFocus = @() false
+      canFocus = false
       wrap = false
       scrollSpeed = 10.0
       isViewport = true

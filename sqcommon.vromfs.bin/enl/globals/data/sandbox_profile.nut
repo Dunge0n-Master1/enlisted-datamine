@@ -2986,9 +2986,9 @@ return {
                         "gametemplate" : "attachable_wear_head_02_ger_summer_item",
                         "slot" : "face"
                      },
-                     "front_belt_r" : {
+                     "side_belt_r" : {
                         "gametemplate" : "attachable_wear_map_case_01_ger_summer_item",
-                        "slot" : "front_belt_r"
+                        "slot" : "side_belt_r"
                      },
                      "gloves" : {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
@@ -3233,9 +3233,9 @@ return {
                         "gametemplate" : "attachable_wear_head_male_11_ger_item",
                         "slot" : "face"
                      },
-                     "front_belt_r" : {
+                     "side_belt_r" : {
                         "gametemplate" : "attachable_wear_map_case_01_ger_summer_item",
-                        "slot" : "front_belt_r"
+                        "slot" : "side_belt_r"
                      },
                      "gloves" : {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
@@ -4664,9 +4664,9 @@ return {
                         "gametemplate" : "attachable_wear_head_male_12_ger_item",
                         "slot" : "face"
                      },
-                     "front_belt_r" : {
+                     "side_belt_r" : {
                         "gametemplate" : "attachable_wear_map_case_01_ger_summer_item",
-                        "slot" : "front_belt_r"
+                        "slot" : "side_belt_r"
                      },
                      "gloves" : {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
@@ -4910,9 +4910,9 @@ return {
                         "gametemplate" : "attachable_wear_head_02_ger_summer_item",
                         "slot" : "face"
                      },
-                     "front_belt_r" : {
+                     "side_belt_r" : {
                         "gametemplate" : "attachable_wear_map_case_01_ger_summer_item",
-                        "slot" : "front_belt_r"
+                        "slot" : "side_belt_r"
                      },
                      "gloves" : {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
@@ -25856,9 +25856,9 @@ return {
                         "gametemplate" : "attachable_wear_head_male_18b_us_item",
                         "slot" : "face"
                      },
-                     "front_belt_r" : {
+                     "ammo_case" : {
                         "gametemplate" : "attachable_wear_case_01_ger_tropic_item",
-                        "slot" : "front_belt_r"
+                        "slot" : "ammo_case"
                      },
                      "hair" : {
                         "gametemplate" : "hair_02_ger_summer_item",
@@ -26085,9 +26085,9 @@ return {
                         "gametemplate" : "attachable_wear_head_male_26_us_item",
                         "slot" : "face"
                      },
-                     "front_belt_r" : {
+                     "ammo_case" : {
                         "gametemplate" : "attachable_wear_case_01_ger_tropic_item",
-                        "slot" : "front_belt_r"
+                        "slot" : "ammo_case"
                      },
                      "hair" : {
                         "gametemplate" : "hair_02_ger_summer_item",
@@ -26208,9 +26208,9 @@ return {
                         "gametemplate" : "attachable_wear_head_male_23_ger_item",
                         "slot" : "face"
                      },
-                     "front_belt_r" : {
+                     "ammo_case" : {
                         "gametemplate" : "attachable_wear_case_01_ger_tropic_item",
-                        "slot" : "front_belt_r"
+                        "slot" : "ammo_case"
                      },
                      "hair" : {
                         "gametemplate" : "hair_01_ger_summer_item",
@@ -26328,9 +26328,9 @@ return {
                         "gametemplate" : "attachable_wear_head_male_47_ussr_item",
                         "slot" : "face"
                      },
-                     "front_belt_r" : {
+                     "ammo_case" : {
                         "gametemplate" : "attachable_wear_case_01_ger_tropic_item",
-                        "slot" : "front_belt_r"
+                        "slot" : "ammo_case"
                      },
                      "hair" : {
                         "gametemplate" : "hair_02_ger_summer_item",
@@ -26865,9 +26865,9 @@ return {
                         "gametemplate" : "attachable_wear_head_02_ger_summer_item",
                         "slot" : "face"
                      },
-                     "front_belt_r" : {
+                     "ammo_case" : {
                         "gametemplate" : "attachable_wear_case_02_ger_tropic_item",
-                        "slot" : "front_belt_r"
+                        "slot" : "ammo_case"
                      },
                      "gloves" : {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
@@ -26994,9 +26994,9 @@ return {
                         "gametemplate" : "attachable_wear_head_male_40_ger_item",
                         "slot" : "face"
                      },
-                     "front_belt_r" : {
+                     "ammo_case" : {
                         "gametemplate" : "attachable_wear_case_02_ger_tropic_item",
-                        "slot" : "front_belt_r"
+                        "slot" : "ammo_case"
                      },
                      "gloves" : {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
@@ -27121,9 +27121,9 @@ return {
                         "gametemplate" : "attachable_wear_head_male_21_us_item",
                         "slot" : "face"
                      },
-                     "front_belt_r" : {
+                     "ammo_case" : {
                         "gametemplate" : "attachable_wear_case_02_ger_tropic_item",
-                        "slot" : "front_belt_r"
+                        "slot" : "ammo_case"
                      },
                      "gloves" : {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
@@ -27245,9 +27245,9 @@ return {
                         "gametemplate" : "attachable_wear_head_male_43_ger_item",
                         "slot" : "face"
                      },
-                     "front_belt_r" : {
+                     "ammo_case" : {
                         "gametemplate" : "attachable_wear_case_02_ger_tropic_item",
-                        "slot" : "front_belt_r"
+                        "slot" : "ammo_case"
                      },
                      "gloves" : {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
@@ -27426,7 +27426,7 @@ return {
                         "slot" : "hair"
                      },
                      "head" : {
-                        "gametemplate" : "pilot_helmet_w_goggles_01_ita_summer_item",
+                        "gametemplate" : "attachable_wear_pilot_helmet_w_goggles_01_ita_summer_item",
                         "slot" : "head"
                      },
                      "pants" : {
@@ -28064,9 +28064,9 @@ return {
                         "gametemplate" : "attachable_wear_head_01_ger_summer_item",
                         "slot" : "face"
                      },
-                     "front_belt_r" : {
+                     "ammo_case" : {
                         "gametemplate" : "attachable_wear_case_01_ger_tropic_item",
-                        "slot" : "front_belt_r"
+                        "slot" : "ammo_case"
                      },
                      "head" : {
                         "gametemplate" : "helmet_01_ger_tropic_item",
@@ -28183,9 +28183,9 @@ return {
                         "gametemplate" : "attachable_wear_head_male_40_ger_item",
                         "slot" : "face"
                      },
-                     "front_belt_r" : {
+                     "ammo_case" : {
                         "gametemplate" : "attachable_wear_case_01_ger_tropic_item",
-                        "slot" : "front_belt_r"
+                        "slot" : "ammo_case"
                      },
                      "head" : {
                         "gametemplate" : "helmet_01_ger_tropic_item",

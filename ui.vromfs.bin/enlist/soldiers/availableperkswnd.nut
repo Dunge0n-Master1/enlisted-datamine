@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let scrollbar = require("%ui/components/scrollbar.nut")
 let { bigPadding, noteTxtColor, defTxtColor, insideBorderColor
 } = require("%enlSqGlob/ui/viewConst.nut")
@@ -31,7 +31,7 @@ let recommendedPerksHeader = {
       size = [flex(), SIZE_TO_CONTENT]
       text = loc("possible_perks_list")
       color = defTxtColor
-    }.__update(body_txt)
+    }.__update(fontBody)
     {
       size = [hdpx(420), SIZE_TO_CONTENT]
       flow = FLOW_HORIZONTAL
@@ -49,7 +49,7 @@ let recommendedPerksHeader = {
           rendObj = ROBJ_TEXT
           color = defTxtColor
           text = loc("recommended_perks_list")
-        }.__update(body_txt)
+        }.__update(fontBody)
         closeButton
       ]
     }
@@ -68,7 +68,7 @@ let wndHeader = @(header){
       behavior = Behaviors.TextArea
       color = noteTxtColor
       text = header
-    }.__update(sub_txt)
+    }.__update(fontSub)
   ]
 }
 

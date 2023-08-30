@@ -1,0 +1,7 @@
+screen_droplets{
+  _singleton:b=yes
+  _tags:t="render"
+
+  "water_droplets_node:dabfg::NodeHandle"{
+  }
+}

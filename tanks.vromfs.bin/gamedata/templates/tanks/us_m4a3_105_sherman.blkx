@@ -16,11 +16,6 @@ us_m4a3_105_sherman_common{
     }
 
     "ammo:object"{
-      slot:i=1
-      fill:b=yes
-    }
-
-    "ammo:object"{
       slot:i=2
       count:i=7
     }
@@ -164,6 +159,13 @@ us_m4a3_105_sherman_commander_cockpit{
 
   "cockpit__slitZoomTime:list<r>"{
     slit:r=0.05
+  }
+
+  "cockpit__slitTemplates:list<t>"{
+    slit:t="default_periscope"
+  }
+
+  "cockpit__slitEids:list<eid>"{
   }
 }
 

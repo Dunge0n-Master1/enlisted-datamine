@@ -55,16 +55,6 @@ let isAimAssistEnabled = aimAssistSave.watch
 let setAimAssist = isAimAssistExists ? aimAssistSave.setValue
   : @(_) logerr("Try to change aim assist while it not enabled")
 
-let aimAssistChangeManual = mkOnlineSaveData("AB/aimAssistChangeManual", @() false, @(v) v)
-let isAimAssistChangeManual = aimAssistChangeManual.watch
-let setAimAssistChangeManual = isAimAssistExists ? aimAssistChangeManual.setValue
-  : @(_) logerr("Try to change aim assist while it not enabled")
-
-let aimAssistSetByAB = mkOnlineSaveData("AB/aimAssistSetByAB", @() false, @(v) v)
-let isAimAssistSetByAB = aimAssistSetByAB.watch
-let setAimAssistSetByAB = isAimAssistExists ? aimAssistSetByAB.setValue
-  : @(_) logerr("Try to change aim assist while it not enabled")
-
 let defaultDz = is_ps5 || is_xbox_scarlett
   ? 0.1
   : 0.15
@@ -140,14 +130,8 @@ let onlineControls = {
   setGyroOnlyInAimOrZoom
   isGyroOnlyInAimOrZoomEnabled
 
-  isAimAssistChangeManual
-  setAimAssistChangeManual
-
   isAimAssistExists
   isAimAssistEnabled
-
-  isAimAssistSetByAB
-  setAimAssistSetByAB
   setAimAssist
   stick0_dz
   set_stick0_dz = stick0Save.setValue

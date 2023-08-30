@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 from "minimap" import MinimapState
 
-let { h1_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading1 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { mmChildrenCtors } = require("%ui/hud/minimap_ctors.nut")
 let { bigmapDefaultVisibleRadius } = require("bigmap_state.nut")
 let mmContext = require("%ui/hud/huds/minimap/minimap_ctx.nut")
@@ -240,13 +240,30 @@ let baseMap = @() {
   onDoubleClick = onDoubleClickMap
 }
 
+let backMap = @() {
+  size = mapSize.value
+  watch = [isMapInteractive, mapSize]
+  minimapState = minimapState
+  rendObj = ROBJ_MINIMAP_BACK
+  transform = mapTransform
+  behavior = [Behaviors.Minimap]
+  color = Color(255, 255, 255, 200)
+
+  halign = ALIGN_CENTER
+  valign = ALIGN_CENTER
+
+  clipChildren = true
+  eventPassThrough = true
+  stickCursor = false
+}
+
 let mapLayers = @() {
   behavior = Behaviors.ActivateActionSet
   actionSet = "BigMap"
   watch = [ mapSize]
   size = mapSize.value
   children = [
-    baseMap
+    backMap, baseMap
   ]
     .extend(mmChildrenCtors.map(@(c) mkMapLayer(c, markersParams, mapSize.value)))
     .append(interactiveFrame)
@@ -271,7 +288,7 @@ let missionTitle = @(){
     rendObj = ROBJ_TEXT
     text = loc(missionName.value, { mission_type = loc($"missionType/{missionType.value}") })
     fontFxColor = DEFAULT_TEXT_COLOR
-  }.__update(h1_txt)
+  }.__update(fontHeading1)
 }
 
 

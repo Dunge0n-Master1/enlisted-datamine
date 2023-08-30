@@ -8,11 +8,10 @@ let {
   seenShopItems, excludeShopItemSeen, getSeenStatus, SeenMarks
 } = require("unseenShopItems.nut")
 let openUrl = require("%ui/components/openUrl.nut")
-let { configs } = require("%enlist/meta/configs.nut")
 let { getShopUrl, getUrlByGuid } = require("%enlist/shop/shopUrls.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
 let { curSection, setCurSection } = require("%enlist/mainMenu/sectionsState.nut")
-let {hasClientPermission} = require("%enlSqGlob/client_user_rights.nut")
+let { hasClientPermission } = require("%enlSqGlob/client_user_rights.nut")
 let { marketIds } = require("%enlist/shop/goodsAndPurchases_pc.nut")
 let { curArmyData, curArmy, curCampItemsCount, armySquadsById, armyItemCountByTpl, curCampaign
 } = require("%enlist/soldiers/model/state.nut")
@@ -55,20 +54,23 @@ let shopOrdersUsedActivate = shopOrdersUsed.activate
 let needGoToManagementBtn = Watched(false)
 let isDebugShowPermission = hasClientPermission("debug_shop_show")
 
-let marketIdList = keepref(Computed(@() shopItemsBase.value.values()
-  .reduce(function(res, item) {
-    if ((item?.pcLinkGuid ?? "") != "")
-      res.append({ guid = item.pcLinkGuid })
-    return res
-  }, [] )))
+let marketIdPurchasable = keepref(Computed(function() {
+  let res = {}
+  foreach (item in shopItemsBase.value) {
+    let { purchaseGuid = "", itemCost = {}, storeId = "", devStoreId = "" } = item
+    // do not request external items info for consoles
+    if (purchaseGuid != "" && itemCost.len() == 0 && storeId == "" && devStoreId == "")
+      res[purchaseGuid] <- true
+  }
+  return res.keys()
+}))
 
-marketIds(marketIdList.value)
-marketIdList.subscribe(@(v) marketIds(v))
+marketIds(marketIdPurchasable.value)
+marketIdPurchasable.subscribe(@(v) marketIds(v))
 
 let shopGroupItemsChain = mkWatched(persist, "shopGroupItemsChain", [])
 curArmy.subscribe(@(_) shopGroupItemsChain([]))
 
-let shopConfig = Computed(@() configs.value?.shop_config ?? {})
 let purchaseInProgress = Watched(null)
 let shopItemToShow = Watched(null)
 let shopItemsToHighlight = Watched(null)
@@ -723,7 +725,6 @@ let curSuitableShopItems = Computed(function() {
 return {
   SHOP_SECTION
   hasShopSection
-  shopConfig
   curArmyShopInfo
   curArmyShowcase
   curArmyShopItems

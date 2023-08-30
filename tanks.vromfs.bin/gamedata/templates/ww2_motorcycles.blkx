@@ -194,6 +194,9 @@ base_bike_common{
 
   "bike:tag"{
   }
+
+  "dm_parts__repairGroups:object"{
+  }
 }
 
 bike_camera_setup{

@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {body_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontBody} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {HUD_TIPS_FAIL_TEXT_COLOR} = require("%ui/hud/style.nut")
 let {friendlyFirePenalty} = require("%ui/hud/state/friendly_fire_warnings_state.nut")
 
@@ -19,7 +19,7 @@ let text_hint = @(text) {
   rendObj = ROBJ_TEXT
   margin = hdpx(2)
   text
-  fontSize = body_txt.fontSize
+  fontSize = fontBody.fontSize
   color = HUD_TIPS_FAIL_TEXT_COLOR
   transform = {}
 }

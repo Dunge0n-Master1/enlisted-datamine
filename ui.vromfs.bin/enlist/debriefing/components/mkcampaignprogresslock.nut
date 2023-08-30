@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { defTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
 let { PrimaryFlat } = require("%ui/components/textButton.nut")
 
@@ -14,7 +14,7 @@ let textarea = @(override) {
   rendObj = ROBJ_TEXTAREA
   behavior = Behaviors.TextArea
   halign = ALIGN_CENTER
-}.__update(body_txt, override)
+}.__update(fontBody, override)
 
 let function mkUnlockBtn(armyId) {
   let sItem = Computed(function() {
@@ -41,7 +41,7 @@ let mkCampaignProgressLock = @(armyId, onFinish) {
   halign = ALIGN_CENTER
   children = [
     textarea({ text = loc("campaign/locked") })
-    textarea({ text = loc("campaign/lockedProgress/desc"), color = defTxtColor }.__update(sub_txt))
+    textarea({ text = loc("campaign/lockedProgress/desc"), color = defTxtColor }.__update(fontSub))
     mkUnlockBtn(armyId)
   ]
 

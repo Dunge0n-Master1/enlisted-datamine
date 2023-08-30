@@ -8,6 +8,8 @@ ussr_su_100_common{
   _extends:t="tank_su100_vehicle_tracks_sound"
   commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
   gunner_cam_limit__useCockpitDir:b=yes
+  item__iconOffset:p2=0.1, 0.0
+  item__iconScale:r=1.2
 
   "turrets__initAmmoDistribution:array"{
 
@@ -171,6 +173,7 @@ ussr_su_100_gunner_cockpit{
 
   "cockpit__slitTemplates:list<t>"{
     slit:t="ussr_tsh_19"
+    slit:t="default_periscope"
   }
 
   "cockpit__slitEids:list<eid>"{

@@ -5,7 +5,7 @@ let changeResearchMsgbox = require("changeResearchMsgbox.nut")
 let multiresearchWarningMsgbox = require("multiresearchWarningMsgbox.nut")
 let mkTextRow = require("%darg/helpers/mkTextRow.nut")
 
-let { fontMedium } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { titleTxtColor } = require("%enlSqGlob/ui/designConst.nut")
 let { sound_play } = require("%dngscripts/sound_system.nut")
 let { purchaseMsgBox } = require("%enlist/currency/purchaseMsgBox.nut")
@@ -19,7 +19,7 @@ let {
 } = require("researchesState.nut")
 
 
-let activeTxtStyle = { color = titleTxtColor }.__update(fontMedium)
+let activeTxtStyle = { color = titleTxtColor }.__update(fontBody)
 
 let mkInfo = @(researchInfo) (researchInfo?.multiresearchGroup ?? 0) <= 0 ? null
   : loc("research/groupCanResearch")

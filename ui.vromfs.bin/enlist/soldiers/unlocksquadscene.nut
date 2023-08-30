@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let JB = require("%ui/control/gui_buttons.nut")
-let { body_txt, giant_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody, fontGiant } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { sound_play } = require("%dngscripts/sound_system.nut")
 let { bigPadding, titleTxtColor, strokeStyle, accentTitleTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
@@ -77,7 +77,7 @@ let newSquadReceivedText = {
   transform = {}
   animations = mkAnimationsList(0, @() sound_play("ui/squad_unlock_text"),
     @() sound_play("ui/squad_unlock_text_2"))
-}.__update(giant_txt, strokeStyle)
+}.__update(fontGiant, strokeStyle)
 
 let function onManage() {
   if (viewData.value == null)
@@ -115,7 +115,7 @@ let function mkNewSquadButtons(squadId) {
         rendObj = ROBJ_TEXT
         color = titleTxtColor
         text = loc("squad/openManageRequest")
-      }.__update(body_txt, strokeStyle)
+      }.__update(fontBody, strokeStyle)
       PrimaryFlat(loc("squads/squadManage"), onManage, {
         key = "SquadManageBtnInSquadPromo" //for tutorial
         size = btnSizeBig

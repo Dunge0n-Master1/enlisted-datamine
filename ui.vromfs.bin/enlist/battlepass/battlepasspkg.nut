@@ -1,11 +1,11 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontSmall } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { titleTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { titleTxtColor } = require("%enlSqGlob/ui/designConst.nut")
 let { timeLeft, seasonIndex } = require("bpState.nut")
 let { mkSeasonTime } = require("%enlist/battlepass/rewardPkg.nut")
 
-let defTxtStyle = { color = titleTxtColor }.__update(fontSmall)
+let defTxtStyle = { color = titleTxtColor }.__update(fontSub)
 
 let imagePath = "!ui/uiskin/battlepass/bp_seasons/bp_season_{0}.svg:{1}:{1}:K"
 let bpBgPath = "!ui/uiskin/battlepass/bp_seasons/bp_bg_{0}.avif"

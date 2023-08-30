@@ -23,8 +23,8 @@ def create_charge_fx(fx_template : string; gun_eid : EntityId; animchar : Animch
     tm[i] *= scale
   return createEntity(fx_template) <| $(var init : ComponentsInitializer)
     init |> set("transform", tm)
-    init |> set("gun_flash_fx__gunEid", gun_eid)
-    init |> set("gun_flash_fx__nodeId", node_id)
+    init |> set("gun_fx__gunEid", gun_eid)
+    init |> set("gun_fx__nodeId", node_id)
 
 [es(tag=render, track=gun_charge_fx__active)]
 def delayed_shot_charge_fx_shadow_client(evt : Event;

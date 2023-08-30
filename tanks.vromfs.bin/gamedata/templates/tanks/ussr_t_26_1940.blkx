@@ -2,8 +2,14 @@ ussr_t_26_1940{
   _extends:t="base_t_26_1940"
   _extends:t="tank_t34_engine_sound"
   _extends:t="tank_light_vehicle_tracks_sound"
+  commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
+  gunner_cam_limit__useCockpitDir:b=yes
   vehicle_net_phys__blk:t="content/tanks/gamedata/units/tanks/t_26_1940.blk:VehiclePhys"
   damage_model__blk:t="content/tanks/gamedata/units/tanks/t_26_1940.blk"
+  item__iconOffset:p2=0.0, -0.05
+  item__iconScale:r=1.11
+  armorThicknessHull:p3=15.0, 15.0, 6.0
+  armorThicknessTurret:p3=15.0, 15.0, 15.0
 
   "animchar__objTexReplace:object"{
     "ussr_camo_green*":t="ussr_camo_winter_white_full*"
@@ -186,6 +192,7 @@ ussr_t_26_1940_gunner_cockpit{
 
   "cockpit__slitTemplates:list<t>"{
     slit:t="ussr_top_1"
+    slit:t="ussr_pt_1"
   }
 
   "cockpit__slitEids:list<eid>"{
@@ -249,6 +256,7 @@ ussr_t_26_1940_commander_cockpit{
   }
 
   "cockpit__slitTemplates:list<t>"{
+    slit:t="ussr_pt_1"
   }
 
   "cockpit__slitEids:list<eid>"{

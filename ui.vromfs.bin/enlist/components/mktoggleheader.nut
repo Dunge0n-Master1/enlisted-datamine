@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let faComp = require("%ui/components/faComp.nut")
 let { defTxtColor, activeTxtColor, bigPadding } = require("%enlSqGlob/ui/viewConst.nut")
 
@@ -14,7 +14,7 @@ let mkTextCtor = @(text) @(sf) {
   size = [flex(), SIZE_TO_CONTENT]
   text
   color = textColor(sf)
-}.__update(sub_txt)
+}.__update(fontSub)
 
 let function mkToggleHeader(isShow, textOrCtor) {
   let textCtor = type(textOrCtor) == "string" ? mkTextCtor(textOrCtor) : textOrCtor

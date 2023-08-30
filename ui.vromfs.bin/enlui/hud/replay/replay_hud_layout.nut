@@ -1,11 +1,10 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontXLarge, fontSmall, fontLarge, fontMedium
-} = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontHeading2, fontSub, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let console = require("console")
-let { colFull, colPart, panelBgColor, columnGap, commonBtnHeight, defTxtColor, midPadding,
-  smallPadding, bigPadding, maxContentWidth, titleTxtColor, accentColor, smallBtnHeight
+let { panelBgColor, largePadding, commonBtnHeight, defTxtColor, midPadding, smallPadding, bigPadding,
+  maxContentWidth, titleTxtColor, accentColor, smallBtnHeight
 } = require("%enlSqGlob/ui/designConst.nut")
 let { Bordered, FAButton, SmallBordered, PressedBordered
 } = require("%ui/components/txtButton.nut")
@@ -28,7 +27,7 @@ let { showScores } = require("%ui/hud/huds/scores.nut")
 let mkReplayTimeLine = require("%ui/hud/replay/mkReplayTimeLine.nut")
 let { kindIcon } = require("%enlSqGlob/ui/soldiersUiComps.nut")
 let faComp = require("%ui/components/faComp.nut")
-let cursors = require("%daeditor/components/cursors.nut")
+let cursors = require("%ui/style/cursors.nut")
 let { addModalWindow, removeModalWindow } = require("%ui/components/modalWindows.nut")
 let mkToggle = require("%ui/components/mkToggle.nut")
 let mkCheckbox = require("%ui/components/mkCheckbox.nut")
@@ -78,7 +77,7 @@ let showAdvancedSettings = keepref( Computed(@() !showGameMenu.value
 
 const CINEMATIC_SETTINGS_WND = "CINEMATIC_MODE_WND"
 local lastReplayTimeSpeed = 1
-let bottomMargin = [0, 0, colPart(0.5), 0]
+let bottomMargin = [0, 0, hdpx(32), 0]
 let isAllSettingsEnabled = Computed(@() !isCinemaRecording.value)
 let isSnowAvailable = Computed(@() hasSnow.value && isAllSettingsEnabled.value )
 let isRainAvailable = Computed(@() hasRain.value && isAllSettingsEnabled.value )
@@ -91,19 +90,19 @@ let needShowCursor = Computed(@() (canShowReplayHud.value || showScores.value) &
 // Fix: create a invisible cursor
 let gamepad_cursors_hide = Cursor(@() null)
 
-let replayBlockPadding = [columnGap, colPart(0.55)]
-let soldierIconSize = colPart(0.4)
-let hideHudBtnSize = [colPart(0.5), colPart(0.9)]
+let replayBlockPadding = [largePadding, hdpx(34)]
+let soldierIconSize = hdpxi(24)
+let hideHudBtnSize = [hdpx(30), hdpxi(56)]
 
 
 
 let squareButtonStyle = { btnWidth = commonBtnHeight }
 let smallSquareButtonStyle = { btnWidth = smallBtnHeight * 3, btnHeight = smallBtnHeight}
-let defTxtStyle = { color = defTxtColor }.__update(fontXLarge)
-let titleTxtStyle = { color = titleTxtColor }.__update(fontMedium)
-let brightTxtStyle = { color = titleTxtColor }.__update(fontXLarge)
-let hintTxtStyle = { color = defTxtColor }.__update(fontSmall)
-let headerTxtStyle = { color = titleTxtColor }.__update(fontLarge)
+let defTxtStyle = { color = defTxtColor }.__update(fontHeading2)
+let titleTxtStyle = { color = titleTxtColor }.__update(fontBody)
+let brightTxtStyle = { color = titleTxtColor }.__update(fontHeading2)
+let hintTxtStyle = { color = defTxtColor }.__update(fontSub)
+let headerTxtStyle = { color = titleTxtColor }.__update(fontBody)
 
 ecs.register_es("replay_rewind_save_hud_state_es", {
   [[CmdReplayRewindSaveState]] = function(evt, _eid, _comp) {
@@ -242,7 +241,7 @@ let mkSquareBtn = @(locId, action, btnHint) {
 let replayTimeControl = @() {
   watch = replayTimeSpeed
   flow = FLOW_HORIZONTAL
-  gap = columnGap
+  gap = largePadding
   children = [
     replayTimeSpeed.value <= 0
       ? mkSquareBtn("play", @() console.command($"app.timeSpeed {lastReplayTimeSpeed}"),
@@ -356,7 +355,7 @@ let replayCameraControl = @() {
   children = [
     {
       flow = FLOW_HORIZONTAL
-      gap = colPart(1.5)
+      gap = hdpx(94)
       size = [flex(), SIZE_TO_CONTENT]
       halign = ALIGN_CENTER
       children = [
@@ -873,8 +872,8 @@ let advancedSettingsWnd = {
   key = CINEMATIC_SETTINGS_WND
   rendObj = ROBJ_WORLD_BLUR_PANEL
   fillColor = replayBgColor
-  size = [colFull(6), SIZE_TO_CONTENT]
-  margin = colFull(1)
+  size = [fsh(42), SIZE_TO_CONTENT]
+  margin = hdpx(62)
   hplace = ALIGN_RIGHT
   vplace = ALIGN_TOP
   onClick = @() null
@@ -884,7 +883,7 @@ let advancedSettingsWnd = {
     {
       flow = FLOW_VERTICAL
       size = [flex(), SIZE_TO_CONTENT]
-      padding = [colPart(0.3), colPart(0.5)]
+      padding = [hdpx(18), hdpx(32)]
       children = [
         cameraSettingsBlock
         cinematicToggleBlock
@@ -899,7 +898,7 @@ let advancedSettingsWnd = {
         resetToDefaultBtn
       ]
     }, {
-      size = [colFull(6), SIZE_TO_CONTENT],
+      size = [fsh(42), SIZE_TO_CONTENT],
       maxHeight = sh(70)
       rootBase = {
         behavior = Behaviors.Pannable
@@ -936,7 +935,7 @@ let replayBottomBlock = {
 
 
 let replayNavigation = {
-  size = [colFull(24), colPart(3.6)]
+  size = [fsh(170), fsh(21)]
   rendObj = ROBJ_WORLD_BLUR_PANEL
   fillColor = replayBgColor
   children = [
@@ -966,7 +965,7 @@ let hiddenNavigationBlock = watchElemState(function(sf) {
   return res.__update({
     rendObj = ROBJ_WORLD_BLUR_PANEL
     fillColor = sf & S_HOVER ? accentColor : replayBgColor
-    padding = [midPadding, colPart(0.2)]
+    padding = [midPadding, hdpx(12)]
     halign = ALIGN_CENTER
     flow = FLOW_VERTICAL
     gap = smallPadding
@@ -979,7 +978,7 @@ let hiddenNavigationBlock = watchElemState(function(sf) {
     ]
     children = [
       faComp("chevron-up", {
-        fontSize = fontLarge.fontSize
+        fontSize = fontBody.fontSize
       })
       {
         flow = FLOW_HORIZONTAL

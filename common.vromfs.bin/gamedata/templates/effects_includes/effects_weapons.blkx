@@ -1,7 +1,10 @@
 flamethrower_fire{
-  _extends:t="fire_source"
+  _extends:t="fire_source_no_effect"
   fire_source__fullForceTime:r=7.0
   fire_source__fadeTime:r=3.0
+  fire_effect__effectBaseTemplate:t="fire_effect_additive"
+  fire_effect__norm:p3=0.0, 0.0, 0.0
+  fire_effect__verticalEffectName:t="fire_window_wall_cmps_fx"
 
   _group{
     _tags:t="render"
@@ -114,7 +117,10 @@ high_caliber_rapid_muzzle_flash_effect{
 }
 
 smoke_burst_small_effect{
-  _extends:t="base_gun_flash_unattached_fx"
+  _extends:t="base_gun_unattached_fx"
+
+  "autodeleteEffectEntity:tag"{
+  }
 
   _group{
     _tags:t="render"
@@ -124,7 +130,10 @@ smoke_burst_small_effect{
 }
 
 smoke_burst_big_effect{
-  _extends:t="base_gun_flash_unattached_fx"
+  _extends:t="base_gun_unattached_fx"
+
+  "autodeleteEffectEntity:tag"{
+  }
 
   _group{
     _tags:t="render"
@@ -369,6 +378,36 @@ smoke_extractor_effect{
   _group{
     _tags:t="render"
     effect__name:t="fire_muzzle_smoke_extractor_cmps_fx"
+    effect__distance_scale:r=1.0
+  }
+}
+
+smoke_gun_small_effect{
+  _extends:t="base_gun_smoke_fx"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="smoke_gun_small_cmps_fx"
+    effect__distance_scale:r=1.0
+  }
+}
+
+smoke_gun_medium_effect{
+  _extends:t="base_gun_smoke_fx"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="smoke_gun_med_cmps_fx"
+    effect__distance_scale:r=1.0
+  }
+}
+
+smoke_gun_big_effect{
+  _extends:t="base_gun_smoke_fx"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="smoke_gun_big_cmps_fx"
     effect__distance_scale:r=1.0
   }
 }

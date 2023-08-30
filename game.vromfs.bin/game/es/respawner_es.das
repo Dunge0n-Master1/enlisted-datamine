@@ -126,12 +126,12 @@ def respawner_init_mission_start_delay_on_first_connected_player(evt : EventFirs
   respawner__canSpawnMinTime = evt.time + respawner__missionStartDelay
 
 [es(tag=ui, track=respawn_point__respawnersQueue, REQUIRE_NOT=autoRespawnSelector)]
-def update_queue_size_es(evt : Event; respawn_point__respawnersQueue : EidList; var respawn_icon__queueSize : int&)
-  respawn_icon__queueSize = length(respawn_point__respawnersQueue)
+def update_queue_size_es(evt : Event; respawn_point__respawnersQueue : EidList; var respawn_icon__playersCount : int&)
+  respawn_icon__playersCount = length(respawn_point__respawnersQueue)
   query() <| $ [es(REQUIRE=localPlayer)] (eid : EntityId)
     let index = respawn_point__respawnersQueue |> find_index(eid)
     if index >= 0
-      respawn_icon__queueSize = index
+      respawn_icon__playersCount = index
 
 def set_respawner_wait_number(respawner : EntityId; wait_number : int)
   set(respawner, "respawner__canRespawnWaitNumber", wait_number)
@@ -437,6 +437,7 @@ def hardcore_spawn_on_player_immunity_es(evt : Event; var respbase__noSpawnImmun
 [es(tag=server)]
 def respawn_req_es(evt : CmdRequestRespawn;
                    eid : EntityId;
+                   respawner__canRespawnWaitNumber : int;
                    var respawner__respawnGroupId : int&;
                    var respawner__respRequested : bool&;
                    var respawner__respRequestedSquadId : int&;
@@ -446,7 +447,8 @@ def respawn_req_es(evt : CmdRequestRespawn;
   let respRequestedMemberId = evt.memberId
   let respawnGroupId = evt.spawnGroup
   print("[HERO_RESPAWN] onRequestRespawn: {eid}; squadId: {respRequestedSquadId}; memberId: {respRequestedMemberId}; groupId: {respawnGroupId};")
-  respawner__respRequested = true
+  if respawner__canRespawnWaitNumber <= 0
+    respawner__respRequested = true
   respawner__respRequestedSquadId = respRequestedSquadId
   respawner__respRequestedMemberId = respRequestedMemberId
   respawner__respawnGroupId = respawnGroupId
@@ -458,7 +460,8 @@ def respawn_cancel_req_es(evt : CmdCancelRequestRespawn;
                           var respawner__respawnGroupId : int&;
                           var respawner__respRequested : bool&;
                           var respawner__respRequestedSquadId : int&;
-                          var respawner__respRequestedMemberId : int&)
+                          var respawner__respRequestedMemberId : int&;
+                          var respawner__paratroopersSquad : bool&)
   let respRequestedSquadId = evt.squadId
   let respRequestedMemberId = evt.memberId
   let respawnGroupId = evt.spawnGroup
@@ -467,6 +470,7 @@ def respawn_cancel_req_es(evt : CmdCancelRequestRespawn;
   respawner__respRequestedSquadId = respRequestedSquadId
   respawner__respRequestedMemberId = respRequestedMemberId
   respawner__respawnGroupId = respawnGroupId
+  respawner__paratroopersSquad = evt.isParatroopers
 
 [es(tag=server, track=squad__isAlive, REQUIRE=squad__isAlive)]
 def respawner_select_random_squad(evt : Event; squad__ownerPlayer : EntityId)

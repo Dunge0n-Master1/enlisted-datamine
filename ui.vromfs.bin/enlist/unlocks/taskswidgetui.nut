@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
 let { smallPadding, bigPadding, hoverBgColor, disabledTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
@@ -113,7 +113,7 @@ let function mkEventTask(task, taskPrice, idx, uProgress, isMainActive) {
                 rendObj = ROBJ_TEXT
                 text = step
                 color = isActive ? hoverBgColor : disabledTxtColor
-              }.__update(body_txt)
+              }.__update(fontBody)
               step >= totalSteps ? null
                 : {
                     rendObj = ROBJ_SOLID

@@ -1,0 +1,373 @@
+{
+  "namedPoses":{
+    "standardRifle": [9, 12, 13, 14, 15, 16, 18]
+    ,"specificRifle": [9, 12, 14, 16, 18]
+    ,"specificGun": [9, 11, 12, 13, 14, 15, 16, 18]
+    ,"standardPistol": ["enlisted_idle_03", "enlisted_idle_02", 19]
+  },
+
+  "weaponToAnimState":{
+    "defaultPoses" : [11]
+    ,"unarmedPoses" : ["enlisted_idle_01", "enlisted_idle_02","enlisted_idle_03", "enlisted_idle_04"]
+    ,"standardRifle" : "standardRifle"
+    ,"specificRifle" : "specificRifle"
+    ,"specificGun" : "specificGun"
+    ,"standardPistol": "standardPistol"
+
+    ,"tt_33_gun" :                  [10]
+    ,"stl_tt_33_gun" :              "standardPistol"
+    ,"nagant_m1895_gun" :           "standardPistol"
+    ,"stl_nagant_m1895_gun" :       "standardPistol"
+    ,"tk_26_gun" :                  "standardPistol"
+    ,"stl_tk_26_gun" :              "standardPistol"
+    ,"mauser_c96_gun" :             "standardPistol"
+    ,"stl_mauser_c96_gun" :         "standardPistol"
+    ,"p38_walther_gun" :            "standardPistol"
+    ,"stl_p38_walther_gun" :        "standardPistol"
+    ,"mauser_c96_m712_gun" :        "standardPistol"
+    ,"m1911_colt_gun" :             "standardPistol"
+    ,"colt_walker_gun" :            "standardPistol"
+    ,"leuchtpistole_42_gun" :       "standardPistol"
+    ,"walther_pp_gun" :             "standardPistol"
+    ,"walther_ppk_gun" :            "standardPistol"
+    ,"stl_walther_ppk_gun" :        "standardPistol"
+    ,"sturmpistole_gun" :           "standardPistol"
+    ,"enfield_no2_mk1_gun" :        "standardPistol"
+    ,"colt_new_service_m1909_gun" : "standardPistol"
+    ,"beretta_m1923_gun" :          "standardPistol"
+    ,"browning_hp_gun" :            [10, 24]
+    ,"browning_hp_nickel_gun" :     [10, 24]
+    ,"browning_hp_blued_gun" :      [10, 24]
+    ,"browning_hp_silver_gun" :     [10, 24]
+    ,"beretta_m1934_gold_gun" :     [10, 24]
+    ,"welrod_mk2_gun" :             "standardPistol"
+    ,"cz_vz_27_gun" :               "standardPistol"
+    ,"nambu_type_14_gun" :          "standardPistol"
+    ,"nambu_type_94_gun" :          "standardPistol"
+    ,"hamada_type_1_gun" :          "standardPistol"
+    ,"hamada_type_2_gun" :          "standardPistol"
+    ,"enfield_p14_gun" :            [9, 11, 13, 14, 15, 16, 18]
+    ,"lad_mg_gun":                  [ 12, 13, 16 ]
+
+    ,"mosin_m38_gun" :              "standardRifle"
+    ,"stl_mosin_m38_gun" :          "standardRifle"
+    ,"mosin_m44_gun" :              [9, 12, 13, 14, 15, 18]
+    ,"mosin_m91_gun" :              "standardRifle"
+    ,"mosin_m91_camouflaged_s_gun" : "standardRifle"
+    ,"mosin_m91_camouflaged_w_gun" : "standardRifle"
+    ,"stl_mosin_m91_gun" :          [9, 12, 13, 16, 17, 18]
+    ,"mosin_m91_30_gun" :           "standardRifle"
+    ,"stl_mosin_m91_30_gun" :       [9, 12, 13, 16, 17]
+    ,"mosin_m1907_gun" :            "standardRifle"
+    ,"mosin_dragoon_gun" :          "standardRifle"
+    ,"mosin_infantry_gun" :         "standardRifle"
+
+    ,"gewehr_41_gun" :              "specificRifle"
+    ,"sniper_gewehr_41_gun" :       "specificRifle"
+    ,"stl_gewehr_41_gun" :          "specificRifle"
+    ,"gewehr_43_gun" :              "specificRifle"
+    ,"gewehr_41_mauser_gun" :       [9, 12, 13, 15, 16, 18]
+    ,"sniper_gewehr_43_gun" :       [9, 16, 18]
+    ,"svt_38_gun" :                 [9, 12, 14, 16, 18]
+    ,"stl_svt_38_gun" :             [9, 12, 14, 16, 18]
+    ,"stl_sniper_svt_38_gun" :      [9, 12, 14, 16, 18]
+    ,"svt_40_gun" :                 [9, 14, 16, 18]
+    ,"stl_svt_40_gun" :             [9, 14, 16, 18]
+    ,"avt_40_gun" :                 "specificRifle"
+    ,"stl_avt_40_gun" :             "specificRifle"
+    ,"akt_40_gun" :                 [9, 12, 14, 18]
+    ,"vg_2_gun" :                   [9, 12, 14, 16]
+    ,"erma_emp_44_gun" :            [10, 18]
+    ,"ovp_1918_gun" :               [9, 11, 12, 13, 14, 15, 16, 17, 18]
+    ,"bren_mk1_gun" :               [9, 12, 14, 16]
+    ,"vickers_berthier_gun" :       [8]
+    ,"browning_m1918a2_gun" :       [16, 18]
+    ,"pdm_42_gun" :                 [13, 15]
+    ,"avs_36_gun" :                 [11, 12, 13, 14, 15, 16, 18]
+    ,"stl_sniper_avs_36_gun" :      [11, 12, 13, 14, 15, 16, 18]
+    ,"danuvia_39_gun" :         [9, 12, 13, 15, 16]
+    ,"stl_danuvia_39_gun" :         [9, 12, 13, 15, 16]
+    ,"danuvia_43m_gun" :            [9, 11, 12, 15, 16]
+    ,"browning_m1919a6_gun" :       [8, 13, 15, 16]
+    ,"beretta_m31_gun" :            [11, 13, 14, 15, 18]
+    ,"type_hei_rifle_gun" :         [9, 13, 14, 15, 16, 18]
+    ,"type_hei_rifle_extended_gun" :         [9, 13, 14, 15, 16, 18]
+    ,"scotti_model_x_gun" :         [9, 12, 14, 16, 18]
+    ,"arisaka_type_99_early_short_gun" :  [9, 11, 12,13, 14, 15, 16, 17]
+    ,"nambu_type_96_lmg_gun" :  [9, 13, 15, 18]
+    ,"nambu_type_97_lmg_gun" :      [16, 18]
+    ,"nambu_type_99_lmg_gun" :  [9, 13, 15, 18]
+    ,"m1903a4_springfield_gun" :  [9, 12, 15, 18]
+    ,"mp_34_jp_gun" :  [13, 14, 15, 18]
+    ,"type_97_antitank_canon_gun" : [6, 7, 16]
+    ,"ppt_27_gun" : [14, 18]
+    ,"besal_lmg_gun" : [ 14, 16, 18]
+
+
+
+    ,"browning_auto_5_gun" :        "specificGun"
+    ,"m30_luftwaffe_drilling_gun" : "specificGun"
+    ,"winchester_model_1912_gun" :  [101, 102, 103, 104, 105, 106, 107, 108, 109, 111]
+
+    ,"mauser_98k_gun" :             "specificGun"
+    ,"kar98k_with_scope_mount_gun" : "specificGun"
+    ,"kar98k_kriegsmodell_gun" :    "specificGun"
+    ,"pre_war_kar98k_camouflaged_s_gun" :    "specificGun"
+    ,"pre_war_kar98k_camouflaged_w_gun" :    "specificGun"
+    ,"stl_pre_war_kar98k_with_scope_mount_gun" :    "specificGun"
+    ,"stl_kar98k_wartime_production_gun" :    "specificGun"
+    ,"gewehr_33_40_gun" :           "specificGun"
+    ,"m1903_springfield_gun" :      "specificGun"
+    ,"m1_garand_gun" :              [9, 12, 13, 14, 15, 16, 17, 18]
+    ,"arisaka_type_99_long_gun" :   [9, 12, 16, 18]
+    ,"nambu_type_1_early_smg_gun" : [18]
+    ,"m1c_garand_gun" :             [9, 12, 13, 14, 15, 16, 17, 18, 20]
+    ,"m1_carbine_gun" :             [9, 11, 12, 14, 16, 18]
+    ,"m1a2_carbine_gun" :           [9, 14, 16, 18]
+    ,"m1941_johnson_gun" :          [12, 16, 18]
+    ,"vz_24_gun" :                  "specificGun"
+    ,"winchester_1895_gun" :        "specificGun"
+    ,"stl_winchester_1895_gun" :    "specificGun"
+    ,"mannlicher_m93_roman_gun" :   [9, 12, 13, 16]
+    ,"stl_mannlicher_m93_roman_gun" : [9, 12, 13, 16]
+    ,"mannlicher_m1895_gun" :       [13, 14, 18]
+    ,"stl_mannlicher_m1895_gun" :   [13, 14, 18]
+    ,"mauser_gewehr_98_with_scope_mount_gun" : [9, 13, 16, 18]
+    ,"mauser_gewehr_98_warmod_gun" : [9, 11, 16, 18, 20]
+    ,"mas_36_with_bayonet_gun" :    [9, 11, 12, 13, 14, 15, 16, 18]
+    ,"smle_mk3_gun" :               [9, 11, 14, 15]
+    ,"lee_enfield_no4_mk1_with_scope_gun" : [9, 14, 16, 18]
+    ,"carcano_m41_gun" :            [9, 12, 13, 14, 16]
+    ,"armaguerra_mod_39_gun" :      [9, 12, 16]
+    ,"pavesi_m42_gun" :             [12, 9]
+    ,"vollmer_m35_gun" :            [9, 12, 14, 18]
+    ,"neiman_minethrower_gun" :     [9, 12, 13, 14, 16, 18]
+    ,"pedersen_rifle_gun" :        [9, 12, 13, 15, 16]
+    ,"carcano_m91_gun" :            [9, 12, 13, 14, 16]
+    ,"gerat_03_gun" :               [12, 9, 16]
+    ,"mg_13_gun" :                  [16, 12]
+    ,"stl_mg_13_gun" :              [16, 12]
+    ,"mg_13_saddle_drum_gun" :      [101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111]
+    ,"berthier_1892_m16_gun" :      [9, 12, 13, 14, 18]
+    ,"lewis_lmg_gun" :              [101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111]
+    ,"as_44_late_gun" :             [101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111]
+    ,"turner_automatic_rifle_gun" : [101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111]
+    ,"p08_luger_artillery_gun" :    [101, 102, 103, 104, 105, 106, 107, 108, 109]
+    ,"silenced_erma_emp_gun" :      [101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111]
+    ,"stl_silenced_erma_emp_gun" :  [101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111]
+    ,"nambu_type_2_1934_gun" :      [101, 102, 103, 104, 105, 106, 107, 108, 109]
+    ,"og_43_gun" :                  [101, 102, 103, 104, 105, 106, 107, 108, 109]
+    ,"svt_40_with_drum_gun" :       [101, 102, 103, 104, 105, 106, 107, 108, 109]
+    ,"at_44_gun" :                  [101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111]
+    ,"type_97_antitank_canon_scaled_gun" : [16]
+    ,"kar98k_wartime_production_gun" : [9, 12, 13, 16]
+    ,"akm_47_gun" :                 [9, 12, 16, 18]
+    ,"fedorov_avtomat_gun" :        [9, 12, 16]
+    ,"stg_44_gun" :                 [9, 12, 16, 18]
+    ,"stg_44_rail_gun" :            [9, 12, 16]
+    ,"mp43_1_gun" :                 [9, 12, 16, 18]
+    ,"vstg_1_5_gun" :               [9, 12, 16, 18]
+    ,"mosin_m91_30_vpgs_gun" :      [9, 12, 13, 15, 16, 17]
+    ,"skt_40_gun" :                 [9, 16, 18]
+    ,"suomi_kp_31_gun" :            [13, 15]
+    ,"stg_45_m_gun" :               [12, 9]
+    ,"kb_p_135_gun" :               [9, 12, 16]
+    ,"sw_light_rifle_mk_2_gun" :    [9, 13, 15]
+    ,"beretta_m1918_30_gun" :       [9, 12, 13, 15]
+    ,"arisaka_type_38_gun" :        [9, 11, 12, 13, 14, 15, 16 ]
+    ,"arisaka_type_97_gun" :        [9, 11, 12, 13, 14, 15, 16 ]
+    ,"winchester_g30m_gun" :        [9, 11, 12, 13, 14, 15, 16, 18, 20 ]
+    ,"japanese_type_i_carcano_gun" : [9, 12, 13, 14, 15, 16 ]
+    ,"wzh_29_jp_gun" :              [9, 11, 12, 13, 14, 15, 16, 18]
+    ,"nambu_type_2a_smg_gun" :      [13, 18]
+    ,"nambu_type_1_smg_gun" :       [18]
+    ,"austen_gun" :                  [13, 15, 16]
+    ,"fedorov_mg_gun" :             [9, 16]
+    ,"lanchester_model_1_gun" :     [10, 24]
+    ,"lanchester_50_round_gun" :     [13, 14, 15]
+    ,"m1903a1_springfield_usmc_gun" : [9, 11, 12, 13, 14, 15, 16, 18]
+    ,"mkb_42_w_gun" :               [9, 12, 16, 18]
+    ,"type_100_smg_late_gun" :      [9, 14, 15]
+    ,"type_100_smg_early_gun" :     [9, 14, 15]
+    ,"owen_mk1_42_gun" :            [13, 14, 15, 18]
+    ,"thompson_m1921_28_usmc_gun" : [10, 24, 23, 21]
+    ,"m55_reising_gun" :            [18]
+    ,"type_100_paratrooper_smg_gun" : [9, 14, 15]
+    ,"arisaka_type_99_late_gun" :   [9, 11, 12, 13, 14, 15, 17, 18]
+    ,"type_ko_rifle_gun" :          [9, 12, 14, 16, 18, 20]
+    ,"m3_greasegun_supressed_oss_gun" : [13, 14, 15]
+    ,"thompson_bsa_1929_gun" :      [13, 15]
+    ,"thompson_30_cal_gun" :        [10, 24]
+    ,"delisle_commando_carbine_gun" : [9, 12, 13, 14, 16]
+    ,"type_100_rifle_gun" :         [101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111]
+    ,"arisaka_type_99_long_sniper_gun" : [101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111]
+    ,"m1a1_carbine_gun" :           [101, 102, 103, 104, 105, 106, 107, 108, 109]
+    ,"flamethrower_portable_no_2_mk1_lifebuoy" : [101, 102, 103, 104, 105, 106, 107, 108]
+    ,"svd_38_gun" :                 [101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111]
+    ,"webley_mk6_gun" :             [101, 102, 103, 104, 106, 107, 108, 109]
+    ,"nambu_type_a_sword_pistol_gun" : [107, 108]
+    ,"lahti_saloranta_m26_gun" :    [101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111]
+    ,"winchester_automatic_rifle_gun" : [101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111]
+    ,"fn_model_1930_gun" :          [101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111]
+    ,"farquhar_hill_1918_gun" :     [101, 102, 103, 105, 106, 107, 108, 109, 110, 111]
+    ,"bsa_welgun_gun" :             [101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111]
+    ,"enfield_p14_no3_mk1_gun" :    [102, 106, 107, 108]
+    ,"arisaka_type_99_early_short_with_grenade_discharger_gun" : [101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111]
+    ,"mondragon_m1908_gun" :        [101, 102, 103, 104, 105, 106, 107, 108, 109]
+
+    ,"beretta_m38_gun" :            [9, 11, 12, 15, 16]
+    ,"beretta_m38_42_gun" :         [11, 13, 15]
+    ,"beretta_m1934_gun" :          [101, 102, 103, 104, 105, 106, 107, 108, 109]
+    ,"m3_submachine_gun_gun" :      [18]
+    ,"mp_18_gun" :                  [9, 12, 13, 14, 15, 16]
+    ,"mp_28_jp_gun" :               [13, 14, 15, 18]
+    ,"mp_28_32_round_gun" :         [13, 14, 15]
+    ,"mp_28_gun" :                  [13, 14, 15, 18]
+    ,"stl_mp_28_gun" :              [13, 14, 15, 18]
+    ,"mp34o_gun" :                  [12, 13, 15]
+    ,"mp_35_gun" :                  [9, 11, 13, 15, 18]
+    ,"mp_38_gun" :                  [11, 15]
+    ,"mp40_gun" :                   [13, 15, 16, 18]
+    ,"mp_40_silenced_gun" :         [13, 15, 11]
+    ,"stl_mp_40_gun" :              [13, 15, 16, 18]
+    ,"mp_40_1_gun" :                [13, 15]
+    ,"mp41_gun" :                   [11, 13, 15, 17]
+    ,"m50_reising_gun" :            [9, 12, 16, 18]
+    ,"sten_mk2_gun" :               [13, 14, 15, 16]
+    ,"sten_mk2s_gun" :              [13, 14, 15, 16]
+    ,"ppsh_41_gun" :                [9, 13, 15, 16]
+    ,"ppsh_41_german_gun" :         [11, 15, 18, 23]
+    ,"stl_ppsh_41_gun" :            [9, 13, 15, 16]
+    ,"ppd_3438_gun" :               [9, 11, 13, 15, 16]
+    ,"ppd_3438_box_gun" :           [9, 11, 13, 15, 16]
+    ,"sig_1920_gun" :               [13, 14, 15, 16]
+    ,"ppd_34_gun" :                 [9, 11, 13, 15]
+    ,"coenders_mp_gun" :            [13, 18, 20]
+    ,"stl_ppd_3438_box_gun" :       [9, 11, 13, 15, 16]
+    ,"ppd_40_gun" :                 [9, 11, 13, 15, 16]
+    ,"ppd_40_dv_gun" :              [13, 15]
+    ,"ppsh_2_gun" :                 [22]
+    ,"ppk_41_gun" :                 [11, 15, 16]
+    ,"ppk_42_gun" :                 [10, 18]
+    ,"pps_43_gun" :                 [9, 12, 15]
+    ,"pps_42_gun" :                 [11, 12, 15, 16]
+    ,"stl_pps_42_gun" :             [11, 12, 15, 16]
+    ,"ud_m42_gun" :                 [11, 13, 15]
+    ,"tz_45_gun" :                  [11, 13, 15]
+    ,"m1a1_thompson_gun" :          [12, 16]
+    ,"m1921ac_thompson_gun" :       [10]
+    ,"thompson_m1928a1_box_mag_gun" : [12, 16, 18]
+    ,"thompson_m1921_28_box_gun" :  [10, 21, 24]
+    ,"stl_thompson_m1921_28_box_gun" : [10, 21, 24]
+    ,"m2_hyde_gun" :                [12, 16, 18]
+    ,"zk_383_gun" :                 [13, 14, 15]
+    ,"pp_dolganov_gun" :            [13, 15]
+    ,"orita_m1941_gun" :            [11, 13, 15]
+    ,"stl_orita_m1941_gun" :        [11, 13, 15]
+    ,"stl_ppd_bramit_gun" :         [11, 13, 15]
+    ,"stl_mp_717r_gun" :            [9, 13, 15, 16]
+    ,"erma_emp_36_gun" :            [13, 14, 15]
+    ,"as_44_gun" :                  [9, 12, 13, 16]
+    ,"stl_ppsh_41_phosphated_gun" : [9, 13, 15]
+    ,"thompson_m1928a1_50_drum_gun" : [9, 16]
+    ,"thompson_m1928a1_100_drum_gun" : [101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111]
+    ,"vickers_mk1_no2_gun" :        [101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111]
+    ,"horn_sturmgewehr_gun" :       [101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111]
+
+    ,"browning_m1918_gun" :         [12, 13, 15, 16, 18]
+    ,"charlton_automatic_rifle_gun" : [101, 102, 103, 104, 105, 106, 107, 108, 109, 111]
+    ,"bren_mk2_gun" :               [13, 15, 18]
+    ,"bren_mk3_gun" :               [13, 14, 15, 18]
+    ,"mg_42_handheld_gun" :         [12, 14, 16]
+    ,"mg_42_handheld_early_gun" :   [12, 14, 16]
+    ,"mg_34_gun" :                  [8, 16]
+    ,"stl_mg_34_gun" :              [8, 16]
+    ,"mg_34_with_patronentrommel_gun" : [8]
+    ,"mg_15_gun" :                  [8, 13, 14, 18, 20]
+    ,"mg_30_gun" :                  [14,16]
+    ,"dp_27_gun" :                  [8, 15]
+    ,"stl_dp_27_gun" :              [8, 15]
+    ,"dt_29_gun" :                  [13, 15]
+    ,"stl_dt_29_gun" :              [13, 15]
+    ,"fg_42_gun" :                  [12, 14, 16]
+    ,"fg_42_with_grenade_launcher_gun" : [101, 102, 103, 104, 105, 106, 107, 108, 109]
+    ,"krieghoff_fg_gun" :           [101, 102, 103, 104, 105, 106, 107, 108, 109]
+    ,"grb_39_gun" :                 [101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111]
+    ,"rd_44_gun" :                  [11, 13, 15]
+    ,"madsen_gun" :                 [8, 15]
+    ,"zb_26_gun" :                  [8, 15]
+    ,"breda_mod_30_gun" :           [13, 15]
+    ,"stl_breda_mod_30_gun" :       [13, 15]
+    ,"chauchat_gun" :               [12, 13]
+    ,"stl_mg_42_handheld_gun" :     [8, 12, 16]
+    ,"type_11_lmg_gun" :            [8, 13, 16]
+    ,"mg_45_gun" :                  [8, 12, 16]
+    ,"type_4_rifle_gun" :           [101, 102, 103, 104, 105, 106, 107, 108, 109]
+
+    ,"ptrs_41_gun" :                [7, 6, 18, 16, 17]
+    ,"stl_ptrs_41_gun" :            [7, 6, 18, 16, 17]
+    ,"ptrd_41_gun" :                [7, 6, 18, 16, 17]
+    ,"pzb_38_gun" :                 [13, 8 , 13, 17]
+    ,"pzb_39_gun" :                 [13, 8 , 13, 17]
+    ,"pzb_39_with_two_magazines_gun" : [13, 8 , 13, 17]
+
+    ,"panzerschreck_gun" :           [5]
+    ,"captured_panzerschreck_gun" :  [5]
+    ,"rpzb_43_ofenrohr_gun" :        [5]
+    ,"rpzb_54_1_panzerschreck_gun" : [5]
+    ,"m9_bazooka_gun" :              [8]
+    ,"m1_bazooka_gun" :              [8]
+    ,"type_4_70_at_rocket_launcher_gun" : [8, 12]
+
+    ,"roks_3_gun" :                 [12, 14, 16, 18]
+    ,"roks_2_gun" :                 [12, 14, 16, 18]
+    ,"flammenwerfer_41_gun" :       [18, 15]
+    ,"m1_flamethrower_gun" :        [11, 13, 15]
+    ,"m2_flamethrower_gun" :        [11, 15, 18]
+    ,"lanciafiamme_m35_gun" :       [11, 15]
+
+    ,"__ithaca_37_gun" :              "specificRifle"
+    ,"__lee_enfield_no4_mk1_gun" :    "specificRifle"
+    ,"__m1917_enfield_gun" :          "specificRifle"
+  },
+
+  "weaponToSittingAnimState":{
+    "defaultPoses" :                [20]
+    ,"grb_39_gun" :                  [112, 113, 114]
+    ,"svd_38_gun" :                  [112, 113, 114]
+    ,"type_100_rifle_gun" :          [112, 113, 114]
+    ,"arisaka_type_99_long_sniper_gun" : [112, 113, 114]
+    ,"m1a1_carbine_gun" :            [112, 113, 114]
+    ,"thompson_m1928a1_100_drum_gun" : [112, 113, 114]
+    ,"krieghoff_fg_gun" :            [112, 113, 114]
+    ,"lahti_saloranta_m26_gun" :     [112, 113, 114]
+    ,"type_4_rifle_gun" :            [112, 113, 114]
+    ,"lewis_lmg_gun" :               [112, 113, 114]
+    ,"as_44_late_gun" :              [112, 113, 114]
+    ,"turner_automatic_rifle_gun" :  [112, 113, 114]
+    ,"p08_luger_artillery_gun" :     [112, 113, 114]
+    ,"silenced_erma_emp_gun" :       [112, 113, 114]
+    ,"stl_silenced_erma_emp_gun" :   [112, 113, 114]
+    ,"nambu_type_2_1934_gun" :       [112, 113, 114]
+    ,"og_43_gun" :                   [112, 113, 114]
+    ,"svt_40_with_drum_gun" :        [112, 114]
+    ,"beretta_m1934_gun" :           [112, 113, 114]
+    ,"at_44_gun" :                   [112, 113, 114]
+    ,"charlton_automatic_rifle_gun" : [112, 113, 114]
+    ,"webley_mk6_gun" :              [112, 113, 114]
+    ,"winchester_model_1912_gun" :   [112, 113, 114]
+    ,"mg_13_saddle_drum_gun" :       [112, 113, 114]
+    ,"fg_42_with_grenade_launcher_gun" : [112, 113, 114]
+    ,"winchester_automatic_rifle_gun" : [112, 113, 114]
+    ,"fn_model_1930_gun" : [112, 113, 114]
+    ,"farquhar_hill_1918_gun" :      [112, 113, 114]
+    ,"bsa_welgun_gun" :              [112, 113, 114]
+    ,"arisaka_type_99_early_short_with_grenade_discharger_gun" : [112, 113, 114]
+    ,"mondragon_m1908_gun" :         [112, 114]
+    ,"vickers_mk1_no2_gun" :         [112, 113, 114]
+    ,"horn_sturmgewehr_gun" :        [112, 113, 114]
+    ,"enfield_p14_no3_mk1_gun" :     [112, 113, 114]
+    ,"flamethrower_portable_no_2_mk1_lifebuoy" :     [112, 113, 114]
+  }
+
+}

@@ -41,7 +41,8 @@ def simulate_shot(owner_eid : EntityId;
                   shoot_tm : float3x4;
                   mode : SimulateMode;
                   var out_hit_pos : float3&;
-                  var out_hit_result : int&)
+                  var out_hit_result : int&;
+                  turret_hit_analyzer__maxDistance : float)
   out_hit_pos = float3()
 
   var hitResult = -1
@@ -53,7 +54,8 @@ def simulate_shot(owner_eid : EntityId;
         let shootPos = shoot_tm[3]
         let shootDir = shoot_tm[0]
 
-        let smokeTraceEnd = shootPos + shootDir * projectileProps.maxDistance
+        let maxDistance = min(turret_hit_analyzer__maxDistance, projectileProps.maxDistance)
+        let smokeTraceEnd = shootPos + shootDir * maxDistance
         let isBlockedBySmoke = rayhit_smoke_occluders(shootPos, smokeTraceEnd)
 
         let inVel = shootDir * shellStartProps.speed
@@ -64,7 +66,7 @@ def simulate_shot(owner_eid : EntityId;
 
         let dt = 1.0 / 24.0
         var atTime = 0.0
-        while distance <= projectileProps.maxDistance
+        while distance <= maxDistance
           let prevPos = ballistics.state.pos
 
           ballistics |> projectile_ballistics_move(ballistics.state.atTick + 1, dt)
@@ -189,7 +191,8 @@ def turret_hit_analyzer_es(info : ParallelUpdateFrameDelayed;
                            isSimpleTurretCrosshair : bool = false;
                            var turretCheckHitAtTime : float&;
                            var turretHitPosThreadCalc : float3&;
-                           var turretCheckHitResultThreadCalc : int&)
+                           var turretCheckHitResultThreadCalc : int&;
+                           turret_hit_analyzer__maxDistance = 1000.f)
   if isAlive && !isExploded && !isSimpleTurretCrosshair
     for gunEid in turret_control__gunEids
       query(gunEid) <| $ [es(REQUIRE=(resolvedTurret, firstTurretInput, gun))] (turret_aim__shootDirWithCorrection : float3;
@@ -206,7 +209,7 @@ def turret_hit_analyzer_es(info : ParallelUpdateFrameDelayed;
         shootTm[0] = turret_aim__shootDirWithCorrection
 
         simulate_shot(get_controlled_hero(), gun__curShellId,
-                      shootTm, mode, turretHitPosThreadCalc, turretCheckHitResultThreadCalc)
+                      shootTm, mode, turretHitPosThreadCalc, turretCheckHitResultThreadCalc, turret_hit_analyzer__maxDistance)
 
 [es(tag=gameClient, no_order, REQUIRE=vehicleWithWatched)]
 def turret_hit_analyzer_applyer_es(info : UpdateStageInfoAct;
@@ -229,7 +232,8 @@ def gun_hit_analyzer_es(info : ParallelUpdateFrameDelayed;
                         gun__curShellId : ShellPropIds;
                         gunCheckHitInterval : float;
                         var gunCheckHitAtTime : float&;
-                        var gunCheckHitResultThreadCalc : int&)
+                        var gunCheckHitResultThreadCalc : int&;
+                        turret_hit_analyzer__maxDistance = 1000.f)
   let hero = get_controlled_hero()
   if gun__owner != hero
     return
@@ -242,4 +246,4 @@ def gun_hit_analyzer_es(info : ParallelUpdateFrameDelayed;
         gunCheckHitAtTime = curTime + gunCheckHitInterval
 
       var gunHitPos = float3()
-      simulate_shot(hero, gun__curShellId, human__aimTm, mode, gunHitPos, gunCheckHitResultThreadCalc)
+      simulate_shot(hero, gun__curShellId, human__aimTm, mode, gunHitPos, gunCheckHitResultThreadCalc, turret_hit_analyzer__maxDistance)

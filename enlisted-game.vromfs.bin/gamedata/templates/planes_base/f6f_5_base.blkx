@@ -19,10 +19,11 @@ f6f_5_base{
   plane_collision__blk:t="gamedata/units/f6f_5.blk"
   plane_anim__blk:t="gamedata/units/f6f_5.blk"
   plane_sight__blk:t="gamedata/units/f6f_5.blk"
+  plane_input__autopilotImpl:t="No"
   canUseRespawnbaseType:t="aircraft_fighter"
   is_seaplane:b=no
   plane_wreckage__template:t="f6f_5_wreckage"
-  killLogName:t="f6f_3"
+  killLogName:t="f6f_5"
   animchar__res:t="f6f_5_char"
   vehicle_seats_camera_nodes__defaultNode:t=""
 
@@ -30,11 +31,6 @@ f6f_5_base{
     _tags:t="render"
     animchar_camera_target__node_name:t=""
     animchar_camera_target__node_offset:p3=0.0, 0.0, 0.0
-  }
-
-  _group{
-    _tags:t="sound"
-    plane_engine_sound__engine:t="engine07"
   }
 
   "plane_hit_sound__canopyNodes:list<t>"{

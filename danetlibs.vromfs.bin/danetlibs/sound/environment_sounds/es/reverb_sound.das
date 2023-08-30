@@ -1,4 +1,5 @@
 require ecs
+require ecs.safe
 require soundEvent
 require soundSystem
 require math.base
@@ -8,16 +9,50 @@ require AnimV20
 require GeomNodeTree
 require DagorSystem
 require strings
+require PhysMat
 
 
-def advance(var values : float3&)
-  values.z = values.y
-  values.y = values.x
-  values.x = 0.
+[es(tag=sound, on_appear)]
+def reverb_sound_appear(evt : Event;
+                        reverb_sound__physmatAbsorption : Array;
+                        reverb_sound__defAbsorption : float;
+                        var reverb_sound__PMIDToAbsorption : FloatList&)
+  var maxCount = 0
+  for it in reverb_sound__physmatAbsorption
+    let physmats = get_ecs_StringList(it as Object?.physmats)
+    if physmats != null
+      for physmat in *physmats
+        let pmid = get_material_id(string(physmat))
+        maxCount = max(maxCount, int(pmid) + 1)
+
+  resize(reverb_sound__PMIDToAbsorption, maxCount)
+  for idx in range(maxCount)
+    reverb_sound__PMIDToAbsorption[idx] = -1.
+
+  for it in reverb_sound__physmatAbsorption
+    let grp = it as Object
+    let valueMinMax = grp?.valueMinMax ?as float2 ?? float2(0., 0.)
+    let physmats = get_ecs_StringList(grp?.physmats)
+    if physmats != null
+      var idx = 0.
+      let ab = float2(0., float(length(*physmats)) - 1.)
+      for physmat in *physmats
+        let val = saturate(cvt(idx++, ab.x, ab.y, valueMinMax.x, valueMinMax.y))
+        let pmid = get_material_id(string(physmat))
+        if pmid == PHYSMAT_INVALID || pmid < 0 || pmid >= maxCount
+          logerr("pmid is PHYSMAT_INVALID for '{physmat}' specified in reverb_sound__physmatAbsorption")
+        elif pmid == PHYSMAT_DEFAULT
+          reverb_sound__PMIDToAbsorption[pmid] = reverb_sound__defAbsorption
+          if physmat != get_material_name(get_material(PHYSMAT_DEFAULT))
+            logerr("physmat '{physmat}' specified in reverb_sound__physmatAbsorption treated as 'default'")
+        else
+          if reverb_sound__PMIDToAbsorption[pmid] != -1.
+            logerr("duplicate physmat '{physmat}' in reverb_sound__physmatAbsorption")
+          reverb_sound__PMIDToAbsorption[pmid] = val
 
 
-def make_param(var values : float3&; max_value : float; t : float; num_rays : int)
-  return saturate(safediv(lerp(values.z, values.y, t), float(num_rays) * max_value)) * 100.
+def make_param(value : float; max_value : float; num_rays : int)
+  return saturate(safediv(value, float(num_rays) * max_value)) * 100.
 
 
 def get_reverb_3d_pos()
@@ -33,8 +68,15 @@ def get_reverb_3d_pos()
 [es(tag=sound, on_event=ParallelUpdateFrameDelayed, after=(animchar_render_es, start_async_phys_sim_es))] // after start_async_phys_sim_es to start phys sim job earlier
 def reverb_sound_update(evt : Event;
                         var reverb_sound__rayId : int&;
-                        var reverb_sound__intensityValues : float3&;
-                        var reverb_sound__roomSizeValues : float3&;
+                        var reverb_sound__intensityValue : float&;
+                        var reverb_sound__roomSizeValue : float&;
+                        var reverb_sound__absorptionValue : float&;
+                        var reverb_sound__absorptionRays : int&;
+                        var reverb_sound__intensity_roomSize_absorption_weight : float4&;
+                        reverb_sound__PMIDToAbsorption : FloatList;
+                        reverb_sound__defAbsorption : float;
+                        reverb_sound__absorptionVar : string;
+                        reverb_sound__absorptionNormalize : bool;
                         reverb_sound__intensityMax : float;
                         reverb_sound__intensityVar : string;
                         reverb_sound__roomSizeMax : float;
@@ -45,32 +87,59 @@ def reverb_sound_update(evt : Event;
                         reverb_sound__event : SoundEvent&)
   if reverb_sound__event.handle == invalid_sound_event_handle()
     return
+
   let numRays = length(reverb_sound__rays)
   assert(uint(reverb_sound__rayId) < uint(numRays))
   let pos = get_reverb_3d_pos()
   let dir = reverb_sound__rays[reverb_sound__rayId]
   set_pos(reverb_sound__event.handle, pos)
 
-  var norm : float3
-  var t = reverb_sound__rayLength
-  if traceray_normalized(pos, dir, t, norm)
-    let distT = saturate(safediv(t, reverb_sound__rayLength))
-    reverb_sound__intensityValues.x += saturate(-dot(norm, dir)) * (1. - pow(distT, reverb_sound__fadeOutPower))
-    reverb_sound__roomSizeValues.x += t
-  else
-    reverb_sound__roomSizeValues.x += reverb_sound__rayLength
-
-  ++reverb_sound__rayId
-  if reverb_sound__rayId >= numRays
-    advance(reverb_sound__intensityValues)
-    advance(reverb_sound__roomSizeValues)
+  if reverb_sound__intensity_roomSize_absorption_weight.w >= 1.
+    set_var_global(reverb_sound__intensityVar, reverb_sound__intensity_roomSize_absorption_weight.x)
+    set_var(reverb_sound__event.handle, reverb_sound__roomSizeVar, reverb_sound__intensity_roomSize_absorption_weight.y)
+    set_var(reverb_sound__event.handle, reverb_sound__absorptionVar, reverb_sound__intensity_roomSize_absorption_weight.z)
     reverb_sound__rayId = 0
+    reverb_sound__intensityValue = 0.
+    reverb_sound__roomSizeValue = 0.
+    reverb_sound__absorptionValue = 0.
+    reverb_sound__absorptionRays = 0
+  else
+    var pmid = PHYSMAT_INVALID
+    var norm : float3
+    var t = reverb_sound__rayLength
+    var riDesc = RendInstDesc()
+    if traceray_normalized(pos, dir, t, pmid, norm, ETF_FRT | ETF_RI | ETF_STRUCTURES, riDesc, -1)
+      let distT = saturate(safediv(t, reverb_sound__rayLength))
+      reverb_sound__intensityValue += saturate(-dot(norm, dir)) * (1. - pow(distT, reverb_sound__fadeOutPower))
+      reverb_sound__roomSizeValue += t
+      if pmid >= 0 && pmid < length(reverb_sound__PMIDToAbsorption)
+        reverb_sound__absorptionValue += reverb_sound__PMIDToAbsorption[pmid]
+      else
+        reverb_sound__absorptionValue += reverb_sound__defAbsorption
+      ++reverb_sound__absorptionRays
+    else
+      reverb_sound__roomSizeValue += reverb_sound__rayLength
+      if !reverb_sound__absorptionNormalize
+        ++reverb_sound__absorptionRays
 
-  t = safediv(float(reverb_sound__rayId), float(numRays))
-  let intensity = make_param(reverb_sound__intensityValues, reverb_sound__intensityMax, t, numRays)
-  set_var_global(reverb_sound__intensityVar, intensity)
-  let roomSize = make_param(reverb_sound__roomSizeValues, reverb_sound__roomSizeMax, t, numRays)
-  set_var(reverb_sound__event.handle, reverb_sound__roomSizeVar, roomSize)
+    ++reverb_sound__rayId
+    if reverb_sound__rayId >= numRays
+      let valueFlipped = 1. - reverb_sound__intensity_roomSize_absorption_weight.w
+      let intensity = make_param(reverb_sound__intensityValue, reverb_sound__intensityMax, numRays) * valueFlipped + reverb_sound__intensity_roomSize_absorption_weight.x * reverb_sound__intensity_roomSize_absorption_weight.w
+      let roomSize = make_param(reverb_sound__roomSizeValue, reverb_sound__roomSizeMax, numRays) * valueFlipped + reverb_sound__intensity_roomSize_absorption_weight.y * reverb_sound__intensity_roomSize_absorption_weight.w
+      let absorption = reverb_sound__absorptionValue / float(max(1, reverb_sound__absorptionRays)) * valueFlipped + reverb_sound__intensity_roomSize_absorption_weight.z * reverb_sound__intensity_roomSize_absorption_weight.w
+
+      set_var_global(reverb_sound__intensityVar, intensity)
+      set_var(reverb_sound__event.handle, reverb_sound__roomSizeVar, roomSize)
+      set_var(reverb_sound__event.handle, reverb_sound__absorptionVar, absorption)
+
+      reverb_sound__rayId = 0
+      reverb_sound__intensityValue = 0.
+      reverb_sound__roomSizeValue = 0.
+      reverb_sound__absorptionValue = 0.
+      reverb_sound__absorptionRays = 0
+
+  reverb_sound__intensity_roomSize_absorption_weight.w = 0.
 
 
 [es(tag=sound, track=sound_banks_state__isPresetLoaded)]
@@ -102,4 +171,3 @@ def human_reverb_sound_init_node_id(evt : Event;
     human_reverb_sound__nodeId = geomtree_findNodeIndex(*animchar.nodeTree, human_animchar_sound__reverbNode)
     if human_reverb_sound__nodeId == -1
       logerr("Reverb node '{human_animchar_sound__reverbNode}' not found")
-

@@ -1,7 +1,7 @@
 f6f_5{
   _extends:t="f6f_5_base"
   _extends:t="squad_controlled_plane"
-  item__name:t="items/f6f_3"
+  item__name:t="items/f6f_5"
 
   "vehicle_seats__seats:shared:array"{
 
@@ -31,7 +31,6 @@ f6f_5{
         turret:t="turret_09"
         turret:t="turret_10"
         turret:t="turret_11"
-        turret:t="turret_12"
       }
 
       "cockpitEffectors:object"{
@@ -48,8 +47,7 @@ f6f_5{
     node:t="rocket4"
     node:t="rocket2"
     node:t="rocket5"
-    node:t="rocket1"
-    node:t="rocket6"
+    node:t="drop_fueltank"
     node:t="flare1"
     node:t="flare2"
     node:t="flare3"
@@ -114,11 +112,6 @@ f6f_5{
       curYawParamName:t="weapon_11_yaw"
       curPitchParamName:t="weapon_11_pitch"
     }
-
-    "vars:object"{
-      curYawParamName:t="weapon_12_yaw"
-      curPitchParamName:t="weapon_12_pitch"
-    }
   }
 
   "turret_control__turretInfo:shared:array"{
@@ -153,55 +146,48 @@ f6f_5{
 
     "turretInfo:object"{
       turretName:t="turret_05"
-      turretGroup:t="rocket_turrets"
-      trigger:t="rockets"
-      gun:t="planegun_f6f_5_hvar_launcher_05"
+      turretGroup:t="bomb_turrets"
+      trigger:t="bombs"
+      gun:t="planegun_f6f_5_150gal_drop_tank_launcher_01"
     }
 
     "turretInfo:object"{
       turretName:t="turret_06"
-      turretGroup:t="rocket_turrets"
-      trigger:t="rockets"
-      gun:t="planegun_f6f_5_hvar_launcher_06"
-    }
-
-    "turretInfo:object"{
-      turretName:t="turret_07"
       turretGroup:t="main_turrets"
       trigger:t="machine_guns"
       gun:t="planegun_f6f_5_12_7mm_browning50_usaaf_01"
     }
 
     "turretInfo:object"{
-      turretName:t="turret_08"
+      turretName:t="turret_07"
       turretGroup:t="main_turrets"
       trigger:t="machine_guns"
       gun:t="planegun_f6f_5_12_7mm_browning50_usaaf_02"
     }
 
     "turretInfo:object"{
-      turretName:t="turret_09"
+      turretName:t="turret_08"
       turretGroup:t="main_turrets"
       trigger:t="machine_guns"
       gun:t="planegun_f6f_5_12_7mm_browning50_usaaf_03"
     }
 
     "turretInfo:object"{
-      turretName:t="turret_10"
+      turretName:t="turret_09"
       turretGroup:t="main_turrets"
       trigger:t="machine_guns"
       gun:t="planegun_f6f_5_12_7mm_browning50_usaaf_04"
     }
 
     "turretInfo:object"{
-      turretName:t="turret_11"
+      turretName:t="turret_10"
       turretGroup:t="main_turrets"
       trigger:t="machine_guns"
       gun:t="planegun_f6f_5_12_7mm_browning50_usaaf_05"
     }
 
     "turretInfo:object"{
-      turretName:t="turret_12"
+      turretName:t="turret_11"
       turretGroup:t="main_turrets"
       trigger:t="machine_guns"
       gun:t="planegun_f6f_5_12_7mm_browning50_usaaf_06"
@@ -213,8 +199,7 @@ f6f_5{
     node:t="rocket4"
     node:t="rocket2"
     node:t="rocket5"
-    node:t="rocket1"
-    node:t="rocket6"
+    node:t="drop_fueltank"
     node:t="flare1"
     node:t="flare2"
     node:t="flare3"
@@ -224,7 +209,6 @@ f6f_5{
   }
 
   "turret_gun_flash_fx__flashFx:shared:array"{
-    fx:t=""
     fx:t=""
     fx:t=""
     fx:t=""
@@ -250,13 +234,52 @@ f6f_5{
     scale:r=1.0
     scale:r=1.0
     scale:r=1.0
-    scale:r=1.0
   }
 
   "disableDMParts:list<t>"{
-    part:t="drop_fueltank"
     part:t="pylon_std"
     part:t="torpedo_pylon"
+    part:t="tank3_dm"
+    part:t="water1_dm"
+    part:t="drop_fueltank"
+    part:t="pylon_rocket6"
+    part:t="pylon_rocket1"
+  }
+}
+
+base_f6f_5_150gal_drop_tank_launcher{
+  item__name:t="guns/us_150gal_drop_tank"
+  gun__blk:t="gamedata/weapons/f6f_5/150gal_drop_tank_launcher.blk"
+  gun__shotFreq:r=10.0
+  gun__locName:t="us_150gal_drop_tank"
+  gun__shootNodeName:t="bone_mg_gun_twin"
+  gun__maxAmmo:i=1
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="manual"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="bolt_action"
+  }
+
+  "gun__shellsAmmo:array"{
+    ammo:i=1
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "default:array"{
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/150gal_drop_tank.blk"
+        name:t="150gal_drop_tank"
+        type:t="he_frag_tank"
+      }
+    }
   }
 }
 
@@ -392,21 +415,11 @@ planegun_f6f_5_hvar_launcher_04{
   gun__maxAmmo:i=1
 }
 
-planegun_f6f_5_hvar_launcher_05{
-  _extends:t="hvar_launcher"
-  _extends:t="base_f6f_5_hvar_launcher"
-  _extends:t="gunsound_hvar_launcher_aircraft"
-  gun__shootNodeName:t="rocket1"
-  slot_attach__slotName:t="rocket1"
-  gun__maxAmmo:i=1
-}
-
-planegun_f6f_5_hvar_launcher_06{
-  _extends:t="hvar_launcher"
-  _extends:t="base_f6f_5_hvar_launcher"
-  _extends:t="gunsound_hvar_launcher_aircraft"
-  gun__shootNodeName:t="rocket6"
-  slot_attach__slotName:t="rocket6"
+planegun_f6f_5_150gal_drop_tank_launcher_01{
+  _extends:t="150gal_drop_tank_launcher"
+  _extends:t="base_f6f_5_150gal_drop_tank_launcher"
+  gun__shootNodeName:t="drop_fueltank"
+  slot_attach__slotName:t="drop_fueltank"
   gun__maxAmmo:i=1
 }
 
@@ -472,4 +485,24 @@ f6f_5_driver_cockpit{
   animchar__res:t="f6f_5_cockpit_char"
   plane_anim__blk:t="gamedata/units/f6f_5.blk"
   plane_sight__blk:t="gamedata/units/f6f_5.blk"
+
+  "move_cockpit_node__nodeName:list<t>"{
+    node:t="stick_rhand_1"
+    node:t="throttle_lhand_1"
+  }
+
+  "move_cockpit_node__nodeId:list<i>"{
+    nodeId:i=-1
+    nodeId:i=-1
+  }
+
+  "move_cockpit_node__offset:list<p3>"{
+    item:p3=0.01, 0.033, 0.0005
+    item:p3=0.0255, 0.0415, 0.031
+  }
+
+  "move_cockpit_node__rotation:list<p2>"{
+    item:p2=11.0, 18.9
+    item:p2=-23.0, 31.2
+  }
 }

@@ -35,7 +35,7 @@ def draw_foot_ik_locker_debug(evt : UpdateStageInfoRenderDebug;
                                                                       posOffset : float3)
       if mm_visualization_show_foot_ik_locked_positions && islocked
         draw_cached_debug_sphere(lockedPos, 0.03, E3DCOLOR(0xFFFF0000), 4)
-      if mm_visualization_show_foot_ik_target_positions
+      if mm_visualization_show_foot_ik_target_positions && !(motion_matching__controller |> empty())
         var toeNodeId, heelNodeId, rootNodeId : int
         query(motion_matching__dataBaseEid) <| $ [es] (dataBase : AnimationDataBase;
                                                        foot_ik_locker_nodeNames : ecs::Array)
@@ -44,17 +44,23 @@ def draw_foot_ik_locker_debug(evt : UpdateStageInfoRenderDebug;
           heelNodeId = geomtree_findNodeIndex(tree, get_string(legNodeNames, "heelNodeName", ""))
           rootNodeId = get_root_node_id(dataBase)
 
-        var ikTargetPos : float3
+        var heelTargetPos, toeTargetPos : float3
+        let heelLocalPos = transform_upto_root(motion_matching__controller, rootNodeId, heelNodeId, tree)
+        let toeLocalPos = transform_upto_root(motion_matching__controller, rootNodeId, toeNodeId, tree)
+        // should work if root node wasn't modified by post blend controllers, otherwise need to get root tm
+        // from MM contoller
+        var rootTm : float3x4
+        geomtree_getNodeWtmScalar(tree, rootNodeId, rootTm)
         if islocked
-          let toeToHeel = geomtree_getNodeWpos(tree, heelNodeId) - geomtree_getNodeWpos(tree, toeNodeId)
-          ikTargetPos = lockedPos + toeToHeel
+          toeTargetPos = lockedPos + posOffset
         else
-          let heelLocalPos = transform_upto_root(motion_matching__controller, rootNodeId, heelNodeId, tree)
-          var rootTm : float3x4
-          geomtree_getNodeWtmScalar(tree, rootNodeId, rootTm)
-          ikTargetPos = rootTm * heelLocalPos //should work if root node wasn't modified by post blend controllers
-        ikTargetPos += posOffset
-        draw_cached_debug_sphere(ikTargetPos, 0.03, E3DCOLOR(0xFFFF00FF), 4)
+          toeTargetPos = rootTm * toeLocalPos + posOffset
+        let toeToHeel = rotate(rootTm, heelLocalPos - toeLocalPos)
+        heelTargetPos = toeTargetPos + toeToHeel
+        let ikTargetColor = E3DCOLOR(0xFFFF00FF)
+        draw_cached_debug_sphere(heelTargetPos, 0.03, ikTargetColor, 4)
+        draw_cached_debug_sphere(toeTargetPos, 0.03, ikTargetColor, 4)
+        draw_cached_debug_line(toeTargetPos, heelTargetPos, ikTargetColor)
       legId++
   end_draw_cached_debug_lines()
 

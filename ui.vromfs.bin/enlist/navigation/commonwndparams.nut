@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { columnGap, navHeight, footerContentHeight, smallPadding, contentGap, maxContentWidth
+let { largePadding, navHeight, footerContentHeight, smallPadding, contentGap, maxContentWidth
 } = require("%enlSqGlob/ui/designConst.nut")
 let currenciesWidgetUi = require("%enlist/currency/currenciesWidgetUi.nut")
 let armyCurrencyUi = require("%enlist/shop/armyCurrencyUi.nut")
@@ -12,7 +12,7 @@ let wndBottomPadding = footerContentHeight + smallPadding
 
 let currencyHeader = @() {
   flow = FLOW_HORIZONTAL
-  gap = columnGap
+  gap = largePadding
   hplace = ALIGN_RIGHT
   children = [
     currenciesWidgetUi

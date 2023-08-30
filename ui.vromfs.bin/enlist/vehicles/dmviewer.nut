@@ -174,10 +174,15 @@ ecs.register_es("armor_analyzer", {
 let setDmViewerTargetQuery = ecs.SqQuery("setDmViewerTargetQuery",
   { comps_rw = [ "armor_analyzer__target" ]})
 
+let setXrayPipModeQuery = ecs.SqQuery("setXrayPipModeQuery",
+  { comps_rw = [ "xray_context__isPictureInPicture" ]})
+
 let function setDmViewerTarget(targetEid) {
   setDmViewerTargetQuery.perform(function(_eid, comp) {
     comp["armor_analyzer__target"] = targetEid
   })
+  if (targetEid != ecs.INVALID_ENTITY_ID)
+    setXrayPipModeQuery(@(_eid, comp) comp.xray_context__isPictureInPicture = false)
 }
 
 let setDmViewerModeQuery = ecs.SqQuery("setDmViewerModeQuery",

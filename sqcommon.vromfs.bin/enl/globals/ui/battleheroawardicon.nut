@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h2_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { BattleHeroesAward } = require("battleHeroesAwards.nut")
 
 let battleHeroAwardIcon = {
@@ -61,7 +61,7 @@ let mkAwardValue = @(value, isBig) {
   hplace = ALIGN_RIGHT
   vplace = ALIGN_BOTTOM
   text = value
-}.__update(isBig ? h2_txt : sub_txt)
+}.__update(isBig ? fontHeading2 : fontSub)
 
 let mkBattleHeroAwardIcon = function(award, size, isActive=true, isBig=false) {
   let awardId = award?.id ?? award

@@ -16,13 +16,13 @@ let { Bordered } = require("%ui/components/txtButton.nut")
 let { PrimaryFlat, Purchase } = require("%ui/components/textButton.nut")
 let { mkGlyphsStyle } = require("%enlSqGlob/ui/soldierClasses.nut")
 let { makeHorizScroll } = require("%ui/components/scrollbar.nut")
-let { fontSmall, fontMedium, fontLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontSub, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
 let { blinkUnseenIcon } = require("%ui/components/unseenSignal.nut")
 let { mkLockByCampaignProgress } = require("%enlist/soldiers/lockCampaignPkg.nut")
 let { mkDisabledSectionBlock } = require("%enlist/mainMenu/disabledSections.nut")
 let { mkCurUnseenResearchesBySquads } = require("unseenResearches.nut")
-let { isSquadPremium, mkCardText, mkActiveBlock } = require("%enlSqGlob/ui/squadsUiComps.nut")
+let { isSquadPremium, mkCardText } = require("%enlSqGlob/ui/squadsUiComps.nut")
 let { iconByGameTemplate, getItemName } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { curArmy, armySquadsById, curUnlockedSquads } = require("%enlist/soldiers/model/state.nut")
 let { gradientProgressBar } = require("%enlSqGlob/ui/defComponents.nut")
@@ -31,7 +31,7 @@ let { promoWidget } = require("%enlist/components/mkPromoWidget.nut")
 let { researchToShow } = require("researchesFocus.nut")
 let { purchaseMsgBox } = require("%enlist/currency/purchaseMsgBox.nut")
 let { mkCurrency } = require("%enlist/currency/currenciesComp.nut")
-let { currenciesList } = require("%enlist/currency/currencies.nut")
+let { currenciesById } = require("%enlist/currency/currencies.nut")
 let { jumpToArmyProgress } = require("%enlist/mainMenu/sectionsState.nut")
 let { disableSquadExp } = require("%enlist/campaigns/campaignConfig.nut")
 
@@ -43,10 +43,10 @@ let {
   RESEARCHED, CAN_RESEARCH
 } = require("researchesState.nut")
 let {
-  contentOffset, columnGap, colPart, colFull, smallPadding, midPadding, accentColor,
-  panelBgColor, darkTxtColor, titleTxtColor, defTxtColor,
-  bigPadding, weakTxtColor, negativeTxtColor, darkPanelBgColor, brightAccentColor,
-  attentionTxtColor, leftAppearanceAnim, completedTxtColor, hoverSlotBgColor
+  contentOffset, largePadding, smallPadding, midPadding, accentColor, panelBgColor, darkTxtColor,
+  titleTxtColor, defTxtColor, bigPadding, weakTxtColor, negativeTxtColor, darkPanelBgColor,
+  brightAccentColor, attentionTxtColor, leftAppearanceAnim, completedTxtColor, hoverSlotBgColor,
+  selectedPanelBgColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let spinner = require("%ui/components/spinner.nut")
 
@@ -67,29 +67,29 @@ let btnSound = freeze({
   active = "ui/enlist/button_action"
 })
 
-let iconSize = colPart(0.2)
-let squadLineWidth = colFull(2)
-let researchInfoWidth = colFull(5)
+let iconSize = hdpxi(12)
+let squadLineWidth = fsh(13)
+let researchInfoWidth = fsh(32.5)
 let lineDashSize = hdpx(3)
-let priceIconSize = colPart(0.4)
+let priceIconSize = hdpxi(30)
 
-let headerHeight = colPart(2.7)
-let pageSize        = [colPart(2.5), colPart(1.2)]
-let pageIconSize    = [colPart(0.8), colPart(0.8)]
-let itemSlotArea    = [colPart(4.5), colPart(1.7)]
-let childSlotSize   = [colPart(2),   colPart(3)]
-let slotSize        = [colPart(2),   colPart(2)]
-let slotGapSize     = [colPart(2.5), colPart(2)]
-let slotMiniGapSize = [colPart(1),   colPart(2)]
-let vertLineSize    = [colPart(2),   colPart(1)]
-let itemSlotSize    = [colPart(3.5), colPart(1.2)]
+let headerHeight = fsh(15.5)
+let pageSize        = [hdpx(156), hdpx(74)]
+let pageIconSize    = [hdpxi(50), hdpxi(50)]
+let itemSlotArea    = [hdpx(280), hdpx(106)]
+let childSlotSize   = [hdpx(124), hdpx(186)]
+let slotSize        = [hdpx(124), hdpx(124)]
+let slotGapSize     = [hdpx(156), hdpx(124)]
+let slotMiniGapSize = [hdpx(62), hdpx(124)]
+let vertLineSize    = [hdpx(124), hdpx(62)]
+let itemSlotSize    = [hdpx(218), hdpx(74)]
 
-let defTxtStyle = { color = defTxtColor }.__update(fontMedium)
-let priceTxtStyle = { color = titleTxtColor }.__update(fontMedium)
-let headerTxtStyle = { color = titleTxtColor }.__update(fontLarge)
-let hintTxtStyle = { color = weakTxtColor }.__update(fontSmall)
-let nameTxtStyle = { color = titleTxtColor }.__update(fontLarge)
-let attentionTxtStyle = { color = attentionTxtColor }.__update(fontLarge)
+let defTxtStyle = { color = defTxtColor }.__update(fontSub)
+let priceTxtStyle = { color = titleTxtColor }.__update(fontSub)
+let headerTxtStyle = { color = titleTxtColor }.__update(fontBody)
+let hintTxtStyle = { color = weakTxtColor }.__update(fontSub)
+let nameTxtStyle = { color = titleTxtColor }.__update(fontBody)
+let attentionTxtStyle = { color = attentionTxtColor }.__update(fontBody)
 
 let progressBarBgImage = mkColoredGradientX({colorLeft=0xFFFC7A40, colorRight=brightAccentColor})
 
@@ -108,17 +108,17 @@ let priceIcon = {
 }
 
 let researchedSign = faComp("check-circle-o", {
-  fontSize = colPart(1)
+  fontSize = hdpxi(62)
   color = completedTxtColor
 })
 let researchedPageSign = faComp("check-circle-o", {
   vplace = ALIGN_BOTTOM
-  margin = [midPadding, columnGap]
-  fontSize = colPart(0.5)
+  margin = [midPadding, largePadding]
+  fontSize = hdpxi(32)
   color = completedTxtColor
 })
 
-let classesTagsTable = mkGlyphsStyle(colPart(0.4))
+let classesTagsTable = mkGlyphsStyle(hdpxi(24))
 
 let mkText = @(txt, override) {
   rendObj = ROBJ_TEXT
@@ -136,22 +136,29 @@ let mkTextarea = @(txt, override) {
 
 let mkSquadExp = function(squadId) {
   let exp = Computed(@() allSquadsPoints.value?[squadId] ?? 0)
-  return @(sf, selected) @() mkActiveBlock(sf, selected, [
-    mkCardText(exp.value, sf, selected)
-    iconSquadPoints
-  ]).__update({ watch = exp, valign = ALIGN_CENTER, gap = hdpx(3) })
+  return @(sf, selected) @() {
+    watch = exp
+    size = SIZE_TO_CONTENT
+    flow = FLOW_HORIZONTAL
+    gap = smallPadding
+    valign = ALIGN_CENTER
+    children = [
+      mkCardText(exp.value, sf, selected)
+      iconSquadPoints
+    ]
+  }
 }
 
 let function mkSquadMkChild(squadId, curUnseen) {
   return @(sf, selected) {
     hplace = ALIGN_RIGHT
     margin = smallPadding
-    flow = FLOW_VERTICAL
+    flow = FLOW_HORIZONTAL
     halign = ALIGN_RIGHT
     valign = ALIGN_CENTER
     children = [
-      mkSquadExp(squadId)(sf, selected)
       squadId in curUnseen ? smallUnseenIcon : null
+      mkSquadExp(squadId)(sf, selected)
     ]
   }
 }
@@ -166,24 +173,22 @@ let mkResearchesSquads = @(curUnseenState)
 
 let mkPicName = memoize(@(pageIdx) $"!ui/uiskin/research/{pagesIcons[pageIdx]}.svg:{pageIconSize[0]}:{pageIconSize[1]}:K")
 
-let selectedColor = mul_color(panelBgColor, 1.25)
-
 let mkResearchPageSlot = @(pageIdx, isSelected, isHover) {
   rendObj = ROBJ_BOX
   size = pageSize
-  fillColor = isHover
-    ? hoverSlotBgColor
-    : isSelected ? selectedColor : panelBgColor
+  fillColor = isHover ? hoverSlotBgColor
+    : isSelected ? selectedPanelBgColor
+    : panelBgColor
   borderWidth = isSelected ? [0, 0, hdpx(4), 0] : 0
-  borderColor = isSelected ? accentColor : 0
+  borderColor = accentColor
   halign = ALIGN_CENTER
   valign = ALIGN_CENTER
   children = {
     rendObj = ROBJ_IMAGE
     size = pageIconSize
-    color = isHover
-      ? darkTxtColor
-      : isSelected ? titleTxtColor : defTxtColor
+    color = isHover ? darkTxtColor
+      : isSelected ? titleTxtColor
+      : defTxtColor
     image = Picture(mkPicName(pageIdx))
   }
 }
@@ -197,7 +202,7 @@ let function gotoNextPage() {
 let switchPageKey = @() {
   size = [0, SIZE_TO_CONTENT]
   watch = isGamepad
-  padding = columnGap
+  padding = largePadding
   vplace = ALIGN_CENTER
   children = isGamepad.value ? mkHotkey("J:X", gotoNextPage) : null
 }
@@ -227,7 +232,7 @@ let mkPagesListUi = @(pagesInfo) function() {
       let isSelected = Computed(@() selectedTable.value == pageIdx)
       let isCompleted = Computed(function() {
         let { available = 0, completed = 0 } = pagesInfo.value?[pageIdx]
-        return available > 0 && completed >= available
+        return available >= 0 && completed >= available
       })
       return {
         children = [
@@ -302,7 +307,7 @@ let function mkHeaderUi() {
     size = [pageSize[0] * 3, headerHeight]
     hplace = ALIGN_CENTER
     flow = FLOW_VERTICAL
-    gap = columnGap
+    gap = largePadding
     children = [
       mkPagesListUi(pagesInfo)
       mkPagesInfoUi(pagesInfo)
@@ -313,7 +318,7 @@ let function mkHeaderUi() {
 
 let researchHoverBg = {
   rendObj = ROBJ_IMAGE
-  size = [colPart(4), colPart(4)]
+  size = [hdpxi(248), hdpxi(248)]
   hplace = ALIGN_CENTER
   vplace = ALIGN_CENTER
   image = Picture($"!ui/uiskin/research/research_select_bg.avif?Ac")
@@ -402,9 +407,9 @@ let function mkResearchIcon(
 }
 
 let lockSign = faComp("ban", {
-  margin = [0, columnGap]
+  margin = [0, largePadding]
   vplace = ALIGN_BOTTOM
-  fontSize = colPart(0.7)
+  fontSize = hdpxi(42)
   color = negativeTxtColor
 })
 
@@ -418,33 +423,30 @@ let function mkResearchSlot(pageIdx, research, selectedId, statuses, onClick, on
   let hasLockSign = hasMultUsed && status != RESEARCHED
     && (hasResearchedInGroup || (hasSelectedInGroup && !isSelected))
 
-  return watchElemState(function(sf) {
-    let isHover = (sf & S_HOVER) != 0
-    return {
-      size = slotSize
-      behavior = Behaviors.Button
-      onClick
-      sound = btnSound
-      onDoubleClick
-      xmbNode = XmbNode({
-        canFocus = @() true
-        wrap = false
-        isGridLine=true
-        scrollToEdge = [true, false]
+  return watchElemState(@(sf) {
+    size = slotSize
+    behavior = Behaviors.Button
+    onClick
+    sound = btnSound
+    onDoubleClick
+    xmbNode = XmbNode({
+      canFocus = true
+      wrap = false
+      isGridLine=true
+      scrollToEdge = [true, false]
+    })
+    children = [
+      hoverImage.create({
+        sf = sf
+        uid = research_id
+        size = slotSize
+        image = null
+        pivot = [0.5, 0.5]
+        children = mkResearchIcon(pageIdx, icon_id, hasResearched,
+          canResearch, !!(sf & S_HOVER), isSelected, research_id)
       })
-      children = [
-        hoverImage.create({
-          sf = sf
-          uid = research_id
-          size = slotSize
-          image = null
-          pivot = [0.5, 0.5]
-          children = mkResearchIcon(pageIdx, icon_id, hasResearched,
-            canResearch, isHover, isSelected, research_id)
-        })
-        hasLockSign ? lockSign : null
-      ]
-    }
+      hasLockSign ? lockSign : null
+    ]
   })
 }
 
@@ -456,7 +458,7 @@ let ORIENTATIONS = freeze({
   BOTTOM_RIGHT = "BOTTOM_RIGHT"
 })
 
-let lineOffset = (columnGap / 2).tointeger()
+let lineOffset = (largePadding / 2).tointeger()
 
 let baseLineStyle = {
   color = 0xFF999999
@@ -561,8 +563,8 @@ let stepLengtGaps3 = {
 let stepLengtGaps2 = {
   [1] = mkResearcheMiniGap,
   [2] = @(override = {}) {
-    size = [colPart(1), colPart(3)]
-    pos = [0, colPart(1)]
+    size = [hdpx(62), hdpx(186)]
+    pos = [0, hdpx(62)]
     halign = ALIGN_CENTER
     valign = ALIGN_CENTER
     children = {
@@ -853,7 +855,7 @@ let function mkResearchesTreeUi() {
     let contentWidth = (columnPositions.len()> 0 ? columnPositions.top() : 0)+ slotSize[0]
     let saBorders = safeAreaBorders.value
     let saSideOffset = saBorders[1] + saBorders[3]
-    let freeWidth = sw(100) - (saSideOffset + colPart(1) + researchInfoWidth + squadLineWidth)
+    let freeWidth = sw(100) - (saSideOffset + hdpx(62) + researchInfoWidth + squadLineWidth)
     return contentWidth > freeWidth
   })
 
@@ -875,7 +877,7 @@ let function mkResearchesTreeUi() {
 
   let xmbContainer = XmbContainer({
     isGridLine = true
-    canFocus = @() false
+    canFocus = false
     wrap = false
     scrollSpeed = [2.0, 0]
   })
@@ -914,8 +916,8 @@ let function mkResearchesTreeUi() {
       size = isLast ? [SIZE_TO_CONTENT, itemSlotArea[1]] : itemSlotArea
       children = [
         {
-          pos = [-columnGap, 0]
-          size = [tplCount * itemSlotArea[0] - colPart(1), itemSlotArea[1] + colPart(9)]
+          pos = [-largePadding, 0]
+          size = [tplCount * itemSlotArea[0] - hdpx(62), itemSlotArea[1] + hdpx(558)]
           rendObj = ROBJ_SOLID
           opacity = 0.05
           color = 0xFFFFFF
@@ -924,7 +926,7 @@ let function mkResearchesTreeUi() {
           flow = FLOW_VERTICAL
           children = [
             mkText(getItemName(template), {
-              margin = [columnGap, 0, smallPadding, 0]
+              margin = [largePadding, 0, smallPadding, 0]
             }.__update(defTxtStyle))
             {
               size = itemSlotSize
@@ -956,8 +958,8 @@ let function mkResearchesTreeUi() {
     let treeObject = {
       size = [SIZE_TO_CONTENT, flex()]
       flow = FLOW_VERTICAL
-      gap = columnGap
-      padding = [0, colPart(1)]
+      gap = largePadding
+      padding = [0, hdpx(62)]
       onAttach
       onDetach
       children = [
@@ -1066,7 +1068,7 @@ let function mkResearchInfo(research) {
   return {
     size = flex()
     flow = FLOW_VERTICAL
-    gap = columnGap
+    gap = largePadding
     children = [
       mkTextarea(utf8ToUpper(loc(name, params)), {
         key = $"name_{research_id}"
@@ -1085,7 +1087,7 @@ let mkResearchUnlockedView = @(research_id) {
     key = research_id
     size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL
-    gap = columnGap
+    gap = largePadding
     children = [
       researchedSign
       mkText(utf8ToUpper(loc("research/unlocked")), headerTxtStyle)
@@ -1114,7 +1116,7 @@ let mkResearchBtn = @(onResearch, researchText, canResearch) @() {
     ? waitingSpinner
     : (canResearch ? PrimaryFlat : Bordered)(researchText, onResearch, {
         margin = 0
-        txtParams = fontLarge
+        txtParams = fontBody
         hotkeys = [[ "^J:Y", { description = { skip = true }} ]]
       })
 }
@@ -1142,9 +1144,9 @@ let function buySquadLevelMsg() {
 }
 
 let mkBuyLevelPrice = @(levelCost) function() {
-  let currency = currenciesList.value.findvalue(@(c) c.id == "EnlistedGold")
+  let currency = currenciesById.value?["EnlistedGold"]
   return {
-    watch = currenciesList
+    watch = currenciesById
     hplace = ALIGN_RIGHT
     children = mkCurrency({
       currency
@@ -1205,7 +1207,7 @@ let mkResearchPanel = @() function() {
     key = $"research_footer_{research_id}"
     size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL
-    gap = columnGap
+    gap = bigPadding
     children = [
       info == null ? null : mkTextarea(utf8ToUpper(info), headerTxtStyle)
       warning == null ? null : mkTextarea(utf8ToUpper(warning), attentionTxtStyle)
@@ -1234,7 +1236,7 @@ let function mkResearchInfoUi() {
   return {
     size = [SIZE_TO_CONTENT, flex()]
     flow = FLOW_VERTICAL
-    gap = colPart(1)
+    gap = bigPadding
     children = [
       @() {
         watch = nameLocId
@@ -1242,8 +1244,8 @@ let function mkResearchInfoUi() {
         size = [researchInfoWidth, SIZE_TO_CONTENT]
         hplace = ALIGN_RIGHT
         flow = FLOW_VERTICAL
-        gap = columnGap
-        padding = columnGap
+        gap = bigPadding
+        padding = largePadding
         color = darkPanelBgColor
         children = [
           {
@@ -1264,7 +1266,7 @@ let function mkResearchInfoUi() {
         size = [researchInfoWidth, flex()]
         flow = FLOW_VERTICAL
         gap = bigPadding
-        padding = bigPadding
+        padding = largePadding
         color = darkPanelBgColor
         children = [
           mkResearchInfo(selectedResearch.value)
@@ -1283,7 +1285,7 @@ let emptyResearchesText = mkText(loc("researches/willBeAvailableSoon"), {
 
 let lowCampaignLevelText = {
   flow = FLOW_VERTICAL
-  gap = columnGap
+  gap = largePadding
   vplace = ALIGN_CENTER
   hplace = ALIGN_CENTER
   halign = ALIGN_CENTER

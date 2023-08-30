@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let { logerr } = require("dagor.debug")
 let { landing_zones_GetWatched, landing_zones_Set } = require("%ui/hud/state/aircraft_respawn_landing_zones_state.nut")
 
-let markerSize = fsh(2).tointeger()
+let markerSize = hdpxi(21)
 let iconSize = (markerSize/1.5).tointeger()
 
 let getPicture = memoize(function getPicture(name) {

@@ -26,7 +26,6 @@
 
 "@override:graphics"{
   staticShadowsResolution:i=8192
-  decompressed_shaders_cache_size_in_mb:i=20
 }
 
 "@override:network"{

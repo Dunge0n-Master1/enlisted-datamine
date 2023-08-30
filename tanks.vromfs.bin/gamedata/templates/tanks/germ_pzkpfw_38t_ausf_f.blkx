@@ -4,7 +4,10 @@ germ_pzkpfw_38t_ausf_F{
   _extends:t="tank_light_vehicle_tracks_sound"
   vehicle_net_phys__blk:t="content/tanks/gamedata/gen/units/tanks/pzkpfw_38t_ausf_f.blk:VehiclePhys"
   damage_model__blk:t="content/tanks/gamedata/gen/units/tanks/pzkpfw_38t_ausf_f.blk"
-  item__iconOffset:p2=0.0, 0.3
+  item__iconOffset:p2=0.0, 0.1
+  item__iconScale:r=1.25
+  armorThicknessHull:p3=50.0, 30.0, 30.0
+  armorThicknessTurret:p3=50.0, 30.0, 30.0
 
   "animchar__objTexReplace:object"{
     "ger_camo_grey*":t="ger_camo_winter_lines*"

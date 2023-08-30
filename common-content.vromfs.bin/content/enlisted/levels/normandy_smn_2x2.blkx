@@ -808,3 +808,7 @@ unitedVdata.rendInst{
   VB4:i=32768
   VB5:i=0
 }
+
+depthAOAbove{
+  render_transparent:b=yes
+}

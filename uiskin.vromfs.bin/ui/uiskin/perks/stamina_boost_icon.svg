@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="vitality_perks" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path class="cls-1" d="m22.51,1.21l-3.38,19.9,12.04.04-17.29,26.58,3.02-18.73-12.04-.04L22.51,1.21Zm14.49,33.79h6v-2h-6v2Zm12-24h-6l.03,6.06h-6.05l.02-6.06h-6L40,1l9,10Zm-12,20h6v-4h-6v4Zm0-6h6v-6h-6v6Z"/>
+</svg>

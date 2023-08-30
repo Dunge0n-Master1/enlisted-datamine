@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let JB = require("%ui/control/gui_buttons.nut")
-let { h2_txt, body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2, fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let colors = require("%ui/style/colors.nut")
 let bigGap = hdpx(10)
 let { clearBorderSymbols } = require("%sqstd/string.nut")
@@ -39,7 +39,7 @@ let header = @(name) {
     {
       rendObj = ROBJ_TEXT
       text = loc("complain/header", { name = name })
-    }.__update(h2_txt)
+    }.__update(fontHeading2)
     closeBtn({ onClick = close })
   ]
 }
@@ -67,7 +67,7 @@ let mkSubmitButton = @(cantSubmitReason, trySubmit) @() {
       halign = ALIGN_CENTER
       color = colors.TextInactive
       text = cantSubmitReason.value ?? " "
-    }.__update(sub_txt)
+    }.__update(fontSub)
     textButton(loc("btn/send"), trySubmit,
       cantSubmitReason.value == null ? {} : visualDisabledBtnParams)
   ]
@@ -129,7 +129,7 @@ let function complainWnd(sessionId, userId, name) {
         onChange = @(value) complainText(value)
         onReturn = trySubmit
         onEscape = close
-      }.__update(body_txt))
+      }.__update(fontBody))
       mkSubmitButton(cantSubmitReason, trySubmit)
     ]
   }

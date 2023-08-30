@@ -58,12 +58,8 @@ def squad_suicide_bots_debug([[net_hero]] hero_eid : EntityId)
   let squadEid = get_Eid(hero_eid, "squad_member__squad") ?? INVALID_ENTITY_ID
   suicideBots(squadEid)
 
-[console_cmd(name="squad.changeTeam")]
-def squad_change_team()
-  let playerEid = get_local_player_eid()
-  if !playerEid
-    visual_log("local player is INVALID")
-    return
+[net_console_cmd(name="squad.changeTeam")]
+def squad_change_team([[net_player]] playerEid : EntityId)
   let possessed = get_Eid(playerEid, "possessed") ?? INVALID_ENTITY_ID
   let squadEid = get_Eid(possessed, "squad_member__squad") ?? INVALID_ENTITY_ID
   let team = get_int(playerEid, "team") ?? 1

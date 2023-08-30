@@ -52,6 +52,9 @@ incendiary_grenade_phys_base{
 white_phosphorus_damage_zone{
   _extends:t="replicating"
   _extends:t="white_phosphorus_smoke_effect"
+  _extends:t="voxel_grid"
+  voxel_grid__step:r=0.3
+  voxel_grid_init__managerSubTemplate:t="voxel_grid_init_manager"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   dmgzone__damage:r=1.75
   dmgzone__lastUpdate:r=-1.0

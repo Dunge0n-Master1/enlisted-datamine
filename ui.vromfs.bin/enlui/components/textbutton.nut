@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {body_txt, sub_txt, fontawesome} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontBody, fontSub, fontawesome} = require("%enlSqGlob/ui/fontsStyle.nut")
 let fa = require("%ui/components/fontawesome.map.nut")
 let colors = require("%ui/style/colors.nut")
 let textButtonTextCtor = require("textButtonTextCtor.nut")
@@ -50,7 +50,7 @@ let textButton = @(fill_color, border_width) function(text, handler, params={}) 
       ? params
       : params.__merge(overrideBySf(sf, params?.isEnabled ?? true) ?? {})
     let {
-      font = body_txt.font, fontSize = body_txt.fontSize, // TODO bad practice to pass values both as root & textParams fields
+      font = fontBody.font, fontSize = fontBody.fontSize, // TODO bad practice to pass values both as root & textParams fields
       textCtor = defTextCtor, isEnabled = true,
       style = defStyle, textMargin = defStyle.textMargin, key = handler,
       bgChild = null, fgChild = null
@@ -109,7 +109,7 @@ let override = {
   halign = ALIGN_CENTER
   sound = soundActive
   textCtor = textButtonTextCtor
-}.__update(body_txt)
+}.__update(fontBody)
 
 let onlinePurchaseStyle = {
   borderWidth = hdpx(1)
@@ -147,7 +147,7 @@ let loginBtnStyle = (clone onlinePurchaseStyle)
 
 let smallStyle = {
   textMargin = [hdpx(3), hdpx(5)]
-}.__update(sub_txt)
+}.__update(fontSub)
 
 let Transp = textButton(fillColorTransp, 0)
 let Bordered = textButton(fillColor, hdpx(1))
@@ -159,7 +159,7 @@ let export = class {
   _call = @(_self, text, handler, params = {}) defaultButton(text, handler, params)
   Transp = @(text, handler, params = {}) Transp(text, handler, override.__merge(params))
   Bordered = @(text, handler, params = {}) Bordered(text, handler, override.__merge(params))
-  Small = @(text, handler, params = {}) Transp(text, handler, override.__merge(sub_txt, {margin=hdpx(1) textMargin=[hdpx(2),hdpx(5),hdpx(2),hdpx(5)]}, params))
+  Small = @(text, handler, params = {}) Transp(text, handler, override.__merge(fontSub, {margin=hdpx(1) textMargin=[hdpx(2),hdpx(5),hdpx(2),hdpx(5)]}, params))
   SmallBordered = @(text, handler, params = {}) Bordered(text, handler, override.__merge(smallStyle, params))
   Flat = @(text, handler, params = {}) Flat(text, handler, override.__merge(params))
   SmallFlat = @(text, handler, params = {})
@@ -174,8 +174,8 @@ let export = class {
       sound = (params?.isEnabled ?? true) ? soundDefault : null
     }.__merge(fontawesome, params))
 
-  Purchase = @(text, handler, params = {}) Bordered(text, handler, body_txt.__merge(onlinePurchaseStyle, params))
-  PrimaryFlat = @(text, handler, params = {}) Flat(text, handler, body_txt.__merge(primaryButtonStyle, params))
+  Purchase = @(text, handler, params = {}) Bordered(text, handler, fontBody.__merge(onlinePurchaseStyle, params))
+  PrimaryFlat = @(text, handler, params = {}) Flat(text, handler, fontBody.__merge(primaryButtonStyle, params))
 
   onlinePurchaseStyle = onlinePurchaseStyle
   primaryButtonStyle = primaryButtonStyle
@@ -183,7 +183,6 @@ let export = class {
   override = override
   loginBtnStyle = loginBtnStyle
 
-  setDefaultButton = function(buttonCtor) { defaultButton = buttonCtor }
   soundDefault = soundDefault
   soundActive = soundActive
 }()

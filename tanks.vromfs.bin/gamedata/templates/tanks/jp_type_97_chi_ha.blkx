@@ -10,7 +10,8 @@ jp_type_97_chi_ha_common{
   _extends:t="base_type_97_chi_ha"
   _extends:t="tank_m10_engine_sound"
   _extends:t="tank_light_vehicle_tracks_sound"
-  item__iconOffset:p2=0.0, 0.0
+  item__iconOffset:p2=-0.05, 0.0
+  item__iconScale:r=1.11
   commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
   gunner_cam_limit__useCockpitDir:b=yes
 
@@ -223,6 +224,13 @@ jp_type_97_chi_ha_commander_cockpit{
 
   "cockpit__slitZoomTime:list<r>"{
     slit:r=0.0
+  }
+
+  "cockpit__slitTemplates:list<t>"{
+    slit:t="default_periscope"
+  }
+
+  "cockpit__slitEids:list<eid>"{
   }
 }
 

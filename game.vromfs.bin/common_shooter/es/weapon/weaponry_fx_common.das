@@ -6,11 +6,9 @@ require ecs.common
 require math.base
 require PhysMat
 require DaWeapons
-require debug.logerr_once
 require DagorSystem
 require BallisticsProps
 require Ballistics
-require strings
 require DngDm
 require daslib/algorithm
 
@@ -109,11 +107,11 @@ def private get_index_in_effect_preset(preset : Object;
     index = -1
   return index
 
-def private get_effect_from_preset(effect_preset : Object;
-                                   effect_presets : Array;
-                                   launch_desc : LaunchDesc;
-                                   dm_projectile_state : ProjectileState;
-                                   projectile_ballistics : ProjectileBallistics)
+def private get_effect_group_id_from_preset(effect_preset : Object;
+                                            effect_presets : Array;
+                                            launch_desc : LaunchDesc;
+                                            dm_projectile_state : ProjectileState;
+                                            projectile_ballistics : ProjectileBallistics)
   var effectGroupId = -1
 
   let values = effect_preset.values ?as Array
@@ -131,14 +129,14 @@ def private get_effect_from_preset(effect_preset : Object;
     let nextEffectPreset = *valueChildComp as Object
     if nextEffectPreset == null
       return effectGroupId
-    effectGroupId = get_effect_from_preset(*nextEffectPreset, effect_presets, launch_desc, dm_projectile_state, projectile_ballistics)
+    effectGroupId = get_effect_group_id_from_preset(*nextEffectPreset, effect_presets, launch_desc, dm_projectile_state, projectile_ballistics)
   //Case 2
   elif *valueInt < 0
     let nextEffectPresetId = -(*valueInt) - 1
     let nextEffectPreset = effect_presets[nextEffectPresetId] as Object
     if nextEffectPreset == null
       return effectGroupId
-    effectGroupId = get_effect_from_preset(*nextEffectPreset, effect_presets, launch_desc, dm_projectile_state, projectile_ballistics)
+    effectGroupId = get_effect_group_id_from_preset(*nextEffectPreset, effect_presets, launch_desc, dm_projectile_state, projectile_ballistics)
   //Case 3
   else
     effectGroupId = *valueInt - 1
@@ -180,8 +178,8 @@ def get_projectile_fx_name(hit_effect_descriptor : int;
       let effectPreset = global_hit_fx__effectPresets[effectPresetId] as Object
       if effectPreset == null
         return true
-      effectGroupId = get_effect_from_preset(*effectPreset, global_hit_fx__effectPresets,
-                                             launch_desc, dm_projectile_state, projectile_ballistics)
+      effectGroupId = get_effect_group_id_from_preset(*effectPreset, global_hit_fx__effectPresets,
+        launch_desc, dm_projectile_state, projectile_ballistics)
 
     if effectGroupId >= 0
       effectGroup = global_hit_fx__effectGroups[effectGroupId] as Object

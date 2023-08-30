@@ -678,6 +678,13 @@ grass{
       nograss:r=1.0
     }
 
+    soil_road{
+      id:i=26
+      generic_grass_low_a:r=9.0
+      generic_grass_low_b:r=8.0
+      matricaria_chamomilla:r=2.0
+    }
+
     green_field{
       id:i=28
       generic_grass_low_a:r=9.0

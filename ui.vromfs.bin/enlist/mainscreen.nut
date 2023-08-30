@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h2_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
 let {doesSceneExist, getTopScene, scenesListGeneration} = require("navState.nut")
 
@@ -11,7 +11,7 @@ let notLoggedInText = {
   hplace = ALIGN_CENTER
   vplace = ALIGN_CENTER
   text = loc("Error: not logged in")
-}.__update(h2_txt)
+}.__update(fontHeading2)
 
 let mainMenu = @() {
   size = flex()

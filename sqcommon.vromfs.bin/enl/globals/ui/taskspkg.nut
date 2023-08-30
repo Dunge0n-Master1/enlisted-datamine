@@ -1,10 +1,9 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let { fontSmall } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { PrimaryFlat } = require("%ui/components/textButton.nut")
 let { commonBtnHeight, taskProgressColor, activeTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
-let { defTxtColor, titleTxtColor, smallPadding, midPadding, bigPadding, accentColor, colPart,
+let { defTxtColor, titleTxtColor, smallPadding, midPadding, bigPadding, accentColor,
   darkTxtColor, miniPadding } = require("%enlSqGlob/ui/designConst.nut")
 let { getDescription } = require("unlocksText.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
@@ -15,19 +14,19 @@ let spinner = require("%ui/components/spinner.nut")
 let { getStageByIndex } = require("%enlSqGlob/unlocks_utils.nut")
 let { progressBar } = require("%enlSqGlob/ui/defComponents.nut")
 
-let defTxtStyle = { color = defTxtColor }.__update(fontSmall)
-let hoveredTxtStyle = { color = darkTxtColor }.__update(fontSmall)
-let titleTxtStyle = { color = titleTxtColor }.__update(fontSmall)
-let taskProgressTxtStyle = { color = accentColor }.__update(fontSmall)
+let defTxtStyle = { color = defTxtColor }.__update(fontSub)
+let hoveredTxtStyle = { color = darkTxtColor }.__update(fontSub)
+let titleTxtStyle = { color = titleTxtColor }.__update(fontSub)
+let taskProgressTxtStyle = { color = accentColor }.__update(fontSub)
 
 
-let waitingSpinner = spinner(colPart(0.4))
-let starSize = colPart(0.35)
-let taskMinHeight = colPart(0.91)
-let statusWidth = colPart(0.4)
+let waitingSpinner = spinner(hdpx(24))
+let starSize = hdpxi(22)
+let taskMinHeight = hdpx(56)
+let statusWidth = hdpx(24)
 let taskSlotPadding = [miniPadding, midPadding]
 let taskDescPadding = [midPadding, smallPadding, bigPadding,
-  colPart(0.39) + statusWidth + midPadding * 2]
+  hdpx(24) + statusWidth + midPadding * 2]
 
 
 let blinkAnimation = {
@@ -45,7 +44,7 @@ let rewardAnimBg = {
 }.__update(blinkAnimation)
 
 
-let taskLabelSize = [colPart(0.14), colPart(0.3)]
+let taskLabelSize = [hdpxi(8), hdpxi(18)]
 let mkTaskLabel = @(labelName) labelName == null ? null : {
   size = taskLabelSize
   rendObj = ROBJ_IMAGE
@@ -65,7 +64,7 @@ let getUnlockLimit = @(task) task?.meta.unlock_limit ?? 0
 let getProgressDiv = @(task) task?.meta.descProgressDiv.tointeger() ?? 0
 
 
-let mkFaIcon = @(name, color = 0xFFFFFF, fontSize = fontSmall.fontSize)
+let mkFaIcon = @(name, color = 0xFFFFFF, fontSize = fontSub.fontSize)
   faComp(name, {fontSize, color})
 let completedUnlockIcon = mkFaIcon("check", taskProgressColor)
 let canceledUnlockIcon = mkFaIcon("times", darkTxtColor)
@@ -309,7 +308,7 @@ let function mkTaskEmblem(unlockDesc, progress, canTakeReward = true, hasWaitIco
               size = flex()
               watch = seasonIndex
               children = progressBar(progBarValue, {
-                size = [flex(), colPart(0.07)]
+                size = [flex(), hdpx(4)]
                 progressColor
               }
             )
@@ -325,7 +324,7 @@ let function mkAchievementTitle(tasksList, locId) {
     rendObj = ROBJ_TEXT
     text = "{0} {1}".subst(loc(locId), $"{finished}/{tasksList.len()}")
     color = activeTxtColor
-  }.__update(body_txt)
+  }.__update(fontBody)
 }
 
 return {

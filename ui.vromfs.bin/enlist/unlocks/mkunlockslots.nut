@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontSmall, fontXSmall } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { smallPadding, titleTxtColor, colPart, defTxtColor, defItemBlur, transpPanelBgColor, darkTxtColor,
+let { fontSub, fontTiny } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { smallPadding, titleTxtColor, defTxtColor, defItemBlur, transpPanelBgColor, darkTxtColor,
   hoverSlotBgColor, midPadding
 } = require("%enlSqGlob/ui/designConst.nut")
 let { taskDescription, taskHeader, taskDescPadding, taskMinHeight,
@@ -19,7 +19,7 @@ let { sound_play } = require("%dngscripts/sound_system.nut")
 let { receiveTaskRewards } = require("taskListState.nut")
 let { getDescription } = require("%enlSqGlob/ui/unlocksText.nut")
 
-let btnOffset = colPart(0.36)
+let btnOffset = hdpx(22)
 let starSizeReward = hdpxi(17)
 let minHeight = hdpx(65)
 let mkHideTrigger = @(task) $"hide_task_{task.name}"
@@ -35,12 +35,12 @@ let mkTaskContent = @(unlockDesc, canTakeReward, hasWaitIcon, canReroll, sf = 0)
       children = {
         size = [flex(), SIZE_TO_CONTENT]
         flow = FLOW_HORIZONTAL
-        gap = colPart(0.17)
+        gap = hdpx(10)
         valign = ALIGN_CENTER
         children = [
           mkTaskEmblem(unlockDesc, progress, canTakeReward, hasWaitIcon, canReroll, sf, seasonIndex, bpColors)
           taskHeader(unlockDesc, progress, canTakeReward, sf,
-            { size = [flex(), SIZE_TO_CONTENT] color = sf & S_HOVER ? darkTxtColor : defTxtColor}.__update(fontSmall))
+            { size = [flex(), SIZE_TO_CONTENT] color = sf & S_HOVER ? darkTxtColor : defTxtColor}.__update(fontSub))
         ]
       }
     }
@@ -60,9 +60,9 @@ let function mkRewardBlock(rewardData, isFinished = false) {
             vplace = ALIGN_BOTTOM
             fontFx = FFT_GLOW
             fontFxColor = 0xCC000000
-            fontFxFactor = colPart(0.5)
+            fontFxFactor = hdpx(32)
             color = titleTxtColor
-          }.__update(fontSmall)
+          }.__update(fontSub)
     ]
   }
 }
@@ -147,7 +147,7 @@ let mkUnlockSlot = kwarg(@(
     margin = bottomBtn != null ? [0,0, btnOffset,0] : 0
     transform = {}
     animations = (hasShowAnim && needShowAnim(task)
-      ? [{ prop = AnimProp.translate, from = [colPart(4),0], to = [0,0],
+      ? [{ prop = AnimProp.translate, from = [hdpx(248), 0], to = [0,0],
           duration = 0.25, play = true }]
       : []).append(
             { prop = AnimProp.opacity, from = 1, to = 0, duration = 0.35,
@@ -228,7 +228,7 @@ let mkTaskContentReward = @(unlockDesc, sf = 0)
                       halign = ALIGN_CENTER
                       color = sf & S_HOVER ? darkTxtColor : titleTxtColor
                       text = loc("completeTaskTitle")
-                    }.__update(fontSmall)
+                    }.__update(fontSub)
                     iconReward
                   ]
                 }
@@ -244,7 +244,7 @@ let mkTaskContentReward = @(unlockDesc, sf = 0)
           halign = ALIGN_RIGHT
           color = bpColor
           text = loc("completeTaskReward")
-        }.__update(fontXSmall)
+        }.__update(fontTiny)
       ]
     }
   }

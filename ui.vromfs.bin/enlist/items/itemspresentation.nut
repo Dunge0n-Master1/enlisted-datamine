@@ -197,6 +197,10 @@ let rewardsPresentation = {
         stalingrad_axis = "mondragon_m1908"
         pacific_allies = "farquhar_hill_1918"
         pacific_axis = "nambu_type_a_sword_pistol"
+        common_ussr = "svt_40_with_drum"
+        common_ger = "mondragon_m1908"
+        common_usa = "farquhar_hill_1918"
+        common_jap = "nambu_type_a_sword_pistol"
       }
     }
   },
@@ -1214,6 +1218,7 @@ let rewardsPresentation = {
     cardImage = "ui/skin#rewards/crate_big_1.avif"
     cardImageOpen = "ui/skin#rewards/crate_big_1_open.avif"
     background = goldRadialGradient
+    rewardGlow = "!ui/gameImage/enlisted_box_glow_dark_small.avif"
     progressConfig = {
       textColor = darkTxtColor
       background = goldVerticalGradient
@@ -1225,6 +1230,5 @@ return freeze({
   rewardWidthToHeight
   rewardsPresentation
   rewardBgSizePx
-  mkImageCtor
   mkReward
 })

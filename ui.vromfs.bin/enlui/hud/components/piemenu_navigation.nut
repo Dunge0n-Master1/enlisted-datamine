@@ -9,7 +9,7 @@ let { mkHotkey } = require("%ui/components/uiHotkeysHint.nut")
 let { CmdWallposterPreview } = require("dasevents")
 let { wallPostersMaxCount, wallPostersCurCount, wallPosters } = require("%ui/hud/state/wallposter.nut")
 let { localPlayerEid } = require("%ui/hud/state/local_player.nut")
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { TextActive } = require("%ui/style/colors.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 
@@ -50,7 +50,7 @@ let wallposterNavigationHint = [
     watch = wallposterNavText
     text = wallposterNavText.value
     color = TextActive
-  }.__update(body_txt)
+  }.__update(fontBody)
 ]
 
 
@@ -63,7 +63,7 @@ let quickchatNavigationHint = [
     watch = pieMenuLayer
     text = pieMenuLayer.value == 2 ? loc("piemenu/squad_commands") : loc("piemenu/quick_chat")
     color = TextActive
-  }.__update(body_txt)
+  }.__update(fontBody)
 ]
 
 
@@ -81,7 +81,7 @@ let mkPieMenuNavigationTip = @(action, children, isInactive = Watched(false)) wa
 })
 
 
-let pieMenuNavigation = {
+let pieMenuNavigation = @(){
   rendObj = ROBJ_WORLD_BLUR
   watch = radius
   size = [radius.value * 2, SIZE_TO_CONTENT]

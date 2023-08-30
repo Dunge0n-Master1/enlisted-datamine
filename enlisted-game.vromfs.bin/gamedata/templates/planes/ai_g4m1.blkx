@@ -116,6 +116,8 @@ ai_g4m1{
       paramYawSpeed:t="turret1_yaw_speed"
       paramMaxYawAngle:t="turret1_max_yaw_angle"
       aimActiveParamName:t="gun1_aim_active"
+      curWorldPitchParamName:t="gun1_world_pitch"
+      curWorldYawParamName:t="turret1_world_yaw"
       paramPitchSpeedMul:t="gun1_pitch_mul"
       paramYawAccel:t="turret1_yaw_accel"
       paramPitchAccel:t="gun1_pitch_accel"
@@ -134,6 +136,8 @@ ai_g4m1{
       paramYawSpeed:t="turret2_yaw_speed"
       paramMaxYawAngle:t="turret2_max_yaw_angle"
       aimActiveParamName:t="gun2_aim_active"
+      curWorldPitchParamName:t="gun2_world_pitch"
+      curWorldYawParamName:t="turret2_world_yaw"
       paramPitchSpeedMul:t="gun2_pitch_mul"
       paramYawAccel:t="turret2_yaw_accel"
       paramPitchAccel:t="gun2_pitch_accel"
@@ -152,6 +156,8 @@ ai_g4m1{
       paramYawSpeed:t="turret3_yaw_speed"
       paramMaxYawAngle:t="turret3_max_yaw_angle"
       aimActiveParamName:t="gun3_aim_active"
+      curWorldPitchParamName:t="gun3_world_pitch"
+      curWorldYawParamName:t="turret3_world_yaw"
       paramPitchSpeedMul:t="gun3_pitch_mul"
       paramYawAccel:t="turret3_yaw_accel"
       paramPitchAccel:t="gun3_pitch_accel"
@@ -170,6 +176,8 @@ ai_g4m1{
       paramYawSpeed:t="turret4_yaw_speed"
       paramMaxYawAngle:t="turret4_max_yaw_angle"
       aimActiveParamName:t="gun4_aim_active"
+      curWorldPitchParamName:t="gun4_world_pitch"
+      curWorldYawParamName:t="turret4_world_yaw"
       paramPitchSpeedMul:t="gun4_pitch_mul"
       paramYawAccel:t="turret4_yaw_accel"
       paramPitchAccel:t="gun4_pitch_accel"
@@ -188,6 +196,8 @@ ai_g4m1{
       paramYawSpeed:t="turret5_yaw_speed"
       paramMaxYawAngle:t="turret5_max_yaw_angle"
       aimActiveParamName:t="gun5_aim_active"
+      curWorldPitchParamName:t="gun5_world_pitch"
+      curWorldYawParamName:t="turret5_world_yaw"
       paramPitchSpeedMul:t="gun5_pitch_mul"
       paramYawAccel:t="turret5_yaw_accel"
       paramPitchAccel:t="gun5_pitch_accel"
@@ -290,27 +300,6 @@ base_ai_g4m1_navy_type_97mod_6_60kg_launcher{
 }
 
 base_ai_g4m1_7_7mm_type92_turret{
-  item__name:t="guns/guntype92_turret"
-  gun__blk:t="gamedata/weapons/g4m1/7_7mm_type92_turret.blk"
-  gun__shotFreq:r=10.0
-  gun__locName:t="guntype92_turret"
-  gun__shootNodeName:t="bone_mg_gun_twin"
-  gun__maxAmmo:i=1000
-
-  "gun__firingModes:array"{
-
-    "mode:object"{
-      modeType:t="automatic"
-    }
-  }
-
-  "gun__firingModeNames:array"{
-    mode:t="automatic"
-  }
-
-  "gun__shellsAmmo:array"{
-    ammo:i=1000
-  }
 
   "gun__ammoSetsInfo:shared:array"{
 
@@ -356,27 +345,6 @@ base_ai_g4m1_7_7mm_type92_turret{
 }
 
 base_ai_g4m1_20mm_type99_turret{
-  item__name:t="guns/cannontype99_turret"
-  gun__blk:t="gamedata/weapons/g4m1/20mm_type99_turret.blk"
-  gun__shotFreq:r=8.6
-  gun__locName:t="cannontype99_turret"
-  gun__shootNodeName:t="bone_mg_gun_twin"
-  gun__maxAmmo:i=1000
-
-  "gun__firingModes:array"{
-
-    "mode:object"{
-      modeType:t="automatic"
-    }
-  }
-
-  "gun__firingModeNames:array"{
-    mode:t="automatic"
-  }
-
-  "gun__shellsAmmo:array"{
-    ammo:i=1000
-  }
 
   "gun__ammoSetsInfo:shared:array"{
 
@@ -440,41 +408,18 @@ planegun_ai_g4m1_navy_type_97mod_6_60kg_launcher_04{
 }
 
 planegun_ai_g4m1_7_7mm_type92_turret_01{
-  _extends:t="tankgun"
-  _extends:t="base_plane_machinegun"
-  _extends:t="base_g4m1_7_7mm_type92_turret"
-  _extends:t="gunsound_7_7mm_type92_turret_aircraft"
-  gun__shootNodeName:t="flare1"
-  gun__maxAmmo:i=1000
-  turret__aimNodeName:t="turret1"
-  turret__limit:p4=-30.0, 30.0, -40.0, 5.0
-  turret__yawSpeed:r=100.0
-  turret__pitchSpeed:r=100.0
+  _extends:t="planegun_g4m1_7_7mm_type92_turret_01"
+  _extends:t="base_ai_g4m1_7_7mm_type92_turret"
 }
 
 planegun_ai_g4m1_7_7mm_type92_turret_02{
-  _extends:t="tankgun"
-  _extends:t="base_plane_machinegun"
-  _extends:t="base_g4m1_7_7mm_type92_turret"
-  _extends:t="gunsound_7_7mm_type92_turret_aircraft"
-  gun__shootNodeName:t="flare2"
-  gun__maxAmmo:i=1000
-  turret__aimNodeName:t="turret2"
-  turret__limit:p4=-45.0, 45.0, -5.0, 45.0
-  turret__yawSpeed:r=100.0
-  turret__pitchSpeed:r=100.0
+  _extends:t="planegun_g4m1_7_7mm_type92_turret_02"
+  _extends:t="base_ai_g4m1_7_7mm_type92_turret"
 }
 
 planegun_ai_g4m1_20mm_type99_turret_01{
-  _extends:t="tankgun"
-  _extends:t="base_plane_machinegun"
-  _extends:t="base_g4m1_20mm_type99_turret"
-  gun__shootNodeName:t="flare3"
-  gun__maxAmmo:i=1000
-  turret__aimNodeName:t="turret3"
-  turret__limit:p4=-30.0, 30.0, -30.0, 30.0
-  turret__yawSpeed:r=100.0
-  turret__pitchSpeed:r=100.0
+  _extends:t="planegun_g4m1_20mm_type99_turret_01"
+  _extends:t="base_ai_g4m1_20mm_type99_turret"
 }
 
 ai_g4m1_driver_cockpit{

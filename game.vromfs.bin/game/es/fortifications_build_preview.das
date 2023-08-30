@@ -121,6 +121,7 @@ def build_ability_update_transform_es(info : UpdateStageInfoAct;
                                       building_builder__maxUnderwaterDistance = -1.0;
                                       shredInDeactivatingBattleArea : Tag const?;
                                       requiredSpaceAboveObject = 0.0;
+                                      requiredSpaceAboveObjectOffset = 0.0;
                                       ri_preview__name : das_string const?;
                                       previewCollres : CollisionResource const?;
                                       previewCollobj : CollisionObject;
@@ -185,7 +186,7 @@ def build_ability_update_transform_es(info : UpdateStageInfoAct;
     var riMatId = PHYSMAT_INVALID
     var riDesc = RendInstDesc()
     traceray_normalized(tracePos, traceDir, len, riMatId, norm, ETF_ALL | ETF_RI_PHYS, riDesc, rayMatId)
-    if find_ri_extra_eid(riDesc.riExtraHandle) |> has("building__destroyable")
+    if find_ri_extra_eid(riDesc.riExtraHandle) |> has("building__canDismantle")
       isAboveOtherBuilding = true
     build_position = tracePos + traceDir * len
     if length(norm) == 0.f
@@ -193,7 +194,7 @@ def build_ability_update_transform_es(info : UpdateStageInfoAct;
       let abovePos = build_position + traceAdditionEps
       if !traceray_normalized(abovePos, traceDownDir, height, riMatId, norm, ETF_DEFAULT | ETF_RI_PHYS, riDesc, rayMatId)
         return true
-      if find_ri_extra_eid(riDesc.riExtraHandle) |> has("building__destroyable")
+      if find_ri_extra_eid(riDesc.riExtraHandle) |> has("building__canDismantle")
         isAboveOtherBuilding = true
       build_position.y -= height - traceAdditionEps.y
 
@@ -230,7 +231,7 @@ def build_ability_update_transform_es(info : UpdateStageInfoAct;
                    !priceLimitReached &&
                    (availableByCountLimit || allowRecreate) &&
                    is_required_unlocks_available(previewId, squadEid) &&
-                   is_required_space_above_object_free(buildPos, bboxDiagonalXZLength, requiredSpaceAboveObject) &&
+                   is_required_space_above_object_free(buildPos, bboxDiagonalXZLength, requiredSpaceAboveObject, requiredSpaceAboveObjectOffset) &&
                    is_distance_to_capture_points_valid(buildPos, minDistanceToCapturePoints) &&
                    !is_conflict_with_water(buildPos, maxUnderwaterDistance) &&
                    !is_human_respawn_selector_in_radius_for_team(buildPos, minDistanceToMissionRespawns, heroTeam) &&
@@ -471,6 +472,7 @@ def try_build_fortification_es(evt : Event;
                                building_builder__minDistanceToCapturePoints = -1.0;
                                building_builder__maxUnderwaterDistance = -1.0;
                                requiredSpaceAboveObject = 0.0;
+                               requiredSpaceAboveObjectOffset = 0.0;
                                previewCollres : CollisionResource const?;
                                ri_preview__name : das_string const?;
                                previewCollobj : CollisionObject;
@@ -515,7 +517,7 @@ def try_build_fortification_es(evt : Event;
     return
   let bboxDiagonal = buildingBoxMax - buildingBoxMin
   let bboxDiagonalXZLength = length(bboxDiagonal.xz)
-  if !is_required_space_above_object_free(buildingPos, bboxDiagonalXZLength, requiredSpaceAboveObject)
+  if !is_required_space_above_object_free(buildingPos, bboxDiagonalXZLength, requiredSpaceAboveObject, requiredSpaceAboveObjectOffset)
     sendEvent(hero, [[CmdHeroLogEvent event="building_blocked_not_enough_free_space_to_spawn", text="building_blocked_not_enough_free_space_to_spawn"]])
     return
   let restrictedZoneEid = find_building_restricted_zone(buildingPos, heroTeam)

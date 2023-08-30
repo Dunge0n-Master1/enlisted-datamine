@@ -1,9 +1,8 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { colFull, transpPanelBgColor, midPadding, smallPadding, accentColor,
-  darkPanelBgColor, colPart, defItemBlur, defTxtColor, brightAccentColor,
-  bigPadding, hoverSlotBgColor, darkTxtColor, highlightLineHgt
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { transpPanelBgColor, midPadding, smallPadding, accentColor, darkPanelBgColor, defItemBlur,
+  defTxtColor, brightAccentColor, bigPadding, hoverSlotBgColor, darkTxtColor, highlightLineHgt
 } = require("%enlSqGlob/ui/designConst.nut")
 let { mkColoredGradientX, mkTwoSidesGradientX } = require("%enlSqGlob/ui/gradients.nut")
 let msgbox = require("%enlist/components/msgbox.nut")
@@ -24,7 +23,7 @@ let { dbgData } = require("%enlist/debriefing/debriefingDbgState.nut")
 
 const CAMPAIGN_CHANGE_UID = "cangeCampaignUid"
 
-let campaignBlockHeight = colFull(1)
+let campaignBlockHeight = hdpx(62)
 
 let highlightLine = freeze({
   rendObj = ROBJ_IMAGE
@@ -62,7 +61,7 @@ let function mkCampaignButton(textObs, hasNotifierObs) {
         padding = [smallPadding, 0]
         text = loc(textObs.value)
         color = sf & S_HOVER ? darkTxtColor : defTxtColor
-      }.__update(fontLarge)
+      }.__update(fontBody)
       !hasNotifierObs.value ? null : blinkUnseen
     ]
   })
@@ -114,7 +113,7 @@ let function mkCampaignBlock() {
   }
 
   return {
-    size = [colPart(5), campaignBlockHeight]
+    size = [fsh(29), campaignBlockHeight]
     gap = midPadding
     flow = FLOW_VERTICAL
     hplace = ALIGN_CENTER
@@ -141,14 +140,14 @@ let function levelBlock() {
       size = [flex(), SIZE_TO_CONTENT]
       text = levelText
       color = defTxtColor
-    }.__update(fontLarge)
+    }.__update(fontBody)
   }
 }
 
 
 let function campaignTitle() {
   return {
-    size = [colFull(4), SIZE_TO_CONTENT]
+    size = [fsh(27.5), SIZE_TO_CONTENT]
     padding = [bigPadding, 0, 0, 0]
     gap = midPadding
     hplace = ALIGN_CENTER

@@ -7,7 +7,7 @@ import{
 }
 
 import{
-  scene:t="content/enlisted/gamedata/scenes/_berlin_opera_level.blk"
+  scene:t="content/enlisted/gamedata/scenes/_berlin_station_level.blk"
 }
 
 entity{

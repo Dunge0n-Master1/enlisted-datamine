@@ -25,4 +25,5 @@ def trace_cache_invalidation_es(evt : CmdDig)
 
 [es(REQUIRE=terraform)]
 def trace_cache_invalidation_on_bomb_crater_es(evt : EventBombCraterPartTerraformed)
-  trace_cache_invalidation_impl(evt.partPos, 2. * evt.partRadius)
+  if evt.shouldDig
+    trace_cache_invalidation_impl(evt.partPos, 2. * evt.partRadius)

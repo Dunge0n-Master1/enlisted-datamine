@@ -9,9 +9,8 @@ require common_shooter.events_common_shooter
 
 [es(on_appear, REQUIRE=tutor_action__tankTrackDestroy)]
 def tutorial_tank_destroy_track_es(evt : Event; eid : EntityId)
-  query() <| $ [es] (eid : EntityId; dm_phys_parts__tracksPartIds : IntList)
-    for partId in dm_phys_parts__tracksPartIds
-      sendEvent(eid, [[CmdTutorialDamageVehiclePart partId=partId, damageMask=int(DamageEffectsMask DM_EFFECTS_MASK_ALL)]])
+  query() <| $ [es(REQUIRE=vehicleWithWatched)] (eid : EntityId; dm_phys_parts__tracksPartIds : IntList)
+    sendEvent(eid, [[CmdTutorialDamageVehiclePart partId=dm_phys_parts__tracksPartIds[0], damageMask = int(DamageEffectsMask DM_EFFECTS_MASK_ALL)]])
   destroyEntity(eid)
 
 [es(REQUIRE=vehicle, on_event=EventOnRepaired)]

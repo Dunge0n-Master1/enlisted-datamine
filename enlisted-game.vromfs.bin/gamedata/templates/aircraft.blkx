@@ -681,7 +681,6 @@ plane_base{
   plane_input__autopilotImpl:t="No"
   _tracked:t="plane_input__mouseAimEnabled"
   _tracked:t="plane_input__simpleJoyEnabled"
-  _tracked:t="transform"
   _tracked:t="flight_angles_enabled"
   _tracked:t="flaps_position"
   _tracked:t="plane_view__isAirBrakesActive"
@@ -798,6 +797,9 @@ plane_base{
   }
 
   "hitmarks__groupsIds:list<i>"{
+  }
+
+  "grid_obj__updateAlways:tag"{
   }
 
   grid_obj{

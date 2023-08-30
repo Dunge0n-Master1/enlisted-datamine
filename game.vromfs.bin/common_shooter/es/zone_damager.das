@@ -9,6 +9,9 @@ require DagorSystem
 require Grid
 require GridCollision
 require DagorMath
+require game.es.voxel.voxel_grid_common
+require AnimV20
+require GeomNodeTree
 
 let ZERO_MULT = 0.001 //To avoid division by zero problem when multipliers are removed 0 = 0.001
 
@@ -46,7 +49,7 @@ def burn_damage(cur_time, dt : float; victim_eid, offender_eid : EntityId; victi
       burning__offenderShellId = shell_id
 
 
-def dmgzone_check_visitor(visitor_eid, offender_eid : EntityId;
+def dmgzone_check_visitor(zone_eid, visitor_eid, offender_eid : EntityId;
                           curTime, dt, dmgzone_damage, dmgzone_fireAffect, fire_source__startTime : float;
                           gun_props_id, shell_id, team_to_damage, damage_type_id : int;
                           damage_in_vehicle : bool; dmgzone__doNotDamageUnderwater : Tag const?;
@@ -69,6 +72,9 @@ def dmgzone_check_visitor(visitor_eid, offender_eid : EntityId;
     if game_effect__invisible && offender_eid |> has("dmgzone__ignoreInvisibleTargets")
       return
 
+    if !check_voxel_grid(zone_eid, visitor_eid)
+      return
+
     if eids_in_zone != null
       *eids_in_zone |> push(visitor_eid)
 
@@ -88,10 +94,50 @@ def dmgzone_check_visitor(visitor_eid, offender_eid : EntityId;
         burn_damage(curTime, dt, visitor_eid, offender_eid, team, transform[3],
                     dmgzone_fireAffect, fire_source__startTime, gun_props_id, shell_id)
 
+def check_voxel_grid(zone_eid : EntityId; victim_eid : EntityId)
+  var res = true
+  query(zone_eid) <| $ [es] (transform : float3x4;
+                             voxel_grid__resolution : int;
+                             voxel_grid__step : float;
+                             voxel_grid__voxels : BoolList;
+                             voxel_grid_init__inProgress : Tag const?)
+    res = false
+    if voxel_grid_init__inProgress != null
+      return
+    query(victim_eid) <| $ [es] (animchar : AnimcharBaseComponent;
+                                 dmgzone__voxelVictimNodeIds : IntList)
+      for nodeId in dmgzone__voxelVictimNodeIds
+        let pos = geomtree_getNodeWpos(*animchar.nodeTree, nodeId)
+        let voxelIndex = get_voxel_index(transform, pos, voxel_grid__resolution, voxel_grid__step)
+        res ||= voxelIndex >= 0 && voxel_grid__voxels[voxelIndex]
+  return res
+
+[es(tag=server, on_appear)]
+def dmgzone_init_victim_voxel_nodes(evt : Event;
+                                    eid : EntityId;
+                                    animchar : AnimcharBaseComponent;
+                                    dmgzone__voxelVictimNodes : StringList;
+                                    var dmgzone__voxelVictimNodeIds : IntList&)
+  for node in dmgzone__voxelVictimNodes
+    peek(node) <| $(nodeName : string const#)
+      let nodeId = geomtree_findNodeIndex(*animchar.nodeTree, nodeName)
+      if nodeId < 0
+        logerr("Invalid node for voxel dmgzone victim {getEntityTemplateName(eid)}: {nodeName}")
+      else
+        dmgzone__voxelVictimNodeIds |> push(nodeId)
+
+[es(tag=server, on_appear, before=init_voxel_grid)]
+def dmgzone_init_voxel_grid_resolution(evt : Event;
+                                       sphere_zone__radius : float;
+                                       voxel_grid__step : float;
+                                       dmgzone__maxRadius : float = 0.;
+                                       var voxel_grid__resolution : int&)
+  let radius = dmgzone__maxRadius > 0.0 ? dmgzone__maxRadius : sphere_zone__radius
+  voxel_grid__resolution = floori(safediv(radius, voxel_grid__step)) * 2
 
 [es(tag=server, before=fire_damage)]
 def dmgzone_es(info : UpdateStageInfoAct;
-               eid : EntityId;
+               eid aka zone_eid : EntityId;
                transform : float3x4;
                dmgzone__damage : float;
                var dmgzone__lastUpdate : float&;
@@ -124,7 +170,7 @@ def dmgzone_es(info : UpdateStageInfoAct;
 
   if !sphere_zone__inverted
     for_each_entity_in_grid(ecs_hash("humans"), BSphere3(transform[3], sphere_zone__radius), GridEntCheck BOUNDING) <| $(visitorEid : EntityId)
-      dmgzone_check_visitor(visitorEid, offenderEid,
+      dmgzone_check_visitor(zone_eid, visitorEid, offenderEid,
                             info.curTime, dt, dmgzone__damage, dmgzone__fireAffect, fire_source__startTime,
                             dmgzone__gunPropsId, dmgzone__shellId, dmgzone__teamToDamage, dm__damageTypeId,
                             dmgzone__damageInVehicle, dmgzone__doNotDamageUnderwater, dmgzone__eidsInZone)
@@ -134,7 +180,7 @@ def dmgzone_es(info : UpdateStageInfoAct;
     ecs::query() <| $ [es(REQUIRE=dmgzoneVulnerable, REQUIRE_NOT=deadEntity)] (eid : EntityId; transform : float3x4)
       if sphere_zone__inverted == (length_sq(invTm * transform[3]) < zoneRadiusSq)
         return
-      dmgzone_check_visitor(eid, offenderEid,
+      dmgzone_check_visitor(zone_eid, eid, offenderEid,
                             info.curTime, dt, dmgzone__damage, dmgzone__fireAffect, fire_source__startTime,
                             dmgzone__gunPropsId, dmgzone__shellId, dmgzone__teamToDamage, dm__damageTypeId,
                             dmgzone__damageInVehicle, dmgzone__doNotDamageUnderwater, dmgzone__eidsInZone)

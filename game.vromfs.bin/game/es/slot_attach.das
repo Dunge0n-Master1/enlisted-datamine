@@ -4,9 +4,6 @@ require AnimV20
 require GeomNodeTree
 require enlisted.events_enlisted
 
-[event(broadcast)]            // require only for use parallel for in different attaches queue's
-struct SlotAttachUpdateEvent  // May be removed when "parallel for" will implemented in das ecs query
-  dt : float
 
 def slot_attach_init_tms_impl(dt : float;
                               slot_attach__slotId : int;

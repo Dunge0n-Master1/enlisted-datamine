@@ -1,14 +1,30 @@
+normalizationPreset:t="heat"
+ricochetPreset:t="he"
+secondaryShattersPreset:t="ap"
+stabilityThreshold:r=0.5
+stabilityCaliberToArmorThreshold:r=5.0
+stabilityReductionAfterRicochet:r=0.3
+stabilityReductionAfterPenetration:r=0.15
+bulletType:t="he_bomb"
+slopeEffectPreset:t="ap"
+fresnel:p3=0.23, 0.1, 2.0
+useEffectiveArmorThicknessForShatter:b=yes
+explodeOnRendinst:b=yes
 mass:r=103.5
 explosiveType:t="tnt"
 explosiveMass:r=36.02
 bombType:t="he_bomb"
 bombName:t="fab100_43"
-caliber:r=0.273
+caliber:r=0.183
 length:r=1.033
 distFromCmToStab:r=0.4
 dragCx:r=0.04
 sound:t="weapon.bomb_mid"
 explosionPatchRadius:r=5.0
+waterExplosionEffect:t="bigesplashxplosion_fx"
+fallToUnitFx:t="hit_81_105mm_metal_ap"
+fallToWaterFx:t="bomb_reflection"
+fallFx:t="hit_59_80mm_dirt_ap"
 shatterPatchRadius:r=0.0
 visualShattersWaterOffset:r=1.2
 explodeTreshold:r=0.0
@@ -35,6 +51,27 @@ shutterHit:r=12.0
 entityTemplate:t="fab_100_bomb_projectile"
 entityPhysTemplate:t=""
 
+stabilityRicochetModifier{
+  mod1:p2=0.0, 0.5
+  mod2:p2=15.0, 0.7
+  mod3:p2=30.0, 0.99
+}
+
 pressureDamage{
   damageType:t="pressure"
+}
+
+DamageParts{
+
+  body{
+    hp:r=35.0
+    armorClass:t="tank_structural_steel"
+    armorThickness:r=5.0
+    explosionArmorQuality:r=45.0
+    shatterArmorQuality:r=45.0
+  }
+}
+
+explFx{
+  effectTemplName:t="bomb_expl_100kg"
 }

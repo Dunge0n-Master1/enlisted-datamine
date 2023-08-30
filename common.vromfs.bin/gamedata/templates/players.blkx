@@ -33,7 +33,6 @@ player{
   _tracked:t="userstats"
   _tracked:t="userstats_mode"
   _tracked:t="player__limitVehicleByGroup"
-  _tracked:t="ab_test__isAimAssistTestEnabled"
   _replicated:t="groupId"
   _replicated:t="squadFormationSpread"
   _replicated:t="possessed"
@@ -44,11 +43,9 @@ player{
   _replicated:t="playerIdInSession"
   _replicated:t="player_group__memberIndex"
   _replicated:t="player__limitVehicleByGroup"
-  _replicated:t="ab_test__isAimAssistTestEnabled"
   ban_status:t="UNDEFINED"
   receive_logerr:b=no
   player__limitVehicleByGroup:b=no
-  ab_test__isAimAssistTestEnabled:b=no
 
   _group{
     _track:b=yes
@@ -114,6 +111,12 @@ local_player{
   local_player_lastHumanInputStandState:i=0
 
   "localPlayer:tag"{
+  }
+
+  "hitcam__owner:tag"{
+  }
+
+  "hitcam__listener:tag"{
   }
 }
 

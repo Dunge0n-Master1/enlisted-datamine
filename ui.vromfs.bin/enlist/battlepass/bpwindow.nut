@@ -1,11 +1,11 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {body_txt, sub_txt, fontawesome} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontBody, fontSub, fontawesome} = require("%enlSqGlob/ui/fontsStyle.nut")
 let fa = require("%ui/components/fontawesome.map.nut")
 let faComp = require("%ui/components/faComp.nut")
-let { activeTxtColor, soldierLvlColor, titleTxtColor, accentColor
+let { activeTxtColor, soldierLvlColor, accentColor
 } = require("%enlSqGlob/ui/viewConst.nut")
-let { smallPadding, midPadding, bigPadding, startBtnWidth, attentionTxtColor
+let { smallPadding, midPadding, sidePadding, startBtnWidth, attentionTxtColor, titleTxtColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let { safeAreaSize, safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { PrimaryFlat } = require("%ui/components/textButton.nut")
@@ -24,7 +24,8 @@ let { prepareRewards } = require("rewardsPkg.nut")
 let { currencyBtn } = require("%enlist/currency/currenciesComp.nut")
 let { purchaseMsgBox } = require("%enlist/currency/purchaseMsgBox.nut")
 let {
-  bpHeader, bpTitle, sizeCard, mkCard, btnSize, btnBuyPremiumPass, gapCards
+  bpHeader, bpTitle, sizeCard, mkCard, btnSize, btnBuyPremiumPass, gapCards, lockScreen,
+  mkBpIconBlock
 } = require("bpPkg.nut")
 let spinner = require("%ui/components/spinner.nut")
 let eliteBattlePassWnd = require("eliteBattlePassWnd.nut")
@@ -40,7 +41,6 @@ let { commonArmy } = require("%enlist/meta/profile.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
 let { isOpened, curItem, RewardState, unlockToShow, combinedRewards, curItemUpdate } = require("bpWindowState.nut")
 let { scenesListGeneration, getTopScene } = require("%enlist/navState.nut")
-let { dynamicSeasonBPIcon } = require("battlePassPkg.nut")
 let { serviceNotificationsList } = require("%enlSqGlob/serviceNotificationsList.nut")
 let { mkDailyTasksUi } = require("%enlist/unlocks/taskWidgetUi.nut")
 let weeklyTasksUi = require("%enlist/unlocks/weeklyTasksBtn.nut")
@@ -100,7 +100,7 @@ let progressTxt = @(text = "") {
   padding = [0, hdpx(20), 0, 0]
   rendObj = ROBJ_TEXT
   text
-}.__update(body_txt)
+}.__update(fontBody)
 
 let function scrollToCurrent() {
   let cardIdx = (curItem.value?.stageIdx ?? "0").tointeger()
@@ -182,7 +182,7 @@ let bpUnlocksList = @() {
   valign = ALIGN_BOTTOM
   watch = safeAreaSize
   xmbNode = XmbContainer({
-    canFocus = @() false
+    canFocus = false
     scrollSpeed = 5.0
     isViewport = true
   })
@@ -219,7 +219,7 @@ let bpInfoStage = {
       halign = ALIGN_CENTER
       text = loc("bp/currentStage", progressCounters.value)
       color = activeTxtColor
-    }.__update(body_txt)
+    }.__update(fontBody)
   ]
 }
 
@@ -244,7 +244,7 @@ let function bpInfoProgress () {
         rendObj = ROBJ_TEXT
         text = loc("nextReward")
         color = hasReward.value ? soldierLvlColor: activeTxtColor
-      }.__update(body_txt)
+      }.__update(fontBody)
       {
         flow = FLOW_HORIZONTAL
         gap = smallPadding
@@ -258,8 +258,8 @@ let function bpInfoProgress () {
 let bpInfoDetails = @() {
   watch = [hasEliteBattlePass, canTakeDailyTaskReward]
   rendObj = ROBJ_TEXTAREA
-  size = [pw(50), SIZE_TO_CONTENT]
-  margin = [0, 0, 0, midPadding]
+  size = [flex(), SIZE_TO_CONTENT]
+  margin = [0, midPadding]
   text = !canTakeDailyTaskReward.value ? loc("unlocks/dailyTasksLimit")
     : hasEliteBattlePass.value ? loc("bp/progressWithPremium", fa)
     : loc("bp/howToProgress", fa)
@@ -273,7 +273,7 @@ let bpInfoDetails = @() {
     { prop = AnimProp.opacity, from = 0, to = 1, duration = 0.5,
       easing = InOutCubic, play = true}
   ]
-}.__update(sub_txt)
+}.__update(fontSub)
 
 let bpInfoPremPass = function() {
   let res = { watch = hasEliteBattlePass }
@@ -284,7 +284,7 @@ let bpInfoPremPass = function() {
     rendObj = ROBJ_TEXT
     text = loc("bp/battlePassBought")
     color = attentionTxtColor
-  }, body_txt)
+  }, fontBody)
 }
 
 let btnReceiveReward = @() {
@@ -299,25 +299,8 @@ let btnReceiveReward = @() {
     : null
 }
 
-let premiumPassHeader = {
-  flow = FLOW_HORIZONTAL
-  gap = midPadding
-  children = [
-    {
-      rendObj = ROBJ_TEXT
-      text = loc("bp/elite")
-      color = attentionTxtColor
-    }.__update(body_txt)
-    {
-      rendObj = ROBJ_TEXT
-      text = loc("bp/battlePass")
-      color = titleTxtColor
-    }.__update(body_txt)
-  ]
-}
-
 let mkBtnBuySkipStage = @(price) currencyBtn({
-  btnText = loc("bp/buyNextStage")
+  btnText = loc("bp/buy")
   currencyId = price.currency
   price = price.price
   cb = @() purchaseMsgBox({
@@ -331,10 +314,26 @@ let mkBtnBuySkipStage = @(price) currencyBtn({
   style = ({
     margin = 0
     hotkeys = [["^J:Y", { description = { skip = true }}]]
-    size = [SIZE_TO_CONTENT, btnSize[1]]
+    size = btnSize
     minWidth = btnSize[0]
   })
 })
+
+let mkBuySkipStageBlock = @(price) {
+  flow = FLOW_VERTICAL
+  size = [btnSize[0], SIZE_TO_CONTENT]
+  halign = ALIGN_CENTER
+  padding = [midPadding, 0, 0, 0]
+  gap = midPadding
+  children = [
+    {
+      rendObj = ROBJ_TEXT
+      text = loc("bp/buyNextStage")
+      color = titleTxtColor
+    }.__update(fontBody)
+    mkBtnBuySkipStage(price)
+  ]
+}
 
 let function buttonsBlock() {
   let res = { watch = [ hasEliteBattlePass, canBuyBattlePass, nextUnlockPrice,
@@ -349,16 +348,16 @@ let function buttonsBlock() {
       { prop = AnimProp.opacity, from = 0, to = 1, duration = 0.5,
         easing = InOutCubic, play = true }
     ]
-    margin = [midPadding, 0, bigPadding * 2, 0]
     flow = FLOW_VERTICAL
-    gap = midPadding
+    halign = ALIGN_CENTER
+    gap = sidePadding
     children = [
-      btnReceiveReward
       hasEliteBattlePass.value || !canBuyBattlePass.value ? null
         : btnBuyPremiumPass(loc("bp/buy"), eliteBattlePassWnd )
       buyUnlockInProgress.value ? waitingSpinner
-        : price && !hasReward.value ? mkBtnBuySkipStage(price)
+        : price && !hasReward.value ? mkBuySkipStageBlock(price)
         : null
+      btnReceiveReward
     ]
   })
 }
@@ -377,30 +376,37 @@ let bpTasksBlock = @() {
       ]
 }
 
-let bpRightBlock = {
+let bpRightBlock = mkBpIconBlock([
+  bpInfoPremPass
+  buttonsBlock
+  bpInfoStage
+])
+
+let closeButton = closeBtnBase({ onClick = @() isOpened(false) })
+
+let bpLeftBlock = {
   size = [SIZE_TO_CONTENT, flex()]
-  hplace = ALIGN_RIGHT
+  hplace = ALIGN_LEFT
   flow = FLOW_VERTICAL
-  halign = ALIGN_RIGHT
-  valign = ALIGN_BOTTOM
   gap = midPadding
   children = [
     {
+      margin = [midPadding,0,midPadding,0]
+      children = bpTitle(hasEliteBattlePass.value, hdpx(100))
+    }
+    {
       flow = FLOW_VERTICAL
-      halign = ALIGN_CENTER
-      gap = smallPadding
+      size = [SIZE_TO_CONTENT, flex()]
+      valign = ALIGN_CENTER
+      gap = midPadding
       children = [
-        premiumPassHeader
-        dynamicSeasonBPIcon(hdpxi(220))
-        bpInfoPremPass
-        bpInfoStage
+        bpInfoProgress
+        bpTasksBlock
+        bpInfoDetails
       ]
     }
-    buttonsBlock
   ]
 }
-
-let closeButton = closeBtnBase({ onClick = @() isOpened(false) })
 
 let bpWindow = @(){
   size = flex()
@@ -411,36 +417,30 @@ let bpWindow = @(){
     safeAreaBorders.value[0] + hdpx(60),
     safeAreaBorders.value[1] + hdpx(25)
   ]
-  flow = FLOW_VERTICAL
   children = [
     {
-      flow = FLOW_VERTICAL
-      behavior = Behaviors.MenuCameraControl
       size = flex()
+      flow = FLOW_VERTICAL
       children = [
-        bpHeader(showingItem.value, closeButton)
         {
+          flow = FLOW_VERTICAL
+          behavior = Behaviors.MenuCameraControl
           size = flex()
           children = [
+            bpHeader(showingItem.value, closeButton)
             {
-              flow = FLOW_VERTICAL
-              gap = midPadding
+              size = flex()
               children = [
-                {
-                  margin = [midPadding,0,midPadding,0]
-                  children = bpTitle(hasEliteBattlePass.value, hdpx(100))
-                }
-                bpInfoProgress
-                bpTasksBlock
-                bpInfoDetails
+                bpLeftBlock
+                bpRightBlock
               ]
             }
-            bpRightBlock
           ]
         }
+        bpUnlocksList
       ]
     }
-    bpUnlocksList
+    lockScreen(showingItem.value)
   ]
 }
 

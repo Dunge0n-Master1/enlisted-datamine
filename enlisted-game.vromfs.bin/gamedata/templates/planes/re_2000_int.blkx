@@ -15,7 +15,7 @@ re_2000_int{
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="pilot_dm"
       cameraNodeName:t=""
-      cameraOffset:p3=-0.5, 0.874, -0.024
+      cameraOffset:p3=-0.62, 0.874, -0.024
       cockpitTemplate:t="re_2000_int_driver_cockpit"
       roomSpace:i=0
 

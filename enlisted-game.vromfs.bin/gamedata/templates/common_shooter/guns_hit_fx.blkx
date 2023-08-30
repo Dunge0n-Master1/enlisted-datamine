@@ -161,6 +161,10 @@ global_hit_fx_info{
     "global_hit_fx__effectGroups:array"{
 
       "group:object"{
+        name:t="nothing"
+      }
+
+      "group:object"{
         name:t="tank_grenades_smoke"
         defaultFx:t="explosion_tank_grenades_smoke_effect"
       }
@@ -1896,6 +1900,13 @@ hit_effect_group_bomb{
   gun_hit_fx__explEffectDescriptor:i=0
 }
 
+hit_effect_group_flame_bomb{
+  gun_hit_fx__hitEffectPresetName:t="bomb_hit"
+  gun_hit_fx__hitEffectDescriptor:i=0
+  gun_hit_fx__explEffectGroupName:t="nothing"
+  gun_hit_fx__explEffectDescriptor:i=0
+}
+
 hit_effect_group_melee{
   _tags:t="render"
   melee_fx__default:t="hit_melee_wood_effect"
@@ -1915,12 +1926,13 @@ hit_effect_group_melee{
     ceramic:t="hit_melee_stone_effect"
     glass:t="hit_basic_glass_effect"
     flesh:t="hit_blood_entry_effect"
-    fabric:t="hit_melee_metal_effect"
+    fabric:t="hit_basic_cloth_effect"
     bushes:t="hit_basic_bush_green_effect"
     bushes_fall:t="hit_basic_bush_fall_effect"
     bushes_palm:t="hit_basic_bush_palm_effect"
     bushes_dead:t="hit_basic_bush_dead_effect"
     bushes_snow:t="hit_basic_bush_snow_effect"
     cactus:t="hit_basic_cactus_effect"
+    metal:t="hit_melee_metal_effect"
   }
 }

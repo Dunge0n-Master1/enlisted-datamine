@@ -45,6 +45,7 @@ placeable_item{
   placeable_item__additionalHeight:r=0.0
   placeable_item__placeTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   _tracked:t="placeable_item__ownerEid"
+  _tracked:t="placeable_item__inProgress"
   placeable_item__ownerTeam:i=-1
   placeable_item__keepOldTemplate:b=yes
   placeable_item__template:t="placeable_item_in_world"
@@ -100,9 +101,32 @@ attachable_to_vehicle{
   }
 }
 
+placeable_item_sound{
+
+  _group{
+    _tags:t="sound"
+    placeable_item_sound__beginPath:t="enemy/weapon/mine/throw"
+    placeable_item_sound__endPath:t="enemy/weapon/mine/drop"
+  }
+}
+
+mine_blocked_sound{
+
+  _group{
+    _tags:t="sound"
+    mine_blocked_sound__unblockedPath:t="enemy/weapon/mine/activate"
+  }
+}
+
+base_mine_item_gun_sound{
+  _extends:t="placeable_item_sound"
+  _extends:t="mine_blocked_sound"
+}
+
 base_mine_item_gun{
   _extends:t="melee_weapon"
   _extends:t="placeable_item"
+  _extends:t="base_mine_item_gun_sound"
   _extends:t="replicating"
   _extends:t="base_hitpoints"
   _extends:t="base_dm_parts"

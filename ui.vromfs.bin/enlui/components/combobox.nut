@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {body_txt, fontawesome} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontBody, fontawesome} = require("%enlSqGlob/ui/fontsStyle.nut")
 let baseCombo = require("%ui/components/base_combobox.nut")
 
 let {BtnTextHover, comboboxBorderColor, BtnBgActive, BtnBgHover, ControlBgOpaque, Active, Inactive, TextHighlight, TextDefault} = require("%ui/style/colors.nut")
@@ -29,9 +29,9 @@ let defaultStyle = freeze({
   liColor         = TextDefault
   liColorCurrent  = TextHighlight
   liColorHover    = BtnTextHover
-  liPadding       = [0,hdpx(8),0,hdpx(8)]
+  liPadding       = [0, hdpx(8)]
   liMargin        = fsh(0.5)
-  labelMargin     = [fsh(0.5),fsh(1.0),fsh(0.5),fsh(1.0)]
+  labelMargin     = [fsh(0.5),fsh(1.0)]
   arrowMargin     = hdpx(3)
   arrowPadding    = [hdpx(1), 0, 0, hdpx(2)]
   gapSize         = hdpx(1)
@@ -67,7 +67,7 @@ let function comboStyle(style_params) {
       text = params?.text
       color
       size = [flex(), SIZE_TO_CONTENT]
-    }.__update(body_txt)
+    }.__update(fontBody)
 
     let function popupArrow() {
       return !disabled ? {
@@ -132,9 +132,10 @@ let function comboStyle(style_params) {
 
     return function() {
       let sf = stateFlags.value
-      let textColor = (sf & S_HOVER) ? style.colorHover
-        : is_current ? style.liColorCurrent : style.liColor
-      let bgColor = (sf & S_HOVER) ? style.fillColorHover : style.fillColor
+      let textColor = sf & S_HOVER ? style.colorHover
+        : is_current ? style.liColorCurrent
+        : style.liColor
+      let bgColor = sf & S_HOVER ? style.fillColorHover : style.fillColor
       let hotkey_hint = (sf & S_HOVER) && isGamepad.value
         ? mkImageCompByDargKey(JB.A, {hplace = ALIGN_RIGHT vplace = ALIGN_CENTER}) : null
 
@@ -165,7 +166,7 @@ let function comboStyle(style_params) {
             group
             text
             color = textColor
-          }.__update(body_txt)
+          }.__update(fontBody)
           {size = [flex(),0]}
           hotkey_hint
         ]

@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {
   shadowStyle, blurBgColor, blurBgFillColor, defBgColor, titleTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
@@ -26,7 +26,7 @@ let imgSize = Computed(function() {
 })
 
 let isOpened = Computed(@()
-  (selectedCampaign.value != null || (visibleCampaigns.value.len() ?? 0) == 1)
+  (selectedCampaign.value != null || visibleCampaigns.value.len() == 1)
   && curArmies.value?[curCampaign.value] == null)
 
 let getArmyImage = @(armyId) armiesPresentation?[armyId].promoImage ?? $"ui/soldiers/{armyId}.avif"
@@ -35,7 +35,7 @@ let mkText = @(text, color = titleTxtColor) {
   rendObj = ROBJ_TEXT
   text
   color
-}.__update(body_txt, shadowStyle)
+}.__update(fontBody, shadowStyle)
 
 let mkArmyImage = @(image, sf) {
   size = flex()
@@ -72,7 +72,7 @@ let mkArmyButton = @(armyId) watchElemState(function(sf) {
     padding = paddingInternal
     fillColor = Color(50,50,50)
     borderColor = sf & S_HOVER ? hoverColor : Color(80,80,80,80)
-    borderWidth = (sf & S_HOVER) != 0 ? hdpx(2) : 0
+    borderWidth = sf & S_HOVER ? hdpx(2) : 0
     behavior = Behaviors.Button
 
     onClick = @() selectArmy(armyId)

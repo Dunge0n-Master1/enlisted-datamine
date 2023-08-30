@@ -111,11 +111,11 @@ let function menusUi() {
       watch.append(menu.show)
       if (menu?.show?.value)
         children.append(menu?.menu)
-    } else {
+    }
+    else {
       children.append(menu?.menu)
     }
   }
-
   return {
     size = flex()
     watch

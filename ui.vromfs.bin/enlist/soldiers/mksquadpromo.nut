@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h0_txt, body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontTitle, fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { activeTxtColor, lockedSquadBgColor, smallPadding, bigPadding,
   defTxtColor, darkBgColor, accentTitleTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
@@ -33,7 +33,7 @@ let mkText = @(txt, style = {}) {
   rendObj = ROBJ_TEXT
   color = defTxtColor
   text = txt
-}.__update(body_txt, style)
+}.__update(fontBody, style)
 let squadBigIconSize = [hdpx(100), hdpx(120)]
 
 let soldierClassElement = @(sClass, armyId)
@@ -46,7 +46,7 @@ let newSquadBlock = @(armyId, sClassId){
   gap = bigPadding
   children = [
     mkText(loc("mainmenu/newInfantryClass"),
-            { color = accentTitleTxtColor }.__update(sub_txt))
+            { color = accentTitleTxtColor }.__update(fontSub))
     {
       flow = FLOW_HORIZONTAL
       gap = smallPadding
@@ -54,7 +54,7 @@ let newSquadBlock = @(armyId, sClassId){
       children = [
         classIcon(armyId, sClassId, hdpxi(30), {
           vplace = ALIGN_BOTTOM, hplace = ALIGN_RIGHT })
-        className(sClassId).__update({ color = Color(255, 255,255) }).__update(body_txt)
+        className(sClassId).__update({ color = Color(255, 255,255) }).__update(fontBody)
       ]
     }
   ]
@@ -70,14 +70,14 @@ let starterPerkBlock = @(armyId, perk) perk == null ? null : {
       rendObj = ROBJ_TEXT
       text = loc("squads/starterPerk")
       color = accentTitleTxtColor
-    }.__update(sub_txt)
+    }.__update(fontSub)
     @() {
       watch = [perksList, perksStatsCfg]
       rendObj = ROBJ_TEXTAREA
       behavior = Behaviors.TextArea
       size = [flex(), SIZE_TO_CONTENT]
       text = mkPerkDesc(perksStatsCfg.value, armyId, perksList.value?[perk])
-    }.__update(sub_txt)
+    }.__update(fontSub)
   ]
 }
 
@@ -88,7 +88,7 @@ let mkSquadDescBlock = @(text, style = {}){
   size = [flex(), SIZE_TO_CONTENT]
   color = activeTxtColor
   text
-}.__update(sub_txt, style)
+}.__update(fontSub, style)
 
 let primePerkBlock = @(primeDesc){
   flow = FLOW_VERTICAL
@@ -152,13 +152,13 @@ let function mNewItemBlock(armyId, itemId, size, isSmall = false, idx = 0, scrol
                 text = loc(item?.itemtype == "vehicle"
                   ? "mainmenu/newVehicle"
                   : "mainmenu/newWeapon")
-              }.__update(sub_txt)
+              }.__update(fontSub)
               {
                 rendObj = ROBJ_TEXTAREA
                 behavior = Behaviors.TextArea
                 size = [flex(), SIZE_TO_CONTENT]
                 text = getItemName(item)
-              }.__update(body_txt)
+              }.__update(fontBody)
               isSmall
                 ? null
                 : mkSquadDescBlock(getItemDesc(item), {color = defTxtColor})
@@ -381,7 +381,7 @@ let primeDescTitle = @(titleText, soldierCount, rank,  perksCount, addChild){
           text = soldierCount!= null ? soldierCount
             : perksCount != null ? perksCount
             : loc(titleText)
-        }.__update(h0_txt)
+        }.__update(fontTitle)
     addChild
   ]
 }
@@ -398,7 +398,7 @@ let primeDesc = @(text, soldierClass = null) {
       text
     }
     soldierClass != null
-      ? className(soldierClass).__update({ color = Color(255, 255,255) }, sub_txt)
+      ? className(soldierClass).__update({ color = Color(255, 255,255) }, fontSub)
       : null
   ]
 }
@@ -426,7 +426,7 @@ let function soldiersCountDesc(classes){
     size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL
     hplace = ALIGN_CENTER
-    children = className(sClass, count).__update({ color = Color(255, 255,255) }, sub_txt)
+    children = className(sClass, count).__update({ color = Color(255, 255,255) }, fontSub)
   }).values()
 
   return {
@@ -441,7 +441,7 @@ let function soldiersCountDesc(classes){
         rendObj = ROBJ_TEXT
         text = loc("squads/soldiers", { count =  countOverall } )
         margin = [hdpx(7),0]
-      }.__update(body_txt))
+      }.__update(fontBody))
       {
         flow = FLOW_VERTICAL
         gap = smallPadding
@@ -498,7 +498,7 @@ let function primeDescBlock(squadCfg, addObject = null) {
               rendObj = ROBJ_TEXT
               text = loc("squads/primeExp")
               margin = [hdpx(7),0]
-            }.__update(body_txt)},
+            }.__update(fontBody)},
             loc("squads/primeMoreExp"))
         ]
       }
@@ -525,4 +525,8 @@ return {
   mkSquadBodyBig
   mkPromoSquadIcon
   mkPromoBackBtn
+  mkClassDescBlock
+  newSquadBlock
+  starterPerkBlock
+  primePerkBlock
 }

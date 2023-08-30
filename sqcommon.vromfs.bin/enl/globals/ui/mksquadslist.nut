@@ -1,9 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { note } = require("%enlSqGlob/ui/defcomps.nut")
 let { mkSquadCard } = require("%enlSqGlob/ui/squadsUiComps.nut")
-let { bigPadding, smallPadding, blurBgFillColor, blurBgColor, multySquadPanelSize
-} = require("%enlSqGlob/ui/viewConst.nut")
+let { bigPadding, smallPadding } = require("%enlSqGlob/ui/viewConst.nut")
 let { makeVertScroll, thinStyle } = require("%ui/components/scrollbar.nut")
 
 let defSquadCardCtor = @(squad, idx) mkSquadCard({idx}.__update(squad), KWARG_NON_STRICT)
@@ -16,7 +14,7 @@ let mkSquadsVert = @(squads) {
 
 let mkSquadsList = kwarg(@(
   curSquadsList, curSquadId, setCurSquadId, addedObj = null,
-  createHandlers = null, hasOffset = true, bgOverride = {}
+  createHandlers = null, hasOffset = true
 ) function() {
   let squadsList = curSquadsList.value ?? []
   let function defCreateHandlers(squads){
@@ -34,26 +32,23 @@ let mkSquadsList = kwarg(@(
     let listComp = mkSquadsVert(squadsList)
     let maxHeight = hasOffset ? null : calc_comp_size(listComp)[1]
     children = [
-      note(loc("squads/battle")).__update({ size = [multySquadPanelSize[0], SIZE_TO_CONTENT] })
-      makeVertScroll(listComp,
-        { size = [SIZE_TO_CONTENT, flex()], maxHeight, styling = thinStyle })
+      makeVertScroll(listComp, {
+        size = [SIZE_TO_CONTENT, flex()]
+        styling = thinStyle
+        maxHeight
+      })
       addedObj
     ]
   }
   return {
     watch = [curSquadsList, curSquadId]
-    size = [multySquadPanelSize[0] + 2 * bigPadding, flex()]
-    padding = [bigPadding, 0, 0, 0]
-    halign = ALIGN_CENTER
-    rendObj = ROBJ_WORLD_BLUR_PANEL
-    color = blurBgColor
-    clipChildren = true
-    fillColor = blurBgFillColor
+    size = [SIZE_TO_CONTENT, flex()]
     flow = FLOW_VERTICAL
     gap = smallPadding
+    clipChildren = true
     xmbNode = XmbContainer({ wrap = false })
     children
-  }.__update(bgOverride)
+  }
 })
 
 return mkSquadsList

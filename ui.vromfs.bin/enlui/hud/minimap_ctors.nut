@@ -24,6 +24,7 @@ let simpleMarkers = require("%ui/hud/minimap_markers/simple_map_markers.nut")
 let mortarMarkers = require("%ui/hud/minimap_markers/mortar_map_markers.nut")
 let enemyAttackMarkers = require("%ui/hud/minimap_markers/enemy_attack_markers.nut")
 let engineer_buildings_map_markers = require("%ui/hud/minimap_markers/engineer_buildings_map_markers.nut")
+let customMarkers = require("%ui/hud/minimap_markers/custom_markers.nut")
 
 let mmChildrenCtors = freeze([
   battleAreas //optimize
@@ -49,6 +50,7 @@ let mmChildrenCtors = freeze([
   groupmatesNumbers
   tutorialZoneMarkers //optimize
   enemyAttackMarkers //optimize
+  customMarkers
 ])
 
 return {mmChildrenCtors}

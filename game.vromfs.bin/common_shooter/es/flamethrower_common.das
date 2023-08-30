@@ -118,12 +118,13 @@ def reignite_old_attached_fires_if_exist(bind_to_eid : EntityId; pos : float3; m
     return ++nerbyFireCount >= max_fires_to_reignite
   return nerbyFireCount > 0
 
-def create_fire_impl(pos : float3; fire_template : string; offender : EntityId; gun_props_id : int)
+def create_fire_impl(pos : float3; norm : float3; fire_template : string; offender : EntityId; gun_props_id : int)
   var posTm = IDENT_TM
   posTm[3] = pos
 
   return createEntity(fire_template) <| $(var init : ComponentsInitializer)
     set(init, "transform", posTm)
+    set(init, "fire_effect__norm", norm)
     set(init, "dmgzone__offender", offender)
     set(init, "dmgzone__gunPropsId", gun_props_id)
 
@@ -158,7 +159,7 @@ def attach_fire(pos : float3;
   if !get_node_local_pos(bind_to_eid, nodeId, localPos)
     return INVALID_ENTITY_ID
 
-  let createdFireEid = create_fire_impl(pos, fire_template, offender, gun_props_id)
+  let createdFireEid = create_fire_impl(pos, float3(0., 1., 0.), fire_template, offender, gun_props_id)
   attach_to_node_pos(createdFireEid, bind_to_eid, nodeId, localPos)
   return createdFireEid
 
@@ -175,12 +176,12 @@ def deal_damage_or_attach_fire(pos : float3;
     return INVALID_ENTITY_ID
   return attach_fire(pos, eid, node_id, fire_template, damage.offender, damage.gunPropsId, min_distance_between_sq, add_fire_time, max_fires_to_reignite, cast_result)
 
-def create_fire(pos : float3; fire_template : string; offender : EntityId; gun_props_id : int; min_distance_between_sq : float; add_fire_time : float; max_fires_to_reignite : int; cast_result : FireCastResult)
+def create_fire(pos : float3; norm : float3; fire_template : string; offender : EntityId; gun_props_id : int; min_distance_between_sq : float; add_fire_time : float; max_fires_to_reignite : int; cast_result : FireCastResult)
   if !cast_result.attachedToEid && is_too_close_to_created_fire(pos, cast_result, min_distance_between_sq)
     return INVALID_ENTITY_ID
   if reignite_old_fires_if_exist(pos, min_distance_between_sq, add_fire_time, max_fires_to_reignite)
     return INVALID_ENTITY_ID
-  return create_fire_impl(pos, fire_template, offender, gun_props_id)
+  return create_fire_impl(pos, norm, fire_template, offender, gun_props_id)
 
 def apply_fire_cloud_damage(from, dir : float3; len, radius : float; damage : FlameDamage)
   for_each_entity_in_grid(ecs_hash("humans"), from, dir, len, radius, GridEntCheck BOUNDING) <| $(victimEid : EntityId)
@@ -232,7 +233,7 @@ def burn_static_objects(start : float3;
     let hitPos = start + hit_dir * dist
     if riDesc.isValid
       deal_fire_damage_ri(riDesc.riExtraHandle, hitPos, damage, true)
-    let isFireCreated = !!create_fire(hitPos, fire_template, damage.offender, damage.gunPropsId, min_between_fire_dist_sq, add_fire_time, max_fires_to_reignite, cast_result)
+    let isFireCreated = !!create_fire(hitPos, norm, fire_template, damage.offender, damage.gunPropsId, min_between_fire_dist_sq, add_fire_time, max_fires_to_reignite, cast_result)
     if isFireCreated
       broadcast_net_event([[CmdSpawnCharredArea pos=hitPos, normal=norm]])
     return [[FireCastResult isHit=true, isFireCreated=isFireCreated, pos=hitPos, norm=norm]]

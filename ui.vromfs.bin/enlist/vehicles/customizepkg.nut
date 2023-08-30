@@ -6,7 +6,7 @@ let premiumWnd = require("%enlist/currency/premiumWnd.nut")
 let tooltipBox = require("%ui/style/tooltipBox.nut")
 let iconByGameTemplate = require("%enlSqGlob/ui/icon3dByGameTemplate.nut")
 let { setTooltip } = require("%ui/style/cursors.nut")
-let { sub_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { showMsgbox } = require("%enlist/components/msgbox.nut")
 let { mkCurrency } = require("%enlist/currency/currenciesComp.nut")
@@ -141,7 +141,7 @@ let mkBlockHeader = @(text) {
   color = activeTxtColor
   padding = [0, smallPadding]
   text
-}.__update(sub_txt)
+}.__update(fontSub)
 
 let mkCurrencyView = @(currencies, currencyId, price) mkCurrency({
   currency = currencies.findvalue(@(c) c.id == currencyId)
@@ -242,7 +242,7 @@ let mkDecorIcon = kwarg(function(cfg,
         hplace = ALIGN_RIGHT
         vplace = ALIGN_TOP
         color = accentTitleTxtColor
-      }).__update(sub_txt)
+      }).__update(fontSub)
   let locTypeId = cType == "vehDecorator" ? "decorators" : "decals"
   return watchElemState(@(sf) {
     rendObj = ROBJ_WORLD_BLUR_PANEL
@@ -297,7 +297,7 @@ let function mkSkinIcon(skinData, isSelected, hasOwned, currencies, onClick) {
             color = txtColor(sf, isSelected)
             scrollOnHover = true
             behavior = Behaviors.Marquee
-          }.__update(sub_txt)
+          }.__update(fontSub)
           currencyObject
         ]
       }
@@ -337,13 +337,13 @@ let function mkCustGroup(groupName, hasOpened, onClick, availCount, limit, count
           txt({
             text = loc($"decals/category/{groupName}")
             color = txtColor(sf, hasOpened)
-          }).__update(sub_txt)
+          }).__update(fontSub)
           availCount <= 0 ? null
             : txt({
                 text = loc("shop/item/count", { count = availCount, itemName = "" })
                 color = accentTitleTxtColor
                 margin = [0, smallPadding]
-              }).__update(sub_txt)
+              }).__update(fontSub)
           limitTxtObj
         ]
       }
@@ -379,7 +379,7 @@ let mkBtnImage = @(img, override = {}) {
 
 let hotkeyViewOverride = {
   color = accentTitleTxtColor
-}.__update(body_txt)
+}.__update(fontBody)
 
 let mkButton = kwarg(@(
   icon, onClick, gpadHotkey, hotkey, hasHotkeyHint = false,

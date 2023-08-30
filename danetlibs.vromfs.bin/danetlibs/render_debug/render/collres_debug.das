@@ -183,8 +183,11 @@ def draw_collres_node_debug(name : string; cam_itm, transform : float3x4; animch
   let nodeTree = animchar != null ? animchar.nodeTree : null
   var ntm : float3x4
   collres |> collres_get_collision_node_tm(int(node.nodeIndex), transform, nodeTree, ntm)
-  draw_debug_sphere_buffered(transform * collres.boundingSphere.c, collres.boundingSphere.r, E3DCOLOR(0xFFBBBB00), 24, 1)
-  draw_debug_box_buffered(node.modelBBox, ntm, E3DCOLOR(0xFFBF00FF), 1)
+  set_cached_debug_lines_wtm(ntm)
+  draw_cached_debug_box(node.modelBBox, E3DCOLOR(0xFFBF00FF))
+  set_cached_debug_lines_wtm(transform)
+  draw_cached_debug_sphere(collres.boundingSphere.c, collres.boundingSphere.r, E3DCOLOR(0xFFBBBB00), 24)
+  set_cached_debug_lines_wtm(IDENT_TM)
   var meshCnt, triCnt, ptCnt, boxCnt, sphCnt, capCnt, cvxCnt : int
   var traceableCnt, collidableCnt, geomCnt : int
   let nodesCnt = collres |> collres_get_nodesCount()
@@ -300,9 +303,11 @@ def draw_collision_ruler_es(evt : UpdateStageInfoRenderDebug)
         if traced
           break
 
+  begin_draw_cached_debug_lines(true, false, false)
   ecs::query(bestEid) <| $ [es] (transform : float3x4; collres : CollisionResource; animchar : AnimcharBaseComponent const?)
     draw_collres_node_debug("Entity: {getEntityTemplateName(bestEid)}", *camItm, transform, animchar, bestT, bestNodeIdx, intersectionPos, collres)
 
-  draw_debug_line_buffered(cameraPos, intersectionPos, E3DCOLOR(0xFFFF2020), 5)
+  draw_cached_debug_line(cameraPos, intersectionPos, E3DCOLOR(0xFFFF2020))
   if res || bestEid != INVALID_ENTITY_ID
-    draw_debug_sphere_buffered(intersectionPos, bestT / 100.0, E3DCOLOR(0xFFFFFF00), 24, 1)
+    draw_cached_debug_sphere(intersectionPos, bestT / 100.0, E3DCOLOR(0xFFFFFF00), 24)
+  end_draw_cached_debug_lines()

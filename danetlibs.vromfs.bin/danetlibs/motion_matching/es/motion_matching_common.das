@@ -43,7 +43,6 @@ def serialize_presets(path : string; presets : TagPresetVector; nodes_name : Str
         blk |> datablock_add_new_block("{tagName}") <| $(presetBlk)
           write_weights_to_block(presetBlk, preset.weights)
           presetBlk |> add("animationBlendTime", preset.animationBlendTime)
-          presetBlk |> add("trajectoryInertionFactor", preset.trajectoryInertionFactor)
           presetBlk |> add("linearVelocityViscosity", preset.linearVelocityViscosity)
           presetBlk |> add("angularVelocityViscosity", preset.angularVelocityViscosity)
 
@@ -111,7 +110,6 @@ def deserialize_presets(path : string;
         presets_tags_name |> push(presetBlk.getBlockName)
         read_weights_from_block(presets[j].weights, presetBlk, nodeCount, pointCount)
         presets[j].animationBlendTime = presetBlk |> datablock_getReal("animationBlendTime", 0f)
-        presets[j].trajectoryInertionFactor = presetBlk |> datablock_getReal("trajectoryInertionFactor", 0f)
         presets[j].linearVelocityViscosity = presetBlk |> datablock_getReal("linearVelocityViscosity", 0f)
         presets[j].angularVelocityViscosity = presetBlk |> datablock_getReal("angularVelocityViscosity", 0f)
         presets[j].metricaToleranceMin = presetBlk |> datablock_getReal("metricaToleranceMin", 0f)

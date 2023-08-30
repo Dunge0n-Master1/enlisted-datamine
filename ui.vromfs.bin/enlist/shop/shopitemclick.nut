@@ -12,9 +12,8 @@ let { CAMPAIGN_NONE, needFreemiumStatus } = require("%enlist/campaigns/campaignC
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
 let { shopItemContentCtor, purchaseIsPossible, needGoToManagementBtn
 } = require("armyShopState.nut")
-let {
-  shopItemLockedMsgBox, mkMsgBoxView, mkClassCanUseCenter, mkProductView
-} = require("shopPkg.nut")
+let { shopItemLockedMsgBox, mkProductView } = require("shopPkg.nut")
+let { mkShopMsgBoxView, mkCanUseShopItemInfo } = require("shopPackage.nut")
 
 
 let function shopItemClick(shopItem) {
@@ -23,9 +22,9 @@ let function shopItemClick(shopItem) {
   let { armyLevel = 0, campaignGroup = CAMPAIGN_NONE } = requirements
 
   if (campaignGroup != CAMPAIGN_NONE && needFreemiumStatus.value)
-    shopItemFreemiumMsgBox()
+    return shopItemFreemiumMsgBox()
   else if (armyLevel > level)
-    shopItemLockedMsgBox(armyLevel)
+    return shopItemLockedMsgBox(armyLevel)
   else if (!purchaseIsPossible.value)
     return
 
@@ -34,7 +33,7 @@ let function shopItemClick(shopItem) {
   let hasItemContent = crateContent == null ? false
     : (crateContent.value?.content.items ?? {}).len() > 0
 
-  let productView = mkMsgBoxView(shopItem, crateContent, countWatched)
+  let productView = mkShopMsgBoxView(shopItem, crateContent, countWatched)
   let isBuyingWithGold = curShopItemPrice?.currencyId == "EnlistedGold"
   let squad = squads.findvalue(@(s) s.armyId == guid) ?? squads?[0]
   if (squad != null && isBuyingWithGold) {
@@ -47,7 +46,7 @@ let function shopItemClick(shopItem) {
     return
   }
 
-  let description = mkClassCanUseCenter(crateContent)
+  let description = mkCanUseShopItemInfo(crateContent)
   let buyItemActionCb = @() buyShopItem({
     shopItem
     activatePremiumBttn

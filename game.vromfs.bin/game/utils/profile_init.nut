@@ -19,8 +19,9 @@ let mkCalcAddToInvMult = @(key) function(comp, value, template){
       comp[key] <- def / mult
   }
 }
-let mkCalcAddInt = @(key)
-  @(comp, value, template) comp[key] <- ((comp?[key] ?? (template?.getCompValNullable(key) ?? 1.0)) + value).tointeger()
+
+let mkCalcAddPercentInt = @(key)
+  @(comp, value, template) comp[key] <- ((comp?[key] ?? (template?.getCompValNullable(key) ?? 1.0)) * (1.0 + value)).tointeger()
 let mkCalcAddPercent = @(key)
   @(comp, value, template) comp[key] <- (comp?[key] ?? (template?.getCompValNullable(key) ?? 1.0)) * (1.0 + value)
 let mkCalcSubPercent = @(key)
@@ -77,7 +78,7 @@ let perksFactory = {
   extinguish_time                             = { ctor = mkCalcSubstract, compName = "entity_mods__vehicleExtinguishTimeMult", compType = ecs.TYPE_FLOAT }
   repair_speed                                = { ctor = mkCalcSubstract, compName = "entity_mods__vehicleRepairTimeMult", compType = ecs.TYPE_FLOAT }
   repair_quality                              = { ctor = mkCalcAdd,       compName = "entity_mods__vehicleRepairRecoveryRatioAdd", compType = ecs.TYPE_FLOAT }
-  repairkit_economy_usage                     = { ctor = mkCalcAddInt,    compName = "entity_mods__vehicleRepairUsagesPerKit", compType = ecs.TYPE_INT }
+  repairkit_economy_usage                     = { ctor = mkCalcAddPercentInt,   compName = "entity_mods__vehicleRepairUsagesPerKit", compType = ecs.TYPE_INT }
   faster_reload_tankgun                       = { ctor = mkCalcSubstract, compName = "entity_mods__vehicleReloadMult", compType = ecs.TYPE_FLOAT }
   reload_reaction                             = { ctor = mkCalcSetTrue,   compName = "entity_mods__canChangeShellDuringVehicleGunReload", compType = ecs.TYPE_BOOL }
   brakingTauMult                              = { ctor = mkCalcSubstract,       compName = "driver_skills__brakingTauMult", compType = ecs.TYPE_FLOAT }

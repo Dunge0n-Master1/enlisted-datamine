@@ -1,17 +1,16 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 
-let { fontMedium, fontLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { currenciesList } = require("%enlist/currency/currencies.nut")
 let { curCampItemsCount } = require("%enlist/soldiers/model/state.nut")
 let { mkCurrency, mkCurrencyCount } = require("%enlist/currency/currenciesComp.nut")
 let { mkColoredGradientX } = require("%enlSqGlob/ui/gradients.nut")
-let { defTxtColor, titleTxtColor, colPart, columnGap
-} = require("%enlSqGlob/ui/designConst.nut")
+let { defTxtColor, titleTxtColor, largePadding } = require("%enlSqGlob/ui/designConst.nut")
 let { mkItemCurrency } = require("currencyComp.nut")
 
 
-let priceSize = [colPart(4), colPart(0.8)]
+let priceSize = [hdpx(248), hdpx(50)]
 
 let transpLineColor    = 0x00000000
 let realPriceLineColor = 0xFF334E80
@@ -23,13 +22,13 @@ let goldPriceGradient = mkColoredGradientX({colorLeft=goldPriceLineColor, colorR
 let mixPriceGradient  = mkColoredGradientX({colorLeft=mixPriceLineColor, colorRight=transpLineColor})
 
 
-let defTxtStyle = freeze({ color = defTxtColor }.__update(fontMedium))
-let countTxtStyle = freeze({ color = titleTxtColor }.__update(fontLarge))
-let missTxtStyle = freeze({ color = defTxtColor }.__update(fontLarge))
+let defTxtStyle = freeze({ color = defTxtColor }.__update(fontBody))
+let countTxtStyle = freeze({ color = titleTxtColor }.__update(fontBody))
+let missTxtStyle = freeze({ color = defTxtColor }.__update(fontBody))
 
 
 let priceSeparator = {
-  padding = [0, columnGap]
+  padding = [0, largePadding]
   valign = ALIGN_BOTTOM
   rendObj = ROBJ_TEXT
   text = loc("mainmenu/or")
@@ -45,7 +44,7 @@ let mkPriceBar = @(bgImg, children) {
   size = flex()
   flow = FLOW_HORIZONTAL
   gap = priceSeparator
-  padding = [0, columnGap]
+  padding = [0, largePadding]
   valign = ALIGN_CENTER
   rendObj = ROBJ_IMAGE
   image = bgImg
@@ -70,7 +69,7 @@ let mkPriceText = @(price, currencyId) loc($"priceText/{currencyId}",
 let function mkItemPurchaseInfo(currencies, currencyPrice, shop_price_curr, shop_price, params = {}) {
   let { price, fullPrice, currencyId = null } = currencyPrice
   let currency = currencies.findvalue(@(c) c.id == currencyId)
-  let { iconSize = colPart(0.4), txtStyle = null } = params
+  let { iconSize = hdpxi(24), txtStyle = null } = params
   if (currency != null && price > 0)
     return mkCurrency({ currency, price, fullPrice, iconSize, txtStyle })
 
@@ -95,13 +94,13 @@ let function mkItemBarterInfo(guid, curItemCost, campItems) {
   return children.len() == 0 ? null
     : {
         flow = FLOW_HORIZONTAL
-        gap = columnGap
+        gap = largePadding
         children
       }
 }
 
 
-let function mkShopItemPrice(shopItem, lockObject) {
+let function mkShopItemPrice(shopItem, lockObject = null) {
   let { guid, curItemCost, curShopItemPrice,
     shop_price_curr = "", shop_price = 0
   } = shopItem

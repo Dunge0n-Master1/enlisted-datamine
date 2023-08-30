@@ -85,6 +85,9 @@ def start_ragdoll(var ragdoll : PhysRagdoll;
                   curTime : float)
   animchar |> animchar_resetPostController()
 
+  let boxScale = float3(0.5f)
+  let box = BBox3(unitTm[3] - boxScale, unitTm[3] + boxScale)
+  update_ri_cache_in_volume_to_phys_world(box)
   // Go through wtm/tms setuping proper collision
   // There was a hand-made extrapolation of current position by velocity, position and dt before.
   // Yes, fixing the jump in position creates more visually pleasing animations.

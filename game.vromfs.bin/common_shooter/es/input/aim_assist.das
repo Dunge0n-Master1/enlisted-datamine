@@ -19,6 +19,7 @@ require SmokeOccluder
 require RendInst
 require game.utils.team
 require game.es.events
+require enlisted.events_enlisted
 require common_shooter.es.input.aim_assist_common
 require common_shooter.es.human_weap_common
 
@@ -45,8 +46,8 @@ def aim_assist_node_load_es(evt : Event;
     logerr("aim_assist_target__nodeName '{aim_assist_target__nodeName}' not found in entity {eid}='{getEntityTemplateName(eid)}'")
 
 
-[es(tag=input, after=(human_input_es, human_input_attached_gun_es), before=after_input_sync)]
-def aim_assist_target_es(info : UpdateStageUpdateInput;
+[es(tag=input, after=after_animchar_update_sync)]
+def aim_assist_target_es(info : ParallelUpdateFrameDelayed;
                          eid : EntityId;
                          human_weap__currentGunEid : EntityId;
                          human_weap__currentGunModEids : EidList;
@@ -98,7 +99,7 @@ def aim_assist_target_es(info : UpdateStageUpdateInput;
     break
 
 
-[es(tag=input, after=aim_assist_target_es, before=after_input_sync)]
+[es(tag=input, before=after_input_sync)]
 def aim_assist_slowdown_es(info : UpdateStageUpdateInput;
                            var human_input__aimingSensMult : float&;
                            aim_assist__targetEid : EntityId;

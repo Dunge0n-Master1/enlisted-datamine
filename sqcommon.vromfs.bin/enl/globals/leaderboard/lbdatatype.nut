@@ -1,6 +1,5 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-#explicit-this
 
 let {format} = require("string")
 let { remap_others } = require("%enlSqGlob/remap_nick.nut")

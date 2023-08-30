@@ -1172,6 +1172,11 @@ exitHandler{
         incObstacles:b=no
       }
 
+      wait{
+        range:p2=1.0, 1.0
+        resetable:b=yes
+      }
+
       parallel{
 
         reaction{

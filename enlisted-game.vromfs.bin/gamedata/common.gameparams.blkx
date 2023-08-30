@@ -48,6 +48,8 @@ commonClientScenes{
   scene:t="content/enlisted/gamedata/scenes/_common_wounds.blk"
   scene:t="content/common/gamedata/scenes/hero_cockpit.blk"
   scene:t="content/common/gamedata/scenes/outdated_effects.blk"
+  scene:t="content/common/gamedata/scenes/battle_perfstat.blk"
+  scene:t="content/enlisted/gamedata/scenes/global_fx_client.blk"
 }
 
 bulletHoles
@@ -95,6 +97,8 @@ rendinstOpt
 {
   minLodForMode0:i=3; maxLodForMode0:i=15 // aircraft
 }
+
+debugRiTexture:t="blockout_grid_a_tex_d"
 
 unitedVdata.dynModel.def { // hint for initial minimum allocated buffer size, in KB (for IB and VBs)
   IB:i=65536

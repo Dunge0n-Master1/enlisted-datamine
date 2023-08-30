@@ -5,7 +5,7 @@ let { SquadMateOrder } = require("%enlSqGlob/dasenums.nut")
 let { makeArrow } = require("%ui/hud/hud_markers/components/hud_markers_components.nut")
 let { watchedHeroSquadPersonalOrdersSet, watchedHeroSquadPersonalOrdersGetWatched } = require("%ui/hud/state/squad_personal_orders.nut")
 
-let moveToPicSize = array(2, fsh(4).tointeger())
+let moveToPicSize = array(2, hdpxi(43))
 let moveToPicName = $"!ui/skin#moveto.svg:{moveToPicSize[0]}:{moveToPicSize[1]}:K"
 
 let squadPersonalOrderAnim = [

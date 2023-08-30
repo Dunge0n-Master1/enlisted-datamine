@@ -42,7 +42,13 @@ nextExpireTime.subscribe(function(v) {
 })
 
 decorators.subscribe(@(_) recalcActiveDecorators())
-recalcActiveDecorators()
+
+serverTime.subscribe(function(time) {
+  if (time <= 0)
+    return
+  serverTime.unsubscribe(callee())
+  recalcActiveDecorators()
+})
 
 let decoratorsCfgByType = Computed(function() {
   let res = {}

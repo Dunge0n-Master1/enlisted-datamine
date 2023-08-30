@@ -125,6 +125,7 @@ Aerodynamics{
   OilRadiatorCd:r=0.002
   FuseCd:r=0.0
   AirbrakeCd:r=0.0
+  CockpitDoorCd:r=0.07
   ClToCmCoeff:r=0.01
   UseSpinLoss:b=yes
   SpinClLoss:r=0.2
@@ -645,6 +646,7 @@ Mass{
     mgun2_dm:r=16.7532
     cannon1_dm:r=16.7
     cannon2_dm:r=16.7
+    cannon3_dm:r=16.7
     gear_l_dm:r=60.0
     gear_r_dm:r=60.0
     wing2_l_dm:r=80.7357

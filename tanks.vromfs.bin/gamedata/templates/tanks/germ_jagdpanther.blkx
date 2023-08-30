@@ -15,11 +15,17 @@ germ_jagdpanther_berlin_premium{
   }
 }
 
+germ_jagdpanther{
+  _extends:t="germ_jagdpanther_common"
+}
+
 germ_jagdpanther_common{
   _extends:t="base_panzerjager_panther"
   _extends:t="tank_panzer3_engine_sound"
   commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
   gunner_cam_limit__useCockpitDir:b=yes
+  item__iconOffset:p2=0.02, 0.1
+  item__iconScale:r=1.22
 
   "vehicle_seats__seatsProvideOrder:tag"{
   }
@@ -180,6 +186,13 @@ germ_jagdpanther_commander_cockpit{
 
   "cockpit__slitZoomTime:list<r>"{
     slit:r=0.0
+  }
+
+  "cockpit__slitTemplates:list<t>"{
+    slit:t="default_periscope"
+  }
+
+  "cockpit__slitEids:list<eid>"{
   }
 }
 

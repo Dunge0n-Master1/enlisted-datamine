@@ -7,7 +7,7 @@ let {
   blurBgFillColor, disabledTxtColor,
   bigPadding, smallPadding, smallOffset, activeTxtColor, rowBg
 } = require("%enlSqGlob/ui/viewConst.nut")
-let { sub_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { armies } = require("%enlist/soldiers/model/state.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let { playerStatsList, killsList } = require("profileState.nut")
@@ -56,7 +56,7 @@ let mkText = @(text, customStyle = {}) {
   rendObj = ROBJ_TEXT
   color = activeTxtColor
   text
-}.__update(sub_txt, customStyle)
+}.__update(fontSub, customStyle)
 
 let campaignSlotStyle = {
   rendObj = ROBJ_BOX
@@ -86,7 +86,7 @@ let mkCampaignInfoBtn = @(campaign, isSelected)
     valign = ALIGN_CENTER
     fillColor = bgColor(sf, isSelected)
     borderWidth = isSelected ? [0, 0, hdpx(4), 0] : 0
-    children = mkText(loc(campaign.title), body_txt.__merge({
+    children = mkText(loc(campaign.title), fontBody.__merge({
       color = txtColor(sf, isSelected)
     }))
   }.__update(campaignSlotStyle))
@@ -101,7 +101,7 @@ let mkAllCampaignBtn = @(selCampaignWatch)
       valign = ALIGN_CENTER
       fillColor = bgColor(sf, isSelected)
       borderWidth = isSelected ? [0, 0, hdpx(4), 0] : 0
-      children = mkText(loc("menu/campaigns"), body_txt.__merge({
+      children = mkText(loc("menu/campaigns"), fontBody.__merge({
         color = txtColor(sf, isSelected)
       }))
     }.__update(campaignSlotStyle)
@@ -150,7 +150,7 @@ let mkStatsHeader = @(armiesList, showLevel) @() {
   flow = FLOW_HORIZONTAL
   padding = [0, smallOffset]
   valign = ALIGN_CENTER
-  children = [ mkText(loc("debriefing/tab/statistic"), body_txt.__merge(statNameStyle)) ]
+  children = [ mkText(loc("debriefing/tab/statistic"), fontBody.__merge(statNameStyle)) ]
     .extend(armiesList
       .filter(@(armyId) armyId != MAIN_GAME_STAT)
       .map(@(armyId) {

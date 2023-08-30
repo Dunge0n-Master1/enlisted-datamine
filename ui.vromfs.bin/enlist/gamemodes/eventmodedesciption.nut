@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { selEvent, selLbMode, selEventEndTime, inactiveEventsToShow } = require("eventModesState.nut")
 let { isWide, bigPadding, accentTitleTxtColor, maxContentWidth, defTxtColor, smallPadding
 } = require("%enlSqGlob/ui/viewConst.nut")
@@ -73,7 +73,7 @@ let function eventsTimer() {
         rendObj = ROBJ_TEXT
         text = loc("bp/timeLeft")
         color = accentTitleTxtColor
-      }.__update(sub_txt, shadowParams)
+      }.__update(fontSub, shadowParams)
       mkSeasonTime(selEventEndTime.value - serverTime.value, shadowParams)
     ]
   })
@@ -123,7 +123,7 @@ let mkRewardsBlockTitle = @(text) {
   rendObj = ROBJ_TEXT
   halign = ALIGN_CENTER
   text
-}.__update(body_txt)
+}.__update(fontBody)
 
 let function temporarySign() {
   let size = hdpxi(24)
@@ -146,7 +146,7 @@ let extraRewardText = {
   hplace = ALIGN_LEFT
   text = loc("includingRewardsBelow")
   color = defTxtColor
-}.__update(sub_txt)
+}.__update(fontSub)
 
 let function mkReward(rewardData, hasReceived = false) {
   let {count, reward} = rewardData
@@ -173,7 +173,7 @@ let mkProgress = @(current, required) required <= 1 || current == required ? nul
   rendObj = ROBJ_TEXT
   text = $"{current} / {required}"
   color = accentTitleTxtColor
-}.__update(sub_txt)
+}.__update(fontSub)
 
 let rewardsWrapParams = {
   width = descritionBlockWidth.value
@@ -256,7 +256,7 @@ let eventsProgressChild = @(progress, rType) {
   text = rType != "tillPercent" ? loc("events/getTop", {progress})
     : progress == 100 ? loc("events/participationReward")
     : $"{loc("events/getTop", {progress})}%"
-}.__update(body_txt)
+}.__update(fontBody)
 
 
 let function rewardsBlock() {

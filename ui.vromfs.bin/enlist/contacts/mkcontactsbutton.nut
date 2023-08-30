@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { defTxtColor, brightAccentColor } = require("%enlSqGlob/ui/designConst.nut")
 let { friendsOnlineUids, requestsToMeUids } = require("%enlist/contacts/contactsWatchLists.nut")
 let { isContactsVisible } = require("contactsState.nut")
@@ -9,7 +9,7 @@ let { FAFlatButton } = require("%ui/components/txtButton.nut")
 let { navBottomBarHeight } = require("%enlist/mainMenu/mainmenu.style.nut")
 
 let counterText = @(count) count > 0 ? count : null
-let hintTxtStyle = { color = defTxtColor }.__update(sub_txt)
+let hintTxtStyle = { color = defTxtColor }.__update(fontSub)
 
 let onlineFriendsCounter = buildCounter(
   Computed(@() counterText(friendsOnlineUids.value.len())),

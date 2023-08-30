@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { withTooltip } = require("%ui/style/cursors.nut")
 let { perksData } = require("%enlist/soldiers/model/soldierPerks.nut")
 let armyEffects = require("%enlist/soldiers/model/armyEffects.nut")
@@ -33,7 +33,7 @@ let mkClassBonus = @(classBonusWatch) function() {
       rendObj = ROBJ_TEXT
       color = msgHighlightedTxtColor
       text = loc("bonusExp/short", { value = $"+{bonus}" })
-    }, sub_txt),
+    }, fontSub),
     @() loc("tooltip/soldierExpBonus"))
 }
 
@@ -45,7 +45,7 @@ let callnameBlock = @(callname) {
   rendObj = ROBJ_TEXT
   text = callname
   color = noteTxtColor
-}.__update(body_txt)
+}.__update(fontBody)
 
 let nameField = function(soldierWatch) {
   return function(){
@@ -63,7 +63,7 @@ let nameField = function(soldierWatch) {
             rendObj = ROBJ_TEXT
             text = getObjectName(soldierWatch.value)
             color = noteTxtColor
-          }.__update(body_txt)
+          }.__update(fontBody)
       ]
     }
   }
@@ -119,7 +119,7 @@ let mkSoldierNameSmall = @(soldier)
     text = getObjectName(soldier)
     color = defTxtColor
     padding = [0, smallPadding * 2]
-  }.__update(sub_txt)
+  }.__update(fontSub)
 
 
 let iconSize = hdpx(26)
@@ -167,7 +167,7 @@ let function mkNameBlock(soldier) {
                   children = [
                     withTooltip(kindIcon(sKind, medalSize, sClassRare), classTooltipCb)
                     withTooltip(classNameColored(sClass, sKind, sClassRare), classTooltipCb)
-                    withTooltip(tierText(tier).__update({ color = defTxtColor }, sub_txt),
+                    withTooltip(tierText(tier).__update({ color = defTxtColor }, fontSub),
                       @() rankingTooltip(tier))
                     mkSoldierNameSmall(soldierWatch.value)
                   ]

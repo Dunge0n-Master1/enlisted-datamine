@@ -70,7 +70,7 @@ def poly_areas_draw_points_es(evt : UpdateStageInfoRenderDebug;
       add_debug_text_mark(transform[3], "{battleAreaId}: {battle_area_polygon_point__id} -> {battle_area_polygon_point__nextId}",
                           -1, 0., color)
 
-[es(tag=server, on_event=CmdInitPolyBattleAreas, after=poly_battle_area_create_on_load_es, REQUIRE=battle_area_polygon_point__drawDebug)]
+[es(tag=server, on_event=CmdInitPolyBattleAreas, after=poly_battle_area_init_points, REQUIRE=battle_area_polygon_point__drawDebug)]
 def poly_battle_area_check_points_orientation_es(evt : Event; battleAreaPoints : ecs::Point2List; battleAreaId : string)
   var area = 0.f
   let numOfPoints = length(battleAreaPoints)

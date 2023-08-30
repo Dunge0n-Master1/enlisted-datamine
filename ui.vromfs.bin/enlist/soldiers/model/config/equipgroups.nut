@@ -14,7 +14,6 @@ let equipSlotRows = [
         slotType = "primary"
         slotSize = [fullWidth, baseSlotHeight]
         slotImg = "empty_slot_weapon.svg"
-        needGunLayout = true
         headerLocId = $"slot/empty_primary"
       }
     ],
@@ -23,7 +22,6 @@ let equipSlotRows = [
         slotType = "secondary"
         slotSize = [fullWidth, baseSlotHeight]
         slotImg = "empty_slot_weapon.svg"
-        needGunLayout = true
         headerLocId = $"slot/empty_secondary"
       }
     ],

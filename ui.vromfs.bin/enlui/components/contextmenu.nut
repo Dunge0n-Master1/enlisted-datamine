@@ -1,9 +1,9 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontMedium } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { debounce } = require("%sqstd/timers.nut")
-let { panelBgColor, hoverPanelBgColor, defBdColor, colPart, titleTxtColor, hoverTxtColor,
-  midPadding, smallPadding
+let { panelBgColor, hoverPanelBgColor, defBdColor, titleTxtColor, hoverTxtColor, midPadding,
+  smallPadding
 } = require("%enlSqGlob/ui/designConst.nut")
 let gamepadImgByKey = require("%ui/components/gamepadImgByKey.nut")
 let modalPopupWnd = require("%ui/components/modalPopupWnd.nut")
@@ -11,14 +11,19 @@ let JB = require("%ui/control/gui_buttons.nut")
 let locByPlatform = require("%enlSqGlob/locByPlatform.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 
-let defTxtStyle = { color = titleTxtColor }.__update(fontMedium)
-let hoverTxtStyle = { color = hoverTxtColor }.__update(fontMedium)
+let defTxtStyle = freeze({ color = titleTxtColor }.__update(fontSub))
+let hoverTxtStyle = freeze({ color = hoverTxtColor }.__update(fontSub))
 const CONTEXT_UID = "contextMenu"
 
 let activeBtn = gamepadImgByKey.mkImageCompByDargKey(JB.A, {
-  height = defTxtStyle.fontSize
-  hplace = ALIGN_RIGHT
-  vplace = ALIGN_CENTER
+  height = defTxtStyle.fontSize*1.6
+  halign = ALIGN_CENTER
+})
+
+let sound = freeze({
+  click  = "ui/button_click"
+  hover  = "ui/menu_highlight"
+  active = "ui/button_action"
 })
 
 let listItem = @(text, action) watchElemState(@(sf) {
@@ -30,21 +35,20 @@ let listItem = @(text, action) watchElemState(@(sf) {
   size = [flex(), SIZE_TO_CONTENT]
   padding = midPadding
   onClick = action
-  sound = {
-    click  = "ui/button_click"
-    hover  = "ui/menu_highlight"
-    active = "ui/button_action"
-  }
+  sound
+  valign = ALIGN_CENTER
   children = [
     {
       rendObj = ROBJ_TEXT
       behavior = Behaviors.Marquee
       size = [flex(), SIZE_TO_CONTENT]
       scrollOnHover = true
-      speed = colPart(1.5)
+      speed = hdpx(93)
       text
     }.__update(sf & S_HOVER ? hoverTxtStyle : defTxtStyle)
-    isGamepad.value && (sf & S_HOVER) != 0 ? activeBtn : null
+    isGamepad.value && (sf & S_HOVER)
+      ? {size = [SIZE_TO_CONTENT, 0], vplace = ALIGN_CENTER, valign = ALIGN_CENTER, hplace = ALIGN_RIGHT, children = activeBtn}
+      : null
   ]
 })
 

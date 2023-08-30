@@ -10,6 +10,7 @@ render_settings{
   render_settings__bare_minimum:b=no
   render_settings__grassQuality:t="high"
   render_settings__fftWaterQuality:t="high"
+  render_settings__waterQuality:t="low"
   render_settings__fullDeferred:b=yes
   render_settings__rain_ripples_enabled:b=yes
   render_settings__forwardRendering:b=yes

@@ -1,4 +1,3 @@
-#explicit-this
 
 let EventLogState = require("%ui/hud/state/eventlog_state.nut")
 let {get_sync_time} = require("net")

@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {body_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontBody} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {MenuBgOverlay} = require("%ui/style/colors.nut")
 let { controllerDisconnected } = require("%enlSqGlob/controllerDisconnected.nut")
 let {removeModalWindow, addModalWindow} = require("%ui/components/modalWindows.nut")
@@ -25,7 +25,7 @@ let function open() {
       behavior = Behaviors.TextArea
       halign = ALIGN_CENTER
       text = loc("xbox/controllerDisconnected")
-    }.__update(body_txt)
+    }.__update(fontBody)
   })
 }
 

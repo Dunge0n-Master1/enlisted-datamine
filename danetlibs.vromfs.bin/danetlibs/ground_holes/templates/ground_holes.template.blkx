@@ -1,29 +1,26 @@
 ground_holes_updater{
   _extends:t="replicating"
   _singleton:b=yes
-  changed_ground_holes:b=no
-  first_holes_update:b=yes
-  should_render_ground_holes:b=no
-  ground_holes_temp_tex_size:i=1024
   ground_holes_main_tex_size:i=2048
   ground_holes_scale_offset:p4=-1.0, -1.0, -1.0, -1.0
-  hmap_holes_scale_size_offset_varId:i=-1
-  hmap_holes_temp_ofs_size_varId:i=-1
-
-  _group{
-    _track:b=yes
-    update_ground_holes:b=no
-  }
 
   _group{
     _tags:t="render"
+    should_render_ground_holes:b=no
+    ground_holes_temp_tex_size:i=1024
+    hmap_holes_scale_step_offset_varId:i=-1
+    hmap_holes_temp_ofs_size_varId:i=-1
     hmapHolesPrepareRenderer_name:t="heightmap_holes_prepare"
     hmapHolesProcessRenderer_name:t="heightmap_holes_process"
+    hmapHolesMipmapRenderer_name:t="heightmap_holes_mipmap"
 
     "hmapHolesPrepareRenderer:ShadersECS"{
     }
 
     "hmapHolesProcessRenderer:PostFxRenderer"{
+    }
+
+    "hmapHolesMipmapRenderer:PostFxRenderer"{
     }
 
     "hmapHolesTex:UniqueTexHolder"{
@@ -47,10 +44,25 @@ ground_hole{
   _extends:t="replicating"
   _track:b=yes
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  ground_hole_shape_intersection:b=no
   ground_hole_sphere_shape:b=no
 
   _group{
-    processed:b=no
+    _tags:t="server"
+    processedServer:b=no
+  }
+
+  _group{
     _tags:t="gameClient"
+    processedClient:b=no
+  }
+}
+
+ground_holes_zones_updater{
+  _extends:t="replicating"
+  _singleton:b=yes
+  _tags:t="render"
+
+  "hmapHolesZonesBuf:UniqueBufHolder"{
   }
 }

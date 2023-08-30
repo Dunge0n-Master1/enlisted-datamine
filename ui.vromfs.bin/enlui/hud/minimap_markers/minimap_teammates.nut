@@ -1,7 +1,7 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {ceil} = require("math")
 let {localPlayerTeam, localPlayerGroupMembers} = require("%ui/hud/state/local_player.nut")
 let { watchedHeroEid } = require("%ui/hud/state/watched_hero.nut")
@@ -13,8 +13,8 @@ let {hudMarkerEnable} = require("%ui/hud/state/hudOptionsState.nut")
 let { isReplay } = require("%ui/hud/state/replay_state.nut")
 
 
-let unitArrowSz = [fsh(0.7), fsh(1.4)]
-let teammateArrowSz = [fsh(1.7), fsh(1.7)]
+let unitArrowSz = [hdpxi(7), hdpxi(15)]
+let teammateArrowSz = [hdpxi(18), hdpxi(18)]
 
 let unit_arrow = Picture("!ui/skin#unit_arrow.svg:{0}:{1}:K".subst(
     ceil(unitArrowSz[0]*1.3).tointeger(), ceil(unitArrowSz[1]*1.3).tointeger()))
@@ -47,7 +47,7 @@ let mkTextPlayerGroupmate = memoize(@(num) freeze({
     pivot = [0.5, 0.5]
     rotate = -90
   }
-}.__update(sub_txt)))
+}.__update(fontSub)))
 
 let mkBlinkAnimation = @(trigger) {
     animations = [{ prop=AnimProp.color, from=Color(200,50,50,250), to=Color(255,200,200), duration=0.5, trigger, loop=true, easing=Blink }]

@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let spinner = require("%ui/components/spinner.nut")
 let { Bordered } = require("%ui/components/txtButton.nut")
 let { smallPadding, bigPadding, defTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
@@ -117,7 +117,7 @@ let mkParatrooperSlot = @(slotSize, headerText) {
           children = {
             rendObj = ROBJ_TEXT
             text = headerText
-          }.__update(sub_txt)
+          }.__update(fontSub)
         }
     {
       size = slotSize
@@ -133,7 +133,7 @@ let mkParatrooperSlot = @(slotSize, headerText) {
         vplace = ALIGN_BOTTOM
         hplace = ALIGN_LEFT
         opacity = 0.5
-      }.__update(sub_txt)
+      }.__update(fontSub)
     }
   ]
 }
@@ -157,8 +157,7 @@ let function mkSlot(rowIdx, slotData, guid) {
 let function mkSlotsList(slotData, soldier, canManage, slotsCount, maxSlotIndex,
   slotCtor, objectsByGuid, itemsByLink, previewPresetVal
 ) {
-  let { slotType, slotSize, slotImg, hasName = false,
-    needGunLayout = false, headerLocId = "" } = slotData
+  let { slotType, slotSize, slotImg, hasName = false, headerLocId = "" } = slotData
 
   let { equipScheme = {}, guid, sClass } = soldier
 
@@ -192,7 +191,7 @@ let function mkSlotsList(slotData, soldier, canManage, slotsCount, maxSlotIndex,
     let item = objectsByGuid?[s.item?.guid] ?? s.item
     s.__update({
       item, scheme, isDisabled, hasWarning, canManage, soldierGuid = guid,
-      slotSize, slotCtor, hasName, needGunLayout, headerLocId, slotImg, isParatrooperSlot
+      slotSize, slotCtor, hasName, headerLocId, slotImg, isParatrooperSlot
       itemSize = slotSize
       isLocked = s.isLocked || s.slotId >= curSlotsCount
     })

@@ -9,6 +9,8 @@ let colors = {
   UnseenIcon = Color(20, 255, 10)
   UnseenGlow = Color(0, 0, 0, 255)
   Black = Color(0, 0, 0, 255)
+  FullTransparent = Color(0, 0, 0, 0)
+  ScrollBgColor = Color(3, 9, 12, 150)
 
   CheckBoxContentDefault = Color(180, 180, 180)
   CheckBoxContentHover = Color(255, 255, 255)

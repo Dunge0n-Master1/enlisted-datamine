@@ -29,19 +29,24 @@ let function extractKinds(crateContent) {
 }
 
 let function getKindsList(itemsContent) {
-  let result = itemsContent.reduce(function(res, content) {
-    let sKind = extractKinds(content)
-    if (sKind?[0] != null && sKind.len() == 1
-      && res.findvalue(@(v) v.soldierKind == sKind[0]) == null) {
-        let info = {
-          soldierKind = sKind[0]
-          reqLvl = content.reqLevel
-        }
-        res.append(info)
-      }
-    return res
-  }, [])
-  return result
+  let res = []
+  let kinds = {}
+  foreach (content in itemsContent) {
+    let sKindList = extractKinds(content) ?? []
+    if (sKindList.len() != 1)
+      continue
+
+    let [ soldierKind ] = sKindList
+    let { reqLevel } = content
+    if (soldierKind in kinds)
+      kinds[soldierKind].reqLvl = min(kinds[soldierKind].reqLvl, reqLevel)
+    else {
+      let sKindData = { soldierKind, reqLvl = reqLevel }
+      kinds[soldierKind] <- sKindData
+      res.append(sKindData)
+    }
+  }
+  return res
 }
 
 let function getSoldiersList(cratesContent, sShopItems) {

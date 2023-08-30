@@ -7,7 +7,7 @@ let { debounce } = require("%sqstd/timers.nut")
 let eventbus = require("eventbus")
 let { parse_json } = require("json")
 let { gameLanguage } = require("%enlSqGlob/clientState.nut")
-let {h2_txt, body_txt, sub_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontHeading2, fontBody, fontSub} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {checkMultiplayerPermissions} = require("permissions/permissions.nut")
 let {createRoom} = require("state/roomState.nut")
 let textButton = require("%ui/components/textButton.nut")
@@ -408,7 +408,7 @@ let titletxt = @(title){
   color = Color(180,180,180)
   vplace = ALIGN_CENTER
   size=[flex(), fontH(180)]
-}.__update(sub_txt)
+}.__update(fontSub)
 
 let formComboWithTitle = @(watch, values, title) {
   size=[flex(), fontH(180)]
@@ -423,7 +423,7 @@ let formComboWithTitle = @(watch, values, title) {
       children = comboBox(watch, values)
     }
   ]
-}.__update(body_txt)
+}.__update(fontBody)
 
 let humanTitle = @(scn) (scn?.title ?? "_untitled_").replace(".blk", "")
 
@@ -445,7 +445,7 @@ let openScenesMenu = mkSelectWindow({
   filterPlaceHolder=loc("filter scene")
   filterState = filterSceneStr
   mkTxt = humanTitle
-  titleStyle = h2_txt
+  titleStyle = fontHeading2
 })
 
 let selectSceneBtn = mkOpenSelectWindowBtn(scene, loc("Current scene"), openScenesMenu, humanTitle)
@@ -479,7 +479,7 @@ let openModsWindow = mkSelectWindow({
       request_ugm_manifest(m, EVENT_MOD_VROM_INFO)
     }
   }
-  titleStyle = h2_txt
+  titleStyle = fontHeading2
   mkTxt = modName
 })
 

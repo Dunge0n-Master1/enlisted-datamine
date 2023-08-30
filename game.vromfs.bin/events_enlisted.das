@@ -273,7 +273,7 @@ struct CmdResupplyVehicle {}
 [event(unicast)]
 struct CmdResupplyPassengers {}
 
-[event(unicast, routing=ROUTING_SERVER_TO_CLIENT, net_liable=ignore)]
+[event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
 struct CmdResupplyPassengersFinished
   vehicle : EntityId
 
@@ -299,6 +299,7 @@ struct CmdCancelRequestRespawn
   squadId : int
   memberId : int
   spawnGroup : int
+  isParatroopers : bool
 
 [event(unicast)]
 struct RqPersonalContextCommand{}
@@ -586,12 +587,14 @@ struct EventEditorEntityMoved {}
 struct EventBombCraterPartTerraformed
   partPos : float3
   partRadius : float
+  shouldDig : bool
 
 [event(broadcast)]
 struct EventBombCraterTerraformed
   pos : float3
   outerRadius : float
   availablePartsMask : uint64
+  availableDigPartsMask : uint64
   partsGridWidth : int
   mainPhysmatId : int
 
@@ -780,6 +783,11 @@ struct ProjectileOnHitEntityWithHp
   sceneHitRicochetStability : float
   trace_ray_mat_id : int
   check_if_should_apply_damage : bool
+
+[event(broadcast)]
+struct ProjectileOnIntersectEntityWithHp
+  victim : EntityId
+  offender : EntityId
 
 [event(broadcast)]
 struct CmdSetCinematicModeEnabled
@@ -990,3 +998,43 @@ struct CmdReplayRewindSaveState
 [event(broadcast)]
 struct CmdReplayRewindLoadState
   state : ecs::Object const?
+
+[event(broadcast)]
+struct CmdEditorInvalidateAI {}
+
+[event(broadcast)]            // require only for use parallel for in different attaches queue's
+struct SlotAttachUpdateEvent  // May be removed when "parallel for" will implemented in das ecs query
+  dt : float
+
+[event(unicast)]
+struct PrefabSaveEvent {}
+
+[event(broadcast)]
+struct PrefabSpawnEvent
+  name : string
+
+[event(broadcast)]
+struct PrefabCreateFromSelectedEvent
+  name : string
+  save : bool
+
+[event(broadcast)]
+struct PrefabShatterSelectedEvent {}
+
+[event(unicast)]
+struct AddSelectedToPrefabEvent {}
+
+[event(unicast)]
+struct EventOnWeapSlotItemPickup
+  itemEid : EntityId
+  slotId : int
+
+[event(unicast)]
+struct PrefabSelectParentEvent {}
+
+[cpp_event(unicast)]
+struct EditorToDeleteEntitiesEvent
+  linkedEntitiesToDelete : ecs::EidList
+
+[cpp_event(unicast)]
+struct EditorClonedEntity {}

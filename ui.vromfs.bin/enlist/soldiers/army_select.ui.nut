@@ -2,18 +2,18 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let { mkHotkey } = require("%ui/components/uiHotkeysHint.nut")
-let { bigPadding, hoverSlotBgColor, miniPadding, panelBgColor, accentColor } = require("%enlSqGlob/ui/designConst.nut")
+let { bigPadding, hoverSlotBgColor, miniPadding, panelBgColor, accentColor, selectedPanelBgColor
+} = require("%enlSqGlob/ui/designConst.nut")
 let { mkArmyIcon, mkArmySimpleIcon } = require("components/armyPackage.nut")
 let { allArmiesInfo } = require("model/config/gameProfile.nut")
 let { curArmy, selectArmy, curArmiesList } = require("model/state.nut")
-let { fontSmall } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
 
 
 let colorGray = Color(30, 44, 52)
 let sizeIcon = hdpx(26)
 let showNameArmy =  Computed(@() curArmiesList.value.len() > 2)
-let selectedColor = mul_color(panelBgColor, 1.25)
 
 let sound = freeze({
   hover = "ui/enlist/button_highlight"
@@ -33,9 +33,9 @@ let function armyBtn(armyId) {
       rendObj = ROBJ_BOX
       borderWidth = isSelected.value ? [0, 0, hdpx(2), 0] : 0
       borderColor = accentColor
-      fillColor = (sf & S_HOVER)
-        ? hoverSlotBgColor
-        : isSelected.value ? selectedColor : panelBgColor
+      fillColor = sf & S_HOVER ? hoverSlotBgColor
+        : isSelected.value ? selectedPanelBgColor
+        : panelBgColor
       behavior = Behaviors.Button
       skipDirPadNav = true
       sound
@@ -102,11 +102,11 @@ let armySelectText = @() {
   rendObj = ROBJ_BOX
   children = showNameArmy.value
     ? [
-        mkUpperText(loc("selected_army"), fontSmall)
+        mkUpperText(loc("selected_army"), fontSub)
         { size = flex() }
-        mkUpperText(loc($"country/{allArmiesInfo.value[curArmy.value].country}"), fontSmall)
+        mkUpperText(loc($"country/{allArmiesInfo.value[curArmy.value].country}"), fontSub)
       ]
-    : mkUpperText(loc("select_army"), fontSmall)
+    : mkUpperText(loc("select_army"), fontSub)
 }
 
 let armySelectUi = {

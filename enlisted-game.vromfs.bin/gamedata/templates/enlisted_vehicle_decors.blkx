@@ -393,14 +393,14 @@ vgt_straw_bales_a{
   _extends:t="base_vehicle_decor"
   animchar__res:t="vgt_straw_bales_a_char"
   collres__res:t="vgt_straw_bales_a_collision"
-  decor__boxMult:r=0.05
+  decor__boxMult:r=0.02
 }
 
 vgt_straw_bales_b{
   _extends:t="base_vehicle_decor"
   animchar__res:t="vgt_straw_bales_b_char"
   collres__res:t="vgt_straw_bales_b_collision"
-  decor__boxMult:r=0.05
+  decor__boxMult:r=0.02
 }
 
 gnome{

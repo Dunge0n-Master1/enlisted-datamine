@@ -1,6 +1,6 @@
 from "%darg/ui_imports.nut" import *
 
-let calcColor = @(sf) (sf & S_HOVER) ? 0xFFFFFFFF : 0xA0A0A0A0
+let calcColor = @(sf) sf & S_HOVER ? 0xFFFFFFFF : 0xA0A0A0A0
 
 let lineWidth = hdpx(2)
 let boxSize = hdpx(20)

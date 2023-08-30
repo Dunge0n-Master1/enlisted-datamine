@@ -8,6 +8,14 @@ graphics{
   anisotropy:i=4
   spotShadowBias:p4=-6e-05, -0.1, 0.001, 0.005
   dafx:t="cpu"
+  useFoamFx:b=no
+  decompressed_shaders_cache_size_in_mb:i=20
+
+  foamFxTexDividers{
+    divider:i=4
+    divider:i=2
+    divider:i=1
+  }
 }
 
 screenshots{
@@ -40,7 +48,7 @@ ps4{
   dcb_size_mb:i=4
   ccb_size_mb:i=4
   max_genmip_tex_sz:i=0
-  mem_reserve_mb:i=256
+  mem_reserve_mb:i=0
   enable_defrag:b=yes
   emergency_buffer_pages:i=64
   resolution_config:b=yes
@@ -246,6 +254,7 @@ __allowedConfigOverrides{
     perfMetrics:i=1
     enableHdr:b=no
     paperWhiteNits:i=200
+    ssaa:b=no
     fsr:t="off"
     dlssQuality:i=0
     xessQuality:i=0

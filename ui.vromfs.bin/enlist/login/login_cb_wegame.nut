@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let auth = require("auth")
 let JB = require("%ui/control/gui_buttons.nut")
-let { body_txt, h2_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody, fontHeading2} = require("%enlSqGlob/ui/fontsStyle.nut")
 let defLoginCb = require("%enlist/login/login_cb.nut")
 let { startLogin } = require("%enlist/login/login_chain.nut")
 let { addModalWindow, removeModalWindow } = require("%ui/components/modalWindows.nut")
@@ -37,7 +37,7 @@ let inputOptions = {
   valignText = ALIGN_CENTER
   margin = 0
   onReturn = loginWithNick
-}.__update(body_txt)
+}.__update(fontBody)
 
 let wndHeader = {
   flow = FLOW_VERTICAL
@@ -49,7 +49,7 @@ let wndHeader = {
       watch = wndHeaderTxt
       rendObj = ROBJ_TEXT
       text = wndHeaderTxt.value
-    }.__update(h2_txt)
+    }.__update(fontHeading2)
     @(){
       watch = additionalTxt
       rendObj = ROBJ_TEXTAREA
@@ -58,7 +58,7 @@ let wndHeader = {
       maxWidth = maxContentWidth - hdpx(100)
       behavior = Behaviors.TextArea
       text = additionalTxt.value
-    }.__update(body_txt)
+    }.__update(fontBody)
   ]
 }
 

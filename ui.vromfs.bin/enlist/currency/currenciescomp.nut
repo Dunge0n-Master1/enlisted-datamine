@@ -1,8 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
+let { fontSub, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let textButtonTextCtor = require("%ui/components/textButtonTextCtor.nut")
-
-let { fontMedium, fontLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { TextHover, TextNormal } = require("%ui/components/textButton.style.nut")
 let { Purchase } = require("%ui/components/textButton.nut")
 let { currenciesExpiring, currenciesById } = require("%enlist/currency/currencies.nut")
@@ -21,7 +20,7 @@ let {
 let CURENCY_PARAMS = {
   iconSize = hdpxi(16)
   txtStyle = { color = titleTxtColor }
-  dimStyle = { color = defTxtColor }.__update(fontMedium)
+  dimStyle = { color = defTxtColor }.__update(fontSub)
   discountStyle = { color = positiveTxtColor }
 }
 
@@ -44,7 +43,7 @@ let mkCurrencyImg = @(currency, iconSize) {
 let mkCurrencyCount = @(count, txtStyle = null) {
   rendObj = ROBJ_TEXT
   text = count
-}.__update(fontLarge, txtStyle ?? CURENCY_PARAMS.txtStyle)
+}.__update(fontBody, txtStyle ?? CURENCY_PARAMS.txtStyle)
 
 let mkCurrencyStroke = @(count, txtStyle = null) {
   children = [

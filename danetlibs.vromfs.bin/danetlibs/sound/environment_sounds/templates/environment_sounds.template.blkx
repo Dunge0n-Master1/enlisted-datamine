@@ -1,20 +1,29 @@
-reverb_sound{
+base_reverb_sound{
   _extends:t="sound_banks_state"
   _extends:t="replicating"
   _singleton:b=yes
 
   _group{
     _tags:t="sound"
+    reverb_sound__rayId:i=0
+    reverb_sound__intensityValue:r=0.0
+    reverb_sound__roomSizeValue:r=0.0
+    reverb_sound__absorptionValue:r=0.0
+    reverb_sound__absorptionRays:i=0
+    reverb_sound__intensity_roomSize_absorption_weight:p4=0.0, 0.0, 0.0, 0.0
     reverb_sound__path:t="snapshots/reverb_indoor"
     reverb_sound__intensityVar:t="reverbIndoor"
-    reverb_sound__intensityMax:r=0.625
     reverb_sound__roomSizeVar:t="roomSize"
+    reverb_sound__absorptionVar:t="absorption"
+    reverb_sound__absorptionNormalize:b=yes
+    reverb_sound__intensityMax:r=0.625
     reverb_sound__roomSizeMax:r=9.375
-    reverb_sound__rayLength:r=10.0
     reverb_sound__fadeOutPower:r=10.0
-    reverb_sound__rayId:i=0
-    reverb_sound__intensityValues:p3=0.0, 0.0, 0.0
-    reverb_sound__roomSizeValues:p3=0.0, 0.0, 0.0
+    reverb_sound__rayLength:r=10.0
+    reverb_sound__defAbsorption:r=0.5
+
+    "reverb_sound__PMIDToAbsorption:list<r>"{
+    }
 
     "reverb_sound__event:SoundEvent"{
     }
@@ -33,6 +42,9 @@ reverb_sound{
       ray:p3=0.4167, 0.1168, -0.9015
       ray:p3=-0.1942, 0.9248, 0.3273
       ray:p3=-0.8791, 0.4686, -0.0867
+    }
+
+    "reverb_sound__physmatAbsorption:array"{
     }
   }
 }
@@ -56,7 +68,8 @@ shore_sound{
 
   _group{
     _tags:t="sound"
-    shore_sound__path:t="ambient/positioned/beach"
+    shore_sound__path:t="ambient/positioned/ocean"
+    shore_sound__shoreDistanceToVar:p4=0.0, 250.0, 1.0, 0.0
 
     "shore_sound__event:SoundEvent"{
     }
@@ -73,6 +86,7 @@ spline_sound{
   _group{
     _tags:t="sound"
     spline_sound__pos:p3=0.0, 0.0, 0.0
+    spline_sound__eventPos:p3=0.0, 0.0, 0.0
     spline_sound__radius:r=0.0
     spline_sound__pointId:i=-1
     spline_sound__range:r=0.0
@@ -104,14 +118,25 @@ ocean_sound{
 
   _group{
     _tags:t="sound"
-    ocean_sound__path:t="ambient/positioned/beach"
+    ocean_sound__path:t="ambient/positioned/ocean"
     ocean_sound__waterLevel:r=0.0
+    ocean_sound__shoreDistanceToVar:p4=0.0, 250.0, 1.0, 0.0
+    ocean_sound__idx:i=-1
+    ocean_sound__firstIdx:i=0
+    ocean_sound__numIntersections:i=0
+    ocean_sound__isSplineInited:b=no
+    ocean_sound__splinePt:p2=0.0, 0.0
+    ocean_sound__eventPos:p2=0.0, 0.0
+    ocean_sound__isInside:b=no
+    ocean_sound__shorePt:p2=0.0, 0.0
+    ocean_sound__closestShorePt:p2=0.0, 0.0
+    ocean_sound__isShoreInited:b=no
 
     "ocean_sound__event:SoundEvent"{
     }
   }
 
-  "ocean_sound__points:list<p4>"{
+  "ocean_sound__points:list<p3>"{
   }
 }
 
@@ -134,9 +159,14 @@ volume_ambient_sound{
 
   _group{
     _tags:t="sound"
+    volume_ambient_sound__transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
     volume_ambient_sound__extent_maxRadiusSq:p4=0.0, 0.0, 0.0, 0.0
+    volume_ambient_sound__closestDistSq:r=0.0
+    volume_ambient_sound__volume:r=0.0
     volume_ambient_sound__range:r=0.0
     volume_ambient_sound__autoRange:b=yes
+    volume_ambient_sound__fadeInOutSpeed:p2=1.0, 1.0
+    volume_ambient_sound__reverb_intensity_roomSize_absorption_weight:p4=0.0, 0.0, 0.0, 0.0
 
     "volume_ambient_sound__event:SoundEvent"{
     }
@@ -160,8 +190,11 @@ compound_ambient_sound{
     compound_ambient_sound__closestDistSq:r=0.0
     compound_ambient_sound__closestPt:p3=0.0, 0.0, 0.0
     compound_ambient_sound__dist:p2=0.0, 0.0
+    compound_ambient_sound__volume:r=0.0
     compound_ambient_sound__range:r=0.0
     compound_ambient_sound__autoRange:b=yes
+    compound_ambient_sound__fadeInOutSpeed:p2=1.0, 1.0
+    compound_ambient_sound__reverb_intensity_roomSize_absorption_weight:p4=0.0, 0.0, 0.0, 0.0
 
     "compound_ambient_sound__event:SoundEvent"{
     }
@@ -173,6 +206,59 @@ compound_ambient_sound{
   _group{
     _tags:t="sound"
     game_object_sound__path:t="ambient/positioned"
+  }
+}
+
+replicated_volume_ambient_sound{
+  _extends:t="volume_ambient_sound"
+  _extends:t="replicating"
+}
+
+replicated_compound_ambient_sound{
+  _extends:t="compound_ambient_sound"
+  _extends:t="replicating"
+}
+
+box_sound_shape{
+
+  _group{
+    _tags:t="sound"
+    sound_shape__type:t="box"
+
+    "boxSoundShape:tag"{
+    }
+  }
+}
+
+sphere_sound_shape{
+
+  _group{
+    _tags:t="sound"
+    sound_shape__type:t="sphere"
+
+    "sphereSoundShape:tag"{
+    }
+  }
+}
+
+capsule_sound_shape{
+
+  _group{
+    _tags:t="sound"
+    sound_shape__type:t="capsule"
+
+    "capsuleSoundShape:tag"{
+    }
+  }
+}
+
+sound_shape_debug{
+
+  _group{
+    _tags:t="sound"
+
+    "soundShapeDebug:tag"{
+    }
   }
 }
 
@@ -248,6 +334,7 @@ altitude_global_sound_var{
     altitude_global_sound_var__nextTime:r=0.0
     altitude_global_sound_var__name:t="altitude"
     altitude_global_sound_var__interval:r=1.5
+    altitude_global_sound_var__altitudeToVar:p2=1.0, 0.0
 
     "altitude_global_sound_var__id:SoundVarId"{
     }

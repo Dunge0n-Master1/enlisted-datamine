@@ -54,7 +54,7 @@ let function buildStructure() {
       fortificationPreviewCanBeRotated.value
         ? tipCmp({
           text = loc("tips/mirror_building", "Mirror structure")
-          inputId = "Human.Reload"
+          inputId = "Human.RotateBuilding"
           textColor = DEFAULT_TEXT_COLOR
         })
         : null
@@ -86,7 +86,7 @@ let function resupplyCannonStructure() {
   return res.__update({
     children = tipCmp({
       text = "{0} : {1}".subst(loc(buildingRepairText.value), loc(selectedBuildingName.value))
-      inputId = "Human.VehicleMaintenance"
+      inputId = "Human.RepairBuilding"
       textColor = DEFAULT_TEXT_COLOR
     })
   })

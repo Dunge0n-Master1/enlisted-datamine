@@ -48,11 +48,12 @@ trail_rocket_heavy_effect{
   }
 }
 
-trail_rocket_launch_smoke_effect{
+trail_projectile_launch_smoke_effect{
   _extends:t="trails_effect_base"
 
   _group{
     _tags:t="render"
     effect__name:t="trail_rocket_launch_smoke_cmps_fx"
+    gun_flash_fx__timeToDestroy:r=0.5
   }
 }

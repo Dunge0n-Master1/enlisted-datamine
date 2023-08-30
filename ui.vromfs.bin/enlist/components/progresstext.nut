@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h2_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let function progressText(text) {
   return {
     rendObj = ROBJ_TEXT
@@ -14,7 +14,7 @@ let function progressText(text) {
         duration=0.8, loop=true, play=true
       }
     ]
-  }.__update(h2_txt)
+  }.__update(fontHeading2)
 }
 
 

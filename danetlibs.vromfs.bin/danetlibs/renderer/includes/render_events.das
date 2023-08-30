@@ -2,6 +2,11 @@ module render_events shared
 require ecs
 require DagorDriver3D
 require DagorMath
+require fx
+
+[cpp_event(broadcast)]
+struct ResetLowResEffects
+  fxQualityConfig : FxQuality
 
 [cpp_event(broadcast)]
 struct SetResolutionEvent

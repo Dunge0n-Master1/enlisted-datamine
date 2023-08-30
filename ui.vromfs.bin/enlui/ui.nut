@@ -1,15 +1,11 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-#default:no-func-decl-sugar
-#default:no-class-decl-sugar
-#default:no-root-fallback
-#default:explicit-this
 #default:forbid-root-table
 
 require("%enlSqGlob/sqevents.nut")
 let {DBGLEVEL} = require("dagor.system")
-let {logerr} = require("dagor.debug")
+let {logerr, clear_logerr_interceptors} = require("dagor.debug")
 let {scan_folder} = require("dagor.fs")
 require("%sqstd/regScriptDebugger.nut")(debugTableData)
 let registerScriptProfiler = require("%sqstd/regScriptProfiler.nut")
@@ -17,6 +13,7 @@ require("%ui/sound_console.nut")
 
 set_nested_observable_debug(VAR_TRACE_ENABLED)
 
+clear_logerr_interceptors()
 ecs.clear_vm_entity_systems()
 
 let { safeAreaAmount } = require("%enlSqGlob/safeArea.nut")

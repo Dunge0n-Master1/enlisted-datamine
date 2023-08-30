@@ -1,9 +1,9 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { frameNick } = require("%enlSqGlob/ui/decoratorsPresentation.nut")
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 
-let statusIconSize = sub_txt.fontSize.tointeger()
+let statusIconSize = fontSub.fontSize.tointeger()
 
 let mkStatusImg = @(icon, color) {
   rendObj = ROBJ_IMAGE
@@ -15,7 +15,7 @@ let mkStatusImg = @(icon, color) {
 let memberName = @(name, frame = "") {
   rendObj = ROBJ_TEXT
   text = frameNick(name, frame)
-}.__update(sub_txt)
+}.__update(fontSub)
 
 return {
   memberName

@@ -3352,9 +3352,9 @@
                         "gametemplate" : "attachable_wear_head_male_43_ger_item",
                         "slot" : "face"
                      },
-                     "front_belt_r" : {
+                     "ammo_case" : {
                         "gametemplate" : "attachable_wear_case_02_ger_tropic_item",
-                        "slot" : "front_belt_r"
+                        "slot" : "ammo_case"
                      },
                      "gloves" : {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",

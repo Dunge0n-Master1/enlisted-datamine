@@ -136,16 +136,17 @@ bf_109g_14_30mm_underwing_premium{
   }
 
   "disableDMParts:list<t>"{
-    part:t="pylon_cannon_empty_l"
-    part:t="pylon_cannon_empty_r"
-    part:t="pylon_cannon_r6_l"
-    part:t="pylon_cannon_r6_r"
-    part:t="flare6"
-    part:t="flare7"
+    part:t="cannon2_dm"
+    part:t="cannon5_dm"
+    part:t="cannon6_dm"
+    part:t="cover7_dm"
+    part:t="cover8_dm"
     part:t="210mm_tube_l"
     part:t="210mm_tube_r"
-    part:t="210mm_1"
-    part:t="210mm_2"
+    part:t="pylon_cannon_r6_l"
+    part:t="pylon_cannon_r6_r"
+    part:t="pylon_bomb1"
+    part:t="pylon_bomb2"
   }
 }
 

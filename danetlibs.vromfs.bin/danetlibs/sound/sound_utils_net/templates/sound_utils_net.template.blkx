@@ -39,3 +39,17 @@ game_object_spline_sound_generator{
     }
   }
 }
+
+game_object_ocean_sound_generator{
+
+  _group{
+    _tags:t="server"
+    game_object_ocean_sound_generator__entityTemplate:t=""
+
+    "game_object_ocean_sound_generator__entityEid:eid"{
+    }
+
+    "game_object_ocean_sound_generator__gameObjects:list<t>"{
+    }
+  }
+}

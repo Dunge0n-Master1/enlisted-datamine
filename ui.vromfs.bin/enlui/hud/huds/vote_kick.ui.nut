@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { voteToKickAccusedName, voteToKickAccused, voteToKickYes, voteToKickNo, lastKickedPlayerInfo } = require("%ui/hud/state/vote_kick_state.nut")
 let { pushSystemMsg } = require("%ui/hud/state/chat.nut")
 let { mkHeaderFlag, casualFlagStyle }= require("%enlSqGlob/ui/mkHeaderFlag.nut")
@@ -34,7 +34,7 @@ let voteToKickHeader = @(){
         minWidth
         text = loc("voteKick/header")
         padding = voteToKickPadding
-      }.__update(body_txt),
+      }.__update(fontBody),
       casualFlagStyle.__update({ offset = 0 })
     )
   ]
@@ -57,14 +57,14 @@ let voteToKickButtonBody = {
       style = {
         rendObj = null
       }
-    }.__update(body_txt))
+    }.__update(fontBody))
     tipCmp({
       text = loc("hint/VoteKick.No")
       inputId = "VoteKick.No"
       style = {
         rendObj = null
       }
-    }.__update(body_txt))
+    }.__update(fontBody))
   ]
 }
 
@@ -76,12 +76,12 @@ let voteToKickCountBody = @(yesCount, noCount) {
     {
       rendObj = ROBJ_TEXT
       text = loc("voteKick/countYes", {count=yesCount} )
-    }.__update(sub_txt)
+    }.__update(fontSub)
 
     {
       rendObj = ROBJ_TEXT
       text = loc("voteKick/countNo", {count=noCount} )
-    }.__update(sub_txt)
+    }.__update(fontSub)
   ]
 }
 
@@ -98,11 +98,11 @@ let voteToKickBody = @(name) @(){
     {
       rendObj = ROBJ_TEXT
       text = loc("voteKick/desc")
-    }.__update(sub_txt)
+    }.__update(fontSub)
     {
       rendObj = ROBJ_TEXT
       text = loc("voteKick/accussedName", {name} )
-    }.__update(body_txt)
+    }.__update(fontBody)
     !canVoteToKick.value
         ? voteToKickCountBody(voteToKickYes.value.len(), voteToKickNo.value.len())
       : isGamepad.value ? null : voteToKickButtonBody

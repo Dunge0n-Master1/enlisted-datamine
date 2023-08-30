@@ -7,9 +7,15 @@ us_lvt_a_1_common{
   _extends:t="base_lvt_a_1"
   _extends:t="tank_light_vehicle_tracks_sound"
   _extends:t="floatable_vehicle"
-  item__iconScale:r=0.8
   commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
   gunner_cam_limit__useCockpitDir:b=yes
+  item__iconOffset:p2=0.0, 0.2
+  item__iconScale:r=1.3
+  armorThicknessHull:p3=12.7, 6.35, 6.35
+  armorThicknessTurret:p3=50.8, 12.7, 12.7
+
+  "vehicle_seats__effectors:array"{
+  }
 
   "vehicle_seats__seatsProvideOrder:tag"{
   }
@@ -90,7 +96,7 @@ us_lvt_a_1_common{
       locName:t="vehicle_seats/additional_gunner"
       attachNode:t="machine_gunner_02"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[-1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, -1.0] [0.05, 0.1, 0.0]]
+      attachTm:m=[[-0.965918, 0.258817, -1.7579e-06] [0.258824, 0.965945, 4.72917e-07] [1.82041e-06, 1.81159e-09, -0.999999] [0.02, -0.0, 0.0]]
       seatComponent:t="isGunner"
       shouldHideOwner:b=no
       receiveDamageFromDMPart:t="machine_gunner_02"
@@ -102,6 +108,11 @@ us_lvt_a_1_common{
       "turretNames:array"{
         turret:t="turret_02"
       }
+
+      "effectors:object"{
+        r.hand:t="righthand_4"
+        l.hand:t="lefthand_4"
+      }
     }
 
     "seats:object"{
@@ -109,7 +120,7 @@ us_lvt_a_1_common{
       locName:t="vehicle_seats/additional_gunner"
       attachNode:t="machine_gunner_01"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[-1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, -1.0] [0.05, 0.1, 0.0]]
+      attachTm:m=[[-0.965918, 0.258817, -1.7579e-06] [0.258824, 0.965945, 4.72917e-07] [1.82041e-06, 1.81159e-09, -0.999999] [0.02, -0.0, 0.0]]
       seatComponent:t="isGunner"
       nextSeat:t="commander"
       shouldHideOwner:b=no
@@ -121,6 +132,11 @@ us_lvt_a_1_common{
 
       "turretNames:array"{
         turret:t="turret_03"
+      }
+
+      "effectors:object"{
+        r.hand:t="righthand_3"
+        l.hand:t="lefthand_3"
       }
     }
   }
@@ -255,6 +271,7 @@ us_lvt_a_1_gunner_cockpit{
 
   "cockpit__slitTemplates:list<t>"{
     slit:t="us_m56"
+    slit:t="default_periscope"
   }
 
   "cockpit__slitEids:list<eid>"{
@@ -394,6 +411,13 @@ us_lvt_a_1_commander_cockpit{
 
   "cockpit__slitZoomTime:list<r>"{
     slit:r=0.0
+  }
+
+  "cockpit__slitTemplates:list<t>"{
+    slit:t="default_periscope"
+  }
+
+  "cockpit__slitEids:list<eid>"{
   }
 }
 

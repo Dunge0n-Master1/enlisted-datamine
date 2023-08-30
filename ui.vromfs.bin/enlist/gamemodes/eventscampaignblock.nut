@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt, body_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub, fontBody} = require("%enlSqGlob/ui/fontsStyle.nut")
 let { eventCampaigns, hasChoosedCampaign } = require("eventModesState.nut")
 let {
   defTxtColor, blurBgFillColor, smallPadding, titleTxtColor, blurBgColor, maxContentWidth,
@@ -63,7 +63,7 @@ let mkSelectedFrame = @(size) {
   ]
 }
 
-let mkText = @(text, color = titleTxtColor, style = body_txt) {
+let mkText = @(text, color = titleTxtColor, style = fontBody) {
   rendObj = ROBJ_TEXT
   text
   color
@@ -107,7 +107,7 @@ let campaignBtn = @(campaign) watchElemState(function(sf) {
     padding = paddingInternal
     fillColor = Color(50,50,50)
     borderColor = sf & S_HOVER ? hoverColor : Color(80,80,80,80)
-    borderWidth = (sf & S_HOVER) != 0 || isSelected ? hdpx(2) : 0
+    borderWidth = (sf & S_HOVER) || isSelected ? hdpx(2) : 0
     behavior = Behaviors.Button
     function onClick() {
       setCurCampaign(campaign)
@@ -143,7 +143,7 @@ let header = {
     rendObj = ROBJ_TEXT
     color = defTxtColor
     text = loc("campaign/selectNew")
-  }.__update(body_txt)
+  }.__update(fontBody)
 }
 
 let campaignSelect = @() {
@@ -208,14 +208,14 @@ let eventsCampaignBlock = watchElemState(@(sf){
   flow = FLOW_VERTICAL
   behavior = Behaviors.Button
   gap = smallPadding
-  color = ((sf & S_HOVER) != 0 && campaignsCount.value > 1) || !hasChoosedCampaign.value
+  color = ((sf & S_HOVER) && campaignsCount.value > 1) || !hasChoosedCampaign.value
     ? Color(35, 35, 35, 25)
     : blurBgFillColor
   valign = ALIGN_CENTER
   onClick = @() hasChoosedCampaign.value ? null : isOpened(true)
   padding = [0, localGap]
   children = [
-    campaignsCount.value < 2 || hasChoosedCampaign.value ? null : mkText(loc("army/selectNew"), defTxtColor, sub_txt)
+    campaignsCount.value < 2 || hasChoosedCampaign.value ? null : mkText(loc("army/selectNew"), defTxtColor, fontSub)
       @(){
         watch = curCampaignLocId
         size = [flex(), SIZE_TO_CONTENT]
@@ -226,7 +226,7 @@ let eventsCampaignBlock = watchElemState(@(sf){
           size = [flex(), SIZE_TO_CONTENT]
           text = loc(curCampaignLocId.value)
           animations = mkBlinkAnim("campaign_blink")
-        }.__update(body_txt)
+        }.__update(fontBody)
       }
   ]
 })

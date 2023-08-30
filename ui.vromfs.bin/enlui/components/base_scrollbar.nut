@@ -18,9 +18,9 @@ let defStyling = {
   }
   Knob = {
     rendObj = ROBJ_SOLID
-    colorCalc = @(sf) (sf & S_ACTIVE) ? Color(255,255,255)
-                    : (sf & S_HOVER)  ? Color(110, 120, 140, 80)
-                                      : Color(110, 120, 140, 160)
+    colorCalc = @(sf) sf & S_ACTIVE ? Color(255,255,255)
+      : sf & S_HOVER ? Color(110, 120, 140, 80)
+      : Color(110, 120, 140, 160)
   }
 
   ContentRoot = {

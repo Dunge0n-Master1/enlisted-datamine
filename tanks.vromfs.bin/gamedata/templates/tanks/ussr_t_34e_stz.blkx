@@ -8,6 +8,10 @@ ussr_t_34e_stz_common{
   _extends:t="tank_t34_vehicle_tracks_sound"
   commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
   gunner_cam_limit__useCockpitDir:b=yes
+  item__iconOffset:p2=0.08, 0.05
+  item__iconScale:r=1.13
+  armorThicknessHull:p3=60.0, 45.0, 40.0
+  armorThicknessTurret:p3=45.0, 45.0, 45.0
 
   "turrets__initAmmoDistribution:array"{
 
@@ -214,6 +218,7 @@ ussr_t_34e_stz_gunner_cockpit{
 
   "cockpit__slitTemplates:list<t>"{
     slit:t="ussr_tmfd_7"
+    slit:t="ussr_pt_1"
   }
 
   "cockpit__slitEids:list<eid>"{
@@ -274,6 +279,13 @@ ussr_t_34e_stz_commander_cockpit{
   "cockpit__slitZoomTime:list<r>"{
     slit:r=0.05
     slit:r=0.0
+  }
+
+  "cockpit__slitTemplates:list<t>"{
+    slit:t="default_periscope"
+  }
+
+  "cockpit__slitEids:list<eid>"{
   }
 }
 

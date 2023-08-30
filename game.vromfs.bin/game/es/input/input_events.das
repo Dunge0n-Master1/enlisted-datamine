@@ -29,3 +29,6 @@ struct EventCheckHumanInputIsSingular {}
 [event(broadcast)]
 struct CmdResetDigitalActionStickyToggle
   action : uint16
+
+[event(unicast)]
+struct EventInputPriorityActionsAvailabilityChanged {}

@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let shopItemClick = require("%enlist/shop/shopItemClick.nut")
 let isChineseVersion = require("%enlSqGlob/isChineseVersion.nut")
-let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
 let { doesLocTextExist } = require("dagor.localize")
 let { eventsData, eventsKeysSorted, allActiveOffers } = require("offersState.nut")
@@ -11,9 +11,9 @@ let { taskSlotPadding } = require("%enlSqGlob/ui/tasksPkg.nut")
 let offersWindow = require("offersWindow.nut")
 let mkCountdownTimer = require("%enlSqGlob/ui/mkCountdownTimer.nut")
 let offersPromoWndOpen = require("offersPromoWindow.nut")
-let { defTxtColor, colPart, startBtnWidth, accentColor, bigPadding, miniPadding, midPadding,
-  mkTimerIcon, darkTxtColor, smallPadding, defItemBlur, transpPanelBgColor, transpBgColor,
-  highlightLineTop, highlightLineHgt, hoverSlotBgColor, brightAccentColor
+let { defTxtColor, startBtnWidth, accentColor, bigPadding, miniPadding, midPadding, darkTxtColor,
+  smallPadding, defItemBlur, transpPanelBgColor, transpBgColor, highlightLineTop, highlightLineHgt,
+  hoverSlotBgColor, mkTimerIcon, brightAccentColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let { hasBaseEvent, openEventModes, promotedEvent, eventStartTime, timeUntilStart
 } = require("%enlist/gameModes/eventModesState.nut")
@@ -38,16 +38,16 @@ let {
 const MAX_WIDGETS = 4
 const DUR = 0.15
 
-let defSmallTxtStyle = { color = defTxtColor }.__update(sub_txt)
-let smallDiscountTxtStyle = { color = darkTxtColor }.__update(sub_txt)
+let defSmallTxtStyle = { color = defTxtColor }.__update(fontSub)
+let smallDiscountTxtStyle = { color = darkTxtColor }.__update(fontSub)
 let headerTxtStyle = @(sf) { color = sf & S_HOVER ?  darkTxtColor : defTxtColor }
-  .__update(body_txt)
-let smallWidgetHeight = colPart(1.27) + highlightLineHgt
-let largeWidgetHeight = colPart(4)
+  .__update(fontBody)
+let smallWidgetHeight = hdpx(72) + highlightLineHgt
+let largeWidgetHeight = hdpx(248)
 let widgetHeightDif = largeWidgetHeight - smallWidgetHeight
-let largeWidgetInfoHeight = colPart(1.35)
+let largeWidgetInfoHeight = hdpxi(76)
 let largeWidgetImgheight = largeWidgetHeight - largeWidgetInfoHeight
-let smallImgWidth = colPart(2.3)
+let smallImgWidth = hdpxi(148)
 
 let curLargeWidgetIdx = Watched(0)
 local oldLargeWidgetIdx = 0
@@ -108,7 +108,7 @@ let mkOfferImage = @(image, imgVertAlign) freeze({
 })
 
 let mkSmallImage = @(image, imgVertAlign) {
-  size = [smallImgWidth, smallWidgetHeight-highlightLineHgt]
+  size = [smallImgWidth, smallWidgetHeight - highlightLineHgt]
   rendObj = ROBJ_IMAGE
   image = Picture(image)
   keepAspect = KEEP_ASPECT_FILL
@@ -117,14 +117,14 @@ let mkSmallImage = @(image, imgVertAlign) {
 }
 
 let discountIconStyle = {
-  size = [colPart(1.23), colPart(0.62)]
+  size = [hdpx(76), hdpx(38)]
   hplace = ALIGN_LEFT
   vplace = ALIGN_CENTER
 }
 
 
 let smallDiscountIconStyle = {
-  size = [colPart(0.8), colPart(0.4)]
+  size = [hdpx(50), hdpx(24)]
   vplace = ALIGN_BOTTOM
   hplace = ALIGN_LEFT
   pos = [-smallImgWidth, 0]
@@ -259,7 +259,7 @@ let widgetData = freeze({
   [WidgetType.FREEMIUM] = {
     ctor = @(campaignId, isSmall = false, hasAnim = true) function(sf) {
       let anim = hasAnim ? contentAnim : {}
-      let infoContent = (sf & S_HOVER) != 0 || !isSmall
+      let infoContent = (sf & S_HOVER) || !isSmall
         ? mkInfo(loc("freemium/title/full", { name = utf8ToUpper(loc(campaignId)) }), sf, anim)
         : mkSmallInfo(loc("freemium/title/full", { name = utf8ToUpper(loc(campaignId)) }), anim)
       return {
@@ -313,11 +313,11 @@ let widgetData = freeze({
   [WidgetType.EVENT_BASE] = {
     ctor = @(eventData, isSmall = false, hasAnim = true) function(sf) {
       let anim = hasAnim ? contentAnim : {}
-      let isBig = (sf & S_HOVER) != 0 || !isSmall
+      let isBig = !!(sf & S_HOVER) || !isSmall
       let infoContent = isBig
         ? mkInfo(eventData.text, sf, anim)
         : mkSmallInfo(eventData.text, anim)
-      let timerCtor = (sf & S_HOVER) != 0 || !isSmall ? timeBeforeEvent : smallTimer
+      let timerCtor = isBig ? timeBeforeEvent : smallTimer
       return @() {
         size = flex()
         watch = eventStartTime
@@ -337,7 +337,7 @@ let widgetData = freeze({
   [WidgetType.EVENT_SPECIAL] = {
     ctor = @(v, isSmall = false, hasAnim = true) function(sf) {
       let anim = hasAnim ? contentAnim : {}
-      let infoContent = (sf & S_HOVER) != 0 || !isSmall
+      let infoContent = (sf & S_HOVER) || !isSmall
         ? mkInfo(utf8ToUpper(v.titleshort), sf, anim)
         : mkSmallInfo(utf8ToUpper(v.titleshort), anim)
       return infoContent
@@ -356,7 +356,6 @@ let widgetData = freeze({
     onClick = @(v) openUrl(v.url)
   }
 })
-
 
 let featuredSwitchTime = Watched(0)
 
@@ -403,7 +402,6 @@ let function isFeaturedVisible(id, sItem, itemCount, itemsByTime, featuredByTime
     || isTemporaryVisible(id, sItem, itemCount, itemsByTime)
     || isTemporaryVisible(id, sItem, itemCount, featuredByTime)
 }
-
 
 let function mkWidgetList() {
   let { shownByTimestamp } = mkShopState()
@@ -567,7 +565,7 @@ let function mkSmallWidget(content, idx, oldIdx, curIdx) {
   let { ctor = null, onClick = null } = offerData
   let imgVertAlign = widgetType != WidgetType.FEATURED ? ALIGN_CENTER : ALIGN_TOP
   let smallImg = freeze({
-    size = [colPart(2.38), flex()]
+    size = [smallImgWidth, flex()]
     clipChildren = true
     valign = ALIGN_BOTTOM
     children = mkSmallImage(backImage, imgVertAlign).__update(contImgAnim)

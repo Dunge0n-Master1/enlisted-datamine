@@ -4,7 +4,7 @@ base_pzkpfw_vi_ausf_b_tiger_iih{
   killLogName:t="germ_pzkpfw_vi_ausf_b_tiger_iih"
   animchar__res:t="pzkpfw_VI_ausf_B_tiger_h_char"
   collres__res:t="pzkpfw_VI_ausf_B_tiger_h_collision"
-  vehicle_net_phys__blk:t="gamedata/gen/units/tanks/pzkpfw_vi_ausf_b_tiger_iih.blk:VehiclePhys"
+  vehicle_net_phys__blk:t="gamedata/gen/units/tanks/pzkpfw_VI_ausf_B_tiger_IIh.blk:VehiclePhys"
   particle_phys__blk:t="gamedata/suspension/empty.blk"
   dmg_animchar__res:t="pzkpfw_VI_ausf_B_tiger_h_dmg_char"
   xray_resource__modelName:t="pzkpfw_VI_ausf_B_tiger_h"
@@ -13,7 +13,7 @@ base_pzkpfw_vi_ausf_b_tiger_iih{
   cockpit__sightName:t="sight_model/tzf_9c"
   cockpit__sightFov:r=14.0
   drowningHeight:r=2.4
-  damage_model__blk:t="gamedata/gen/units/tanks/pzkpfw_vi_ausf_b_tiger_iih.blk"
+  damage_model__blk:t="gamedata/gen/units/tanks/pzkpfw_VI_ausf_B_tiger_IIh.blk"
   item__name:t="items/germ_pzkpfw_vi_ausf_b_tiger_iih"
   turret_control__grenadeLauncherSalvoSize:i=1
   skin__template:t="pzkpfw_vi_ausf_b_tiger_iih_skins"

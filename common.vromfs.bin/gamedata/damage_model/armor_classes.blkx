@@ -15,6 +15,7 @@ wood{
   ricochetCosinePower:r=1.0
   ricochetDamage:r=0.3
   physMaterial:t="wood"
+  oneSided:b=yes
 }
 
 dural{
@@ -24,6 +25,7 @@ dural{
   ricochetAngle:r=89.0
   ricochetCosinePower:r=1.0
   ricochetDamage:r=0.3
+  oneSided:b=yes
 }
 
 steel{
@@ -33,6 +35,7 @@ steel{
   ricochetAngle:r=60.0
   ricochetCosinePower:r=2.0
   ricochetDamage:r=0.3
+  oneSided:b=yes
 }
 
 glass{
@@ -43,6 +46,7 @@ glass{
   ricochetCosinePower:r=1.0
   ricochetDamage:r=0.3
   physMaterial:t="glass"
+  oneSided:b=yes
 }
 
 armor_engine{
@@ -533,6 +537,7 @@ wood2{
   ricochetCosinePower:r=1.0
   ricochetDamage:r=0.3
   physMaterial:t="wood"
+  oneSided:b=yes
 }
 
 wood3{
@@ -543,6 +548,7 @@ wood3{
   ricochetCosinePower:r=1.0
   ricochetDamage:r=0.3
   physMaterial:t="wood"
+  oneSided:b=yes
 }
 
 wood5{
@@ -553,6 +559,7 @@ wood5{
   ricochetCosinePower:r=1.0
   ricochetDamage:r=0.3
   physMaterial:t="wood"
+  oneSided:b=yes
 }
 
 wood7{
@@ -563,6 +570,7 @@ wood7{
   ricochetCosinePower:r=1.0
   ricochetDamage:r=0.3
   physMaterial:t="wood"
+  oneSided:b=yes
 }
 
 wood8_5{
@@ -573,6 +581,7 @@ wood8_5{
   ricochetCosinePower:r=1.0
   ricochetDamage:r=0.3
   physMaterial:t="wood"
+  oneSided:b=yes
 }
 
 wood10{
@@ -583,6 +592,7 @@ wood10{
   ricochetCosinePower:r=1.0
   ricochetDamage:r=0.3
   physMaterial:t="wood"
+  oneSided:b=yes
 }
 
 wood15{
@@ -593,6 +603,7 @@ wood15{
   ricochetCosinePower:r=1.0
   ricochetDamage:r=0.3
   physMaterial:t="wood"
+  oneSided:b=yes
 }
 
 wood20{
@@ -603,6 +614,7 @@ wood20{
   ricochetCosinePower:r=1.0
   ricochetDamage:r=0.3
   physMaterial:t="wood"
+  oneSided:b=yes
 }
 
 wood30{
@@ -613,6 +625,7 @@ wood30{
   ricochetCosinePower:r=1.0
   ricochetDamage:r=0.3
   physMaterial:t="wood"
+  oneSided:b=yes
 }
 
 wood40{
@@ -625,6 +638,7 @@ wood40{
   genericArmorQuality:r=0.5
   shatterArmorQuality:r=0.5
   physMaterial:t="wood"
+  oneSided:b=yes
 }
 
 wood45{
@@ -637,6 +651,7 @@ wood45{
   genericArmorQuality:r=0.5
   shatterArmorQuality:r=0.5
   physMaterial:t="wood"
+  oneSided:b=yes
 }
 
 wood50{
@@ -649,6 +664,7 @@ wood50{
   genericArmorQuality:r=0.5
   shatterArmorQuality:r=0.5
   physMaterial:t="wood"
+  oneSided:b=yes
 }
 
 wood55{
@@ -661,6 +677,7 @@ wood55{
   genericArmorQuality:r=0.5
   shatterArmorQuality:r=0.5
   physMaterial:t="wood"
+  oneSided:b=yes
 }
 
 wood60{
@@ -673,6 +690,7 @@ wood60{
   genericArmorQuality:r=0.5
   shatterArmorQuality:r=0.5
   physMaterial:t="wood"
+  oneSided:b=yes
 }
 
 wood66{
@@ -685,6 +703,7 @@ wood66{
   genericArmorQuality:r=0.5
   shatterArmorQuality:r=0.5
   physMaterial:t="wood"
+  oneSided:b=yes
 }
 
 wood70{
@@ -697,6 +716,7 @@ wood70{
   genericArmorQuality:r=0.5
   shatterArmorQuality:r=0.5
   physMaterial:t="wood"
+  oneSided:b=yes
 }
 
 wood75{
@@ -709,6 +729,7 @@ wood75{
   genericArmorQuality:r=0.5
   shatterArmorQuality:r=0.5
   physMaterial:t="wood"
+  oneSided:b=yes
 }
 
 wood80{
@@ -721,6 +742,7 @@ wood80{
   genericArmorQuality:r=0.5
   shatterArmorQuality:r=0.5
   physMaterial:t="wood"
+  oneSided:b=yes
 }
 
 wood99{
@@ -733,6 +755,7 @@ wood99{
   genericArmorQuality:r=0.5
   shatterArmorQuality:r=0.5
   physMaterial:t="wood"
+  oneSided:b=yes
 }
 
 wood100{
@@ -745,6 +768,7 @@ wood100{
   genericArmorQuality:r=0.5
   shatterArmorQuality:r=0.5
   physMaterial:t="wood"
+  oneSided:b=yes
 }
 
 wood120{
@@ -757,6 +781,7 @@ wood120{
   genericArmorQuality:r=0.5
   shatterArmorQuality:r=0.5
   physMaterial:t="wood"
+  oneSided:b=yes
 }
 
 wood140{
@@ -769,6 +794,7 @@ wood140{
   genericArmorQuality:r=0.5
   shatterArmorQuality:r=0.5
   physMaterial:t="wood"
+  oneSided:b=yes
 }
 
 wood160{
@@ -781,6 +807,7 @@ wood160{
   genericArmorQuality:r=0.5
   shatterArmorQuality:r=0.5
   physMaterial:t="wood"
+  oneSided:b=yes
 }
 
 wood180{
@@ -793,6 +820,7 @@ wood180{
   genericArmorQuality:r=0.5
   shatterArmorQuality:r=0.5
   physMaterial:t="wood"
+  oneSided:b=yes
 }
 
 wood200{
@@ -805,6 +833,7 @@ wood200{
   genericArmorQuality:r=0.5
   sshatterArmorQuality:r=0.5
   physMaterial:t="wood"
+  oneSided:b=yes
 }
 
 dural2{
@@ -815,6 +844,7 @@ dural2{
   ricochetCosinePower:r=1.0
   ricochetDamage:r=0.3
   shatterArmorQuality:r=0.5
+  oneSided:b=yes
 }
 
 dural3{
@@ -825,6 +855,7 @@ dural3{
   ricochetCosinePower:r=1.0
   ricochetDamage:r=0.3
   shatterArmorQuality:r=0.5
+  oneSided:b=yes
 }
 
 dural5{
@@ -835,6 +866,7 @@ dural5{
   ricochetCosinePower:r=1.0
   ricochetDamage:r=0.3
   shatterArmorQuality:r=0.5
+  oneSided:b=yes
 }
 
 dural6_35{
@@ -846,6 +878,7 @@ dural6_35{
   ricochetDamage:r=0.3
   genericArmorQuality:r=0.5
   shatterArmorQuality:r=0.5
+  oneSided:b=yes
 }
 
 dural7{
@@ -856,6 +889,7 @@ dural7{
   ricochetCosinePower:r=1.0
   ricochetDamage:r=0.3
   shatterArmorQuality:r=0.5
+  oneSided:b=yes
 }
 
 dural8_5{
@@ -866,6 +900,7 @@ dural8_5{
   ricochetCosinePower:r=1.0
   ricochetDamage:r=0.3
   shatterArmorQuality:r=0.5
+  oneSided:b=yes
 }
 
 dural9_5{
@@ -876,6 +911,7 @@ dural9_5{
   ricochetCosinePower:r=1.0
   ricochetDamage:r=0.3
   shatterArmorQuality:r=0.5
+  oneSided:b=yes
 }
 
 dural10{
@@ -887,6 +923,7 @@ dural10{
   ricochetDamage:r=0.3
   genericArmorQuality:r=0.5
   shatterArmorQuality:r=0.5
+  oneSided:b=yes
 }
 
 dural15{
@@ -898,6 +935,7 @@ dural15{
   ricochetDamage:r=0.3
   genericArmorQuality:r=0.5
   shatterArmorQuality:r=0.5
+  oneSided:b=yes
 }
 
 dural15_8{
@@ -909,6 +947,7 @@ dural15_8{
   ricochetDamage:r=0.3
   genericArmorQuality:r=0.5
   shatterArmorQuality:r=0.5
+  oneSided:b=yes
 }
 
 dural20{
@@ -920,6 +959,7 @@ dural20{
   ricochetDamage:r=0.3
   genericArmorQuality:r=0.5
   shatterArmorQuality:r=0.5
+  oneSided:b=yes
 }
 
 dural30{
@@ -931,6 +971,7 @@ dural30{
   ricochetDamage:r=0.3
   genericArmorQuality:r=0.5
   shatterArmorQuality:r=0.5
+  oneSided:b=yes
 }
 
 dural40{
@@ -942,6 +983,7 @@ dural40{
   ricochetDamage:r=0.3
   genericArmorQuality:r=0.5
   shatterArmorQuality:r=0.5
+  oneSided:b=yes
 }
 
 dural50{
@@ -953,6 +995,7 @@ dural50{
   ricochetDamage:r=0.3
   genericArmorQuality:r=0.5
   shatterArmorQuality:r=0.5
+  oneSided:b=yes
 }
 
 dural60{
@@ -964,6 +1007,7 @@ dural60{
   ricochetDamage:r=0.3
   genericArmorQuality:r=0.5
   shatterArmorQuality:r=0.5
+  oneSided:b=yes
 }
 
 dural70{
@@ -975,6 +1019,7 @@ dural70{
   ricochetDamage:r=0.3
   genericArmorQuality:r=0.5
   shatterArmorQuality:r=0.5
+  oneSided:b=yes
 }
 
 dural80{
@@ -986,6 +1031,7 @@ dural80{
   ricochetDamage:r=0.3
   genericArmorQuality:r=0.5
   shatterArmorQuality:r=0.5
+  oneSided:b=yes
 }
 
 dural90{
@@ -997,6 +1043,7 @@ dural90{
   ricochetDamage:r=0.3
   genericArmorQuality:r=0.5
   shatterArmorQuality:r=0.5
+  oneSided:b=yes
 }
 
 dural100{
@@ -1008,6 +1055,7 @@ dural100{
   ricochetDamage:r=0.3
   genericArmorQuality:r=0.5
   shatterArmorQuality:r=0.5
+  oneSided:b=yes
 }
 
 armor2{
@@ -1557,6 +1605,7 @@ alum_alloy6_35{
   ricochetAngle:r=60.0
   ricochetCosinePower:r=2.0
   ricochetDamage:r=0.3
+  oneSided:b=yes
 }
 
 alum_alloy10{
@@ -1566,6 +1615,7 @@ alum_alloy10{
   ricochetAngle:r=60.0
   ricochetCosinePower:r=2.0
   ricochetDamage:r=0.3
+  oneSided:b=yes
 }
 
 alum_alloy16{
@@ -1575,6 +1625,7 @@ alum_alloy16{
   ricochetAngle:r=60.0
   ricochetCosinePower:r=2.0
   ricochetDamage:r=0.3
+  oneSided:b=yes
 }
 
 alum_alloy18{
@@ -1584,6 +1635,7 @@ alum_alloy18{
   ricochetAngle:r=60.0
   ricochetCosinePower:r=2.0
   ricochetDamage:r=0.3
+  oneSided:b=yes
 }
 
 alum_alloy20{
@@ -1593,6 +1645,7 @@ alum_alloy20{
   ricochetAngle:r=60.0
   ricochetCosinePower:r=2.0
   ricochetDamage:r=0.3
+  oneSided:b=yes
 }
 
 alum_alloy36{
@@ -1602,6 +1655,7 @@ alum_alloy36{
   ricochetAngle:r=60.0
   ricochetCosinePower:r=2.0
   ricochetDamage:r=0.3
+  oneSided:b=yes
 }
 
 composite16{
@@ -1611,6 +1665,7 @@ composite16{
   ricochetAngle:r=60.0
   ricochetCosinePower:r=2.0
   ricochetDamage:r=0.3
+  oneSided:b=yes
 }
 
 composite26{
@@ -1620,6 +1675,7 @@ composite26{
   ricochetAngle:r=60.0
   ricochetCosinePower:r=2.0
   ricochetDamage:r=0.3
+  oneSided:b=yes
 }
 
 ceramic16{
@@ -1629,6 +1685,7 @@ ceramic16{
   ricochetAngle:r=60.0
   ricochetCosinePower:r=2.0
   ricochetDamage:r=0.3
+  oneSided:b=yes
 }
 
 titan10{
@@ -1638,6 +1695,7 @@ titan10{
   ricochetAngle:r=60.0
   ricochetCosinePower:r=2.0
   ricochetDamage:r=0.3
+  oneSided:b=yes
 }
 
 titan17{
@@ -1647,6 +1705,7 @@ titan17{
   ricochetAngle:r=60.0
   ricochetCosinePower:r=2.0
   ricochetDamage:r=0.3
+  oneSided:b=yes
 }
 
 titan24{
@@ -1656,6 +1715,7 @@ titan24{
   ricochetAngle:r=60.0
   ricochetCosinePower:r=2.0
   ricochetDamage:r=0.3
+  oneSided:b=yes
 }
 
 titan38{
@@ -1665,6 +1725,7 @@ titan38{
   ricochetAngle:r=60.0
   ricochetCosinePower:r=2.0
   ricochetDamage:r=0.3
+  oneSided:b=yes
 }
 
 armor_fireplate{
@@ -1674,6 +1735,7 @@ armor_fireplate{
   ricochetAngle:r=60.0
   ricochetCosinePower:r=2.0
   ricochetDamage:r=0.3
+  oneSided:b=yes
 }
 
 polyurethane_filing{

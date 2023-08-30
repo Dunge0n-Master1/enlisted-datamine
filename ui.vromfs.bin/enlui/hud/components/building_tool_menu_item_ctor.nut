@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { radius } = require("%ui/hud/state/building_tool_menu_state.nut")
 let {
   availableBuildings, buildingLimits , requirePrice, availableStock, buildingAllowRecreates
@@ -31,7 +31,7 @@ return @(buildingIndex, image, imageSize) @(curIdx, idx) watchElemState(function
               : isCurrent ? curTextColor
               : defTextColor
     text = "{count}/{limit}".subst({count=count limit=limit})
-  }.__update(body_txt)
+  }.__update(fontBody)
 
   return {
     watch = [availableBuildings]

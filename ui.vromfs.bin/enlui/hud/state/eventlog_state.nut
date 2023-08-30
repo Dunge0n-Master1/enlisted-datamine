@@ -1,6 +1,5 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-#explicit-this
 
 let {sound_play} = require("%dngscripts/sound_system.nut")
 let getByPath = require("%sqstd/table.nut").getValInTblPath

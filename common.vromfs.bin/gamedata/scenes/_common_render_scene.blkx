@@ -17,3 +17,27 @@ entity{
 entity{
   _template:t="ssss"
 }
+
+entity{
+  _template:t="muzzle_flash_manager"
+}
+
+entity{
+  _template:t="caustics"
+}
+
+entity{
+  _template:t="underwater_postfx"
+}
+
+entity{
+  _template:t="flash_blind_renderer"
+}
+
+entity{
+  _template:t="camera_underwater_template"
+}
+
+entity{
+  _template:t="screen_droplets"
+}

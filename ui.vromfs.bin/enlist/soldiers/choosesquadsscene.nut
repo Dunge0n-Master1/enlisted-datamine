@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let textButton = require("%ui/components/textButton.nut")
 let { soundActive } = textButton
 let { bigPadding, defBgColor, blurBgColor, blurBgFillColor,
@@ -180,7 +180,7 @@ let squadsCountHint = @() {
   flow = FLOW_VERTICAL
   children = [
     noteTextArea(loc("squads/maximumInBattleHint"))
-      .__update({color = activeTxtColor, maxWidth = hdpx(440)}, sub_txt)
+      .__update({color = activeTxtColor, maxWidth = hdpx(440)}, fontSub)
     noteTextArea(loc("squads/maxSquadsToTakeHint",
       { maxSquads =  colorize(activeTxtColor, squadsArmyLimits.value.maxSquadsInBattle),
         infantry  =  colorize(activeTxtColor, squadsArmyLimits.value.maxInfantrySquads),
@@ -196,7 +196,7 @@ let squadsManagementHint = {
   margin = [hdpx(20), 0]
   color = activeTxtColor
   text = loc("squads/movingSquadsHint")
-}.__update(sub_txt)
+}.__update(fontSub)
 
 let faBtnParams = {
   borderWidth = 0
@@ -314,7 +314,7 @@ let squadNumber = @(idx, style = {}){
     rendObj = ROBJ_TEXT
     text = idx + 1
     color = defTxtColor
-  }.__update(sub_txt)
+  }.__update(fontSub)
 }.__merge(style)
 
 let premBlockBg = {
@@ -679,8 +679,8 @@ let labelText = @(sf, needHighlight) {
   text = loc("squad/dropToReserve")
   hplace = ALIGN_CENTER
   vplace = ALIGN_CENTER
-  color = (sf & S_ACTIVE) != 0 && needHighlight? selectedTxtColor : defTxtColor
-}.__update(sub_txt)
+  color = (sf & S_ACTIVE) && needHighlight? selectedTxtColor : defTxtColor
+}.__update(fontSub)
 
 
 let onDropCbForReserveContainer = function(data) {
@@ -704,7 +704,7 @@ let function dropToReserveContainer() {
       watch = [curDropData, chosenSquads]
       key = "dropToReserveSquad" //used in tutorial
       rendObj = ROBJ_BOX
-      fillColor = (sf & S_ACTIVE) != 0 && highligtToDrop ? airSelectedBgColor : defBgColor
+      fillColor = (sf & S_ACTIVE) && highligtToDrop ? airSelectedBgColor : defBgColor
       size = squadSlotHorSize
       borderWidth = highligtToDrop ? hdpx(1) : 0
       transform = {}
@@ -752,13 +752,15 @@ let function rightPanel() {
 
   let lockedChildren = curArmyLockedSquadsData.value
     .map(function(val) {
-      let  unlocObj = val.isPremium
-        ? getCurrencyIconById(val.shopItem?.shopItemPrice.currencyId ?? "EnlistedGold")
-        : txt({
+      let { price = 0, currencyId = null } = val.shopItem?.curShopItemPrice
+      let hasGoldPrice = currencyId != null && price > 0
+      let unlockObj = !val.isPremium
+        ? txt({
             text = loc("campaignLevel", { lvl = val.shopItem?.level })
             margin = bigPadding
           })
-
+        : hasGoldPrice ? getCurrencyIconById(currencyId)
+        : null
       return mkHorizontalSlot(val.squad.__merge({
         guid = ""
         isLocked = true
@@ -766,7 +768,7 @@ let function rightPanel() {
         onClick = val.isPremium
           ? @() onPremiumCb(val)
           : @() showLockedSquadMsgbox(val.squad)
-        unlocObj
+        unlockObj
       }), KWARG_NON_STRICT)
     })
   if (lockedChildren.len() > 0) {
@@ -785,7 +787,7 @@ let function rightPanel() {
       {
         size = [SIZE_TO_CONTENT, flex()]
         xmbNode = XmbContainer({
-          canFocus = @() false
+          canFocus = false
           scrollSpeed = 5.0
           isViewport = true
         })

@@ -1,6 +1,5 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-#explicit-this
 
 let {TEAM_UNASSIGNED} = require("team")
 let {TEAM0_COLOR_FG, TEAM1_COLOR_FG, TEAM0_COLOR_FG_TR, TEAM1_COLOR_FG_TR} = require("%ui/hud/style.nut")

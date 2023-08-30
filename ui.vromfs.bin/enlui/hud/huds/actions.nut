@@ -15,7 +15,7 @@ let isMachinegunner = require("%ui/hud/state/machinegunner_state.nut")
 let {localPlayerEid, localPlayerTeam} = require("%ui/hud/state/local_player.nut")
 let {round_by_value} = require("%sqstd/math.nut")
 let {sound_play} = require("%dngscripts/sound_system.nut")
-let {is_fast_pickup_item} = require("humaninv")
+let { is_fast_pickup_item } = require("das.inventory")
 let {CmdSetMarkMain} = require("dasevents")
 let {
   ACTION_USE, ACTION_REQUEST_AMMO, ACTION_RECOVER, ACTION_PICK_UP, ACTION_SWITCH_WEAPONS,

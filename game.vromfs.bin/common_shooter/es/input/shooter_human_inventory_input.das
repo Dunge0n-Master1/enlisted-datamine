@@ -8,6 +8,7 @@ require ForceFeedbackRumble
 require game.es.input.input_common
 require DngHuman
 require HumanPhys
+require game.es.inventory_common
 require common_shooter.events_common_shooter
 require common_shooter.events_common_shooter
 
@@ -38,8 +39,8 @@ def human_inventory_input_action_triggered_es(evt : EventDaInputActionTriggered;
     if !doesEntityExist(selectedItem)
       return
 
-    let isForcedOrFastPickup = isForcedPickup || is_fast_pickup_item(eid, selectedItem)
-    if isForcedOrFastPickup || is_item_useful(eid, selectedItem)
+    let isForcedOrFastPickup = isForcedPickup || is_fast_pickup_item2(eid, selectedItem)
+    if isForcedOrFastPickup || is_item_useful2(eid, selectedItem)
       // is_item_useful is client-side check, it operates on server-replicated components like "human_xxx", thus,
       // a situation may arise when the player issues two (non-forced) pickups, first pickup is for useful item,
       // so we pick it up, second pickup is useless, but we don't know that yet, since "human_xxx" components haven't

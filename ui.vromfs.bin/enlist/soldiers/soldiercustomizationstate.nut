@@ -482,23 +482,27 @@ let function saveOutfit() {
   closeCustomizationWnd()
 }
 
-let function multipleApplyOutfit(){
-  let appliedItems = []
-  foreach (soldierGuid, sItems in multipleItemsToApply.value)
-    foreach (slot, item in sItems.items){
-      let multiPrem = {}
-      let premList = curArmyOutfit.value ?? []
-      let defaultItems = soldiersLook.value?[soldierGuid].items ?? {}
+let function multipleApplyOutfit() {
+  let appliedItems = {}
+  let premList = curArmyOutfit.value ?? []
+  foreach (soldierGuid, sItems in multipleItemsToApply.value) {
+    let multiPrem = {}
+    let defaultItems = soldiersLook.value?[soldierGuid].items ?? {}
+    foreach (slot, item in sItems.items) {
       if (defaultItems.findvalue(@(v) v == item) != null)
         multiPrem[slot] <- ""
       else {
         let prems = premList.findvalue(@(val) val.basetpl == item
-          && !appliedItems.contains(val.guid))
-        multiPrem[slot] <- prems?.guid
-        appliedItems.append(prems?.guid)
+          && val.guid not in appliedItems)
+        let premsGuid = prems?.guid
+        if (premsGuid) {
+          multiPrem[slot] <- premsGuid
+          appliedItems[premsGuid] <- true
+        }
       }
-      apply_outfit(soldierGuid, {}, multiPrem)
     }
+    apply_outfit(soldierGuid, {}, multiPrem)
+  }
   closeCustomizationWnd()
 }
 

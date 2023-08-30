@@ -12,6 +12,10 @@ germ_panzerjager_IV_L_48_common{
   commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
   gunner_cam_limit__useCockpitDir:b=yes
   gunnerFpsCamMaxAngle:p2=8.0, 5.0
+  item__iconOffset:p2=0.05, 0.17
+  item__iconScale:r=1.35
+  armorThicknessHull:p3=60.0, 30.0, 30.0
+  armorThicknessTurret:p3=60.0, 30.0, 22.0
 
   "turrets__initAmmoDistribution:array"{
 
@@ -174,6 +178,13 @@ germ_panzerjager_IV_L_48_commander_cockpit{
 
   "cockpit__slitZoomTime:list<r>"{
     slit:r=0.0
+  }
+
+  "cockpit__slitTemplates:list<t>"{
+    slit:t="default_periscope"
+  }
+
+  "cockpit__slitEids:list<eid>"{
   }
 }
 

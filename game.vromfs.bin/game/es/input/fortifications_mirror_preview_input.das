@@ -4,7 +4,7 @@ require game.es.input.input_events
 require enlisted.events_enlisted
 
 def init(var human_input__fortificationMirrorPreview : int&)
-  human_input__fortificationMirrorPreview = int(get_action_handle("Human.Reload", TYPEGRP_DIGITAL))
+  human_input__fortificationMirrorPreview = int(get_action_handle("Human.RotateBuilding", TYPEGRP_DIGITAL))
 
 def reset(var human_input__fortificationMirrorPreview : int&)
   human_input__fortificationMirrorPreview = int(BAD_ACTION_HANDLE)

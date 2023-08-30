@@ -103,6 +103,111 @@ ai_wellington_mk1c{
     node:t="flare6"
   }
 
+  "turret_control__animVars:shared:array"{
+
+    "vars:object"{
+      curYawParamName:t="weapon_01_yaw"
+      curPitchParamName:t="weapon_01_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_02_yaw"
+      curPitchParamName:t="weapon_02_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_03_yaw"
+      curPitchParamName:t="weapon_03_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_04_yaw"
+      curPitchParamName:t="weapon_04_pitch"
+    }
+
+    "vars:object"{
+      paramMinPitchAngle:t="turret1_min_pitch_angle"
+      wishPitchParamName:t="gun1_aim:targetPitch"
+      paramYawSpeedMul:t="turret1_yaw_mul"
+      paramYawSpeed:t="turret1_yaw_speed"
+      paramMaxYawAngle:t="turret1_max_yaw_angle"
+      aimActiveParamName:t="gun1_aim_active"
+      paramPitchSpeedMul:t="gun1_pitch_mul"
+      paramYawAccel:t="turret1_yaw_accel"
+      paramPitchAccel:t="gun1_pitch_accel"
+      paramPitchSpeed:t="gun1_pitch_speed"
+      wishYawParamName:t="gun1_aim:targetYaw"
+      paramMaxPitchAngle:t="turret1_max_pitch_angle"
+      curPitchParamName:t="gun1_pitch"
+      curYawParamName:t="turret1_yaw"
+      paramMinYawAngle:t="turret1_min_yaw_angle"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret1_yaw"
+      curPitchParamName:t="gun1_pitch"
+    }
+
+    "vars:object"{
+      paramMinPitchAngle:t="turret2_min_pitch_angle"
+      wishPitchParamName:t="gun2_aim:targetPitch"
+      paramYawSpeedMul:t="turret2_yaw_mul"
+      paramYawSpeed:t="turret2_yaw_speed"
+      paramMaxYawAngle:t="turret2_max_yaw_angle"
+      aimActiveParamName:t="gun2_aim_active"
+      paramPitchSpeedMul:t="gun2_pitch_mul"
+      paramYawAccel:t="turret2_yaw_accel"
+      paramPitchAccel:t="gun2_pitch_accel"
+      paramPitchSpeed:t="gun2_pitch_speed"
+      wishYawParamName:t="gun2_aim:targetYaw"
+      paramMaxPitchAngle:t="turret2_max_pitch_angle"
+      curPitchParamName:t="gun2_pitch"
+      curYawParamName:t="turret2_yaw"
+      paramMinYawAngle:t="turret2_min_yaw_angle"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret2_yaw"
+      curPitchParamName:t="gun2_pitch"
+    }
+
+    "vars:object"{
+      paramMinPitchAngle:t="turret3_min_pitch_angle"
+      wishPitchParamName:t="gun3_aim:targetPitch"
+      paramYawSpeedMul:t="turret3_yaw_mul"
+      paramYawSpeed:t="turret3_yaw_speed"
+      paramMaxYawAngle:t="turret3_max_yaw_angle"
+      aimActiveParamName:t="gun3_aim_active"
+      paramPitchSpeedMul:t="gun3_pitch_mul"
+      paramYawAccel:t="turret3_yaw_accel"
+      paramPitchAccel:t="gun3_pitch_accel"
+      paramPitchSpeed:t="gun3_pitch_speed"
+      wishYawParamName:t="gun3_aim:targetYaw"
+      paramMaxPitchAngle:t="turret3_max_pitch_angle"
+      curPitchParamName:t="gun3_pitch"
+      curYawParamName:t="turret3_yaw"
+      paramMinYawAngle:t="turret3_min_yaw_angle"
+    }
+
+    "vars:object"{
+      paramMinPitchAngle:t="turret4_min_pitch_angle"
+      wishPitchParamName:t="gun4_aim:targetPitch"
+      paramYawSpeedMul:t="turret4_yaw_mul"
+      paramYawSpeed:t="turret4_yaw_speed"
+      paramMaxYawAngle:t="turret4_max_yaw_angle"
+      aimActiveParamName:t="gun4_aim_active"
+      paramPitchSpeedMul:t="gun4_pitch_mul"
+      paramYawAccel:t="turret4_yaw_accel"
+      paramPitchAccel:t="gun4_pitch_accel"
+      paramPitchSpeed:t="gun4_pitch_speed"
+      wishYawParamName:t="gun4_aim:targetYaw"
+      paramMaxPitchAngle:t="turret4_max_pitch_angle"
+      curPitchParamName:t="gun4_pitch"
+      curYawParamName:t="turret4_yaw"
+      paramMinYawAngle:t="turret4_min_yaw_angle"
+    }
+  }
+
   "turret_control__turretInfo:shared:array"{
 
     "turretInfo:object"{
@@ -253,27 +358,6 @@ base_ai_wellington_mk1c_100lb_anm_30_launcher{
 }
 
 base_ai_wellington_mk1c_7_7mm_browning303_turret{
-  item__name:t="guns/gunbrowning303_turret"
-  gun__blk:t="gamedata/weapons/wellington_mk1c/7_7mm_browning303_turret.blk"
-  gun__shotFreq:r=16.6667
-  gun__locName:t="gunbrowning303_turret"
-  gun__shootNodeName:t="bone_mg_gun_twin"
-  gun__maxAmmo:i=1200
-
-  "gun__firingModes:array"{
-
-    "mode:object"{
-      modeType:t="automatic"
-    }
-  }
-
-  "gun__firingModeNames:array"{
-    mode:t="automatic"
-  }
-
-  "gun__shellsAmmo:array"{
-    ammo:i=1200
-  }
 
   "gun__ammoSetsInfo:shared:array"{
 
@@ -289,27 +373,6 @@ base_ai_wellington_mk1c_7_7mm_browning303_turret{
 }
 
 base_ai_wellington_mk1c_7_7mm_vikkersk_turret{
-  item__name:t="guns/gunvikkersk_turret"
-  gun__blk:t="gamedata/weapons/wellington_mk1c/7_7mm_vikkersk_turret.blk"
-  gun__shotFreq:r=15.8333
-  gun__locName:t="gunvikkersk_turret"
-  gun__shootNodeName:t="bone_mg_gun_twin"
-  gun__maxAmmo:i=483
-
-  "gun__firingModes:array"{
-
-    "mode:object"{
-      modeType:t="automatic"
-    }
-  }
-
-  "gun__firingModeNames:array"{
-    mode:t="automatic"
-  }
-
-  "gun__shellsAmmo:array"{
-    ammo:i=483
-  }
 
   "gun__ammoSetsInfo:shared:array"{
 
@@ -361,91 +424,33 @@ planegun_ai_wellington_mk1c_100lb_anm_30_launcher_04{
 }
 
 planegun_ai_wellington_mk1c_7_7mm_browning303_turret_01{
-  _extends:t="tankgun"
-  _extends:t="base_plane_machinegun"
+  _extends:t="planegun_wellington_mk1c_7_7mm_browning303_turret_01"
   _extends:t="base_ai_wellington_mk1c_7_7mm_browning303_turret"
-  _extends:t="gunsound_7_7mm_browning303_turret_aircraft"
-  gun__shootNodeName:t="flare1"
-  gun__maxAmmo:i=1200
-  turret__aimNodeName:t="turret1"
-  turret__limit:p4=-100.0, 100.0, -45.0, 30.0
-  turret__yawSpeed:r=100.0
-  turret__pitchSpeed:r=100.0
 }
 
 planegun_ai_wellington_mk1c_7_7mm_browning303_turret_02{
-  _extends:t="tankgun"
-  _extends:t="base_plane_machinegun"
+  _extends:t="planegun_wellington_mk1c_7_7mm_browning303_turret_02"
   _extends:t="base_ai_wellington_mk1c_7_7mm_browning303_turret"
-  _extends:t="gunsound_7_7mm_browning303_turret_aircraft"
-  gun__shootNodeName:t="flare2"
-  gun__maxAmmo:i=1200
-  turret__aimNodeName:t="turret1"
-  turret__limit:p4=-100.0, 100.0, -45.0, 30.0
-  turret__yawSpeed:r=100.0
-  turret__pitchSpeed:r=100.0
 }
 
 planegun_ai_wellington_mk1c_7_7mm_browning303_turret_03{
-  _extends:t="tankgun"
-  _extends:t="base_plane_machinegun"
+  _extends:t="planegun_wellington_mk1c_7_7mm_browning303_turret_03"
   _extends:t="base_ai_wellington_mk1c_7_7mm_browning303_turret"
-  _extends:t="gunsound_7_7mm_browning303_turret_aircraft"
-  gun__shootNodeName:t="flare3"
-  gun__maxAmmo:i=2000
-  turret__aimNodeName:t="turret2"
-  turret__limit:p4=-100.0, 100.0, -45.0, 30.0
-  turret__yawSpeed:r=100.0
-  turret__pitchSpeed:r=100.0
 }
 
 planegun_ai_wellington_mk1c_7_7mm_browning303_turret_04{
-  _extends:t="tankgun"
-  _extends:t="base_plane_machinegun"
+  _extends:t="planegun_wellington_mk1c_7_7mm_browning303_turret_04"
   _extends:t="base_ai_wellington_mk1c_7_7mm_browning303_turret"
-  _extends:t="gunsound_7_7mm_browning303_turret_aircraft"
-  gun__shootNodeName:t="flare4"
-  gun__maxAmmo:i=2000
-  turret__aimNodeName:t="turret2"
-  turret__limit:p4=-100.0, 100.0, -45.0, 30.0
-  turret__yawSpeed:r=100.0
-  turret__pitchSpeed:r=100.0
 }
 
 planegun_ai_wellington_mk1c_7_7mm_vikkersk_turret_01{
-  _extends:t="tankgun"
-  _extends:t="base_plane_machinegun"
+  _extends:t="planegun_wellington_mk1c_7_7mm_vikkersk_turret_01"
   _extends:t="base_ai_wellington_mk1c_7_7mm_vikkersk_turret"
-  _extends:t="gunsound_7_7mm_vikkersk_turret_aircraft"
-  gun__shootNodeName:t="flare5"
-  gun__maxAmmo:i=483
-  turret__aimNodeName:t="turret3"
-  turret__limit:p4=-50.0, 50.0, -45.0, 20.0
-  turret__yawSpeed:r=100.0
-  turret__pitchSpeed:r=100.0
-
-  "turret__limitsTable:list<p4>"{
-    lim1:p4=-50.0, 20.0, 2.0, 50.0
-    lim2:p4=20.0, 50.0, -45.0, 50.0
-  }
 }
 
 planegun_ai_wellington_mk1c_7_7mm_vikkersk_turret_02{
-  _extends:t="tankgun"
-  _extends:t="base_plane_machinegun"
+  _extends:t="planegun_wellington_mk1c_7_7mm_vikkersk_turret_02"
   _extends:t="base_ai_wellington_mk1c_7_7mm_vikkersk_turret"
-  _extends:t="gunsound_7_7mm_vikkersk_turret_aircraft"
-  gun__shootNodeName:t="flare6"
-  gun__maxAmmo:i=483
-  turret__aimNodeName:t="turret4"
-  turret__limit:p4=-50.0, 50.0, -45.0, 20.0
-  turret__yawSpeed:r=100.0
-  turret__pitchSpeed:r=100.0
-
-  "turret__limitsTable:list<p4>"{
-    lim1:p4=-50.0, 20.0, 2.0, 50.0
-    lim2:p4=20.0, 50.0, -45.0, 50.0
-  }
 }
 
 ai_wellington_mk1c_driver_cockpit{

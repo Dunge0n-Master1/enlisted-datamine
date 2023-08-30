@@ -1,7 +1,7 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let {body_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontBody} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {CanTerraformCheckResult} = require("%enlSqGlob/dasenums.nut")
 let {tipCmp} = require("%ui/hud/huds/tips/tipComponent.nut")
 let {curWeaponWeapType} = require("%ui/hud/state/hero_weapons.nut")
@@ -28,7 +28,7 @@ let cannotDigAtPosTip = @(last_dig_result) tipCmp({
   text = loc(last_dig_result == CanTerraformCheckResult.NearByObjects
              ? "hint/cannotDigAtPosNearByObjects"
              : "hint/cannotDigAtPos")
-}.__update(body_txt))
+}.__update(fontBody))
 
 return @() {
   watch = [curWeaponWeapType, lastDigResult]

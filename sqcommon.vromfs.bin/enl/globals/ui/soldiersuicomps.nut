@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt, sub_txt, fontawesome } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody, fontSub, fontawesome } = require("%enlSqGlob/ui/fontsStyle.nut")
 let tooltipBox = require("%ui/style/tooltipBox.nut")
 let fa = require("%ui/components/fontawesome.map.nut")
 let { getRomanNumeral } = require("%sqstd/math.nut")
@@ -113,7 +113,7 @@ let mkUnknownClassIcon = @(iSize) {
   halign = ALIGN_CENTER
   text = "?"
   color = defTxtColor
-}.__update(body_txt)
+}.__update(fontBody)
 
 let getKindIcon = memoize(@(img, sz) Picture("ui/skin#{0}:{1}:{1}:K".subst(img, sz.tointeger())))
 let getClassIcon = memoize(@(img, sz) Picture("{0}:{1}:{1}:K".subst(img, sz.tointeger())))
@@ -171,7 +171,7 @@ let classNameColored = @(sClass, sKind, sClassRare) defcomps.txt({
 let tierText = @(tier) defcomps.note({
     text = getRomanNumeral(tier)
     color = soldierLvlColor
-  }.__update(sub_txt))
+  }.__update(fontSub))
 
 let function calcExperienceData(soldier, expToLevel) {
   let { perksCount = 0, level = 1, maxLevel = 1, exp = 0 } = soldier

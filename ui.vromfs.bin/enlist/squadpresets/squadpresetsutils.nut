@@ -77,7 +77,7 @@ let deleteSquadsPreset = @(armyId, idx) savePresets(armyId, idx, null)
 
 let function applySquadsPreset(armyId, idx) {
   let preset = clone getPreset(armyId, idx)?.preset
-  if (!preset)
+  if (!preset || !previewSquads.value)
     return
 
   let squadPlaceErrors = {}

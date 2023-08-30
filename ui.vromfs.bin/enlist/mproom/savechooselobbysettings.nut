@@ -5,7 +5,7 @@ let JB = require("%ui/control/gui_buttons.nut")
 let tooltipBox = require("%ui/style/tooltipBox.nut")
 let getMissionInfo = require("%enlist/gameModes/getMissionInfo.nut")
 let textButton = require("%ui/components/textButton.nut")
-let { sub_txt, body_txt, h0_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub, fontBody, fontTitle } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { settings } = require("%enlist/options/onlineSettings.nut")
 let { setTooltip } = require("%ui/style/cursors.nut")
 let { addModalWindow, removeModalWindow } = require("%ui/components/modalWindows.nut")
@@ -45,14 +45,14 @@ let mkParamName = @(txt) {
   rendObj = ROBJ_TEXT
   color = defTxtColor
   text = txt
-}.__update(sub_txt)
+}.__update(fontSub)
 
 let mkParamVal = @(txt) {
   rendObj = ROBJ_TEXT
   hplace = ALIGN_RIGHT
   color = titleTxtColor
   text = txt
-}.__update(sub_txt)
+}.__update(fontSub)
 
 let mkParamList = @(list, bottomTxt = null) {
   rendObj = ROBJ_TEXTAREA
@@ -144,7 +144,7 @@ let mkPresetInfo = @(preset, bottomTxt) {
   flow = FLOW_VERTICAL
   children = (preset == null ? []
     : [
-        mkParamName(loc("lobbyPresetHeader")).__update(body_txt)
+        mkParamName(loc("lobbyPresetHeader")).__update(fontBody)
         separator
         mkBaseOptRow(optMode, preset)
         mkBaseOptRow(optDifficulty, preset)
@@ -164,7 +164,7 @@ let mkPresetInfo = @(preset, bottomTxt) {
           behavior = Behaviors.TextArea
           color = titleTxtColor
           text = bottomTxt
-        }.__update(body_txt))
+        }.__update(fontBody))
 }
 
 let function mkPresetSlot(curPresets, idx, onClick, bottomTxt) {
@@ -185,7 +185,7 @@ let function mkPresetSlot(curPresets, idx, onClick, bottomTxt) {
       rendObj = ROBJ_TEXT
       text = preset == null ? loc("presetEmpty") : (idx + 1).tostring()
       color = slotColor(sf)
-    }.__update(preset == null ? sub_txt : h0_txt)
+    }.__update(preset == null ? fontSub : fontTitle)
   })
 }
 
@@ -209,7 +209,7 @@ let closeButton = textButton(loc("Cancel"), @() removeModalWindow(WND_UID), {
 let openSaveWindow = @() addModalWindow({
   children = [
     mkParamVal(loc("header/saveLobbyPreset"))
-      .__update(body_txt, { hplace = ALIGN_CENTER })
+      .__update(fontBody, { hplace = ALIGN_CENTER })
     function() {
       let curPresets = lobbyPresets.value
       let curSlotsCount = (curPresets ?? []).len()
@@ -233,7 +233,7 @@ let openSaveWindow = @() addModalWindow({
 let openChooseWindow = @() addModalWindow({
   children = [
     mkParamVal(loc("header/chooseLobbyPreset"))
-      .__update(body_txt, { hplace = ALIGN_CENTER })
+      .__update(fontBody, { hplace = ALIGN_CENTER })
     function() {
       let curPresets = lobbyPresets.value
       let curSlotsCount = (curPresets ?? []).len()

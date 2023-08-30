@@ -1,15 +1,15 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { accentColor, colPart, titleTxtColor, smallPadding, panelBgColor, defBdColor,
-  hoverTxtColor, hoverBdColor, disabledTxtColor, disabledBgColor, hoverPanelBgColor,
+let { accentColor, titleTxtColor, smallPadding, panelBgColor, defBdColor, hoverTxtColor,
+  hoverBdColor, disabledTxtColor, disabledBgColor, hoverPanelBgColor,
   darkPanelBgColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let { sound_play } = require("%dngscripts/sound_system.nut")
 
 
-let knobSize = [colPart(0.25), colPart(0.25)]
+let knobSize = [hdpxi(14), hdpxi(14)]
 let blockPadding = smallPadding
-let blockSize = [colPart(0.80), knobSize[1] + 2 * blockPadding]
+let blockSize = [hdpx(50), knobSize[1] + 2 * blockPadding]
 let transitions = [ { prop = AnimProp.translate, duration = 0.15, easing = InOutCubic } ]
 let disabledPos = { translate = [knobSize[0] / 2 + blockPadding, 0] }
 let activePos = { translate = [blockSize[0] - knobSize[0] / 2 - blockPadding, 0] }

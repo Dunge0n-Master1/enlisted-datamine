@@ -15,7 +15,7 @@ il_2_1941{
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="pilot_dm"
       cameraNodeName:t=""
-      cameraOffset:p3=-0.93, 0.963, 0.0
+      cameraOffset:p3=-1.0, 0.963, 0.0
       cockpitTemplate:t="il_2_1941_driver_cockpit"
       roomSpace:i=0
 

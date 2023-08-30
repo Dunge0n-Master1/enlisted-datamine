@@ -19,6 +19,10 @@ return freeze({
   stalingrad_axis   = SOLDIER_GERMANY
   pacific_allies    = SOLDIER_USA
   pacific_axis      = SOLDIER_JAPAN
+  common_ussr       = SOLDIER_USSR
+  common_usa        = SOLDIER_USA
+  common_ger        = SOLDIER_GERMANY
+  common_jap        = SOLDIER_JAPAN
 
   britain     = SOLDIER_UK
   germany     = SOLDIER_GERMANY

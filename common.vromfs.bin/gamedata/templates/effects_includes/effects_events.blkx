@@ -73,12 +73,12 @@ event_foolmoon_sniper_charge{
   _group{
     _tags:t="render"
     effect__name:t="event_foolmoon_sniper_charge_cmps_fx"
-    gun_flash_fx__nodeId:i=-1
+    gun_fx__nodeId:i=-1
 
     effect{
     }
 
-    "gun_flash_fx__gunEid:eid"{
+    "gun_fx__gunEid:eid"{
     }
   }
 }

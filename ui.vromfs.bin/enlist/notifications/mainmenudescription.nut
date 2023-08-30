@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h2_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { curSectionDetails } = require("%enlist/mainMenu/sectionsState.nut")
 let msgbox = require("%enlist/components/msgbox.nut")
 let {mkOnlineSaveData} = require("%enlSqGlob/mkOnlineSaveData.nut")
@@ -32,7 +32,7 @@ let function showDescription(section) {
           rendObj = ROBJ_TEXTAREA
           behavior = Behaviors.TextArea
           text = loc(section.locId)
-        }.__update(h2_txt)
+        }.__update(fontHeading2)
         {
           size = [sw(50), SIZE_TO_CONTENT]
           halign = ALIGN_LEFT
@@ -41,7 +41,7 @@ let function showDescription(section) {
           color = TaskTextDesc
           text = loc(descId)
           parSpacing = hdpx(20)
-        }.__update(body_txt)
+        }.__update(fontBody)
       ]
     }
     buttons = [{ text = loc("Ok"), isCurrent = true, isCancel = true }]

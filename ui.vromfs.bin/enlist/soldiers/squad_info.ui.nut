@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { Bordered } = require("%ui/components/txtButton.nut")
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { bigPadding, smallPadding } = require("%enlSqGlob/ui/viewConst.nut")
 let { note } = require("%enlSqGlob/ui/defcomps.nut")
 let blinkingIcon = require("%enlSqGlob/ui/blinkingIcon.nut")
@@ -140,14 +140,14 @@ let function mkSquadInfo() {
     flow = FLOW_VERTICAL
     halign = ALIGN_CENTER
     children = [
-      note(loc("vehicle_seats/freeSeats")).__update(sub_txt)
+      note(loc("vehicle_seats/freeSeats")).__update(fontSub)
       {
         rendObj = ROBJ_TEXTAREA
         size = [flex(), SIZE_TO_CONTENT]
         behavior = Behaviors.TextArea
         halign = ALIGN_CENTER
         text = ", ".join(freeSeats.map(@(seat) loc(seat.locName)))
-      }.__update(sub_txt)
+      }.__update(fontSub)
     ]
   }
 

@@ -1,7 +1,3 @@
-#default:no-func-decl-sugar
-#default:no-class-decl-sugar
-#default:no-root-fallback
-#default:explicit-this
 #default:forbid-root-table
 
 import "%dngscripts/ecs.nut" as ecs

@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {body_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontBody} = require("%enlSqGlob/ui/fontsStyle.nut")
 let getGamepadHotkeys = require("%ui/components/getGamepadHotkeys.nut")
 let {mkImageCompByDargKey} = require("%ui/components/gamepadImgByKey.nut")
 let {isGamepad} = require("%ui/control/active_controls.nut")
@@ -8,9 +8,9 @@ let JB = require("%ui/control/gui_buttons.nut")
 
 return function(textComp, params, handler, group, sf){
   local gamepadHotkey = getGamepadHotkeys(params?.hotkeys)
-  let activeKB = ((sf & S_KB_FOCUS) != 0)
-  let hoverKB = ((sf  & S_HOVER) != 0 && (params?.isEnabled ?? true))
-  local fontStyle = params?.textParams.fontStyle ?? params?.fontStyle ?? body_txt
+  let activeKB = sf & S_KB_FOCUS
+  let hoverKB = (sf & S_HOVER) && (params?.isEnabled ?? true)
+  local fontStyle = params?.textParams.fontStyle ?? params?.fontStyle ?? fontBody
   let font = params?.textParams.font ?? params?.font
   let fontSize = params?.textParams.fontSize ?? params?.fontSize
   if (fontSize!=null && font!=null)

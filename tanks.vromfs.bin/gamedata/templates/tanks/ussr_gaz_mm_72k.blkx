@@ -14,9 +14,14 @@ base_gaz_mm_72k_common{
   armorThicknessTurret:p3=7.0, 0.0, 0.0
   vehicle_seats__exitTime:r=1.0
   vehicle_seats__enterTime:r=2.0
+  item__iconOffset:p2=-0.0, 0.05
+  item__iconScale:r=1.1
   commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
   gunner_cam_limit__useCockpitDir:b=yes
   vehicle_commander_cam__attachToVehicle:b=yes
+
+  "dm_parts__repairGroups:object"{
+  }
 
   "vehicle_seats__effectors:array"{
   }

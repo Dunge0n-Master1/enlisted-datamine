@@ -7,7 +7,7 @@ let checkbox = require("%ui/components/checkbox.nut")
 let spinner = require("%ui/components/spinner.nut")
 let { startswith } = require("string")
 let { showMsgbox } = require("%enlist/components/msgbox.nut")
-let { sub_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { txt, noteTextArea } = require("%enlSqGlob/ui/defcomps.nut")
 let { SaveVehicleDecals } = require("vehicle_decals")
 let { ceil } = require("%sqstd/math.nut")
@@ -104,7 +104,7 @@ let function mkCamouflage(cParams, gametemplate, camouflage, skinToBuy, currenci
             size = [flex(), SIZE_TO_CONTENT]
             margin = [0, smallPadding]
             color = accentTitleTxtColor
-          }.__update(sub_txt))
+          }.__update(fontSub))
         ]
       }
       mkDecorSlot(decorator, isSelected, false, function() {
@@ -297,7 +297,7 @@ let mkBuyProduct = @(icon, header, name) {
           size = [flex(), SIZE_TO_CONTENT]
           margin = [0, smallPadding]
           color = accentTitleTxtColor
-        }.__update(sub_txt))
+        }.__update(fontSub))
       ]
     }
   ]
@@ -461,7 +461,7 @@ let emptyList = {
   padding = bigPadding
   halign = ALIGN_CENTER
   color = defBgColor
-  children = txt(loc("msg/listIsEmpty")).__update(sub_txt)
+  children = txt(loc("msg/listIsEmpty")).__update(fontSub)
 }
 
 let function mkGroupIcons(groupIconsList, vehGuid, curCustType,
@@ -544,7 +544,7 @@ let mkCustomizationList = @(curCustType, content, onlyOwned = null) {
           mkBlockHeader(loc($"{curCustType}ChooseHeader"))
           { size = flex() }
           onlyOwned == null ? null
-            : checkbox(onlyOwned, { text = loc("onlyAvailable") }.__update(sub_txt), {
+            : checkbox(onlyOwned, { text = loc("onlyAvailable") }.__update(fontSub), {
                 setValue = @(_) onlyOwned(!onlyOwned.value)
                 textOnTheLeft = true
               })
@@ -744,7 +744,7 @@ let function purchaseBtnUi() {
               size = [hdpx(560), SIZE_TO_CONTENT]
               halign = ALIGN_CENTER
               color = accentTitleTxtColor
-            }.__update(body_txt))
+            }.__update(fontBody))
         }
       : currencyBtn({
           btnText = loc("btn/buy")

@@ -1,0 +1,7 @@
+collisionResource{
+
+  props{
+    body_back:t="convex_hull"
+    turret_front:t="convex_hull"
+  }
+}

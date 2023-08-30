@@ -26,13 +26,19 @@ us_halftrack_m13_common{
   _extends:t="tank_light_vehicle_tracks_sound"
   _extends:t="forestall"
   destroyIfNoCrewLeft:b=no
-  item__iconScale:r=0.8
+  item__iconOffset:p2=0.0, 0.1
+  item__iconScale:r=1.2
   vehicle_seats__exitTime:r=1.0
   cockpit__zoomOutFov:r=1.5
   cockpit__zoomInFov:r=2.0
   commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
   gunner_cam_limit__useCockpitDir:b=yes
+  armorThicknessHull:p3=6.35, 6.35, 6.35
+  armorThicknessTurret:p3=12.7, 6.35, 6.35
   vehicle_commander_cam__attachToVehicle:b=yes
+
+  "vehicle_seats__effectors:array"{
+  }
 
   _group{
     _tags:t="render"
@@ -51,7 +57,7 @@ us_halftrack_m13_common{
       locName:t="vehicle_seats/gunner"
       attachNode:t="gunner"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[0.848, 0.53, 0.0] [-0.53, 0.848, 0.0] [0.0, 0.0, 1.0] [-0.15, -0.3, 0.0]]
+      attachTm:m=[[0.90628, 0.4227, 8.74272e-16] [-0.4227, 0.906281, 5.83326e-09] [2.4657e-09, -5.28653e-09, 1.00001] [-0.21, -0.3, 0.0]]
       seatComponent:t="isGunner"
       nextSeat:t="driver"
       shouldHideOwner:b=no
@@ -64,8 +70,6 @@ us_halftrack_m13_common{
       hatchRotationAxis:p3=0.0, 0.0, 0.0
       canLoadInHatch:b=yes
       isHoldGunModeAllowed:b=no
-      seatAnimUpper:t="drive_driver"
-      seatAnimLower:t="drive_driver"
 
       "turretNames:array"{
         turretNames:t="turret_01"
@@ -85,6 +89,13 @@ us_halftrack_m13_common{
         turret:t="turret_01"
         turret:t="turret_02"
       }
+
+      "effectors:object"{
+        r.hand:t="righthand_2"
+        l.hand:t="lefthand_2"
+        r.foot:t="pedal_rfoot_2"
+        l.foot:t="pedal_lfoot_2"
+      }
     }
 
     "seats:object"{
@@ -93,7 +104,7 @@ us_halftrack_m13_common{
       seatOwnsEntityControl:b=yes
       attachNode:t="driver"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.0, 0.2, -0.13]]
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.07, 0.21, -0.15]]
       seatComponent:t="isDriver"
       nextSeat:t="main_gunner"
       shouldHideOwner:b=no
@@ -102,6 +113,13 @@ us_halftrack_m13_common{
       cockpitTemplate:t="us_halftrack_m13_driver_cockpit"
       seatAnimUpper:t="drive_passenger"
       seatAnimLower:t="drive_passenger"
+
+      "effectors:object"{
+        r.hand:t="righthand_1"
+        l.hand:t="lefthand_1"
+        r.foot:t="pedal_rfoot_1"
+        l.foot:t="pedal_lfoot_1"
+      }
     }
 
     "seats:object"{

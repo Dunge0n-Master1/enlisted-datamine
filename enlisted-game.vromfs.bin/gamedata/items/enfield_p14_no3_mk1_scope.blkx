@@ -1,0 +1,10 @@
+gunAttachable{
+  slot:t="scope"
+  slotTag:t="enfield_p14_no3_mk1_scope"
+  gunSlotName:t="scope"
+  template:t="enfield_p14_no3_mk1_scope"
+}
+
+visual{
+  template:t="enfield_p14_no3_mk1_scope_item+item_in_world"
+}

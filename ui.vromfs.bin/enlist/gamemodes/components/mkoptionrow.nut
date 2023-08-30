@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {
   bigPadding, defInsideBgColor, defTxtColor, blurBgFillColor, smallPadding
 } = require("%enlSqGlob/ui/viewConst.nut")
@@ -35,7 +35,7 @@ let mkOptionRow = function (locId, component = null, override = {},
         valign = ALIGN_CENTER
         color = defTxtColor
         text = locId == null ? null : loc(locId)
-      }.__update(body_txt)
+      }.__update(fontBody)
       component
     ]
   }.__update(override)

@@ -1,0 +1,591 @@
+p_38g1{
+  _override:b=yes
+  item__iconOffset:p2=0.1, -0.15
+  item__iconScale:r=1.7
+}
+
+p_38j{
+  _override:b=yes
+  item__iconOffset:p2=0.1, -0.2
+  item__iconScale:r=1.55
+}
+
+p_51c_10{
+  _override:b=yes
+  item__iconOffset:p2=-0.1, -0.0
+  item__iconScale:r=1.5
+}
+
+p_51d_5{
+  _override:b=yes
+  item__iconOffset:p2=-0.1, -0.0
+  item__iconScale:r=1.5
+}
+
+spitfire_ix{
+  _override:b=yes
+  item__iconOffset:p2=-0.1, 0.0
+  item__iconScale:r=1.45
+}
+
+tempest_mkv{
+  _override:b=yes
+  item__iconOffset:p2=-0.1, 0.0
+  item__iconScale:r=1.45
+}
+
+a_20g{
+  _override:b=yes
+  item__iconOffset:p2=0.0, 0.0
+  item__iconScale:r=1.0
+}
+
+p_47d_22_re{
+  _override:b=yes
+  item__iconOffset:p2=-0.1, -0.05
+  item__iconScale:r=1.5
+}
+
+p_47d_28{
+  _override:b=yes
+  item__iconOffset:p2=-0.1, -0.1
+  item__iconScale:r=1.55
+}
+
+p_47m_1_re{
+  _override:b=yes
+  item__iconOffset:p2=-0.1, -0.05
+  item__iconScale:r=1.55
+}
+
+bf_110g_2{
+  _override:b=yes
+  item__iconOffset:p2=-0.1, -0.07
+  item__iconScale:r=1.45
+}
+
+ju_188{
+  _override:b=yes
+  item__iconOffset:p2=-0.1, -0.1
+  item__iconScale:r=1.55
+}
+
+me_410a_1_u2{
+  _override:b=yes
+  item__iconOffset:p2=0.0, -0.07
+  item__iconScale:r=1.65
+}
+
+bf_109g_6{
+  _override:b=yes
+  item__iconOffset:p2=0.05, -0.15
+  item__iconScale:r=1.6
+}
+
+bf_109g_10{
+  _override:b=yes
+  item__iconOffset:p2=0.05, -0.15
+  item__iconScale:r=1.6
+}
+
+bf_109g_10_red19_30mm_underwing_premium{
+  _override:b=yes
+  item__iconOffset:p2=0.05, -0.15
+  item__iconScale:r=1.6
+}
+
+fw_190a_8{
+  _override:b=yes
+  item__iconOffset:p2=-0.05, -0.1
+  item__iconScale:r=1.65
+}
+
+fw_190d_9{
+  _override:b=yes
+  item__iconOffset:p2=-0.08, -0.07
+  item__iconScale:r=1.55
+}
+
+ju_87b_2{
+  _override:b=yes
+  item__iconOffset:p2=-0.1, -0.1
+  item__iconScale:r=1.5
+}
+
+bf_110c_7{
+  _override:b=yes
+  item__iconOffset:p2=-0.05, -0.07
+  item__iconScale:r=1.45
+}
+
+fw_189a1{
+  _override:b=yes
+  item__iconOffset:p2=-0.1, -0.06
+}
+
+bf_110f_2{
+  _override:b=yes
+  item__iconOffset:p2=-0.05, -0.07
+  item__iconScale:r=1.45
+}
+
+ju_87r_2{
+  _override:b=yes
+  item__iconOffset:p2=-0.1, -0.1
+  item__iconScale:r=1.5
+}
+
+hs_123a_1{
+  _override:b=yes
+  item__iconOffset:p2=-0.1, -0.15
+  item__iconScale:r=1.3
+}
+
+bf_109f_1{
+  _override:b=yes
+  item__iconOffset:p2=0.05, -0.15
+  item__iconScale:r=1.6
+}
+
+bf_109f_2{
+  _override:b=yes
+  item__iconOffset:p2=0.05, -0.15
+  item__iconScale:r=1.6
+}
+
+bf_109e_7{
+  _override:b=yes
+  item__iconOffset:p2=-0.08, -0.05
+  item__iconScale:r=1.45
+}
+
+i_153_m62{
+  _override:b=yes
+  item__iconOffset:p2=-0.05, -0.2
+  item__iconScale:r=1.45
+}
+
+yak_1_early{
+  _override:b=yes
+  item__iconOffset:p2=-0.0, -0.07
+  item__iconScale:r=1.55
+}
+
+mig_3_series_1_15{
+  _override:b=yes
+  item__iconOffset:p2=-0.07, -0.05
+  item__iconScale:r=1.55
+}
+
+i_16_type_24{
+  _override:b=yes
+  item__iconOffset:p2=-0.07, -0.05
+  item__iconScale:r=1.51
+}
+
+lagg_3_34{
+  _override:b=yes
+  item__iconOffset:p2=0.01, -0.07
+  item__iconScale:r=1.6
+}
+
+il_2_1941{
+  _override:b=yes
+  item__iconOffset:p2=-0.07, -0.05
+  item__iconScale:r=1.5
+}
+
+pe_3{
+  _override:b=yes
+  item__iconOffset:p2=-0.07, -0.1
+  item__iconScale:r=1.45
+}
+
+pe_2_31{
+  _override:b=yes
+  item__iconOffset:p2=-0.07, -0.1
+  item__iconScale:r=1.45
+}
+
+sb_2m_105{
+  _override:b=yes
+  item__iconOffset:p2=-0.07, -0.1
+  item__iconScale:r=1.45
+}
+
+hurricane_mk2b{
+  _override:b=yes
+  item__iconOffset:p2=-0.07, 0.02
+  item__iconScale:r=1.5
+}
+
+spitfire_vb{
+  _override:b=yes
+  item__iconOffset:p2=-0.05, 0.0
+  item__iconScale:r=1.45
+}
+
+spitfire_vc{
+  _override:b=yes
+  item__iconOffset:p2=-0.05, 0.0
+  item__iconScale:r=1.45
+}
+
+p_38e{
+  _override:b=yes
+  item__iconOffset:p2=-0.0, -0.15
+  item__iconScale:r=1.55
+}
+
+p_40e_1{
+  _override:b=yes
+  item__iconOffset:p2=-0.05, -0.05
+  item__iconScale:r=1.45
+}
+
+sbd_3{
+  _override:b=yes
+  item__iconOffset:p2=-0.05, -0.04
+  item__iconScale:r=1.55
+}
+
+a_20g_m8{
+  _override:b=yes
+  item__iconOffset:p2=-0.1, -0.1
+  item__iconScale:r=1.6
+}
+
+beaufighter_mkx{
+  _override:b=yes
+  item__iconOffset:p2=-0.15, -0.05
+  item__iconScale:r=1.45
+}
+
+hurricane_mk4{
+  _override:b=yes
+  item__iconOffset:p2=-0.07, 0.02
+  item__iconScale:r=1.5
+}
+
+mosquito_fb_mk6{
+  _override:b=yes
+  item__iconOffset:p2=-0.07, 0.0
+  item__iconScale:r=1.5
+}
+
+re_2000_int{
+  _override:b=yes
+  item__iconOffset:p2=-0.04, -0.02
+  item__iconScale:r=1.5
+}
+
+fw_190a_1{
+  _override:b=yes
+  item__iconOffset:p2=-0.1, -0.02
+  item__iconScale:r=1.45
+}
+
+bf_109f_4_trop{
+  _override:b=yes
+  item__iconOffset:p2=0.05, -0.15
+  item__iconScale:r=1.6
+}
+
+c_202_ec{
+  _override:b=yes
+  item__iconOffset:p2=-0.1, -0.0
+  item__iconScale:r=1.5
+}
+
+g_55_serie1_ss0{
+  _override:b=yes
+  item__iconOffset:p2=-0.05, -0.0
+  item__iconScale:r=1.5
+}
+
+re_2001_cn{
+  _override:b=yes
+  item__iconOffset:p2=-0.04, -0.0
+  item__iconScale:r=1.5
+}
+
+la_5fn{
+  _override:b=yes
+  item__iconOffset:p2=0.05, -0.1
+  item__iconScale:r=1.55
+}
+
+yak_3{
+  _override:b=yes
+  item__iconOffset:p2=0.05, -0.07
+  item__iconScale:r=1.55
+}
+
+la_7{
+  _override:b=yes
+  item__iconOffset:p2=-0.02, -0.05
+  item__iconScale:r=1.5
+}
+
+yak_9t{
+  _override:b=yes
+  item__iconOffset:p2=0.15, -0.12
+  item__iconScale:r=1.67
+}
+
+yak_9k{
+  _override:b=yes
+  item__iconOffset:p2=0.15, -0.12
+  item__iconScale:r=1.67
+}
+
+p_63a_10{
+  _override:b=yes
+  item__iconOffset:p2=0.05, -0.1
+  item__iconScale:r=1.55
+}
+
+il_2_37_1943{
+  _override:b=yes
+  item__iconOffset:p2=-0.07, -0.05
+  item__iconScale:r=1.5
+}
+
+il_2m_type3_1945{
+  _override:b=yes
+  item__iconOffset:p2=-0.07, -0.05
+  item__iconScale:r=1.5
+}
+
+il_10{
+  _override:b=yes
+  item__iconOffset:p2=-0.07, -0.05
+  item__iconScale:r=1.5
+}
+
+bf_109g_14{
+  _override:b=yes
+  item__iconOffset:p2=0.05, -0.15
+  item__iconScale:r=1.6
+}
+
+bf_109g_14_30mm_underwing_premium{
+  _override:b=yes
+  item__iconOffset:p2=0.05, -0.15
+  item__iconScale:r=1.6
+}
+
+bf_109k_4{
+  _override:b=yes
+  item__iconOffset:p2=0.05, -0.15
+  item__iconScale:r=1.6
+}
+
+ju_87d_5{
+  _override:b=yes
+  item__iconOffset:p2=-0.1, -0.1
+  item__iconScale:r=1.5
+}
+
+me_410b_1{
+  _override:b=yes
+  item__iconOffset:p2=0.0, -0.07
+  item__iconScale:r=1.65
+}
+
+fw_190d_12{
+  _override:b=yes
+  item__iconOffset:p2=0.02, -0.12
+  item__iconScale:r=1.6
+}
+
+yak_7b{
+  _override:b=yes
+  item__iconOffset:p2=-0.0, -0.07
+  item__iconScale:r=1.55
+}
+
+p_40e_ussr{
+  _override:b=yes
+  item__iconOffset:p2=-0.05, -0.05
+  item__iconScale:r=1.45
+}
+
+hurricanemkii_ussr{
+  _override:b=yes
+  item__iconOffset:p2=-0.07, 0.02
+  item__iconScale:r=1.5
+}
+
+boston_mk3_utk1{
+  _override:b=yes
+  item__iconOffset:p2=-0.1, -0.05
+  item__iconScale:r=1.6
+}
+
+su_2_m82{
+  _override:b=yes
+  item__iconOffset:p2=-0.1, -0.03
+  item__iconScale:r=1.55
+}
+
+po_2{
+  _override:b=yes
+  item__iconOffset:p2=-0.1, -0.15
+}
+
+iar_81c{
+  _override:b=yes
+  item__iconOffset:p2=-0.07, -0.01
+  item__iconScale:r=1.45
+}
+
+fw_190a_4{
+  _override:b=yes
+  item__iconOffset:p2=-0.1, -0.02
+  item__iconScale:r=1.45
+}
+
+potez_633{
+  _override:b=yes
+  item__iconOffset:p2=-0.05, -0.12
+  item__iconScale:r=1.5
+}
+
+ju_87d_3{
+  _override:b=yes
+  item__iconOffset:p2=-0.1, -0.1
+  item__iconScale:r=1.5
+}
+
+soc_1{
+  _override:b=yes
+  item__iconOffset:p2=-0.0, -0.15
+  item__iconScale:r=1.27
+}
+
+tbd_1{
+  _override:b=yes
+  item__iconOffset:p2=-0.05, -0.0
+  item__iconScale:r=1.55
+}
+
+sb2c_1c{
+  _override:b=yes
+  item__iconOffset:p2=-0.1, -0.05
+  item__iconScale:r=1.5
+}
+
+firefly_mki{
+  _override:b=yes
+  item__iconOffset:p2=-0.1, -0.02
+  item__iconScale:r=1.47
+}
+
+f2a3{
+  _override:b=yes
+  item__iconOffset:p2=-0.0, -0.04
+  item__iconScale:r=1.47
+}
+
+f4f_3{
+  _override:b=yes
+  item__iconOffset:p2=-0.1, -0.05
+  item__iconScale:r=1.5
+}
+
+f4u_1d{
+  _override:b=yes
+  item__iconOffset:p2=-0.1, -0.02
+  item__iconScale:r=1.5
+}
+
+f4u_1c{
+  _override:b=yes
+  item__iconOffset:p2=-0.1, -0.02
+  item__iconScale:r=1.5
+}
+
+seafire_mk3{
+  _override:b=yes
+  item__iconOffset:p2=-0.1, 0.0
+  item__iconScale:r=1.45
+}
+
+boomerang_mkii{
+  _override:b=yes
+  item__iconOffset:p2=-0.0, -0.05
+  item__iconScale:r=1.55
+}
+
+p_400{
+  _override:b=yes
+  item__iconOffset:p2=-0.0, -0.15
+  item__iconScale:r=1.55
+}
+
+tbf_1c{
+  _override:b=yes
+  item__iconOffset:p2=-0.05, -0.05
+  item__iconScale:r=1.5
+}
+
+base_e13a1{
+  _override:b=yes
+  item__iconOffset:p2=-0.05, -0.05
+  item__iconScale:r=1.45
+}
+
+d3a1{
+  _override:b=yes
+  item__iconOffset:p2=-0.05, -0.08
+  item__iconScale:r=1.5
+}
+
+b5n2{
+  _override:b=yes
+  item__iconOffset:p2=-0.1, -0.08
+  item__iconScale:r=1.5
+}
+
+d4y1{
+  _override:b=yes
+  item__iconOffset:p2=-0.05, -0.05
+  item__iconScale:r=1.5
+}
+
+a5m4{
+  _override:b=yes
+  item__iconOffset:p2=-0.06, -0.06
+  item__iconScale:r=1.55
+}
+
+a6m2_mod11{
+  _override:b=yes
+  item__iconOffset:p2=-0.1, -0.05
+  item__iconScale:r=1.5
+}
+
+a6m3{
+  _override:b=yes
+  item__iconOffset:p2=-0.1, -0.05
+  item__iconScale:r=1.5
+}
+
+a6m5{
+  _override:b=yes
+  item__iconOffset:p2=-0.1, -0.05
+  item__iconScale:r=1.5
+}
+
+ki_44_2{
+  _override:b=yes
+  item__iconOffset:p2=-0.1, -0.05
+  item__iconScale:r=1.5
+}
+
+ki_61_1a_hei{
+  _override:b=yes
+  item__iconOffset:p2=-0.1, -0.05
+  item__iconScale:r=1.5
+}

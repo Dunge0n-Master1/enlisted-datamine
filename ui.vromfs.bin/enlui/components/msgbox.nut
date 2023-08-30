@@ -1,16 +1,31 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {h2_txt} = require("%enlSqGlob/ui/fonts_style.nut")
-
 let msgbox = require("%ui/components/sys_msgbox.nut")
-
 let JB = require("%ui/control/gui_buttons.nut")
 let cursors = require("%ui/style/cursors.nut")
-let {WindowBd} = require("%ui/style/colors.nut")
-let {isGamepad} = require("%ui/control/active_controls.nut")
-
 let textButton = require("%ui/components/textButton.nut")
 let fontIconButton = require("%ui/components/fontIconButton.nut")
+
+let { fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { isGamepad } = require("%ui/control/active_controls.nut")
+let { mkTwoSidesGradientX } = require("%enlSqGlob/ui/gradients.nut")
+let { smallPadding } = require("%enlSqGlob/ui/viewConst.nut")
+
+
+let bgColor = 0XEE1F242A
+let rootColor = 0XFF1F242A
+
+let decorImg = mkTwoSidesGradientX({
+  centerColor = 0x77FFFFFF
+  sideColor = 0x11FFFFFF
+  isAlphaPremultiplied = false
+})
+
+let decorObj = {
+  size = [flex(), smallPadding]
+  rendObj = ROBJ_IMAGE
+  image = decorImg
+}
 
 
 let eventHandlersStopper = {
@@ -19,6 +34,8 @@ let eventHandlersStopper = {
 
 let styling = {
   cursor = cursors.normal
+  rootUpperDecor = decorObj
+  rootLowerDecor = decorObj
 
   Root = {
     behavior = Behaviors.ActivateActionSet
@@ -26,18 +43,17 @@ let styling = {
     rendObj = ROBJ_WORLD_BLUR_PANEL
     stopMouse = true
     stopHotkeys = true
-    fillColor = Color(0,0,0,120)
-    borderColor = WindowBd
-    borderWidth = [hdpx(1),0,hdpx(1),0]
-    padding = hdpx(10)
+    fillColor = rootColor
     vplace = ALIGN_CENTER
     valign = ALIGN_CENTER
     size = [sw(100), SIZE_TO_CONTENT]
     minHeight = fsh(40)
-    transform ={pivot =[0.5,0.5]}
+    transform = { pivot = [0.5, 0.5] }
     animations = [
-      { prop=AnimProp.opacity, from=0, to=1, duration=0.25, play=true, easing=OutCubic }
-      { prop=AnimProp.scale,  from=[1, 0], to=[1,1], duration=0.2, play=true, easing=OutQuintic }
+      { prop = AnimProp.opacity, from = 0, to = 1, duration = 0.25,
+        play = true, easing = OutCubic }
+      { prop = AnimProp.scale,  from = [1, 0], to = [1,1], duration = 0.2,
+        play = true, easing = OutQuintic }
     ]
   }
   moveMouseCursor = isGamepad
@@ -47,9 +63,10 @@ let styling = {
   activateKeys = "Space | Enter"
 //  maskKeys = "J:D.Up | J:D.Down"
   closeTxt = loc("Close")
+
   BgOverlay = {
     size = [sw(100), sh(100)]
-    color = Color(0,0,0,220)
+    color = bgColor
     rendObj = ROBJ_SOLID
     stopMouse = true
     zOrder = Layers.MsgBox
@@ -76,24 +93,25 @@ let styling = {
 
     return {
       size = [flex(), SIZE_TO_CONTENT]
-      minHeight = fsh(50)
+      minHeight = fsh(32)
       halign = ALIGN_CENTER
       valign = ALIGN_CENTER
       flow = FLOW_VERTICAL
-      padding = [fsh(2), 0]
+      margin = [fsh(2), 0]
       children = [
         {
-          size = [flex(), SIZE_TO_CONTENT]
+          size = [sw(60), SIZE_TO_CONTENT]
           rendObj = ROBJ_TEXTAREA
           behavior = Behaviors.TextArea
           halign = ALIGN_CENTER
           text
-        }.__update(params?.fontStyle ?? h2_txt)
+        }.__update(params?.fontStyle ?? fontHeading2)
         params?.children
       ]
     }
   }
 }
+
 
 let addDefOkButton = @(p) ("buttons" in p) ? p : p.__merge({
   buttons = [{ text = loc("Close"), isCancel = true,
@@ -158,6 +176,7 @@ let function showWithCloseButton(params) {
         originalMessageText(textParams)
       ]
     }
+    bottomChildren = params?.bottomChildren
   })
   msgbox.show(addDefOkButton(params), style)
 }

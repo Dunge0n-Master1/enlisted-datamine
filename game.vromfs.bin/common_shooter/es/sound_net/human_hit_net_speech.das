@@ -5,6 +5,7 @@ require math
 require math.base
 require DagorSystem
 require DngDm
+require enlisted.events_enlisted
 require human_sounds_net.modules.human_sounds_net_events
 require common_shooter.events_common_shooter
 require common_shooter.es.hit_result_common
@@ -45,23 +46,6 @@ def is_single_shot(human_eid : EntityId)
 */
 
 
-def try_friendly_fire_victim_speech(evt : EventOnEntityHit; offender_team : int; offender_pos : float3; dist_threshold : float) : bool
-  let victimTeam = get_int(evt.victim, "team") ?? int(TEAM_UNASSIGNED)
-  if is_teams_friendly(offender_team, victimTeam)
-    var eidToSpeak = INVALID_ENTITY_ID
-    var closestDistSq = square(dist_threshold)
-    query() <| $ [es(REQUIRE=human_net_phys)] (eid : EntityId; team : int; isAlive : bool; transform : float3x4)
-      if isAlive && eid != evt.victim && eid != evt.offender && is_teams_friendly(team, offender_team)
-        let distSq = length_sq(transform[3] - offender_pos)
-        if distSq < closestDistSq
-          eidToSpeak = eid
-          closestDistSq = distSq
-    if !!eidToSpeak
-      sendEvent(eidToSpeak, [[CmdRequestHumanSpeech phrase="friendlyFireHit"]])
-    return true
-  return false
-
-
 def request_speech(eid : EntityId; phrase : string)
   sendEvent(eid, [[CmdRequestHumanSpeech phrase=phrase]])
 
@@ -77,8 +61,7 @@ def human_hit_net_speech(evt : EventOnEntityHit;
                          isAlive : bool;
                          team : int;
                          hitpoints__maxHp : float;
-                         human_net_speech__isFarKillThreshold = 100.;
-                         human_net_speech__friendlyFireDistThreshold = 20.)
+                         human_net_speech__isFarKillThreshold = 100.)
   if evt.victim == evt.offender || !isAlive
     return
 
@@ -102,8 +85,9 @@ def human_hit_net_speech(evt : EventOnEntityHit;
         sendEvent(evt.victim, [[CmdRequestHumanSpeech phrase="wounded"]])
 
   elif evt.offender == eid
-    if !try_friendly_fire_victim_speech(evt, team, transform[3], human_net_speech__friendlyFireDistThreshold)
-      query(evt.victim) <| $ [es(REQUIRE=human_net_phys)] (dm_parts__type : StringList&)
+    let offenderTeam = team
+    query(evt.victim) <| $ [es(REQUIRE=human_net_phys)] (team aka victim_team : int; dm_parts__type : StringList&)
+      if !is_teams_friendly(offenderTeam, victim_team)
         if wasKilled
           if dd.damageType == int(DamageType DM_EXPLOSION)
             request_speech(evt.offender, "enemyKillExplode")
@@ -119,3 +103,25 @@ def human_hit_net_speech(evt : EventOnEntityHit;
             request_speech(evt.offender, "enemyKill")
         else
           request_speech(evt.offender, "enemyHit")
+
+
+[es(tag=server)]
+def human_hit_friendly_human_net_speech(evt : ProjectileOnIntersectEntityWithHp;
+                                        eid : EntityId;
+                                        transform aka offender_transform : float3x4;
+                                        isAlive : bool;
+                                        team aka offender_team : int;
+                                        human_net_speech__friendlyFireDistThreshold = 20.)
+  if evt.offender == eid && isAlive
+    query(evt.victim) <| $ [es(REQUIRE=human_net_phys)] (team aka victim_team : int = int(TEAM_UNASSIGNED))
+      if is_teams_friendly(offender_team, victim_team)
+        var eidToSpeak = INVALID_ENTITY_ID
+        var closestDistSq = square(human_net_speech__friendlyFireDistThreshold)
+        query() <| $ [es(REQUIRE=human_net_phys)] (eid : EntityId; team : int; transform : float3x4)
+          if eid != evt.victim && eid != evt.offender && is_teams_friendly(team, offender_team)
+            let distSq = length_sq(transform[3] - offender_transform[3])
+            if distSq < closestDistSq
+              eidToSpeak = eid
+              closestDistSq = distSq
+        if !!eidToSpeak
+          sendEvent(eidToSpeak, [[CmdRequestHumanSpeech phrase="friendlyFireHit"]])

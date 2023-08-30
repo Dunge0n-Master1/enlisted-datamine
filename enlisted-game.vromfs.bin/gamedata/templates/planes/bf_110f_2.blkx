@@ -11,7 +11,7 @@ bf_110f_2{
       seatOwnsEntityControl:b=yes
       attachNode:t="pilot1"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.15, 0.05, -0.15]]
+      attachTm:m=[[0.984493, 0.17361, 0.0171833] [-0.173587, 0.98466, -0.00302979] [-0.0174473, 0.0, 0.999614] [-0.02, 0.13, -0.19]]
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="pilot_dm"
       cameraNodeName:t=""

@@ -32,11 +32,13 @@ let { PERF_METRICS_BLK_PATH, PERF_METRICS_FPS,
   perfMetricsAvailable, perfMetricsValue, perfMetricsSetValue, perfMetricsToString
 } = require("performance_metrics_options.nut")
 let { is_inline_rt_supported, is_dx12, is_hdr_available, is_hdr_enabled, change_paper_white_nits,
-  change_gamma
+  change_gamma, is_gui_driver_select_enabled
 } = require("videomode")
 let { availableMonitors, monitorValue, get_friendly_monitor_name } = require("monitor_state.nut")
 let { fpsList, UNLIMITED_FPS_LIMIT } = require("fps_list.nut")
 let {isBareMinimum} = require("quality_preset_common.nut")
+let msgbox = require("%ui/components/msgbox.nut")
+let { globalWatched } = require("%dngscripts/globalState.nut")
 
 let resolutionToString = @(v) typeof v == "string" ? v : $"{v[0]} x {v[1]}"
 
@@ -55,6 +57,11 @@ let consoleSettingsEnabled = (consoleGfxSettingsBlk != null) && (consoleGfxSetti
 
 let isOptAvailable = @() platform.is_pc || (DBGLEVEL > 0 && (platform.is_sony || platform.is_xbox) && consoleSettingsEnabled)
 let isPcDx12 = @() platform.is_pc && is_dx12()
+let isDriverOptAvailable = @() platform.is_win64 && is_gui_driver_select_enabled()
+
+const defDriver = "auto"
+let originalDriverValue = get_setting_by_blk_path("video/driver") ?? defDriver
+let driverValue = Watched(originalDriverValue)
 
 let optSafeArea = optionCtor({
   name = loc("options/safeArea")
@@ -72,10 +79,24 @@ let optSafeArea = optionCtor({
   reload = true
 })
 
+let optDriver = optionCtor({
+  name = loc("options/driver")
+  widgetCtor = optionSpinner
+  tab = "Graphics"
+  blkPath = "video/driver"
+  isAvailable = isDriverOptAvailable
+  defVal = "auto"
+  var = driverValue
+  available = DBGLEVEL > 0 ? ["auto", "dx11", "dx12", "vulkan"] : ["auto", "dx11", "dx12"]
+  restart = true
+  valToString = loc_opt
+})
 
 const defVideoMode = "fullscreen"
 let originalValVideoMode = get_setting_by_blk_path("video/mode") ?? defVideoMode
 let videoModeVar = Watched(originalValVideoMode)
+
+let isDx12Selected = Computed(@() (isDriverOptAvailable() ? driverValue.value == "dx12" : isPcDx12()))
 
 let optVideoMode = optionCtor({
   name = loc("options/mode")
@@ -141,7 +162,8 @@ let optHdr = optionCtor({
   name = loc("options/hdr", "HDR")
   tab = "Graphics"
   blkPath = "video/enableHdr"
-  isAvailable = isPcDx12
+  isAvailable = @() isPcDx12() || platform.is_sony
+  restart = platform.is_sony
   widgetCtor = mkDisableableCtor(
     Computed(@() is_hdr_available(monitorValue.value) ? null : "{0} ({1})".subst(loc("option/off"), loc("option/monitor_does_not_support", "Monitor doesn't support"))),
     optionCheckBox)
@@ -399,8 +421,9 @@ let optAntiAliasingMode = optionCtor({
                 antiAliasingMode.TAA,
                 antiAliasingMode.TSR,
                 dlssNotAllowLocId.value == null ? antiAliasingMode.DLSS : null,
-                xessNotAllowLocId.value == null && isPcDx12 ? antiAliasingMode.XESS : null,
-                fsr2Supported.value && isPcDx12 ? antiAliasingMode.FSR2 : null ].filter(@(q) q != null))
+                (xessNotAllowLocId.value == null && isDx12Selected.value) ? antiAliasingMode.XESS : null,
+                (fsr2Supported.value && isDx12Selected.value) ? antiAliasingMode.FSR2 : null,
+                antiAliasingMode.SSAA ].filter(@(q) q != null))
   valToString = @(v) loc(antiAliasingModeToString[v].optName, antiAliasingModeToString[v].defLocString)
 }.__update(renderSettingsTbl.antiAliasingModeChosen, { var = antiAliasingModeValue }))
 
@@ -436,7 +459,7 @@ let optXess = optionCtor({
   widgetCtor = mkDisableableCtor(
     Computed(@() xessNotAllowLocId.value == null ? null : "{0} ({1})".subst(loc("option/off"), loc(xessNotAllowLocId.value))),
     optionSpinner)
-  isAvailableWatched = Computed(@() isOptAvailable() && antiAliasingModeValue.value == antiAliasingMode.XESS)
+  isAvailableWatched = Computed(@() isOptAvailable() && antiAliasingModeValue.value == antiAliasingMode.XESS && isDx12Selected.value)
   blkPath = XESS_BLK_PATH
   defVal = XESS_OFF
   var = xessValue
@@ -570,7 +593,7 @@ let optOnlyonlyHighResFx = optionCtor({
   tab = "Graphics"
   isAvailable = isOptAvailable
   widgetCtor = mkDisableableCtor(bareOffText, optionSpinner)
-  available = ["lowres", "highres"]
+  available = ["lowres", "medres", "highres"]
   restart = false
   valToString = loc_opt
 }.__update(renderSettingsTbl.onlyHighResFx))
@@ -661,8 +684,19 @@ let optSSSS = optionCtor({
   valToString = loc_opt
 }.__update(renderSettingsTbl.ssss))
 
+let { wasSSAAWarningShown, wasSSAAWarningShownUpdate
+} = globalWatched("wasSSAAWarningShown", @() false)
+
+antiAliasingModeChosen.subscribe(function(mode) {
+  if (!wasSSAAWarningShown.value && mode == antiAliasingMode.SSAA) {
+    wasSSAAWarningShownUpdate(true)
+    msgbox.show({text=loc("settings/ssaa_warning")})
+  }
+})
+
 return {
   resolutionToString
+  optDriver
   optResolution
   optSafeArea
   optVideoMode
@@ -713,6 +747,7 @@ return {
 
     // Display
     {name = loc("group/display", "Display") isSeparator=true tab="Graphics"},
+    optDriver,
     optResolution,
     optVideoMode,
     optMonitorSelection,

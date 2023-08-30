@@ -1,7 +1,7 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let {body_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontBody} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {tipCmp} = require("%ui/hud/huds/tips/tipComponent.nut")
 let {EventEntityDied} = require("dasevents")
 let {get_shell_template_by_shell_id, DM_EXPLOSION} = require("dm")
@@ -41,9 +41,11 @@ ecs.register_es(
 
 let explTip = tipCmp({
   text = loc("hint/lieDownToSaveFromExplosion")
-  style = {onAttach = @() gui_scene.setTimeout(TIP_SHOW_TIME, @() showTip(false))
-           onDetach = @() showTip(false)}
-}.__update(body_txt))
+  style = {
+    onAttach = @() gui_scene.resetTimeout(TIP_SHOW_TIME, hideTip)
+    onDetach = hideTip
+  }
+}.__update(fontBody))
 
 let lie_down_to_save_from_expl_tip = @() {
   watch = showTip

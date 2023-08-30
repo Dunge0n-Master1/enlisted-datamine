@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h2_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let { textColor, TextActive } = require("%ui/style/colors.nut")
 let textButtonTextCtor = require("%ui/components/textButtonTextCtor.nut")
@@ -20,7 +20,7 @@ let function activatePremiumText(sf) {
         rendObj = ROBJ_TEXT
         color = textColor(sf, false, TextActive)
         text = loc("btn/reserveSize", {addSize = bonus})
-      }.__update(h2_txt)
+      }.__update(fontHeading2)
       premiumImage(hdpx(30))
     ]
   }
@@ -30,7 +30,7 @@ let activatePremiumBttn = {
   customStyle = {
     textCtor = function(textComp, params, handler, group, sf) {
       textComp = activatePremiumText(sf)
-      params = h2_txt
+      params = fontHeading2
       return textButtonTextCtor(textComp, params, handler, group, sf)
     }
   }

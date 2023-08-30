@@ -1,7 +1,7 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h2_txt, body_txt, fontawesome } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2, fontBody, fontawesome } = require("%enlSqGlob/ui/fontsStyle.nut")
 let fa = require("%ui/components/fontawesome.map.nut")
 let style = require("%ui/hud/style.nut")
 let { TEAM_UNASSIGNED } = require("team")
@@ -165,7 +165,7 @@ let isMyTeamAttacking = Computed(@() localPlayerTeam.value == whichTeamAttack.va
 let trainCapzone = Computed(@() capZones.value?[trainZoneEid.value])
 
 let escortPointsBlockLength = sw(20)
-let escortPointSize = [fsh(0.8).tointeger(), fsh(0.8).tointeger()]
+let escortPointSize = [hdpxi(8), hdpxi(8)]
 let escortLineHeight = fsh(0.8*0.85)
 let trainMarkerSize = [hdpxi(74), hdpxi(24)]
 let INACTIVATED_TRAIN_COLOR = Color(90, 90, 90)
@@ -329,7 +329,7 @@ let makeFailTimer = @(endTimeWatch) function(){
           rendObj = ROBJ_TEXT
           color = timeIsRunningOut ? Color(155, 0, 0, 95) : Color(155, 155, 155, 95)
           text = secondsToStringLoc(endTimeWatch.value)
-        }.__update(timeIsRunningOut ? h2_txt : body_txt)
+        }.__update(timeIsRunningOut ? fontHeading2 : fontBody)
       : null
   }
 }
@@ -361,7 +361,7 @@ let function attackingTeamPoints() {
         size = [hdpx(55), SIZE_TO_CONTENT]
         text = attackerScoreWatch.value
         color
-      }.__update(body_txt)
+      }.__update(fontBody)
     ]
   }
 }

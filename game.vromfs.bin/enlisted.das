@@ -6,33 +6,8 @@ require app
 require ECSGlobalTags
 require DagorDataBlock
 require DagorSystem
-require danetlibs.pathfinder.pathfinder_init
-require sound_utils.sound_utils_init
-require sound_utils_net.sound_utils_net_init
-require common_sounds.common_sounds_init
-require environment_sounds.environment_sounds_init
-require door_sounds.door_sounds_init
-require vehicle_sounds.vehicle_sounds_init
-require vehicle_sounds_net.vehicle_sounds_net_init
-require ship_sounds.ship_sounds_init
-require plane_sounds.plane_sounds_init
-require weapon_sounds.weapon_sounds_init
-require human_sounds.human_sounds_init
-require human_sounds_net.human_sounds_net_init
-require danetlibs.wounds.wounds_init
-require danetlibs.render_debug.render_debug_init
-require danetlibs.imgui_daeditor.imgui_daeditor_init
-require danetlibs.route_prober.route_prober_init
-require danetlibs.motion_matching.motion_matching_init
-require danetlibs.console_commands.console_commands_init
-require danetlibs.native_dasevents.native_dasevents_init
-require danetlibs.hero_cockpit.hero_cockpit_init
-require danetlibs.verify_ecs.verify_ecs_init
-require danetlibs.blood_decals.blood_decals_init
-require danetlibs.frame_graph_renderer.frame_graph_renderer_init
-require danetlibs.assets_import.assets_import_init
-require danetlibs.node_collapser.node_collapser_init
 
+require %scripts/dng_libs_init
 
 def private sound_override_voices_locale() : bool
   var locale = ""
@@ -42,18 +17,6 @@ def private sound_override_voices_locale() : bool
 
 def private load_sound() : bool
   var ok = true
-  ok = load_sound_utils_net("%danetlibs/sound/sound_utils_net") && ok
-  ok = load_sound_utils("%danetlibs/sound/sound_utils") && ok
-  ok = load_common_sounds("%danetlibs/sound/common_sounds") && ok
-  ok = load_environment_sounds("%danetlibs/sound/environment_sounds") && ok
-  ok = load_door_sounds("%danetlibs/sound/door_sounds") && ok
-  ok = load_vehicle_sounds("%danetlibs/sound/vehicle_sounds") && ok
-  ok = load_vehicle_sounds_net("%danetlibs/sound/vehicle_sounds_net") && ok
-  ok = load_ship_sounds("%danetlibs/sound/ship_sounds") && ok
-  ok = load_plane_sounds("%danetlibs/sound/plane_sounds") && ok
-  ok = load_weapon_sounds("%danetlibs/sound/weapon_sounds") && ok
-  ok = load_human_sounds("%danetlibs/sound/human_sounds") && ok
-  ok = load_human_sounds_net("%danetlibs/sound/human_sounds_net") && ok
 
   if ecs_has_tag("sound") || app::get_game_name() == "aot"
     ok = load_folder("%scripts/game/es/sound") && ok
@@ -179,6 +142,7 @@ def load
     load_optional_folder("%dngdas/das/remote/es")
     if typeinfo(builtin_module_exists DngWalkerai)
       load_optional_folder("%dngdas/das/remote/es/ai")
+  load_optional_folder("%dngdas/das/debug/es")
 
   ok = load_folder("%scripts/game/es") && ok
   ok = load_folder("%scripts/game/es/ai") && ok
@@ -192,6 +156,7 @@ def load
   ok = load_folder("%scripts/game/es/terraform") && ok
   ok = load_folder("%scripts/game/es/pve") && ok
   ok = load_folder("%scripts/game/es/train") && ok
+  ok = load_folder("%scripts/game/es/voxel") && ok
   ok = load_editor() && ok
   ok = load_render() && ok
   ok = load_input() && ok
@@ -205,20 +170,7 @@ def load
   ok = load_imgui() && ok
   ok = load_sandbox() && ok
 
-  ok = load_pathfinder("%danetlibs/pathfinder") && ok
-  ok = load_wounds("%danetlibs/wounds") && ok
-  ok = load_render_debug("%danetlibs/render_debug") && ok
-  ok = load_route_prober("%danetlibs/route_prober") && ok
-  ok = load_imgui_daeditor("%danetlibs/imgui_daeditor") && ok
-  ok = load_motion_matching("%danetlibs/motion_matching") && ok
-  ok = load_console_commands("%danetlibs/console_commands") && ok
-  ok = load_native_dasevents("%danetlibs/native_dasevents") && ok
-  ok = load_hero_cockpit("%danetlibs/hero_cockpit") && ok
-  ok = load_verify_ecs("%danetlibs/verify_ecs") && ok
-  ok = load_blood_decals("%danetlibs/blood_decals") && ok
-  ok = load_frame_graph_renderer("%danetlibs/frame_graph_renderer") && ok
-  ok = load_assets_import("%danetlibs/assets_import") && ok
-  ok = load_node_collapser("%danetlibs/node_collapser") && ok
+  ok = load_dng_libs() && ok
 
   if app::get_game_name() == "aot"
     assert(ok)

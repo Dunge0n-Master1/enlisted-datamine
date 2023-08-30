@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { tactical_font } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontTactical } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { rankIcons, rankGlyphs } = require("%enlSqGlob/ui/rankIcons.nut")
 let armiesPresentation = require("%enlSqGlob/ui/armiesPresentation.nut")
 
@@ -618,6 +618,18 @@ let soldierClasses = freeze({
     rank = 10
     kind = "engineer"
   }.__update(premiumCfg)
+  assault_3_premium_2_event = {
+    locId = "soldierClass/assault"
+    getGlyph = @(_) null
+    rank = 10
+    kind = "assault"
+  }.__update(eventCfg)
+  assault_3_premium_2_event_engineer = {
+    locId = "soldierClass/engineer"
+    getGlyph = @(_) null
+    rank = 10
+    kind = "engineer"
+  }.__update(eventCfg)
   mgun_premium_1 = {
     locId = "soldierClass/mgun"
     getGlyph = @(_) null
@@ -691,6 +703,18 @@ let soldierClasses = freeze({
     kind = "sniper"
   }.__update(premiumCfg)
   sniper_2_premium_1_engineer = {
+    locId = "soldierClass/engineer"
+    getGlyph = @(_) null
+    rank = 10
+    kind = "engineer"
+  }.__update(premiumCfg)
+  sniper_2_premium_2 = {
+    locId = "soldierClass/sniper"
+    getGlyph = @(_) null
+    rank = 10
+    kind = "sniper"
+  }.__update(premiumCfg)
+  sniper_2_premium_2_engineer = {
     locId = "soldierClass/engineer"
     getGlyph = @(_) null
     rank = 10
@@ -846,6 +870,12 @@ let soldierClasses = freeze({
     rank = 10
     kind = "pilot_fighter"
   }.__update(premiumCfg)
+  pilot_fighter_3_premium_1_event = {
+    locId = "soldierClass/pilot_fighter"
+    getGlyph = @(_) null
+    rank = 10
+    kind = "pilot_fighter"
+  }.__update(eventCfg)
   pilot_fighter_3_premium_2 = {
     locId = "soldierClass/pilot_fighter"
     getGlyph = @(_) null
@@ -853,6 +883,12 @@ let soldierClasses = freeze({
     kind = "pilot_fighter"
   }.__update(premiumCfg)
   pilot_fighter_3_premium_3 = {
+    locId = "soldierClass/pilot_fighter"
+    getGlyph = @(_) null
+    rank = 10
+    kind = "pilot_fighter"
+  }.__update(premiumCfg)
+  pilot_fighter_3_premium_4 = {
     locId = "soldierClass/pilot_fighter"
     getGlyph = @(_) null
     rank = 10
@@ -965,7 +1001,7 @@ let soldierClasses = freeze({
 const GLYPHS_TAG = "t"
 
 let mkGlyphsStyle = @(params = hdpx(16)) {
-  [GLYPHS_TAG] = {}.__update(tactical_font, typeof params == "table" ? params : { fontSize = params })
+  [GLYPHS_TAG] = {}.__update(fontTactical, typeof params == "table" ? params : { fontSize = params })
 }
 
 let getClassCfg = @(sClass) soldierClasses?[sClass] ?? soldierClasses.unknown

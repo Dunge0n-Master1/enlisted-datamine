@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {body_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontBody} = require("%enlSqGlob/ui/fontsStyle.nut")
 let sessions_players = require("%ui/hud/state/sessions_players.nut")
 let fontIconButton = require("%ui/components/fontIconButton.nut")
 let JB = require("%ui/control/gui_buttons.nut")
@@ -21,14 +21,14 @@ let closebutton = fontIconButton("close", {
   padding = 0
 })
 
-let mkPlayer = @(text) { rendObj = ROBJ_TEXT, text }.__update(body_txt)
+let mkPlayer = @(text) { rendObj = ROBJ_TEXT, text }.__update(fontBody)
 
 let header = {
   rendObj = ROBJ_TEXT
   text = loc("Players in session")
   margin = hdpx(8)
   color = Color(120,120,120,120)
-}.__update(body_txt)
+}.__update(fontBody)
 
 let function menu(){
   return {

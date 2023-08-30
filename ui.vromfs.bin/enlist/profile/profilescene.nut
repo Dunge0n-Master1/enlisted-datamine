@@ -12,7 +12,7 @@ let {
   achievementsList, hasAchievementsReward, receiveTaskRewardsAll
 } = require("%enlist/unlocks/taskListState.nut")
 let { mkAchievementTitle } = require("%enlSqGlob/ui/tasksPkg.nut")
-let { h2_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let wallpostersUi = require("wallpostersUi.nut")
 let {
@@ -122,7 +122,7 @@ let tabsList = [
     mkTitleComponent = @(color) @() {
       watch = achievementsList
       children = mkAchievementTitle(achievementsList.value, "profile/achievementsTab")
-        .__update(h2_txt, { color })
+        .__update(fontHeading2, { color })
     }
     content = achievementsBlockUI
     unseenMarkType = Computed(@() !hasAchievementsReward.value ? null

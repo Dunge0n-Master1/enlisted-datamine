@@ -5,7 +5,7 @@ let { controlledVehicleEid } = require("%ui/hud/state/vehicle_state.nut")
 let { MAP_COLOR_TEAMMATE, MAP_COLOR_SQUADMATE, MAP_COLOR_GROUPMATE
 } = require("%enlSqGlob/ui/style/unit_colors.nut")
 
-let iconSz = array(2, fsh(1.4).tointeger())
+let iconSz = array(2, hdpxi(15))
 let mkIcon = memoize(@(icon) (icon ?? "") != ""
   ? Picture("!ui/skin#{0}.svg:{1}:{2}:K".subst(icon, iconSz[0], iconSz[1]))
   : null)

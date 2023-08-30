@@ -1,5 +1,9 @@
 entity{
-  _template:t="noBotsMode+gamemodeFriendlyFire+gamemodeCapzoneSmoke"
+  _template:t="noBotsMode+gamemodeCapzoneSmoke"
+}
+
+entity{
+  _template:t="gamemodeFriendlyFire"
 }
 
 entity{

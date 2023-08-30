@@ -95,20 +95,21 @@ def altitude_global_sound_var_toggle(evt : Event;
 [es(tag=sound, after=start_async_phys_sim_es)] // after start_async_phys_sim_es to start phys sim job earlier
 def altitude_global_sound_var_update(info : ParallelUpdateFrameDelayed;
                                      altitude_global_sound_var__interval : float;
+                                     altitude_global_sound_var__altitudeToVar : float2;
                                      altitude_global_sound_var__id : SoundVarId;
                                      var altitude_global_sound_var__nextTime : float&)
   if info.curTime >= altitude_global_sound_var__nextTime && !!altitude_global_sound_var__id
     altitude_global_sound_var__nextTime = info.curTime + altitude_global_sound_var__interval
     var altitude = 0.
-    var waterHeight = 0.
     let pos = get_listener_pos()
-    if traceht_water(pos, waterHeight)
-      altitude = pos.y - waterHeight
-    else
+    let ret = find_query() <| $ [es] (water__level : float)
+      altitude = pos.y - water__level
+      return true
+    if !ret
       let pos2d = pos.xz
       let ground = traceht_lmesh(pos2d)
       altitude = pos.y - ground
-    set_var_global(altitude_global_sound_var__id, altitude)
+    set_var_global(altitude_global_sound_var__id, altitude * altitude_global_sound_var__altitudeToVar.x + altitude_global_sound_var__altitudeToVar.y)
 
 
 // ..........................................................

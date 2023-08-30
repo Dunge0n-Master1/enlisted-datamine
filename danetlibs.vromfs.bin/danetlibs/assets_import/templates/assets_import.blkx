@@ -1,4 +1,4 @@
-asset_manager{
+base_asset_manager{
   _tags:t="render"
   _singleton:b=yes
   asset__applicationBlkPath:t="%danetlibs/assets_import/application.blk"

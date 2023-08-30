@@ -679,6 +679,13 @@ DamageEffects{
       wing_l_dm:r=0.5
     }
 
+    onHit{
+      damage:r=200.0
+      wingcontrol_dm:r=0.2
+      wingcontrol_l_dm:r=0.2
+      wingcontrol_r_dm:r=0.2
+    }
+
     onKill{
       wingcontrol_l_dm:r=1.0
       wingcontrol_r_dm:r=1.0
@@ -718,6 +725,13 @@ DamageEffects{
       fire:r=5.0
       wing_l_dm:r=1.0
       wing_r_dm:r=1.0
+    }
+
+    onKill{
+      damage:r=200.0
+      wingcontrol_dm:r=0.4
+      wingcontrol_l_dm:r=0.4
+      wingcontrol_r_dm:r=0.4
     }
   }
 
@@ -741,6 +755,13 @@ DamageEffects{
       wing_l_dm:r=0.5
     }
 
+    onHit{
+      damage:r=200.0
+      wingcontrol_dm:r=0.2
+      wingcontrol_l_dm:r=0.2
+      wingcontrol_r_dm:r=0.2
+    }
+
     onKill{
       wingcontrol_l_dm:r=1.0
       wingcontrol_r_dm:r=1.0
@@ -780,6 +801,13 @@ DamageEffects{
       fire:r=5.0
       wing_l_dm:r=1.0
       wing_r_dm:r=1.0
+    }
+
+    onKill{
+      damage:r=200.0
+      wingcontrol_dm:r=0.4
+      wingcontrol_l_dm:r=0.4
+      wingcontrol_r_dm:r=0.4
     }
   }
 
@@ -995,10 +1023,20 @@ DamageEffects{
 
   part{
     name:t="spar_l_dm"
+
+    onKill{
+      nothing:r=100.0
+      cut:r=0.001
+    }
   }
 
   part{
     name:t="spar_r_dm"
+
+    onKill{
+      nothing:r=100.0
+      cut:r=0.001
+    }
   }
 
   part{
@@ -2169,7 +2207,7 @@ cockpit{
     water_temperature:p2=0.0, 125.0
     head_temperature:p2=0.0, 150.0
     fuel_pressure:p2=0.0, 15.0
-    fuel1:p2=0.0, 300.0
+    fuel:p2=0.0, 215.0
     prop_pitch:p2=-1.0, 1.0
     trottle:p2=0.0, 1.0
     weapon1:p2=0.0, 1.0

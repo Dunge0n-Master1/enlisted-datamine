@@ -1,8 +1,8 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { accentColor, colPart, titleTxtColor, defBdColor, commonBorderRadius
+let { accentColor, titleTxtColor, defBdColor, commonBorderRadius
 } = require("%enlSqGlob/ui/designConst.nut")
-let cursors = require("%daeditor/components/cursors.nut")
+let cursors = require("%ui/style/cursors.nut")
 let { secondsToString } = require("%ui/helpers/time.nut")
 
 let function mkTimeLine(var, options={}) {
@@ -23,7 +23,7 @@ let function mkTimeLine(var, options={}) {
     let factor = clamp((var.value.tofloat() - minval) / (maxval - minval), 0, 1)
     return {
       watch = var
-      size = [flex(), colPart(0.25)]
+      size = [flex(), hdpx(16)]
       behavior = Behaviors.Slider
       min = 0
       max = 1

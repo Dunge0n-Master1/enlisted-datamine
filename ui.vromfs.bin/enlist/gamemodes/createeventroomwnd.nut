@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 from "createEventRoomState.nut" import *
 
-let { sub_txt, body_txt, h2_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub, fontBody, fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { logerr } = require("dagor.debug")
 let { bigPadding, blurBgColor, defInsideBgColor, defTxtColor, accentColor,
   blurBgFillColor, smallPadding, activeTxtColor, commonBtnHeight, smallOffset
@@ -135,7 +135,7 @@ let mkValueText = @(curValue, valToString, overrideText = null) @() {
   rendObj = ROBJ_TEXT
   color = defTxtColor
   text = overrideText ?? valToString?(curValue.value) ?? curValue.value
-}.__update(body_txt)
+}.__update(fontBody)
 
 let optionCtor = {
   [OPT_LIST] = @(opt, cfg, isInactive = false) (cfg.values.len() <= 1 || isInactive)
@@ -188,7 +188,7 @@ let mkOption = @(option) function () {
                 rendObj = ROBJ_TEXT
                 color = defTxtColor
                 text = hintText
-              }.__update(sub_txt)) : null)
+              }.__update(fontSub)) : null)
         })
   }
 }
@@ -238,7 +238,7 @@ let mkCampaignSelectRow = @(campaign) watchElemState(@(sf) {
       behavior = Behaviors.TextArea
       color = txtColor(sf)
       text = loc(gameProfile.value?.campaigns[campaign].title ?? campaign)
-    }.__update(body_txt)
+    }.__update(fontBody)
     selectedCampaignsFilters.value.contains(campaign) ? faComp("check") : null
   ]
 })
@@ -263,7 +263,7 @@ let cardTextBlock = @(label, typeTxt, sf, isSelected, params = {}) {
       behavior = Behaviors.TextArea
       color = txtColor(sf)
       text = label
-    }.__update(h2_txt, params?.label ?? {})
+    }.__update(fontHeading2, params?.label ?? {})
     {
       size = [flex(), SIZE_TO_CONTENT]
       gap = smallPadding
@@ -275,7 +275,7 @@ let cardTextBlock = @(label, typeTxt, sf, isSelected, params = {}) {
               rendObj = ROBJ_TEXT
               color = txtColor(sf)
               text = typeTxt
-            }.__update(body_txt)
+            }.__update(fontBody)
         {
           size = [smallOffset, SIZE_TO_CONTENT]
           hplace = ALIGN_RIGHT
@@ -332,7 +332,7 @@ let allertSign = {
     rendObj = ROBJ_TEXT
     color = defTxtColor
     text = loc("singleMissionAlert")
-  }.__update(sub_txt)) : null)
+  }.__update(fontSub)) : null)
 }
 
 optMissions.curValue.subscribe(function(v) {
@@ -463,7 +463,7 @@ let roomInfoRow = @(block) function getRoomInfoRow() {
           text = loc(locId)
           valign = ALIGN_CENTER
           color = activeTxtColor
-        }.__update(body_txt)
+        }.__update(fontBody)
         {
           size = [flex(), SIZE_TO_CONTENT]
           flow = FLOW_VERTICAL
@@ -478,7 +478,7 @@ let roomInfoRow = @(block) function getRoomInfoRow() {
             halign = ALIGN_RIGHT
             color = defTxtColor
             text
-          }.__update(body_txt))
+          }.__update(fontBody))
         }
       ]
     })
@@ -502,14 +502,14 @@ let modMissionTitle = is_console ? null : watchElemState(@(sf) {
     ? {
         rendObj = ROBJ_TEXT
         text = loc("mods/noActive")
-      }.__update(body_txt)
+      }.__update(fontBody)
     : [
         {
           rendObj = ROBJ_TEXT
           size = [flex(), SIZE_TO_CONTENT]
           color = activeTxtColor
           text = loc("Mods")
-        }.__update(body_txt)
+        }.__update(fontBody)
         {
           rendObj = ROBJ_TEXT
           size = [flex(3), SIZE_TO_CONTENT]
@@ -518,7 +518,7 @@ let modMissionTitle = is_console ? null : watchElemState(@(sf) {
           color = defTxtColor
           halign = ALIGN_RIGHT
           text = receivedModInfos.value?[modPath.value].title
-        }.__update(body_txt)
+        }.__update(fontBody)
       ]
 })
 
@@ -534,7 +534,7 @@ let mainSettingsInfo = @() {
 
 let applyButton = @(locId) textButton(loc(locId), editEventRoom, {
   size = [btnWidth, commonBtnHeight]
-  textParams = { rendObj=ROBJ_TEXT }.__update(body_txt)
+  textParams = { rendObj=ROBJ_TEXT }.__update(fontBody)
   style = { BgNormal = accentColor }
   hotkeys = [["^J:X", { description = { skip = true }}]]
 })

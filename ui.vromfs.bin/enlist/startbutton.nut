@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontXLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { titleTxtColor, accentColor, defTxtColor, startBtnWidth, colPart, leftAppearanceAnim
+let { fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { titleTxtColor, accentColor, defTxtColor, startBtnWidth, leftAppearanceAnim
 //  ,DEF_APPEARANCE_TIME
 } = require("%enlSqGlob/ui/designConst.nut")
 let { isInBattleState } = require("%enlSqGlob/inBattleState.nut")
@@ -47,7 +47,7 @@ let leaveMatchTxtStyle = {
     behavior = Behaviors.TextArea
     size = [pw(70), SIZE_TO_CONTENT]
     halign = ALIGN_CENTER
-  }.__update(fontXLarge)
+  }.__update(fontHeading2)
 }
 
 
@@ -78,7 +78,7 @@ let blinkAnimation = [{prop = AnimProp.color, from = 0x00F27272 , to = 0x44AA727
 
 let btnHeight = hdpxi(94)
 let function btnCtor(txt, action, params = {}) {
-  let { defTextColor, hoverTextColor, activeTextColor, txtParams = fontXLarge } = params.txtStyle
+  let { defTextColor, hoverTextColor, activeTextColor, txtParams = fontHeading2 } = params.txtStyle
   let { bgStyle, hotkeys = null } = params
   return Flat(txt, action, {
     btnWidth = startBtnWidth
@@ -255,7 +255,7 @@ let startBtn = @() {
       : null
     mkGlare({
       nestWidth = startBtnWidth
-      glareWidth = colPart(2)
+      glareWidth = hdpx(124)
       glareDuration = 0.7
       glareOpacity = 0.5
       glareDelay = 5

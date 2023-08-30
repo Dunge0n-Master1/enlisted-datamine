@@ -5015,7 +5015,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam1"
-  transform:m=[[-0.987417, 0.0, -0.158136] [0.0, 1.0, 0.0] [0.158136, 0.0, -0.987417] [-324.944, 5.7471, 56.5483]]
+  transform:m=[[-0.987417, 0.0, -0.158136] [0.0, 1.0, 0.0] [0.158136, 0.0, -0.987417] [-320.746, 5.7471, 59.8067]]
   groupName:t="sector_3_a"
   respawnBaseGroup:i=1
   active:b=no
@@ -5399,7 +5399,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam1"
-  transform:m=[[-0.676432, 0.0, 0.736506] [0.0, 1.0, 0.0] [-0.736506, 0.0, -0.676432] [-226.278, 12.132, -13.613]]
+  transform:m=[[-0.676432, 0.0, 0.736506] [0.0, 1.0, 0.0] [-0.736506, 0.0, -0.676432] [-225.028, 13.0533, -13.413]]
   groupName:t="sector_4_a"
   respawnBaseGroup:i=1
   active:b=no
@@ -5407,7 +5407,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam1"
-  transform:m=[[-0.938562, 0.0, 0.345111] [0.0, 1.0, 0.0] [-0.345111, 0.0, -0.938562] [-221.214, 11.58, -2.37073]]
+  transform:m=[[-0.97539, 0.0, 0.220488] [0.0, 1.0, 0.0] [-0.220488, 0.0, -0.97539] [-214.328, 11.1757, 0.409928]]
   groupName:t="sector_4_a"
   respawnBaseGroup:i=1
   active:b=no
@@ -5707,7 +5707,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam2"
-  transform:m=[[0.935267, 0.0, -0.353944] [0.0, 1.0, 0.0] [0.353944, -0.0, 0.935267] [-718.271, 11.4469, 77.413]]
+  transform:m=[[0.999902, 0.0, -0.0139955] [0.0, 1.0, 0.0] [0.0139955, -0.0, 0.999902] [-716.598, 12.8642, 76.1783]]
   groupName:t="sector_3_b"
   respawnBaseGroup:i=1
   active:b=no
@@ -5723,7 +5723,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam2"
-  transform:m=[[0.143347, 0.0, -0.989673] [0.0, 1.0, 0.0] [0.989673, -0.0, 0.143347] [-690.757, 10.8951, 102.262]]
+  transform:m=[[0.143347, 0.0, -0.989673] [0.0, 1.0, 0.0] [0.989673, -0.0, 0.143347] [-691.344, 10.8951, 103.28]]
   groupName:t="sector_3_b"
   respawnBaseGroup:i=2
   active:b=no
@@ -5731,7 +5731,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam2"
-  transform:m=[[0.958422, 0.0, 0.285357] [0.0, 1.0, -0.0] [-0.285357, 0.0, 0.958422] [-717.407, 12.8917, 63.0682]]
+  transform:m=[[0.886211, 0.0, 0.463282] [0.0, 1.0, -0.0] [-0.463282, 0.0, 0.886211] [-717.806, 14.5372, 54.5868]]
   groupName:t="sector_3_b"
   respawnBaseGroup:i=1
   active:b=no

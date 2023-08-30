@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontMedium, fontSmall } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { panelBgColor, commonBtnHeight, defTxtColor, midPadding, darkTxtColor, accentColor,
   commonBorderRadius, defBdColor, hoverBdColor, smallBtnHeight, disabledBgColor
 } = require("%enlSqGlob/ui/designConst.nut")
@@ -15,11 +15,11 @@ let borderWidth = hdpx(1)
 
 let defTxtStyle = {
   color = defTxtColor
-}.__update(fontMedium)
+}.__update(fontBody)
 
 let hoverTxtStyle = {
   color = darkTxtColor
-}.__update(fontMedium)
+}.__update(fontBody)
 
 
 let dropDownHead = @(label, onClick, sf, isEnabled) {
@@ -45,7 +45,7 @@ let dropDownHead = @(label, onClick, sf, isEnabled) {
       text = label
     }.__update(sf & S_HOVER ? hoverTxtStyle : defTxtStyle)
     faComp("chevron-down", {
-      fontSize = fontSmall.fontSize
+      fontSize = fontSub.fontSize
       color = sf & S_HOVER ? hoverTxtStyle.color : defTxtStyle.color
     })
   ]

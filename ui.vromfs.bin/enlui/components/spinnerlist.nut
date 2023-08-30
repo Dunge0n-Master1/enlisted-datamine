@@ -1,15 +1,14 @@
 from "daRg" import *
 from "%enlSqGlob/ui_library.nut" import hdpx, Computed, watchElemState, kwarg, loc
 
-let {body_txt, fontawesome} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontBody, fontawesome} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {BtnBgHover, BtnBgActive, ControlBgOpaque, TextHighlight, TextDefault, Active} = require("%ui/style/colors.nut")
 let {buttonSound} = require("%ui/style/sounds.nut")
 let fa = require("%ui/components/fontawesome.map.nut")
 let {isTouch} = require("%ui/control/active_controls.nut")
 
-let fillColor = @(sf, active)
-  !active ? ControlBgOpaque
-  : (sf & S_HOVER) ? BtnBgHover
+let fillColor = @(sf, active) !active ? ControlBgOpaque
+  : sf & S_HOVER ? BtnBgHover
   : BtnBgActive
 
 let spinnerLeftLoc = loc("spinner/prevValue", "Previous value")
@@ -107,7 +106,7 @@ local spinner = kwarg(function(curValue, allValues, setValue = null,
     scrollOnHover = true
     clipChildren = true
     group
-  }.__update(body_txt)
+  }.__update(fontBody)
 
   let buttons = {
     flow = FLOW_HORIZONTAL

@@ -31,7 +31,7 @@ let REPEAT_ANIM_KEYS = [[string[]
   "repeat1";
   "repeat2"]]
 
-[es(on_appear)]
+[es(on_appear, tag=render)]
 def hit_reaction_init(evt : Event;
                       eid : EntityId;
                       var animchar : AnimcharBaseComponent;

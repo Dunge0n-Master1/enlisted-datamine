@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h2_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {registerUrl} = require("%enlist/login/ui/loginUiParams.nut")
 let { get_setting_by_blk_path } = require("settings")
 let { smallPadding, titleTxtColor, accentColor } = require("%enlSqGlob/ui/viewConst.nut")
@@ -15,7 +15,7 @@ let function text(str) {
     rendObj = ROBJ_TEXT
     text = str
     color = titleTxtColor
-  }.__update(h2_txt)
+  }.__update(fontHeading2)
 }
 
 let normalColor = accentColor
@@ -35,9 +35,9 @@ let login = {
   ]
 }
 
-let function color(sf){
-  return (sf & S_ACTIVE) ? activeColor : (sf & S_HOVER) ? hoverColor : normalColor
-}
+let color = @(sf) sf & S_ACTIVE ? activeColor
+  : sf & S_HOVER ? hoverColor
+  : normalColor
 
 let registrationBtn = watchElemState(@(sf){
   flow = FLOW_HORIZONTAL
@@ -51,7 +51,7 @@ let registrationBtn = watchElemState(@(sf){
       rendObj = ROBJ_TEXT
       text = loc("login/registration")
       color = color(sf)
-    }.__update(h2_txt)
+    }.__update(fontHeading2)
     faComp("external-link", {color  = color(sf), fontSize = hdpx(17)})
   ]
 })

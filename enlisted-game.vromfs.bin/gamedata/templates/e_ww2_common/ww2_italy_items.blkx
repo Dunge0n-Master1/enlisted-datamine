@@ -4,7 +4,15 @@ attachable_wear_head_01_it_item{
   item__uniqueName:t="attachable_wear_head_01_it_item"
   animchar__res:t="head_iten_03_char"
   collres__res:t="head_iten_03_collision"
-  item__name:t="Italy Head 01"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="helmet"
+    slot:t="skined_helmet"
+  }
 }
 
 attachable_wear_head_02_it_item{
@@ -13,7 +21,15 @@ attachable_wear_head_02_it_item{
   item__uniqueName:t="attachable_wear_head_02_it_item"
   animchar__res:t="head_iten_04_char"
   collres__res:t="head_iten_04_collision"
-  item__name:t="Italy Head 02"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="helmet"
+    slot:t="skined_helmet"
+  }
 }
 
 attachable_wear_head_03_it_item{
@@ -22,7 +38,15 @@ attachable_wear_head_03_it_item{
   item__uniqueName:t="attachable_wear_head_03_it_item"
   animchar__res:t="head_iten_07_char"
   collres__res:t="head_iten_07_collision"
-  item__name:t="Italy Head 03"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="helmet"
+    slot:t="skined_helmet"
+  }
 }
 
 attachable_wear_head_04_it_item{
@@ -31,7 +55,15 @@ attachable_wear_head_04_it_item{
   item__uniqueName:t="attachable_wear_head_04_it_item"
   animchar__res:t="head_iten_08_char"
   collres__res:t="head_iten_08_collision"
-  item__name:t="Italy Head 04"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="helmet"
+    slot:t="skined_helmet"
+  }
 }
 
 attachable_wear_head_05_it_item{
@@ -40,7 +72,15 @@ attachable_wear_head_05_it_item{
   item__uniqueName:t="attachable_wear_head_05_it_item"
   animchar__res:t="head_iten_14_char"
   collres__res:t="head_iten_14_collision"
-  item__name:t="Italy Head 05"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="helmet"
+    slot:t="skined_helmet"
+  }
 }
 
 attachable_wear_head_06_it_item{
@@ -49,7 +89,15 @@ attachable_wear_head_06_it_item{
   item__uniqueName:t="attachable_wear_head_06_it_item"
   animchar__res:t="head_iten_16_char"
   collres__res:t="head_iten_16_collision"
-  item__name:t="Italy Head 06"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="helmet"
+    slot:t="skined_helmet"
+  }
 }
 
 attachable_wear_head_07_it_item{
@@ -58,7 +106,15 @@ attachable_wear_head_07_it_item{
   item__uniqueName:t="attachable_wear_head_07_it_item"
   animchar__res:t="head_iten_19_char"
   collres__res:t="head_iten_19_collision"
-  item__name:t="Italy Head 07"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="helmet"
+    slot:t="skined_helmet"
+  }
 }
 
 attachable_wear_head_08_it_item{
@@ -67,7 +123,15 @@ attachable_wear_head_08_it_item{
   item__uniqueName:t="attachable_wear_head_08_it_item"
   animchar__res:t="head_iten_20_char"
   collres__res:t="head_iten_20_collision"
-  item__name:t="Italy Head 08"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="helmet"
+    slot:t="skined_helmet"
+  }
 }
 
 attachable_wear_head_09_it_item{
@@ -76,7 +140,15 @@ attachable_wear_head_09_it_item{
   item__uniqueName:t="attachable_wear_head_09_it_item"
   animchar__res:t="head_iten_21_char"
   collres__res:t="head_iten_21_collision"
-  item__name:t="Italy Head 09"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="helmet"
+    slot:t="skined_helmet"
+  }
 }
 
 attachable_wear_head_10_it_item{
@@ -85,7 +157,15 @@ attachable_wear_head_10_it_item{
   item__uniqueName:t="attachable_wear_head_10_it_item"
   animchar__res:t="head_iten_22_char"
   collres__res:t="head_iten_22_collision"
-  item__name:t="Italy Head 10"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="helmet"
+    slot:t="skined_helmet"
+  }
 }
 
 attachable_wear_head_11_it_item{
@@ -94,77 +174,185 @@ attachable_wear_head_11_it_item{
   item__uniqueName:t="attachable_wear_head_11_it_item"
   animchar__res:t="head_iten_23_char"
   collres__res:t="head_iten_23_collision"
-  item__name:t="Italy Head 11"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="helmet"
+    slot:t="skined_helmet"
+  }
 }
 
 attachable_wear_headgenmesh_italian_01_item{
   _extends:t="attachable_head"
+  _extends:t="blue_eyes_a"
   item__uniqueName:t="attachable_wear_headgenmesh_italian_01_item"
   animchar__res:t="headgenmesh_italian_01_char"
   collres__res:t="headgenmesh_italian_01_collision"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="helmet"
+    slot:t="skined_helmet"
+  }
 }
 
 attachable_wear_headgenmesh_italian_02_item{
   _extends:t="attachable_head"
+  _extends:t="ligth_gray_eyes"
   item__uniqueName:t="attachable_wear_headgenmesh_italian_02_item"
   animchar__res:t="headgenmesh_italian_02_char"
   collres__res:t="headgenmesh_italian_02_collision"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="helmet"
+    slot:t="skined_helmet"
+  }
 }
 
 attachable_wear_headgenmesh_italian_03_item{
   _extends:t="attachable_head"
+  _extends:t="green_eyes_a"
   item__uniqueName:t="attachable_wear_headgenmesh_italian_03_item"
   animchar__res:t="headgenmesh_italian_03_char"
   collres__res:t="headgenmesh_italian_03_collision"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="helmet"
+    slot:t="skined_helmet"
+  }
 }
 
 attachable_wear_headgenmesh_italian_04_item{
   _extends:t="attachable_head"
+  _extends:t="ligth_gray_eyes"
   item__uniqueName:t="attachable_wear_headgenmesh_italian_04_item"
   animchar__res:t="headgenmesh_italian_04_char"
   collres__res:t="headgenmesh_italian_04_collision"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="helmet"
+    slot:t="skined_helmet"
+  }
 }
 
 attachable_wear_headgenmesh_italian_05_item{
   _extends:t="attachable_head"
+  _extends:t="green_eyes_b"
   item__uniqueName:t="attachable_wear_headgenmesh_italian_05_item"
   animchar__res:t="headgenmesh_italian_05_char"
   collres__res:t="headgenmesh_italian_05_collision"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="helmet"
+    slot:t="skined_helmet"
+  }
 }
 
 attachable_wear_headgenmesh_italian_06_item{
   _extends:t="attachable_head"
+  _extends:t="brown_eyes"
   item__uniqueName:t="attachable_wear_headgenmesh_italian_06_item"
   animchar__res:t="headgenmesh_italian_06_char"
   collres__res:t="headgenmesh_italian_06_collision"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="helmet"
+    slot:t="skined_helmet"
+  }
 }
 
 attachable_wear_headgenmesh_italian_07_item{
   _extends:t="attachable_head"
+  _extends:t="brown_yellow_eyes_a"
   item__uniqueName:t="attachable_wear_headgenmesh_italian_07_item"
   animchar__res:t="headgenmesh_italian_07_char"
   collres__res:t="headgenmesh_italian_07_collision"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="helmet"
+    slot:t="skined_helmet"
+  }
 }
 
 attachable_wear_headgenmesh_italian_08_item{
   _extends:t="attachable_head"
+  _extends:t="brown_yellow_eyes_b"
   item__uniqueName:t="attachable_wear_headgenmesh_italian_08_item"
   animchar__res:t="headgenmesh_italian_08_char"
   collres__res:t="headgenmesh_italian_08_collision"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="helmet"
+    slot:t="skined_helmet"
+  }
 }
 
 attachable_wear_headgenmesh_italian_09_item{
   _extends:t="attachable_head"
+  _extends:t="green_eyes_a"
   item__uniqueName:t="attachable_wear_headgenmesh_italian_09_item"
   animchar__res:t="headgenmesh_italian_09_char"
   collres__res:t="headgenmesh_italian_09_collision"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="helmet"
+    slot:t="skined_helmet"
+  }
 }
 
 attachable_wear_headgenmesh_italian_10_item{
   _extends:t="attachable_head"
+  _extends:t="brown_eyes"
   item__uniqueName:t="attachable_wear_headgenmesh_italian_10_item"
   animchar__res:t="headgenmesh_italian_10_char"
   collres__res:t="headgenmesh_italian_10_collision"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="helmet"
+    slot:t="skined_helmet"
+  }
 }
 
 attachable_wear_head_hero_1_it_item{
@@ -304,12 +492,35 @@ attachable_wear_grigio_verde_m40_item{
   }
 }
 
+attachable_wear_grigio_verde_m40_pistoia_item{
+  _extends:t="attachable_tunic"
+  item__uniqueName:t="attachable_wear_grigio_verde_m40_pistoia_item"
+  animchar__res:t="grigio_verde_m40_pistoia_char"
+  collres__res:t="grigio_verde_m40_pistoia_collision"
+  animchar_fast_phys__res:t="grigio_verde_m40_pistoia_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
 attachable_wear_sahariani_tunic_01_ita_tropic_item{
   _extends:t="attachable_tunic"
   item__uniqueName:t="attachable_wear_sahariani_tunic_01_ita_tropic_item"
   animchar__res:t="sahariani_tunic_01_ita_tropic_char"
   collres__res:t="sahariani_tunic_01_ita_tropic_collision"
   item__name:t="Italy Tropical Sahariani tunic m40"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="front_belt_l"
+    slot:t="side_belt_l"
+    slot:t="bag_l"
+  }
 }
 
 attachable_wear_m41_tunic_02_ita_tropic_item{
@@ -318,9 +529,19 @@ attachable_wear_m41_tunic_02_ita_tropic_item{
   animchar__res:t="m41_tunic_02_ita_tropic_char"
   collres__res:t="m41_tunic_02_ita_tropic_collision"
   animchar_fast_phys__res:t="m41_tunic_02_ita_tropic_fastphys"
+  _tracked:t="attaches_list"
 
   animchar_fast_phys{
     _tags:t="gameClient"
+  }
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="front_belt_l"
+    slot:t="bag_l"
   }
 }
 
@@ -329,6 +550,22 @@ attachable_wear_m41_mar_tunic_item{
   item__uniqueName:t="attachable_wear_m41_mar_tunic_item"
   animchar__res:t="m41_mar_tunic_char"
   collres__res:t="m41_mar_tunic_collision"
+  animchar_fast_phys__res:t="m41_mar_tunic_fastphys"
+  _tracked:t="attaches_list"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_l"
+    slot:t="front_belt_r"
+    slot:t="side_belt_l"
+    slot:t="bag_l"
+  }
 }
 
 attachable_wear_ita_pilot_jacket_tropic_item{
@@ -343,6 +580,16 @@ attachable_wear_ita_flammiere_jacket_item{
   item__uniqueName:t="attachable_wear_ita_flammiere_jacket_item"
   animchar__res:t="ita_flammiere_jacket_char"
   collres__res:t="ita_flammiere_jacket_collision"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="front_belt_l"
+    slot:t="bag_l"
+  }
 }
 
 attachable_wear_ita_tanker_leather_jacket_item{
@@ -350,6 +597,16 @@ attachable_wear_ita_tanker_leather_jacket_item{
   item__uniqueName:t="attachable_wear_ita_tanker_leather_jacket_item"
   animchar__res:t="ita_tanker_leather_jacket_char"
   collres__res:t="ita_tanker_leather_jacket_collision"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="front_belt_l"
+    slot:t="bag_l"
+  }
 }
 
 attachable_wear_sahariani_tunic_dak_01_ita_tropic_item{
@@ -520,12 +777,11 @@ sun_pith_helmet_m28_f_01_ita_tropic_item{
   }
 }
 
-pilot_helmet_w_goggles_01_ita_summer_item{
+attachable_wear_pilot_helmet_w_goggles_01_ita_summer_item{
   _extends:t="helmet_item"
   animchar__res:t="pilot_helmet_w_goggles_01_ita_summer_char"
   collres__res:t="medkit_collision"
-  item__uniqueName:t="pilot_helmet_w_goggles_01_ita_summer_item"
-  item__armorAmount:r=0.1
+  item__uniqueName:t="attachable_wear_pilot_helmet_w_goggles_01_ita_summer_item"
 
   "disabledFaceGenParams:shared:array"{
     param:t="forehead_pos_y"
@@ -642,12 +898,31 @@ attachable_wear_m35_flask_samurai_vest_01_tropical_item{
   }
 }
 
+attachable_wear_carcano_m9_belt_pouch_tropical_1_item{
+  _extends:t="attachable_belt1"
+  item__uniqueName:t="attachable_wear_carcano_m9_belt_pouch_tropical_1_item"
+  animchar__res:t="carcano_m9_belt_pouch_tropical_1_char"
+  collres__res:t="carcano_m9_belt_pouch_tropical_1_collision"
+}
+
 attachable_wear_m35_flask_tancer_coverall_item{
   _extends:t="attachable_flask_r"
   item__uniqueName:t="attachable_wear_m35_flask_tancer_coverall_item"
   animchar__res:t="m35_flask_tancer_coverall_char"
   collres__res:t="m35_flask_tancer_coverall_collision"
   animchar_fast_phys__res:t="m35_flask_tancer_coverall_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_m35_flask_tropical_2_item{
+  _extends:t="attachable_flask_r"
+  item__uniqueName:t="attachable_wearm35_flask_tropical_2_item"
+  animchar__res:t="m35_flask_tropical_2_char"
+  collres__res:t="m35_flask_tropical_2_collision"
+  animchar_fast_phys__res:t="m35_flask_tropical_2_fastphys"
 
   animchar_fast_phys{
     _tags:t="gameClient"
@@ -732,6 +1007,13 @@ attachable_wear_beretta_mab38_3pouch_tropical_1_item{
   item__uniqueName:t="attachable_wear_beretta_mab38_3pouch_tropical_1_item"
   animchar__res:t="beretta_mab38_3pouch_tropical_1_char"
   collres__res:t="beretta_mab38_3pouch_tropical_1_collision"
+}
+
+attachable_wear_beretta_mab38_3pouch_tropical_2_item{
+  _extends:t="attachable_belt1"
+  item__uniqueName:t="attachable_wear_beretta_mab38_3pouch_tropical_2_item"
+  animchar__res:t="beretta_mab38_3pouch_tropical_2_char"
+  collres__res:t="beretta_mab38_3pouch_tropical_2_collision"
 }
 
 attachable_wear_belt_01_ita_tropic_item{
@@ -826,6 +1108,22 @@ attachable_wear_mvsn_dagger_knife_grigio_verde_item{
   }
 }
 
+attachable_wear_mvsn_dagger_knife_belt_side_l_item{
+  _extends:t="attachable_side_belt_l"
+  item__uniqueName:t="attachable_wear_mvsn_dagger_knife_belt_side_l_item"
+  animchar__res:t="mvsn_dagger_knife_belt_side_l_char"
+  collres__res:t="mvsn_dagger_knife_belt_side_l_collision"
+  animchar_fast_phys__res:t="mvsn_dagger_knife_belt_side_l_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+
+  "skeleton_attach__remapParentSlots:list<t>"{
+    slot:t="tunic"
+  }
+}
+
 attachable_wear_mvsn_dagger_knife_onside_grigio_verde_item{
   _extends:t="attachable_side_belt_l"
   item__uniqueName:t="attachable_wear_mvsn_dagger_knife_onside_grigio_verde_item"
@@ -862,6 +1160,18 @@ attachable_wear_ita_map_case_grigio_verde_item{
   }
 }
 
+attachable_wear_ita_map_case_m41_tunic_item{
+  _extends:t="attachable_side_belt_l"
+  item__uniqueName:t="attachable_wear_ita_map_case_m41_tunic_item"
+  animchar__res:t="ita_map_case_m41_tunic_char"
+  collres__res:t="ita_map_case_m41_tunic_collision"
+  animchar_fast_phys__res:t="ita_map_case_m41_tunic_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
 attachable_wear_pouch_carcano_l_ita_01_summer_item{
   _extends:t="attachable_front_belt_l"
   item__uniqueName:t="attachable_wear_pouch_carcano_l_ita_01_summer_item"
@@ -875,6 +1185,39 @@ attachable_wear_carcano_ammo_pouch_grigio_verde_item{
   item__uniqueName:t="attachable_wear_carcano_ammo_pouch_grigio_verde_item"
   animchar__res:t="carcano_ammo_pouch_grigio_verde_char"
   collres__res:t="carcano_ammo_pouch_grigio_verde_collision"
+}
+
+attachable_ita_carcano_ammo_pouch_front_belt_l_item{
+  _extends:t="attachable_front_belt_l"
+  item__uniqueName:t="attachable_ita_carcano_ammo_pouch_front_belt_l_item"
+  animchar__res:t="ita_carcano_ammo_pouch_front_belt_l_char"
+  collres__res:t="ita_carcano_ammo_pouch_front_belt_l_collision"
+
+  "skeleton_attach__remapParentSlots:list<t>"{
+    slot:t="tunic"
+  }
+}
+
+attachable_ita_carcano_ammo_pouch_front_belt_r_item{
+  _extends:t="attachable_front_belt_r"
+  item__uniqueName:t="attachable_ita_carcano_ammo_pouch_front_belt_r_item"
+  animchar__res:t="ita_carcano_ammo_pouch_front_belt_r_char"
+  collres__res:t="ita_carcano_ammo_pouch_front_belt_r_collision"
+
+  "skeleton_attach__remapParentSlots:list<t>"{
+    slot:t="tunic"
+  }
+}
+
+attachable_ita_mab_38_magazine_belt_front_r_item{
+  _extends:t="attachable_front_belt_r"
+  item__uniqueName:t="attachable_ita_mab_38_magazine_belt_front_r_item"
+  animchar__res:t="ita_mab_38_magazine_belt_front_r_char"
+  collres__res:t="ita_mab_38_magazine_belt_front_r_collision"
+
+  "skeleton_attach__remapParentSlots:list<t>"{
+    slot:t="tunic"
+  }
 }
 
 attachable_wear_pouch_mauser_l_ita_01_summer_item{
@@ -933,6 +1276,17 @@ attachable_wear_m33_gasmask_bag_w_flask_tropical_2_item{
   }
 }
 
+attachable_ita_breda_mod_30_pouch_belt_front_r_item{
+  _extends:t="attachable_front_belt_r"
+  item__uniqueName:t="attachable_ita_breda_mod_30_pouch_belt_front_r_item"
+  animchar__res:t="ita_breda_mod_30_pouch_belt_front_r_char"
+  collres__res:t="ita_breda_mod_30_pouch_belt_front_r_collision"
+
+  "skeleton_attach__remapParentSlots:list<t>"{
+    slot:t="tunic"
+  }
+}
+
 attachable_wear_ita_beretta_holster_tanker_coverall_item{
   _extends:t="attachable_side_belt_r"
   item__uniqueName:t="attachable_wear_ita_beretta_holster_tanker_coverall_item"
@@ -942,6 +1296,17 @@ attachable_wear_ita_beretta_holster_tanker_coverall_item{
 
   animchar_fast_phys{
     _tags:t="gameClient"
+  }
+}
+
+attachable_ita_beretta_holster_belt_front_l_item{
+  _extends:t="attachable_front_belt_l"
+  item__uniqueName:t="attachable_ita_beretta_holster_belt_front_l_item"
+  animchar__res:t="ita_beretta_holster_belt_front_l_char"
+  collres__res:t="ita_beretta_holster_belt_front_l_collision"
+
+  "skeleton_attach__remapParentSlots:list<t>"{
+    slot:t="tunic"
   }
 }
 
@@ -978,6 +1343,29 @@ attachable_wear_m35_gasmask_bag_ita_01_tropical_item{
   }
 }
 
+attachable_berreta_mab38_pouches_front_belt_r_item{
+  _extends:t="attachable_front_belt_r"
+  item__uniqueName:t="attachable_berreta_mab38_pouches_front_belt_r_item"
+  animchar__res:t="berreta_mab38_pouches_front_belt_r_char"
+  collres__res:t="berreta_mab38_pouches_front_belt_r_collision"
+
+  "skeleton_attach__remapParentSlots:list<t>"{
+    slot:t="tunic"
+  }
+}
+
+attachable_wear_m35_gasmask_bag_ita_02_tropical_item{
+  _extends:t="attachable_rear_belt_r"
+  item__uniqueName:t="attachable_wear_m35_gasmask_bag_ita_02_tropical_item"
+  animchar__res:t="m35_gasmask_bag_ita_02_tropical_char"
+  collres__res:t="m35_gasmask_bag_ita_02_tropical_collision"
+  animchar_fast_phys__res:t="m35_gasmask_bag_ita_02_tropical_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
 attachable_wear_carcano_pouch_tarpaulin_l_grigio_verde_item{
   _extends:t="attachable_front_belt_l"
   item__uniqueName:t="attachable_wear_carcano_pouch_tarpaulin_l_grigio_verde_item"
@@ -990,6 +1378,39 @@ attachable_wear_carcano_pouch_tarpaulin_r_grigio_verde_item{
   item__uniqueName:t="attachable_wear_carcano_pouch_tarpaulin_r_grigio_verde_item"
   animchar__res:t="carcano_pouch_tarpaulin_r_grigio_verde_char"
   collres__res:t="carcano_pouch_tarpaulin_r_grigio_verde_collision"
+}
+
+attachable_wear_carcano_pouch_x4_tarpaulin_belt_front_r_item{
+  _extends:t="attachable_front_belt_r"
+  item__uniqueName:t="attachable_wear_carcano_pouch_x4_tarpaulin_belt_front_r_item"
+  animchar__res:t="carcano_pouch_x4_tarpaulin_belt_front_r_char"
+  collres__res:t="carcano_pouch_x4_tarpaulin_belt_front_r_collision"
+
+  "skeleton_attach__remapParentSlots:list<t>"{
+    slot:t="tunic"
+  }
+}
+
+attachable_wear_carcano_pouch_x4_tarpaulin_belt_front_l_item{
+  _extends:t="attachable_front_belt_l"
+  item__uniqueName:t="attachable_wear_carcano_pouch_x4_tarpaulin_belt_front_l_item"
+  animchar__res:t="carcano_pouch_x4_tarpaulin_belt_front_l_char"
+  collres__res:t="carcano_pouch_x4_tarpaulin_belt_front_l_collision"
+
+  "skeleton_attach__remapParentSlots:list<t>"{
+    slot:t="tunic"
+  }
+}
+
+attachable_wear_carcano_pouch_tarpaulin_belt_front_r_item{
+  _extends:t="attachable_front_belt_r"
+  item__uniqueName:t="attachable_wear_carcano_pouch_tarpaulin_belt_front_r_item"
+  animchar__res:t="carcano_pouch_tarpaulin_belt_front_r_char"
+  collres__res:t="carcano_pouch_tarpaulin_belt_front_r_collision"
+
+  "skeleton_attach__remapParentSlots:list<t>"{
+    slot:t="tunic"
+  }
 }
 
 attachable_wear_ita_tanker_bandoleer_item{
@@ -1045,6 +1466,32 @@ attachable_wear_m39_inf_rucksack_01_ita_summer_item{
   animchar__res:t="m39_inf_rucksack_01_ita_summer_char"
   collres__res:t="m39_inf_rucksack_01_ita_summer_collision"
   animchar_fast_phys__res:t="m39_inf_rucksack_01_ita_summer_fastphys"
+  attachable_backpack__capacity:i=3
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_m39_inf_rucksack_with_cask_tropical_2_item{
+  _extends:t="attachable_backpack"
+  item__uniqueName:t="attachable_wear_m39_inf_rucksack_with_cask_tropical_2_item"
+  animchar__res:t="m39_inf_rucksack_with_cask_tropical_2_char"
+  collres__res:t="m39_inf_rucksack_with_cask_tropical_2_collision"
+  animchar_fast_phys__res:t="m39_inf_rucksack_with_cask_tropical_2_fastphys"
+  attachable_backpack__capacity:i=3
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_m39_inf_rucksack_tropical_1_item{
+  _extends:t="attachable_backpack"
+  item__uniqueName:t="attachable_wear_m39_inf_rucksack_tropical_1_item"
+  animchar__res:t="m39_inf_rucksack_tropical_1_char"
+  collres__res:t="m39_inf_rucksack_tropical_1_collision"
+  animchar_fast_phys__res:t="m39_inf_rucksack_tropical_1_fastphys"
   attachable_backpack__capacity:i=3
 
   animchar_fast_phys{

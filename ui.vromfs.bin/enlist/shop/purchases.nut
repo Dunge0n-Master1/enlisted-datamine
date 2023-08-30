@@ -8,8 +8,8 @@ let purchased = Watched({})
 
 let { checkPurchasesUrl = "https://purch.gaijinent.com/check_purchase.php" } = get_circuit_conf()
 
-let refresh = function() {
-  if (!purchased.value.len() || !userInfo.value)
+let function refreshPurchased() {
+  if (purchased.value.len() == 0 || !userInfo.value)
     return
 
   httpRequest.requestData(checkPurchasesUrl,
@@ -24,23 +24,25 @@ let refresh = function() {
 }
 
 let function addGuids(guids) {
-  let wasTotal = purchased.value.len()
+  let update = {}
   foreach (guid in guids)
-    if (!(guid in purchased.value))
-      purchased.value[guid] <- 0
-  if (wasTotal != purchased.value.len())
-    refresh()
+    if (guid not in purchased.value)
+      update[guid] <- 0
+  if (update.len() > 0) {
+    purchased.mutate(@(v) v.__update(update))
+    refreshPurchased()
+  }
 }
 
 userInfo.subscribe(function(val) {
   if (val)
-    refresh()
+    refreshPurchased()
   else
-    purchased.value.clear()
+    purchased({})
 })
 
 return {
-  purchased = purchased
-  addGuids = addGuids
-  refreshPurchased = refresh
+  purchased
+  addGuids
+  refreshPurchased
 }

@@ -88,6 +88,12 @@ carcano_m41_gun_item{
   collres__res:t="carcano_m41_collision"
 }
 
+carcano_m41_default_gun_item{
+  _extends:t="item_gun"
+  _extends:t="carcano_m41_default"
+  collres__res:t="carcano_m41_collision"
+}
+
 carcano_m91_gun_item{
   _extends:t="item_gun"
   _extends:t="carcano_m91"

@@ -134,9 +134,10 @@ let shopItems = Computed(function() {
       newItem.__update(offerDiscount, goodsInfo.value?[item?.purchaseGuid] ?? {})
       newItem = updateItemCost(newItem, purchasesCount.value)
 
-      if (goods?[newItem?.pcLinkGuid] && (newItem?.curShopItemPrice.fullPrice ?? 0) == 0)
+      let { purchaseGuid = null } = newItem
+      if (goods?[purchaseGuid] && (newItem?.curShopItemPrice.fullPrice ?? 0) == 0)
         //Item from web store
-        newItem = updateStoreItemCost(newItem, goods[newItem.pcLinkGuid])
+        newItem = updateStoreItemCost(newItem, goods[purchaseGuid])
 
       return newItem
     })

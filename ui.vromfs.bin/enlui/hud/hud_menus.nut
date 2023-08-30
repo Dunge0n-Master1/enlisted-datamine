@@ -7,7 +7,7 @@ let briefing = require("huds/overlays/enlisted_briefing.nut")
 let { showBriefing } = require("state/briefingState.nut")
 let { playersMenuUi, showPlayersMenu } = require("%ui/hud/menus/players.nut")
 
-let { menusUi, hudMenus, openMenu } = require("%ui/hud/ct_hud_menus.nut")
+let { hudMenus, openMenu } = require("%ui/hud/ct_hud_menus.nut")
 let { scoresMenuUi, showScores } = require("huds/scores.nut")
 let { showBigMap, bigMap } = require("%ui/hud/menus/big_map.nut")
 let { showPieMenu } = require("%ui/hud/state/pie_menu_state.nut")
@@ -168,4 +168,3 @@ debriefingDataExt.subscribe(function(val) {
     openMenu("Debriefing")
 })
 
-return menusUi

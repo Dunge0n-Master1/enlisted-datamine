@@ -1,5 +1,7 @@
 options no_aot
-require FrameGraph
+options persistent_heap
+
+require daBfg
 require DagorSystem
 require DagorShaders
 require DagorMath
@@ -20,12 +22,23 @@ class DebugVisualizationNode : FrameGraphNode
   def override declareResources(registrar : ResourceRegistrar)
     if is_forward_rendering()
       registrar |> modifyResource(string_view("target_after_under_water_fog"))
+      registrar |> requestInputResource(string_view("depth_for_transparent_effects"))
     else
       registrar |> addPreviousNode(string_view("transparent_effects_node"))
       registrar |> addFollowNode(string_view("transparent_scene_late_node"))
+      registrar |> modifyResource(string_view("opaque_final_target"))
+      registrar |> requestInputResource(string_view("depth_for_transparency"))
     registrar |> setShaderBlockToLayer(ShaderBlockLayer LAYER_FRAME, string_view("global_frame"))
 
-  [unused_argument(accessor)] def override execute(accessor : ResourceAccessor)
+  def override execute(accessor : ResourceAccessor)
+
+    if is_forward_rendering()
+      d3d_set_render_target((accessor |> getTexture(string_view("target_after_under_water_fog"))) |> get_tex2d, 0)
+      d3d_set_depth(accessor |> getTexture(string_view("depth_for_transparent_effects")) |> get_tex2d, false)
+    else
+      d3d_set_render_target((accessor |> getTexture(string_view("opaque_final_target"))) |> get_tex2d, 0)
+      d3d_set_depth(accessor |> getTexture(string_view("depth_for_transparency")) |> get_tex2d, false)
+
     worldRenderer_renderDebug()
 
 

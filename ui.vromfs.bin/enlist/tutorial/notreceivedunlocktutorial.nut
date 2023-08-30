@@ -59,6 +59,7 @@ let function showGetUnlockTutorial(unlock) {
           seenGetUnlockTutorialActivate()
           needUpdateCampaignScroll(true)
         }
+        isCurrent = true
       }
     ]
   })

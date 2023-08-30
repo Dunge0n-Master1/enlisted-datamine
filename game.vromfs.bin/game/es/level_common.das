@@ -20,7 +20,7 @@ def is_pos_indoor(pos : float3; search_threshold = 0.5f) : bool
 def is_pos_indoor(game_objects : GameObjects; pos : float3; search_threshold = 0.5f) : bool
   let box = BBox3(pos, search_threshold)
   var indoor = false
-  game_objects |> get_scene_game_objects_indoors() |> for_scene_game_objects(box) <| $ [unused_argument(ni)] (ni : uint; tm : float3x4#)
+  game_objects.indoors |> for_scene_game_objects(box) <| $ [unused_argument(ni)] (ni : uint; tm : float3x4#)
     indoor ||= IDENT_BBOX & (inverse(tm) * pos)
   return indoor
 
@@ -37,7 +37,7 @@ def get_nearest_indoor_pos(game_objects : GameObjects; pos : float3; radius : fl
   let box = BBox3(pos, radius * 2f)
   var result = [[MaybePos invalid=null]]
   var maxDistanceSq = square(radius)
-  game_objects |> get_scene_game_objects_indoors() |> for_scene_game_objects(box) <| $ [unused_argument(ni)] (ni : uint; tm : float3x4#)
+  game_objects.indoors |> for_scene_game_objects(box) <| $ [unused_argument(ni)] (ni : uint; tm : float3x4#)
     let distSq = distance_sq(pos, tm[3])
     if distSq < maxDistanceSq
       maxDistanceSq = distSq

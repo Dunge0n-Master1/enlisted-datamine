@@ -111,6 +111,7 @@ poly_battle_area_draw_debug{
 
 poly_battle_area{
   _extends:t="base_battle_area"
+  _extends:t="poly_area"
 
   "battleAreaId:t"{
     value:t=""
@@ -143,6 +144,7 @@ poly_area_from_level{
 
 aircraft_poly_battle_area{
   _extends:t="base_battle_area"
+  _extends:t="poly_area"
 
   "battleAreaId:t"{
     value:t=""

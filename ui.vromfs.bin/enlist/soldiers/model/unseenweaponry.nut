@@ -9,8 +9,10 @@ let { debounce } = require("%sqstd/timers.nut")
 let { trimUpgradeSuffix } = require("%enlSqGlob/ui/itemsInfo.nut")
 
 const SEEN_ID = "seen/weaponry"
-let SLOTS = ["primary", "side"]
-let SLOTS_MAP = SLOTS.map(@(s) [s, true]).totable()
+let SLOTS = ["primary", "side", "secondary", "melee",
+  "backpack", "grenade", "mine", "flask_usable", "binoculars_usable",
+  "antitank", "flamethrower", "mortar"]
+let SLOTS_MAP = SLOTS.reduce(@(res, slotName) res.rawset(slotName, true), {})
 
 let seen = Computed(@() settings.value?[SEEN_ID]) //<armyId> = { <basetpl> = true }
 
@@ -27,7 +29,7 @@ let notEquippedTiers = Computed(function() {
     foreach (item in itemsList) {
       if (item.basetpl in byTpl)
         continue
-      let { basetpl, itemtype = "", tier = -1 } = item
+      let { basetpl, itemtype = "", tier = 0 } = item
       byTpl[basetpl] <- tier
       if (itemtype not in byItemType)
         byItemType[itemtype] <- {}

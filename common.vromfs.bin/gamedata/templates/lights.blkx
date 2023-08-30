@@ -14,6 +14,7 @@ local_light{
     light__dynamic_light:b=no
     light__affect_volumes:b=yes
     light__render_gpu_objects:b=no
+    light__force_max_light_radius:b=no
   }
 }
 
@@ -118,7 +119,7 @@ spot_light_huge{
   _extends:t="spot_light"
   light__max_radius:r=13.0
   light__color:c=224, 145, 93, 255
-  light__brightness:r=30.0
+  light__brightness:r=5.0
   light__nightly:b=yes
   shreddableInDarkZone:b=no
 
@@ -136,7 +137,7 @@ spot_light_gaint{
   _extends:t="spot_light"
   light__max_radius:r=20.0
   light__color:c=224, 145, 93, 255
-  light__brightness:r=150.0
+  light__brightness:r=10.0
   light__nightly:b=yes
   shreddableInDarkZone:b=no
 
@@ -185,7 +186,7 @@ omni_light_bunker{
   _extends:t="spot_light"
   light__max_radius:r=7.0
   light__color:c=255, 230, 200, 255
-  light__brightness:r=4.0
+  light__brightness:r=0.5
 
   _group{
     _tags:t="render"
@@ -196,27 +197,27 @@ omni_light_bunker{
 
 light_bunker_wall{
   _extends:t="omni_light"
-  light__max_radius:r=2.0
+  light__max_radius:r=5.0
   light__offset:p3=0.0, 0.0, 0.0
   light__color:c=255, 100, 50, 255
-  light__brightness:r=1.0
+  light__brightness:r=0.85
 }
 
 light_bunker_wall_b{
   _extends:t="omni_light"
-  light__max_radius:r=3.0
+  light__max_radius:r=5.0
   light__offset:p3=0.0, 0.0, 0.0
   light__color:c=240, 150, 120, 255
-  light__brightness:r=1.0
+  light__brightness:r=0.85
   light__texture_name:t="ies_barsed_lamp_b"
 }
 
 light_bunker_wall_red{
   _extends:t="omni_light"
-  light__max_radius:r=4.0
+  light__max_radius:r=8.0
   light__offset:p3=0.0, 0.0, 0.0
   light__color:c=255, 0, 0, 255
-  light__brightness:r=3.0
+  light__brightness:r=1.0
   light__contact_shadows:b=no
   light__texture_name:t="ies_singlelamp_sconce_b"
 }
@@ -226,20 +227,20 @@ emergency_lamp_wall{
   light__max_radius:r=5.2
   light__offset:p3=0.0, 0.0, 0.0
   light__color:c=255, 40, 10, 255
-  light__brightness:r=1.0
+  light__brightness:r=0.5
 }
 
 light_bunker_ceiling{
   _extends:t="spot_light"
-  light__max_radius:r=7.0
+  light__max_radius:r=5.0
   light__color:c=255, 230, 200, 255
-  light__brightness:r=8.0
+  light__brightness:r=1.5
 
   _group{
     _tags:t="render"
     spot_light__shadows:b=yes
     spot_light__dynamic_obj_shadows:b=no
-    spot_light__shadow_shrink:i=1
+    spot_light__shadow_shrink:i=2
   }
 }
 
@@ -270,19 +271,19 @@ light_teleport_wc{
 
 light_chandelier_a{
   _extends:t="omni_light"
-  light__max_radius:r=5.0
+  light__max_radius:r=2.0
   light__offset:p3=0.0, 0.0, 0.0
   light__color:c=255, 170, 80, 255
-  light__brightness:r=4.0
+  light__brightness:r=0.5
   light__texture_name:t="ies_chandelier_a"
 }
 
 light_chandelier_b{
   _extends:t="omni_light"
-  light__max_radius:r=5.0
+  light__max_radius:r=2.0
   light__offset:p3=0.0, 0.0, 0.0
   light__color:c=255, 170, 80, 255
-  light__brightness:r=4.0
+  light__brightness:r=0.5
   light__texture_name:t="ies_chandelier_b"
 }
 
@@ -291,7 +292,7 @@ light_chandelier_big{
   light__max_radius:r=6.0
   light__offset:p3=0.0, 0.0, 0.0
   light__color:c=255, 170, 80, 255
-  light__brightness:r=4.0
+  light__brightness:r=2.0
 }
 
 light_chandelier_big_far{
@@ -299,7 +300,7 @@ light_chandelier_big_far{
   light__max_radius:r=13.0
   light__offset:p3=0.0, 0.0, 0.0
   light__color:c=255, 170, 80, 255
-  light__brightness:r=4.5
+  light__brightness:r=0.75
   light__contact_shadows:b=no
 }
 
@@ -307,13 +308,13 @@ light_chandelier_big_far_b{
   _extends:t="spot_light"
   light__max_radius:r=18.0
   light__color:c=255, 230, 200, 255
-  light__brightness:r=20.0
+  light__brightness:r=2.0
 
   _group{
     _tags:t="render"
     spot_light__shadows:b=yes
     spot_light__dynamic_obj_shadows:b=no
-    spot_light__shadow_shrink:i=1
+    spot_light__shadow_shrink:i=2
   }
 }
 
@@ -322,7 +323,7 @@ light_chandelier_big_antiprobe{
   light__max_radius:r=6.0
   light__offset:p3=0.0, 0.0, 0.0
   light__color:c=255, 170, 80, 255
-  light__brightness:r=4.0
+  light__brightness:r=0.75
   light__use_box:b=no
 }
 
@@ -331,7 +332,7 @@ light_sconce_big{
   light__max_radius:r=5.0
   light__offset:p3=0.0, 0.0, 0.0
   light__color:c=255, 172, 50, 255
-  light__brightness:r=3.1
+  light__brightness:r=1.0
   light__contact_shadows:b=no
   light__texture_name:t="ies_multilamp_sconce_a"
 }
@@ -341,7 +342,7 @@ light_sconce_medium{
   light__max_radius:r=3.5
   light__offset:p3=0.0, 0.0, 0.0
   light__color:c=255, 152, 70, 255
-  light__brightness:r=2.5
+  light__brightness:r=0.75
   light__contact_shadows:b=no
   light__texture_name:t="ies_doublelamp_sconce_a"
 }
@@ -351,7 +352,7 @@ light_sconce_small{
   light__max_radius:r=2.5
   light__offset:p3=0.0, 0.0, 0.0
   light__color:c=255, 140, 50, 255
-  light__brightness:r=0.7
+  light__brightness:r=0.5
   light__contact_shadows:b=no
   light__texture_name:t="ies_singlelamp_sconce_a"
 }
@@ -361,7 +362,7 @@ light_sconce_small_b{
   light__max_radius:r=3.0
   light__offset:p3=0.0, 0.0, 0.0
   light__color:c=255, 152, 70, 255
-  light__brightness:r=2.2
+  light__brightness:r=0.5
   light__contact_shadows:b=no
   light__texture_name:t="ies_singlelamp_sconce_b"
 }
@@ -372,7 +373,7 @@ omni_atmospheric_entry_light{
   light__max_radius:r=500.0
   light__offset:p3=0.0, 4.0, 0.0
   light__color:c=255, 255, 255, 255
-  light__brightness:r=10000.0
+  light__brightness:r=1000.0
   shreddableInDarkZone:b=no
 }
 
@@ -380,7 +381,7 @@ gunlight{
   light__max_radius:r=25.0
   light__offset:p3=0.0, 0.2, 0.0
   light__color:c=255, 250, 200, 255
-  light__brightness:r=65.0
+  light__brightness:r=3.0
   lightModTm:m=[[-0.8, 0.0, 0.0] [0.0, 0.8, 0.0] [0.0, 0.0, -0.8] [0.0, 0.0, 0.0]]
   light__contact_shadows:b=yes
   light__dynamic_light:b=yes
@@ -398,7 +399,7 @@ gunlight_spot{
   light__max_radius:r=25.0
   lightModTm:m=[[1.25, 0.0, 0.0] [0.0, 1.25, 0.0] [0.0, 0.0, 1.25] [0.0, 0.0, 0.2]]
   light__color:c=255, 250, 200, 255
-  light__brightness:r=130.0
+  light__brightness:r=3.0
 
   _group{
     _tags:t="render"
@@ -412,9 +413,9 @@ gunlight_spot{
 
 spot_light_little_b{
   _extends:t="spot_light"
-  light__max_radius:r=8.0
+  light__max_radius:r=10.0
   light__color:c=208, 191, 152, 255
-  light__brightness:r=81.0
+  light__brightness:r=5.0
   light__nightly:b=no
   light__texture_name:t="ies_barsed_lamp_b"
 
@@ -431,7 +432,7 @@ spot_light_little_b_5m{
   _extends:t="spot_light"
   light__max_radius:r=5.0
   light__color:c=208, 191, 152, 255
-  light__brightness:r=41.0
+  light__brightness:r=0.75
   light__nightly:b=no
 
   _group{
@@ -447,7 +448,7 @@ spot_light_little_c{
   _extends:t="spot_light"
   light__max_radius:r=6.0
   light__color:c=224, 178, 76, 255
-  light__brightness:r=35.0
+  light__brightness:r=0.75
   light__nightly:b=no
 
   _group{
@@ -464,7 +465,7 @@ light_monitor_a{
   light__max_radius:r=1.5
   light__offset:p3=0.0, 0.0, 0.0
   light__color:c=80, 117, 255, 255
-  light__brightness:r=1.2
+  light__brightness:r=0.25
   light__contact_shadows:b=no
   light__texture_name:t="ies_monitor_a"
 }
@@ -474,7 +475,7 @@ sign_red_light{
   light__max_radius:r=3.1
   light__offset:p3=0.0, 0.0, 0.0
   light__color:c=255, 20, 21, 255
-  light__brightness:r=2.5
+  light__brightness:r=0.75
   light__contact_shadows:b=no
   light__texture_name:t="ies_hand_lantern_a"
 }
@@ -483,7 +484,7 @@ spot_light_work_a{
   _extends:t="spot_light"
   light__max_radius:r=7.0
   light__color:c=208, 191, 152, 255
-  light__brightness:r=121.0
+  light__brightness:r=12.0
   light__nightly:b=no
 
   _group{
@@ -499,7 +500,7 @@ spot_light_workshop_a{
   _extends:t="spot_light"
   light__max_radius:r=12.0
   light__color:c=220, 140, 65, 255
-  light__brightness:r=50.0
+  light__brightness:r=5.0
   light__nightly:b=no
   shreddableInDarkZone:b=no
 
@@ -517,7 +518,7 @@ spot_light_workshop_b{
   _extends:t="spot_light"
   light__max_radius:r=6.0
   light__color:c=220, 140, 65, 255
-  light__brightness:r=15.0
+  light__brightness:r=1.5
   light__nightly:b=no
   shreddableInDarkZone:b=no
 
@@ -535,7 +536,7 @@ sg_light_spot_ceiling_white{
   _extends:t="spot_light"
   light__max_radius:r=12.0
   light__color:c=255, 240, 230, 255
-  light__brightness:r=800.0
+  light__brightness:r=80.0
   shreddableInDarkZone:b=no
 
   _group{
@@ -560,9 +561,9 @@ sg_light_spot_ceiling_green{
 
 spot_light_street_poles{
   _extends:t="spot_light"
-  light__max_radius:r=9.0
+  light__max_radius:r=12.0
   light__color:c=224, 145, 93, 255
-  light__brightness:r=30.0
+  light__brightness:r=5.0
   light__nightly:b=yes
   shreddableInDarkZone:b=no
 
@@ -580,7 +581,7 @@ spot_light_fliker_street_poles{
   _extends:t="spot_light"
   light__max_radius:r=9.0
   light__color:c=224, 145, 93, 255
-  light__brightness:r=30.0
+  light__brightness:r=2.0
   light__nightly:b=yes
   light__flicker_attack_time:p2=0.5, 0.4
   light__flicker_on_time:p2=0.5, 0.4
@@ -601,13 +602,27 @@ spot_light_fliker_street_poles{
   }
 }
 
+factory_lamp_b_light{
+  _extends:t="omni_light"
+  light__max_radius:r=3.0
+  light__offset:p3=0.0, 0.0, 0.0
+  light__color:c=160, 80, 40, 255
+  light__brightness:r=1.5
+  light__contact_shadows:b=no
+
+  _group{
+    _tags:t="render"
+    omni_light__shadow_shrink:i=3
+  }
+}
+
 factory_lamp_a_red_flicker{
   _extends:t="spot_light"
   _extends:t="light_flicker_updater_light"
   light_flicker_updater__template:t="factory_lamp_a_red_flicker_template"
   light__max_radius:r=8.0
   light__color:c=225, 15, 15, 255
-  light__brightness:r=60.0
+  light__brightness:r=2.0
   light__nightly:b=no
   shreddableInDarkZone:b=no
 
@@ -628,7 +643,7 @@ factory_lamp_a_red_mesh{
 }
 
 factory_lamp_a_red_flicker_template{
-  _extends:t="light_flicker"
+  _extends:t="light_flicker_with_sparks"
   light_flicker__attack_time:p2=0.01, 0.15
   light_flicker__on_time:p2=0.1, 1.5
   light_flicker__release_time:p2=0.75, 1.25
@@ -656,7 +671,7 @@ industrial_lamp_steel_wall_a_flicker_8m_mesh{
 }
 
 industrial_lamp_steel_wall_a_flicker_8m_template{
-  _extends:t="light_flicker"
+  _extends:t="light_flicker_with_sparks"
   light_flicker__attack_time:p2=0.01, 0.15
   light_flicker__on_time:p2=0.1, 1.5
   light_flicker__release_time:p2=0.75, 1.25
@@ -666,4 +681,237 @@ industrial_lamp_steel_wall_a_flicker_8m_template{
   light_flicker__noise_brightness_on:p2=0.5, 1.0
   light_flicker__noise_brightness_off:p2=0.0, 1.0
   light_flicker__noise_time:r=8.0
+}
+
+spot_light_wooden_power_pole{
+  _extends:t="spot_light"
+  light__max_radius:r=10.0
+  light__color:c=208, 191, 152, 255
+  light__brightness:r=5.0
+  light__texture_name:t="ies_barsed_lamp_b"
+
+  _group{
+    _tags:t="render"
+    spot_light__inner_attenuation:r=0.1
+    spot_light__shadows:b=yes
+    spot_light__dynamic_obj_shadows:b=no
+    spot_light__shadow_shrink:i=2
+  }
+}
+
+wooden_power_pole_lamp_a_flicker_light{
+  _extends:t="spot_light_wooden_power_pole"
+  _extends:t="light_flicker_updater_light"
+  light_flicker_updater__template:t="wooden_power_pole_lamp_flicker_light_template"
+
+  "destroyable_with_rendinst:tag"{
+  }
+}
+
+wooden_power_pole_lamp_a_flicker_mesh{
+  _extends:t="light_flicker_updater_mesh"
+  animchar__res:t="wooden_power_pole_lamp_a_flicker_char"
+  light_flicker_updater__template:t="wooden_power_pole_lamp_flicker_light_template"
+
+  "dynamic_material_channels_arr:array"{
+    _tags:t="render"
+
+    "dynamic_material_channel:object"{
+      dynamic_material_type:t="emissive"
+      dynmat_param__emissive_color:p4=1.0, 1.0, 1.0, 10.0
+      dynmat_param__emission_albedo_mult:r=1.0
+    }
+  }
+
+  "destroyable_with_rendinst:tag"{
+  }
+}
+
+wooden_power_pole_lamp_flicker_light_template{
+  _extends:t="light_flicker_with_sparks"
+  light_flicker__attack_time:p2=0.01, 0.15
+  light_flicker__on_time:p2=0.1, 1.5
+  light_flicker__release_time:p2=0.75, 1.25
+  light_flicker__off_time:p2=0.01, 6.0
+  light_flicker__on_brightness:p2=0.6, 1.0
+  light_flicker__off_brightness:p2=0.0, 0.2
+  light_flicker__noise_brightness_on:p2=0.5, 1.0
+  light_flicker__noise_brightness_off:p2=0.0, 1.0
+  light_flicker__noise_time:r=8.0
+}
+
+wooden_power_pole_lamp_a_flicker_char_mesh{
+  _extends:t="animchar"
+  _extends:t="dynmat_params_base"
+  _extends:t="replicating"
+  animchar__res:t="wooden_power_pole_lamp_a_flicker_char"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+
+  "dynamic_material_channels_arr:array"{
+    _tags:t="render"
+
+    "dynamic_material_channel:object"{
+      dynamic_material_type:t="emissive"
+      dynmat_param__emissive_color:p4=1.0, 1.0, 1.0, 10.0
+      dynmat_param__emission_albedo_mult:r=1.0
+    }
+  }
+
+  "destroyable_with_rendinst:tag"{
+  }
+}
+
+omni_light_lamppost{
+  _extends:t="omni_light"
+  light__max_radius:r=10.0
+  light__color:c=208, 191, 152, 255
+  light__brightness:r=2.0
+  light__nightly:b=yes
+  light__texture_name:t="ies_barsed_lamp_b"
+
+  _group{
+    _tags:t="render"
+    omni_light__inner_attenuation:r=0.1
+    omni_light__shadows:b=yes
+    omni_light__dynamic_obj_shadows:b=no
+    omni_light__shadow_shrink:i=2
+  }
+}
+
+lamppost_d_glass_flicker_light{
+  _extends:t="omni_light_lamppost"
+  _extends:t="light_flicker_updater_light"
+  light_flicker_updater__template:t="lamppost_glass_flicker_light_template"
+
+  "destroyable_with_rendinst:tag"{
+  }
+}
+
+lamppost_d_glass_flicker_mesh{
+  _extends:t="light_flicker_updater_mesh"
+  animchar__res:t="lamppost_d_glass_flicker_char"
+  light_flicker_updater__template:t="lamppost_glass_flicker_light_template"
+
+  "destroyable_with_rendinst:tag"{
+  }
+}
+
+lamppost_glass_flicker_light_template{
+  _extends:t="light_flicker_with_sparks"
+  light_flicker__attack_time:p2=0.01, 0.15
+  light_flicker__on_time:p2=0.1, 1.5
+  light_flicker__release_time:p2=0.75, 1.25
+  light_flicker__off_time:p2=0.01, 6.0
+  light_flicker__on_brightness:p2=0.6, 1.0
+  light_flicker__off_brightness:p2=0.0, 0.2
+  light_flicker__noise_brightness_on:p2=0.5, 1.0
+  light_flicker__noise_brightness_off:p2=0.0, 1.0
+  light_flicker__noise_time:r=8.0
+}
+
+lamppost_d_glass_flicker_char_mesh{
+  _extends:t="animchar"
+  _extends:t="dynmat_params_base"
+  _extends:t="replicating"
+  animchar__res:t="lamppost_d_glass_flicker_char"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+
+  "dynamic_material_channels_arr:array"{
+    _tags:t="render"
+
+    "dynamic_material_channel:object"{
+      dynamic_material_type:t="emissive"
+      dynmat_param__emissive_color:p4=1.0, 1.0, 1.0, 10.0
+      dynmat_param__emission_albedo_mult:r=1.0
+    }
+  }
+
+  "destroyable_with_rendinst:tag"{
+  }
+}
+
+light_kerosene_lamp{
+  _extends:t="omni_light"
+  light__max_radius:r=2.5
+  light__offset:p3=0.0, 0.0, 0.0
+  light__color:c=255, 120, 50, 255
+  light__brightness:r=0.7
+  light__contact_shadows:b=no
+
+  _group{
+    _tags:t="render"
+    omni_light__shadows:b=yes
+    omni_light__shadow_shrink:i=3
+  }
+}
+
+light_kerosene_lamp_flicker_light{
+  _extends:t="light_kerosene_lamp"
+  _extends:t="light_flicker_updater_light"
+  light_flicker_updater__template:t="light_kerosene_lamp_template"
+}
+
+light_kerosene_lamp_flicker_mesh{
+  _extends:t="light_flicker_updater_mesh"
+  animchar__res:t="is_lantern_hanging_a_flicker_char"
+  light_flicker_updater__template:t="light_kerosene_lamp_template"
+
+  "destroyable_with_rendinst:tag"{
+  }
+}
+
+light_kerosene_lamp_template{
+  _extends:t="light_flicker"
+  light_flicker__attack_time:p2=0.1, 1.2
+  light_flicker__on_time:p2=0.9, 5.3
+  light_flicker__release_time:p2=0.1, 1.2
+  light_flicker__off_time:p2=0.0, 0.01
+  light_flicker__on_brightness:p2=1.1, 1.1
+  light_flicker__off_brightness:p2=1.2, 1.2
+  light_flicker__noise_brightness_on:p2=1.0, 1.1
+  light_flicker__noise_brightness_off:p2=1.0, 1.1
+  light_flicker__noise_time:r=3.0
+}
+
+light_kerosene_lamp_a{
+  _extends:t="omni_light"
+  light__max_radius:r=2.5
+  light__offset:p3=0.0, 0.0, 0.0
+  light__color:c=255, 120, 50, 255
+  light__brightness:r=0.7
+  light__contact_shadows:b=no
+
+  _group{
+    _tags:t="render"
+    omni_light__shadows:b=yes
+    omni_light__shadow_shrink:i=3
+  }
+}
+
+light_kerosene_lamp_a_flicker_light{
+  _extends:t="light_kerosene_lamp_a"
+  _extends:t="light_flicker_updater_light"
+  light_flicker_updater__template:t="light_kerosene_lamp_a_template"
+}
+
+light_kerosene_lamp_d_flicker_mesh{
+  _extends:t="light_flicker_updater_mesh"
+  animchar__res:t="is_lantern_hanging_d_flicker_char"
+  light_flicker_updater__template:t="light_kerosene_lamp_a_template"
+
+  "destroyable_with_rendinst:tag"{
+  }
+}
+
+light_kerosene_lamp_a_template{
+  _extends:t="light_flicker"
+  light_flicker__attack_time:p2=0.5, 1.1
+  light_flicker__on_time:p2=0.9, 9.3
+  light_flicker__release_time:p2=0.1, 1.2
+  light_flicker__off_time:p2=0.0, 0.0
+  light_flicker__on_brightness:p2=1.1, 1.1
+  light_flicker__off_brightness:p2=1.2, 1.2
+  light_flicker__noise_brightness_on:p2=1.0, 1.1
+  light_flicker__noise_brightness_off:p2=1.0, 1.1
+  light_flicker__noise_time:r=2.0
 }

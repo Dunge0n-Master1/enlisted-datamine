@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt, sub_txt, tiny_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody, fontSub, fontTiny } = require("%enlSqGlob/ui/fontsStyle.nut")
 let faComp = require("%ui/components/faComp.nut")
 let msgbox = require("%ui/components/msgbox.nut")
 let textButtonTextCtor = require("%ui/components/textButtonTextCtor.nut")
@@ -34,6 +34,8 @@ let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.n
 let { mkRightHeaderFlag, primeFlagStyle } = require("%enlSqGlob/ui/mkHeaderFlag.nut")
 let { mkBpIcon } = require("%enlSqGlob/ui/mkSpecialItemIcon.nut")
 let { mkTimerIcon } = require("%enlSqGlob/ui/designConst.nut")
+let { getTierInterval } = require("shopPackage.nut")
+
 
 let PRICE_HEIGHT = hdpx(48)
 
@@ -41,7 +43,7 @@ const DISCOUNT_WARN_TIME = 600
 
 let cardPreviewSize = [fsh(45), fsh(30)]
 let cardSquadPreviewSize = [fsh(60), fsh(30)]
-let timerSize = body_txt.fontSize
+let timerSize = fontSub.fontSize
 
 let mkPurchaseSpinner = @(shopItem, purchasingItem) @() {
   watch = purchasingItem
@@ -84,7 +86,7 @@ let mkLevelLockLine = @(level) shopBottomLine.__merge({
       hplace = ALIGN_RIGHT
       color = defTxtColor
       text = loc("levelInfo", { level })
-    }.__update(sub_txt)
+    }.__update(fontSub)
   ]
 })
 
@@ -171,17 +173,17 @@ let mkForVehicleSquad = @(squad, unlockLevel) {
           behavior = Behaviors.TextArea
           color = defTxtColor
           text = loc(squad?.manageLocId ?? "")
-        }.__update(body_txt)
+        }.__update(fontBody)
         unlockLevel == 0 ? null : {
           flow = FLOW_HORIZONTAL
           gap = bigPadding
           valign = ALIGN_BOTTOM
           children = [
-            faComp("lock", { fontSize = sub_txt.fontSize, color = warningColor })
+            faComp("lock", { fontSize = fontSub.fontSize, color = warningColor })
             txt({
               text = loc("level/short", { level = unlockLevel })
               color = warningColor
-            }.__update(sub_txt))
+            }.__update(fontSub))
           ]
         }
       ]
@@ -209,18 +211,6 @@ let mkSquadUsageKind = function(squadId, armyId) {
   }
 }
 
-let function getTierInterval(items, templates) {
-  local minTier = -1
-  local maxTier = -1
-  foreach (tpl, _ in items ?? {}) {
-    let { tier = 0 } = templates?[tpl]
-    if (minTier < 0 || tier < minTier)
-      minTier = tier
-    if (maxTier < tier)
-      maxTier = tier
-  }
-  return { minTier, maxTier }
-}
 
 let function mkClassCanUse(itemtype, armyId, itemtmpl) {
   if (itemtype == "vehicle"){
@@ -239,7 +229,7 @@ let function mkClassCanUse(itemtype, armyId, itemtmpl) {
           halign = ALIGN_CENTER
           size = [flex(), SIZE_TO_CONTENT]
           text = loc("shop/squadsCanUse", { squadsCount })
-        }.__update(body_txt)
+        }.__update(fontBody)
       ].extend(vehicleSquadIds.map(@(squadId) mkSquadUsageKind(squadId, armyId)))
     }
   }
@@ -287,7 +277,7 @@ let mkShopItemInfoTier = @(minTier, maxTier, override = {})
         size = [flex(), SIZE_TO_CONTENT]
         behavior = Behaviors.TextArea
         text = loc("shop/upgradeLevel", { maxUpgrade = maxTier, minUpgrade = minTier })
-      }.__update(sub_txt, override)
+      }.__update(fontSub, override)
 
 let mkShopItemInfoBlock = @(crateContent) function() {
   let res = { watch = [allItemTemplates, crateContent] }
@@ -312,7 +302,6 @@ let mkShopItemInfoBlock = @(crateContent) function() {
   })
 }
 
-
 let mkTitle = @(text, minAmount, maxAmount, isBundle) {
   flow = FLOW_HORIZONTAL
   size = [flex(), SIZE_TO_CONTENT]
@@ -324,11 +313,11 @@ let mkTitle = @(text, minAmount, maxAmount, isBundle) {
       size = [flex(), SIZE_TO_CONTENT]
       behavior = Behaviors.TextArea
       text
-    }.__update(body_txt)
+    }.__update(fontBody)
     minAmount <= 1 || isBundle ? null : {
       rendObj = ROBJ_TEXT
       text = minAmount == maxAmount ? $"×{minAmount}" : $"×{minAmount}-{maxAmount}" // TODO use localization for multipliers
-    }.__update(body_txt)
+    }.__update(fontBody)
   ]
 }
 
@@ -337,7 +326,7 @@ let mkSubtitle = @(text) text == "" ? null : {
   size = [flex(), SIZE_TO_CONTENT]
   behavior = Behaviors.TextArea
   text
-}.__update(tiny_txt)
+}.__update(fontTiny)
 
 let function getMaxCount(shopItem) {
   let { limit = 0, premiumDays = 0, squads = [] } = shopItem
@@ -437,7 +426,7 @@ let function mkTimeAvailable(shopItem) {
               rendObj = ROBJ_TEXT
               text = secondsToHoursLoc(timeLeft)
               color = TextNormal
-            }.__update(body_txt)
+            }.__update(fontSub)
           ]
         },
         primeFlagStyle.__merge({ offset = 0 })
@@ -453,7 +442,7 @@ let debugTag = {
   children = {
     rendObj = ROBJ_TEXT
     text = "DEBUG ONLY"
-  }.__update(sub_txt)
+  }.__update(fontSub)
 }
 
 let mkShopItemView = kwarg(@(
@@ -512,6 +501,7 @@ let tiersStars = @(minTier, maxTier) maxTier <= 0 ? null : {
       ]
 }
 
+// TODO: Need to remove this method after all MsgBox view in shopPackage.nut finished
 let mkMsgBoxView = @(shopItem, crateContent, countWatched, showDiscount = false)
   crateContent == null ? null
     : function() {

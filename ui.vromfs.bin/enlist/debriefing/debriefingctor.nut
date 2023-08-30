@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let JB = require("%ui/control/gui_buttons.nut")
-let { h2_txt, body_txt, sub_txt, tiny_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2, fontBody, fontSub, fontTiny } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { get_log_directory, DBGLEVEL } = require("dagor.system")
 let { is_pc } = require("%dngscripts/platform.nut")
 let { normal, setTooltip } = require("%ui/style/cursors.nut")
@@ -187,7 +187,7 @@ let mkAnim = @(children, onVisibleCb = null, animDelay = DELAY) children == null
 let grayText = @(override) {
   rendObj = ROBJ_TEXT
   color = Color(184, 182, 181)
-}.__merge(body_txt, override)
+}.__merge(fontBody, override)
 
 let headerMarginTop = hdpx(30)
 
@@ -224,7 +224,7 @@ let function overGainRewardBlock() {
 let missionTitle = @(debriefing) debriefing?.missionName == null ? null : mkAnim({
   rendObj = ROBJ_TEXT
   text = debriefing.missionName
-}.__update(h2_txt, strokeStyle), null, MISSION_NAME_TEXT_DELAY)
+}.__update(fontHeading2, strokeStyle), null, MISSION_NAME_TEXT_DELAY)
 
 let sessionTimeCounter = @(debriefing) {
   margin = [headerMarginTop, 0, 0, 0]
@@ -237,7 +237,7 @@ let sessionTimeCounter = @(debriefing) {
     }), null, SESSION_TIME_TEXT_DELAY)
     mkAnim(grayText({
       text = secondsToTimeSimpleString((debriefing?.result.time ?? 0).tointeger())
-    }.__update(h2_txt)), null, SESSION_TIME_VALUE_DELAY)
+    }.__update(fontHeading2)), null, SESSION_TIME_VALUE_DELAY)
   ]
 }
 
@@ -269,7 +269,7 @@ let function battleExpBonus(debriefing) {
         {
           flow = FLOW_HORIZONTAL
           children = [
-            grayText({ text = bonusText(totalBonus - 1) }.__update(h2_txt))
+            grayText({ text = bonusText(totalBonus - 1) }.__update(fontHeading2))
             premiumImage(hdpx(35))
           ]
         }
@@ -284,7 +284,7 @@ let blockHeader = @(locId) {
   color = Color(0, 0, 0, 60)
   halign = ALIGN_CENTER
   padding = hdpx(5)
-  children = grayText({ text = utf8ToUpper(loc(locId)) }.__update(sub_txt))
+  children = grayText({ text = utf8ToUpper(loc(locId)) }.__update(fontSub))
 }
 
 let function continueAnimImpl(debriefing) {
@@ -490,7 +490,7 @@ let function rankBlock(debriefing) {
       {
         rendObj = ROBJ_TEXT
         text = loc(locId)
-      }.__update(h2_txt)
+      }.__update(fontHeading2)
       mkRankImage(playerRank)
     ]
     sound = { attach = "ui/debriefing/battle_result" }
@@ -526,7 +526,7 @@ let function debriefingHeader(debriefing) {
                       size = SIZE_TO_CONTENT
                       rendObj = ROBJ_TEXT
                       text = utf8ToUpper(result?.title ?? "")
-                    }.__update(h2_txt, {fontSize = hdpx(46)}),
+                    }.__update(fontHeading2, {fontSize = hdpx(46)}),
                     @() sound_play("ui/debriefing/{0}".subst(result?.success
                       ? "text_victory"
                       : "text_defeat"
@@ -973,7 +973,7 @@ let mkSessionIdText = @(debriefing) (debriefing?.sessionId ?? INVALID_SESSION_ID
   hplace = ALIGN_LEFT
   rendObj = ROBJ_TEXT
   color = Color(120,120,120, 50)
-}.__update(tiny_txt)
+}.__update(fontTiny)
 
 let debriefingAutosavePath = "".concat(get_log_directory() ?? "", "debriefing_enlisted.json")
 let canDebugDebriefing = hasClientPermission("debug_debriefing")

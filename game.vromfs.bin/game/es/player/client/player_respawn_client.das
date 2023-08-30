@@ -90,4 +90,4 @@ def on_possess_hero_msg(evt : PossessHero; eid : EntityId)
     possessLocalPlayerIfLevelLoaded(eid)
   else
     unpossess_entity(eid)
-    emit_hero_changed_event(INVALID_ENTITY_ID) // for cases when new hero would not be recieved
+    emit_hero_changed_event(INVALID_ENTITY_ID) // for cases when new hero would not be received

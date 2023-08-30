@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let JB = require("%ui/control/gui_buttons.nut")
-let { body_txt, h2_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody, fontHeading2, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { modPath, receivedModInfos, requestModManifest, deleteMod, hasBeenUpdated
 } = require("customMissionState.nut")
 let {
@@ -73,7 +73,7 @@ let inputOptions = {
   margin = 0
   onFocus = @() isInputFocused(true)
   onBlur = @() isInputFocused(false)
-}.__update(body_txt)
+}.__update(fontBody)
 
 let urlInput = @(){
   watch = sceneName
@@ -161,7 +161,7 @@ let modInfoRows = @(modInfo) [
     text = modInfo.title
     color = titleTxtColor
     behavior = [Behaviors.Marquee, Behaviors.TextArea]
-  }.__update(h2_txt)
+  }.__update(fontHeading2)
   { //AUTHOR
     text = loc("options/authorsList", {
       count = modInfo.authors.len()
@@ -203,7 +203,7 @@ let function currentModInfo(){
     gap = localGap
     children = modInfoRows(curModInfo).map(@(v) noteTextArea({
       color = defTxtColor
-    }).__update(sub_txt, v))
+    }).__update(fontSub, v))
     .append(modLinkButton(curModInfo))
   })
 }

@@ -130,6 +130,99 @@ entity{
 entity{
   _template:t="normandy_level"
   level__blk:t="content/enlisted/levels/normandy_smn_2x2.blk"
+
+  "level__weatherChoice:object"{
+    weather_clear_a:r=0.3
+    weather_cloudy_b:r=1.0
+
+    "weather_cloudy_c:object"{
+      weight:r=1.0
+
+      "level__timeVec:array"{
+        level__timeVec:r=22.0
+      }
+    }
+
+    "weather_overcast_a:object"{
+      weight:r=1.0
+
+      "level__timeVec:array"{
+        level__timeVec:r=22.0
+      }
+    }
+
+    "weather_overcast_b:object"{
+      weight:r=1.0
+      cloudsHoleEnabled:b=no
+
+      "level__timeVec:array"{
+        level__timeVec:r=22.0
+      }
+    }
+
+    "weather_cloudy_sunset_a:object"{
+      weight:r=1.0
+
+      "level__timeVec:array"{
+        level__timeVec:r=22.0
+      }
+    }
+
+    "weather_cloudy_sunset_b:object"{
+      weight:r=1.0
+
+      "level__timeVec:array"{
+        level__timeVec:r=22.0
+      }
+    }
+
+    "weather_poor_a:object"{
+      weight:r=1.0
+      cloudsHoleEnabled:b=no
+
+      "entities:array"{
+
+        "entity:object"{
+          template:t="camera_rain_heavy_template"
+
+          "components:object"{
+            far_rain__speed:r=1.0
+            rain_ripples__size:r=0.04
+            drop_splashes__volumetricSplashScale:r=0.5
+            far_rain__wind:r=8.0
+            far_rain__density:r=10.0
+            drop_splashes__spriteSplashScale:r=7.25
+            drop_splashes__iterationTime:r=2.0
+            far_rain__length:r=1.0
+            wetness__strength:r=0.6
+            far_rain__alpha:r=1.0
+            puddles__growthLimit:r=0.03
+            far_rain__width:r=1.0
+            puddles__growthRate:r=0.2
+            far_rain__alpha_fade_speed_begin:r=150.0
+            far_rain__alpha_fade_speed_end:r=400.0
+            drop_splashes__distance:r=20.0
+          }
+        }
+
+        "entity:object"{
+          template:t="lightning_animchar_manager"
+        }
+
+        "entity:object"{
+          template:t="lightning_volumetric"
+        }
+
+        "entity:object"{
+          template:t="lightning_panorama"
+        }
+      }
+    }
+  }
+
+  "level__timeVec:array"{
+    level__timeVec:r=22.0
+  }
 }
 
 entity{

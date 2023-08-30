@@ -2,7 +2,7 @@ import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
 //this is very good candidate to refactor - copy&paste is obvious
-let {levelLoaded, levelLoadedUpdate, levelIsLoading, levelIsLoadingUpdate} = require("%enlSqGlob/levelState.nut")
+let {levelLoaded, levelLoadedUpdate, levelIsLoading, levelIsLoadingUpdate, currentLevelBlkUpdate} = require("%enlSqGlob/levelState.nut")
 
 let {EventUiShutdown} = require("dasevents")
 ecs.register_es("level_state_ui_es",
@@ -23,11 +23,10 @@ ecs.register_es("level_is_loading_ui_es",
   {comps_track = [["level_is_loading", ecs.TYPE_BOOL]]}
 )
 
-let currentLevelBlk = Watched()
 ecs.register_es("level_blk_name_ui_es",
   {
-    [["onInit"]] = @(_eid, comp) currentLevelBlk(comp["level__blk"])
-    onDestroy = @() currentLevelBlk.update(null)
+    [["onInit"]] = @(_eid, comp) currentLevelBlkUpdate(comp["level__blk"])
+    onDestroy = @() currentLevelBlkUpdate(null)
   },
   {comps_ro = [["level__blk", ecs.TYPE_STRING]]}
 )
@@ -50,6 +49,5 @@ return {
   levelLoaded
   levelIsLoading
   uiDisabled //this is ugly, but we can't disabled HUD via absence of data
-  currentLevelBlk
   dbgLoading
 }

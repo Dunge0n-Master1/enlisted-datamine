@@ -1,14 +1,14 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let cursors = require("%ui/style/cursors.nut")
-let picSz = fsh(5)
+let picSz = hdpx(54)
 let {hudIsInteractive} = require("%ui/hud/state/interactive_state.nut")
 let { serverResponseError } = require("%enlist/matchingClient.nut")
 
 let isSavingData = Watched(false)
 
 let function pic(name) {
-  return Picture("ui/skin#info/{0}.svg:{1}:{1}:K".subst(name, picSz.tointeger()))
+  return Picture("ui/skin#info/{0}.svg:{1}:{1}:K".subst(name, picSz))
 }
 
 let mkIcon = @(iconName, tipText, isVisibleWatch, color) @() {

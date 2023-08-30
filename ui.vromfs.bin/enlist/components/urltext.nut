@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let openUrl = require("%ui/components/openUrl.nut")
 let {Active, Inactive, ButtonHover} = require("%ui/style/colors.nut")
 
@@ -10,9 +10,9 @@ let function url(str, address, params = {}) {
 
   return function() {
     let sf = stateFlags.value
-    let color = (sf & S_ACTIVE) ? Active
-                  : (sf & S_HOVER) ? ButtonHover
-                  : Inactive
+    let color = sf & S_ACTIVE ? Active
+      : sf & S_HOVER ? ButtonHover
+      : Inactive
 
     return {
       watch = stateFlags
@@ -35,7 +35,7 @@ let function url(str, address, params = {}) {
       }.__update(params?.childParams ?? {})
       onClick = function() { openUrl(address) }
       onElemState = @(newSF) stateFlags.update(newSF)
-    }.__update(body_txt, params)
+    }.__update(fontBody, params)
   }
 }
 

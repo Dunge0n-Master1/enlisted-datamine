@@ -70,6 +70,8 @@ def shoot_from_gun(gun_templ : string; bullet_type_index : int; start_vel : floa
   let templateName = "{gun_templ}+turret_with_several_types_of_shells+gun_ammo_load_debug"
   createEntity(templateName, finalizeCreation) <| $(var init : ComponentsInitializer)
     set(init, "currentBulletId", bullet_type_index)
+    query() <| $ [es(REQUIRE=localPlayer)] (eid : EntityId)
+      set(init, "gun__owner", eid)
 
 def get_camera_tm()
   var tm : float3x4

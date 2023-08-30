@@ -1,0 +1,14 @@
+caustics{
+  _singleton:b=yes
+  _tags:t="render"
+  caustics__indoor_probe_shader_name:t="indoor_probe_to_depth"
+
+  "caustics__node:dabfg::NodeHandle"{
+  }
+
+  "caustics__indoor_probe_mask:UniqueTexHolder"{
+  }
+
+  "caustics__indoor_probe_shader:ShadersECS"{
+  }
+}

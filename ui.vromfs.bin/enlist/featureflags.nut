@@ -22,6 +22,7 @@ let PSNAllowShowQRCodeStore = nestWatched("PSNAllowShowQRCodeStore", false)
 let canRentSquad = nestWatched("canRentSquad", false)
 let hasMassVehDecorPaste = nestWatched("hasMassVehDecorPaste", true)
 let hasCampaignPromo = nestWatched("hasCampaignPromo", false)
+let hasGrowth = nestWatched("hasGrowth", false)
 let hasAutoCluster = nestWatched("hasAutoCluster", false)
 let allowReconnect = nestWatched("allowReconnect", true)
 
@@ -44,6 +45,7 @@ let features = {
   canRentSquad
   hasMassVehDecorPaste
   hasCampaignPromo
+  hasGrowth
   hasAutoCluster
   allowReconnect
 }

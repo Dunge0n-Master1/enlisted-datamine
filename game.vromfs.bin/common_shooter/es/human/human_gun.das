@@ -112,14 +112,13 @@ def hide_guns_in_vehicle_es(evt : Event; isInVehicle : bool; human_weap__gunEids
 def human_gun_attach_es(evt : CmdWeapAttach;
                         gun_attach__mainSlotId : int;
                         gun_attach__holsterSlotsIds : IntList const?;
-                        gun_attach__holsterSlots : Array const?;
-                        gun_attach__holsterSlotsOffsets : Object const?;
                         var slot_attach__rotOffset : float3?;
                         var human_gun_attached : bool&;
                         var slot_attach__slotId : int&;
                         var slot_attach__attachedTo : EntityId&;
                         var gun__visible : bool&;
-                        gun__hideInVehcile : Tag const?)
+                        gun__hideInVehcile : Tag const?;
+                        gun_attach__holsterRotOffset : float3 = float3())
   let ownerEid = evt.toEid
   if !ownerEid || !doesEntityExist(ownerEid)
     return
@@ -142,10 +141,7 @@ def human_gun_attach_es(evt : CmdWeapAttach;
   elif weaponHolster
     slot_attach__attachedTo = ownerEid
     slot_attach__slotId = (*gun_attach__holsterSlotsIds)[slotId]
-    if gun_attach__holsterSlotsOffsets != null && gun_attach__holsterSlots != null
-      let holsterName = (*gun_attach__holsterSlots)[slotId] ?? ""
-      if !empty(holsterName)
-        holsetOffset = (*gun_attach__holsterSlotsOffsets)[holsterName] ?? float3()
+    holsetOffset = gun_attach__holsterRotOffset
   else
     slot_attach__attachedTo = INVALID_ENTITY_ID
     slot_attach__slotId = -1
@@ -168,14 +164,6 @@ def human_gun_detach_es(evt : CmdWeapDetach;
     ragdoll |> ragdoll_startRagdoll(1, -1)
     animchar |> animchar_setPostController(ragdoll)
 
-[es(tag=server, no_order)]
-def human_gun_reset_reload_anim_es(evt : CmdWeapAttach;
-                                   var gun__holsterGen : int&)
-  let attachFlag = evt.isAttached
-  if !attachFlag
-    ++gun__holsterGen
-
-
 def reset_reload_anim(gun_anim__reloadVarId : int;
                       gun_anim__singleReloadVarId : int;
                       var physVars : PhysVars;
@@ -186,18 +174,15 @@ def reset_reload_anim(gun_anim__reloadVarId : int;
   animPhys |> anim_phys_update(animchar, physVars)
   animchar |> animchar_act(0.01, true)
 
-
-[es(before=before_animchar_update_sync)]
-def human_gun_reset_reload_anim_client_es(info : ParallelUpdateFrameDelayed;
+[es(tag=gameClient, track=human_gun_attached)]
+def human_gun_reset_reload_anim_client_es(evt : Event;
                                           gun_anim__reloadVarId : int;
                                           gun_anim__singleReloadVarId : int;
-                                          gun__holsterGen : int;
-                                          var gun__prevHolsterGen : int&;
+                                          human_gun_attached : bool;
                                           var phys_vars : PhysVars;
                                           var animchar : AnimcharBaseComponent;
                                           var anim_phys : AnimatedPhys)
-  if gun__holsterGen != gun__prevHolsterGen
-    gun__prevHolsterGen = gun__holsterGen
+  if !human_gun_attached
     reset_reload_anim(gun_anim__reloadVarId, gun_anim__singleReloadVarId, phys_vars, animchar, anim_phys)
 
 
@@ -343,3 +328,49 @@ def human_weap_init_gun_trace(evt : Event;
                               human_weap__gunMat : string = "gunRay";
                               var human_weap__gunMatId : int&)
   human_weap__gunMatId = get_material_id(human_weap__gunMat)
+
+[es(tag=gameClient)]
+def gun_anim_holster_pos_offset_es(info : ParallelUpdateFrameDelayed;
+                                   gun__owner : EntityId;
+                                   gun_attach__holsterPosOffset : float3;
+                                   slot_attach__posOffset : float3;
+                                   slot_attach__weaponSlotIdx : int;
+                                   gun_attach__holsterAnimLerpFactor : float;
+                                   var slot_attach__rotTm : float3x4&)
+  query(gun__owner) <| $ [es(REQUIRE=human_net_phys)] (human_net_phys : HumanActor)
+    assume currentState = human_net_phys.phys.currentState
+    if currentState.weapEquipState.curState == HUWeaponEquipState EES_EQUIPED
+      return
+
+    let isHolster = int(currentState.weapEquipState.nextSlot) != slot_attach__weaponSlotIdx
+    if isHolster && currentState.weapEquipState.curState == HUWeaponEquipState EES_EQUIPING
+      slot_attach__rotTm[3] = lerp(slot_attach__rotTm[3], gun_attach__holsterPosOffset, float3(info.dt * gun_attach__holsterAnimLerpFactor))
+    elif !isHolster && currentState.weapEquipState.curState == HUWeaponEquipState EES_HOLSTERING
+      slot_attach__rotTm[3] = lerp(slot_attach__rotTm[3], slot_attach__posOffset, float3(info.dt * gun_attach__holsterAnimLerpFactor))
+
+[es(tag=gameClient, REQUIRE=menuChar)]
+def gun_anim_holster_menu_pos_offset_es(info : ParallelUpdateFrameDelayed;
+                                        human_weap__gunEids : EidList)
+  for gunEid in human_weap__gunEids
+    query(gunEid) <| $ [es] (human_gun_attached : bool;
+                             gun_attach__holsterPosOffset : float3;
+                             slot_attach__posOffset : float3;
+                             gun_attach__holsterAnimLerpFactor : float;
+                             var slot_attach__rotTm : float3x4&)
+      if !human_gun_attached
+        slot_attach__rotTm[3] = lerp(slot_attach__rotTm[3], gun_attach__holsterPosOffset, float3(info.dt * gun_attach__holsterAnimLerpFactor))
+      else
+        slot_attach__rotTm[3] = lerp(slot_attach__rotTm[3], slot_attach__posOffset, float3(info.dt * gun_attach__holsterAnimLerpFactor))
+
+[es(tag=gameClient)]
+def radio_anim_holster_menu_pos_offset_es(info : ParallelUpdateFrameDelayed;
+                                          human_weap__radioEid : EntityId;
+                                          human_weap__radioMode : bool = false)
+  query(human_weap__radioEid) <| $ [es] (gun_attach__holsterPosOffset : float3;
+                                         slot_attach__posOffset : float3;
+                                         gun_attach__holsterAnimLerpFactor : float;
+                                         var slot_attach__rotTm : float3x4&)
+    if !human_weap__radioMode
+      slot_attach__rotTm[3] = lerp(slot_attach__rotTm[3], gun_attach__holsterPosOffset, float3(info.dt * gun_attach__holsterAnimLerpFactor))
+    else
+      slot_attach__rotTm[3] = lerp(slot_attach__rotTm[3], slot_attach__posOffset, float3(info.dt * gun_attach__holsterAnimLerpFactor))

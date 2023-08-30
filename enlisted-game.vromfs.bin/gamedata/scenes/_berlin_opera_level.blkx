@@ -57,20 +57,6 @@ entity{
   _template:t="water"
   water__strength:r=0.3
   water__level:r=-2.0
-  water__flowmap:b=yes
-
-  "water__flowmap_wind:array"{
-
-    "water__flowmap_wind:object"{
-      area:p4=-400.0, 800.0, 500.0, 400.0
-      dir:r=90.0
-    }
-
-    "water__flowmap_wind:object"{
-      area:p4=-300.0, 0.0, 300.0, 500.0
-      dir:r=-90.0
-    }
-  }
 }
 
 entity{

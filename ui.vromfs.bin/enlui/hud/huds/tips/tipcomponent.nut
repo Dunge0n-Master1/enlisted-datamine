@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {body_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontBody} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {HUD_TIPS_FG} = require("%ui/hud/style.nut")
 let { controlHudHint, mkHasBinding } = require("%ui/components/controlHudHint.nut")
 
@@ -11,8 +11,8 @@ let function text_hint(text, params={}) {
     margin = hdpx(2)
     text
     color = params?.textColor ?? HUD_TIPS_FG
-    font = params?.font ?? body_txt?.font
-    fontSize = params?.fontSize ?? body_txt.fontSize
+    font = params?.font ?? fontBody?.font
+    fontSize = params?.fontSize ?? fontBody.fontSize
     transform = {pivot=[0.1,0.5]}
     animations = params?.textAnims ?? []
   }

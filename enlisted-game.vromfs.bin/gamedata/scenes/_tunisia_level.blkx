@@ -1,5 +1,6 @@
 import{
   scene:t="content/enlisted/gamedata/scenes/_tunisia_biome_fx.blk"
+  scene:t="content/enlisted/gamedata/scenes/_tunisia_gpu_objects.blk"
 }
 
 entity{

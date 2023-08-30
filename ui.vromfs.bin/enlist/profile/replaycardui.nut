@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt, fontawesome } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody, fontawesome } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { rowBg, bigPadding, blockedTxtColor, defTxtColor, commonBtnHeight
 } = require("%enlSqGlob/ui/viewConst.nut")
@@ -28,8 +28,8 @@ let listPadding = [0, listGap]
 let isCurrentRecordProtocolValid = Watched(true)
 let totalPages = Computed(@() ceil(records.value.len().tofloat() / displayPerPage).tointeger())
 
-let defTxtStyle = { color = defTxtColor }.__update(body_txt)
-let disabledTxtStyle = { color = blockedTxtColor }.__update(body_txt)
+let defTxtStyle = { color = defTxtColor }.__update(fontBody)
+let disabledTxtStyle = { color = blockedTxtColor }.__update(fontBody)
 
 records.subscribe(function(_) {
   if (totalPages.value < curPage.value)
@@ -100,19 +100,19 @@ let function mkReplay(record, idx) {
         size = [flex(), SIZE_TO_CONTENT]
         text = format_unix_time(replayInfo?.start_timestamp ?? 0)
           .replace("T", " ").replace("Z", "")
-      }.__update(body_txt)
+      }.__update(fontBody)
       {
         rendObj = ROBJ_TEXT
         size = [flex(1.5), SIZE_TO_CONTENT]
         behavior = Behaviors.Marquee
         text = loc(replayInfo?.mission_name ?? "replay/UnknownMission",
-          { mission_type=loc($"missionType/{replayInfo?.mission_type}" ?? "unknownMissionType") })
-      }.__update(body_txt)
+          { mission_type=loc(replayInfo?.mission_type ? $"missionType/{replayInfo.mission_type}" : "unknownMissionType") })
+      }.__update(fontBody)
       {
         size = [flex(0.7), SIZE_TO_CONTENT]
         rendObj = ROBJ_TEXT
         text = secondsToStringLoc(replayInfo?.total_play_time ?? 0)
-      }.__update(body_txt)
+      }.__update(fontBody)
       mkProtocolBlock(isValid)
     ]
   })

@@ -23,6 +23,10 @@ entity{
 }
 
 entity{
+  _template:t="hit_effect_group_small_rocket_explosion"
+}
+
+entity{
   _template:t="hit_effect_group_phosphorus_grenade_explosion"
 }
 

@@ -59,7 +59,8 @@ let function lerp(valueMin, valueMax, resMin, resMax, value) {
 * but result is clamped by min/max values
 */
 let lerpClamped = @(valueMin, valueMax, resMin, resMax, tvalue)
-  lerp(valueMin, valueMax, resMin, resMax, clamp(tvalue, valueMin, valueMax))
+  lerp(valueMin, valueMax, resMin, resMax,
+    valueMax > valueMin ? clamp(tvalue, valueMin, valueMax) : clamp(tvalue, valueMax, valueMin))
 
 
 let function interpolateArray(arr, value) {
@@ -131,6 +132,16 @@ local function getRomanNumeral(num) {
   return "".join(thousands.extend(roman).filter(@(v) v!=null))
 }
 
+let function splitThousands(val, spacer = " ") {
+  val = val.tostring()
+  local res = val.slice(-3)
+  while (val.len() > 3) {
+    val = val.slice(0, -3)
+    res = $"{val.slice(-3)}{spacer}{res}"
+  }
+  return res
+}
+
 /**
  * Calculates average value from array.
  * @param {array} list - Array of integers or floats.
@@ -171,6 +182,7 @@ let export = math.__merge({
   calc_golden_ratio_columns
   color2uint
   getRomanNumeral
+  splitThousands
   calcPercent = @(value) (100.0 * value + 0.5).tointeger()
   average
   median

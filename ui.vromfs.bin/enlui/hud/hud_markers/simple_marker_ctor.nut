@@ -6,7 +6,7 @@ let { watchedTeam } = require("%ui/hud/state/watched_hero.nut")
 let is_teams_friendly = require("%enlSqGlob/is_teams_friendly.nut")
 let { watchedHeroSquadEid } = require("%ui/hud/state/squad_members.nut")
 
-let mkSize =  @(x,y) [fsh(x), fsh(y)].map(@(v) v.tointeger())
+let mkSize = @(x,y) [fsh(x), fsh(y)].map(@(v) v.tointeger())
 let defaultIconSize = mkSize(3.5, 3.5)
 let mkSvg = memoize(function(img, size) {
   return $"!ui/uiskin/{img}.svg:{size[0]}:{size[1]}:K"

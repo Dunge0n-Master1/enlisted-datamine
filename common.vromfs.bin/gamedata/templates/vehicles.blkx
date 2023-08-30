@@ -158,13 +158,6 @@ first_turret{
   "firstTurretInput:tag"{
     _tags:t="input"
   }
-
-  _group{
-    _tags:t="input"
-    turret_input__isZoom:b=no
-    turret_input__minZoom:r=1.0
-    turret_input__maxZoom:r=1.3
-  }
 }
 
 turret_with_several_types_of_shells{
@@ -277,7 +270,6 @@ turret_base{
   turret__flashNodeId:i=-1
   turret__isBroken:b=no
   turret__isUnderwater:b=no
-  turret__canZoom:b=yes
   turret__stabilizerError:r=0.0
   turret_aim__shootToPos:p3=0.0, 0.0, 0.0
   turret_aim__shootAngles:p2=0.0, 0.0
@@ -324,6 +316,9 @@ turret_base{
     "turret__resolved:b"{
       value:b=no
       _hide:b=yes
+    }
+
+    "turret__emitterOwner:eid"{
     }
 
     "turret__emitterNodeId:i"{
@@ -1136,6 +1131,14 @@ high_speed_warning{
   vehicle__isHighSpeedWarningEnabled:b=no
   _tracked:t="vehicle__isHighSpeedWarningEnabled"
   vehicle__highSpeedWarningLimits:p2=0.0, 0.0
+}
+
+plane_overload_warning{
+  _tags:t="ui"
+  plane__flapsCritical:b=no
+  plane__overloadCritical:b=no
+  _tracked:t="plane__flapsCritical"
+  _tracked:t="plane__overloadCritical"
 }
 
 _componentFilters{

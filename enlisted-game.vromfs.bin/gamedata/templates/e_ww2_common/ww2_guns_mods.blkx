@@ -1004,9 +1004,30 @@ unertl_8x_sight{
   gunAttachable__gunSlotName:t="scope"
   gunAttachable__slotTag:t="unertl_8x_sight"
   gunmod__zoomFactor:r=8.0
+  gunmod__camShiftMin:r=0.19
+  gunmod__camShiftMax:r=0.19
   item__weight:r=0.3
   item__volume:r=0.5
   item__name:t="items/unertl_8x_sight"
+
+  "gunAttachable:tag"{
+  }
+}
+
+enfield_p14_no3_mk1_scope{
+  _extends:t="scope_gunmod"
+  animchar__res:t="enfield_p14_mk1_scope_char"
+  item__template:t="enfield_p14_no3_mk1_scope_item"
+  item__proto:t="content/enlisted/gamedata/items/enfield_p14_no3_mk1_scope.blk"
+  gunAttachable__slot:i=-1
+  gunAttachable__slotName:t="scope"
+  gunAttachable__gunSlotName:t="scope"
+  gunAttachable__slotTag:t="enfield_p14_no3_mk1_scope"
+  gunmod__deviationMult:r=0.3
+  gunmod__zoomFactor:r=4.0
+  item__weight:r=0.3
+  item__volume:r=0.5
+  item__name:t="items/enfield_p14_no3_mk1_scope"
 
   "gunAttachable:tag"{
   }
@@ -1409,5 +1430,30 @@ arisaka_grenade_discharger{
 
   "gun__shells:array"{
     shells:t="content/enlisted/gamedata/weapons/grenades/type_99_grenade.blk"
+  }
+}
+
+type_2_grenade_discharger{
+  _extends:t="grenade_laucher_base"
+  animchar__res:t="type_2_grenade_launcher_char"
+  item__template:t="type_2_grenade_discharger_item"
+  item__proto:t="content/enlisted/gamedata/weapons/type_2_grenade_discharger.blk"
+  item__name:t="items/type_2_grenade_discharger"
+  gunAttachable__slotTag:t="type_2_grenade_discharger"
+  gun__blk:t="content/enlisted/gamedata/weapons/type_2_grenade_discharger.blk"
+  gun__locName:t="Grenade discharger"
+  gun__statName:t="launcher"
+  weapon_mod__activateTime:r=2.8
+  weapon_mod__deactivateTime:r=2.8
+
+  "gunAttachable:tag"{
+  }
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="content/enlisted/gamedata/weapons/shells/type_2_grenade_discharger_shell.blk"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons/shells/type_2_grenade_discharger_shell.blk"
   }
 }

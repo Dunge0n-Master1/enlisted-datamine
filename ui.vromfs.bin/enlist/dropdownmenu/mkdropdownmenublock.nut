@@ -1,10 +1,10 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontFontawesome, fontLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontawesome, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let modalPopupWnd = require("%ui/components/modalPopupWnd.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
-let { colPart, defBdColor, panelBgColor, defTxtColor, defItemBlur, commonBtnHeight, colFull,
-  midPadding, smallPadding, titleTxtColor, hoverSlotBgColor, darkTxtColor, bigPadding
+let { defBdColor, panelBgColor, defTxtColor, defItemBlur, commonBtnHeight, midPadding, smallPadding,
+  titleTxtColor, hoverSlotBgColor, darkTxtColor, bigPadding
 } = require("%enlSqGlob/ui/designConst.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let { premiumBtnSize } = require("%enlist/currency/premiumComp.nut")
@@ -30,8 +30,8 @@ let btnSound = freeze({
 })
 
 let hotkeyOnHover = freeze({
-  size = [fontLarge.fontSize, SIZE_TO_CONTENT]
-  children = mkImageCompByDargKey(JB.A, { height = fontLarge.fontSize })
+  size = [fontBody.fontSize, SIZE_TO_CONTENT]
+  children = mkImageCompByDargKey(JB.A, { height = fontBody.fontSize })
 })
 
 let widthHotkeyOnHover = freeze({size = [calc_comp_size(hotkeyOnHover)[0], 0]})
@@ -56,9 +56,9 @@ let mkMenuButton = @(btn, needMoveCursor) (btn?.len() ?? 0) > 0
           {
             rendObj = ROBJ_TEXT
             text = btn?.name ?? ""
-            color =  (sf & S_ACTIVE) != 0 || (sf & S_HOVER) != 0 ? titleTxtColor : defTxtColor
-          }.__update(fontLarge)
-          isGamepad.value && ((sf & S_HOVER) == 0) ? widthHotkeyOnHover : null
+            color =  (sf & S_ACTIVE) || (sf & S_HOVER) ? titleTxtColor : defTxtColor
+          }.__update(fontBody)
+          isGamepad.value && !(sf & S_HOVER) ? widthHotkeyOnHover : null
         ]
       }.__update(!needMoveCursor ? {} : {
         key = "selected_menu_elem"
@@ -79,7 +79,7 @@ let mkMenuButtons = @(buttons, watch) function(){
     .map(@(btn, idx) mkMenuButton(btn, isGamepad.value && idx == 0))
   return {
     watch = [isGamepad].extend(watch)
-    minWidth = colFull(4)
+    minWidth = fsh(27.5)
     flow = FLOW_VERTICAL
     children
   }
@@ -88,7 +88,7 @@ let mkMenuButtons = @(buttons, watch) function(){
 let openMenu = @(event, content) modalPopupWnd.add(event.targetRect, {
   uid = WND_UID
   padding = 0
-  margin = [colPart(0.09), 0]
+  margin = [hdpx(6), 0]
   popupHalign = ALIGN_RIGHT
   popupBg = {
     rendObj = ROBJ_WORLD_BLUR_PANEL
@@ -106,7 +106,7 @@ let mkbars = @(sf) {
   rendObj = ROBJ_TEXT
   text = fa["bars"]
   color = sf & S_HOVER ? darkTxtColor : defTxtColor
-}.__update(fontFontawesome)
+}.__update(fontawesome)
 
 local function mkDropMenuBtn(buttons, watch) {
   let watchTo = type(watch) != "array" ? [watch] : watch

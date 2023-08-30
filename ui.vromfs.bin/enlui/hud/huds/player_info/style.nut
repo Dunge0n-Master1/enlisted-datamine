@@ -16,7 +16,7 @@ return {
   barWidth = barWidth
   barHeight = barHeight
   notSelectedItemColor = Color(180,180,180,150)
-  iconSize = [fsh(1.7), fsh(1.7)].map(@(v) v.tointeger())
+  iconSize = [hdpxi(18), hdpxi(18)]
   itemAppearing = [
     {prop=AnimProp.opacity, from=0, to=1, duration=0.5, play=true, easing=InOutCubic}
   ]

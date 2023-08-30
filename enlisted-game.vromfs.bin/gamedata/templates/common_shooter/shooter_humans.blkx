@@ -323,6 +323,7 @@ human_freefall{
   human_freefall__canFreefall:b=yes
   human_freefall__minPlaneHeight:r=30.0
   human_freefall__vertLookAngleLimit:p2=-72.0, 25.0
+  human_freefall__inputLimits:p2=0.02, 0.02
   human_freefall__criticalAirSpeed:r=30.0
   human_freefall__airResistance:r=0.0039
   human_freefall__animationTemplate:t="human_freefall_animation"

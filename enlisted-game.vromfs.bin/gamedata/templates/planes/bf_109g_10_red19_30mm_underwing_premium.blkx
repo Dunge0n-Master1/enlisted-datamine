@@ -146,6 +146,8 @@ bf_109g_10_red19_30mm_underwing_premium{
     part:t="210mm_tube_r"
     part:t="210mm_1"
     part:t="210mm_2"
+    part:t="pylon_bomb1"
+    part:t="pylon_bomb2"
   }
 }
 

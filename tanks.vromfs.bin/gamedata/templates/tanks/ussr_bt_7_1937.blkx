@@ -10,10 +10,12 @@ ussr_bt_7_1937_common{
   _extends:t="base_bt_7_1937"
   _extends:t="tank_t34_engine_sound"
   _extends:t="tank_light_vehicle_tracks_sound"
-  vehicle_net_phys__blk:t="content/tanks/gamedata/units/tanks/bt_7_1937.blk:VehiclePhys"
-  damage_model__blk:t="content/tanks/gamedata/units/tanks/bt_7_1937.blk"
   commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
   gunner_cam_limit__useCockpitDir:b=yes
+  vehicle_net_phys__blk:t="content/tanks/gamedata/units/tanks/bt_7_1937.blk:VehiclePhys"
+  damage_model__blk:t="content/tanks/gamedata/units/tanks/bt_7_1937.blk"
+  item__iconOffset:p2=0.0, -0.05
+  item__iconScale:r=1.11
 
   "vehicle_seats__seatsProvideOrder:tag"{
   }
@@ -200,6 +202,7 @@ ussr_bt_7_1937_gunner_cockpit{
 
   "cockpit__slitTemplates:list<t>"{
     slit:t="ussr_top_1"
+    slit:t="ussr_pt_1"
   }
 
   "cockpit__slitEids:list<eid>"{

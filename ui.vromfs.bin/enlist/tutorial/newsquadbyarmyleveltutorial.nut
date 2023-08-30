@@ -30,7 +30,8 @@ let { jumpToArmyProgress } = require("%enlist/mainMenu/sectionsState.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { isInSquad } = require("%enlist/squad/squadManager.nut")
 let { seenArmyProgress } = require("%enlist/soldiers/model/unseenArmyProgress.nut")
-
+let { dbgShow } = require("%enlist/debriefing/debriefingDbgState.nut")
+let { show } = require("%enlist/debriefing/debriefingStateInMenu.nut")
 
 const LEVEL_TO_SHOW = 2
 
@@ -40,7 +41,9 @@ let hasOtherArmyLevel = Computed(@() armies.value.findvalue(@(armyData, armyId)
 let needTutorial = Computed(@() !hasOtherArmyLevel.value
   && curArmyNextUnlockLevel.value == LEVEL_TO_SHOW
   && readyToUnlockSquadId.value != null
-  && !isInSquad.value)
+  && !isInSquad.value
+  && !dbgShow.value
+  && !show.value)
 
 let canShowTutorialFromMainMenu = Computed(@() canDisplayOffers.value
   && hasCampaignSection.value
@@ -102,7 +105,7 @@ let mkDropTarget = @(box, onDrop) watchElemState(@(sf) mkSizeTable(box, {
   onDrop
 
   rendObj = ROBJ_BOX
-  fillColor = (sf & S_ACTIVE) != 0 ? airSelectedBgColor : 0
+  fillColor = sf & S_ACTIVE? airSelectedBgColor : 0
   borderWidth = hdpx(1)
 }))
 

@@ -136,6 +136,7 @@ struct CmdStopBurn {}
 [event(unicast, routing=ROUTING_CLIENT_TO_SERVER)]
 struct RequestStartMaintenance
   target : EntityId
+  partId : int
 
 [event(unicast, routing=ROUTING_CLIENT_TO_SERVER)]
 struct RequestStopMaintenance
@@ -144,6 +145,7 @@ struct RequestStopMaintenance
 [event(unicast)]
 struct CmdStartMaintenance
   target : EntityId
+  partId : int
 
 [event(unicast)]
 struct CmdStopMaintenance
@@ -152,6 +154,12 @@ struct CmdStopMaintenance
 [event(unicast)]
 struct CmdStartRepair
   target : EntityId
+  partId : int
+
+[event(unicast)]
+struct CmdRepairKitWeaponUse
+  target : EntityId
+  partId : int
 
 [event(unicast)]
 struct CmdStopRepair

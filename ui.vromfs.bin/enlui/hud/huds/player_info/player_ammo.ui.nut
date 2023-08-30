@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {body_txt, sub_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontBody, fontSub} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {mkInputHintBlock} = require("%ui/hud/huds/tips/tipComponent.nut")
 let { hasWeapon, curWeaponIsReloadable, curWeaponAmmo, curWeaponIsDualMag,
   curWeaponAdditionalAmmo, curWeaponTotalAmmo, curWeaponAltAmmo,
@@ -9,7 +9,7 @@ let { hasWeapon, curWeaponIsReloadable, curWeaponAmmo, curWeaponIsDualMag,
 } = require("%ui/hud/state/hero_weapons.nut")
 let {blurBack, DEFAULT_TEXT_COLOR} = require("style.nut")
 
-let heightTxt = calc_str_box("auto", body_txt)[1]
+let heightTxt = calc_str_box("auto", fontBody)[1]
 let ammoNumAnim = [
   { prop=AnimProp.scale, from=[1.25,1.4], to=[1,1], duration=0.25, play=true, easing=OutCubic }
 ]
@@ -86,22 +86,22 @@ let ammoCmp = @(curAmmo, additionalAmmo, totalAmmo, styles, icon = null) {
 
 
 let defMainStyles = {
-  curAmmo = {color = DEFAULT_TEXT_COLOR}.__update(body_txt)
-  sep = {color = DEFAULT_TEXT_COLOR}.__update(sub_txt)
-  totalAmmo = {color = DEFAULT_TEXT_COLOR}.__update(sub_txt)
-  add = {color = DEFAULT_TEXT_COLOR}.__update(sub_txt)
-  additionalAmmo = {color = DEFAULT_TEXT_COLOR}.__update(sub_txt)
+  curAmmo = {color = DEFAULT_TEXT_COLOR}.__update(fontBody)
+  sep = {color = DEFAULT_TEXT_COLOR}.__update(fontSub)
+  totalAmmo = {color = DEFAULT_TEXT_COLOR}.__update(fontSub)
+  add = {color = DEFAULT_TEXT_COLOR}.__update(fontSub)
+  additionalAmmo = {color = DEFAULT_TEXT_COLOR}.__update(fontSub)
   useBlur = true
 }
 
 let ammoCmpHgt = calc_comp_size(ammoCmp(1,2,3, defMainStyles))[1]
 
 let defSecondaryStyles = {
-  curAmmo = {color = DEFAULT_TEXT_COLOR}.__update(sub_txt)
-  sep = {color = DEFAULT_TEXT_COLOR}.__update(sub_txt)
-  totalAmmo = {color = DEFAULT_TEXT_COLOR}.__update(sub_txt)
-  add = {color = DEFAULT_TEXT_COLOR}.__update(sub_txt)
-  additionalAmmo = {color = DEFAULT_TEXT_COLOR}.__update(sub_txt)
+  curAmmo = {color = DEFAULT_TEXT_COLOR}.__update(fontSub)
+  sep = {color = DEFAULT_TEXT_COLOR}.__update(fontSub)
+  totalAmmo = {color = DEFAULT_TEXT_COLOR}.__update(fontSub)
+  add = {color = DEFAULT_TEXT_COLOR}.__update(fontSub)
+  additionalAmmo = {color = DEFAULT_TEXT_COLOR}.__update(fontSub)
   useBlur = true
 }
 

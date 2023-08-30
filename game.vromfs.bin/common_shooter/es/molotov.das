@@ -34,11 +34,31 @@ def get_increased_fire_full_force_time(tmplt : string; add_time : float)
 
   return min(fullTime + add_time, maxFullTime)
 
-def create_fire_impl(pos : float3; tmplt : string; shell_info : MolotovShellInfo; add_time : float)
+[es(on_appear)]
+def fire_effect_init_res_es(evt : Event;
+                            eid : EntityId;
+                            fire_effect__effectBaseTemplate : string;
+                            fire_effect__norm : float3;
+                            fire_effect__verticalEffectName : string;
+                            var transform : float3x4&;
+                            var effect__name : das_string?;
+                            fire_effect__verticalAngles = float2(-15., 15.))
+  let dirAngles = dir_to_angles(fire_effect__norm)
+  addSubTemplate(eid, fire_effect__effectBaseTemplate)
+  let verticalAngle = rad_to_deg(dirAngles.y)
+  if verticalAngle > fire_effect__verticalAngles.x  && verticalAngle < fire_effect__verticalAngles.y
+    transform[0] = normalize(fire_effect__norm)
+    transform[2] = normalize(cross(transform[0], transform[1]))
+    transform[0] = normalize(cross(transform[1], transform[2]))
+    if effect__name != null
+      *effect__name := fire_effect__verticalEffectName
+
+def create_fire_impl(pos : float3; norm : float3; tmplt : string; shell_info : MolotovShellInfo; add_time : float)
   return createEntity(tmplt) <| $(var init : ComponentsInitializer)
     var tm = IDENT_TM
     tm[3] = pos
     set(init, "transform", tm)
+    set(init, "fire_effect__norm", norm)
     set(init, "fire_source__fullForceTime", get_increased_fire_full_force_time(tmplt, add_time))
     set(init, "dmgzone__offender", shell_info.ownerEid)
     set(init, "dmgzone__gunPropsId", shell_info.gunPropsId)
@@ -71,7 +91,7 @@ def absorb_closeby_attached_fires(pos : float3; min_distance_between_sq : float;
       increasedTime += get_fire_time_left(fire_source__startTime, fire_source__spreadTime, fire_source__fullForceTime, fire_source__fadeTime)
   return increasedTime
 
-def create_fire(pos : float3; tmplt : string; shell_info : MolotovShellInfo; min_distance_between_sq : float; var fires : array<float3>)
+def create_fire(pos : float3; norm : float3; tmplt : string; shell_info : MolotovShellInfo; min_distance_between_sq : float; var fires : array<float3>)
   var found = false
   for otherFirePos in fires
     if length_sq(pos - otherFirePos) < min_distance_between_sq
@@ -82,7 +102,7 @@ def create_fire(pos : float3; tmplt : string; shell_info : MolotovShellInfo; min
   push(fires, pos)
 
   let increasedTime = absorb_closeby_fires(pos, min_distance_between_sq)
-  create_fire_impl(pos, tmplt, shell_info, increasedTime)
+  create_fire_impl(pos, norm, tmplt, shell_info, increasedTime)
 
 def attach_fire(pos : float3;
                 bindToEid : ecs::EntityId;
@@ -116,7 +136,7 @@ def attach_fire(pos : float3;
     return
 
   let increasedTime = absorb_closeby_attached_fires(pos, min_distance_between_sq, bindToEid)
-  let createdFireEid = create_fire_impl(pos, tmplt, shell_info, increasedTime)
+  let createdFireEid = create_fire_impl(pos, float3(0., 1., 0.), tmplt, shell_info, increasedTime)
   attach_to_node_pos(createdFireEid, bindToEid, nodeId, localPos)
 
 def create_fire_on_object_ray(pos : float3; dir : float3; max_distance : float; tmplt : string; shell_info : MolotovShellInfo; min_distance_between_sq : float;
@@ -137,7 +157,7 @@ def create_fire_on_ground_ray(pos : float3; dir : float3; max_distance : float; 
   var t = max_distance
   var norm : float3
   if traceray_normalized(pos, dir, t, norm, ETF_ALL)
-    create_fire(pos + dir * t, tmplt, shell_info, min_distance_between_sq, fires)
+    create_fire(pos + dir * t, norm, tmplt, shell_info, min_distance_between_sq, fires)
     return true
   return false
 
@@ -211,7 +231,7 @@ def explode_molotov(var pos : float3;
   create_fire_on_dirs(pos, get_global_spread_dirs(speed_dir, spread_global), spread_global, tmplt, shell_info, min_distance_between_sq, fires, attached_fires)
 
   if !create_fire_on_trace(pos, float3(0.0, -1.0, 0.0), height, tmplt, shell_info, min_distance_between_sq, fires, attached_fires)
-    create_fire(pos - float3(0.0, height, 0.0), tmplt, shell_info, min_distance_between_sq, fires)
+    create_fire(pos - float3(0.0, height, 0.0), float3(0., 1., 0.), tmplt, shell_info, min_distance_between_sq, fires)
 
 [es(tag=server)]
 def molotov_exploded(evt : CmdShellExplode;

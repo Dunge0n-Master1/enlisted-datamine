@@ -5016,7 +5016,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam2"
-  transform:m=[[-0.987417, 0.0, -0.158136] [0.0, 1.0, 0.0] [0.158136, 0.0, -0.987417] [-324.944, 5.7471, 56.5483]]
+  transform:m=[[-0.987417, 0.0, -0.158136] [0.0, 1.0, 0.0] [0.158136, 0.0, -0.987417] [-319.782, 5.7471, 60.1991]]
   groupName:t="sector_3_a"
   respawnBaseGroup:i=1
   active:b=no
@@ -5272,7 +5272,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam2"
-  transform:m=[[-0.676432, 0.0, 0.736506] [0.0, 1.0, 0.0] [-0.736506, 0.0, -0.676432] [-226.278, 12.132, -13.613]]
+  transform:m=[[-0.676432, 0.0, 0.736506] [0.0, 1.0, 0.0] [-0.736506, 0.0, -0.676432] [-222.222, 12.5222, -11.4018]]
   groupName:t="sector_4_a"
   respawnBaseGroup:i=2
   active:b=no
@@ -5280,7 +5280,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam2"
-  transform:m=[[-0.938562, 0.0, 0.345111] [0.0, 1.0, 0.0] [-0.345111, 0.0, -0.938562] [-221.214, 11.58, -2.37073]]
+  transform:m=[[-0.995305, 0.0, 0.0967856] [0.0, 1.0, 0.0] [-0.0967856, 0.0, -0.995305] [-214.719, 11.58, 0.959725]]
   groupName:t="sector_4_a"
   respawnBaseGroup:i=1
   active:b=no

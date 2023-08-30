@@ -8,14 +8,14 @@ let { isCurCampaignProgressUnlocked } = require("%enlist/meta/curCampaign.nut")
 let { campPresentation, curCampaignAccessItem } = require("%enlist/campaigns/campaignConfig.nut")
 let { hasPremium } = require("%enlist/currency/premium.nut")
 let { unlockCampaignPromo } = require("%enlist/soldiers/lockCampaignPkg.nut")
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { mkColoredGradientX } = require("%enlSqGlob/ui/gradients.nut")
 let mkCountdownTimer = require("%enlSqGlob/ui/mkCountdownTimer.nut")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { mkDiscountWidget } = require("%enlist/shop/currencyComp.nut")
-let { colPart, smallPadding, midPadding, titleTxtColor, attentionTxtColor, bigPadding,
-  brightAccentColor, defTxtColor } = require("%enlSqGlob/ui/designConst.nut")
+let { smallPadding, midPadding, titleTxtColor, attentionTxtColor, bigPadding, defTxtColor,
+  brightAccentColor } = require("%enlSqGlob/ui/designConst.nut")
 let { slotBaseSize } = require("%enlSqGlob/ui/viewConst.nut")
 
 let premiumBlockStyle = @(_config) {
@@ -31,7 +31,7 @@ let premiumBlockText = @(_config, txtColor) {
   parSpacing = smallPadding
   behavior = Behaviors.TextArea
   text = loc("premium/widget")
-}.__update(sub_txt, txtColor)
+}.__update(fontSub, txtColor)
 
 let greenGradient = mkColoredGradientX({colorLeft=0xFF007800, colorRight=0xFF145014})
 let hoverGradient = mkColoredGradientX({colorLeft=0xFF009000, colorRight=0xFF007800})
@@ -79,7 +79,7 @@ let mkPromoWidget = function(fnStyle, fnText, openWnd) {
               txt({
                 text = utf8ToUpper(loc("shop/discountNotify"))
                 color = titleTxtColor
-              }).__update(sub_txt)
+              }).__update(fontSub)
               { size = flex() }
               mkDiscountWidget(discountData.value.discountInPercent)
             ]
@@ -99,7 +99,7 @@ let mkPromoWidget = function(fnStyle, fnText, openWnd) {
             fnText(campPresentation.value,
               { color = sf & S_HOVER ? brightAccentColor : defTxtColor })
             faComp("chevron-right", {
-              fontSize = colPart(0.5)
+              fontSize = hdpxi(26)
               vplace = ALIGN_CENTER
               hplace = ALIGN_RIGHT
               color = sf & S_HOVER ? brightAccentColor : defTxtColor

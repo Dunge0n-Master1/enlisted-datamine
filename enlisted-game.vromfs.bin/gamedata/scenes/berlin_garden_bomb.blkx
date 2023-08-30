@@ -454,7 +454,7 @@ entity{
 
 entity{
   _template:t="briefing_destruction"
-  mission_name:t="berlin_garden_assault"
+  mission_name:t="berlin_garden_bomb"
 
   "loading_images:list<t>"{
     item:t="ui/berlin_garden_inv_01.avif"

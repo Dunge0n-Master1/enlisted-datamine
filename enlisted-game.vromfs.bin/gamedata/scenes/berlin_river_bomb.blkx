@@ -252,7 +252,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [946.441, 7.09041, 532.81]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [972.501, 7.09041, 532.81]]
   battle_area_polygon_point__forBattleAreaId:t="2_area1"
   battle_area_polygon_point__id:t="point10"
   battle_area_polygon_point__nextId:t="point11"
@@ -340,7 +340,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [935.868, 9.40162, 503.528]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [935.868, 9.40162, 438.715]]
   battle_area_polygon_point__forBattleAreaId:t="2_area2"
   battle_area_polygon_point__id:t="point4"
   battle_area_polygon_point__nextId:t="point5"
@@ -348,7 +348,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [783.161, 9.40162, 514.793]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [874.39, 9.40169, 465.964]]
   battle_area_polygon_point__forBattleAreaId:t="2_area2"
   battle_area_polygon_point__id:t="point5"
   battle_area_polygon_point__nextId:t="point6"
@@ -356,7 +356,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [663.137, 9.40162, 522.255]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [830.316, 9.40161, 486.341]]
   battle_area_polygon_point__forBattleAreaId:t="2_area2"
   battle_area_polygon_point__id:t="point6"
   battle_area_polygon_point__nextId:t="point7"
@@ -364,7 +364,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [614.848, 9.40162, 486.293]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [792.48, 9.40163, 501.456]]
   battle_area_polygon_point__forBattleAreaId:t="2_area2"
   battle_area_polygon_point__id:t="point7"
   battle_area_polygon_point__nextId:t="point8"
@@ -372,10 +372,10 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [560.561, 9.40162, 455.251]]
+  transform:m=[[0.997916, 0.0, -0.0645215] [0.0, 1.0, 0.0] [0.0645215, -0.0, 0.997916] [791.485, 9.40161, 516.731]]
   battle_area_polygon_point__forBattleAreaId:t="2_area2"
   battle_area_polygon_point__id:t="point8"
-  battle_area_polygon_point__nextId:t="point1"
+  battle_area_polygon_point__nextId:t="point9"
 }
 
 entity{
@@ -583,6 +583,22 @@ entity{
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [712.834, 9.20776, 420.268]]
   battle_area_polygon_point__forBattleAreaId:t="3_area2"
   battle_area_polygon_point__id:t="point14"
+  battle_area_polygon_point__nextId:t="point1"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[0.997916, 0.0, -0.0645215] [0.0, 1.0, 0.0] [0.0645215, -0.0, 0.997916] [663.967, 9.40161, 523.991]]
+  battle_area_polygon_point__forBattleAreaId:t="2_area2"
+  battle_area_polygon_point__id:t="point9"
+  battle_area_polygon_point__nextId:t="point10"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[0.997916, 0.0, -0.0645215] [0.0, 1.0, 0.0] [0.0645215, -0.0, 0.997916] [554.275, 9.40161, 457.868]]
+  battle_area_polygon_point__forBattleAreaId:t="2_area2"
+  battle_area_polygon_point__id:t="point10"
   battle_area_polygon_point__nextId:t="point1"
 }
 
@@ -905,7 +921,7 @@ entity{
 
 entity{
   _template:t="bomb_site_zone_chained_sphere+defend_zone_respawnbase"
-  transform:m=[[0.964558, 0.0, -0.263871] [0.0, 1.0, 0.0] [0.263871, -0.0, 0.964558] [788.804, 6.77693, 437.477]]
+  transform:m=[[0.997677, 0.0, -0.0681277] [0.0, 1.0, 0.0] [0.0681277, -0.0, 0.997677] [788.805, 6.77693, 437.942]]
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_04_without_antenna"
   groupName:t="sector_2"
   capzone__capRewardPartCap:r=1.8
@@ -925,7 +941,7 @@ entity{
   capzone__timeToPlant:r=20.0
   capzone__timeToDefuse:r=30.0
   capzone__timeToExplosion:r=40.0
-  capzone__bombTransformLocalPos:m=[[0.189532, 0.0, 0.981874] [0.0, 1.0, -0.0] [-0.981874, 0.0, 0.189532] [-0.06604, -1.55683, 0.012207]]
+  capzone__bombTransformLocalPos:m=[[-0.00816703, 0.0, 0.999966] [0.0, 1.0, 0.0] [-0.999966, 0.0, -0.00816703] [-0.0671387, -1.55683, -0.00106812]]
 
   "capzone__activateChoice:object"{
     sector_3:r=1.0
@@ -1916,6 +1932,6 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam1"
-  transform:m=[[-0.92403, 0.0, -0.38232] [0.0, 1.0, 0.0] [0.38232, 0.0, -0.92403] [862.499, 3.09654, 560.945]]
+  transform:m=[[-0.332073, 0.0, -0.943254] [0.0, 1.0, 0.0] [0.943254, 0.0, -0.332073] [908.099, 7.50406, 533.842]]
   groupName:t="sector_2"
 }

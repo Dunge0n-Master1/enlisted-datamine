@@ -101,6 +101,24 @@ def skeleton_attach_es(info : ParallelUpdateFrameDelayed;
   animchar_bsph_precalculated = animchar_render_prepareSphere(animchar_render, animchar_node_wtm)
   skeleton_attached_to(animchar, animchar__visible, attaches_list, info.dt, animchar_bbox, animchar_bsph_precalculated, animchar_attaches_bbox_precalculated);
 
+//for independent created attaches
+//we update animchars in animchar_non_updatable_es_event_handler and don't recalculate bsph e.t.c. components
+[es(tag=gameClient, track=transform, on_appear, after=animchar_non_updatable_es_event_handler, REQUIRE_NOT=attachedToParent, REQUIRE=(disableUpdate, attachmentUpdate, transform))]
+def skeleton_attach_not_updatable(evt : Event;
+                                  animchar : AnimcharBaseComponent&;
+                                  animchar__visible : bool;
+                                  animchar_bbox : bbox3f;
+                                  attaches_list : EidList;
+                                  var animchar_bsph_precalculated : vec4f&;
+                                  var animchar_attaches_bbox_precalculated : bbox3f?;
+                                  var animchar__usePrecalculatedData : bool&;
+                                  animchar_render : AnimcharRendComponent;
+                                  animchar_node_wtm : AnimcharNodesMat44)
+  animchar__usePrecalculatedData = true
+  animchar_bsph_precalculated = animchar_render_prepareSphere(animchar_render, animchar_node_wtm)
+  skeleton_attached_to(animchar, animchar__visible, attaches_list, 0.0, animchar_bbox, animchar_bsph_precalculated, animchar_attaches_bbox_precalculated);
+
+
 [es(tag=gameClient, on_appear, REQUIRE=attachedToParent)]
 def init_skeleton_attachment_wtm_ofs(evt : Event;
                                      skeleton_attach__skeletonRemap : UInt16List;
@@ -117,9 +135,7 @@ def init_skeleton_attachment_wtm_ofs(evt : Event;
     copy_nodes_with_remap(nodeTree, attNodeTree, skeleton_attach__skeletonRemap)
     recalc_branches(nodeTree, skeleton_attach__skeletonRecalcBranch)
 
-    // TODO: remove bind existing checks if any major update came out since 03.05.23 (so everyone has the binds 100%)
-    static_if typeinfo(builtin_function_exists @@ < (var arg0 : AnimV20::AnimcharBaseComponent implicit; arg1 : float const) : void > _::animchar_updateFastPhys)
-      attachment_animchar |> animchar_resetFastPhysWtmOfs(wtmOfs)
-      // simulate fastphys for some frames to let fastphys items settle
-      let fastPhysSimTimeOnReset = 1.5
-      attachment_animchar |> animchar_updateFastPhys(fastPhysSimTimeOnReset)
+    attachment_animchar |> animchar_resetFastPhysWtmOfs(wtmOfs)
+    // simulate fastphys for some frames to let fastphys items settle
+    let fastPhysSimTimeOnReset = 1.5
+    attachment_animchar |> animchar_updateFastPhys(fastPhysSimTimeOnReset)

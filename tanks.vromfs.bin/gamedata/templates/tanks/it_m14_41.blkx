@@ -10,6 +10,9 @@ it_m14_41_common{
   _extends:t="base_m14_41"
   commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
   gunner_cam_limit__useCockpitDir:b=yes
+  item__iconOffset:p2=0.0, -0.0
+  armorThicknessHull:p3=30.0, 25.0, 25.0
+  armorThicknessTurret:p3=45.0, 25.0, 25.0
 
   "vehicle_seats__seats:shared:array"{
 
@@ -167,6 +170,7 @@ it_m14_41_gunner_cockpit{
 
   "cockpit__slitTemplates:list<t>"{
     slit:t="it_se_75_18"
+    slit:t="default_periscope"
   }
 
   "cockpit__slitEids:list<eid>"{
@@ -222,5 +226,12 @@ it_m14_41_commander_cockpit{
 
   "cockpit__slitZoomTime:list<r>"{
     slit:r=0.0
+  }
+
+  "cockpit__slitTemplates:list<t>"{
+    slit:t="default_periscope"
+  }
+
+  "cockpit__slitEids:list<eid>"{
   }
 }

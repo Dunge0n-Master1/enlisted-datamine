@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h2_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let background = require("background.nut")
 let textButton = require("%ui/components/textButton.nut")
 let {bottomEulaUrl} = require("eulaUrlView.nut")
@@ -20,7 +20,7 @@ let function loginBtnAction() {
 let loginBtn = textButton(loc("Login"), loginBtnAction,
   { size = [flex(), hdpx(70)], halign = ALIGN_CENTER, margin = 0
     hotkeys = [["^J:Y", { description = { skip = true }}]]
-  }.__update(h2_txt)
+  }.__update(fontHeading2)
 )
 
 let isFirstOpen = mkWatched(persist, "isFirstOpen", true)

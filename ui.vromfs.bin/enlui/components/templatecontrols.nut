@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {sub_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontSub} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {isGamepad} = require("%ui/control/active_controls.nut")
 let {textListFromAction, buildElems, makeSvgImgFromText} = require("%ui/control/formatInputBinding.nut")
 let { HUD_TIPS_HOTKEY_FG } = require("%ui/hud/style.nut")
@@ -51,7 +51,7 @@ let function textFunc(text){
     color = hotkeyColor, rendObj = ROBJ_TEXT
     padding = [0, hdpx(4)]
     vplace = ALIGN_CENTER
-  }.__update(sub_txt)
+  }.__update(fontSub)
 }
 let function makeControlText(text){
   return (text==null || text=="") ? null
@@ -64,7 +64,7 @@ let function makeControlText(text){
   }
 }
 
-let imgHeight = calc_str_box("A", sub_txt)[1]
+let imgHeight = calc_str_box("A", fontSub)[1]
 
 let function mkControlImg(text, params = {}){
   return (text!=null && text!="")
@@ -99,7 +99,7 @@ let dtext = @(text){
   color = textColor
   rendObj = ROBJ_TEXT
   text
-}.__update(sub_txt)
+}.__update(fontSub)
 
 let EmptyControl = {}
 let tokensView = {

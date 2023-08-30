@@ -3,7 +3,7 @@ damage_zone_obstacle_base{
   _group{
     _tags:t="server"
     obstacle__handle:i=0
-    obstacle__padding:r=1.2
+    obstacle__padding:r=0.2
   }
 }
 
@@ -59,8 +59,7 @@ fire_timings{
   fire_source__fadeTime:r=10.0
 }
 
-fire_source{
-  _extends:t="bonfire_effect_no_occluders"
+fire_source_common{
   _extends:t="fire_source_no_fx"
   _extends:t="fire_timings"
   effect__scale:r=1.0
@@ -73,8 +72,19 @@ fire_source{
   _group{
     _tags:t="render"
     effect__name:t="fire_molotov_cmps_fx"
+    effect__lightFadeout:r=1.0
   }
 
   "attachedNoScaleEffect:tag"{
   }
+}
+
+fire_source_no_effect{
+  _extends:t="bonfire_effect_no_occluders_no_fx"
+  _extends:t="fire_source_common"
+}
+
+fire_source{
+  _extends:t="bonfire_effect_no_occluders"
+  _extends:t="fire_source_common"
 }

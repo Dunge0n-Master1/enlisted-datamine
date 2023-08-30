@@ -1,8 +1,8 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontMedium, fontLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { defTxtColor, titleTxtColor, accentColor, smallPadding, colPart, midPadding,
-  bigPadding, brightAccentColor
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { defTxtColor, titleTxtColor, accentColor, smallPadding, midPadding, bigPadding,
+  brightAccentColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let { FAButton } = require("%ui/components/txtButton.nut")
 let { buttonSound } = require("%ui/style/sounds.nut")
@@ -21,10 +21,10 @@ let { curArmiesList } = require("%enlist/soldiers/model/state.nut")
 let { roomIsLobby } = require("%enlist/state/roomState.nut")
 
 
-let defNickStyle = { color = defTxtColor }.__update(fontLarge)
-let statusCommonStyle = fontMedium
-let iconHeight = colPart(0.5)
-let waitingSpinner = spinner(colPart(0.24))
+let defNickStyle = { color = defTxtColor }.__update(fontBody)
+let statusCommonStyle = fontBody
+let iconHeight = hdpxi(32)
+let waitingSpinner = spinner(hdpxi(14))
 
 
 let playerStatusesIcons = freeze({
@@ -101,7 +101,7 @@ let function statusIcon(isPlayerOnline) {
     : isPlayerOnline ? playerStatusesIcons.online
     : playerStatusesIcons.offline
   let { icon, color } = iconToShow
-  return faComp(icon, { fontSize = colPart(0.19), color })
+  return faComp(icon, { fontSize = hdpxi(12), color })
 }
 
 
@@ -154,7 +154,7 @@ let statusBlock = @(isPlayerOnline, contact) function() {
 
 let contactActionButton = @(action, userId) FAButton(action.icon, @() action.action(userId),
   {
-    size = [colPart(0.6), colPart(0.6)]
+    size = [hdpx(36), hdpx(36)]
     key = userId
     skipDirPadNav = true
     hint = {
@@ -169,7 +169,7 @@ let function onContactClick(event, contact, contextMenuActions) {
     contactContextMenu.open(contact, event, contextMenuActions)
 }
 
-let diceIconSize = colPart(0.38)
+let diceIconSize = hdpxi(24)
 
 let diceIcon = {
   rendObj = ROBJ_IMAGE
@@ -273,7 +273,7 @@ let mkContactBlock = @(contact, contextMenuActions = [], inContactActions = []) 
       valign = ALIGN_CENTER
       behavior = Behaviors.Button
       xmbNode = XmbNode({
-        canFocus = @() true
+        canFocus = true
         scrollToEdge = true
         wrap = false
       })
@@ -282,7 +282,7 @@ let mkContactBlock = @(contact, contextMenuActions = [], inContactActions = []) 
       group
       sound = buttonSound
       children = [ player, avatar ]
-        .extend(!isGamepad.value && (sf & S_HOVER) != 0 ? actionsButtons : [])
+        .extend(!isGamepad.value && (sf & S_HOVER) ? actionsButtons : [])
     })
   }
 }

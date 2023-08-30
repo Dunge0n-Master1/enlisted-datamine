@@ -246,14 +246,20 @@ local portraits = {
   berlin_operation_medic_portrait = {
     icon = "ui/portraits/event/berlin_operation_medic_portrait.avif"
   }
+  portrait_preorder_sniper = {
+    icon = "ui/portraits/event/portrait_preorder_sniper.avif"
+  }
+  stalingrad_bonus_portrait_ussr = {
+    icon = "ui/portraits/event/stalingrad_bonus_portrait_ussr.avif"
+  }
+  stalingrad_bonus_portrait_ger = {
+    icon = "ui/portraits/event/stalingrad_bonus_portrait_ger.avif"
+  }
   armory2_bonus_portrait_ussr = {
     icon = "ui/portraits/event/armory2_bonus_portrait_ussr.avif"
   }
   armory2_bonus_portrait_ger = {
     icon = "ui/portraits/event/armory2_bonus_portrait_ger.avif"
-  }
-  portrait_preorder_sniper = {
-    icon = "ui/portraits/event/portrait_preorder_sniper.avif"
   }
 
 

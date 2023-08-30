@@ -22,9 +22,12 @@ germ_pzkpfw_IV_ausf_J{
 germ_pzkpfw_IV_ausf_J_common{
   _extends:t="base_pzkpfw_iv_ausf_j"
   _extends:t="tank_panzer3_engine_sound"
-  item__iconOffset:p2=0.0, 0.2
+  item__iconOffset:p2=0.1, 0.15
+  item__iconScale:r=1.4
   commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
   gunner_cam_limit__useCockpitDir:b=yes
+  armorThicknessHull:p3=80.0, 30.0, 20.0
+  armorThicknessTurret:p3=50.0, 30.0, 30.0
 
   "turrets__initAmmoDistribution:array"{
 

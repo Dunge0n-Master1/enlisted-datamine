@@ -30,6 +30,9 @@ civil_vehicle_templ{
   fire_damage__update_burn_interval:r=1.0
   fire_damage__innerRadiusMult:r=2.0
 
+  "dm_parts__repairGroups:object"{
+  }
+
   "collidableToHuman:tag"{
   }
 
@@ -1749,6 +1752,7 @@ tractor_stz_5_common{
   _extends:t="car_vehicle_inside_snapshot"
   _extends:t="simple_damage_model"
   _extends:t="kick_passengers_on_flip"
+  _extends:t="vehicle_maintenance"
   vehicleType:t="truck"
   vehicleName:t="tractor_stz_5"
   animchar__res:t="pv_tractor_stz_5_char"

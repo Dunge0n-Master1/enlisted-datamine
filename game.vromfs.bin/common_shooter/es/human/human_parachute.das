@@ -4,6 +4,7 @@ require DngHuman
 require game.es.events
 require common_shooter.events_common_shooter
 require common_shooter.es.human.human_parachute_common
+require enlisted.events_enlisted
 
 
 [es(on_appear, track=parachute__deployed)]
@@ -115,3 +116,8 @@ def human_parachute_enable_weapons_on_land(evt : Event;
                                            var human_parachute__hideWeaponAffectEid : EntityId&)
   destroyEntity(human_parachute__hideWeaponAffectEid)
   human_parachute__hideWeaponAffectEid = INVALID_ENTITY_ID
+
+[es(before=human_weap_phys_es, after=human_weap_block_aim_es, REQUIRE=parachuteDeployed)]
+def human_parachute_block_aiming(info : ParallelUpdateFrameDelayed;
+                                 var human_weap__blockAiming : bool&)
+  human_weap__blockAiming = true

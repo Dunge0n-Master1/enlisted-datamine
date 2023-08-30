@@ -2,6 +2,7 @@ options no_global_variables = false
 require ecs
 require DngNet
 require DagorSystem
+require game.utils.component_filters
 
 var // these variables keep constant values that don't change at runtime (after set), variables for non constant values are prohibited
   filterPossessed : uint8
@@ -58,3 +59,28 @@ def on_change_vehicle_selected_es(evt : Event)
   update_component_filter_event(filterPossessedSpectatedAttachablesAndVehicle)
   update_component_filter_event(filterPossessedTeamSpectatedAttachablesAndVehicle)
   update_component_filter_event(filterPossessedAndSpectatedVehicle)
+
+
+[register_component_filter]
+def filter_possessed_spectated_maintenance_vehicle(eid : EntityId; cntrl_by : int; conn : IConnection) : CompReplicationFilter
+  let possession = check_controlled(cntrl_by, conn |> connection_getId())
+  if possession == PossessionResult Controlled
+    return CompReplicationFilter ReplicateNow
+
+  let plrEid = EntityId(uint(intptr(conn |> connection_getUserPtr())))
+  if !plrEid
+    return CompReplicationFilter ReplicateNow
+
+  let possessed = get_Eid(plrEid, "possessed") ?? ecs::INVALID_ENTITY_ID
+  let spectated = get_Eid(plrEid, "specTarget") ?? ecs::INVALID_ENTITY_ID
+  let plrVehicle = get_Eid(possessed, "human_anim__vehicleSelected") ?? ecs::INVALID_ENTITY_ID
+  let spectatedVehicle = get_Eid(spectated, "human_anim__vehicleSelected") ?? ecs::INVALID_ENTITY_ID
+  let vehicle = get_Eid(eid, "turret__owner") ?? ecs::INVALID_ENTITY_ID
+
+  let possessedGunEid = get_Eid(possessed, "human_weap__currentGunEid") ?? ecs::INVALID_ENTITY_ID
+  let spectatedGunEid = get_Eid(spectated, "human_weap__currentGunEid") ?? ecs::INVALID_ENTITY_ID
+  let isMaintainableOperator = has(possessedGunEid, "repairKitWeapon") || has(spectatedGunEid, "repairKitWeapon")
+
+  return ((eid == plrVehicle || eid == spectatedVehicle || (!!vehicle && (vehicle == plrVehicle || vehicle == spectatedVehicle)) ||
+          isMaintainableOperator) ?
+          CompReplicationFilter ReplicateNow : CompReplicationFilter SkipNow)

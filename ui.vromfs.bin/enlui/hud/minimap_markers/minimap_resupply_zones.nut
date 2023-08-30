@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let {logerr} = require("dagor.debug")
 let { resupply_zones_GetWatched, heroActiveResupplyZonesEids } = require("%ui/hud/state/resupplyZones.nut")
 
-let markerSize = fsh(2).tointeger()
+let markerSize = hdpxi(21)
 let iconSize = (markerSize/1.5).tointeger()
 
 let getPicture = memoize(function getPicture(name) {

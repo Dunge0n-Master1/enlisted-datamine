@@ -587,6 +587,7 @@ capzone_area_polygon_point{
 capzone_poly{
   _extends:t="base_capzone"
   _extends:t="objective_zone_smoke_signal"
+  _extends:t="poly_area"
 
   _group{
     capzone__approximateRadius:r=-1.0
@@ -1108,6 +1109,7 @@ ai_domination_box_train_zone{
 domination_box_train_capzone{
   _extends:t="domination_box_moveable_capzone"
   _extends:t="ai_domination_box_train_zone"
+  _extends:t="respawn_camera_target"
   capzone__offsetFromTrain:p3=0.0, 0.0, 0.0
   capzone__capPenalty:r=0.0
   capzone__timerPeriod:r=0.0

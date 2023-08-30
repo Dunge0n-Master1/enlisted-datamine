@@ -6,7 +6,6 @@ carcano_m38{
   item__template:t="carcano_m38_gun_item"
   item__proto:t="content/enlisted/gamedata/weapons/carcano_m38.blk"
   item__locDetails:t="6.5x52 Carcano;"
-  item__id:i=0
   item__weapTemplate:t="carcano_m38_gun"
   item__name:t="items/carcano_m38"
   item__weapType:t="rifle"
@@ -27,6 +26,11 @@ carcano_m38{
   gun__reloadTime:r=3.2
   gun__altReloadTime:r=3.8
   gun__kineticDamageMult:r=1.58
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
 
   "gun_shell_ejection__onShootRelease:tag"{
   }
@@ -129,7 +133,6 @@ carcano_m38_7_35{
   item__template:t="carcano_m38_7_35_gun_item"
   item__proto:t="content/enlisted/gamedata/weapons/carcano_m38_7_35.blk"
   item__locDetails:t="7.35x51 Carcano;"
-  item__id:i=0
   item__weapTemplate:t="carcano_m38_7_35_gun"
   item__name:t="items/carcano_m38_7_35"
   item__weapType:t="rifle"
@@ -150,6 +153,11 @@ carcano_m38_7_35{
   gun__reloadTime:r=3.2
   gun__altReloadTime:r=3.8
   gun__kineticDamageMult:r=1.58
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
 
   "gun_shell_ejection__onShootRelease:tag"{
   }
@@ -252,7 +260,6 @@ carcano_m38_7_35_with_scope_mount{
   item__template:t="carcano_m38_7_35_with_scope_mount_gun_item"
   item__proto:t="content/enlisted/gamedata/weapons/carcano_m38_7_35_with_scope_mount.blk"
   item__locDetails:t="7.35x51 Carcano;"
-  item__id:i=0
   item__weapTemplate:t="carcano_m38_7_35_with_scope_mount_gun"
   item__name:t="items/carcano_m38_7_35_with_scope_mount"
   item__weapType:t="rifle"
@@ -273,6 +280,11 @@ carcano_m38_7_35_with_scope_mount{
   gun__reloadTime:r=3.2
   gun__altReloadTime:r=3.8
   gun__kineticDamageMult:r=1.58
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
 
   "gun_shell_ejection__onShootRelease:tag"{
   }
@@ -418,7 +430,6 @@ carcano_m41{
   item__template:t="carcano_m41_gun_item"
   item__proto:t="content/enlisted/gamedata/weapons/carcano_m41.blk"
   item__locDetails:t="6.5x52 Carcano;"
-  item__id:i=0
   item__weapTemplate:t="carcano_m41_gun"
   item__name:t="items/carcano_m41"
   item__weapType:t="rifle"
@@ -439,6 +450,11 @@ carcano_m41{
   gun__reloadTime:r=3.0
   gun__altReloadTime:r=3.8
   gun__kineticDamageMult:r=1.58
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
 
   "gun_shell_ejection__onShootRelease:tag"{
   }
@@ -533,6 +549,18 @@ carcano_m41_gun{
   }
 }
 
+carcano_m41_default{
+  _extends:t="carcano_m41"
+  item__template:t="carcano_m41_default_gun_item"
+  item__weapTemplate:t="carcano_m41_default_gun"
+  item__name:t="items/carcano_m41_default"
+}
+
+carcano_m41_default_gun{
+  _extends:t="carcano_m41_gun"
+  _extends:t="carcano_m41_default"
+}
+
 carcano_m91{
   _extends:t="main_weap_slots"
   _extends:t="ironsights_open_rifle"
@@ -541,7 +569,6 @@ carcano_m91{
   item__template:t="carcano_m91_gun_item"
   item__proto:t="content/enlisted/gamedata/weapons/carcano_m91.blk"
   item__locDetails:t="6.5x52 Carcano;"
-  item__id:i=0
   item__weapTemplate:t="carcano_m91_gun"
   item__name:t="items/carcano_m91"
   item__weapType:t="rifle"
@@ -562,6 +589,11 @@ carcano_m91{
   gun__reloadTime:r=3.5
   gun__altReloadTime:r=3.8
   gun__kineticDamageMult:r=1.58
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
 
   "gun_shell_ejection__onShootRelease:tag"{
   }
@@ -770,7 +802,6 @@ carcano_moschetto_91{
   item__template:t="carcano_moschetto_91_gun_item"
   item__proto:t="content/enlisted/gamedata/weapons/carcano_moschetto_91.blk"
   item__locDetails:t="6.5x52 Carcano;"
-  item__id:i=0
   item__weapTemplate:t="carcano_moschetto_91_gun"
   item__name:t="items/carcano_moschetto_91"
   item__weapType:t="rifle"
@@ -793,6 +824,11 @@ carcano_moschetto_91{
   gun__reloadTime:r=3.5
   gun__altReloadTime:r=4.2
   gun__kineticDamageMult:r=1.58
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
 
   "meleeChargeWeapon:tag"{
   }
@@ -932,7 +968,6 @@ smle_mk3{
   item__template:t="smle_mk3_gun_item"
   item__proto:t="content/enlisted/gamedata/weapons/smle_mk3.blk"
   item__locDetails:t=".303"
-  item__id:i=0
   item__weapTemplate:t="smle_mk3_gun"
   item__name:t="items/smle_mk3"
   item__weapType:t="rifle"
@@ -952,6 +987,11 @@ smle_mk3{
   gun_deviation__maxDeviation:r=15.0
   gun__reloadTime:r=4.0
   gun__kineticDamageMult:r=1.58
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
 
   "gun_shell_ejection__onShootRelease:tag"{
   }
@@ -1012,24 +1052,20 @@ smle_mk3_gun{
   "sound_irqs:shared:object"{
     _tags:t="sound"
 
-    "reload1:object"{
-      path:t="/weapon/rifle/lee_enfield/reload1/change_ammo"
+    "reload:object"{
+      path:t="/weapon/rifle/lee_enfield/reload"
     }
 
-    "reload2:object"{
-      path:t="/weapon/rifle/lee_enfield/reload2/change_ammo"
+    "reload_prepare:object"{
+      path:t="/weapon/rifle/lee_enfield/reload_prepare"
     }
 
-    "reload3:object"{
-      path:t="/weapon/rifle/lee_enfield/reload3/change_ammo"
+    "reload_loop:object"{
+      path:t="/weapon/rifle/lee_enfield/reload_loop"
     }
 
-    "reload4:object"{
-      path:t="/weapon/rifle/m1917_enfield/reload4/change_ammo"
-    }
-
-    "reload5:object"{
-      path:t="/weapon/rifle/lee_enfield/reload5/change_ammo"
+    "reload_post:object"{
+      path:t="/weapon/rifle/lee_enfield/reload_post"
     }
 
     "boltAction:object"{
@@ -1073,7 +1109,6 @@ armaguerra_mod_39{
   item__template:t="armaguerra_mod_39_gun_item"
   item__proto:t="content/enlisted/gamedata/weapons/armaguerra_mod_39.blk"
   item__locDetails:t="6.5x52 Carcano"
-  item__id:i=0
   item__weapTemplate:t="armaguerra_mod_39_gun"
   item__name:t="items/armaguera_mod_39"
   item__weapType:t="semiauto"
@@ -1095,6 +1130,11 @@ armaguerra_mod_39{
   gun_deviation__maxDeviation:r=30.0
   gun__reloadTime:r=3.2
   gun__altReloadTime:r=3.8
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
 
   "gun__ammoHolders:array"{
     ammoHolders:t="carcano_m38_magazine"
@@ -1186,7 +1226,6 @@ beretta_m31{
   item__template:t="beretta_m31_gun_item"
   item__proto:t="content/enlisted/gamedata/weapons/beretta_m31.blk"
   item__locDetails:t="6.5x52 Carcano"
-  item__id:i=0
   item__weapTemplate:t="beretta_m31_gun"
   item__name:t="items/beretta_m31"
   item__weapType:t="semiauto"
@@ -1208,6 +1247,11 @@ beretta_m31{
   gun_deviation__maxDeviation:r=30.0
   gun__reloadTime:r=2.8
   gun__altReloadTime:r=2.4
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
 
   "gun__ammoHolders:array"{
     ammoHolders:t="carcano_m38_magazine"
@@ -1303,7 +1347,6 @@ pavesi_m42{
   item__template:t="pavesi_m42_gun_item"
   item__proto:t="content/enlisted/gamedata/weapons/pavesi_m42.blk"
   item__locDetails:t="8x59 Breda"
-  item__id:i=0
   item__weapTemplate:t="pavesi_m42_gun"
   item__name:t="items/pavesi_m42"
   item__weapType:t="semiauto"
@@ -1325,6 +1368,11 @@ pavesi_m42{
   gun_deviation__maxDeviation:r=30.0
   gun__reloadTime:r=3.4
   gun__altReloadTime:r=4.0
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
 
   "gun__ammoHolders:array"{
     ammoHolders:t="pavesi_m42_magazine"
@@ -1425,7 +1473,6 @@ pavesi_prototype_svt_copy{
   item__template:t="pavesi_prototype_svt_copy_gun_item"
   item__proto:t="content/enlisted/gamedata/weapons/pavesi_prototype_svt_copy.blk"
   item__locDetails:t="8x59 Breda"
-  item__id:i=0
   item__weapTemplate:t="pavesi_prototype_svt_copy_gun"
   item__name:t="items/pavesi_prototype_svt_copy"
   item__weapType:t="semiauto"
@@ -1447,6 +1494,11 @@ pavesi_prototype_svt_copy{
   gun_deviation__maxDeviation:r=30.0
   gun__reloadTime:r=3.4
   gun__altReloadTime:r=4.0
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
 
   "gun__ammoHolders:array"{
     ammoHolders:t="pavesi_prototype_svt_copy_magazine"
@@ -1545,7 +1597,6 @@ scotti_model_x{
   item__template:t="scotti_model_x_gun_item"
   item__proto:t="content/enlisted/gamedata/weapons/scotti_model_x.blk"
   item__locDetails:t="6.5x52mm Carcano"
-  item__id:i=0
   item__weapTemplate:t="scotti_model_x_gun"
   item__name:t="items/scotti_model_x"
   item__weapType:t="semiauto"
@@ -1568,6 +1619,11 @@ scotti_model_x{
   gun__reloadTime:r=2.6
   gun__altReloadTime:r=3.2
   gun__kineticDamageMult:r=1.066
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
 
   "gun__ammoHolders:array"{
     ammoHolders:t="carcano_m38_magazine"
@@ -1655,7 +1711,6 @@ beretta_m1918_30{
   item__template:t="beretta_m1918_30_gun_item"
   item__proto:t="content/enlisted/gamedata/weapons/beretta_m1918_30.blk"
   item__locDetails:t="9x19mm;"
-  item__id:i=0
   item__weapTemplate:t="beretta_m1918_30_gun"
   item__name:t="items/beretta_m1918_30"
   item__weapType:t="submachine_gun"
@@ -1680,6 +1735,11 @@ beretta_m1918_30{
   melee_weapon__attackTime:r=0.5
   melee_weapon__attackAt:r=0.375
   gun__kineticDamageMult:r=1.05
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
 
   "meleeChargeWeapon:tag"{
   }
@@ -1773,7 +1833,6 @@ sw_light_rifle_mk_1{
   item__template:t="sw_light_rifle_mk_1_gun_item"
   item__proto:t="content/enlisted/gamedata/weapons/sw_light_rifle_mk_1.blk"
   item__locDetails:t="RoF: 500; 9x19mm;"
-  item__id:i=0
   item__weapTemplate:t="sw_light_rifle_mk_1_gun"
   item__name:t="items/sw_light_rifle_mk_1"
   item__weapType:t="submachine_gun"
@@ -1794,6 +1853,11 @@ sw_light_rifle_mk_1{
   gun_deviation__maxDeviation:r=20.0
   gun__reloadTime:r=3.8
   gun__altReloadTime:r=3.3
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
 
   "gun__ammoHolders:array"{
     ammoHolders:t="sw_light_rifle_magazine"
@@ -1883,7 +1947,6 @@ sw_light_rifle_mk_2{
   item__template:t="sw_light_rifle_mk_2_gun_item"
   item__proto:t="content/enlisted/gamedata/weapons/sw_light_rifle_mk_2.blk"
   item__locDetails:t="RoF: 500; 9x19mm;"
-  item__id:i=0
   item__weapTemplate:t="sw_light_rifle_mk_2_gun"
   item__name:t="items/sw_light_rifle_mk_2"
   item__weapType:t="submachine_gun"
@@ -1905,6 +1968,11 @@ sw_light_rifle_mk_2{
   gun__reloadTime:r=3.8
   gun__altReloadTime:r=3.3
   gun__kineticDamageMult:r=1.05
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
 
   "gun__ammoHolders:array"{
     ammoHolders:t="sw_light_rifle_magazine"
@@ -2006,7 +2074,6 @@ turner_automatic_rifle{
   item__template:t="turner_automatic_rifle_gun_item"
   item__proto:t="content/enlisted/gamedata/weapons/turner_automatic_rifle.blk"
   item__locDetails:t=".303 British;"
-  item__id:i=0
   item__weapTemplate:t="turner_automatic_rifle_gun"
   item__name:t="items/turner_automatic_rifle"
   item__weapType:t="semiauto"
@@ -2026,6 +2093,11 @@ turner_automatic_rifle{
   gun_deviation__extraDeviationTau:r=0.3
   gun_deviation__maxDeviation:r=30.0
   gun__reloadTime:r=3.5
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
 
   "gun__ammoHolders:array"{
     ammoHolders:t="lee_enfield_no4_mk1_magazine"
@@ -2124,7 +2196,6 @@ beretta_m38_42{
   item__template:t="beretta_m38_42_gun_item"
   item__proto:t="content/enlisted/gamedata/weapons/beretta_m38_42.blk"
   item__locDetails:t="RoF: 440; 9x19mm;"
-  item__id:i=0
   item__weapTemplate:t="beretta_m38_42_gun"
   item__name:t="items/beretta_m38_42"
   item__weapType:t="submachine_gun"
@@ -2143,6 +2214,11 @@ beretta_m38_42{
   gun_deviation__maxDeviation:r=20.0
   gun__reloadTime:r=2.6
   gun__altReloadTime:r=2.1
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
 
   "gun__ammoHolders:array"{
     ammoHolders:t="beretta_m38_40_round_magazine"
@@ -2244,7 +2320,6 @@ beretta_m1{
   item__template:t="beretta_m1_gun_item"
   item__proto:t="content/enlisted/gamedata/weapons/beretta_m1.blk"
   item__locDetails:t="RoF: 500; 9x19mm;"
-  item__id:i=0
   item__weapTemplate:t="beretta_m1_gun"
   item__name:t="items/beretta_m1"
   item__weapType:t="submachine_gun"
@@ -2263,6 +2338,11 @@ beretta_m1{
   gun_deviation__maxDeviation:r=20.0
   gun__reloadTime:r=2.8
   gun__altReloadTime:r=2.3
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
 
   "gun__ammoHolders:array"{
     ammoHolders:t="beretta_m38_40_round_magazine"
@@ -2364,7 +2444,6 @@ ovp_1918{
   item__template:t="ovp_1918_gun_item"
   item__proto:t="content/enlisted/gamedata/weapons/ovp_1918.blk"
   item__locDetails:t="RoF: 900; 9x19mm;"
-  item__id:i=0
   item__weapTemplate:t="ovp_1918_gun"
   item__name:t="items/ovp_1918"
   item__weapType:t="submachine_gun"
@@ -2384,6 +2463,11 @@ ovp_1918{
   gun_deviation__maxDeviation:r=20.0
   gun__reloadTime:r=3.8
   gun__altReloadTime:r=3.3
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
 
   "gun__ammoHolders:array"{
     ammoHolders:t="ovp_1918_magazine"
@@ -2478,7 +2562,6 @@ tz_45{
   item__template:t="tz_45_gun_item"
   item__proto:t="content/enlisted/gamedata/weapons/tz_45.blk"
   item__locDetails:t="RoF: 500; 9x19mm;"
-  item__id:i=0
   item__weapTemplate:t="tz_45_gun"
   item__name:t="items/tz_45"
   item__weapType:t="submachine_gun"
@@ -2498,6 +2581,11 @@ tz_45{
   gun_deviation__maxDeviation:r=16.0
   gun__reloadTime:r=2.6
   gun__altReloadTime:r=2.1
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
 
   "gun__ammoHolders:array"{
     ammoHolders:t="beretta_m38_40_round_magazine"
@@ -2589,7 +2677,6 @@ thompson_m1921_28_box{
   item__template:t="thompson_m1921_28_box_gun_item"
   item__proto:t="content/enlisted/gamedata/weapons/thompson_m1921_28_box.blk"
   item__locDetails:t="RoF: 700; .45 ACP;"
-  item__id:i=0
   item__weapTemplate:t="thompson_m1921_28_box_gun"
   item__name:t="items/thompson_m1921_28_box"
   item__weapType:t="submachine_gun"
@@ -2609,6 +2696,11 @@ thompson_m1921_28_box{
   gun_deviation__maxDeviation:r=20.0
   gun__reloadTime:r=2.3
   gun__altReloadTime:r=1.7
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
 
   "animchar__objTexReplace:object"{
     "m1921_thompson_main_tex_ao*":t="thompson_m1921_28_main_tex_ao*"
@@ -2711,7 +2803,6 @@ sten_mk3{
   item__template:t="sten_mk3_gun_item"
   item__proto:t="content/enlisted/gamedata/weapons/sten_mk3.blk"
   item__locDetails:t="RoF: 500; 9x19mm;"
-  item__id:i=0
   item__weapTemplate:t="sten_mk3_gun"
   item__name:t="items/sten_mk3"
   item__weapType:t="submachine_gun"
@@ -2730,6 +2821,11 @@ sten_mk3{
   gun_deviation__extraDeviationTau:r=0.2
   gun_deviation__maxDeviation:r=20.0
   gun__reloadTime:r=2.6
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
 
   "gun__ammoHolders:array"{
     ammoHolders:t="sten_mk2_magazine"
@@ -2823,9 +2919,9 @@ owen_mk1_42{
   item__template:t="owen_mk1_42_gun_item"
   item__proto:t="content/enlisted/gamedata/weapons/owen_mk1_42.blk"
   item__locDetails:t="RoF: 500; 9x19mm;"
-  item__id:i=0
   item__weapTemplate:t="owen_mk1_42_gun"
   item__name:t="items/owen_mk1_42"
+  item__iconScale:r=0.75
   item__weapType:t="submachine_gun"
   item__weight:r=4.2
   gun__locName:t="Owen Gun MkI/42"
@@ -2843,6 +2939,11 @@ owen_mk1_42{
   gun_deviation__maxDeviation:r=20.0
   gun__reloadTime:r=2.7
   gun__altReloadTime:r=2.2
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
 
   "gun__ammoHolders:array"{
     ammoHolders:t="owen_magazine"
@@ -2937,7 +3038,6 @@ beretta_m1923{
   item__template:t="beretta_m1923_gun_item"
   item__proto:t="content/enlisted/gamedata/weapons/beretta_m1923.blk"
   item__locDetails:t="9mm Glisenti"
-  item__id:i=0
   item__weapTemplate:t="beretta_m1923_gun"
   item__name:t="items/beretta_m1923"
   item__weapType:t="pistol"
@@ -2957,6 +3057,11 @@ beretta_m1923{
   gun_deviation__maxDeviation:r=15.0
   gun__reloadTime:r=2.3
   gun__altReloadTime:r=1.8
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
 
   "gun__ammoHolders:array"{
     ammoHolders:t="beretta_m1923_magazine"
@@ -3022,7 +3127,6 @@ beretta_m1934{
   item__template:t="beretta_m1934_gun_item"
   item__proto:t="content/enlisted/gamedata/weapons/beretta_m1934.blk"
   item__locDetails:t="380 ACP"
-  item__id:i=0
   item__weapTemplate:t="beretta_m1934_gun"
   item__name:t="items/beretta_m1934"
   item__weapType:t="pistol"
@@ -3041,6 +3145,11 @@ beretta_m1934{
   gun_deviation__extraDeviationTau:r=0.15
   gun_deviation__maxDeviation:r=15.0
   gun__reloadTime:r=2.0
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
 
   "gun__ammoHolders:array"{
     ammoHolders:t="beretta_m1934_magazine"
@@ -3165,7 +3274,6 @@ webley_mk6{
   item__template:t="webley_mk6_gun_item"
   item__proto:t="content/enlisted/gamedata/weapons/webley_mk6.blk"
   item__locDetails:t=".455 Webley;"
-  item__id:i=0
   item__weapTemplate:t="webley_mk6_gun"
   item__name:t="items/webley_mk6"
   item__weapType:t="pistol"
@@ -3185,6 +3293,11 @@ webley_mk6{
   gun_deviation__extraDeviationTau:r=0.15
   gun_deviation__maxDeviation:r=15.0
   gun__reloadTime:r=8.4
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
 
   "gun__ammoHolders:array"{
     ammoHolders:t="webley_mk6_magazine"
@@ -3308,7 +3421,6 @@ enfield_no2_mk1{
   item__template:t="enfield_no2_mk1_gun_item"
   item__proto:t="content/enlisted/gamedata/weapons/enfield_no2_mk1.blk"
   item__locDetails:t=".380 Revolver;"
-  item__id:i=0
   item__weapTemplate:t="enfield_no2_mk1_gun"
   item__name:t="items/enfield_no2_mk1"
   item__weapType:t="pistol"
@@ -3328,6 +3440,11 @@ enfield_no2_mk1{
   gun_deviation__extraDeviationTau:r=0.15
   gun_deviation__maxDeviation:r=15.0
   gun__reloadTime:r=8.1
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
 
   "gun__ammoHolders:array"{
     ammoHolders:t="enfield_no2_mk1_magazine"
@@ -3394,7 +3511,6 @@ bren_mk1{
   item__template:t="bren_mk1_gun_item"
   item__proto:t="content/enlisted/gamedata/weapons/bren_lmg_mk_1.blk"
   item__locDetails:t="RoF: 500; 303 British;"
-  item__id:i=0
   item__weapTemplate:t="bren_mk1_gun"
   item__name:t="items/bren_mk1"
   item__weapType:t="machine_gun"
@@ -3415,6 +3531,11 @@ bren_mk1{
   gun_deviation__maxDeviation:r=20.0
   gun__reloadTime:r=2.5
   gun__altReloadTime:r=2.5
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
 
   "gun__ammoHolders:array"{
     ammoHolders:t="bren_mk2_magazine"
@@ -3534,7 +3655,6 @@ besal_lmg{
   item__template:t="besal_lmg_gun_item"
   item__proto:t="content/enlisted/gamedata/weapons/besal_lmg.blk"
   item__locDetails:t="RoF: 600; 303 British;"
-  item__id:i=0
   item__weapTemplate:t="besal_lmg_gun"
   item__name:t="items/besal_lmg"
   item__weapType:t="machine_gun"
@@ -3555,6 +3675,11 @@ besal_lmg{
   gun_deviation__maxDeviation:r=20.0
   gun__reloadTime:r=4.5
   gun__altReloadTime:r=3.4
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
 
   "gun__ammoHolders:array"{
     ammoHolders:t="bren_mk2_magazine"
@@ -3662,7 +3787,6 @@ charlton_automatic_rifle{
   item__template:t="charlton_automatic_rifle_gun_item"
   item__proto:t="content/enlisted/gamedata/weapons/charlton_automatic_rifle.blk"
   item__locDetails:t="RoF: 600; 303 British;"
-  item__id:i=0
   item__weapTemplate:t="charlton_automatic_rifle_gun"
   item__name:t="items/charlton_automatic_rifle"
   item__weapType:t="machine_gun"
@@ -3683,6 +3807,11 @@ charlton_automatic_rifle{
   gun_deviation__maxDeviation:r=20.0
   gun__reloadTime:r=5.5
   gun__altReloadTime:r=3.8
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
 
   "gun__ammoHolders:array"{
     ammoHolders:t="charlton_automatic_rifle_magazine"
@@ -3803,7 +3932,6 @@ solothurn_s_18_100{
   item__template:t="solothurn_s_18_100_gun_item"
   item__proto:t="content/enlisted/gamedata/weapons/solothurn_s_18_100.blk"
   item__locDetails:t="14.5x114mm BS41"
-  item__id:i=0
   item__weapTemplate:t="solothurn_s_18_100_gun"
   item__name:t="items/solothurn_s_18_100"
   item__weapType:t="launcher"
@@ -3823,6 +3951,11 @@ solothurn_s_18_100{
   gun_deviation__extraDeviationTau:r=0.3
   gun_deviation__maxDeviation:r=30.0
   gun__reloadTime:r=6.0
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
 
   "gun__ammoHolders:array"{
     ammoHolders:t="solothurn_s_18_100_magazine"
@@ -3920,7 +4053,6 @@ atr_boys{
   item__template:t="atr_boys_gun_item"
   item__proto:t="content/enlisted/gamedata/weapons/atr_boys.blk"
   item__locDetails:t="7.92x107mm;"
-  item__id:i=0
   item__weapTemplate:t="atr_boys_gun"
   item__name:t="items/atr_boys"
   item__weapType:t="rifle"
@@ -3929,7 +4061,7 @@ atr_boys{
   gun__statName:t="rifle"
   gun__shotFreq:r=0.55
   gun__automaticReload:b=no
-  gun_spread__maxDeltaAngle:r=0.22
+  gun_spread__maxDeltaAngle:r=0.05
   gun_deviation__omegaRange:p2=10.0, 30.0
   gun_deviation__omegaDevInc:p2=0.1, 0.5
   gun_deviation__movementRange:p2=2.1, 4.0
@@ -3940,6 +4072,11 @@ atr_boys{
   gun_deviation__maxDeviation:r=15.0
   gun__reloadTime:r=4.4
   gun__altReloadTime:r=3.8
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
 
   "gun_shell_ejection__onShootRelease:tag"{
   }
@@ -3985,6 +4122,7 @@ atr_boys_gun{
   gun__adsSpeedMult:r=0.45
   gun__bipodOffset:p3=0.325, 0.07, 0.1
   meleeSoundType:t="rifle"
+  weap__sprintLerpFactor:r=0.0
 
   "xrayActivator:tag"{
   }
@@ -4061,7 +4199,6 @@ vickers_berthier{
   item__template:t="vickers_berthier_gun_item"
   item__proto:t="content/enlisted/gamedata/weapons/vickers_berthier.blk"
   item__locDetails:t="RoF: 500; .303 British;"
-  item__id:i=0
   item__weapTemplate:t="vickers_berthier_gun"
   item__name:t="items/vickers_berthier"
   item__weapType:t="machine_gun"
@@ -4082,6 +4219,11 @@ vickers_berthier{
   gun_deviation__maxDeviation:r=20.0
   gun__reloadTime:r=2.8
   gun__altReloadTime:r=2.8
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
 
   "gun__ammoHolders:array"{
     ammoHolders:t="vickers_berthier_magazine"
@@ -4213,7 +4355,6 @@ smle_mk3_grenade_launcher{
   item__template:t="smle_mk3_gun_item"
   item__proto:t="content/enlisted/gamedata/weapons/smle_mk3_grenade_launcher.blk"
   item__locDetails:t=".303 British"
-  item__id:i=0
   item__weapTemplate:t="smle_mk3_grenade_launcher_gun"
   item__name:t="items/smle_mk3_grenade_launcher"
   item__weapType:t="rifle"
@@ -4235,6 +4376,11 @@ smle_mk3_grenade_launcher{
   gun__showChamberedAmmo:b=no
   gun__kineticDamageMult:r=1.58
   animchar_fast_phys__res:t="mosin_1928_grenade_launcher_fastphys"
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
 
   "gun__ammoHolders:array"{
     ammoHolders:t="lee_enfield_no4_mk1_magazine"
@@ -4289,24 +4435,20 @@ smle_mk3_grenade_launcher_gun{
   "sound_irqs:shared:object"{
     _tags:t="sound"
 
-    "reload1:object"{
-      path:t="/weapon/rifle/lee_enfield/reload1/change_ammo"
+    "reload:object"{
+      path:t="/weapon/rifle/lee_enfield/reload"
     }
 
-    "reload2:object"{
-      path:t="/weapon/rifle/lee_enfield/reload2/change_ammo"
+    "reload_prepare:object"{
+      path:t="/weapon/rifle/lee_enfield/reload_prepare"
     }
 
-    "reload3:object"{
-      path:t="/weapon/rifle/lee_enfield/reload3/change_ammo"
+    "reload_loop:object"{
+      path:t="/weapon/rifle/lee_enfield/reload_loop"
     }
 
-    "reload4:object"{
-      path:t="/weapon/rifle/m1917_enfield/reload4/change_ammo"
-    }
-
-    "reload5:object"{
-      path:t="/weapon/rifle/lee_enfield/reload5/change_ammo"
+    "reload_post:object"{
+      path:t="/weapon/rifle/lee_enfield/reload_post"
     }
 
     "boltAction:object"{

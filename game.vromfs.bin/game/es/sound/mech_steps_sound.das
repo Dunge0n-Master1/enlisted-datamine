@@ -96,5 +96,5 @@ def mech_steps_sound_toggle(evt : Event;
   mech_steps_sound__feetIdx = 0
   let numLimbs = length(walker_net_phys.phys.currentState.limbs)
   resize(mech_steps_sound__onGroundState, numLimbs)
-  for i in range(0, length(mech_steps_sound__onGroundState))
+  for i in iter_range(mech_steps_sound__onGroundState)
     mech_steps_sound__onGroundState[i] = UNINITED

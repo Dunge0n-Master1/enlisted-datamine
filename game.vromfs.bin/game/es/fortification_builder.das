@@ -44,16 +44,24 @@ def building_target_destroyed(evt : Event; eid : EntityId)
 [es(tag=server, no_order)]
 def building_fortification_building_object(info : UpdateStageInfoAct;
                                            eid : EntityId;
+                                           isInVehicle : bool;
                                            building_action__target : EntityId;
                                            transform : float3x4;
                                            team : int;
                                            human_use_object__useDist : float;
                                            human_weap__gunEids : ecs::EidList;
+                                           human_weap__currentGunEid : EntityId;
                                            var building_action__lastActionAtTime : float&;
                                            building_action__updateInterval : float;
                                            entity_mods__timeToBuildMul = 1.0)
   if !building_action__target || building_action__lastActionAtTime + building_action__updateInterval > info.curTime
     return
+
+  let isEngineer = !isInVehicle && has(human_weap__currentGunEid, "previewEid")
+  if !isEngineer
+    send_net_event(eid, [[EventSetBuildingTarget target=INVALID_ENTITY_ID]])
+    return
+
   if building_action__lastActionAtTime == -1.0
     building_action__lastActionAtTime = info.curTime
     return
@@ -101,6 +109,7 @@ def building_fortification_building_object(info : UpdateStageInfoAct;
       *destroyByInactiveShredderAtTime = building_action__lastActionAtTime + *destroyInactiveTimeOut
 
     let buildingSpeedMul = get_engineer_building_speed_mul(human_weap__gunEids)
+
     if building_builder__timeToBuild >= building_builder__maxTimeToBuild
       send_net_event(operatorEid, [[EventSetBuildingTarget target=INVALID_ENTITY_ID]])
       return //we have already completed the construction of this object preview and it will be removed

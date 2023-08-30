@@ -4,10 +4,10 @@ ssss{
   ssss__shader_name:t="ssss_reflectance_blur_ps"
   ssss__shader_is_optional:b=yes
 
-  "ssss__manager:SeparableSubSurfaceScattering"{
+  "ssss__shader:PostFxRenderer"{
   }
 
-  "ssss__shader:PostFxRenderer"{
+  "ssss__node:dabfg::NodeHandle"{
   }
 
   _group{

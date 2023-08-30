@@ -1,12 +1,11 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {
-  sectionsSorted, curSection, trySwitchSection, tryBackSection
+let { sectionsSorted, curSection, trySwitchSection, tryBackSection, sectionsGeneration
 } = require("sectionsState.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let profileInfoBlock = require("profileInfoBlock.nut")
-let { columnGap, midPadding, navHeight } = require("%enlSqGlob/ui/designConst.nut")
+let { largePadding, midPadding, navHeight } = require("%enlSqGlob/ui/designConst.nut")
 let { mkHotkey } = require("%ui/components/uiHotkeysHint.nut")
 let { mkTab, backgroundMarker } = require("%enlist/components/mkTab.nut")
 let campaignTitle = require("%enlist/campaigns/campaignTitleUi.nut")
@@ -46,7 +45,8 @@ let maintabs = {
   halign = ALIGN_LEFT
   hplace = ALIGN_LEFT
   children = [
-    {
+    @() {
+      watch = sectionsGeneration
       size = [SIZE_TO_CONTENT, flex()]
       flow = FLOW_HORIZONTAL
       gap = midPadding
@@ -71,7 +71,7 @@ let sectionsUi = @() {
   watch = isGamepad
   valign = ALIGN_CENTER
   flow = FLOW_HORIZONTAL
-  gap = columnGap
+  gap = largePadding
   children = [
     isGamepad.value ? lb : null
     maintabs

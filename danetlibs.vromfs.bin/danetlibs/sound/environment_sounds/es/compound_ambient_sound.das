@@ -2,6 +2,7 @@ require ecs
 require app
 require math.base
 require math
+require DagorMath
 require soundEvent
 require soundSystem
 require soundHash
@@ -10,7 +11,7 @@ require environment_sounds.modules.game_object_sound_common
 require DngCamera
 
 
-[es(tag=sound)]
+[es(tag=sound, after=reverb_sound_update)]
 def compound_ambient_sound_update(info : ParallelUpdateFrameDelayed;
                                   sound_banks_state__isPresetLoaded : bool;
                                   game_object_compound_sound__shapes : UInt32List;
@@ -24,7 +25,11 @@ def compound_ambient_sound_update(info : ParallelUpdateFrameDelayed;
                                   var compound_ambient_sound__curPt : float3&;
                                   var compound_ambient_sound__closestDistSq : float&;
                                   var compound_ambient_sound__closestPt : float3&;
-                                  var compound_ambient_sound__event : SoundEvent&)
+                                  var compound_ambient_sound__event : SoundEvent&;
+
+                                  var compound_ambient_sound__volume : float&;
+                                  compound_ambient_sound__fadeInOutSpeed : float2;
+                                  compound_ambient_sound__reverb_intensity_roomSize_absorption_weight : float4)
 
   assume totalVolumes = length(game_object_compound_sound__transforms)
   if !sound_banks_state__isPresetLoaded || totalVolumes <= 0 || length(compound_ambient_sound__extents_maxRadiusSq) != totalVolumes
@@ -57,15 +62,41 @@ def compound_ambient_sound_update(info : ParallelUpdateFrameDelayed;
       let inRange = (isValidHandle ? (compound_ambient_sound__closestDistSq < square(compound_ambient_sound__range)) :
                                       (compound_ambient_sound__closestDistSq < square(compound_ambient_sound__range * 0.9)))
 
-      if inRange
-        if !is_playing(compound_ambient_sound__event.handle)
-          release_immediate(compound_ambient_sound__event.handle)
-          compound_ambient_sound__event.handle = play(game_object_sound__name, game_object_sound__path, listener)
+      compound_ambient_sound__event.enabled = inRange
+      if inRange && compound_ambient_sound__event.handle != invalid_sound_event_handle()
         set_var(compound_ambient_sound__event.handle, "dist", sqrt(compound_ambient_sound__closestDistSq))
         if compound_ambient_sound__closestDistSq > 0.
           set_pos(compound_ambient_sound__event.handle, compound_ambient_sound__closestPt)
-      elif isValidHandle
-        release(compound_ambient_sound__event.handle)
+
+  if compound_ambient_sound__event.enabled
+    if !is_playing(compound_ambient_sound__event.handle)
+      release_immediate(compound_ambient_sound__event.handle)
+      compound_ambient_sound__event.handle = play(game_object_sound__name, game_object_sound__path, listener)
+      set_var(compound_ambient_sound__event.handle, "dist", sqrt(compound_ambient_sound__closestDistSq))
+      set_volume(compound_ambient_sound__event.handle, compound_ambient_sound__volume)
+      if compound_ambient_sound__closestDistSq > 0.
+        set_pos(compound_ambient_sound__event.handle, compound_ambient_sound__closestPt)
+    if compound_ambient_sound__volume < 1.
+      compound_ambient_sound__volume = min(compound_ambient_sound__volume + compound_ambient_sound__fadeInOutSpeed.x * info.dt, 1.)
+      set_volume(compound_ambient_sound__event.handle, compound_ambient_sound__volume)
+  else
+    if compound_ambient_sound__event.handle != invalid_sound_event_handle()
+      compound_ambient_sound__volume -= compound_ambient_sound__fadeInOutSpeed.y * info.dt
+      if compound_ambient_sound__volume > 0.
+        set_volume(compound_ambient_sound__event.handle, compound_ambient_sound__volume)
+      else
+        compound_ambient_sound__volume = 0.
+        release_immediate(compound_ambient_sound__event.handle)
+    else
+      compound_ambient_sound__volume = 0.
+
+  if compound_ambient_sound__volume > 0. && compound_ambient_sound__reverb_intensity_roomSize_absorption_weight.w > 0.
+    find_query() <| $ [es] (var reverb_sound__intensity_roomSize_absorption_weight : float4&)
+      reverb_sound__intensity_roomSize_absorption_weight.x = compound_ambient_sound__reverb_intensity_roomSize_absorption_weight.x
+      reverb_sound__intensity_roomSize_absorption_weight.y = compound_ambient_sound__reverb_intensity_roomSize_absorption_weight.y
+      reverb_sound__intensity_roomSize_absorption_weight.z = compound_ambient_sound__reverb_intensity_roomSize_absorption_weight.z
+      reverb_sound__intensity_roomSize_absorption_weight.w = compound_ambient_sound__volume * compound_ambient_sound__reverb_intensity_roomSize_absorption_weight.w
+      return true
 
 
 // NOT ParallelUpdateFrameDelayed because should accurate bring event to camera(important)
@@ -80,20 +111,17 @@ def compound_ambient_sound_update_event_pos(info : UpdateStageInfoAct;
 
 [es(tag=sound, on_appear)]
 def compound_ambient_sound_appear(evt : Event;
-                                  game_object_compound_sound__shapes : UInt32List;
+                                  var game_object_compound_sound__shapes : UInt32List&;
                                   var game_object_compound_sound__transforms : TMatrixList&;
                                   var compound_ambient_sound__extents_maxRadiusSq : Point4List&)
   resize(compound_ambient_sound__extents_maxRadiusSq, length(game_object_compound_sound__transforms))
-  for i in range(0, length(game_object_compound_sound__transforms))
-    compound_ambient_sound__extents_maxRadiusSq[i] = float4(length(game_object_compound_sound__transforms[i][0]) * 0.5, length(game_object_compound_sound__transforms[i][1]) * 0.5, length(game_object_compound_sound__transforms[i][2]) * 0.5, 0.)
-    compound_ambient_sound__extents_maxRadiusSq[i].w = max(max(compound_ambient_sound__extents_maxRadiusSq[i].x, compound_ambient_sound__extents_maxRadiusSq[i].y), compound_ambient_sound__extents_maxRadiusSq[i].z)
-    if game_object_compound_sound__shapes[i] == sound_hash("sphere")
-      compound_ambient_sound__extents_maxRadiusSq[i].x = max(max(compound_ambient_sound__extents_maxRadiusSq[i].x, compound_ambient_sound__extents_maxRadiusSq[i].y), compound_ambient_sound__extents_maxRadiusSq[i].z)
-    elif game_object_compound_sound__shapes[i] == sound_hash("capsule")
-      compound_ambient_sound__extents_maxRadiusSq[i].y = max(0., compound_ambient_sound__extents_maxRadiusSq[i].y - compound_ambient_sound__extents_maxRadiusSq[i].x)
-    game_object_compound_sound__transforms[i][0] = normalize(game_object_compound_sound__transforms[i][0])
-    game_object_compound_sound__transforms[i][1] = normalize(game_object_compound_sound__transforms[i][1])
-    game_object_compound_sound__transforms[i][2] = normalize(game_object_compound_sound__transforms[i][2])
+  if empty(game_object_compound_sound__shapes)
+    resize(game_object_compound_sound__shapes, length(game_object_compound_sound__transforms))
+    for shape in game_object_compound_sound__shapes
+      shape = sound_hash("box")
+
+  for transform, extentsMaxRadiusSq, shape in game_object_compound_sound__transforms, compound_ambient_sound__extents_maxRadiusSq, game_object_compound_sound__shapes
+    extentsMaxRadiusSq.xyz = make_sound_shape(transform, shape)
 
 
 [es(tag=sound, on_appear, track=sound_banks_state__isPresetLoaded, after=compound_ambient_sound_appear)]
@@ -105,10 +133,15 @@ def compound_ambient_sound_toggle(evt : Event;
                                   compound_ambient_sound__autoRange : bool;
                                   var compound_ambient_sound__curVolIdx : int&;
                                   var compound_ambient_sound__event : SoundEvent&;
-                                  var compound_ambient_sound__extents_maxRadiusSq : Point4List&)
+                                  var compound_ambient_sound__volume : float&;
+                                  var compound_ambient_sound__extents_maxRadiusSq : Point4List&;
+                                  game_object_compound_sound__shapes : UInt32List)
   release_immediate(compound_ambient_sound__event.handle)
+  compound_ambient_sound__event.enabled = false
+  compound_ambient_sound__volume = 0.
   compound_ambient_sound__curVolIdx = 0
-  if sound_banks_state__isPresetLoaded && compound_ambient_sound__autoRange
-    compound_ambient_sound__range = get_max_distance("{game_object_sound__path}/{game_object_sound__name}")
-    for i in range(0, length(compound_ambient_sound__extents_maxRadiusSq))
-      compound_ambient_sound__extents_maxRadiusSq[i].w = square(length(compound_ambient_sound__extents_maxRadiusSq[i].xyz) + compound_ambient_sound__range)
+  if sound_banks_state__isPresetLoaded
+    if compound_ambient_sound__autoRange
+      compound_ambient_sound__range = get_max_distance("{game_object_sound__path}/{game_object_sound__name}")
+    for extentsMaxRadiusSq, shape in compound_ambient_sound__extents_maxRadiusSq, game_object_compound_sound__shapes
+      extentsMaxRadiusSq.w = square(find_sound_shape_radius(extentsMaxRadiusSq.xyz, shape) + compound_ambient_sound__range)

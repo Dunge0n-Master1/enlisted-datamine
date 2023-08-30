@@ -19,6 +19,7 @@ bf_109g_14_base{
   plane_collision__blk:t="gamedata/units/bf_109g_14.blk"
   plane_anim__blk:t="gamedata/units/bf_109g_14.blk"
   plane_sight__blk:t="gamedata/units/bf_109g_14.blk"
+  plane_input__autopilotImpl:t="No"
   canUseRespawnbaseType:t="aircraft_fighter"
   is_seaplane:b=no
   plane_wreckage__template:t="bf_109g_14_wreckage"

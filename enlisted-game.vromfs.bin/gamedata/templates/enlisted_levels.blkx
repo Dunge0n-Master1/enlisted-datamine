@@ -603,6 +603,54 @@ pacific_level{
   }
 }
 
+pacific_level_b{
+  _extends:t="level"
+
+  "level__weatherChoice:object"{
+    weather_clear_a:r=1.0
+    weather_cloudy_a:r=1.0
+    weather_cloudy_b:r=1.0
+
+    "weather_clear_b:object"{
+      weight:r=1.0
+
+      "level__timeVec:array"{
+        level__timeVec:r=7.5
+        level__timeVec:r=8.0
+        level__timeVec:r=10.0
+        level__timeVec:r=11.5
+        level__timeVec:r=13.0
+        level__timeVec:r=16.0
+        level__timeVec:r=16.5
+      }
+    }
+
+    "weather_cloudy_c:object"{
+      weight:r=1.0
+
+      "level__timeVec:array"{
+        level__timeVec:r=7.5
+        level__timeVec:r=8.0
+        level__timeVec:r=16.0
+        level__timeVec:r=16.5
+      }
+    }
+
+    "weather_cloudy_sunset_b:object"{
+      weight:r=1.0
+
+      "level__timeVec:array"{
+        level__timeVec:r=7.5
+        level__timeVec:r=8.0
+        level__timeVec:r=14.0
+        level__timeVec:r=15.0
+        level__timeVec:r=16.0
+        level__timeVec:r=16.5
+      }
+    }
+  }
+}
+
 storm_level{
   _extends:t="level"
 

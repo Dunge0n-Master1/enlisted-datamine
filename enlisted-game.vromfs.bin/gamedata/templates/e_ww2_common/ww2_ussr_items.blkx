@@ -375,6 +375,13 @@ attachable_wear_pants_08_ussr_winter_black_item{
   }
 }
 
+attachable_wear_early_rkka_camo_pants_item{
+  _extends:t="attachable_pants"
+  item__uniqueName:t="attachable_wear_early_rkka_camo_pants_item"
+  animchar__res:t="early_rkka_camo_pants_char"
+  collres__res:t="early_rkka_camo_pants_collision"
+}
+
 attachable_wear_pants_10_ussr_winter_item{
   _extends:t="attachable_pants"
   item__uniqueName:t="attachable_wear_pants_10_ussr_winter_item"
@@ -408,6 +415,15 @@ attachable_wear_tankers_overall_01_ussr_winter_item{
   item__uniqueName:t="attachable_wear_tankers_overall_01_ussr_winter_item"
   animchar__res:t="tankers_overall_01_ussr_winter_char"
   collres__res:t="tankers_overall_01_ussr_winter_collision"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="front_belt_l"
+  }
 }
 
 attachable_wear_pilot_overal_ussr_female_summer_item{
@@ -422,6 +438,15 @@ attachable_wear_ussr_female_padded_jacket_medic_item{
   item__uniqueName:t="attachable_wear_ussr_female_padded_jacket_medic_item"
   animchar__res:t="ussr_female_padded_jacket_medic_char"
   collres__res:t="ussr_female_padded_jacket_medic_collision"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="front_belt_l"
+  }
 }
 
 attachable_wear_ussr_female_padded_jacket_item{
@@ -429,6 +454,15 @@ attachable_wear_ussr_female_padded_jacket_item{
   item__uniqueName:t="attachable_wear_ussr_female_padded_jacket_item"
   animchar__res:t="ussr_female_padded_jacket_char"
   collres__res:t="ussr_female_padded_jacket_collision"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="front_belt_l"
+  }
 }
 
 attachable_wear_pilot_overall_ussr_winter_item{
@@ -448,12 +482,21 @@ attachable_wear_pilot_overall_m43_ussr_summer_item{
 attachable_wear_tunic_01_nkvd_ussr_summer_item{
   _extends:t="attachable_tunic"
   _extends:t="attachable_wear_tunic_05_ussr_summer_item"
+  _tracked:t="attaches_list"
 
   "animchar__objTexReplace:object"{
     "ussr_blouse_43ch_tex_d*":t="ussr_blouse_43_nkvd_tex_d*"
     "ussr_blouse_43ch_tex_n*":t="ussr_blouse_43_nkvd_tex_n*"
     "ussr_blouse_43ch_tex_ao*":t="ussr_blouse_43_nkvd_tex_ao*"
     "sh_str_infantry_summer_ussr_01_tex_d*":t="sh_str_nkvd_summer_ussr_01_tex_d*"
+  }
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="front_belt_l"
   }
 }
 
@@ -462,6 +505,15 @@ attachable_wear_tunic_01_ussr_summer_item{
   item__uniqueName:t="attachable_wear_tunic_01_ussr_summer_item"
   animchar__res:t="tunic_01_ussr_summer_char"
   collres__res:t="tunic_01_ussr_summer_collision"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="front_belt_l"
+  }
 }
 
 attachable_wear_tunic_01_1_ussr_summer_item{
@@ -490,9 +542,18 @@ attachable_wear_martial_01_ussr_summer_item{
   animchar__res:t="martial_01_ussr_summer_char"
   collres__res:t="martial_01_ussr_summer_collision"
   animchar_fast_phys__res:t="martial_01_ussr_summer_fastphys"
+  _tracked:t="attaches_list"
 
   animchar_fast_phys{
     _tags:t="gameClient"
+  }
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="front_belt_l"
   }
 }
 
@@ -523,6 +584,7 @@ attachable_wear_ameba_poncho_01_ussr_summer_item{
   animchar__res:t="ameba_poncho_01_ussr_summer_char"
   collres__res:t="ameba_poncho_01_ussr_summer_collision"
   animchar_fast_phys__res:t="ameba_poncho_01_ussr_summer_fastphys"
+  _tracked:t="attaches_list"
 
   animchar_fast_phys{
     _tags:t="gameClient"
@@ -539,6 +601,16 @@ attachable_wear_ameba_poncho_01_ussr_summer_item{
 
   "hides:array"{
     hides:t="helmet"
+    hides:t="front_belt_r"
+    hides:t="front_belt_l"
+  }
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="front_belt_l"
   }
 }
 
@@ -548,9 +620,18 @@ attachable_wear_pea_jacket_item{
   animchar__res:t="pea_jacket_char"
   collres__res:t="pea_jacket_collision"
   animchar_fast_phys__res:t="pea_jacket_fastphys"
+  _tracked:t="attaches_list"
 
   animchar_fast_phys{
     _tags:t="gameClient"
+  }
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="front_belt_l"
   }
 }
 
@@ -559,6 +640,15 @@ attachable_wear_vdv_m41_jacket_item{
   item__uniqueName:t="attachable_wear_vdv_m41_jacket_item"
   animchar__res:t="vdv_m41_jacket_char"
   collres__res:t="vdv_m41_jacket_collision"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="front_belt_l"
+  }
 }
 
 attachable_wear_tunic_ameba_ussr_summer_item{
@@ -566,6 +656,15 @@ attachable_wear_tunic_ameba_ussr_summer_item{
   item__uniqueName:t="attachable_wear_tunic_ameba_ussr_summer_item"
   animchar__res:t="tunic_ameba_ussr_summer_char"
   collres__res:t="tunic_ameba_ussr_summer_collision"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="front_belt_l"
+  }
 }
 
 attachable_wear_tunic_ameba_ussr_1_summer_item{
@@ -623,10 +722,14 @@ attachable_wear_tunic_ameba_a_ussr_summer_item{
   item__uniqueName:t="attachable_wear_tunic_ameba_a_ussr_summer_item"
   animchar__res:t="tunic_ameba_a_ussr_summer_char"
   collres__res:t="tunic_ameba_a_ussr_summer_collision"
+  _tracked:t="attaches_list"
 
-  "hides:array"{
-    hides:t="front_belt_l"
-    hides:t="front_belt_r"
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="front_belt_l"
   }
 }
 
@@ -665,6 +768,15 @@ attachable_wear_tunic_05_ussr_summer_item{
   item__uniqueName:t="attachable_wear_tunic_05_ussr_summer_item"
   animchar__res:t="tunic_05_ussr_summer_char"
   collres__res:t="tunic_05_ussr_summer_collision"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="front_belt_l"
+  }
 }
 
 attachable_wear_tunic_05_1_ussr_summer_item{
@@ -732,6 +844,15 @@ attachable_wear_tunic_08_ussr_summer_item{
   item__uniqueName:t="attachable_wear_tunic_08_ussr_summer_item"
   animchar__res:t="tunic_08_ussr_summer_char"
   collres__res:t="tunic_08_ussr_summer_collision"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="front_belt_l"
+  }
 }
 
 attachable_wear_tunic_08_1_ussr_summer_item{
@@ -759,6 +880,15 @@ attachable_wear_tunic_08_tankers_ussr_summer_item{
   item__uniqueName:t="attachable_wear_tunic_08_tankers_ussr_summer_item"
   animchar__res:t="tunic_08_tankers_ussr_summer_char"
   collres__res:t="tunic_08_tankers_ussr_summer_collision"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="front_belt_l"
+  }
 }
 
 attachable_wear_tunic_08_1_tankers_ussr_summer_item{
@@ -777,9 +907,18 @@ attachable_wear_overcoat_m43_w_tabs_08_ussr_winter_item{
   animchar__res:t="overcoat_m43_w_tabs_08_ussr_winter_char"
   collres__res:t="overcoat_m43_w_tabs_08_ussr_winter_collision"
   animchar_fast_phys__res:t="overcoat_m43_w_tabs_08_ussr_winter_fastphys"
+  _tracked:t="attaches_list"
 
   animchar_fast_phys{
     _tags:t="gameClient"
+  }
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="front_belt_l"
   }
 }
 
@@ -799,9 +938,18 @@ attachable_wear_tankers_overcoat_ussr_winter_item{
   animchar__res:t="tankers_overcoat_ussr_winter_char"
   collres__res:t="tankers_overcoat_ussr_winter_collision"
   animchar_fast_phys__res:t="tankers_overcoat_ussr_winter_fastphys"
+  _tracked:t="attaches_list"
 
   animchar_fast_phys{
     _tags:t="gameClient"
+  }
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="front_belt_l"
   }
 }
 
@@ -844,7 +992,16 @@ attachable_wear_overcoat_01_ussr_winter_item{
   item__uniqueName:t="attachable_wear_overcoat_01_ussr_winter_item"
   animchar__res:t="overcoat_01_ussr_winter_char"
   collres__res:t="overcoat_01_ussr_winter_collision"
+  _tracked:t="attaches_list"
   animchar_fast_phys__res:t="overcoat_01_ussr_winter_fastphys"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="front_belt_l"
+  }
 
   animchar_fast_phys{
     _tags:t="gameClient"
@@ -943,9 +1100,18 @@ attachable_wear_tanker_leathr_jacket_summer_item{
   animchar__res:t="tanker_leathr_jacket_summer_char"
   collres__res:t="tanker_leathr_jacket_summer_collision"
   animchar_fast_phys__res:t="tanker_leathr_jacket_summer_fastphys"
+  _tracked:t="attaches_list"
 
   animchar_fast_phys{
     _tags:t="gameClient"
+  }
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="front_belt_l"
   }
 }
 
@@ -955,9 +1121,18 @@ attachable_wear_tunic_02_ussr_winter_item{
   animchar__res:t="tunic_02_ussr_winter_char"
   collres__res:t="tunic_02_ussr_winter_collision"
   animchar_fast_phys__res:t="tunic_02_ussr_winter_fastphys"
+  _tracked:t="attaches_list"
 
   animchar_fast_phys{
     _tags:t="gameClient"
+  }
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="front_belt_l"
   }
 }
 
@@ -998,9 +1173,18 @@ attachable_wear_tunic_07_ussr_winter_item{
   animchar__res:t="tunic_07_ussr_winter_char"
   collres__res:t="tunic_07_ussr_winter_collision"
   animchar_fast_phys__res:t="tunic_07_ussr_winter_fastphys"
+  _tracked:t="attaches_list"
 
   animchar_fast_phys{
     _tags:t="gameClient"
+  }
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="front_belt_l"
   }
 }
 
@@ -1019,9 +1203,18 @@ attachable_wear_overcoat_08_ussr_winter_item{
   animchar__res:t="overcoat_08_ussr_winter_char"
   collres__res:t="overcoat_08_ussr_winter_collision"
   animchar_fast_phys__res:t="overcoat_08_ussr_winter_fastphys"
+  _tracked:t="attaches_list"
 
   animchar_fast_phys{
     _tags:t="gameClient"
+  }
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="front_belt_l"
   }
 }
 
@@ -1031,9 +1224,18 @@ attachable_wear_overcoat_09_ussr_winter_item{
   animchar__res:t="overcoat_09_ussr_winter_char"
   collres__res:t="overcoat_09_ussr_winter_collision"
   animchar_fast_phys__res:t="overcoat_09_ussr_winter_fastphys"
+  _tracked:t="attaches_list"
 
   animchar_fast_phys{
     _tags:t="gameClient"
+  }
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="front_belt_l"
   }
 }
 
@@ -1092,7 +1294,16 @@ attachable_wear_tunic_10_ussr_winter_item{
   item__uniqueName:t="attachable_wear_tunic_10_ussr_winter_item"
   animchar__res:t="tunic_10_ussr_winter_char"
   collres__res:t="tunic_10_ussr_winter_collision"
+  _tracked:t="attaches_list"
   animchar_fast_phys__res:t="tunic_10_ussr_winter_fastphys"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="front_belt_l"
+  }
 
   animchar_fast_phys{
     _tags:t="gameClient"
@@ -1106,9 +1317,18 @@ attachable_wear_tunic_greenwood_10_ussr_winter_item{
   animchar__res:t="tunic_greenwood_10_ussr_winter_char"
   collres__res:t="tunic_greenwood_10_ussr_winter_collision"
   animchar_fast_phys__res:t="tunic_greenwood_10_ussr_winter_fastphys"
+  _tracked:t="attaches_list"
 
   animchar_fast_phys{
     _tags:t="gameClient"
+  }
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="front_belt_l"
   }
 }
 
@@ -1120,9 +1340,18 @@ attachable_wear_tunic_cape_10_ussr_winter_item{
   animchar__res:t="tunic_cape_10_ussr_winter_char"
   collres__res:t="tunic_cape_10_ussr_winter_collision"
   animchar_fast_phys__res:t="tunic_cape_10_ussr_winter_fastphys"
+  _tracked:t="attaches_list"
 
   animchar_fast_phys{
     _tags:t="gameClient"
+  }
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="front_belt_l"
   }
 
   _group{
@@ -1145,9 +1374,18 @@ attachable_wear_overcoat_11_ussr_winter_item{
   animchar__res:t="overcoat_11_ussr_winter_char"
   collres__res:t="overcoat_11_ussr_winter_collision"
   animchar_fast_phys__res:t="overcoat_11_ussr_winter_fastphys"
+  _tracked:t="attaches_list"
 
   animchar_fast_phys{
     _tags:t="gameClient"
+  }
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="front_belt_l"
   }
 }
 
@@ -1156,6 +1394,15 @@ attachable_wear_jacket_m35_ussr_01_winter_item{
   item__uniqueName:t="attachable_wear_jacket_m35_ussr_01_winter_item"
   animchar__res:t="jacket_m35_ussr_01_winter_char"
   collres__res:t="jacket_m35_ussr_01_winter_collision"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="front_belt_l"
+  }
 }
 
 attachable_wear_jacket_m35_ussr_01_1_winter_item{
@@ -1212,6 +1459,15 @@ attachable_wear_jacket_m35_ussr_medic_item{
   item__uniqueName:t="attachable_wear_jacket_m35_ussr_medic_item"
   animchar__res:t="jacket_m35_ussr_medic_char"
   collres__res:t="jacket_m35_ussr_medic_collision"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="front_belt_l"
+  }
 }
 
 attachable_wear_jacket_m35_ussr_01_medic_1_winter_item{
@@ -1249,9 +1505,18 @@ attachable_wear_nkvd_overcoat_m35_ussr_winter_item{
   animchar__res:t="nkvd_overcoat_m35_ussr_winter_char"
   collres__res:t="nkvd_overcoat_m35_ussr_winter_collision"
   animchar_fast_phys__res:t="nkvd_overcoat_m35_ussr_winter_fastphys"
+  _tracked:t="attaches_list"
 
   animchar_fast_phys{
     _tags:t="gameClient"
+  }
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="front_belt_l"
   }
 }
 
@@ -1301,10 +1566,37 @@ attachable_wear_tunic_m35_tanker_ussr_item{
   item__uniqueName:t="attachable_wear_tunic_m35_tanker_ussr_item"
   animchar__res:t="tunic_m35_tanker_ussr_char"
   collres__res:t="tunic_m35_tanker_ussr_collision"
+  _tracked:t="attaches_list"
 
   "animchar__objTexReplace:object"{
     "ussr_blouse35_tex_d*":t="ussr_blouse35_dbrown_tex_d*"
     "ussr_blouse35_tex_n*":t="ussr_blouse35_dbrown_tex_n*"
+  }
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="front_belt_l"
+  }
+}
+
+attachable_wear_early_rkka_camo_jacket_item{
+  _extends:t="attachable_tunic"
+  item__uniqueName:t="attachable_wear_early_rkka_camo_jacket_item"
+  animchar__res:t="early_rkka_camo_jacket_char"
+  collres__res:t="early_rkka_camo_jacket_collision"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="front_belt_l"
+    slot:t="side_belt_l"
+    slot:t="flask_r"
   }
 }
 
@@ -2471,6 +2763,22 @@ attachable_wear_flask_m41_ussr_winter_10_item{
   collres__res:t="flask_m41_ussr_winter_10_collision"
 }
 
+attachable_wear_ussr_flask_back_belt_r_item{
+  _extends:t="attachable_flask_r"
+  item__uniqueName:t="attachable_wear_ussr_flask_back_belt_r_item"
+  animchar__res:t="ussr_flask_back_belt_r_char"
+  collres__res:t="ussr_flask_back_belt_r_collision"
+  animchar_fast_phys__res:t="ussr_flask_back_belt_r_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+
+  "skeleton_attach__remapParentSlots:list<t>"{
+    slot:t="tunic"
+  }
+}
+
 attachable_officer_belt_female_pilot_item{
   _extends:t="attachable_belt1"
   item__uniqueName:t="attachable_wear_officer_belt_female_pilot_item"
@@ -2756,6 +3064,28 @@ attachable_wear_pouch_svt40_nkvd_r_ussr_winter_item{
   collres__res:t="pouch_svt40_nkvd_r_ussr_winter_collision"
 }
 
+attachable_wear_ussr_svt40_pouch_front_belt_r_item{
+  _extends:t="attachable_front_belt_r"
+  item__uniqueName:t="attachable_wear_ussr_svt40_pouch_front_belt_r_item"
+  animchar__res:t="ussr_svt40_pouch_front_belt_r_char"
+  collres__res:t="ussr_svt40_pouch_front_belt_r_collision"
+
+  "skeleton_attach__remapParentSlots:list<t>"{
+    slot:t="tunic"
+  }
+}
+
+attachable_wear_ussr_svt40_pouch_side_belt_l_item{
+  _extends:t="attachable_side_belt_l"
+  item__uniqueName:t="attachable_wear_ussr_svt40_pouch_side_belt_l_item"
+  animchar__res:t="ussr_svt40_pouch_side_belt_l_char"
+  collres__res:t="ussr_svt40_pouch_side_belt_l_collision"
+
+  "skeleton_attach__remapParentSlots:list<t>"{
+    slot:t="tunic"
+  }
+}
+
 attachable_wear_pouch_f1_01_ussr_summer_item{
   _extends:t="attachable_front_belt_l"
   item__uniqueName:t="attachable_wear_pouch_f1_01_ussr_summer_item"
@@ -2801,6 +3131,17 @@ attachable_wear_pouch_f1_09_ussr_winter_item{
   item__uniqueName:t="attachable_wear_pouch_f1_09_ussr_winter_item"
   animchar__res:t="pouch_f1_09_ussr_winter_char"
   collres__res:t="pouch_f1_09_ussr_winter_collision"
+}
+
+attachable_wear_pouch_f1_front_belt_l_item{
+  _extends:t="attachable_front_belt_l"
+  item__uniqueName:t="attachable_wear_pouch_f1_front_belt_l_item"
+  animchar__res:t="pouch_f1_front_belt_l_char"
+  collres__res:t="pouch_f1_front_belt_l_collision"
+
+  "skeleton_attach__remapParentSlots:list<t>"{
+    slot:t="tunic"
+  }
 }
 
 attachable_wear_gasmask_01_ussr_summer_item{
@@ -3136,6 +3477,17 @@ attachable_wear_flashlight_m39_01_ussr_winter_item{
   collres__res:t="flashlight_m39_01_ussr_winter_collision"
 }
 
+attachable_wear_flashlight_m39_front_belt_l_item{
+  _extends:t="attachable_front_belt_l"
+  item__uniqueName:t="attachable_wear_flashlight_m39_front_belt_l_item"
+  animchar__res:t="flashlight_m39_front_belt_l_char"
+  collres__res:t="flashlight_m39_front_belt_l_collision"
+
+  "skeleton_attach__remapParentSlots:list<t>"{
+    slot:t="tunic"
+  }
+}
+
 attachable_wear_nagan_holster_r_01_ussr_winter_item{
   _extends:t="attachable_front_belt_r"
   item__uniqueName:t="attachable_wear_nagan_holster_r_01_ussr_winter_item"
@@ -3317,6 +3669,17 @@ attachable_wear_pouch_ppsh_nkvd_l_ussr_winter_item{
   item__uniqueName:t="attachable_wear_pouch_ppsh_nkvd_l_ussr_winter_item"
   animchar__res:t="pouch_ppsh_nkvd_l_ussr_winter_char"
   collres__res:t="pouch_ppsh_nkvd_l_ussr_winter_collision"
+}
+
+attachable_wear_pouch_ppsh_front_belt_r_item{
+  _extends:t="attachable_front_belt_r"
+  item__uniqueName:t="attachable_wear_pouch_ppsh_front_belt_r_item"
+  animchar__res:t="pouch_ppsh_front_belt_r_char"
+  collres__res:t="pouch_ppsh_front_belt_r_collision"
+
+  "skeleton_attach__remapParentSlots:list<t>"{
+    slot:t="tunic"
+  }
 }
 
 attachable_wear_tt_06_ussr_summer_item{
@@ -4352,6 +4715,17 @@ attachable_wear_3section_rgd_pouch_fr_dark_1_ussr_summer_item{
 
   "animchar__objTexReplace:object"{
     "ussr_3section_rgd_pouch_tex_d*":t="ussr_3section_rgd_pouch_dark_tex_d*"
+  }
+}
+
+attachable_wear_3section_rgd_pouch_front_belt_l_item{
+  _extends:t="attachable_front_belt_l"
+  item__uniqueName:t="attachable_wear_3section_rgd_pouch_front_belt_l_item"
+  animchar__res:t="3section_rgd_pouch_front_belt_l_char"
+  collres__res:t="3section_rgd_pouch_front_belt_l_collision"
+
+  "skeleton_attach__remapParentSlots:list<t>"{
+    slot:t="tunic"
   }
 }
 

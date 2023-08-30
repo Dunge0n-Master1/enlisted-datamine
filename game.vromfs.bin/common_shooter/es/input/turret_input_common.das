@@ -70,3 +70,20 @@ def release_weapon(turret_control__gunEids : EidList; state : bool; trigger : in
         indexInSalvo = (indexInSalvo + 1) % salvo_size
     if isFired && indexInSalvo == 0
       break
+
+def toggle_telesight_zoom(cockpit__eid : EntityId;
+                          plane_input__zoomToggle : int;
+                          var plane_input__mouseAimLimitYaw : float&;
+                          var plane_input__mouseAimLimitPitch : float&)
+  query(cockpit__eid) <| $ [es] (cockpit__cameraTime : float;
+                                 gunmod__defaultMouseAimLimits : float2;
+                                 gunmod__zoomMouseAimLimits : float2;
+                                 var gunmod__isZoom : bool&)
+    if cockpit__cameraTime < 1.0
+      return
+
+    let zoomToggle = get_digital_action_state(uint16(plane_input__zoomToggle))
+    gunmod__isZoom = zoomToggle.bState
+
+    plane_input__mouseAimLimitYaw = gunmod__isZoom ? gunmod__zoomMouseAimLimits.x : gunmod__defaultMouseAimLimits.x
+    plane_input__mouseAimLimitPitch = gunmod__isZoom ? gunmod__zoomMouseAimLimits.y : gunmod__defaultMouseAimLimits.y

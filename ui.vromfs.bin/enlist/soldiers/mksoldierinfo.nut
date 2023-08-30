@@ -1,5 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
+let { fontSub, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {
   bigPadding, smallPadding, soldierWndWidth, unitSize, hoverTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
@@ -15,19 +16,18 @@ let { unseenSoldiersWeaponry } = require("model/unseenWeaponry.nut")
 let { hasClientPermission } = require("%enlSqGlob/client_user_rights.nut")
 let canSwitchSoldierLook = hasClientPermission("debug_soldier_look")
 let mkNameBlock = require("%enlist/components/mkNameBlock.nut")
-let { defTxtColor, titleTxtColor, accentColor, panelBgColor, hoverSlotBgColor
+let { defTxtColor, titleTxtColor, accentColor, panelBgColor, hoverSlotBgColor, selectedPanelBgColor
 } = require("%enlSqGlob/ui/designConst.nut")
-let { fontMedium } = require("%enlSqGlob/ui/fontsStyle.nut")
 let faComp = require("%ui/components/faComp.nut")
 let { closeEquipPresets } = require("%enlist/preset/presetEquipUi.nut")
 
-let defTxtStyle = { color = defTxtColor }.__update(fontMedium)
-let hoverTxtStyle = { color = hoverTxtColor }.__update(fontMedium)
-let activeTxtStyle = { color = titleTxtColor }.__update(fontMedium)
+let defTxtStyle = { color = defTxtColor }.__update(fontBody)
+let hoverTxtStyle = { color = hoverTxtColor }.__update(fontBody)
+let activeTxtStyle = { color = titleTxtColor }.__update(fontBody)
 
-let defIconStyle = { fontSize = hdpx(15), color = defTxtColor }
-let hoverIconStyle = { fontSize = hdpx(15), color = hoverTxtColor }
-let activeIconStyle = { fontSize = hdpx(15), color = titleTxtColor }
+let defIconStyle = { fontSize = fontSub.fontSize, color = defTxtColor }
+let hoverIconStyle = { fontSize = fontSub.fontSize, color = hoverTxtColor }
+let activeIconStyle = { fontSize = fontSub.fontSize, color = titleTxtColor }
 
 let tabHeight = unitSize
 
@@ -77,8 +77,6 @@ let mkAnimations = @(isMoveRight) [
   { prop = AnimProp.translate, from =[0, 0], playFadeOut = true, to = [hdpx(150) * (isMoveRight ? 1 : -1), 0], duration = 0.2, easing = OutQuad }
 ]
 
-let selectedColor = mul_color(panelBgColor, 1.5)
-
 let tabsList = @(soldier, availTabs) @() availTabs.len() == 1 ? null : {
   watch = [tabs, curTabId, soldier]
   size = [flex(), SIZE_TO_CONTENT]
@@ -94,7 +92,7 @@ let tabsList = @(soldier, availTabs) @() availTabs.len() == 1 ? null : {
       let size = ["locId" in tab ? flex() : tabHeight, tabHeight]
       return watchElemState(function(sf) {
         let isSelectedVal = isSelected.value
-        let isHover = (sf & S_HOVER) != 0
+        let isHover = sf & S_HOVER
         let textStyle = isHover ? hoverTxtStyle
           : isSelectedVal ? activeTxtStyle
           : defTxtStyle
@@ -107,7 +105,7 @@ let tabsList = @(soldier, availTabs) @() availTabs.len() == 1 ? null : {
           : "iconId" in tab ? faComp(tab.iconId, iconStyle)
           : null
         let fillColor = isHover ? hoverSlotBgColor
-          : isSelectedVal ? selectedColor
+          : isSelectedVal ? selectedPanelBgColor
           : panelBgColor
 
         return {

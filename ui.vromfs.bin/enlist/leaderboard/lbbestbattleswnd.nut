@@ -4,7 +4,7 @@ let modalPopupWnd = require("%ui/components/modalPopupWnd.nut")
 let fontIconButton = require("%ui/components/fontIconButton.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let lbCategory = require("lbCategory.nut")
-let { h2_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { bigGap } = require("%enlSqGlob/ui/viewConst.nut")
 let { bestBattlesByMode, ratingBattlesCountByMode, getCategoriesByGroup } = require("lbState.nut")
 let { TextActive, WindowHeader, TextDefault, UserNameColor
@@ -27,7 +27,7 @@ let header = {
     {
       rendObj = ROBJ_TEXT
       text = loc("lb/bestBattles")
-    }.__update(h2_txt)
+    }.__update(fontHeading2)
     { size = flex() }
     fontIconButton("times", { onClick = close })
   ]
@@ -64,7 +64,7 @@ let mkRows = @(lbCols, battles, lastBattleTimestamp, color) @() {
       indent = idx == 0 ? bigGap : 0
       valign = ALIGN_CENTER
       text = cat.getText(battle)
-    }.__update(sub_txt))
+    }.__update(fontSub))
   })
 }
 
@@ -75,7 +75,7 @@ let mkOtherRowsHeader = @(isVisible) @() {
         margin = [bigGap, 0, 0, 0]
         rendObj = ROBJ_TEXT
         text = loc("lb/battlesOutOfCount")
-      }.__update(sub_txt)
+      }.__update(fontSub)
     : null
 }
 
@@ -100,7 +100,7 @@ let mkColumnsHeader = @(lbCols) {
         indent = idx == 0 ? bigGap : 0
         valign = ALIGN_CENTER
         text = loc(cat.locId)
-      }.__update(sub_txt))
+      }.__update(fontSub))
     }
   ]
 }

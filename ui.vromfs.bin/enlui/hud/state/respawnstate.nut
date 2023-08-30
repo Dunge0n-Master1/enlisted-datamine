@@ -184,7 +184,7 @@ let function cancelRequestRespawn() {
   let memberId = squadMemberIdForSpawn.value
   let spawnGroup = queueRespawnGroupId.value
   logHR($"Request cancel respawn, respawnerEid {respawnerEid.value}, squadId {squadId}, memberId {memberId}")
-  sendNetEvent(respawnerEid.value, CmdCancelRequestRespawn({ squadId = squadId, memberId = memberId, spawnGroup = spawnGroup }))
+  sendNetEvent(respawnerEid.value, CmdCancelRequestRespawn({ squadId = squadId, memberId = memberId, spawnGroup = spawnGroup, isParatroopers = paratroopersOn.value }))
   queuedRespawnGroupId(queueRespawnGroupId.value)
 }
 
@@ -199,6 +199,8 @@ let function cancelRespawn() {
 
 let function onActive() {
   respawnLastActiveTime(app.get_sync_time())
+  if (canRespawnWaitNumber.value > 0)
+    requestRespawn()
   cancelRespawn()
 }
 

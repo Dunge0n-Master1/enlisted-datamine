@@ -1,7 +1,7 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let {h2_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontHeading2} = require("%enlSqGlob/ui/fontsStyle.nut")
 let { watchedHeroEid, watchedTeam } = require("%ui/hud/state/watched_hero.nut")
 let { getZoneWatch } = require("%ui/hud/state/capZones.nut")
 let capzoneProgress = require("capzoneProgress.nut")
@@ -69,7 +69,7 @@ let mkZoneText = memoize(@(caption, animations){
     halign  = ALIGN_CENTER
     valign = ALIGN_BOTTOM
     animations
-  }.__update(h2_txt)
+  }.__update(fontHeading2)
 )
 
 

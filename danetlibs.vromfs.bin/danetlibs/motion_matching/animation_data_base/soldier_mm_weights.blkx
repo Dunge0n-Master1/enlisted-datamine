@@ -1,0 +1,74 @@
+nodes_name{
+  node:t="Bip01 L Foot"
+  node:t="Bip01 R Foot"
+}
+
+prediction_times{
+  time:r=-0.33
+  time:r=0.33
+  time:r=0.66
+}
+
+default{
+  animationBlendTime:r=0.2
+  linearVelocityViscosity:r=0.1
+  angularVelocityViscosity:r=0.1
+
+  node{
+    position_weight:r=0.75
+    velocity_weight:r=1.0
+  }
+
+  node{
+    position_weight:r=0.75
+    velocity_weight:r=1.0
+  }
+
+  point{
+    position_weight:r=1.0
+    velocity_weight:r=1.5
+  }
+
+  point{
+    position_weight:r=1.0
+    velocity_weight:r=1.5
+  }
+
+  point{
+    position_weight:r=1.0
+    velocity_weight:r=1.5
+  }
+}
+
+sprint{
+  animationBlendTime:r=0.4
+  linearVelocityViscosity:r=0.2
+  angularVelocityViscosity:r=0.1
+  metricaToleranceMax:r=2.0
+  metricaToleranceDecayTime:r=0.5
+
+  node{
+    position_weight:r=0.75
+    velocity_weight:r=1.0
+  }
+
+  node{
+    position_weight:r=0.75
+    velocity_weight:r=1.0
+  }
+
+  point{
+    position_weight:r=1.0
+    velocity_weight:r=1.5
+  }
+
+  point{
+    position_weight:r=1.0
+    velocity_weight:r=1.5
+  }
+
+  point{
+    position_weight:r=1.0
+    velocity_weight:r=1.5
+  }
+}

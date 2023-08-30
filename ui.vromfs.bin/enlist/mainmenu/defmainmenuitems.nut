@@ -5,7 +5,7 @@ let { showControlsMenu } = require("%ui/hud/menus/controls_setup.nut")
 let { showSettingsMenu } = require("%ui/hud/menus/settings_menu.nut")
 let {exitGameMsgBox, logoutMsgBox} = require("%enlist/mainMsgBoxes.nut")
 let openUrl = require("%ui/components/openUrl.nut")
-let { gaijinSupportUrl, bugReportUrl } = require("%enlSqGlob/supportUrls.nut")
+let { gaijinSupportUrl, bugReportUrl, legalsUrl } = require("%enlSqGlob/supportUrls.nut")
 let { get_setting_by_blk_path } = require("settings")
 let qrWindow = require("qrWindow.nut")
 
@@ -51,6 +51,14 @@ let btnSupport = gaijinSupportUrl == "" ? null : {
     : qrWindow({url = gaijinSupportUrl, header = loc("support")})
 }
 
+let btnLegals = legalsUrl == "" ? null : {
+  id = "Legals"
+  name = loc("Legals")
+  cb = @() allowUrl
+    ? openUrl(legalsUrl, false, platform.is_mobile )
+    : qrWindow({ url = legalsUrl, header = loc("Legals") })
+}
+
 let btnBugReport = (bugReportUrl == "" || !platform.is_pc) ? null : {
   id = "reportProblem"
   name = loc("gamemenu/btnReportProblem")
@@ -66,5 +74,6 @@ return {
   btnCBR
   btnSupport
   btnBugReport
+  btnLegals
   SEPARATOR
 }

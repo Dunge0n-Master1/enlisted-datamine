@@ -35,6 +35,8 @@ us_m3a1_stuart_common{
   item__iconOffset:p2=0.0, 0.0
   commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
   gunner_cam_limit__useCockpitDir:b=yes
+  armorThicknessHull:p3=38.1, 25.4, 25.4
+  armorThicknessTurret:p3=38.0, 32.0, 32.0
 
   "vehicle_seats__seats:shared:array"{
 
@@ -216,6 +218,7 @@ us_m3a1_stuart_gunner_cockpit{
 
   "cockpit__slitTemplates:list<t>"{
     slit:t="us_m70d"
+    slit:t="default_periscope"
   }
 
   "cockpit__slitEids:list<eid>"{
@@ -282,5 +285,12 @@ us_m3a1_stuart_commander_cockpit{
     "slit:list<r>"{
       zoom:r=1.44
     }
+  }
+
+  "cockpit__slitTemplates:list<t>"{
+    slit:t="default_periscope"
+  }
+
+  "cockpit__slitEids:list<eid>"{
   }
 }

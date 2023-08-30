@@ -16,25 +16,16 @@ bulletType:t="he_i_t_mine"
 slopeEffectPreset:t="ap"
 fresnel:p3=0.23, 0.1, 2.0
 explodeOnRendinst:b=yes
-nearHitPower:p2=1.0, 50.0
+fuseOnWater:b=yes
 relativeVelArmorShift:p2=200.0, 1000.0
+nearHitPower:p2=1.0, 50.0
 midHitPower:p2=0.9, 300.0
-farHitPower:p2=0.1, 700.0
 explodeTreshold:r=0.01
-endHitPower:p2=0.008, 1500.0
-explodeHitPower:r=70.0
-relativeVelHitShift:p2=300.0, 1000.0
-explodeArmorPower:r=5.0
-explodeRadius:p2=0.8, 1.7
-fuseDelayDist:r=1.0
-shutterDamage:b=yes
-shutterDamageRadius:r=6.5
-shutterAmount:i=70
-shutterArmorPower:r=6.0
-shutterHit:r=5.0
+farHitPower:p2=0.1, 700.0
+fuseDelayDist:r=0.2
 explosionPatchRadius:r=1.4
-visualShattersWaterOffset:r=1.2
-visualShattersGroundOffset:r=1.2
+waterRicochetEffect:t="hit_39_58mm_water"
+groundRicochetEffect:t="hit_39_58mm_dirt_ap"
 
 stabilityRicochetModifier{
   mod1:p2=0.0, 0.05
@@ -53,6 +44,66 @@ armorpower{
   ArmorPower500m:p2=3.0, 500.0
   ArmorPower1000m:p2=2.0, 1000.0
   ArmorPower1500m:p2=1.0, 1500.0
+}
+
+damage{
+
+  kinetic{
+    damageType:t="generic"
+    demarrePenetrationK:r=0.15
+    demarreSpeedPow:r=1.43
+    demarreMassPow:r=0.71
+    demarreCaliberPow:r=1.07
+  }
+
+  shatter{
+    useRealShatters:b=yes
+    countPortion:r=0.4
+
+    segment{
+      radiusScale:r=1.0
+      penetrationScale:r=1.5
+      damageScale:r=1.0
+      angles:p2=0.0, 74.0
+      countPortion:r=0.3
+    }
+
+    segment{
+      radiusScale:r=1.0
+      penetrationScale:r=1.3
+      damageScale:r=1.5
+      angles:p2=75.0, 100.0
+      countPortion:r=0.05
+    }
+
+    segment{
+      radiusScale:r=1.0
+      penetrationScale:r=1.0
+      damageScale:r=1.0
+      angles:p2=101.0, 260.0
+      countPortion:r=0.3
+    }
+
+    segment{
+      radiusScale:r=1.0
+      penetrationScale:r=1.3
+      damageScale:r=1.5
+      angles:p2=261.0, 285.0
+      countPortion:r=0.05
+    }
+
+    segment{
+      radiusScale:r=1.0
+      penetrationScale:r=1.5
+      damageScale:r=1.0
+      angles:p2=286.0, 359.0
+      countPortion:r=0.3
+    }
+  }
+}
+
+shatterDamage{
+  breachConeAngle:r=45.0
 }
 
 visual{

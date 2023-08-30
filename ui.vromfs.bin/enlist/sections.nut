@@ -1,10 +1,10 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontXSmall } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontTiny } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { buildShopUi } = require("shop/mkShopUi.nut")
 let { buildResearchesUi } = require("researches/mkResearchesUi.nut")
 let { mkMainSceneContent } = require("%enlist/mainScene/mainScene.nut")
-
+let growthUi = require("%enlist/growth/growthUi.nut")
 let armyProgressScene = require("%enlist/soldiers/armyProgressScene.nut")
 let {
   setSectionsSorted, curSection, mainSectionId
@@ -38,6 +38,7 @@ let { seenArmyProgress, markOpened } = require("%enlist/soldiers/model/unseenArm
 let { mkDiscountBar } = require("%enlist/shop/shopPackage.nut")
 let { chapterIdx } = require("%enlist/shop/shopState.nut")
 let { titleTxtColor, darkTxtColor, brightAccentColor } = require("%enlSqGlob/ui/designConst.nut")
+let { hasGrowth } = require("%enlist/featureFlags.nut")
 let { unblinkUnseen } = require("%ui/components/unseenComponents.nut")
 
 
@@ -99,7 +100,7 @@ let mkShopAlertUi = @(sf) function() {
             rendObj = ROBJ_TEXT
             text = $"-{percents}%"
             color = sf & S_HOVER ? titleTxtColor : darkTxtColor
-          }.__update(fontXSmall), true, sf & S_HOVER ? darkTxtColor : brightAccentColor)
+          }.__update(fontTiny), true, sf & S_HOVER ? darkTxtColor : brightAccentColor)
       : alertSign
   }
 }
@@ -167,7 +168,7 @@ let campaignTabData = {
               rendObj = ROBJ_TEXT
               text = $"-{curLevelDiscount.value}%"
               color = sf & S_HOVER ? titleTxtColor : darkTxtColor
-            }.__update(fontXSmall), true, sf & S_HOVER ? darkTxtColor : brightAccentColor)
+            }.__update(fontTiny), true, sf & S_HOVER ? darkTxtColor : brightAccentColor)
         : hasUnseenArmyProgress.value ? notifier.__merge({
             color = sf & S_HOVER ? darkTxtColor : brightAccentColor
           })
@@ -273,3 +274,24 @@ if (getEventUrl() != null)
   })
 
 setSectionsSorted(sections)
+
+
+// TODO move 'growth' section to main menu after feature completed
+let function updateSections(flag) {
+  if (flag)
+    sections.append({
+      locId = "menu/growth"
+      getContent = growthUi
+      id = "GROWTH"
+      camera = "researches"
+    })
+  else {
+    let idx = sections.findindex(@(s) s.id == "GROWTH")
+    if (idx != null)
+      sections.remove(idx)
+  }
+  setSectionsSorted(sections)
+}
+
+hasGrowth.subscribe(updateSections)
+updateSections(hasGrowth.value)

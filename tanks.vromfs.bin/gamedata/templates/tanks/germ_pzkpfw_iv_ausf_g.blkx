@@ -160,6 +160,10 @@ pzkpfw_iv_ausf_g_turret_01_75mm_kwk40_l43_custom{
 germ_pzkpfw_iv_ausf_g_common{
   _extends:t="base_pzkpfw_iv_ausf_g"
   _extends:t="tank_panzer3_engine_sound"
+  item__iconOffset:p2=0.05, 0.15
+  item__iconScale:r=1.5
+  armorThicknessHull:p3=80.0, 30.0, 20.0
+  armorThicknessTurret:p3=50.0, 30.0, 30.0
 
   "turrets__initAmmoDistribution:array"{
 

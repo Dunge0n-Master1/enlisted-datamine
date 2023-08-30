@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h2_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let { mkImageCompByDargKey } = require("%ui/components/gamepadImgByKey.nut")
 let JB = require("%ui/control/gui_buttons.nut")
@@ -30,7 +30,7 @@ let darkCtor = @(box) mkSizeTable(box, {
   color = 0xC0000000
 })
 
-let hintTextStyle = body_txt.__merge({ color = 0xFFA0A0A0 })
+let hintTextStyle = fontBody.__merge({ color = 0xFFA0A0A0 })
 
 let kbHint = {
   rendObj = ROBJ_TEXT
@@ -70,7 +70,7 @@ let messageCtor = @(text, nextKeyAllowed, onNext, textOverride = {}) {
       behavior = Behaviors.TextArea
       text
       halign = ALIGN_CENTER
-    }.__update(h2_txt, textOverride)
+    }.__update(fontHeading2, textOverride)
     nextKeyHintCtor(nextKeyAllowed, onNext)
   ]
 }
@@ -93,7 +93,7 @@ let mkMessageCtorWithGamepadIcons = @(hotkeys) @(text, nextKeyAllowed, onNext) {
           behavior = Behaviors.TextArea
           text
           halign = isGamepad.value ? ALIGN_LEFT : ALIGN_CENTER
-        }.__update(h2_txt))
+        }.__update(fontHeading2))
     }
     nextKeyHintCtor(nextKeyAllowed, onNext)
   ]
@@ -102,7 +102,7 @@ let mkMessageCtorWithGamepadIcons = @(hotkeys) @(text, nextKeyAllowed, onNext) {
 let skipTrigger = {}
 let skipStateFlags = Watched(0)
 let isSkipPushed = Watched(false) //update with debounce, to not change value too fast on calc comp size
-skipStateFlags.subscribe(debounce(@(v) isSkipPushed((v & S_ACTIVE) != 0), 0.01))
+skipStateFlags.subscribe(debounce(@(v) isSkipPushed(!!(v & S_ACTIVE)), 0.01))
 isSkipPushed.subscribe(@(v) v ? anim_start(skipTrigger) : anim_skip(skipTrigger))
 
 let pSize = hdpxi(40)
@@ -144,7 +144,7 @@ let skipBtnCtor = @(stepSkipDelay, skipStep, key) {
         : skipStateFlags.value & S_ACTIVE ? 0xFF808080
         : 0xA0A0A0A0
       hotkeys = [["^J:Start", { description = { skip = true }}]]
-    }.__update(body_txt)
+    }.__update(fontBody)
   ]
   animations = [{ prop=AnimProp.opacity, from = 0, to = 1, duration = 3, play = true }]
 }

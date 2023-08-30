@@ -7,6 +7,17 @@ plane_telesight{
   gunmod__lensLocalY:p3=-1.0, 0.0, 0.0
   gunmod__lensLocalZ:p3=0.0, 0.0, -1.0
   gunmod__scopeRadLen:p2=0.02, 0.4
+  gunmod__cameraOffset:p3=0.0, 0.0, 0.0
+  gunmod__telesightOffset:p3=-0.2, 0.0, 0.0
+  gunmod__zoomPos:r=0.0
+  gunmod__cameraPos:r=0.0
+  gunmod__zoomTime:r=0.2
+  gunmod__isZoom:b=no
+  gunmod__minZoom:r=1.0
+  gunmod__maxZoom:r=2.0
+  gunmod__lookMaxZoom:r=2.0
+  gunmod__defaultMouseAimLimits:p2=45.0, 35.0
+  gunmod__zoomMouseAimLimits:p2=25.0, 15.0
 
   "gunmod__reticleTex:SharedTex"{
     _tags:t="render"

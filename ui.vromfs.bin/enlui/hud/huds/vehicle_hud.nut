@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { enabled, gear, neutralGear, rpm, cruiseControl, speed, isAutomaticTransmission
 } = require("%ui/hud/state/vehicle_view_state.nut")
 let { isVehicleAlive } = require("%ui/hud/state/vehicle_state.nut")
@@ -11,7 +11,7 @@ let mkText = @(txt) {
   padding = [0, hdpx(2)]
   minHeight = fsh(2)
   valign = ALIGN_BOTTOM
-}.__update(sub_txt)
+}.__update(fontSub)
 
 let mkLabel = @(txt) mkText(txt).__update({ minWidth = fsh(4) })
 

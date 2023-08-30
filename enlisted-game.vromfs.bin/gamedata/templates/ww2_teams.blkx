@@ -144,6 +144,7 @@ team_usa{
 
   "team__armies:list<t>"{
     army:t="normandy_allies"
+    army:t="common_usa"
   }
 
   "team__unitTemplates:object"{
@@ -185,6 +186,7 @@ team_germany{
 
   "team__armies:list<t>"{
     army:t="normandy_axis"
+    army:t="common_ger"
   }
 
   "team__unitTemplates:object"{
@@ -221,6 +223,7 @@ team_germany_winter{
 
   "team__armies:list<t>"{
     army:t="moscow_axis"
+    army:t="common_ger"
   }
 
   "team__unitTemplates:object"{
@@ -249,6 +252,7 @@ team_germany_berlin{
 
   "team__armies:list<t>"{
     army:t="berlin_axis"
+    army:t="common_ger"
   }
 
   "team__unitTemplates:object"{
@@ -308,6 +312,7 @@ team_ussr{
 
   "team__armies:list<t>"{
     army:t="moscow_allies"
+    army:t="common_ussr"
   }
 }
 
@@ -349,6 +354,7 @@ team_ussr_berlin{
 
   "team__armies:list<t>"{
     army:t="berlin_allies"
+    army:t="common_ussr"
   }
 }
 
@@ -385,6 +391,16 @@ team_ussr_winter{
 
   "team__armies:list<t>"{
     army:t="moscow_allies"
+    army:t="common_ussr"
+  }
+}
+
+team_japan{
+  _extends:t="team_germany"
+  paratroopersAircraftCrewAndPlaneTemplate:t="l2d_paratroopers+ai_aircraft_crew_jap"
+
+  "team__armies:list<t>"{
+    army:t="common_jap"
   }
 }
 
@@ -455,5 +471,9 @@ army_language{
     stalingrad_axis:t="de"
     pacific_allies:t="en"
     pacific_axis:t="jp"
+    common_ussr:t="ru"
+    common_usa:t="en"
+    common_ger:t="de"
+    common_jap:t="jp"
   }
 }

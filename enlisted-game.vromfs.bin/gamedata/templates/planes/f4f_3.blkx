@@ -15,7 +15,7 @@ f4f_3{
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="pilot_dm"
       cameraNodeName:t=""
-      cameraOffset:p3=-1.16, 1.255, 0.0
+      cameraOffset:p3=-1.25, 1.255, 0.0
       cockpitTemplate:t="f4f_3_driver_cockpit"
       roomSpace:i=0
 

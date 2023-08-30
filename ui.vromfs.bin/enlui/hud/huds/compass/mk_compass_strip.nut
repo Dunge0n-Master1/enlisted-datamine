@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {body_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontBody} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {DEFAULT_TEXT_COLOR} = require("%ui/hud/style.nut")
 let userPoints = require("%ui/hud/huds/compass/compass_user_point.nut")
 
@@ -56,7 +56,7 @@ let function compassElem(text, angle, scale, lineHeight=hdpx(10)) {
         color = DEFAULT_TEXT_COLOR
         opacity = (scale + 1.0) * 0.5
         text
-      }.__update(body_txt, {fontSize = hdpx(22 * scale)})
+      }.__update(fontBody, {fontSize = hdpx(22 * scale)})
     )
 
   return res

@@ -1,3 +1,7 @@
+import{
+  scene:t="content/enlisted/gamedata/scenes/_berlin_railway_sounds.blk"
+}
+
 entity{
   _template:t="battle_area_polygon_point"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [1366.44, 9.48918, 154.202]]

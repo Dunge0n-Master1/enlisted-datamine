@@ -5,7 +5,7 @@ let {
   REPLAY_DOWNLOAD_PROGRESS,
   REPLAY_DOWNLOAD_FAILED, REPLAY_DOWNLOAD_SUCCESS, replayDownload
 } = require("%enlist/replay/replayDownloadState.nut")
-let { records, isReplayProtocolValid } = require("%enlist/replay/replaySettings.nut")
+let { records, isReplayProtocolValid, initReplayStorage } = require("%enlist/replay/replaySettings.nut")
 let datacache = require("datacache")
 
 let DATACACHE_ERROR_TO_TEXT = {
@@ -76,5 +76,6 @@ eventbus.subscribe("replay.download", function(params) {
     downloadRequestId = "records"
     contentLen = -1
   })
+  initReplayStorage()
   datacache.request_entry("records", url)
 })

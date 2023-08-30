@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let faComp = require("%ui/components/faComp.nut")
 let { defTxtColor, defBgColor } = require("%enlSqGlob/ui/viewConst.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
@@ -11,7 +11,7 @@ let userName = @() {
   text = userInfo.value?.nameorig ?? ""
   watch = userInfo
   color = defTxtColor
-}.__update(body_txt)
+}.__update(fontBody)
 
 let userIcon = faComp("user", {
   hplace = ALIGN_RIGHT

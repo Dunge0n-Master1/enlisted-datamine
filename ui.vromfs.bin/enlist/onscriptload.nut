@@ -191,7 +191,7 @@ let dCtorBase = require("%enlist/debriefing/debriefingCtor.nut")
 let debriefingState = require("%enlist/debriefing/debriefingStateInMenu.nut")
 require("%enlist/debriefing/debriefingInMenu.nut")(dCtorBase, debriefingState)
 
-let fonts = require("%enlSqGlob/ui/fonts_style.nut")
+let fonts = require("%enlSqGlob/ui/fontsStyle.nut")
 require("%enlist/components/fontsDebugWnd.nut")(fonts)
 let debriefingDbg = require("%enlist/debriefing/debriefing_dbg.nut")
 debriefingDbg.init({

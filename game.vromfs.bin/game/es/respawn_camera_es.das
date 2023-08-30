@@ -268,3 +268,12 @@ def delete_respawn_non_active_respawn_cameras(evt : Event; eid aka activeCam_eid
   query() <| $ [es(REQUIRE=respawnCamera)] (eid aka oldCam_eid : EntityId)
     if oldCam_eid != activeCam_eid
       destroyEntity(oldCam_eid)
+
+[es(tag=gameClient)]
+def update_camera_target_pos(info : ParallelUpdateFrameDelayed;
+                             transform : float3x4;
+                             respawn_camera_target__posChangeDist : float;
+                             var respawn_camera_target__curLookPos : float3&)
+  if distance_sq(respawn_camera_target__curLookPos, transform[3]) > respawn_camera_target__posChangeDist
+    respawn_camera_target__curLookPos = transform[3]
+    update_respawn_cameras()

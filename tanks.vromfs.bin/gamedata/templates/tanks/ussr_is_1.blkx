@@ -8,6 +8,8 @@ ussr_is_1_common{
   _extends:t="tank_heavy_vehicle_tracks_sound"
   commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
   gunner_cam_limit__useCockpitDir:b=yes
+  item__iconOffset:p2=0.09, -0.0
+  item__iconScale:r=1.15
 
   "vehicle_seats__seats:shared:array"{
 
@@ -162,6 +164,7 @@ ussr_is_1_gunner_cockpit{
 
   "cockpit__slitTemplates:list<t>"{
     slit:t="ussr_tsh_15"
+    slit:t="default_periscope"
   }
 
   "cockpit__slitEids:list<eid>"{

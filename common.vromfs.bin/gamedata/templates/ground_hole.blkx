@@ -1,0 +1,33 @@
+ground_hole_box{
+  _extends:t="ground_hole"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  ground_hole_sphere_shape:b=no
+}
+
+ground_hole_sphere{
+  _extends:t="ground_hole"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  ground_hole_sphere_shape:b=yes
+}
+
+ground_hole_box_intersection{
+  _extends:t="ground_hole"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  ground_hole_sphere_shape:b=no
+  ground_hole_shape_intersection:b=yes
+  box_zone__boxMin:p3=-1.0, -1.0, -1.0
+  box_zone__boxMax:p3=1.0, 1.0, 1.0
+}
+
+ground_hole_sphere_intersection{
+  _extends:t="ground_hole"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  ground_hole_sphere_shape:b=yes
+  ground_hole_shape_intersection:b=yes
+  sphere_zone__radius:r=1.0
+}
+
+landmesh_hole_zone_box{
+  _extends:t="landmesh_hole_zone"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+}

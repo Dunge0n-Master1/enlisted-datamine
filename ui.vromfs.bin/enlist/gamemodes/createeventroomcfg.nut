@@ -3,7 +3,7 @@ let eventbus = require("eventbus")
 let matching_api = require("matching.api")
 let { matchingCall } = require("%enlist/matchingClient.nut")
 let { endswith } = require("string")
-let { getPlatformId } = require("%enlist/httpPkg.nut")
+let { getPlatformId } = require("%enlSqGlob/httpPkg.nut")
 let { nestWatched } = require("%dngscripts/globalState.nut")
 
 

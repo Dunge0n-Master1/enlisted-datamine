@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {sub_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontSub} = require("%enlSqGlob/ui/fontsStyle.nut")
 
 return function(opt, group, _xmbNode){
   return {
@@ -15,6 +15,6 @@ return function(opt, group, _xmbNode){
       behavior = Behaviors.TextArea
       color = Color(160,160,160)
       //maxContentWidth = pw(100)
-    }.__merge(sub_txt, type(opt.var?.value)=="table" ? opt.var.value : {})
+    }.__merge(fontSub, type(opt.var?.value)=="table" ? opt.var.value : {})
   }
 }

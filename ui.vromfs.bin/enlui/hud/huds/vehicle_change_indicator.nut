@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let faComp = require("%ui/components/faComp.nut")
 let {mkCountdownTimer} = require("%ui/helpers/timers.nut")
 let { DEFAULT_TEXT_COLOR } = require("%ui/hud/style.nut")
@@ -46,7 +46,7 @@ let function indicatorCtor(endTime, totalTime, text=null){
         hplace = ALIGN_CENTER
         textColor = DEFAULT_TEXT_COLOR
         pos = [0, fsh(3)]
-      }.__update(body_txt) : null
+      }.__update(fontBody) : null
     ]
   }
 

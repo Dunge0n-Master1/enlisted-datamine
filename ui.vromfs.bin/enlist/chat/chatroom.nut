@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let textInput = require("%ui/components/textInput.nut")
 let scrollbar = require("%ui/components/scrollbar.nut")
 let textButton = require("%ui/components/textButton.nut")
@@ -19,7 +19,7 @@ let function messageInLog(entry) {
     key = entry.timestamp
     margin = fsh(0.5)
     size = [flex(), SIZE_TO_CONTENT]
-  }.__update(sub_txt)
+  }.__update(fontSub)
 }
 
 
@@ -46,7 +46,7 @@ let function chatRoom(chatId) {
       placeholder = loc("chat/inputPlaceholder")
       margin = 0
       onReturn = doSendMessage
-    }.__update(sub_txt)
+    }.__update(fontSub)
     return {
       size = [flex(), SIZE_TO_CONTENT]
       children = textInput(chatMessage, options)
@@ -68,7 +68,7 @@ let function chatRoom(chatId) {
           valign = ALIGN_BOTTOM
           size = [SIZE_TO_CONTENT, flex()]
           halign = ALIGN_RIGHT
-          children = textButton(loc("chat/sendBtn"), doSendMessage, {margin=0}.__update(sub_txt))
+          children = textButton(loc("chat/sendBtn"), doSendMessage, {margin=0}.__update(fontSub))
         }
       ]
     }

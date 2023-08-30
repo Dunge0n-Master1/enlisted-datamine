@@ -870,7 +870,7 @@ entity{
 
 entity{
   _template:t="bomb_site_zone_chained_sphere+defend_zone_respawnbase"
-  transform:m=[[-0.00285909, 0.0, 0.999996] [0.0, 1.0, 0.0] [-0.999996, 0.0, -0.00285909] [-236.46, 17.3914, 1132.08]]
+  transform:m=[[-0.984508, 0.0, -0.175341] [0.0, 1.0, 0.0] [0.175341, 0.0, -0.984508] [-235.554, 17.1154, 1133.55]]
   groupName:t="sector_1_a"
   capzone__capRewardPartCap:r=1.8
   capzone__mustBeCapturedByTeam:i=1
@@ -890,7 +890,7 @@ entity{
   capzone__timeToDefuse:r=30.0
   capzone__timeToExplosion:r=40.0
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_03_without_antenna"
-  capzone__bombTransformLocalPos:m=[[-0.779429, 0.0, -0.626493] [0.0, 1.0, 0.0] [0.626493, 0.0, -0.779429] [-0.319519, -1.97894, -0.332153]]
+  capzone__bombTransformLocalPos:m=[[0.75157, 0.0, -0.659656] [0.0, 1.0, 0.0] [0.659656, -0.0, 0.75157] [0.382339, -1.72723, -0.257324]]
 
   "capzone__activateChoice:object"{
     sector_2_a:r=1.0
@@ -899,7 +899,7 @@ entity{
 
 entity{
   _template:t="bomb_site_zone_chained_sphere+defend_zone_respawnbase"
-  transform:m=[[0.885225, 0.0, -0.292867] [0.0, 1.0, 0.0] [0.295533, -0.0, 0.893283] [-262.065, 18.3216, 1061.87]]
+  transform:m=[[0.706627, 0.0, 0.608337] [0.0, 1.0, -0.0] [-0.613874, 0.0, 0.713059] [-260.571, 18.0764, 1062.89]]
   groupName:t="sector_1_a"
   capzone__capRewardPartCap:r=1.8
   capzone__mustBeCapturedByTeam:i=1
@@ -918,8 +918,8 @@ entity{
   capzone__timeToPlant:r=20.0
   capzone__timeToDefuse:r=30.0
   capzone__timeToExplosion:r=40.0
-  capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_01_without_antenna"
-  capzone__bombTransformLocalPos:m=[[-0.252031, 0.0, 0.967721] [0.0, 1.0, 0.0] [-0.967721, 0.0, -0.252031] [0.184296, -1.97894, -0.119629]]
+  capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_05_without_antenna"
+  capzone__bombTransformLocalPos:m=[[-0.959458, 0.0, 0.281854] [0.0, 1.0, 0.0] [-0.281854, 0.0, -0.959458] [0.197235, -1.68719, 0.0965576]]
 
   "capzone__activateChoice:object"{
     sector_2_a:r=1.0
@@ -1068,7 +1068,7 @@ entity{
 
 entity{
   _template:t="resupply_in_air_zone"
-  transform:m=[[-0.87017, 0.0, -0.492753] [0.0, 1.0, 0.0] [0.492753, 0.0, -0.87017] [-96.4374, 734.867, 3960.07]]
+  transform:m=[[-0.87017, 0.0, -0.492753] [0.0, 1.0, 0.0] [0.492753, 0.0, -0.87017] [-96.4374, 581.611, 3960.07]]
   resupply_zone__team:i=1
 }
 
@@ -1110,7 +1110,7 @@ entity{
 
 entity{
   _template:t="resupply_in_air_zone"
-  transform:m=[[0.119539, 0.0, 0.992829] [0.0, 1.0, 0.0] [-0.992829, 0.0, 0.119539] [1696.3, 770.447, -1303.06]]
+  transform:m=[[0.119539, 0.0, 0.992829] [0.0, 1.0, 0.0] [-0.992829, 0.0, 0.119539] [1696.3, 565.533, -1303.06]]
   resupply_zone__team:i=2
 }
 

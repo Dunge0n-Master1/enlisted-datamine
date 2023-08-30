@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {
   defBgColor, hoverTxtColor, defTxtColor, activeBgColor, hoverBgColor, blockedBgColor,
   vehicleListCardSize, smallPadding, listCtors
@@ -84,7 +84,7 @@ let amountText = @(count, sf, isSelected) {
     rendObj = ROBJ_TEXT
     color = txtColor(sf, isSelected)
     text = loc("common/amountShort", { count })
-  }.__update(sub_txt)
+  }.__update(fontSub)
 }
 
 let itemCountRarity = @(item, sf, isSelected) {
@@ -101,7 +101,7 @@ let itemCountRarity = @(item, sf, isSelected) {
 let isSameItem = @(item1, item2) (item1?.basetpl ?? "") == (item2?.basetpl ?? "")
 
 let function card(item, onClick = @(_item) null, onDoubleClick = @(_item) null) {
-  let isAllowed = (item.status.flags & CANT_USE) == 0
+  let isAllowed = !(item.status.flags & CANT_USE)
   let { isShowDebugOnly = false } = item
   let onHover = hoverHoldAction("unseenSoldierItem", item.basetpl,
     function(tpl) {
@@ -127,7 +127,7 @@ let function card(item, onClick = @(_item) null, onDoubleClick = @(_item) null) 
       }
 
       color = isSelected ? activeBgColor
-        : (sf & S_HOVER) ? hoverBgColor
+        : sf & S_HOVER ? hoverBgColor
         : isShowDebugOnly ? 0xFF003366
         : isAllowed ? defBgColor
         : blockedBgColor

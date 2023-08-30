@@ -8,7 +8,7 @@ let { mkSeasonTime } = require("%enlist/battlepass/rewardsPkg.nut")
 let { timeLeft } = require("%enlist/battlepass/bpState.nut")
 let { Bordered } = require("%ui/components/textButton.nut")
 let { setTooltip } = require("%ui/style/cursors.nut")
-let { h2_txt, tiny_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2, fontTiny } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { bigPadding, smallPadding, idleBgColor, accentTitleTxtColor, defTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
@@ -142,7 +142,7 @@ let rankToolTip = {
       {
         rendObj = ROBJ_TEXT
         text = loc("rank/title")
-      }.__update(h2_txt)
+      }.__update(fontHeading2)
       headerBlock
       {
         rendObj = ROBJ_TEXTAREA
@@ -157,7 +157,7 @@ let rankToolTip = {
           rendObj = ROBJ_TEXT
           text = loc("rank/needAchieve")
           color = accentTitleTxtColor
-        }.__update(tiny_txt)
+        }.__update(fontTiny)
       }
       {
         flow = FLOW_HORIZONTAL
@@ -174,7 +174,7 @@ let rankToolTip = {
           {
             rendObj = ROBJ_TEXT
             text = loc ("rank/rewardTip")
-          }.__update(tiny_txt)
+          }.__update(fontTiny)
         ]
       }
       Bordered(loc("BackBtn"), @() removeModalWindow(RANK_WND_UID),

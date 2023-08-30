@@ -149,6 +149,17 @@ def human_weap_interrupt_single_reload_es(info : ParallelUpdateFrameDelayed;
                               human_weap__isReloadRequested, immediately)
 
 
+[es(tag=server)]
+def gun_reload_interrupt_on_shoot(info : ParallelUpdateFrameDelayed;
+                                  human_weap__isReloading : bool;
+                                  human_weap__currentGunEid : EntityId;
+                                  human_net_phys : HumanActor&)
+  if human_weap__isReloading && human_net_phys.phys.appliedCT |> is_control_bit_set(HumanPhysControlType HCT_SHOOT)
+    query(human_weap__currentGunEid) <| $ [es] (gun_reload__stateAcceptsInterruptRequest : bool; var gun_reload__shouldInterrupt : bool&)
+      if gun_reload__stateAcceptsInterruptRequest
+        gun_reload__shouldInterrupt = true
+
+
 struct GunReloadData
   reloadStyle : GunReloadStyle
   prereq : bool

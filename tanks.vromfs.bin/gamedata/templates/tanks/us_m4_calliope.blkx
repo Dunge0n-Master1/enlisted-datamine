@@ -7,6 +7,8 @@ us_m4_sherman_calliope_common{
   commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
   gunner_cam_limit__useCockpitDir:b=yes
   item__iconOffset:p2=0.0, 0.15
+  armorThicknessHull:p3=50.0, 38.0, 38.0
+  armorThicknessTurret:p3=76.0, 50.0, 50.0
 
   "turrets__initAmmoDistribution:array"{
 
@@ -24,19 +26,6 @@ us_m4_sherman_calliope_common{
       slot:i=4
       count:i=7
     }
-  }
-
-  "bullet_holes__ignoreCollisionNodes:array"{
-    _tags:t="render"
-  }
-
-  "bullet_holes__movingCollisionNodes:array"{
-    _tags:t="render"
-    movingCollisionNodes:t="cls_turret_01"
-    movingCollisionNodes:t="turret_front"
-    movingCollisionNodes:t="turret_side"
-    movingCollisionNodes:t="gun_mask"
-    movingCollisionNodes:t="gun_mask_01"
   }
 
   "vehicle_seats__seats:shared:array"{
@@ -186,6 +175,13 @@ us_m4_sherman_calliope_commander_cockpit{
   "cockpit__slitZoomTime:list<r>"{
     slit:r=0.0
   }
+
+  "cockpit__slitTemplates:list<t>"{
+    slit:t="default_periscope"
+  }
+
+  "cockpit__slitEids:list<eid>"{
+  }
 }
 
 us_m4_sherman_calliope_gunner_cockpit{
@@ -254,6 +250,7 @@ us_m4_sherman_calliope_gunner_cockpit{
 
   "cockpit__slitTemplates:list<t>"{
     slit:t="us_m55_calliope"
+    slit:t="default_periscope"
   }
 
   "cockpit__slitEids:list<eid>"{

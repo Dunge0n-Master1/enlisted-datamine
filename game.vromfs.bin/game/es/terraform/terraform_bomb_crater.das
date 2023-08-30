@@ -98,20 +98,13 @@ def gather_ri_to_remove_in_crater_part(trace_up_height : float;
       if is_ri_pool_has_flag(handle, ri_pool_flags, RIPoolFlags Removable)
         push(ri_handles_to_remove, uint64(handle))
 
-def is_under_water(crater_pos : float2)
-  var isUnderwater = false
-  let hmapHeight = traceht_hmap(crater_pos)
-  let pos = float3(crater_pos.x, hmapHeight, crater_pos.y)
-  if !is_valid_water_height(traceht_water_at_time(pos, 0.0, get_sync_time(), isUnderwater))
-    isUnderwater = false
-  return isUnderwater
-
 def foreach_available_part(bomb_crater__position : float3;
                            bomb_crater__outerRadius : float;
                            bomb_crater__partRadius : float;
                            bomb_crater__gridWidth : int;
                            bomb_crater__availablePartsMask : uint64;
-                           cb : block<(part_pos : float2; part_radius : float) : void>)
+                           bomb_crater__availableDigPartsMask : uint64;
+                           cb : block<(part_pos : float2; part_radius : float; should_dig : bool) : void>)
   let craterPos = bomb_crater__position.xz
   let partSize = float2(bomb_crater__partRadius)
   let castPosStart = craterPos - float2(bomb_crater__outerRadius) + partSize
@@ -124,15 +117,33 @@ def foreach_available_part(bomb_crater__position : float3;
 
       if (bomb_crater__availablePartsMask & partMask) == partMask
         let partPos = castPosStart + partSize * float2(partIndexX, partIndexY) * 2.0
-        invoke(cb, partPos, bomb_crater__partRadius)
+        let shouldDig = (bomb_crater__availableDigPartsMask & partMask) == partMask
+        invoke(cb, partPos, bomb_crater__partRadius, shouldDig)
 
-def is_valid_place_for_crater(crater_pos : float3; outer_radius : float; max_height_at_land : float)
-  let craterPosXZ = crater_pos.xz
+def tracedown_height_inf(pos : float2; flags : int)
+  let traceFromHeight = 1e5f
+  var t = 2. * traceFromHeight
+  if !tracedown_normalized(float3(pos.x, traceFromHeight, pos.y), t, flags)
+    return -1e5f;
 
-  let lmeshHeight = traceht_lmesh(craterPosXZ)
-  if abs(crater_pos.y - lmeshHeight) > max_height_at_land
+  let height = traceFromHeight - t
+  return height
+
+def is_under_water(crater_pos : float2)
+  var isUnderwater = false
+  let height = tracedown_height_inf(crater_pos, ETF_LMESH | ETF_HEIGHTMAP | ETF_FRT)
+
+  let pos = float3(crater_pos.x, height, crater_pos.y)
+  if !is_valid_water_height(traceht_water_at_time(pos, 0.0, get_sync_time(), isUnderwater))
+    isUnderwater = false
+  return isUnderwater
+
+def is_valid_place_for_crater(crater_pos : float3; outer_radius : float; max_height_at_land : float; uncollide_offset)
+  var t = max_height_at_land + uncollide_offset
+  if !tracedown_normalized(crater_pos + float3(0., uncollide_offset, 0.), t, ETF_LMESH | ETF_HEIGHTMAP | ETF_FRT)
     return false
 
+  let craterPosXZ = crater_pos.xz
   for offsetX in range(-1, 2)
     for offsetZ in range(-1, 2)
       if is_under_water(craterPosXZ + float2(offsetX, offsetZ) * outer_radius)
@@ -242,6 +253,7 @@ def create_crater_by_damage_id(position : float3; damage_id : int; explosive_mas
                      bullet_crater_config__outerAltScale : float;
                      bullet_crater_config__maxHeightAtLand : float;
                      bullet_crater_config__explosiveMassToCraterRadius : Point2List;
+                     crater_config__uncollideOffset : float;
                      crater_config__scaleByPhysmats : Object)
     let bulletCraterExplosiveMassToCraterRadiusLen = length(bullet_crater_config__explosiveMassToCraterRadius)
     if bulletCraterExplosiveMassToCraterRadiusLen < 1
@@ -257,7 +269,7 @@ def create_crater_by_damage_id(position : float3; damage_id : int; explosive_mas
 
     let outerRadius = interpolate_by_point_list(bullet_crater_config__explosiveMassToCraterRadius, explosiveMass) * bullet_crater_config__outerRadiusScale
 
-    if is_valid_place_for_crater(position, outerRadius, bullet_crater_config__maxHeightAtLand)
+    if is_valid_place_for_crater(position, outerRadius, bullet_crater_config__maxHeightAtLand, crater_config__uncollideOffset)
       let innerRadius = outerRadius * bullet_crater_config__innerRadiusScale
       let innerDepth = -outerRadius * bullet_crater_config__innerDepthScale
       let outerAlt = outerRadius * bullet_crater_config__outerAltScale
@@ -298,6 +310,7 @@ def terraform_crater_on_bomb_explosion(evt : EventShellExplodedServer;
                      bomb_crater_config__outerAltScale : float;
                      bomb_crater_config__maxHeightAtLand : float;
                      bomb_crater_config__splashToCraterRadius : Point2List;
+                     crater_config__uncollideOffset : float;
                      crater_config__scaleByPhysmats : Object)
     using() <| $(var splashParams : SplashParams#)
       splashParams = calc_splash_params(int(launch_desc.shellId.shellId), false)
@@ -305,7 +318,7 @@ def terraform_crater_on_bomb_explosion(evt : EventShellExplodedServer;
       let position = evt.pos
       let outerRadius = interpolate_by_point_list(bomb_crater_config__splashToCraterRadius, splashParams.outerRadius) * bomb_crater_config__outerRadiusScale
 
-      if is_valid_place_for_crater(position, outerRadius, bomb_crater_config__maxHeightAtLand)
+      if is_valid_place_for_crater(position, outerRadius, bomb_crater_config__maxHeightAtLand, crater_config__uncollideOffset)
         let innerRadius = outerRadius * bomb_crater_config__innerRadiusScale
         let innerDepth = -outerRadius * bomb_crater_config__innerDepthScale
         let outerAlt = outerRadius * bomb_crater_config__outerAltScale
@@ -355,6 +368,7 @@ def process_bomb_crater_terraformer(crater_config__disabledPhysMatIds : IntList;
                                     bomb_crater_terraformer__mainPhysmatId : int;
                                     var bomb_crater_terraformer__processedPartsCount : int&;
                                     var bomb_crater_terraformer__availablePartsMask : uint64&;
+                                    var bomb_crater_terraformer__availableDigPartsMask : uint64&;
                                     var bomb_crater_terraformer__riHandlesToRemove : UInt64List&)
   let outerRadius = bomb_crater_terraformer__outerRadius
   let partRadius = outerRadius / float(bomb_crater_terraformer__gridWidth)
@@ -377,6 +391,7 @@ def process_bomb_crater_terraformer(crater_config__disabledPhysMatIds : IntList;
       set(init, "bomb_crater__outerAlt", bomb_crater_terraformer__outerAlt)
       set(init, "bomb_crater__partRadius", partRadius)
       set(init, "bomb_crater__availablePartsMask", bomb_crater_terraformer__availablePartsMask)
+      set(init, "bomb_crater__availableDigPartsMask", bomb_crater_terraformer__availableDigPartsMask)
       set(init, "bomb_crater__gridWidth", bomb_crater_terraformer__gridWidth)
       set(init, "bomb_crater__riHandlesToRemove", ri_handles_to_remove)
       set(init, "bomb_crater__mainPhysmatId", bomb_crater_terraformer__mainPhysmatId)
@@ -405,9 +420,11 @@ def process_bomb_crater_terraformer(crater_config__disabledPhysMatIds : IntList;
 
       let partPosXZ = castPosStart + partSize * float2(partIndexX, partIndexY) * 2.0
 
-      let hmapHeight = traceht_hmap(partPosXZ)
-      if hmapHeight > -1e5f
-        let partPos = float3(partPosXZ.x, min(bomb_crater_terraformer__position.y, hmapHeight), partPosXZ.y)
+      let lmesh_height = traceht_lmesh(partPosXZ)
+      let frt_height = tracedown_height_inf(partPosXZ, ETF_FRT)
+      let height = max(lmesh_height, frt_height)
+      if height > -1e5f
+        let partPos = float3(partPosXZ.x, min(bomb_crater_terraformer__position.y, height), partPosXZ.y)
         if can_terraform_bomb_crater_part(bomb_crater_terraformer__outerAlt,
                                           -bomb_crater_terraformer__innerDepth,
                                           partPos,
@@ -417,6 +434,8 @@ def process_bomb_crater_terraformer(crater_config__disabledPhysMatIds : IntList;
                                           crater_config__riPoolFlags)
           let partMask = (1ul << uint64(bomb_crater_terraformer__processedPartsCount))
           bomb_crater_terraformer__availablePartsMask |= partMask
+          if lmesh_height >= frt_height
+            bomb_crater_terraformer__availableDigPartsMask |= partMask
 
           gather_ri_to_remove_in_crater_part(bomb_crater_terraformer__outerAlt,
                                               -bomb_crater_terraformer__innerDepth,
@@ -441,6 +460,7 @@ def bomb_crater_terraformer_update(info : UpdateStageInfoAct; crater_config__dis
                           bomb_crater_terraformer__mainPhysmatId : int;
                           var bomb_crater_terraformer__processedPartsCount : int&;
                           var bomb_crater_terraformer__availablePartsMask : uint64&;
+                          var bomb_crater_terraformer__availableDigPartsMask : uint64&;
                           var bomb_crater_terraformer__riHandlesToRemove : UInt64List&)
     process_bomb_crater_terraformer(crater_config__disabledPhysMatIds,
                                     crater_config__riPoolFlags,
@@ -456,6 +476,7 @@ def bomb_crater_terraformer_update(info : UpdateStageInfoAct; crater_config__dis
                                     bomb_crater_terraformer__mainPhysmatId,
                                     bomb_crater_terraformer__processedPartsCount,
                                     bomb_crater_terraformer__availablePartsMask,
+                                    bomb_crater_terraformer__availableDigPartsMask,
                                     bomb_crater_terraformer__riHandlesToRemove)
     return true
 
@@ -466,6 +487,7 @@ def bomb_crater_apply(bomb_crater__position : float3;
                       bomb_crater__outerAlt : float;
                       bomb_crater__partRadius : float;
                       bomb_crater__availablePartsMask : uint64;
+                      bomb_crater__availableDigPartsMask : uint64;
                       bomb_crater__gridWidth : int;
                       bomb_crater__riHandlesToRemove : UInt64List;
                       bomb_crater__destroyRiCountPerFrame : int;
@@ -481,18 +503,21 @@ def bomb_crater_apply(bomb_crater__position : float3;
                           bomb_crater__outerRadius,
                           bomb_crater__partRadius,
                           bomb_crater__gridWidth,
-                          bomb_crater__availablePartsMask) <| $(part_pos : float2; part_radius : float)
-      terraform |> terraform_makeBombCraterPart(craterPos,
-                                                bomb_crater__innerRadius,
-                                                bomb_crater__innerDepth,
-                                                bomb_crater__outerRadius,
-                                                bomb_crater__outerAlt,
-                                                part_pos,
-                                                part_radius)
+                          bomb_crater__availablePartsMask,
+                          bomb_crater__availableDigPartsMask) <| $(part_pos : float2; part_radius : float; should_dig : bool)
+      if should_dig // Following call is digging! However decal applied also can have a heightmap effect.
+        terraform |> terraform_makeBombCraterPart(craterPos,
+                                                  bomb_crater__innerRadius,
+                                                  bomb_crater__innerDepth,
+                                                  bomb_crater__outerRadius,
+                                                  bomb_crater__outerAlt,
+                                                  part_pos,
+                                                  part_radius)
 
       broadcastEvent([[EventBombCraterPartTerraformed
         partPos=float3(part_pos.x, bomb_crater__position.y, part_pos.y),
-        partRadius=part_radius
+        partRadius=part_radius,
+        shouldDig=should_dig
       ]])
   else
     let lastRemovedCount = bomb_crater__riHandlesRemovedCount
@@ -515,6 +540,7 @@ def bomb_crater_apply(bomb_crater__position : float3;
       pos=bomb_crater__position,
       outerRadius=bomb_crater__outerRadius,
       availablePartsMask=bomb_crater__availablePartsMask,
+      availableDigPartsMask=bomb_crater__availableDigPartsMask,
       partsGridWidth=bomb_crater__gridWidth,
       mainPhysmatId=bomb_crater__mainPhysmatId
     ]])
@@ -532,6 +558,7 @@ def bomb_crater_apply_server_es(info : UpdateStageInfoAct; var terraform : Terra
                                                                bomb_crater__outerAlt : float;
                                                                bomb_crater__partRadius : float;
                                                                bomb_crater__availablePartsMask : uint64;
+                                                               bomb_crater__availableDigPartsMask : uint64;
                                                                bomb_crater__gridWidth : int;
                                                                bomb_crater__riHandlesToRemove : UInt64List;
                                                                bomb_crater__mainPhysmatId : int;
@@ -539,14 +566,16 @@ def bomb_crater_apply_server_es(info : UpdateStageInfoAct; var terraform : Terra
                                                                var bomb_crater__isTerraformed : bool&)
     if bomb_crater_apply(bomb_crater__position, bomb_crater__innerRadius, bomb_crater__innerDepth,
                          bomb_crater__outerRadius, bomb_crater__outerAlt, bomb_crater__partRadius,
-                         bomb_crater__availablePartsMask, bomb_crater__gridWidth, bomb_crater__riHandlesToRemove,
+                         bomb_crater__availablePartsMask, bomb_crater__availableDigPartsMask,
+                         bomb_crater__gridWidth, bomb_crater__riHandlesToRemove,
                          bomb_crater__removeRiCountPerFrame,
                          bomb_crater__mainPhysmatId,
                          bomb_crater__riHandlesRemovedCount,
                          bomb_crater__isTerraformed,
                          terraform)
       addSubTemplate(eid, "bomb_crater_applied_server")
-      print("bomb_crater applied: eid={eid} position={bomb_crater__position} outerRadius={bomb_crater__outerRadius} availablePartsMask={bomb_crater__availablePartsMask} riHandlesRemovedCount={bomb_crater__riHandlesRemovedCount}")
+      print("bomb_crater applied: eid={eid} position={bomb_crater__position} outerRadius={bomb_crater__outerRadius}
+             availablePartsMask={bomb_crater__availablePartsMask} availableDigPartsMask={bomb_crater__availableDigPartsMask} riHandlesRemovedCount={bomb_crater__riHandlesRemovedCount}")
     return true
 
 [es(tag=netClient, before=terraform_update_es)]
@@ -560,6 +589,7 @@ def bomb_crater_apply_client_es(info : UpdateStageInfoAct; var terraform : Terra
                                                                bomb_crater__outerAlt : float;
                                                                bomb_crater__partRadius : float;
                                                                bomb_crater__availablePartsMask : uint64;
+                                                               bomb_crater__availableDigPartsMask : uint64;
                                                                bomb_crater__gridWidth : int;
                                                                bomb_crater__riHandlesToRemove : UInt64List;
                                                                bomb_crater__mainPhysmatId : int;
@@ -567,7 +597,8 @@ def bomb_crater_apply_client_es(info : UpdateStageInfoAct; var terraform : Terra
                                                                var bomb_crater__isTerraformed : bool&)
     if bomb_crater_apply(bomb_crater__position, bomb_crater__innerRadius, bomb_crater__innerDepth,
                          bomb_crater__outerRadius, bomb_crater__outerAlt, bomb_crater__partRadius,
-                         bomb_crater__availablePartsMask, bomb_crater__gridWidth, bomb_crater__riHandlesToRemove,
+                         bomb_crater__availablePartsMask, bomb_crater__availableDigPartsMask,
+                         bomb_crater__gridWidth, bomb_crater__riHandlesToRemove,
                          bomb_crater__removeRiCountPerFrame,
                          bomb_crater__mainPhysmatId,
                          bomb_crater__riHandlesRemovedCount,

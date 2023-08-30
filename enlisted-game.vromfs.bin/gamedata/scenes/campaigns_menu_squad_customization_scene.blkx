@@ -419,10 +419,6 @@ entity{
 }
 
 entity{
-  _template:t="armor_analyzer"
-}
-
-entity{
   _template:t="menu_soldier_respawnbase"
   priority_order:i=2
   transform:m=[[0.996628, 0.0, -0.0820486] [0.0, 1.0, 0.0] [0.0820486, 0.0, 0.996628] [-18.1449, 9.09886, -70.2728]]

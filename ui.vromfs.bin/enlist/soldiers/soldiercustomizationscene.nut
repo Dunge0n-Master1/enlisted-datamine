@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let JB = require("%ui/control/gui_buttons.nut")
-let { body_txt, h2_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody, fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { defTxtColor, soldierWndWidth, bigPadding, titleTxtColor, smallPadding,
   blurBgColor, blurBgFillColor, maxContentWidth, slotBaseSize, commonBtnHeight
 } = require("%enlSqGlob/ui/viewConst.nut")
@@ -46,7 +46,7 @@ let leftBlockHeader = {
     hplace = ALIGN_CENTER
     text = loc("appearance/title")
     color = defTxtColor
-  }.__update(body_txt)
+  }.__update(fontBody)
 }
 
 let customizationCurrency = @() {
@@ -54,7 +54,7 @@ let customizationCurrency = @() {
   children = mkItemCurrency({
     currencyTpl = APPEARANCE_ORDER_TPL
     count = curCampItemsCount.value?[APPEARANCE_ORDER_TPL] ?? 0
-    textStyle = { color = defTxtColor, vplace = ALIGN_BOTTOM, fontSize = body_txt.fontSize }
+    textStyle = { color = defTxtColor, vplace = ALIGN_BOTTOM, fontSize = fontBody.fontSize }
   })
 }
 
@@ -67,7 +67,7 @@ let purchaseHeader = {
       text = loc("appearance/header")
       color = titleTxtColor
       hplace = ALIGN_CENTER
-    }.__update(body_txt)
+    }.__update(fontBody)
     {
       flow = FLOW_HORIZONTAL
       children = [
@@ -80,7 +80,7 @@ let purchaseHeader = {
       ]
     }
   ]
-}.__update(h2_txt)
+}.__update(fontHeading2)
 
 let purchaseItemWrapParams = {
   width = purchaseWndWidth
@@ -214,8 +214,9 @@ let chooseItemBlock = @(){
   padding = [bigPadding, 0]
   color = blurBgColor
   fillColor = blurBgFillColor
+  stopMouse = true
   xmbNode = XmbContainer({
-    canFocus = @() true
+    canFocus = true
     scrollSpeed = 5.0
     isViewport = true
   })
@@ -286,7 +287,7 @@ let rightBtnBlock = {
           rendObj = ROBJ_TEXT
           text = itemsToBuy.value.len() <= 0 ? null
             : loc("appearance/itemsInCart", { count = itemsToBuy.value.len() })
-        }.__update(h2_txt)
+        }.__update(fontHeading2)
         Bordered(loc("appearance/purchase"), function(){
             openPurchaseWnd()
           },{

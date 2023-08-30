@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontFontawesome, fontMedium, fontLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontawesome, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { disabledTxtColor, defTxtColor, titleTxtColor, commonBtnHeight, smallBtnHeight, defBdColor,
   commonBorderRadius, midPadding, hoverTxtColor, hoverPanelBgColor, accentColor, darkTxtColor,
   darkPanelBgColor, brightAccentColor, hoverSlotBgColor
@@ -101,12 +101,22 @@ let defButtonBg = @(sf, style, isEnabled) {
   borderColor = borderColor(sf, style, isEnabled)
 }
 
+let defTextCtor = function(text, params, _handler, group, sf) {
+  let { isEnabled = true, txtParams = fontBody, style = {} } = params
+  return {
+    rendObj = ROBJ_TEXT
+    text
+    group
+    color = textColor(sf, style, isEnabled)
+    margin = txtParams?.margin ?? [hdpx(10), hdpx(20)]
+  }.__update(txtParams)
+}
 
-let function textButton (text, handler, params={}) {
+let function textButton(text, handler, params={}) {
   let group = ElemGroup()
   let { stateFlags = Watched(0) } = params
   let {
-    txtParams = fontLarge, isEnabled = true, style = {}, bgComp = null, fgChild = null,
+    txtParams = fontBody, isEnabled = true, style = {}, bgComp = null, fgChild = null,
     btnHeight = commonBtnHeight, btnWidth = null, sound = {}, hint = null, onHoverFunc = null
   } = params
   let minWidth = btnWidth ?? SIZE_TO_CONTENT
@@ -115,12 +125,18 @@ let function textButton (text, handler, params={}) {
     local gamepadBtn = null
 
     if (gamepadHotkey != "") {
-      if ((sf & S_HOVER) != 0 || (sf & S_ACTIVE) != 0)
+      if ((sf & S_HOVER) || (sf & S_ACTIVE)) {
         gamepadHotkey = JB.A
+      }
       gamepadBtn = mkImageCompByDargKey(gamepadHotkey
         defHotkeyParams.__merge({ height = txtParams.fontSize}, params?.hotkeyParams ?? {}))
     }
     let bgChild = bgComp?(sf, isEnabled) ?? defButtonBg(sf, style, isEnabled)
+
+    let btnContent = text == null ? null
+      : type(text) == "function" ? text(null, params, handler, group, sf)
+      : defTextCtor(text, params, handler, group, sf)
+
     return {
       watch = [stateFlags, isGamepad]
       size = [btnWidth ?? SIZE_TO_CONTENT, btnHeight]
@@ -130,7 +146,6 @@ let function textButton (text, handler, params={}) {
       onElemState = @(v) stateFlags(v)
       halign = ALIGN_CENTER
       valign = ALIGN_CENTER
-      clipChildren = true
       behavior = Behaviors.Button
       onDetach = @() stateFlags(0)
       onHover = function(on) {
@@ -143,14 +158,17 @@ let function textButton (text, handler, params={}) {
 
       children = [
         bgChild
-        isGamepad.value ? gamepadBtn : null
         {
-          rendObj = ROBJ_TEXT
-          text = (type(text)=="function") ? text() : text
-          color = textColor(sf, style, isEnabled)
-          margin = [fsh(1), fsh(3)]
-          group
-        }.__update(txtParams)
+          flow = FLOW_HORIZONTAL
+          halign = ALIGN_CENTER
+          valign = ALIGN_CENTER
+          size = [btnWidth ?? SIZE_TO_CONTENT, btnHeight]
+          clipChildren = true
+          children = [
+            isGamepad.value ? gamepadBtn : null
+            btnContent
+          ]
+        }
         fgChild
       ]
     }.__merge(params)
@@ -160,17 +178,14 @@ let function textButton (text, handler, params={}) {
 }
 
 
-local defaultButton = @(text, handler, params = {}) textButton(text, handler, params)
-
 let export = class {
-  Default = @(_self, text, handler, params = {}) defaultButton(text, handler, params)
   Bordered = @(text, handler, params = {}) textButton(text, handler, params)
   Flat = @(text, handler, params = {}) textButton(text, handler, {
     style = { borderWidth = 0 }
   }.__merge(params))
   SmallBordered = @(text, handler, params = {}) textButton(text, handler, {
     btnHeight = smallBtnHeight
-    txtParams = fontMedium
+    txtParams = fontBody
   }.__merge(params))
   PressedBordered = @(text, handler, params = {}) textButton(text, handler, {
     style = pressedBtnStyle
@@ -181,7 +196,7 @@ let export = class {
       watch = isGamepad
       children = textButton(icon, handler, {
           btnWidth = commonBtnHeight
-          txtParams = fontFontawesome
+          txtParams = fontawesome
         }.__merge(params))
     }
   }
@@ -191,7 +206,7 @@ let export = class {
       watch = isGamepad
       children = textButton(icon, handler, {
           btnWidth = commonBtnHeight
-          txtParams = fontFontawesome
+          txtParams = fontawesome
           style = { borderWidth = 0 rendObj = ROBJ_WORLD_BLUR_PANEL }
         }.__merge(params))
     }
@@ -199,7 +214,6 @@ let export = class {
   Accented = @(text, handler, params = {}) textButton(text, handler, {
     style = { borderWidth = 0 }.__merge(accentBtnStyle)
   }.__merge(params))
-  setDefaultButton = function(buttonCtor) { defaultButton = buttonCtor }
 }()
 
 return export

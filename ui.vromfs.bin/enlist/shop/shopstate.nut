@@ -2,7 +2,6 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let isChineseVersion = require("%enlSqGlob/isChineseVersion.nut")
-let { configs } = require("%enlist/meta/configs.nut")
 let { curArmy, armySquadsById, armyItemCountByTpl } = require("%enlist/soldiers/model/state.nut")
 let { shopItems } = require("shopItems.nut")
 let { purchasesCount } = require("%enlist/meta/profile.nut")
@@ -95,8 +94,6 @@ let function isShopItemAvailable(shopItem, squads, purchases, permissions, notFr
 }
 
 let function mkShopState() {
-  let shopConfig = Computed(@() configs.value?.shop_config ?? {})
-
   let shownByTimestamp = Computed(function() {
     let res = {}
     let ts = curSwitchTime.value
@@ -111,7 +108,6 @@ let function mkShopState() {
     }
     return res
   })
-
 
   let curArmyItemsPrefiltered = Computed(function() {
     let armyId = curArmy.value
@@ -163,7 +159,6 @@ let function mkShopState() {
       || storeId != "" || devStoreId != ""//Consoles type
   }
 
-
   let bpGroupsChapters = {
     weapon_battlepass_group = 0
     soldier_battlepass_group = 1
@@ -205,9 +200,9 @@ let function mkShopState() {
       id = "premium"
       reqFeatured = true
       autoseenDelay = true
-      filterFunc = @(shopItem) hasPriceContainsSpecOrders(shopItem)
+      filterFunc = @(shopItem) (hasPriceContainsSpecOrders(shopItem)
         || (!hasPriceContainsOrders(shopItem)
-          && (hasPriceContainsGold(shopItem) || isExternalPurchase(shopItem)))
+          && (hasPriceContainsGold(shopItem) || isExternalPurchase(shopItem))))
     }
     {
       id = "battlepass"
@@ -339,7 +334,6 @@ let function mkShopState() {
     curShopItemsByGroup
     curShopDataByGroup
     curFeaturedByGroup
-    shopConfig
     switchGroup
     autoSwitchNavigation
     shownByTimestamp
@@ -358,5 +352,6 @@ return {
   setAutoChapter = @(chapter) curSelectionShop({chapter})
 
   isShopItemAvailable
+  canBarterItem
   isTemporaryVisible
 }

@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {
   mkGrenadeIcon, mkMineIcon, mkMemberHealsBlock, mkStatusIcon, mkAiActionIcon,
   mkMemberFlaskBlock
@@ -64,7 +64,7 @@ return @(member, isHero, _radius) function(_curIdx, _idx) {
   let nameColor = !isAlive ? DEAD_TEXT_COLOR
                              : isHero ? SUCCESS_TEXT_COLOR
                              : DEFAULT_TEXT_COLOR
-  let name = mkName(member, nameColor).__update(sub_txt)
+  let name = mkName(member, nameColor).__update(fontSub)
   let icon = statusIcon(member, isHero)
   let equipment = isAlive ? equipmentStatusRow(member) : null
 

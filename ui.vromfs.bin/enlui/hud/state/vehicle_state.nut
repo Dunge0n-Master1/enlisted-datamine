@@ -42,6 +42,13 @@ let actionsDefValue = freeze({
 let { actionsState, actionsStateSetValue } = mkFrameIncrementObservable(actionsDefValue, "actionsState")
 let actionsExport = watchedTable2TableOfWatched(actionsState)
 
+let planeStateDefValue = freeze({
+  isFlapsCritical = false
+  isOverloadCritical = false
+})
+let { planeState, planeStateSetValue } = mkFrameIncrementObservable(planeStateDefValue, "planeState")
+let planeStateExport = watchedTable2TableOfWatched(planeState)
+
 local lastInitedStateEid = ecs.INVALID_ENTITY_ID
 
 ecs.register_es("ui_in_vehicle_eid_es",
@@ -143,7 +150,25 @@ ecs.register_es("ui_vehicle_state_es",
   { updateInterval = 0.5, before="*", after="*" }
 )
 
-return rolesExport.__merge(actionsExport, {
+ecs.register_es("ui_plane_state_es",
+  {
+    [["onInit", "onChange"]] = function (_, comp) {
+      planeStateSetValue({
+        isFlapsCritical = comp.plane__flapsCritical
+        isOverloadCritical = comp.plane__overloadCritical
+      })
+    }
+  },
+  {
+    comps_track = [
+      ["plane__flapsCritical", ecs.TYPE_BOOL, false],
+      ["plane__overloadCritical", ecs.TYPE_BOOL, false],
+    ],
+    comps_rq = ["vehicleWithWatched"]
+  }
+)
+
+return rolesExport.__merge(actionsExport, planeStateExport, {
   inTank, inPlane, inShip, inGroundVehicle, isVehicleAlive, isVehicleCanBeRessuplied, isPlaneOnCarrier, controlledVehicleEid,
   vehicleResupplyType,
   inVehicle = Computed(@() inGroundVehicle.value || inPlane.value)

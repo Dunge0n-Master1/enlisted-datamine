@@ -2,12 +2,13 @@ require ecs
 require game.es.events
 require game.events_game
 require inventory
+require game.es.inventory_common
 
 
 [es(tag=server)]
 def human_inventory_died_es(evt : EventAnyEntityDied)
   if !evt.victim |> has("noLootDropOnDeath")
-    drop_loot(evt.victim, true, true)
+    drop_loot2(evt.victim, true)
 
 
 [es(tag=server, no_order)]

@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let hoverHoldAction = require("%darg/helpers/hoverHoldAction.nut")
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { makeVertScroll } = require("%ui/components/scrollbar.nut")
 let { receiveTaskRewards } = require("taskListState.nut")
 let { weeklyTasks, saveFinishedWeeklyTasks, triggerBPStarsAnim
@@ -76,7 +76,7 @@ let function mkTaskExpireTimer(expireTime) {
             rendObj = ROBJ_TEXT
             text = loc("unlock/expireHeader")
             color = activeTxtColor
-          }.__update(sub_txt)
+          }.__update(fontSub)
           {
             flow = FLOW_HORIZONTAL
             gap = bigPadding
@@ -87,7 +87,7 @@ let function mkTaskExpireTimer(expireTime) {
                 rendObj = ROBJ_TEXT
                 text = expireText.value
                 color = taskProgressColor
-              }.__update(sub_txt)
+              }.__update(fontSub)
             ]
           }
         ]
@@ -157,7 +157,7 @@ return {
       size = [flex(), SIZE_TO_CONTENT]
       minHeight = ph(100)
       xmbNode = XmbContainer({
-        canFocus = @() false
+        canFocus = false
         scrollSpeed = 5
         isViewport = true
         wrap = false

@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let { secondsToHoursLoc } = require("%ui/helpers/time.nut")
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { smallPadding, bigPadding, defTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 
@@ -13,7 +13,7 @@ let typeImgPW = 100.0 * 100 / 170
 let typeImgPH = 100.0 * 100 / 210
 let typeImgOffsetPH = 100.0 * 14 / 210
 
-let defOverride = { color = defTxtColor }.__update(sub_txt)
+let defOverride = { color = defTxtColor }.__update(fontSub)
 
 let imgBooster = "ui/skin#/battlepass/boost_global.avif"
 let durationIconSize = hdpxi(20)
@@ -21,7 +21,7 @@ let durationIconSize = hdpxi(20)
 let durationBoosterBlock = txt({
   text = loc("booster/duration")
   margin = [0, hdpx(35), 0, 0]
-}).__update(sub_txt)
+}).__update(fontSub)
 
 let function mkDurationInfo(icon, text, override = {}) {
   let color  = override?.color ?? defTxtColor
@@ -40,7 +40,7 @@ let function mkDurationInfo(icon, text, override = {}) {
       {
         rendObj = ROBJ_TEXT
         text
-      }.__update(sub_txt, override)
+      }.__update(fontSub, override)
     ]
   }
 }
@@ -60,7 +60,7 @@ let mkXpBooster = @(override = {}) {
   }
 }.__update(override)
 
-let function mkBoosterInfo(booster, override = sub_txt) {
+let function mkBoosterInfo(booster, override = fontSub) {
   let { expMul = 0 } = booster
   return expMul <= 0 ? null
     : {

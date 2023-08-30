@@ -1,9 +1,10 @@
 from "%enlSqGlob/ui_library.nut" import *
-let { sub_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { defTxtColor, bigPadding, unitSize, warningColor, smallOffset, blurBgColor,
   commonBtnHeight, rarityColors
 } = require("%enlSqGlob/ui/viewConst.nut")
-let { hoverSlotBgColor, panelBgColor, accentColor } = require("%enlSqGlob/ui/designConst.nut")
+let { hoverSlotBgColor, panelBgColor, accentColor, selectedPanelBgColor
+} = require("%enlSqGlob/ui/designConst.nut")
 let { WindowBd } = require("%ui/style/colors.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let faComp = require("%ui/components/faComp.nut")
@@ -25,13 +26,12 @@ let JB = require("%ui/control/gui_buttons.nut")
 const WND_UID = "item_transfer_msg"
 let costHeight = hdpx(60)
 let colorGray = Color(30, 44, 52)
-let selectedColor = mul_color(panelBgColor, 1.25)
 
 let transferStatus = Watched(null)
 let close = @() removeModalWindow(WND_UID)
 let waitingSpinner = spinner(hdpx(35))
 
-let textArea = @(text, style = body_txt) {
+let textArea = @(text, style = fontBody) {
   size = [hdpx(800), SIZE_TO_CONTENT]
   rendObj = ROBJ_TEXTAREA
   behavior = Behaviors.TextArea
@@ -80,9 +80,9 @@ let armySlotWidth = fsh(25)
 let function mkArmy(variant, isSelected, onClick = null) {
   let { armyId, isTransferAllowed, armyName, campaignName } = variant
   return watchElemState(function(sf) {
-    let color = (sf & S_HOVER) ? colorGray : hoverSlotBgColor
-    let bgColor = (sf & S_HOVER) ? hoverSlotBgColor
-      : isSelected.value ? selectedColor
+    let color = sf & S_HOVER ? colorGray : hoverSlotBgColor
+    let bgColor = sf & S_HOVER ? hoverSlotBgColor
+      : isSelected.value ? selectedPanelBgColor
       : panelBgColor
     let icon = isSelected.value
       ? mkArmyIcon(armyId, armyIconSize, {margin = 0})
@@ -111,8 +111,8 @@ let function mkArmy(variant, isSelected, onClick = null) {
             {
               flow = FLOW_VERTICAL
               children = [
-                txt({ text = armyName, color }.__update(sub_txt))
-                txt({ text = campaignName, color }.__update(sub_txt))
+                txt({ text = armyName, color }.__update(fontSub))
+                txt({ text = campaignName, color }.__update(fontSub))
               ]
             }
             isTransferAllowed ? null
@@ -177,7 +177,7 @@ let costNotEnough = @(currencyTpl, count) {
       text = loc("needMoreOrders")
       hplace = ALIGN_CENTER
       color = warningColor
-    }.__update(sub_txt))
+    }.__update(fontSub))
     mkItemCurrency({ currencyTpl, count })
   ]
 }
@@ -191,7 +191,7 @@ let costAvailable = @(currencyTpl, count) {
       text = loc("shop/willCostYou")
       hplace = ALIGN_CENTER
       color = defTxtColor
-    }.__update(sub_txt))
+    }.__update(fontSub))
     mkItemCurrency({ currencyTpl, count })
   ]
 }
@@ -207,7 +207,7 @@ let mkTransferCost = @(selVariant, missOrders, costCfg) @() {
         text = selVariant.value.transferError
         color = warningColor
         hplace = ALIGN_CENTER
-      }.__update(sub_txt))
+      }.__update(fontSub))
     : missOrders.value > 0 ? costNotEnough(costCfg.value.orderTpl, missOrders.value)
     : costAvailable(costCfg.value.orderTpl, costCfg.value.orderRequire)
 }
@@ -272,7 +272,7 @@ let function mkTransferContent(item, moveVariants, requiredOrders) {
     halign = ALIGN_CENTER
     gap = smallOffset
     children = [
-      textArea(loc("transferReqArmyLevel/desc"), sub_txt)
+      textArea(loc("transferReqArmyLevel/desc"), fontSub)
       @() {
         watch = [curCampItemsCount, costCfg]
         flow = FLOW_HORIZONTAL

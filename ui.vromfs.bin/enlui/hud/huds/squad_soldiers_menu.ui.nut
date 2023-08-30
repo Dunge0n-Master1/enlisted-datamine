@@ -14,7 +14,7 @@ let squadSoldiersMenu = mkPieMenu({
   elemSize = elemSize
 })
 
-let squadBehaviorPanel = {
+let squadBehaviorPanel = @() {
   watch = radius
   size = [radius.value * 2, 0]
   pos = [radius.value * 2 + hdpx(10), hdpx(90)]

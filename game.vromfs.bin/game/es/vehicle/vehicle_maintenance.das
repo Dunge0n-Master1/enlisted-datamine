@@ -12,10 +12,11 @@ require enlisted.events_enlisted
 require AnimV20
 require GeomNodeTree
 require CollRes
+require DngHuman
 require DagorSystem
 require HumanPhys
 require danetlibs.native_dasevents.main.native_events
-
+require common_shooter.events_common_shooter
 
 [es(tag=gameClient, REQUIRE=input__enabled)]
 def find_maintainable_object(info : ParallelUpdateFrameDelayed;
@@ -25,8 +26,6 @@ def find_maintainable_object(info : ParallelUpdateFrameDelayed;
                              var maintenance__hasTarget : bool&;
                              var maintenance__targetNeedsRepair : bool&;
                              var maintenance__targetNeedsExtinguishing : bool&;
-                             human_net_phys__isHctAim : bool;
-                             human_net_phys__isHctShoot : bool;
                              human_net_phys__states : int;
                              human_use_object__nodeId : int;
                              human_use_object__useDist : float;
@@ -64,7 +63,7 @@ def find_maintainable_object(info : ParallelUpdateFrameDelayed;
 
 
   let isHumanJumping = ((uint(human_net_phys__states) & uint(StateFlag ST_JUMP)) != 0u)
-  let isMaintenanceInterrupted = human_net_phys__isHctAim || human_net_phys__isHctShoot || isHumanJumping
+  let isMaintenanceInterrupted =  isHumanJumping
   let isNeedStopMaintenance = !!maintenance__target && (newMaintenanceTarget != maintenance__target || isMaintenanceInterrupted)
   if isNeedStopMaintenance
     sendEvent(eid, [[CmdStopMaintenance target=maintenance__target]])
@@ -94,7 +93,7 @@ def find_maintainable_object_event(evt : EventEnterVehicle;
 
 [es(tag=server, REQUIRE=maintenance__target)]
 def maintenance_net_start(evt : RequestStartMaintenance; eid : EntityId)
-  sendEvent(eid, [[CmdStartMaintenance target=evt.target]])
+  sendEvent(eid, [[CmdStartMaintenance target=evt.target, partId=evt.partId]])
 
 [es(tag=server, REQUIRE=maintenance__target)]
 def maintenance_net_stop(evt : RequestStopMaintenance; eid : EntityId)
@@ -104,7 +103,7 @@ def maintenance_net_stop(evt : RequestStopMaintenance; eid : EntityId)
 def request_start_maintenance_client(evt : CmdStartMaintenance; eid : EntityId; isInVehicle : bool)
   if isInVehicle
     return
-  send_net_event(eid, [[RequestStartMaintenance target=evt.target]])
+  send_net_event(eid, [[RequestStartMaintenance target=evt.target, partId=evt.partId]])
 
 [es(tag=netClient)]
 def request_stop_maintenance_client(evt : CmdStopMaintenance; eid : EntityId)
@@ -133,7 +132,70 @@ def maintenance_dispatcher_start(evt : CmdStartMaintenance;
       elif canRepair
         sendEvent(eid, [[CmdHeroLogEvent event="repair_blocked_by_fire", text="repair_blocked_by_fire"]])
     elif canRepair
-      sendEvent(eid, [[CmdStartRepair target=maintenance__target]])
+      sendEvent(eid, [[CmdRepairKitWeaponUse target=maintenance__target, partId=evt.partId]])
+    elif !repair__hasRepairKit
+      sendEvent(eid, [[CmdHeroLogEvent event="repair_blocked_no_parts", text="repair_blocked_no_parts"]])
+
+
+def find_repair_weapon_in_inventory(itemContainer : EidList)
+  for itemEid in itemContainer
+    if has(itemEid, "repairKitWeapon")
+      return itemEid
+  return INVALID_ENTITY_ID
+
+
+[es(tag=server, on_appear, track=repair__hasRepairKit)]
+def create_repair_kit_weapon(evt : Event;
+                             eid : EntityId;
+                             repair__hasRepairKit : bool;
+                             itemContainer : EidList;
+                             var repair__repairKitWeapCreated : bool&)
+  if !repair__hasRepairKit || repair__repairKitWeapCreated
+    return
+  if !repair__repairKitWeapCreated && !find_repair_weapon_in_inventory(itemContainer)
+    repair__repairKitWeapCreated = true
+    createEntity("repair_kit_item_weapon") <| $(var init : ComponentsInitializer)
+      set(init, "item__lastOwner", eid)
+      set(init, "item__ownerEid", eid)
+      set(init, "gun__owner", eid)
+
+[es(on_event=CmdStartMaintenance)]
+def maintenance_on_create_repair_weap(evt : Event;
+                                      eid : EntityId;
+                                      repair__hasRepairKit : bool;
+                                      human_net_phys : HumanActor;
+                                      itemContainer : EidList;
+                                      human_weap__gunEids : EidList;
+                                      var forcedNextInventoryGunEid : EntityId&)
+  assume ct = human_net_phys.phys.producedCT
+  assume specialWeapon = human_weap__gunEids[int(HUWeaponSlots EWS_SPECIAL)]
+
+  if repair__hasRepairKit
+    if ct.chosenWeapon != HUWeaponSlots EWS_SPECIAL
+      sendEvent(eid, [[HumanWeapSetCurrentGun slot=uint8(HUWeaponSlots EWS_SPECIAL)]])
+    if !has(specialWeapon, "repairKitWeapon")
+      forcedNextInventoryGunEid = find_repair_weapon_in_inventory(itemContainer)
+      send_net_event(eid, [[CmdNextSpecialGun]])
+
+[es(tag=gameClient, on_disappear, REQUIRE=(watchedPlayerItem, repairKitWeapon))]
+def maintenance_on_destroy_repair_weap(evt : Event;
+                                       gun__owner : EntityId)
+  query(gun__owner) <| $ [es] (human_net_phys : HumanActor;
+                               human_weap__gunEids : ecs::EidList)
+    assume ct = human_net_phys.phys.producedCT
+    if ct.chosenWeapon != HUWeaponSlots EWS_SPECIAL
+      return
+    for i, gunEid in iter_range(human_weap__gunEids), human_weap__gunEids
+      if !!gunEid
+        sendEvent(gun__owner, [[HumanWeapSetCurrentGun slot=uint8(i)]])
+        return
+
+[es(tag=server)]
+def maintenance_create_repair_weap(evt : CmdRepairKitWeaponUse;
+                                   eid : EntityId;
+                                   human_weap__currentGunEid : EntityId)
+  if has(human_weap__currentGunEid, "repairKitWeapon")
+    sendEvent(eid, [[CmdStartRepair target=evt.target, partId=evt.partId]])
 
 [es(tag=server, REQUIRE=maintenance__target)]
 def maintenance_dispatcher_stop(evt : CmdStopMaintenance;

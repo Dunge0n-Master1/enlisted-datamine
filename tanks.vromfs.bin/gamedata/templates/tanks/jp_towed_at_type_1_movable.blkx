@@ -20,9 +20,9 @@ jp_towed_at_type_1_movable_common{
 
   "dm_phys_parts__wheels:array"{
     wheel:t="wheel_l_01"
-    wheel:t="wheel_l_02"
+    wheel:t="wheel_l_01"
     wheel:t="wheel_r_01"
-    wheel:t="wheel_r_02"
+    wheel:t="wheel_r_01"
   }
 
   "dm_phys_parts__engine:array"{

@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { addContextMenu } = require("%ui/components/contextMenu.nut")
 let { showMsgbox, showMessageWithContent } = require("%enlist/components/msgbox.nut")
-let { body_txt, h2_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody, fontHeading2} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {
   roomMembers, room, startSession, connectToHost, canOperateRoom, leaveRoom,
   lobbyStatus, LobbyStatus, isLocalDedicated, canStartWithLocalDedicated, roomTeamArmies,
@@ -99,7 +99,7 @@ let mkStatus = @(text){
   color = accentColor
   behavior = Behaviors.TextArea
   text
-}.__update(body_txt)
+}.__update(fontBody)
 
 let mkStatusWithSpinner = @(text){
   flow = FLOW_HORIZONTAL
@@ -112,7 +112,7 @@ let mkStatusWithSpinner = @(text){
       rendObj = ROBJ_TEXT
       color = accentColor
       text
-    }.__update(body_txt)
+    }.__update(fontBody)
   ]
 }
 
@@ -386,7 +386,7 @@ let battleButtonParams = {
   halign = ALIGN_CENTER
   margin = 0
   borderWidth = hdpx(0)
-  textParams = { rendObj=ROBJ_TEXT }.__update(h2_txt)
+  textParams = { rendObj=ROBJ_TEXT }.__update(fontHeading2)
   style = { BgNormal = accentColor }
   hotkeys = [["^J:Y", { description = { skip = true }}]]
 }
@@ -440,7 +440,7 @@ let function showPenaltyWarn(expTime) {
       behavior = Behaviors.TextArea
       halign = ALIGN_CENTER
       text = timeText.value
-    }.__update(body_txt)
+    }.__update(fontBody)
     buttons = [{ text = loc("Ok"), isCancel = true }]
   })
 }
@@ -461,7 +461,7 @@ let localDedicCheckbox = checkbox(isLocalDedicated,
   {
     text = loc("Start local dedicated")
     color = defTxtColor
-  }.__update(body_txt))
+  }.__update(fontBody))
 
 
 let readyButton = mkBattleButton(loc("contact/Ready"), function(){

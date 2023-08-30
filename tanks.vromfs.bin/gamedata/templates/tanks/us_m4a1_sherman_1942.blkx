@@ -155,6 +155,13 @@ us_m4a1_sherman_1942_commander_cockpit{
   "cockpit__slitZoomTime:list<r>"{
     slit:r=0.0
   }
+
+  "cockpit__slitTemplates:list<t>"{
+    slit:t="default_periscope"
+  }
+
+  "cockpit__slitEids:list<eid>"{
+  }
 }
 
 us_m4a1_sherman_1942_gunner_cockpit{

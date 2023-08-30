@@ -49,6 +49,10 @@ hit_basic_bush_green_effect{
 
   _group{
     _tags:t="render"
+    effect__lowestFxQuality:i=1
+    usePaintColor:b=yes
+    paintFromLevelRiColors:b=yes
+    effect__riPoolUsedForColoring:i=-1
     effect__name:t="hit_basic_bush_green_cmps_fx"
   }
 }
@@ -58,6 +62,10 @@ hit_basic_bush_fall_effect{
 
   _group{
     _tags:t="render"
+    effect__lowestFxQuality:i=1
+    usePaintColor:b=yes
+    paintFromLevelRiColors:b=yes
+    effect__riPoolUsedForColoring:i=-1
     effect__name:t="hit_basic_bush_fall_cmps_fx"
   }
 }
@@ -67,6 +75,7 @@ hit_basic_bush_dead_effect{
 
   _group{
     _tags:t="render"
+    effect__lowestFxQuality:i=1
     effect__name:t="hit_basic_bush_dead_cmps_fx"
   }
 }
@@ -76,6 +85,7 @@ hit_basic_bush_snow_effect{
 
   _group{
     _tags:t="render"
+    effect__lowestFxQuality:i=1
     effect__name:t="hit_basic_bush_snow_cmps_fx"
   }
 }
@@ -85,6 +95,10 @@ hit_basic_bush_palm_effect{
 
   _group{
     _tags:t="render"
+    effect__lowestFxQuality:i=1
+    usePaintColor:b=yes
+    paintFromLevelRiColors:b=yes
+    effect__riPoolUsedForColoring:i=-1
     effect__name:t="hit_basic_bush_palm_cmps_fx"
   }
 }
@@ -94,6 +108,7 @@ hit_basic_cactus_effect{
 
   _group{
     _tags:t="render"
+    effect__lowestFxQuality:i=1
     effect__name:t="hit_basic_cactus_cmps_fx"
   }
 }

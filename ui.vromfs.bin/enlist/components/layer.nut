@@ -1,6 +1,5 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-#explicit-this
 
 /*
 This is a ui manager of ui components that can handle reload of scripts by keeping it in persis table

@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { DM_PROJECTILE, DM_MELEE, DM_EXPLOSION, DM_ZONE, DM_COLLISION, DM_HOLD_BREATH,
   DM_FIRE, DM_GAS, DM_BACKSTAB, DM_BARBWIRE } = require("dm")
 let { killLogState } = require("%ui/hud/state/kill_log_es.nut")
@@ -14,7 +14,7 @@ let { rnd_int } = require("dagor.random")
 
 const MIN_RANK_TO_SHOW = 15
 
-let commonFont = is_console ? body_txt : sub_txt
+let commonFont = is_console ? fontBody : fontSub
 
 let textElem = @(text, color = null) {
   rendObj = ROBJ_TEXT, text, color

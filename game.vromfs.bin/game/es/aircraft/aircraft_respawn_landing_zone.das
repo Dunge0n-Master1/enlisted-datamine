@@ -54,8 +54,12 @@ def respawn_plane(plane_eid : EntityId; transform : float3x4; is_water_spawn : b
   tm := transform
   orthonormalize(tm)
 
-  send_net_event(plane_eid, [[CmdResupplyVehicle]])
   send_net_event(plane_eid, [[CmdResetupVehicle setupOnWater=is_water_spawn, tm=tm, speed=0.0]])
+
+def start_resupply_timer(plane_eid : EntityId; time : float)
+  query(plane_eid) <| $ [es] (var resupplyAtTime : float&; var resupplyStarted : bool&)
+    resupplyAtTime = time
+    resupplyStarted = true
 
 def is_valid_respawn(subtype : string; valid_subtypes : StringList const?)
   return valid_subtypes == null || length(*valid_subtypes) == 0 || find_index(*valid_subtypes, subtype) >= 0
@@ -130,6 +134,7 @@ def plane_landing_check_if_landed(evt : CmdPostPhysUpdate;
                                                            sphere_zone__radius : float;
                                                            landing_zone__maxSpeed : float = 10.0;
                                                            landing_zone__respawnAfterTime : float = 10.0;
+                                                           landing_zone__resupplyDelay : float = 1.0;
                                                            landing_zone__isWater : Tag const?;
                                                            team : int = TEAM_UNASSIGNED)
     let isSpeedLow = plane_net_phys.phys.speed < landing_zone__maxSpeed
@@ -148,6 +153,7 @@ def plane_landing_check_if_landed(evt : CmdPostPhysUpdate;
         plane_landing__timeAfterLanding = 0.0
         plane_landing__respawnInProgress = true
         respawn_plane(plane_eid, zone_transform, isWaterRespawn)
+        start_resupply_timer(plane_eid, get_sync_time() + landing_zone__resupplyDelay)
       return true
     return false
 

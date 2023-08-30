@@ -5,6 +5,7 @@ require DagorSystem
 require DagorMath
 require GamePhys
 require DngPhysObj
+require enlisted.events_enlisted
 
 [es(on_appear)]
 def init_train_wheels(evt : Event;
@@ -31,7 +32,7 @@ def init_train_wheels(evt : Event;
     train__wheelRotations |> clear()
 
 [es(REQUIRE=train, no_order)]
-def rotate_train_wheels_es(info : UpdateStageInfoAct;
+def rotate_train_wheels_es(info : ParallelUpdateFrameDelayed;
                            var animchar : AnimcharBaseComponent;
                            phys_obj_net_phys : PhysObjActor;
                            train__wheelNodeIds : IntList)

@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { landing_zones_GetWatched, landing_zones_Set } = require("%ui/hud/state/aircraft_respawn_landing_zones_state.nut")
 let { DEFAULT_TEXT_COLOR } = require("%ui/hud/style.nut")
 let { safeAreaVerPadding, safeAreaHorPadding } = require("%enlSqGlob/safeArea.nut")
@@ -104,7 +104,7 @@ let function distanceText(eid, radius) {
     targetEid = eid
     radius
     minDistance = 0
-  }.__update(sub_txt)
+  }.__update(fontSub)
 }
 
 let pointerColor = Color(200,200,200)

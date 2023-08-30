@@ -4,6 +4,8 @@ us_m3_lee{
 
 us_m3_lee_common{
   _extends:t="base_m3_lee"
+  item__iconOffset:p2=0.05, 0.07
+  item__iconScale:r=1.12
   gunner_cam_limit__useCockpitDir:b=yes
 
   "vehicle_seats__seatsProvideOrder:tag"{
@@ -153,7 +155,6 @@ us_m3_lee_driver_cockpit{
 us_m3_lee_gunner_75mm_hull_cockpit{
   _extends:t="base_gunner_cockpit"
   animchar__res:t="t_26_1940_gunner_char"
-  cockpit__minForwardOffset:r=-0.27
   cockpit__offset:p3=-0.388987, 0.523228, 0.422681
 
   "cockpit__attachNodeNames:list<t>"{
@@ -198,7 +199,6 @@ us_m3_lee_gunner_75mm_hull_cockpit{
 us_m3_lee_gunner_37mm_turret_cockpit{
   _extends:t="base_gunner_cockpit"
   animchar__res:t="t_26_1940_gunner_char"
-  cockpit__minForwardOffset:r=-0.27
   cockpit__offset:p3=-0.0, -0.0, -0.0
 
   "cockpit__cockpitOffsetBySlit:list<p3>"{
@@ -254,6 +254,7 @@ us_m3_lee_gunner_37mm_turret_cockpit{
 
 us_m3_lee_commander_cockpit{
   _extends:t="base_commander_cockpit_no_slits"
+  cockpit__minForwardOffset:r=-0.05
   animchar__res:t="t_26_1940_commander_char"
   cockpit__offset:p3=-0.6, 0.1, 0.21
 
@@ -301,6 +302,13 @@ us_m3_lee_commander_cockpit{
     "slit:list<r>"{
       zoom:r=1.44
     }
+  }
+
+  "cockpit__slitTemplates:list<t>"{
+    slit:t="default_periscope"
+  }
+
+  "cockpit__slitEids:list<eid>"{
   }
 }
 

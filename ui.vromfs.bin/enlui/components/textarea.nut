@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {h2_txt, sub_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontHeading2, fontSub} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {DEFAULT_TEXT_COLOR} = require("%ui/hud/style.nut")
 
 local function textarea(txt, params={}) {
@@ -12,7 +12,7 @@ local function textarea(txt, params={}) {
     size = [flex(), SIZE_TO_CONTENT]
     color = DEFAULT_TEXT_COLOR
     text = txt
-  }.__update(h2_txt, params, {
+  }.__update(fontHeading2, params, {
     rendObj=ROBJ_TEXTAREA
     behavior = Behaviors.TextArea
   })
@@ -26,7 +26,7 @@ local function smallTextarea(txt, params={}) {
     rendObj=ROBJ_TEXTAREA
     behavior = Behaviors.TextArea
     text=txt
-  }.__update(sub_txt, params)
+  }.__update(fontSub, params)
 }
 
 

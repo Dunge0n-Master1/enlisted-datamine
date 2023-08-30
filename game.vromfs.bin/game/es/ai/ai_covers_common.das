@@ -81,6 +81,110 @@ def check_cover_pos_valid(pos)
   return true
 
 
+def check_cover_slots_near(pos, cover_id, covers_list, covers_descs, check_radius_sq)
+  assume cdesc = covers_descs[cover_id]
+  if cdesc.numUsedSlots <= 0
+    return false
+
+  assume cover = covers_list[cover_id]
+  let numSlots = length(cdesc.slots)
+  for i in range(0, numSlots)
+    if cdesc.slots[i].numUsed > 0
+      let pos2 = get_cover_slot_pos(cover, cdesc, i)
+      if distance_sq(pos, pos2) < check_radius_sq
+        return true
+  return false
+
+def check_covers_nearby_occupied(pos, cover_id, slot_idx, covers_list, covers_descs)
+  let checkRadius = 2.0
+  let checkRadiusSq = square(checkRadius)
+
+  assume cover = covers_list[cover_id]
+  assume cdesc = covers_descs[cover_id]
+
+  if cdesc.numUsedSlots > 0
+    if cdesc.slots[slot_idx].numUsed > 0
+      return true
+    if slot_idx > 0 && cdesc.slots[slot_idx - 1].numUsed > 0
+      return true
+    if slot_idx > 1 && cdesc.slots[slot_idx - 2].numUsed > 0
+      return true
+    let numSlots = length(cdesc.slots)
+    if slot_idx < numSlots - 1 && cdesc.slots[slot_idx + 1].numUsed > 0
+      return true
+    if slot_idx < numSlots - 2 && cdesc.slots[slot_idx + 2].numUsed > 0
+      return true
+
+  let numCovers = length(covers_list)
+  assume slot = cdesc.slots[slot_idx]
+  if slot.near1 >= 0 && slot.near1 < numCovers
+    if check_cover_slots_near(pos, slot.near1, covers_list, covers_descs, checkRadiusSq)
+      return true
+  if slot.near2 >= 0 && slot.near2 < numCovers
+    if check_cover_slots_near(pos, slot.near2, covers_list, covers_descs, checkRadiusSq)
+      return true
+  return false
+
+
+def get_danger_points(var points : array<float3>&; agent_eid, agent_pos, agent_team)
+  clear(points)
+
+  var userPoint = float3()
+  var userPointTime = -1.0
+  query() <| $ [es] (transform : float3x4; userPointOwner : EntityId; timer__start : float)
+    if timer__start > userPointTime
+      query(userPointOwner) <| $ [es] (team : int)
+        if is_teams_friendly(agent_team, team)
+          userPointTime = timer__start
+          userPoint = transform[3]
+  if userPointTime > -1.0
+    push(points, userPoint)
+    return
+
+  let minNoiseLevel = 0.5
+  let enoughDangers = 5
+  query(agent_eid) <| $ [es] (agent_dangers : AgentDangers)
+    for danger in agent_dangers.dangers
+      if minNoiseLevel <= 0.0 || danger.traceable || danger.noiseMeter >= minNoiseLevel
+        query(danger.eid) <| $ [es] (ai_target : Target; isAlive : bool)
+          if isAlive
+            push(points, ai_target.targetPos)
+      if length(points) > enoughDangers
+        break
+  if !empty(points)
+    return
+
+  let curTime = get_sync_time()
+  let awarenessRadius = 0.0
+  let awarenessTime = 2.0
+  if awarenessRadius > 0.0
+    query() <| $ [es] (transform : float3x4; team : int; human_weap__lastShotAtTime : float)
+      if !is_teams_friendly(team, agent_team) && curTime - human_weap__lastShotAtTime < awarenessTime
+        if distance_sq(transform[3], agent_pos) < square(awarenessRadius)
+          push(points, transform[3])
+  if !empty(points)
+    return
+
+  query() <| $ [es] (mean_pos__pos : float3; mean_pos__team : int)
+    if mean_pos__pos != float3() && !is_teams_friendly(mean_pos__team, agent_team)
+      push(points, mean_pos__pos)
+  if !empty(points)
+    return
+
+  query() <| $ [es(REQUIRE=respbase, REQUIRE_NOT=aircraftRespbase)] (transform : float3x4; team : int; active : bool)
+    if active && !is_teams_friendly(team, agent_team)
+      push(points, transform[3])
+
+def check_cover_pos_vs_points(pos, dir, points)
+  if empty(points)
+    return true
+  for pt in points
+    let dir2 = normalize(x0z(pt) - x0z(pos))
+    if dot(dir, dir2) > 0.1
+      return true
+  return false
+
+
 enum CoverAttackType
   NONE            = 0
   CROUCH_TO_STAND = 1

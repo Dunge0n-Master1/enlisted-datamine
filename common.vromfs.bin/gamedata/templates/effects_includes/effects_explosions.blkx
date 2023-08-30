@@ -7,6 +7,19 @@ explosion_sound_effect_base{
   }
 }
 
+explosion_firebomb_effect{
+  _extends:t="explosion_effect"
+  paint_from_biome:b=yes
+
+  _group{
+    _tags:t="render"
+    effect__name:t="explosion_firebomb_cmps_fx"
+  }
+
+  "autodeleteEffectEntity:tag"{
+  }
+}
+
 explosion_grenades_air_effect{
   _extends:t="explosion_effect"
   _extends:t="explosion_sound_effect_base"

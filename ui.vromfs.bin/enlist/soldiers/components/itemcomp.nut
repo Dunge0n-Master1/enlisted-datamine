@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt, sub_txt, tiny_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody, fontSub, fontTiny } = require("%enlSqGlob/ui/fontsStyle.nut")
 let faComp = require("%ui/components/faComp.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let { unitSize, gap, bigGap, bigPadding, smallPadding, fadedTxtColor,
@@ -22,22 +22,21 @@ let { iconByItem, getItemName, getItemDesc, trimUpgradeSuffix
 let { curHoveredItem } = require("%enlist/showState.nut")
 let popupsState = require("%enlSqGlob/ui/popup/popupsState.nut")
 let tooltipBox = require("%ui/style/tooltipBox.nut")
-let { itemTypeIcon } = require("%enlist/soldiers/components/itemTypesData.nut")
 let cursors = require("%ui/style/cursors.nut")
 let { unequipItem } = require("%enlist/soldiers/unequipItem.nut")
 let { sound_play } = require("%dngscripts/sound_system.nut")
 let { mkAmmoInfo } = require("mkAmmo.nut")
 let { getWeaponData } = require("%enlist/soldiers/model/collectWeaponData.nut")
 let { mkSpecialItemIcon } = require("%enlSqGlob/ui/mkSpecialItemIcon.nut")
-let { detailsStatusTier } = require("%enlist/soldiers/components/itemDetailsComp.nut")
+let { detailsStatusTier, mkTypeIcon } = require("%enlist/soldiers/components/itemDetailsComp.nut")
 let { isObjGuidBelongToRentedSquad } = require("%enlist/soldiers/model/squadInfoState.nut")
 let { showRentedSquadLimitsBox } = require("%enlist/soldiers/components/squadsComps.nut")
 let { mkAlertIcon, ITEM_ALERT_SIGN } = require("%enlSqGlob/ui/soldiersUiComps.nut")
 let { previewHighlightColor } = require("%enlist/preset/presetEquipUi.nut")
+let { itemTypesInSlots } = require("%enlist/soldiers/model/all_items_templates.nut")
 
 let DISABLED_ITEM = { tint = Color(40, 40, 40, 160), picSaturate = 0.0 }
 let baseItemSize = [7 * unitSize, 2 * unitSize] // 320px is max
-let MAX_ICON_SIZE = unitSize * 7
 
 let listTxtColor = @(flags, selected = false)
   (flags & S_HOVER) || (flags & S_ACTIVE) || selected ? selectedTxtColor : defTxtColor
@@ -53,7 +52,7 @@ let amountText = @(count, sf, selected) {
     rendObj = ROBJ_TEXT
     color = listTxtColor(sf, selected)
     text = loc("common/amountShort", { count })
-  }.__update(sub_txt)
+  }.__update(fontSub)
 }
 
 let defSlotnameCtor = function(slotType, group, selected) {
@@ -69,27 +68,7 @@ let defSlotnameCtor = function(slotType, group, selected) {
       color = listTxtColor(sf, selected.value)
       text
       opacity = 0.5
-    }.__update(tiny_txt))
-}
-
-let function mkTypeIcon(itemtype, itemsubtype) {
-  if (itemtype == null)
-    return null
-
-  let children = itemTypeIcon(itemtype, itemsubtype)
-  return children == null ? null
-    : {
-        size = [hdpx(30), hdpx(30)]
-        margin = smallPadding
-        halign = ALIGN_CENTER
-        valign = ALIGN_CENTER
-        vplace = ALIGN_BOTTOM
-        rendObj = ROBJ_VECTOR_CANVAS
-        commands = [[ VECTOR_ELLIPSE, 50, 50, 50, 50 ]]
-        fillColor = 0xFF000000
-        color = 0xFF000000
-        children
-      }
+    }.__update(fontTiny))
 }
 
 let mkSlotName = @(text, isSelected, group) watchElemState(@(sf) {
@@ -107,7 +86,7 @@ let mkSlotName = @(text, isSelected, group) watchElemState(@(sf) {
       vplace = ALIGN_BOTTOM
       color = listTxtColor(sf, isSelected.value)
       text
-    }.__update(sub_txt)
+    }.__update(fontSub)
   }
 })
 
@@ -121,21 +100,77 @@ let mkNameBlock = @(item, slotName) {
   ]
 }
 
-let defItemCtor = @(item, itemSize) iconByItem(item, {
-  vplace = ALIGN_TOP
-  hplace = ALIGN_CENTER
-  width  = min(MAX_ICON_SIZE, itemSize[0]) - 2 * smallPadding
-  height = itemSize[1] - 2 * smallPadding
-  margin = smallPadding
-})
+let MAX_ICON_SIZE = unitSize * 7
 
-let gunLayoutParams = {
-  hplace = ALIGN_LEFT
-  pos    = [bigPadding * 3, 0]
+let isMainWeapon = @(item) (item?.itemtype ?? "") in itemTypesInSlots.value?.mainWeapon
+
+let bigWeapons = {
+  mgun = true
+  submgun = true
+  assault_rifle = true
+  assault_rifle_stl = true
+  carbine_pistol = true
+  semiauto_sniper = true
+  semiauto = true
+  rifle_grenade_launcher = true
+  mortar = true
+  launcher = true
+  antitank_rifle = true
 }
 
-let smallItemLayoutParams = {
+let defIcon = @(item, size, override = {}) iconByItem(item, {
+  vplace = ALIGN_TOP
+  hplace = ALIGN_CENTER
+  width  = min(MAX_ICON_SIZE, size[0]) - 2 * smallPadding
+  height = size[1] - 2 * smallPadding
+  margin = smallPadding
+}.__update(override))
+
+let smgIcon = @(item, size) defIcon(item, size, {
+  hplace = ALIGN_LEFT
   vplace = ALIGN_CENTER
+  pos    = [bigPadding * 3, 0]
+})
+
+let gunIcon = @(item, size) defIcon(item, size, {
+  hplace = ALIGN_LEFT
+  pos    = [bigPadding * 3, 0]
+})
+
+let pistolIcon = @(item, size) defIcon(item, size, {
+  vplace = ALIGN_CENTER
+})
+
+let bigIconSize = [(unitSize * 6.3).tointeger(), (unitSize * 3.6).tointeger()]
+
+let forBigWeapon = @(item, _size) (item?.itemtype ?? "") in bigWeapons
+  ? smgIcon(item, bigIconSize) : null
+
+let forMainWeapon = @(item, size) isMainWeapon(item)
+  ? gunIcon(item, size.map(@(v) v*0.7)) : null
+
+let forAmmoWeapon = function(item, size) {
+  let { caliber = null, bullets = null } = getWeaponData(item?.gametemplate ?? "")
+  if (caliber == null && bullets == null)
+    return null
+  return pistolIcon(item, size.map(@(v) v*0.7))
+}
+
+let iconVariants = [
+  forBigWeapon
+  forMainWeapon
+  forAmmoWeapon
+  defIcon
+]
+
+let defItemCtor = function(item, size) {
+  local icon
+  foreach (cb in iconVariants) {
+    icon = cb(item, size)
+    if (icon)
+      break
+  }
+  return icon
 }
 
 let mkItemCount = @(count) count > 1 ? {
@@ -146,27 +181,17 @@ let mkItemCount = @(count) count > 1 ? {
     rendObj = ROBJ_TEXT
     defTxtColor
     text = loc("common/amountShort", { count })
-  }.__update(sub_txt)
- } : null
+  }.__update(fontSub)
+} : null
 
 let itemSlotCtor = function(item, itemSize, itemCtor, group, isSelected, isAvailable,
-  slotName, slotType, soldierGuid, mods, status, needGunLayout, unseenSign) {
+  slotName, slotType, soldierGuid, mods, status, unseenSign) {
 
   let weapData = getWeaponData(item?.gametemplate ?? "")
-  let needShowAmmo = weapData?["caliber"] != null || weapData?["bullets"] != null
-
-  let needSmallItemLayout = (needShowAmmo && !needGunLayout)
-  // icon is downscaled for guns with mods (mods != null) and pistols (needShowAmmo && !needGunLayout)
-  // needGunLayout flag is set to true for primary and secondary weapons
-  let scaledItemSize = needGunLayout || needSmallItemLayout ? itemSize.map(@(v) v*0.7) : itemSize
-  let itemIcon = itemCtor(item, scaledItemSize)
-  if (itemIcon != null) {
-    if (!isAvailable)
-      itemIcon.__update(DISABLED_ITEM)
-    if (needGunLayout)
-      itemIcon.__update(gunLayoutParams)
-    if (needSmallItemLayout)
-      itemIcon.__update(smallItemLayoutParams)
+  let needShowAmmo = weapData?.caliber != null || weapData?.bullets != null
+  let itemIcon = itemCtor(item, itemSize)
+  if (itemIcon != null && !isAvailable) {
+    itemIcon.__update(DISABLED_ITEM)
   }
 
   return watchElemState(function(sf) {
@@ -185,7 +210,7 @@ let itemSlotCtor = function(item, itemSize, itemCtor, group, isSelected, isAvail
       group
       watch = isSelected
       children = [
-        mkSpecialItemIcon(item, hdpxi(32))
+        mkSpecialItemIcon(item, hdpxi(32), { margin = 0 })
         itemIcon
         {
           flow = FLOW_VERTICAL
@@ -215,7 +240,7 @@ let itemSlotCtor = function(item, itemSize, itemCtor, group, isSelected, isAvail
           padding = [smallPadding, bigPadding]
           gap = smallPadding
           children = [
-            needGunLayout ? mkTypeIcon(item?.itemtype, item?.itemsubtype) : null
+            isMainWeapon(item) ? mkTypeIcon(item?.itemtype, item?.itemsubtype) : null
             mkNameBlock(item, slotName)
             mkItemCount(item?.count ?? 1)
           ]
@@ -351,7 +376,7 @@ let hintWithIcon = @(icon, locId) {
       rendObj = ROBJ_TEXT
       text = loc(locId)
       color = fadedTxtColor
-    }.__update(tiny_txt)
+    }.__update(fontTiny)
   ]
 }
 
@@ -387,7 +412,7 @@ let function makeToolTip(item, canDrag, isEquipped, canChange) {
             behavior = Behaviors.TextArea
             text = getItemName(item)
             color = defTxtColor
-          }.__update(body_txt)
+          }.__update(fontBody)
           detailsStatusTier(item)
         ]
       }
@@ -452,7 +477,7 @@ let lockedSlotCtor = @(children, group, isLocked, hasWarningSign) watchElemState
           color = listTxtColor(sf)
           text = loc("slot/locked")
           opacity = 0.5
-        }.__update(tiny_txt)
+        }.__update(fontTiny)
         hasWarningSign ? statusBadgeWarning : null
         {
           flow = FLOW_HORIZONTAL
@@ -471,7 +496,7 @@ local function mkItem(slotId = null, item = null, slotType = null, itemSize = ba
   selectKey = null, isXmb = false, bgColor = defSlotBgColor, pauseTooltip = Watched(false),
   onClickCb = null, onHoverCb = null, isLocked = false, onDoubleClickCb = null,
   onResearchClickCb = null, mods = null, hasUnseenSign = Watched(false), isAvailable = null,
-  hideStatus = false, hasWarningSign = false, needItemName = true, needGunLayout = false,
+  hideStatus = false, hasWarningSign = false, needItemName = true,
   slotImg = null, previewState = null
 ) {
   if (isDisabled)
@@ -516,7 +541,7 @@ local function mkItem(slotId = null, item = null, slotType = null, itemSize = ba
 
   let itemObj = (isAvailable || item != null)
   ? itemSlotCtor(item, itemSize, itemCtor, group, isSelected, isAvailable, slotName, slotType,
-      soldierGuid, mods, status, needGunLayout, unseenSign)
+      soldierGuid, mods, status, unseenSign)
   : isDisabled || isLocked
     ? lockedSlotCtor(slotName, group, isLocked, hasWarningSign)
     : defEmptyItemCtor(slotName, mkEmptyItemSlotImg(slotImg, iconSize, group, isSelected), unseenSign)

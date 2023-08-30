@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let mkProgress = @(maxValue, curValue, addValue, progressColor, addColor, addValueAnimations = null) {
   size = flex()
   flow = FLOW_HORIZONTAL
@@ -35,7 +35,7 @@ let mkProgressText = @(maxValue, curValue, completeText, hasBlink) {
     ? completeText
     : $"{curValue}/{maxValue}"
   animations = hasBlink ? blinkAnimation : null
-}.__update(sub_txt)
+}.__update(fontSub)
 
 local function mkProgressBar(maxValue, curValue, height,
     addValue = 0,

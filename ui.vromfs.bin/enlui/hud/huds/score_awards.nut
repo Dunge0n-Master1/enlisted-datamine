@@ -4,7 +4,7 @@ require("%ui/hud/state/awards.nut")
 require("%ui/hud/state/score_awards_state.nut")
 let awardsLog = require("%ui/hud/state/eventlog.nut").awards
 let { lerp } = require("%sqstd/math.nut")
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { strokeStyle } = require("%enlSqGlob/ui/viewConst.nut")
 let { round } = require("math")
 
@@ -27,8 +27,8 @@ let xtext = freeze({
   color
   hplace = ALIGN_CENTER
   vplace = ALIGN_CENTER
-  pos = [0, -body_txt.fontSize * 0.05]
-}.__merge(body_txt, strokeStyle))
+  pos = [0, -fontBody.fontSize * 0.05]
+}.__merge(fontBody, strokeStyle))
 
 let function mkAwardText(text, params = {}){
   if (text == null)
@@ -38,7 +38,7 @@ let function mkAwardText(text, params = {}){
     text
     color
     hplace = ALIGN_CENTER
-  }.__merge(body_txt, strokeStyle, params)
+  }.__merge(fontBody, strokeStyle, params)
 }
 
 let awardHgt = calc_str_box(mkAwardText("H"))[1].tointeger()
@@ -150,7 +150,7 @@ let text_hint = @(text) {
   rendObj = ROBJ_TEXT
   margin = hdpx(2)
   text
-  fontSize = body_txt.fontSize
+  fontSize = fontBody.fontSize
   transform = {}
 }
 

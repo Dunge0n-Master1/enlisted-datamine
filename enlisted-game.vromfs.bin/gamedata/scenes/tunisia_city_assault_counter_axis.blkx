@@ -661,7 +661,7 @@ entity{
 
 entity{
   _template:t="defend_zone_chained_box+defend_zone_respawnbase"
-  transform:m=[[21.3241, 0.0, 15.1954] [0.0, 9.28446, 0.0] [-14.7597, 0.0, 21.6979] [148.31, 26.849, -31.7809]]
+  transform:m=[[26.3754, 0.0, 18.7789] [0.0, 9.28446, -0.0] [-15.3725, 0.0, 21.5911] [145.783, 26.3702, -33.5146]]
   capzone__capRewardPartCap:r=1.8
   capzone__curTeamCapturingZone:i=-1
   capzone__mustBeCapturedByTeam:i=2
@@ -684,7 +684,7 @@ entity{
   capzone__createRespawnBaseForTeam:i=1
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=5
-  decal__thickness:r=0.15
+  decal__thickness:r=0.0
   decal__height:r=0.8
 
   "capzone__activateChoice:object"{

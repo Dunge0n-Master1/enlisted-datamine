@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontawesome } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontawesome } = require("%enlSqGlob/ui/fontsStyle.nut")
 let fa = require("%ui/components/fontawesome.map.nut")
 
 let curTextColor = Color(250,250,200,200)

@@ -41,7 +41,7 @@ let function invite(uid, callback) {
 
 
 let function join(session_id, invitation_id, on_success) {
-  logX($"join to session {session_id} recieved from {invitation_id}")
+  logX($"join to session {session_id} received from {invitation_id}")
   update_current_activity(function(success) {
     if (success)
       on_success?()

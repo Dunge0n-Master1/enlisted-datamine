@@ -19,8 +19,8 @@ require common_shooter.es.ai.common_shooter_walker_nodes_common
 require common_shooter.events_common_shooter
 
 
-[beh_node(name="isAgressiveBehaviour")]
-class IsAgressiveBehaviour : BehNodeAdapter
+[beh_node(name="isAggressiveBehaviour")]
+class IsAggressiveBehaviour : BehNodeAdapter
   def override update(dt : float) : EBehResult
     var res = EBehResult ER_FAILED
 
@@ -28,7 +28,7 @@ class IsAgressiveBehaviour : BehNodeAdapter
 
     query(agentEid) <| $ [es] (squad_member__squad : EntityId)
       query(squad_member__squad) <| $ [es] (squad__squadBehaviour : int)
-        if squad__squadBehaviour == int(SquadBehaviour ESB_AGRESSIVE)
+        if squad__squadBehaviour == int(SquadBehaviour ESB_AGGRESSIVE)
           res = EBehResult ER_SUCCESS
 
     return res
@@ -126,8 +126,8 @@ class DecideOnAttackTarget : BehNodeAdapter
   hunchDistDiv12 : float = 0.0
   hunchDistDiv23 : float = 0.0
 
-  stillBackTimeRange = float2(0.5, 1.5)
-  stillSideTimeRange = float2(0.5, 1.0)
+  stillBackTimeRange = float2(0.4, 0.8)
+  stillSideTimeRange = float2(0.2, 0.7)
   turnExactBackChance = 0.5
   turnExactSideChance = 0.8
 

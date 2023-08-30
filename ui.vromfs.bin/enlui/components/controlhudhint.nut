@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {sub_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontSub} = require("%enlSqGlob/ui/fontsStyle.nut")
 let { generation } = require("%ui/hud/menus/controls_state.nut")
 let { HUD_TIPS_HOTKEY_FG } = require("%ui/hud/style.nut")
 let {
@@ -31,8 +31,8 @@ local function controlHudHint(params, _group = null) {
   if (typeof params == "string")
     params = {id = params}
   let frame = params?.frame ?? true
-  let font = params?.text_params?.font ?? sub_txt?.font
-  let fontSize = params?.text_params?.fontSize ?? sub_txt.fontSize
+  let font = params?.text_params?.font ?? fontSub?.font
+  let fontSize = params?.text_params?.fontSize ?? fontSub.fontSize
   let color = params?.color ?? HUD_TIPS_HOTKEY_FG
   let width = params?.width ?? SIZE_TO_CONTENT
   let height = params?.height ?? fontH(100)
@@ -97,7 +97,7 @@ let defTextFunc = @(text){
       text color = HUD_TIPS_HOTKEY_FG, rendObj = ROBJ_TEXT
       margin = [hdpx(1),hdpx(2)]
       size = SIZE_TO_CONTENT
-    }.__update(sub_txt)
+    }.__update(fontSub)
   ]
 }
 

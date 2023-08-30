@@ -12,6 +12,8 @@ ussr_t_60_1941_common{
   _extends:t="tank_su76_vehicle_tracks_sound"
   vehicle_net_phys__blk:t="content/tanks/gamedata/units/tanks/t_60_1941.blk:VehiclePhys"
   damage_model__blk:t="content/tanks/gamedata/units/tanks/t_60_1941.blk"
+  item__iconOffset:p2=0.0, -0.05
+  item__iconScale:r=1.11
 
   "vehicle_seats__seats:shared:array"{
 

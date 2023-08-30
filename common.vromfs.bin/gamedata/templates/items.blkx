@@ -20,7 +20,6 @@ controllable_hero_item{
 base_item{
   _extends:t="item_with_owner"
   _extends:t="replicating"
-  item__id:i=0
   item__iconYaw:r=45.0
   item__iconPitch:r=0.0
   item__iconRoll:r=0.0
@@ -34,15 +33,38 @@ base_item{
   item__recreateOnGround:t="item_in_world"
   item__recreateInInventory:t=""
   hide_counter:i=0
-  _replicated:t="item__id"
   _replicated:t="item__isOnGround"
   shreddableInDarkZone:b=yes
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
 
   "customProps:object"{
   }
 
   "net__notInInitialScope:tag"{
   }
+}
+
+attach_vis_entity_cb{
+  attach_vis_entity_cb__toSlotName:t=""
+
+  "attach_vis_entity_cb__toEid:eid"{
+  }
+}
+
+drop_item_cb{
+  drop_item_cb__lootCleanupTime:r=0.0
+
+  "drop_item_cb__modTemplates:list<t>"{
+  }
+}
+
+item_mod_creation_cb{
+  item_mod_creation_cb__lootCleanupTime:r=0.0
+  item_mod_creation_cb__isLast:b=no
 }
 
 visibility_traceable_item{

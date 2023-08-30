@@ -1,7 +1,7 @@
 require app
 require ecs
 
-[es(tag=server, REQUIRE=(squad_member__squad), on_appear, track=possessedByPlr)]
+[es(tag=server, REQUIRE=(squad_member__squad), on_appear, track=(possessedByPlr, ai_enabled))]
 def switch_ai_on_possess_unpossess(evt : Event;
                                    possessedByPlr : EntityId;
                                    human_weap__gunEids : EidList;

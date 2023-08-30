@@ -128,23 +128,31 @@ water{
 
   _group{
     _track:b=yes
+    water__level:r=0.0
+    water__max_tessellation:i=4
+    water__smallWaterAIWalkHeight:r=0.3
     water__strength:r=4.0
     water__wind_dir:r=40.0
-    water__level:r=0.0
-    water__smallWaterAIWalkHeight:r=0.3
+    water__wind_strength:r=0.2
     water__deepWaterAIAreaCost:r=-1.0
     water__fft_resolution:i=7
-    water__max_tessellation:i=4
-    water__flowmap:b=no
+    water__colormap_area:p4=-512.0, 512.0, 512.0, -512.0
+    water__colormap_tex:t=""
+    water__flowmap:b=yes
     water__flowmap_tex:t=""
     water__flowmap_area:p4=-512.0, 512.0, 512.0, -512.0
-    water__wind_strength:r=0.2
-    water__flowmap_fading:r=3.0
-    water__flowmap_strength:p3=1.0, 5.0, 0.5
-    water__flowmap_strength_add:p4=50.0, 100.0, 1.0, 0.3
-    water__flowmap_foam:p4=5.0, 10.0, 0.5, 0.1
-    water__colormap_tex:t=""
-    water__colormap_area:p4=-512.0, 512.0, 512.0, -512.0
+    water__flowmap_depth:p4=0.2, 0.2, 0.8, 0.8
+    water__flowmap_fading:r=4.0
+    water__flowmap_foam:p4=0.7, 0.8, 1.0, 1.0
+    water__flowmap_foam_tiling:r=1.0
+    water__flowmap_strength:p4=0.3, 0.2, 0.1, 0.0
+    water__flowmap_strength_add:p4=0.5, 0.6, 0.7, 0.5
+    foamfx__scale:p3=0.05, 0.75, 0.1
+    foamfx__gamma:p3=2.2, 2.2, 2.2
+    foamfx__threshold:p2=0.25, 0.1
+    foamfx__weight:p2=0.2, 1.0
+    foamfx__tile_tex:t="foam_generator_1_tile_tex_n"
+    foamfx__gradient_tex:t="foam_generator_gradient_tex_n"
     shore__enabled:b=yes
     shore__texture_size:i=1024
     shore__hmap_size:r=1024.0
@@ -162,6 +170,10 @@ water{
   }
 
   water{
+  }
+
+  "needsWaterDroplets:tag"{
+    _tags:t="render"
   }
 }
 

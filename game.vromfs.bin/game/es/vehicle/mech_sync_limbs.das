@@ -120,7 +120,7 @@ def create_limb_fx(mechEid : EntityId;
 
 
 [es(tag=gameClient, REQUIRE=vehicleWithWatched)]
-def recieve_limbs_detach_info(evt : ParallelUpdateFrameDelayed;
+def receive_limbs_detach_info(evt : ParallelUpdateFrameDelayed;
                               walker_net_phys : WalkerPhysActor;
                               var camera__isStabilized : bool&)
   camera__isStabilized = walker_net_phys.phys.currentState.hasSupport
@@ -136,13 +136,13 @@ def next_step_controlled_state_fx(evt : Event;
 
 
 [es(tag=gameClient)]
-def recieve_relative_limbs_diff_info(evt : EventMechStepRelativeInfo;
+def receive_relative_limbs_diff_info(evt : EventMechStepRelativeInfo;
                                      var walker_net_phys : WalkerPhysActor&)
   assume limbState = walker_net_phys.phys.currentState.limbs[evt.limbIdx]
   limbState.realTm[3] = evt.pos
 
 [es(tag=gameClient)]
-def recieve_limbs_diff_info(evt : EventMechStepInfo;
+def receive_limbs_diff_info(evt : EventMechStepInfo;
                             transform : float3x4;
                             var walker_net_phys : WalkerPhysActor&)
 

@@ -113,7 +113,7 @@ sequencer{
       isSquadLeaderMoving{
       }
 
-      isAgressiveBehaviour{
+      isAggressiveBehaviour{
       }
     }
 
@@ -185,7 +185,7 @@ sequencer{
       isSquadLeaderMoving{
       }
 
-      isAgressiveBehaviour{
+      isAggressiveBehaviour{
       }
     }
 
@@ -1180,6 +1180,14 @@ sequencer{
     }
   }
 
+  setCurrentAiAction{
+    state:t="stand"
+  }
+
+  setCurrentAiAction{
+    state:t="attack"
+  }
+
   orderedSelector{
 
     not{
@@ -1512,10 +1520,6 @@ sequencer{
     targetParam:t="shootEnemy"
     allowGrenades:b=yes
     switchRadiusCoef:r=0.85
-  }
-
-  setCurrentAiAction{
-    state:t="attack"
   }
 }
 
@@ -2383,7 +2387,7 @@ sequencer{
           timeToStuck:r=0.9
           incObstacles:b=no
           avoidAiObstacles:b=no
-          distThreshold:r=0.1
+          distThreshold:r=0.35
         }
       }
 
@@ -2442,7 +2446,7 @@ sequencer{
           tryClimbing:b=yes
           maxStanceParam:t="maxStance"
           stuckDirParam:t="stuckDir"
-          timeToStuck:r=2.5
+          timeToStuck:r=1.5
           incObstacles:b=yes
           avoidAiObstacles:b=no
           distThreshold:r=1.0
@@ -2456,10 +2460,10 @@ sequencer{
           tryClimbing:b=yes
           maxStanceParam:t="maxStance"
           stuckDirParam:t="stuckDir"
-          timeToStuck:r=2.5
+          timeToStuck:r=1.5
           incObstacles:b=no
           avoidAiObstacles:b=no
-          distThreshold:r=0.1
+          distThreshold:r=0.35
         }
       }
 
@@ -3183,7 +3187,7 @@ sequencer{
       moveByDir{
         endPos:t="coverWalkPos"
         duration:r=2.5
-        distThresholsd:r=0.3
+        distThresholsd:r=0.1
         lookPosParam:t="coverLookPos"
       }
 
@@ -3208,7 +3212,7 @@ sequencer{
       moveByDir{
         endPos:t="coverWalkPos"
         duration:r=2.5
-        distThresholsd:r=0.3
+        distThresholsd:r=0.1
         lookPosParam:t="coverLookPos"
       }
 
@@ -3737,7 +3741,14 @@ orderedSelector{
 
         ifThenElse{
 
-          checkTooManyEnemiesWatching{
+          and{
+
+            checkTooManyEnemiesWatching{
+            }
+
+            ignoreChance{
+              chance:r=0.5
+            }
           }
 
           sequencer{
@@ -3941,6 +3952,11 @@ repeatUntilFail{
   changeStance{
     stanceName:t="crouch"
     maxStanceParam:t="maxStance"
+  }
+
+  wait{
+    range:p2=1.0, 1.0
+    resetable:b=yes
   }
 
   parallel{

@@ -4,7 +4,7 @@ require ecs
 require ecs.extra_set
 require math
 require math.base
-require imgui/imgui_boost
+require %dasImgui/daslib/imgui_boost
 require daslib/static_let
 require daslib/safe_addr
 require daslib/strings_boost

@@ -187,6 +187,7 @@ let function getItemAnimationBlacklist(soldier, soldierGuid, scheme, soldiersLoo
 
 let function getWeapTemplates(soldierGuid, scheme) {
   let weapTemplates = {primary="", secondary="", tertiary="", special=""}
+  let slotOrder = ["primary", "secondary", "tertiary", "special"]
   foreach (slotType, slot in scheme) {
     if (weapTemplates?[slot?.ingameWeaponSlot] != "")
       continue
@@ -194,11 +195,19 @@ let function getWeapTemplates(soldierGuid, scheme) {
     if ("gametemplate" not in weapon)
       continue
 
-    local tpl = weapon.gametemplate
-    if (slot.ingameWeaponSlot == "primary")
-      tpl = "+".concat(tpl, "menu_gun")
-    weapTemplates[slot.ingameWeaponSlot] = tpl
+    weapTemplates[slot.ingameWeaponSlot] = weapon.gametemplate
   }
+
+  foreach(slot in slotOrder) {
+    let template = weapTemplates?[slot] ?? ""
+    if (template == "")
+      continue
+
+    let newTemplate = "+".concat(template, "menu_gun")
+    weapTemplates[slot] = newTemplate
+    break
+  }
+
   return weapTemplates
 }
 
@@ -231,6 +240,8 @@ let function mkEquipment(soldier, scheme, soldiersLook, premiumItems, customizat
   }
 
   // apply items except inventory and weapon
+  // also save the list of slots that are overwritten
+  let overrideSlotsList = []
   let itemSlots = getSoldierItemSlots(guid, campItemsByLink.value)
   foreach (itemSlot in itemSlots) {
     let { slotType } = itemSlot
@@ -240,8 +251,12 @@ let function mkEquipment(soldier, scheme, soldiersLook, premiumItems, customizat
     if (slot == null || (slot?.ingameWeaponSlot in WEAP_SLOT_TYPES))
       continue
     let itemTemplate = findItemTemplate(allItemTemplates, armyId, itemSlot.item.basetpl)
-    if (itemTemplate != null)
+    if (itemTemplate != null) {
       slotTmpls[slotType] <- itemTemplate
+      let equipSlot = itemTemplate?.slot
+      if (equipSlot != null && equipSlot != slotType && equipSlot in slotTmpls)
+        overrideSlotsList.append(equipSlot)
+    }
   }
 
   // premium outfit
@@ -264,6 +279,9 @@ let function mkEquipment(soldier, scheme, soldiersLook, premiumItems, customizat
   }
 
   // apply templates to soldier outfit
+  foreach (removeSlot in overrideSlotsList)
+    delete slotTmpls[removeSlot]
+
   local equipment = {}
   foreach (slotType, itemTemplate in slotTmpls) {
     let itemSlot = itemTemplate?.slot ?? slotType
@@ -391,7 +409,6 @@ let function createSoldier(
     local canBeRecreated = false
     initSoldierQuery.perform(reInitEid, function(_eid, comp){
       if (animcharRes != comp.animchar__res){
-        ecs.g_entity_mgr.destroyEntity(reInitEid)
         return
       }
       canBeRecreated = true
@@ -407,6 +424,9 @@ let function createSoldier(
       callback?(reInitEid)
       reinitEquipment(reInitEid, equipment)
       return reInitEid
+    }
+    else {
+      ecs.g_entity_mgr.destroyEntity(reInitEid)
     }
   }
   return ecs.g_entity_mgr.createEntity(result_template, {

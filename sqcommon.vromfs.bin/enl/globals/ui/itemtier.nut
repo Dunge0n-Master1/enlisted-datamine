@@ -1,9 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontawesome } = require("%enlSqGlob/ui/fonts_style.nut")
-let {
-  smallPadding, soldierLvlColor, soldierLockedLvlColor
-} = require("%enlSqGlob/ui/viewConst.nut")
+let { fontawesome } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { soldierLvlColor, soldierLockedLvlColor } = require("%enlSqGlob/ui/viewConst.nut")
 let fa = require("%ui/components/fontawesome.map.nut")
 
 let mkIconBar = @(count, color, fName, params = {}) count < 1 ? null : {
@@ -33,7 +31,6 @@ let mkItemTier = @(item, itemLevelData = null, isFreemiumMode = false,
     : mkBg({
         children = {
           hplace = ALIGN_RIGHT
-          margin = smallPadding
           flow = FLOW_HORIZONTAL
           children = [
             mkIconBar(tier, color, "star")

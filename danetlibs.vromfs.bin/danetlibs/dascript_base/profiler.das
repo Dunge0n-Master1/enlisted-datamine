@@ -17,16 +17,11 @@ let
 
 class ProfilerAgent : DapiDebugAgent
 
-  [unused_argument(ctx, fun)] def override onInstrumentFunction(var ctx : Context; fun : SimFunction ?; entering : bool; user_data : uint64) : void
-    if debugLogs
-      print("daProfiler: {user_data} '{fun.name}' {entering ? "entering" : "exiting"}")
-    profiler_send_event(ctx, uint(user_data), entering)
-
   def override onSimulateContext(var ctx : Context) : void
     if ctx.category.debug_context || ctx.category.debugger_tick || ctx.category.macro_context
       return
     let ctxName = "{ctx.name}"
-    ctx |> instrument_all_functions() <| $ [unused_argument(fn)] (fn, sfn)
+    ctx |> da_profiler_instrument_all_functions() <| $ [unused_argument(fn)] (fn, sfn)
       let desc = get_tls_description(ctxName, /*line*/0, /*flags*/0u, "das:{sfn.name}", uint(sfn.mangledNameHash))
       if debugLogs
         print("daProfiler: {desc} => {sfn.name}")

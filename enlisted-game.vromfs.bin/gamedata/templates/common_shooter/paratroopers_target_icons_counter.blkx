@@ -1,0 +1,31 @@
+paratroopers_target_icons_counter{
+  _extends:t="replicating"
+  counter_team:i=-1
+  paratroopers_target_points__lifeTime:r=60.0
+  paratroopers_target_points__connectDistSq:r=200.0
+  _replicated:t="paratroopers_target_points"
+  paratroopers_target_points__checkPeriod:r=1.0
+  paratroopers_target_points__checkTime:r=-1.0
+  _tracked:t="paratroopers_target_points"
+
+  "paratroopers_target_points:list<p3>"{
+  }
+
+  "paratroopers_target_points__disappearanceTime:list<r>"{
+  }
+
+  "paratroopers_target_points__eids:list<eid>"{
+  }
+
+  _group{
+    _tags:t="gameClient"
+    paratroopers_target_points__iconsTypename:t="paratroopers"
+    paratroopers_target_points__heightDecrease:r=-50.0
+
+    "paratroopers_target_points__icons:list<p3>"{
+    }
+
+    "paratroopers_target_points__iconsCounters:list<i>"{
+    }
+  }
+}

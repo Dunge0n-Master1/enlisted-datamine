@@ -42,16 +42,16 @@ let style = {
     if (!isAlive)
       return Color(40,10,10,180)
     if (isCurrent)
-      return (sf & S_HOVER) ? Color(60,60,60,180): Color(30,30,30,180)
-    return (sf & S_HOVER) ? Color(30,30,30,180): Color(0,0,0,180)
+      return sf & S_HOVER ? Color(60,60,60,180): Color(30,30,30,180)
+    return sf & S_HOVER ? Color(30,30,30,180): Color(0,0,0,180)
   }
 
   squadButtonBorderColor = function(sf, isAlive, isCurrent) {
     if (isCurrent)
-      return (sf & S_ACTIVE) ? Color(255,255,255,180) : Color(160,160,160,50)
+      return sf & S_ACTIVE ? Color(255,255,255,180) : Color(160,160,160,50)
     if (!isAlive)
       return Color(0,0,0,0)
-    return (sf & S_ACTIVE) ? Color(255,255,255,200) : Color(0,0,0,0)
+    return sf & S_ACTIVE ? Color(255,255,255,200) : Color(0,0,0,0)
   }
 
   blurBack = {

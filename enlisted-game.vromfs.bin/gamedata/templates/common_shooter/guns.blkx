@@ -73,6 +73,7 @@ base_gun{
   _tracked:t="gun__ammoHolderEid"
   _tracked:t="gun__curAmmoHolderIndex"
   _tracked:t="gun__isAmmoLoaded"
+  _tracked:t="gun__boxNode"
   _tracked:t="gun__ammoHolderIds"
   _replicated:t="gun__firingModeIndex"
   _replicated:t="gun__owner"
@@ -140,6 +141,8 @@ base_gun{
   gun_deviation__extraDeviationTau:r=0.2
   gun_deviation__maxDeviation:r=30.0
   gun_deviation__bufferThreshold:r=20.0
+  gun__boxNode:t="weaponRoot"
+  gun__boxNodeId:i=-1
   gun__initialSlotId:i=-1
   gun__initialFlags:i=0
   gun__curAmmoHolderIndex:i=-1
@@ -297,6 +300,7 @@ gun_with_additional_head_angles{
 gun_anim{
   _tags:t="render"
   gun_anim__boltActionVarId:i=-1
+  gun_anim__reloadStateId:i=-1
   gun_anim__reloadVarId:i=-1
   gun_anim__singleReloadVarId:i=-1
   gun_anim__reloadStyleVarId:i=-1
@@ -313,6 +317,9 @@ gun_anim{
   "gun_anim__reloadStyles:list<i>"{
   }
 
+  "gun_anim__reloadStates:list<i>"{
+  }
+
   "gun_anim__weapModStates:list<i>"{
   }
 }
@@ -322,6 +329,12 @@ gun_reload{
   gun_reload__state:i=0
   gun_reload__stateStartTime:r=-1.0
   gun_reload__stateEndTime:r=-1.0
+  gun_reload__stateAcceptsInterruptRequest:b=no
+
+  _group{
+    _track:b=yes
+    gun_reload__isRequesting:b=no
+  }
 
   _group{
     _replicate:b=yes
@@ -426,7 +439,6 @@ equipable_gun{
   weap__sprintLerpFactor:r=1.0
   weap__current_sight_preset:i=0
   _replicated:t="weap__current_sight_preset"
-  _replicated:t="gun__holsterGen"
   weap__backoffDegreeMult:r=40.0
   weap__backoffOffsMult:r=-0.2
   weap__backoffVertOffsMult:r=-0.6
@@ -439,8 +451,6 @@ equipable_gun{
   melee_weapon__blk:t="content/common/gamedata/actions/melee.blk"
   gun__melee:b=no
   gun__useLocalPlayerTracer:b=no
-  gun__prevHolsterGen:i=0
-  gun__holsterGen:i=0
   gun_attach__slot:t="weapon"
   gun_attach__mainSlotId:i=-1
   gun_attach__alternativeSlot:t="weapon"
@@ -540,6 +550,14 @@ projectile_with_shell{
 client_side{
 
   "clientSide:tag"{
+  }
+}
+
+projectile_trail_fx{
+  _tags:t="render"
+  projectile_trail_fx__flightFxTemplate:t="trail_projectile_launch_smoke_effect"
+
+  "projectile_trail_fx__flightFxEid:eid"{
   }
 }
 
@@ -747,7 +765,11 @@ weapon_mod{
   _tracked:t="slot_attach__visible"
   slot_attach__visible:b=no
   animchar_render__enabled:b=no
-  item__id:i=0
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
 
   "slot_attach__secondaryUpdate:tag"{
   }
@@ -876,4 +898,12 @@ dual_mag_gun{
   gun__additionalAmmo:i=0
   _replicated:t="gun__additionalAmmo"
   _tracked:t="gun__isDualMagReady"
+}
+
+gun_with_initial_ammo{
+  _tags:t="server"
+  gun__isInitialAmmoHoldersSpawned:b=no
+
+  "gun__initialAmmoHoldersCount:list<i>"{
+  }
 }

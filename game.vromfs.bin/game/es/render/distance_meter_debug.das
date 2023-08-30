@@ -13,17 +13,21 @@ require DagorInput
 
 
 [console_cmd(name="distance.meter", hint="Measure distance between points and sum distance of the path; shoot to add or delete point, reload to delete all points")]
-def distance_meter_command(nav_mesh = false)
+def distance_meter_command(nav_mesh = false; travel_speed = 4.35f)
   var found = false
-  query() <| $ [es(REQUIRE=distanceMeterDebug)] (eid : EntityId; var distance_meter__navmeshMode : bool&)
+  query() <| $ [es(REQUIRE=distanceMeterDebug)] (eid : EntityId;
+                                                 var distance_meter__navmeshMode : bool&;
+                                                 var distance_meter__referenceTravelSpeed : float&)
     if nav_mesh == distance_meter__navmeshMode
       destroyEntity(eid)
     else
       distance_meter__navmeshMode = nav_mesh
+      distance_meter__referenceTravelSpeed = travel_speed
     found = true
   if !found
     createEntity("distance_meter_debug")  <| $(init)
       init |> set("distance_meter__navmeshMode", nav_mesh)
+      init |> set("distance_meter__referenceTravelSpeed", travel_speed)
   console_print("{found ? "deactivate" : "activate"} distance meter debug")
 
 
@@ -113,6 +117,7 @@ def draw_distance_meter_es(evt : UpdateStageInfoRenderDebug;
                            distance_meter__traceFrom : float3;
                            distance_meter__traceTo : float3;
                            distance_meter__selectedPointIdx : int;
+                           distance_meter__referenceTravelSpeed : float;
                            distance_meter__navmeshMode : bool)
   var sum_distance = 0.
   let color = E3DCOLOR(0xFFFF0000)
@@ -152,10 +157,14 @@ def draw_distance_meter_es(evt : UpdateStageInfoRenderDebug;
       pos = (distance_meter__points[i] + distance_meter__points[i - 1]) / 2.
 
     sum_distance += currentLineLength
-    add_debug_text_mark(pos, format("%.2fm", currentLineLength), -1, 0., E3DCOLOR(0xFF000000))
+    let dist_text = format("%.2fm", currentLineLength)
+    let time_text = format("%.2fs", safediv(currentLineLength, distance_meter__referenceTravelSpeed))
+    add_debug_text_mark(pos, "{dist_text} - {time_text}", -1, 0., E3DCOLOR(0x39616161))
 
+  let dist_text = format("%.2fm", sum_distance)
+  let time_text = format("%.2fs", safediv(sum_distance, distance_meter__referenceTravelSpeed))
   add_debug_text_mark(distance_meter__points[length(distance_meter__points) - 1],
-                      format("sum distance = %.2fm", sum_distance),
-                      -1, 0., E3DCOLOR(0xFF000000))
+                      "total: {dist_text} - {time_text}",
+                      -1, 0., E3DCOLOR(0x39616161))
 
   end_draw_cached_debug_lines()

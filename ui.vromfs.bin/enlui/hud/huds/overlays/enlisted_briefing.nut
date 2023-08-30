@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h1_txt, h2_txt, body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading1, fontHeading2, fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { missionName, missionType } = require("%enlSqGlob/missionParams.nut")
 let {showBriefingForTime, showBriefing, briefingState} = require("%ui/hud/state/briefingState.nut")
 let {localPlayerTeamInfo, localPlayerTeamIcon} = require("%ui/hud/state/teams.nut")
@@ -132,13 +132,13 @@ let function goalsBriefing(){
         children = [
           teamIcon
           {size=flex() maxWidth=hdpx(10)}
-          dtext(loc(briefing?.header), { size = [flex(), SIZE_TO_CONTENT] }.__update(h2_txt))
+          dtext(loc(briefing?.header), { size = [flex(), SIZE_TO_CONTENT] }.__update(fontHeading2))
           {size=flex()}
         ]
       },
-      textarea(loc(briefingText(briefing, localPlayerTeamInfo.value)), {color=lightgray}.__update(body_txt)),
-      dtext(loc(briefing?.common_header), {halign=ALIGN_CENTER}.__update(body_txt)),
-      type(briefing?.common) == "string" ? textarea( loc(briefing.common), { size=[flex(),fsh(10)], halign=ALIGN_LEFT color=lightgray}.__update(sub_txt)) : null
+      textarea(loc(briefingText(briefing, localPlayerTeamInfo.value)), {color=lightgray}.__update(fontBody)),
+      dtext(loc(briefing?.common_header), {halign=ALIGN_CENTER}.__update(fontBody)),
+      type(briefing?.common) == "string" ? textarea( loc(briefing.common), { size=[flex(),fsh(10)], halign=ALIGN_LEFT color=lightgray}.__update(fontSub)) : null
     ]
   }
 }
@@ -185,7 +185,7 @@ let missionTitle = @() {
   watch = [missionName, missionType]
   rendObj = ROBJ_TEXT
   text = loc(missionName.value, { mission_type = loc($"missionType/{missionType.value}") })
-}.__update(h1_txt, strokeStyle)
+}.__update(fontHeading1, strokeStyle)
 
 let titledBriefing = {
   flow = FLOW_VERTICAL

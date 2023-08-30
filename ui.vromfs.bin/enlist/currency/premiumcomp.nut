@@ -8,8 +8,7 @@ let { premiumActiveTime, hasPremium } = require("premium.nut")
 let {
   hasPremiumColor, defTxtColor, activeTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
-let { colFull } = require("%enlSqGlob/ui/designConst.nut")
-let premiumBtnSize = colFull(1)
+let premiumBtnSize = hdpxi(62)
 
 let premiumImagePath = @(size) "!ui/uiskin/currency/enlisted_prem.svg:{0}:{0}:K"
     .subst(size.tointeger())

@@ -24,21 +24,20 @@ postfx{
     adaptation__on:b=yes
     adaptation__autoExposureScale:r=1.5
     adaptation__highPart:r=0.0
-    bloom__threshold:r=1.8
+    bloom__threshold:r=5.8
     bloom__highQuality:b=yes
     adaptation__maxExposure:r=16.0
     adaptation__minExposure:r=0.25
     adaptation__lowPart:r=0.0
     adaptation__adaptDownSpeed:r=4.0
     adaptation__adaptUpSpeed:r=3.0
+    adaptation__brightnessPerceptionLinear:r=0.9
+    adaptation__brightnessPerceptionPower:r=0.9
     bloom__radius:r=1.0
     adaptation__fixedExposure:r=-1.0
-    bloom__upSample:r=0.45
+    bloom__upSample:r=0.2
     damage_indicator__color:p4=1.0, 0.3, 0.3, 0.0
     damage_indicator__size:r=0.5
-    flash_blind__decay_factor:r=0.2
-    flash_blind__decay_color:p4=0.9, 0.95, 1.0, 1.0
-    flash_blind__desaturation_scale:r=0.5
     smoke_blackout_effect__increaseDuration:r=3.0
     smoke_blackout_effect__decreaseDuration:r=2.0
     smoke_blackout_effect__maxIntensity:r=1.3
@@ -96,6 +95,16 @@ depth_of_field{
     dof__bokehShape_bladesCount:r=6.0
     dof__bokehShape_kernelSize:r=8.0
     dof__minCheckDistance:r=0.3
+  }
+
+  _group{
+    _tags:t="render"
+
+    "dof__depth_for_transparency_node_handle:dabfg::NodeHandle"{
+    }
+
+    "dof__downsample_depth_for_transparency_node_handle:dabfg::NodeHandle"{
+    }
   }
 }
 

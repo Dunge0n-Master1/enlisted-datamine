@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h2_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { kindIcon } = require("%enlSqGlob/ui/soldiersUiComps.nut")
 let sClassesCfg = require("%enlist/soldiers/model/config/sClassesConfig.nut")
 let { titleTxtColor, activeTxtColor, bigPadding, defTxtColor, commonBtnHeight, accentTitleTxtColor,
@@ -23,7 +23,7 @@ let mkText = @(txt, style = {}) {
   rendObj = ROBJ_TEXT
   color = defTxtColor
   text = txt
-}.__update(body_txt, style)
+}.__update(fontBody, style)
 
 let function mkSquadName(params) {
   let { nameLocId, titleLocId, sClass = null, itemType = null, itemSubType = null } = params
@@ -40,8 +40,8 @@ let function mkSquadName(params) {
       {
         flow = FLOW_VERTICAL
         children = [
-          mkText(loc(nameLocId ?? ""), { color = accentTitleTxtColor }).__update(body_txt)
-          mkText(loc(titleLocId ?? ""), { color = titleTxtColor }).__update(h2_txt)
+          mkText(loc(nameLocId ?? ""), { color = accentTitleTxtColor }).__update(fontBody)
+          mkText(loc(titleLocId ?? ""), { color = titleTxtColor }).__update(fontHeading2)
         ]
       }
     ]
@@ -107,7 +107,7 @@ let mkReceivedBanner = @(bgColor) {
     children = {
       rendObj = ROBJ_TEXT
       text = loc("squads/received")
-    }.__update(body_txt)
+    }.__update(fontBody)
   }
 }
 

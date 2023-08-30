@@ -6,6 +6,8 @@ germ_pzkpfw_vi_ausf_b_tiger_iih_common{
   _extends:t="base_pzkpfw_vi_ausf_b_tiger_iih"
   _extends:t="tank_panzer3_engine_sound"
   _extends:t="tank_tiger_vehicle_tracks_sound"
+  item__iconOffset:p2=0.02, 0.07
+  item__iconScale:r=1.2
   commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
   gunner_cam_limit__useCockpitDir:b=yes
 
@@ -54,11 +56,12 @@ germ_pzkpfw_vi_ausf_b_tiger_iih_common{
       maxPosWithOpenHatch:r=0.7
       hatchRotationAxis:p3=1.7, 0.0, 0.0
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.2, -0.0, -0.0]]
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.2, -0.1, -0.0]]
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="commander"
       cameraNodeName:t="bone_turret"
       cockpitTemplate:t="germ_pzkpfw_vi_ausf_b_tiger_iih_commander_cockpit"
+      isHoldGunModeAllowed:b=no
       isHoldGunModeAllowed:b=no
 
       "hatchNodes:array"{

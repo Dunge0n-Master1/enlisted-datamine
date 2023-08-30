@@ -90,7 +90,7 @@ tutorial_engineer_rotate_sandbags{
   tutor_stage__timer:r=0.0
 
   "tutor_stage__hintKeys:array"{
-    key:t="Human.Reload"
+    key:t="Human.RotateBuilding"
   }
 
   "tutor_bq__sendOnBegin:tag"{

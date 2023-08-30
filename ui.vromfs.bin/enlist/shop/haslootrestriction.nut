@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { get_country_code } = require("auth")
 let {
   isLootBoxProhibited, setProhibitingLootbox, ProhibitionStatus
@@ -53,7 +53,7 @@ let function checkLootRestriction(cb, content, crateContent) {
           rendObj = ROBJ_TEXTAREA
           behavior = Behaviors.TextArea
           text = loc("countryRestriction/confirmation")
-        }.__update(body_txt)
+        }.__update(fontBody)
       }
       buttons = [
         { text = loc("buyAnyway"),
@@ -88,7 +88,7 @@ let function checkLootRestriction(cb, content, crateContent) {
           size = [sw(50), SIZE_TO_CONTENT]
           maxWidth = hdpx(1000)
           text = loc("countryRestriction", { country = loc(get_country_code())})
-        }.__update(body_txt)
+        }.__update(fontBody)
       ]
     }
     buttons = [

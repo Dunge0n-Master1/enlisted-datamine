@@ -7,7 +7,7 @@ require debug.logerr_once
 require Dacoll
 require BallisticsProps
 require DngWeaponRender
-require BloodPuddels
+require BloodPuddles
 require DngWeapon
 require AnimV20
 require DagorMath
@@ -16,7 +16,6 @@ require math.base
 require common_shooter.es.render.blood_common
 require common_shooter.es.weapon.weaponry_fx_common
 require common_shooter.events_common_shooter
-require weapon_sounds.modules.weapon_sounds_events
 require enlisted.events_enlisted
 require Dacoll
 require Ballistics
@@ -25,22 +24,7 @@ require daslib/sort_boost
 require DngDm
 require common_shooter.dm_events
 require RendInst
-
-
-def spawn_effect_aux(norm : float3; pos : float3; fx_name : string; is_paint_fx_on_hit : bool)
-  if empty(fx_name) || fx_name == "-"
-    return
-
-  let tm = calc_effect_tm(pos, norm)
-  let needPaintFromBiome = getTemplateComponent(*getTemplateByName(fx_name), "paint_from_biome") ?? false
-
-  if (needPaintFromBiome && is_paint_fx_on_hit)
-    createEntity("hit_fx_readback_info") <| $(init)
-      init |> set("transform", tm)
-      init |> set("hit_fx_name", fx_name)
-  else
-    createEntity(fx_name) <| $(init)
-      init |> set("transform", tm)
+require game.es.render.weaponry_fx_render_common
 
 
 def spawn_effect(hit_effect_descriptor : int;
@@ -52,6 +36,7 @@ def spawn_effect(hit_effect_descriptor : int;
                  pos : float3;
                  mat_id : int;
                  riexHandle : riex_handle_t;
+                 rendinstPool : int;
                  is_under_water : bool;
                  exploded : bool = true;
                  should_stop : bool = true;
@@ -71,7 +56,7 @@ def spawn_effect(hit_effect_descriptor : int;
   else
     posAdjusted = pos
   let isPaintFxOnHit = riex_isRiGenExtraValid(riexHandle) ? riex_isPaintFxOnHit(riexHandle) : true;
-  spawn_effect_aux(norm, posAdjusted, fxName, isPaintFxOnHit)
+  spawn_hit_effect(norm, posAdjusted, fxName, isPaintFxOnHit, rendinstPool)
   return true
 
 [es(tag=render)]
@@ -88,7 +73,7 @@ def projectile_hit_scene_es(evt : EventProjectileHitScene;
   if !evt.sceneIntersectionsExceeded || (evt.shouldStop && evt.allowDetonation)
     let success = spawn_effect(projectile__hitEffectDescriptor, projectile__explEffectDescriptor,
                                launch_desc, dm_projectile_state, projectile_ballistics, evt.norm, evt.pos, evt.matId, evt.riexHandle,
-                               projectile__isUnderwater, projectile__exploded, evt.shouldStop, evt.ricochetAngle != 0.0)
+                               evt.rendinstPool, projectile__isUnderwater, projectile__exploded, evt.shouldStop, evt.ricochetAngle != 0.0)
     if !success
       logerr_once("projectile_hit_scene_es: failed to spawn VFX. projectile__hitEffectDescriptor: {projectile__hitEffectDescriptor},
           projectile__explEffectDescriptor: {projectile__explEffectDescriptor}, projectile__exploded: {projectile__exploded},
@@ -96,11 +81,9 @@ def projectile_hit_scene_es(evt : EventProjectileHitScene;
 
 [es(tag=render)]
 def fx_on_shell_explosion_es(evt : CmdShellExplosionFx;
-                             eid : EntityId;
                              scene_hit_place__matId : int;
                              scene_hit_place__pos : float3;
                              scene_hit_place__norm : float3;
-                             projectile_ballistics_props : ProjectileProps;
                              launch_desc : LaunchDesc;
                              dm_projectile_state : ProjectileState;
                              projectile_ballistics : ProjectileBallistics;
@@ -112,18 +95,11 @@ def fx_on_shell_explosion_es(evt : CmdShellExplosionFx;
     return
   let success = spawn_effect(projectile__hitEffectDescriptor, projectile__explEffectDescriptor,
                              launch_desc, dm_projectile_state, projectile_ballistics, scene_hit_place__norm, scene_hit_place__pos, scene_hit_place__matId,
-                             projectile__lastDamagedRiexHandle, projectile__isUnderwater)
+                             projectile__lastDamagedRiexHandle, -1, projectile__isUnderwater)
   if !success
     logerr_once("fx_on_shell_explosion_es: failed to spawn VFX. projectile__hitEffectDescriptor: {projectile__hitEffectDescriptor},
         projectile__explEffectDescriptor: {projectile__explEffectDescriptor}, scene_hit_place__matId: {scene_hit_place__matId}")
 
-  sendEventImmediate(eid, [[CmdPlayProjectileHitSceneSound
-    pos=scene_hit_place__pos,
-    pmid=scene_hit_place__matId,
-    caliber=projectile_ballistics_props.caliber,
-    ricochet=0.,
-    exploded=true
-  ]])
 
 def spawn_human_binded_fx(fx_tm : float3x4; itm : float3x4; effect_template : string; eid : EntityId; node_coll_id : int; color_mult : E3DCOLOR)
   createEntity(effect_template) <| $(var init)
@@ -198,7 +174,7 @@ def on_shell_hit_entity_fx_es(evt : OnShellHitEntityFx)
                                         projectile__exploded : bool)
       let success = spawn_effect(projectile__hitEffectDescriptor, projectile__explEffectDescriptor,
                                  launch_desc, dm_projectile_state, projectile_ballistics, evt.norm, evt.pos, evt.pmid,
-                                 uint64(0U), projectile__isUnderwater, projectile__exploded, evt.stopped)
+                                 uint64(0U), -1, projectile__isUnderwater, projectile__exploded, evt.stopped)
       if !success
         logerr_once("on_shell_hit_entity_fx_es: failed to spawn VFX. projectile__hitEffectDescriptor: {projectile__hitEffectDescriptor}, projectile__explEffectDescriptor: {projectile__explEffectDescriptor}, projectile__exploded: {projectile__exploded}, stopped: {evt.stopped}, pmid: {evt.pmid}")
 
@@ -223,11 +199,4 @@ def on_ricochet_vehicle_fx_es(evt : EventOnRicochet; transform : float3x4)
                                       projectile__exploded : bool)
     spawn_effect(projectile__hitEffectDescriptor, projectile__explEffectDescriptor,
                  launch_desc, dm_projectile_state, projectile_ballistics, norm, pos, get_material_id("steel"),
-                 uint64(0U), projectile__isUnderwater, projectile__exploded, /*should_stop*/ false, /*ricochet*/ true)
-
-[es(tag=render, REQUIRE=projectile_ballistics)]
-def projectile_hit_canopy_es(evt : EventProjectileHitCanopy)
-  find_query() <| $ [es] (global_hit_fx__canopyEffects : Object)
-    let fxName = global_hit_fx__canopyEffects[get_material_name(get_material(evt.matId))] ?? ""
-    spawn_effect_aux(evt.norm, evt.pos, fxName, /*is_paint_fx_on_hit*/ false)
-    return true
+                 uint64(0U), -1, projectile__isUnderwater, projectile__exploded, /*should_stop*/ false, /*ricochet*/ true)

@@ -31,7 +31,7 @@ enum MedicHealState {  // medic_common::MedicHealState
 let MedicHealState_COUNT = 3
 
 enum SquadBehaviour {  // squad_behaviour_command_common::SquadBehaviour
-  ESB_AGRESSIVE = 0
+  ESB_AGGRESSIVE = 0
   ESB_PASSIVE = 1
 }
 let SquadBehaviour_COUNT = 2

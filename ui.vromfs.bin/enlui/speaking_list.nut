@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {sub_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontSub} = require("%enlSqGlob/ui/fontsStyle.nut")
 let faComp = require("%ui/components/faComp.nut")
 let speakingPlayers = require("%ui/hud/state/voice_chat.nut")
 let { remap_others } = require("%enlSqGlob/remap_nick.nut")
@@ -31,7 +31,7 @@ let function mkSpeaker(name) {
         color = speakingColor
         text = name
         rendObj = ROBJ_TEXT
-      }.__update(sub_txt, {fontSize = hdpx(12)})
+      }.__update(fontSub, {fontSize = hdpx(12)})
     ]
   }
 }

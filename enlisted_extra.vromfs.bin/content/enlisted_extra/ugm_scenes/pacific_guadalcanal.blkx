@@ -64,6 +64,12 @@ entity{
   water__flowmap:b=yes
   water__flowmap_tex:t="pacific_guadalcanal_water_det_flowmap"
   water__flowmap_area:p4=-2048.0, 2048.0, 2048.0, -2048.0
+  water__flowmap_depth:p4=0.4, 0.4, 0.8, 0.5
+  water__flowmap_fading:r=4.0
+  water__flowmap_foam:p4=0.8, 0.8, 1.0, 1.0
+  water__flowmap_foam_tiling:r=1.0
+  water__flowmap_strength:p4=0.7, 0.5, 0.1, 0.0
+  water__flowmap_strength_add:p4=0.5, 1.0, 1.0, 0.5
 }
 
 entity{

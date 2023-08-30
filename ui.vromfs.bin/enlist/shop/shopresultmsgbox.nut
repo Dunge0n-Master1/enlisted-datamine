@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let msgbox = require("%enlist/components/msgbox.nut")
 let { lastReceivedServerTime } = require("%enlSqGlob/userstats/serverTimeUpdate.nut")
-let { body_txt, h2_txt, h1_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody, fontHeading2, fontHeading1 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { settings, onlineSettingUpdated } = require("%enlist/options/onlineSettings.nut")
 let { purchasesExt } = require("%enlist/meta/profile.nut")
 let { txt, noteTextArea } = require("%enlSqGlob/ui/defcomps.nut")
@@ -79,7 +79,7 @@ let function mkShopItemSingleResult(purchase) {
         : txt({
             text = $"x{amount}"
             padding = bigPadding
-          }.__update(h1_txt))
+          }.__update(fontHeading1))
     ]
   }
 }
@@ -94,12 +94,12 @@ let mkShopItemMultiResult = @(purchases)
         txt({
           text = nameText
           color = nameColor
-        }.__update(body_txt))
+        }.__update(fontBody))
         amount <= 0 ? null
           : txt({
               text = $" x{amount}"
               color = activeTxtColor
-            }.__update(body_txt))
+            }.__update(fontBody))
       ]
     }
   })
@@ -127,12 +127,12 @@ let function checkReqPurchasesMsgbox(purchases) {
         noteTextArea(loc("youHaveReceived")).__update({
           color = activeTxtColor
           halign = ALIGN_CENTER
-        }, h2_txt)
+        }, fontHeading2)
         mkPurchasesView(purchases)
         noteTextArea(loc("thanksForPurchases")).__update({
           color = activeTxtColor
           halign = ALIGN_CENTER
-        }, body_txt)
+        }, fontBody)
       ]
     }
     buttons = [{

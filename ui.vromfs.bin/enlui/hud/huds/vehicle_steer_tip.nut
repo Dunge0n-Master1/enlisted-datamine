@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let dainput = require("dainput2")
-let {sub_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontSub} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {tipCmp} = require("%ui/hud/huds/tips/tipComponent.nut")
 let {inGroundVehicle, controlledVehicleEid} = require("%ui/hud/state/vehicle_state.nut")
 let {steerTipDuration, vehicleSteerTips} = require("%ui/hud/state/vehicle_steer_tips.nut")
@@ -42,7 +42,7 @@ let function prepareTipCmp(key,imageMap) {
       text = loc($"controls/{key}")
       style = {rendObj = null}
       animations = animations
-    }.__update(sub_txt))
+    }.__update(fontSub))
 }
 
 return function() {

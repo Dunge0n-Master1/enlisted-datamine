@@ -1,9 +1,9 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt, sub_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody, fontSub} = require("%enlSqGlob/ui/fontsStyle.nut")
 let math = require("%sqstd/math.nut")
-let { titleTxtColor, panelBgColor, defItemBlur, defTxtColor, darkPanelBgColor, brightAccentColor, accentColor
-    , darkTxtColor } = require("%enlSqGlob/ui/designConst.nut")
+let { titleTxtColor, panelBgColor, defItemBlur, defTxtColor, darkPanelBgColor, brightAccentColor,
+  accentColor, darkTxtColor, selectedPanelBgColor } = require("%enlSqGlob/ui/designConst.nut")
 let { blinkUnseen } = require("%ui/components/unseenComponents.nut")
 let { safeAreaBorders, safeAreaSize } = require("%enlist/options/safeAreaState.nut")
 let closeBtnBase = require("%ui/components/closeBtn.nut")
@@ -19,8 +19,6 @@ let mkUnlockBtn = require("%enlist/campaigns/mkUnlockButton.nut")
 let { nestWatched } = require("%dngscripts/globalState.nut")
 
 let isOpened = nestWatched("isOpened", false)
-
-let selectedColor = mul_color(panelBgColor, 1.5)
 
 const SHAKE_TEXT_ID = "SHAKE_TEXT_ID"
 const TOTAL_ROWS = 2
@@ -87,7 +85,7 @@ let mkText = @(text, color = titleTxtColor) {
   rendObj = ROBJ_TEXT
   text
   color
-}.__update(body_txt)
+}.__update(fontBody)
 
 let mkCampaignImg = @(campaign, isAvailable, sf) {
   size = flex()
@@ -114,13 +112,12 @@ let mkCampaignName = @(name, sf, isSelected) {
   vplace = ALIGN_BOTTOM
   halign = ALIGN_CENTER
   valign = ALIGN_CENTER
-  color = sf & S_HOVER
-    ? accentColor
-    : isSelected ? selectedColor : panelBgColor
-  children = mkText(name, sf & S_HOVER
-    ? darkTxtColor
-    : isSelected ? accentColor : defTxtColor
-  )
+  color = sf & S_HOVER ? accentColor
+    : isSelected ? selectedPanelBgColor
+    : panelBgColor
+  children = mkText(name, sf & S_HOVER ? darkTxtColor
+    : isSelected ? accentColor
+    : defTxtColor)
 }
 
 let mkNotAvailableText = @(text, triggerId) {
@@ -133,7 +130,7 @@ let mkNotAvailableText = @(text, triggerId) {
     rendObj = ROBJ_TEXT
     text
     color = defTxtColor
-  }.__update(body_txt)
+  }.__update(fontBody)
 }
 
 let function campaignBtn(campaign, cardSize) {
@@ -153,7 +150,7 @@ let function campaignBtn(campaign, cardSize) {
       padding = paddingInternal
       fillColor = panelBgColor
       borderColor = sf & S_HOVER ? brightAccentColor : panelBgColor
-      borderWidth = (sf & S_HOVER) != 0 || isSelected.value ? hdpx(2) : 0
+      borderWidth = (sf & S_HOVER) || isSelected.value ? hdpx(2) : 0
       behavior = Behaviors.Button
 
       onClick = @() isAvailable
@@ -202,12 +199,12 @@ let header = {
       rendObj = ROBJ_TEXT
       color = defTxtColor
       text = loc("campaign/selectNew")
-    }.__update(body_txt)
+    }.__update(fontBody)
     {
       rendObj = ROBJ_TEXT
       color = defTxtColor
       text = "({0})".subst(loc("campaign/changeAvailable"))
-    }.__update(sub_txt)
+    }.__update(fontSub)
   ]
 }
 

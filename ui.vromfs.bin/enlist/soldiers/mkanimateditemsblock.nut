@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h2_txt, body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2, fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { squadsCfgById } = require("%enlist/soldiers/model/config/squadsConfig.nut")
 let {
   unitSize, slotBaseSize, listCtors, warningColor, hoverBgColor
@@ -66,7 +66,7 @@ let dropTitle = @(titleText) {
   ]
   children = dtxt(titleText, {
     size = SIZE_TO_CONTENT
-  }.__update(h2_txt))
+  }.__update(fontHeading2))
 }
 
 let function blockTitle(blockId, params) {
@@ -89,7 +89,7 @@ let function blockTitle(blockId, params) {
       size = SIZE_TO_CONTENT
       hplace = ALIGN_LEFT
       color = gray
-    }.__update(body_txt))
+    }.__update(fontBody))
   }
 }
 
@@ -138,15 +138,15 @@ let mkItemByTypeMap = {
             size = flex()
             padding = smallPadding
             children = [
-              mkBoosterInfo(item, sub_txt.__merge({ color = textColor }))
-              mkBoosterLimits(item, sub_txt.__merge({ color = textColor }))
+              mkBoosterInfo(item, fontSub.__merge({ color = textColor }))
+              mkBoosterLimits(item, fontSub.__merge({ color = textColor }))
               count <= 1 ? null
                : {
                     rendObj = ROBJ_TEXT
                     hplace = ALIGN_RIGHT
                     text = loc("common/amountShort", item)
                     color = textColor
-                  }.__update(sub_txt)
+                  }.__update(fontSub)
             ]
           }
         ]

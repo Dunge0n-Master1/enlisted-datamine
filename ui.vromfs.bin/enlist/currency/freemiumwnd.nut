@@ -4,8 +4,7 @@ let { addModalWindow, removeModalWindow } = require("%ui/components/modalWindows
 let closeBtnBase = require("%ui/components/closeBtn.nut")
 let buyShopItem = require("%enlist/shop/buyShopItem.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
-let { h1_txt, h2_txt, body_txt, h1_bold_txt, fontawesome, sub_txt, h2_bold_txt
-} = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading1, fontHeading2, fontBody, fontawesome, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { sendBigQueryUIEvent } = require("%enlist/bigQueryEvents.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
@@ -102,7 +101,7 @@ let function freemiumBlockHeader() {
               rendObj = ROBJ_TEXT
               text = loc($"{locBase}/title")
               padding = [fsh(2), fsh(3)]
-            }.__update(h1_txt),
+            }.__update(fontHeading1),
             {
               flagColor = color
               offsetColor = darkColor
@@ -112,7 +111,7 @@ let function freemiumBlockHeader() {
             text = loc($"freemium/bothSide")
             padding = [hdpx(15), hdpx(30)]
             color = activeTxtColor
-          }.__update(h2_txt))
+          }.__update(fontHeading2))
         ]
       }
       {
@@ -155,7 +154,7 @@ let mkInfoTitle = @(idx, unitVal, unitDesc = null) function() {
           mkValAnimColor(BLINK_DELAY * idx + BONUSES_TEXT_DELAY, color, activeColor),
           mkValAnimScale(BLINK_DELAY * idx + BONUSES_TEXT_DELAY)
         )
-      }.__update(unitDesc ? h1_bold_txt : h2_bold_txt))
+      }.__update(unitDesc ? fontHeading1 : fontHeading2))
       unitDesc == null ? null
         : {
             rendObj = ROBJ_TEXTAREA
@@ -164,7 +163,7 @@ let mkInfoTitle = @(idx, unitVal, unitDesc = null) function() {
             maxWidth = hdpx(100)
             color = activeTxtColor
             margin = [0, bigPadding]
-          }.__update(sub_txt)
+          }.__update(fontSub)
     ]
   }
 }
@@ -191,7 +190,7 @@ let mkDesc = @(text) {
   margin = [hdpx(20), 0]
   text
   color = activeColor
-}.__update(sub_txt)
+}.__update(fontSub)
 
 let function mkInfoBlock(idx, titleBlock, descText, addObj = null) {
   if (typeof descText != "array")
@@ -327,7 +326,7 @@ let function mkDiscountInfo(discountInPercent, endTime) {
           txt({
             text = utf8ToUpper(loc("shop/discountNotify"))
             color = titleTxtColor
-          }.__update(sub_txt))
+          }.__update(fontSub))
           endTime == 0 ? null : mkCountdownTimer({ timestamp = endTime })
         ]
       }, primeFlagStyle.__merge({
@@ -382,7 +381,7 @@ let function mkVehicleSquad(squadData) {
           weapInfoBtn(sf)
         ]
       })
-      txt(getItemName(startVehicle)).__update(body_txt)
+      txt(getItemName(startVehicle)).__update(fontBody)
     ]
   }
 }
@@ -414,7 +413,7 @@ let function vehiclesBlock(squads) {
           valign = ALIGN_CENTER
           gap = txt({
             text = "+"
-            fontSize = fsh(8)
+            fontSize = hdpxi(86)
             margin = [0, hdpx(15)]
             color
           })
@@ -426,7 +425,7 @@ let function vehiclesBlock(squads) {
           color
           behavior = Behaviors.TextArea
           maxWidth = hdpx(340)
-        }.__update(h2_bold_txt)
+        }.__update(fontHeading2)
       ]
     }
   }
@@ -452,7 +451,7 @@ let function mkArmSquad(squadData) {
           weapInfoBtn(sf)
         ]
       })
-      txt(getItemName(gametemplate)).__update(sub_txt)
+      txt(getItemName(gametemplate)).__update(fontSub)
     ]
   }
 }
@@ -489,7 +488,7 @@ let function armsBlock(squads) {
           valign = ALIGN_CENTER
           gap = txt({
             text = "+"
-            fontSize = fsh(8)
+            fontSize = hdpxi(86)
             margin = [0, hdpx(15)]
             color
           })
@@ -501,7 +500,7 @@ let function armsBlock(squads) {
           color
           behavior = Behaviors.TextArea
           maxWidth = hdpx(340)
-        }.__update(h2_bold_txt)
+        }.__update(fontHeading2)
       ]
     }
   }

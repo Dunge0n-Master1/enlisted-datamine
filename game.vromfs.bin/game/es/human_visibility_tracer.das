@@ -76,12 +76,12 @@ def visibility_traceable_item_created_es(evt : Event;
                                          transform : float3x4;
                                          collres : CollisionResource;
                                          var item__visibleCheckHeight : float&;
-                                         item__visibleCheckMargin : float = 0.5;
                                          item__visibleCheckStartOffset : float = 0.1)
   if !item__isOnGround
     return
-  item__visibleCheckHeight = (collres.vFullBBox.bmax.y >= collres.vFullBBox.bmin.y ? collres.vFullBBox.bmax.y * transform[1].y : 0f) + item__visibleCheckMargin - item__visibleCheckStartOffset
+  let itemHeight = (transform * BBox3(collres.vFullBBox)).boxMax.y - transform[3].y
+  let visibleCheckStartOffset = (collres.vFullBBox.bmax.y >= collres.vFullBBox.bmin.y) ? max(itemHeight, 0.f) : item__visibleCheckStartOffset
   let dir = float3(0.0, 1.0, 0.0)
   var norm : float3
-  traceray_normalized(transform[3] + dir * item__visibleCheckStartOffset, dir, item__visibleCheckHeight, norm)
-  item__visibleCheckHeight = max(0.0, item__visibleCheckHeight - 0.01)
+  traceray_normalized(transform[3] + dir * visibleCheckStartOffset, dir, item__visibleCheckHeight, norm)
+  item__visibleCheckHeight = max(0.0, visibleCheckStartOffset + item__visibleCheckHeight - 0.01)

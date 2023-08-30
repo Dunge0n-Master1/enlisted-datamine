@@ -15,7 +15,7 @@ p_51c_10{
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="pilot_dm"
       cameraNodeName:t=""
-      cameraOffset:p3=-1.08, 1.031, 0.0
+      cameraOffset:p3=-1.15, 1.031, 0.0
       cockpitTemplate:t="p_51c_10_driver_cockpit"
       roomSpace:i=0
 

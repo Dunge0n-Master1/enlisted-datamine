@@ -78,7 +78,7 @@ def scenery_rendinsts_unbake_rendinst_es(evt : CmdRIToolUnbakeRendInst;
   if evt.eid != INVALID_ENTITY_ID
     if has(evt.eid, "enbakedRITag")
       reCreateEntityFrom(evt.eid, remove_sub_template_name(evt.eid, "enbaked_ri"))
-      entity_obj_editor_saveDelTemplate(evt.eid, "enbaked_ri")
+      entity_obj_editor_saveDelTemplate(evt.eid, "enbaked_ri", false/*use_undo*/)
       entity_object_editor_selectEntity(evt.eid, true)
       return
     if has(evt.eid, "unbakedRendInstTag") || has(evt.eid, "gameRendInstTag")

@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let platform = require("%dngscripts/platform.nut")
 let { setStagesConfig } = require("%enlist/login/login_chain.nut")
 let defConfig = require("%enlist/login/defaultLoginStages.nut")
@@ -69,4 +69,4 @@ if (betaWarning != null)
     behavior = Behaviors.TextArea
     color = activeTxtColor
     text = betaWarning
-  }.__update(sub_txt))
+  }.__update(fontSub))

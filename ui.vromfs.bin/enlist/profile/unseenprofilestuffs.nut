@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { isMainMenuVisible } = require("%enlist/mainMenu/sectionsState.nut")
 let { isProfileOpened } = require("profileState.nut")
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { showMessageWithContent } = require("%enlist/components/msgbox.nut")
 let { decorators, medals, wallposters, vehDecorators } = require("%enlist/meta/profile.nut")
@@ -92,11 +92,11 @@ let function mkUnseenBlock(uType, children = null) {
         halign = ALIGN_CENTER
         color = titleTxtColor
         onDetach = @() specialUnlockToReceive(null)
-      }.__update(body_txt)
+      }.__update(fontBody)
       txt({
         text = loc(unseenTitles?[uType] ?? "")
         color = titleTxtColor
-      }).__update(body_txt)
+      }).__update(fontBody)
     ].append(children)
   }
 }

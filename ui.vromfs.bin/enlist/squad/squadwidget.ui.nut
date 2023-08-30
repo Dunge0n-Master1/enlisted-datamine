@@ -1,8 +1,8 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { gap } = require("%enlSqGlob/ui/viewConst.nut")
-let { defTxtColor, colFull } = require("%enlSqGlob/ui/designConst.nut")
+let { defTxtColor } = require("%enlSqGlob/ui/designConst.nut")
 let { navBottomBarHeight } = require("%enlist/mainMenu/mainmenu.style.nut")
 let { squadLen, squadMembers, isInvitedToSquad, enabledSquad, canInviteToSquad,
   leaveSquad, squadSelfMember, myExtSquadData, isSquadLeader
@@ -24,7 +24,7 @@ let contextMenuActions = [INVITE_TO_FRIENDS, INVITE_TO_PSN_FRIENDS, REMOVE_FROM_
   PROMOTE_TO_LEADER, REVOKE_INVITE, SHOW_USER_LIVE_PROFILE]
 let maxMembers = Computed(@() currentGameMode.value?.queue.maxGroupSize ?? 1)
 
-let hintTxtStyle = { color = defTxtColor }.__update(sub_txt)
+let hintTxtStyle = { color = defTxtColor }.__update(fontSub)
 
 
 let mkHint = @(text) {
@@ -53,7 +53,7 @@ let squadControls = @() {
 }
 
 let horizontalContact = @(contact) {
-  size = [colFull(3), navBottomBarHeight]
+  size = [fsh(20), navBottomBarHeight]
   children = mkContactBlock(contact, contextMenuActions)
 }
 
@@ -67,7 +67,7 @@ let squadReadyButton = @(ready) textButton(
   },
   { size = [SIZE_TO_CONTENT, flex()]
     margin = [0, 0, 0, hdpx(5)]
-    textParams = { validateStaticText = false, vplace = ALIGN_CENTER }.__update(sub_txt)
+    textParams = { validateStaticText = false, vplace = ALIGN_CENTER }.__update(fontSub)
     style = !ready.value
       ? { BgNormal   = Color(220, 130, 0, 250), TextNormal = Color(210, 210, 210, 120) }
       : { TextNormal = Color(100, 100, 100, 120) }

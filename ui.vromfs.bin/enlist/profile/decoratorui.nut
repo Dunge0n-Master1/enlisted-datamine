@@ -4,8 +4,8 @@ let { doesLocTextExist } = require("dagor.localize")
 let hoverHoldAction = require("%darg/helpers/hoverHoldAction.nut")
 let spinner = require("%ui/components/spinner.nut")
 let openUrl = require("%ui/components/openUrl.nut")
-let { currenciesList } = require("%enlist/currency/currencies.nut")
-let { sub_txt, body_txt, h2_txt, fontawesome } = require("%enlSqGlob/ui/fonts_style.nut")
+let { currenciesById } = require("%enlist/currency/currencies.nut")
+let { fontSub, fontBody, fontHeading2, fontawesome } = require("%enlSqGlob/ui/fontsStyle.nut")
 let fa = require("%ui/components/fontawesome.map.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let {addModalWindow, removeModalWindow} = require("%ui/components/modalWindows.nut")
@@ -73,9 +73,9 @@ let function mkPortraitCost(portraitCfg, override = {}) {
   let { currencyId = "", price = 0 } = buyData
   return currencyId == "" && price <= 0 ? null
     : function() {
-        let currency = currenciesList.value.findvalue(@(c) c.id == currencyId)
+        let currency = currenciesById.value?[currencyId]
         return {
-          watch = currenciesList
+          watch = currenciesById
           children = currency == null ? null
             : mkCurrency({
                 currency
@@ -144,7 +144,7 @@ let function nickFrameListUi() {
     margin = [0,0,bigOffset,0]
     onAttach = @() hoverNickFrame(chosen?.framedNickName(userName) ?? userName)
     xmbNode = XmbContainer({
-      canFocus = @() false
+      canFocus = false
       scrollSpeed = 5.0
       isViewport = true
     })
@@ -152,13 +152,13 @@ let function nickFrameListUi() {
       txt({
         text = loc("selectNickFrameTitle")
         padding = [0, 0, tinyOffset, 0]
-      }).__update(h2_txt)
+      }).__update(fontHeading2)
       @() {
         watch = hoverNickFrame
         children = txt({
           text = hoverNickFrame.value
           padding = [0, 0, tinyOffset, 0]
-        }).__update(h2_txt)
+        }).__update(fontHeading2)
       }
       makeVertScroll({
         size = [flex(), SIZE_TO_CONTENT]
@@ -295,7 +295,7 @@ let function portraitListUi() {
     gap = bigOffset
     margin = [0,0,bigOffset,0]
     xmbNode = XmbContainer({
-      canFocus = @() false
+      canFocus = false
       scrollSpeed = 5.0
       isViewport = true
     })
@@ -303,7 +303,7 @@ let function portraitListUi() {
       txt({
         text = loc("selectPortraitTitle")
         padding = [0, 0, tinyOffset, 0]
-      }).__update(h2_txt)
+      }).__update(fontHeading2)
       makeVertScroll({
         size = [flex(), SIZE_TO_CONTENT]
         children = wrap(portraitList.map(function(portraitCfg) {
@@ -379,7 +379,7 @@ let mkChangeNickFrameBtn = @(hasUnseen, hasUnopened) watchElemState(@(sf) {
     txt({
       text = loc("profile/changeNameDecorator")
       color = sf & S_HOVER ? titleTxtColor : defTxtColor
-    }).__update(sub_txt)
+    }).__update(fontSub)
     mkIcon(fa["pencil"], borderColor(sf))
     !hasUnseen ? null
       : {
@@ -437,7 +437,7 @@ let decoratorBlock = {
           txt({
             text = nickName
             color = titleTxtColor
-          }).__update(body_txt)
+          }).__update(fontBody)
           mkChangeNickFrameBtn(hasUnseen, hasUnopened)
           !is_pc || isChineseVersion ? null
             : Bordered(loc("profile/changeNick"), @() openUrl(CHANGE_NICK_URL),

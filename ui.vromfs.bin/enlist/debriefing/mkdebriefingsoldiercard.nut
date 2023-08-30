@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { sound_play } = require("%dngscripts/sound_system.nut")
 let {
   mkLevelIcon, mkSoldierMedalIcon
@@ -51,7 +51,7 @@ let mkAddLevelBlock = @(lvlAdded, aDelay, animCtor) {
             { prop = AnimProp.scale, from = [2,2], to = [1,1], duration = 0.6,
               play = true, delay = aDelay }
           ]
-        }.__update(sub_txt)
+        }.__update(fontSub)
     {
       flow = FLOW_HORIZONTAL
       children = array(lvlAdded)
@@ -197,7 +197,7 @@ local function mkSoldierCard(params = SOLDIER_CARD_PARAMS) {
           hplace = ALIGN_CENTER
           size = [soldierCardSize[0], SIZE_TO_CONTENT]
           behavior = Behaviors.Marquee
-        }.__update(sub_txt)
+        }.__update(fontSub)
       ]
       transform = {}
       animations = params.mkAppearAnimations(aDelay)

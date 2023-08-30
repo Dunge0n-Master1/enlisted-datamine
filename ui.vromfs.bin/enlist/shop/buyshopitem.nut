@@ -1,18 +1,19 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h2_txt, body_txt, sub_txt, body_bold_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2, fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let msgbox = require("%enlist/components/msgbox.nut")
 let getPayItemsData = require("%enlist/soldiers/model/getPayItemsData.nut")
-let { mkPrice } = require("%enlist/shop/mkShopItemPrice.nut")
 let { doesLocTextExist } = require("dagor.localize")
 let { curCampItems } = require("%enlist/soldiers/model/state.nut")
 let { isProductionCircuit } = require("%dngscripts/appInfo.nut")
 let { txt, noteTextArea } = require("%enlSqGlob/ui/defcomps.nut")
 let { mkItemCurrency, mkCurrencyImage } = require("%enlist/shop/currencyComp.nut")
 let { sound_play } = require("%dngscripts/sound_system.nut")
-let { HighlightFailure, MsgMarkedText, TextActive, TextHighlight, textColor
+let { HighlightFailure, MsgMarkedText, TextActive, textColor
 } = require("%ui/style/colors.nut")
-let { bigPadding, smallPadding, defTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
+let {
+  bigPadding, smallPadding, defTxtColor, commonBtnHeight
+} = require("%enlSqGlob/ui/viewConst.nut")
 let { viewShopInfoBtnStyle, DISCOUNT_WARN_TIME } = require("shopPkg.nut")
 let {
   barterShopItem, buyItemByGuid, getBuyRequirementError, buyItemByStoreId, buyShopItem,
@@ -25,7 +26,6 @@ let { purchaseButtonStyle, primaryFlatButtonStyle
 } = require("%enlSqGlob/ui/buttonsStyle.nut")
 let colorize = require("%ui/components/colorize.nut")
 let { sendBigQueryUIEvent } = require("%enlist/bigQueryEvents.nut")
-let { mkCurrency } = require("%enlist/currency/currenciesComp.nut")
 let { getCurrencyPresentation } = require("%enlist/shop/currencyPresentation.nut")
 let { priceWidget } = require("%enlist/components/priceWidget.nut")
 let textButtonTextCtor = require("%ui/components/textButtonTextCtor.nut")
@@ -36,7 +36,6 @@ let { allActiveOffers } = require("%enlist/offers/offersState.nut")
 let squadsPresentation = require("%enlSqGlob/ui/squadsPresentation.nut")
 let { openBPwindow, getRewardIdx } = require("%enlist/battlepass/bpWindowState.nut")
 let { purchasesCount } = require("%enlist/meta/profile.nut")
-let { fontMedium } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { titleTxtColor, attentionTxtColor } = require("%enlSqGlob/ui/designConst.nut")
 let faComp = require("%ui/components/faComp.nut")
 let { mkStatList } = require("%enlist/soldiers/components/perksPackage.nut")
@@ -44,14 +43,13 @@ let sClassesCfg = require("%enlist/soldiers/model/config/sClassesConfig.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 
 
-let defTxtStyle = { color = defTxtColor }.__update(sub_txt)
-let smallActiveTxtStyle = { color = TextActive }.__update(sub_txt)
-let markedTxtStyle = { color = MsgMarkedText }.__update(sub_txt)
-let failureTxtStyle = { color = HighlightFailure }.__update(body_txt)
-let boldFailureTxtStyle = { color = HighlightFailure }.__update(body_bold_txt)
-let highlightTxtStyle = { color = TextHighlight }.__update(body_txt)
-let largeDefTxtStyle = { color = defTxtColor }.__update(h2_txt)
-let alertTxtStyle = { color = titleTxtColor }.__update(fontMedium)
+let defTxtStyle = { color = defTxtColor }.__update(fontSub)
+let smallActiveTxtStyle = { color = TextActive }.__update(fontSub)
+let markedTxtStyle = { color = MsgMarkedText }.__update(fontSub)
+let failureTxtStyle = { color = HighlightFailure }.__update(fontBody)
+let boldFailureTxtStyle = { color = HighlightFailure }.__update(fontBody)
+let largeDefTxtStyle = { color = defTxtColor }.__update(fontHeading2)
+let alertTxtStyle = { color = titleTxtColor }.__update(fontBody)
 
 enum DISCOUNT_STATE {
   STARTED = 0
@@ -70,10 +68,10 @@ let mkDescription = @(descLocId) descLocId == null ? null
       halign = ALIGN_CENTER
     })
 
-let function mkResourcesLackInfo(reqResources, viewCurrs, costLocId) {
+let function mkResourcesLackInfo(reqResources, buyCount, viewCurrs, costLocId) {
   let lackResources = []
   foreach (currencyTpl, required in reqResources) {
-    let count = required - (viewCurrs?[currencyTpl] ?? 0)
+    let count = required * buyCount - (viewCurrs?[currencyTpl] ?? 0)
     if (count > 0)
       lackResources.append(mkItemCurrency({
         currencyTpl, count, textStyle = boldFailureTxtStyle
@@ -114,7 +112,7 @@ let mkItemDescription = @(description) makeVertScroll({
   behavior = Behaviors.TextArea
   halign = ALIGN_CENTER
   text = description
-}.__update(body_txt)
+}.__update(fontBody)
 {
   size = [flex(), SIZE_TO_CONTENT]
   maxHeight = hdpx(300)
@@ -129,20 +127,6 @@ let currencyImage = @(currency) currency
     }
   : null
 
-let mkAllPricesView = @(barterPriceView, buyPriceView) barterPriceView || buyPriceView
-  ? {
-      flow = FLOW_HORIZONTAL
-      gap = bigPadding
-      valign = ALIGN_CENTER
-      children = [
-        txt(loc("shop/willCostYou")).__update(defTxtStyle)
-        barterPriceView
-        !(barterPriceView && buyPriceView) ? null
-          : txt(loc("mainmenu/or")).__update(defTxtStyle)
-        buyPriceView
-      ]
-    }
-  : null
 
 let mkBarterCurrency = @(barterTpl){
   size = [SIZE_TO_CONTENT, flex()]
@@ -157,28 +141,23 @@ let mkBarterCurrency = @(barterTpl){
       padding = [0, hdpx(3)]
       rendObj = ROBJ_TEXT
       text = realCurrencies.value?[barterTpl]
-    }.__update(body_txt)
+    }.__update(fontBody)
   ]
 }
 
-let btnWithCurrImageComp = @(text, currImgs, price, sf, count, shopItemPriceInc) {
+let buyBtnSize = { size = [hdpxi(200), commonBtnHeight] }
+let btnWithCurrImageComp = @(currImgs, price, sf, count, shopItemPriceInc) {
   flow = FLOW_HORIZONTAL
   valign = ALIGN_CENTER
   margin = [hdpx(10), hdpx(20), hdpx(10), hdpx(50)]
   gap = hdpx(10)
   children = [
-    {
-      rendObj = ROBJ_TEXT
-      color = textColor(sf, false, TextActive)
-      text
-    }.__update(body_txt)
     currImgs
     {
       rendObj = ROBJ_TEXT
       color = textColor(sf, false, TextActive)
-      text = count * price
-        + shopItemPriceInc * count * (count - 1) / 2
-    }.__update(body_txt)
+      text = count * price + shopItemPriceInc * count * (count - 1) / 2
+    }.__update(fontBody)
   ]
 }
 
@@ -203,14 +182,10 @@ let function buyCurrencyText(currency, sf) {
       rendObj = ROBJ_TEXT
       color = textColor(sf, false, TextActive)
       text
-    }.__update(body_txt))
+    }.__update(fontBody))
   }
 }
 
-let mkDiscountInfo = @(state) !state ? null
-  : state == DISCOUNT_STATE.STARTED ? txt(loc("shop/discount_started")).__update(highlightTxtStyle)
-  : state == DISCOUNT_STATE.ENDING ? txt(loc("shop/discount_ending")).__update(failureTxtStyle)
-  : txt(loc("shop/discount_ended")).__update(failureTxtStyle)
 
 let function recalcOfferPrice(offers, offerGuid, price, fullPrice, discountState, ts) {
   let offer = offers.findvalue(@(o) o.guid == offerGuid)
@@ -262,8 +237,6 @@ let function notEnoughMsg(itemTpl, missingOrders) {
   })
 }
 
-let titleLocalization = @(locId, shopItem) loc(locId, { purchase = loc(shopItem?.nameLocId) ?? "" })
-
 let warnIcon = faComp("exclamation-triangle", { fontSize = hdpx(16), color = attentionTxtColor })
 
 let mkAlertObject = @(alertText) {
@@ -278,6 +251,7 @@ let mkAlertObject = @(alertText) {
     }.__update(alertTxtStyle)
   ]
 }
+
 
 let function limitTextBlock(limit, guid) {
   if (limit <= 0)
@@ -363,9 +337,9 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null, activatePre
   let hasSquads = (shopItem?.squads.len() ?? 0) > 0
   let contentCtor = shopItemContentCtor(shopItem)
   let shopItemContent = contentCtor?.value?.content
-  let isSoldier = (shopItemContent?.soldierClasses.len() ?? 0) > 0
-  local title = isSoldier ? titleLocalization("shop/wantPurchaseSoldier", shopItem)
-    : !hasSquads ? titleLocalization("shop/wantPurchaseMsg", shopItem)
+  let { soldierClasses = [] } = shopItemContent
+  let isSoldier = soldierClasses.len() > 0
+  local title = isSoldier || !hasSquads ? loc("shop/purchaseBaseHeader")
     : shopItem?.nameLocId ? loc(shopItem.nameLocId)
     : ", ".join(shopItem.squads.map(@(sq) loc(squadsPresentation?[sq.armyId][sq.id].titleLocId)))
 
@@ -392,21 +366,18 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null, activatePre
     }
 
   let msgBoxContent = function() {
-    local barterPriceView = null
-    local buyPriceView = null
     let statsList = !isSoldier ? null : mkStatList(shopItemContent, sClassesCfg.value)
     let msgBody = [
       limitTextBlock(limit, guid)
       isNotSuitable ? mkAlertObject(loc("shop/unsuitableForSoldier")) : null
       productView ?? mkDescription(shopItem?.descLocId)
       statsList == null ? null : statsList
-      typeof description == "string" ? mkItemDescription(description) : description
     ]
 
     // barter area
     if (hasBarter){
       if (!barterInfo.value){
-        msgBody.append(mkResourcesLackInfo(curItemCost, realCurrencies.value, costLocId))
+        msgBody.append(mkResourcesLackInfo(curItemCost, countWatched.value, realCurrencies.value, costLocId))
         if (currencyId == "EnlistedGold" && price.value > 0) {
           msgBody.append({
             size = [fsh(50), SIZE_TO_CONTENT]
@@ -419,33 +390,23 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null, activatePre
             ]
           })
         }
-      } else {
-        barterPriceView = mkPrice({
-          shopItem
-          needPriceText = false
-          showGoldPrice = false
-          styleOverride = body_bold_txt
-        })
       }
     }
 
-    // buy area
-    local notEnoughCurrencyInfo = null
-    if (hasBuy.value){
-      buyPriceView = mkCurrency({
-        currency
-        price = price.value
-        fullPrice = fullPrice.value
-        iconSize = hdpxi(20)
-      })
-      if ((currenciesBalance.value?[currencyId] ?? 0) < price.value)
-        notEnoughCurrencyInfo = notEnoughMoneyInfo(price.value, currencyId)
-    }
+    msgBody.append({
+      size = [flex(), SIZE_TO_CONTENT]
+      margin = [fsh(2), 0]
+      children = typeof description == "string" ? mkItemDescription(description) : description
+    })
 
-    msgBody.append(mkAllPricesView(barterPriceView, buyPriceView), notEnoughCurrencyInfo,
-      mkDiscountInfo(discountState.value))
+    // buy area
+    let hasCurrency = currenciesBalance.value?[currencyId] ?? 0
+    let reqCurrency = price.value * countWatched.value
+    if (hasBuy.value && hasCurrency < reqCurrency)
+      msgBody.append(notEnoughMoneyInfo(reqCurrency, currencyId))
+
     let watch = [price, fullPrice, currenciesBalance, barterInfo, hasBuy,
-      discountState, contentCtor]
+      discountState, contentCtor, countWatched]
     return {
       watch
       size = [fsh(80), SIZE_TO_CONTENT]
@@ -511,16 +472,15 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null, activatePre
           customStyle = {
             textCtor = function(textComp, params, handler, group, sf) {
               textComp = btnWithCurrImageComp(
-                isSoldier ? loc("btn/enlist") : loc("btn/buy"),
                 barterCurrImgs,
                 priceBarter,
                 sf,
                 countVal,
                 shopItemPriceInc)
-              params = params.__merge(h2_txt)
+              params = params.__merge(fontHeading2)
               return textButtonTextCtor(textComp, params, handler, group, sf)
             }
-          }.__update(primaryFlatButtonStyle, hotkeyY)
+          }.__update(primaryFlatButtonStyle, buyBtnSize, hotkeyY)
         })
         isUsedY = true
       }
@@ -549,16 +509,15 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null, activatePre
           customStyle = {
             textCtor = function(textComp, params, handler, group, sf) {
               textComp = btnWithCurrImageComp(
-                isSoldier ? loc("btn/enlist") : loc("btn/buy"),
                 currencyImage(currency),
                 priceVal,
                 sf,
                 countVal,
                 shopItemPriceInc)
-              params = params.__merge(h2_txt)
+              params = params.__merge(fontHeading2)
               return textButtonTextCtor(textComp, params, handler, group, sf)
             }
-          }.__update(purchaseButtonStyle, hotkeyX)
+          }.__update(purchaseButtonStyle, buyBtnSize, hotkeyX)
         })
         isUsedX = true
       }
@@ -567,7 +526,7 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null, activatePre
           customStyle = {
             textCtor = function(textComp, params, handler, group, sf) {
               textComp = buyCurrencyText(currency, sf)
-              params = params.__merge(h2_txt)
+              params = params.__merge(fontHeading2)
               return textButtonTextCtor(textComp, params, handler, group, sf)
             }
           }.__update(hotkeyX),
@@ -617,7 +576,7 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null, activatePre
   if (hasBarter || hasBuy.value){
     let params = {
       text = colorize(MsgMarkedText, title)
-      fontStyle = body_txt
+      fontStyle = fontBody
       children = msgBoxContent
       topPanel
       buttons
@@ -641,9 +600,9 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null, activatePre
   }
 
   // buy on website, no msg window ingame:
-  let { purchaseGuid = "", pcLinkGuid = "" } = shopItem
+  let { purchaseGuid = "" } = shopItem
   if (purchaseGuid != "")
-    if (buyItemByGuid(pcLinkGuid != "" ? pcLinkGuid : purchaseGuid))
+    if (buyItemByGuid(purchaseGuid))
       return
 
   // no tickets, nor price in gold, simple "not enough tickets" msg box

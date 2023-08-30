@@ -198,6 +198,9 @@ orderedSelector{
 repeat{
   name:t="sub.personalOrder"
 
+  resetCover{
+  }
+
   subTree{
     name:t=""
     treeName:t="sub.chooseMaxStance"

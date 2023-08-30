@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {
   soldierWndWidth, bigPadding, smallPadding, listCtors, slotBaseSize
 } = require("%enlSqGlob/ui/viewConst.nut")
@@ -58,7 +58,7 @@ let mkPriceInteractive = @(currencyId, count, group, isSelected) watchElemState(
     : mkItemCurrency({
         currencyTpl = currencyId
         count
-        textStyle = { color = listTxtColor(sf, isSelected), fontSize = body_txt.fontSize }
+        textStyle = { color = listTxtColor(sf, isSelected), fontSize = fontBody.fontSize }
       })
 })
 
@@ -130,7 +130,7 @@ let function mkPrice(currencyId, count){
   return mkItemCurrency({
     currencyTpl = currencyId
     count
-    textStyle = { fontSize = body_txt.fontSize }
+    textStyle = { fontSize = fontBody.fontSize }
   })
 }
 
@@ -290,7 +290,7 @@ let lookCustomizationBlock = @(){
       size = [flex(), SIZE_TO_CONTENT]
       text = loc("appearance/attachments_override")
       halign = ALIGN_CENTER
-    }.__update(body_txt)
+    }.__update(fontBody)
   ]
 }
 

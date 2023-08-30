@@ -4,7 +4,10 @@ uk_a13_mk_2_1939{
 
 uk_a13_mk_2_1939_common{
   _extends:t="base_a13_mk_2_1939"
-  item__iconOffset:p2=0.0, 0.2
+  item__iconOffset:p2=0.0, 0.15
+  item__iconScale:r=1.35
+  armorThicknessHull:p3=30.0, 14.0, 14.0
+  armorThicknessTurret:p3=14.0, 14.0, 14.0
 
   "vehicle_seats__seats:shared:array"{
 

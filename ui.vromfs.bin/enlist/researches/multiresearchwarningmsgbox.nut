@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { defTxtColor, titleTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
 let { MsgMarkedText } = require("%ui/style/colors.nut")
 let { showMessageWithContent } = require("%enlist/components/msgbox.nut")
@@ -21,7 +21,7 @@ let textarea = @(text, color) {
   halign = ALIGN_CENTER
   color
   text
-}.__update(body_txt)
+}.__update(fontBody)
 
 let function multiresearchWarningMsgbox(research, pageResearches, unlockAction) {
   let { multiresearchGroup = 0, research_id, name = "", params = {} } = research
@@ -56,7 +56,7 @@ let function multiresearchWarningMsgbox(research, pageResearches, unlockAction) 
           {
             text = loc("msgbox/dontShowAgain")
             color = titleTxtColor
-          }.__update(body_txt),
+          }.__update(fontBody),
           {
             setValue = setDontShowAgain
             textOnTheLeft = true

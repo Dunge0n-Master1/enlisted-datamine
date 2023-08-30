@@ -4,25 +4,36 @@ let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let faComp = require("%ui/components/faComp.nut")
 let mkCountdownTimer = require("%enlSqGlob/ui/mkCountdownTimer.nut")
 let mkGlare = require("%enlist/components/mkGlareAnim.nut")
+let getEquipClasses = require("%enlist/soldiers/model/equipClassSchemes.nut")
+let allowedVehicles = require("%enlist/vehicles/allowedVehicles.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
-let { fontXSmall, fontSmall, fontMedium, fontXLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { defTxtColor, titleTxtColor, panelBgColor, midPadding, brightAccentColor, darkTxtColor,
-  colFull, colPart, columnGap, leftAppearanceAnim, defItemBlur, defSlotBgColor, hoverSlotBgColor,
-  attentionTxtColor, accentColor, smallPadding, highlightLineBottom
+let { fontTiny, fontSub, fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { defTxtColor, titleTxtColor, panelBgColor, midPadding, darkTxtColor, largePadding,
+  leftAppearanceAnim, defItemBlur, defSlotBgColor, hoverSlotBgColor, attentionTxtColor,
+  accentColor, smallPadding, highlightLineBottom, brightAccentColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let { mkShopItemPrice } = require("shopPricePackage.nut")
 let { trimUpgradeSuffix } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { itemTypeIcon } = require("%enlist/soldiers/components/itemTypesData.nut")
-let { getClassCfg } = require("%enlSqGlob/ui/soldierClasses.nut")
-let { kindIcon } = require("%enlSqGlob/ui/soldiersUiComps.nut")
+let { levelBlock, kindIcon } = require("%enlSqGlob/ui/soldiersUiComps.nut")
 let { mkFireParticles, mkAshes, mkSparks } = require("%enlist/components/mkFireParticles.nut")
 let { mkPremiumSquadXpImage } = require("%enlist/debriefing/components/mkXpImage.nut")
+let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
+let { shopItemContentCtor } = require("%enlist/shop/armyShopState.nut")
+let { curArmyReserve, curArmyReserveCapacity } = require("%enlist/soldiers/model/reserve.nut")
+let { mkCounter } = require("%enlist/shop/mkCounter.nut")
+let { mkDiscountWidget } = require("%enlist/shop/currencyComp.nut")
+let { getClassCfg, getKindCfg, soldierKindsList } = require("%enlSqGlob/ui/soldierClasses.nut")
+let { armySquadsById, lockedArmySquadsById } = require("%enlist/soldiers/model/state.nut")
+let { curArmySquadsUnlocks } = require("%enlist/soldiers/model/armyUnlocksState.nut")
+let { mkSquadCard } = require("%enlSqGlob/ui/squadsUiComps.nut")
 
 
-let itemIconSize = colPart(0.5)
-let lowerSlotSize = [colFull(5), colFull(4.2)]
-let baseSlotSize = [colFull(5), colFull(5)]
-let promoSlotSize = [colFull(10), colFull(5)]
+let itemIconSize = hdpxi(32)
+let lowerSlotSize = [hdpxi(370), hdpxi(308)]
+let soldierSlotSize = [hdpx(280), hdpx(370)]
+let baseSlotSize = [hdpxi(370), hdpxi(370)]
+let promoSlotSize = [hdpxi(756), hdpxi(370)]
 let btnSound = freeze({
   hover = "ui/enlist/button_highlight"
   click = "ui/enlist/button_click"
@@ -30,12 +41,14 @@ let btnSound = freeze({
 })
 
 
-let defTxtStyle = { color = defTxtColor }.__update(fontMedium)
-let activeTxtStyle = { color = darkTxtColor }.__update(fontMedium)
-let titleTxtStyle = { color = titleTxtColor }.__update(fontMedium)
-let discountInfoStyle = { color = darkTxtColor }.__update(fontXLarge)
-let discountDescStyle = { color = darkTxtColor }.__update(fontXSmall)
-let alertTxtStyle = { color = titleTxtColor }.__update(fontSmall)
+let defTxtStyle = { color = defTxtColor }.__update(fontSub)
+let defFeaturedTxtStyle = { color = defTxtColor }.__update(fontHeading2)
+let activeTxtStyle = { color = darkTxtColor }.__update(fontSub)
+let titleTxtStyle = { color = titleTxtColor }.__update(fontSub)
+let titleFeaturedTxtStyle = { color = titleTxtColor }.__update(fontHeading2)
+let discountInfoStyle = { color = darkTxtColor }.__update(fontHeading2)
+let discountDescStyle = { color = darkTxtColor }.__update(fontTiny)
+let alertTxtStyle = { color = attentionTxtColor }.__update(fontSub)
 
 let lockIcon = faComp("lock", { fontSize = hdpx(20), color = titleTxtColor })
 let warnIcon = faComp("exclamation-triangle", { fontSize = hdpx(16), color = attentionTxtColor })
@@ -43,6 +56,11 @@ let warnIcon = faComp("exclamation-triangle", { fontSize = hdpx(16), color = att
 let infoBtnSize = hdpxi(30)
 let hoveredInfoBtnSize = hdpxi(33)
 
+
+let mkText = @(text, override = defTxtStyle) {
+  rendObj = ROBJ_TEXT
+  text
+}.__update(override)
 
 let bgColor = @(sf, isSelected) isSelected ? accentColor
   : sf & S_HOVER ? hoverSlotBgColor
@@ -57,7 +75,7 @@ let mkBgParticles = @(effectSize) {
 }
 
 
-let mkShopItemImg = @(img, sf, override = {}) (img ?? "") == "" ? null
+let mkShopItemImg = @(img, sf = 0, override = {}) (img ?? "") == "" ? null
   : {
       size = flex()
       rendObj = ROBJ_IMAGE
@@ -153,26 +171,29 @@ let function mkTimeAvailable(showIntervalTs) {
 
 
 let mkShopItemName = @(nameLocId, sf, icon, showIntervalTs) {
-  size = [flex(), colPart(1.4)]
+  size = [flex(), hdpx(86)]
   rendObj = ROBJ_WORLD_BLUR
   fillColor = bgColor(sf, false)
   color = defItemBlur
-  flow = FLOW_HORIZONTAL
-  gap = columnGap
-  padding = columnGap
-  valign = ALIGN_CENTER
-  vplace = ALIGN_CENTER
-  children = [
-    icon
-    {
-      size = [flex(), SIZE_TO_CONTENT]
-      maxWidth = pw(75)
-      rendObj = ROBJ_TEXTAREA
-      behavior = Behaviors.TextArea
-      text = utf8ToUpper(loc(nameLocId))
-    }.__update(sf & S_HOVER ? activeTxtStyle : defTxtStyle)
-    mkTimeAvailable(showIntervalTs)
-  ]
+  children = {
+    size = flex()
+    flow = FLOW_HORIZONTAL
+    gap = largePadding
+    padding = largePadding
+    valign = ALIGN_CENTER
+    vplace = ALIGN_CENTER
+    children = [
+      icon
+      {
+        size = [flex(), SIZE_TO_CONTENT]
+        maxWidth = pw(75)
+        rendObj = ROBJ_TEXTAREA
+        behavior = Behaviors.TextArea
+        text = utf8ToUpper(loc(nameLocId))
+      }.__update(sf & S_HOVER ? activeTxtStyle : defTxtStyle)
+      mkTimeAvailable(showIntervalTs)
+    ]
+  }
 }
 
 
@@ -183,7 +204,7 @@ let function mkShopPremIcon(sItem) {
     return null
 
   let { armyId } = squad
-  return mkPremiumSquadXpImage(colPart(0.7), armyId)
+  return mkPremiumSquadXpImage(hdpxi(32), armyId)
 }
 
 let function mkShopItemInfo(sItem, offer, sf, icon, lockObject, unseenIcon = null) {
@@ -202,8 +223,8 @@ let function mkShopItemInfo(sItem, offer, sf, icon, lockObject, unseenIcon = nul
         children = [
           mkShopItemPrice(sItem, lockObject)
           mkGlare({
-            nestWidth = colPart(4)
-            glareWidth = colPart(2)
+            nestWidth = hdpx(248)
+            glareWidth = hdpx(124)
             glareDuration = 0.7
             hasMask = true
           })
@@ -223,21 +244,21 @@ let function mkShopItemInfo(sItem, offer, sf, icon, lockObject, unseenIcon = nul
 
 
 let mkFeaturedName = @(nameLocId, sf, icon) {
-  size = [pw(50), colPart(1.4)]
+  size = [flex(), SIZE_TO_CONTENT]
   flow = FLOW_HORIZONTAL
-  gap = columnGap
-  padding = columnGap
+  gap = largePadding
+  padding = largePadding
   valign = ALIGN_CENTER
   vplace = ALIGN_CENTER
   children = [
     icon
     {
       size = [flex(), SIZE_TO_CONTENT]
-      maxWidth = pw(75)
+      maxWidth = hdpx(600)
       rendObj = ROBJ_TEXTAREA
       behavior = Behaviors.TextArea
       text = utf8ToUpper(loc(nameLocId).split("\r\n")[0])
-    }.__update(sf & S_HOVER ? titleTxtStyle : defTxtStyle)
+    }.__update(sf & S_HOVER ? titleFeaturedTxtStyle : defFeaturedTxtStyle)
   ]
 }
 
@@ -257,8 +278,8 @@ let function mkShopFeaturedInfo(sItem, offer, sf, icon, lockObject) {
         children = [
           mkShopItemPrice(sItem, lockObject)
           mkGlare({
-            nestWidth = colPart(4)
-            glareWidth = colPart(2)
+            nestWidth = hdpx(248)
+            glareWidth = hdpx(124)
             glareDuration = 0.7
             hasMask = true
           })
@@ -267,10 +288,11 @@ let function mkShopFeaturedInfo(sItem, offer, sf, icon, lockObject) {
       {
         size = [flex(), SIZE_TO_CONTENT]
         valign = ALIGN_CENTER
+        margin = [0, 0, largePadding, 0]
         children = [
           mkFeaturedName(nameLocId, sf, icon)
           {
-            margin = [0, columnGap]
+            margin = [0, largePadding]
             hplace = ALIGN_RIGHT
             children = mkTimeAvailable(showIntervalTs)
           }
@@ -284,7 +306,7 @@ let function mkShopFeaturedInfo(sItem, offer, sf, icon, lockObject) {
 let mkLockInfo = @(lockTxt) lockTxt == "" ? null
   : {
       flow = FLOW_HORIZONTAL
-      gap = columnGap
+      gap = largePadding
       valign = ALIGN_CENTER
       children = [
         lockIcon
@@ -329,18 +351,14 @@ let function mkShopIcon(armyId, content, templates) {
 
 
 let mkAlertObject = @(alertText) {
-  size = [flex(), SIZE_TO_CONTENT]
   flow = FLOW_HORIZONTAL
   margin = smallPadding
   gap = smallPadding
   children = [
     warnIcon
     {
-      rendObj = ROBJ_TEXTAREA
-      size = [flex(), SIZE_TO_CONTENT]
+      rendObj = ROBJ_TEXT
       text = alertText
-      behavior = Behaviors.TextArea
-      valign = ALIGN_BOTTOM
     }.__update(alertTxtStyle)
   ]
 }
@@ -371,8 +389,9 @@ let mkInfoBtn = @(onClick) onClick == null ? null : watchElemState(function(sf) 
   }
 })
 
-let mkShopItem = @(slotSize) function(idx, armyId, sItem, offer, content, templates,
-    lockTxt, onClick, onHover, alertText, infoCb, unseenIcon = null) {
+let mkShopItem = @(slotSize) function(idx, armyId, sItem, offer, content, templates, lockTxt,
+  onClick = null, onHover = null, alertText = null, infoCb = null, unseenIcon = null
+) {
   let picSaturate = lockTxt == "" ? 1 : 0.1
   let icon = mkShopIcon(armyId, content, templates)
   let alertObject = alertText == null ? null : mkAlertObject(alertText)
@@ -389,7 +408,7 @@ let mkShopItem = @(slotSize) function(idx, armyId, sItem, offer, content, templa
     xmbNode
     onClick
     sound
-    hotkeys = (sf & S_HOVER) != 0 && infoCb != null
+    hotkeys = (sf & S_HOVER) && infoCb != null
       ? [["^J:Y", { description = loc("info"), action = infoCb }]]
       : null
     onHover
@@ -398,10 +417,10 @@ let mkShopItem = @(slotSize) function(idx, armyId, sItem, offer, content, templa
       children = [
         {
           size = flex()
-          margin = [0,0,colPart(1.4),0]
+          margin = [0,0, hdpx(86),0]
           children = [
             mkShopItemImg(sItem?.image, sf, { picSaturate })
-            mkBgParticles([slotSize[0], slotSize[1] - colPart(1.4)])
+            mkBgParticles([slotSize[0], slotSize[1] - hdpx(86)])
           ]
         }
         mkShopItemInfo(sItem, offer, sf, icon, mkLockInfo(lockTxt), unseenIcon)
@@ -415,6 +434,7 @@ let mkShopItem = @(slotSize) function(idx, armyId, sItem, offer, content, templa
 
 let mkBaseShopItem = mkShopItem(baseSlotSize)
 let mkLowerShopItem = mkShopItem(lowerSlotSize)
+let mkSoldierShopItem = mkShopItem(soldierSlotSize)
 
 let function mkShopFeatured(armyId, sItem, offer, content, templates,
     lockTxt, onClick, onHover, infoCb) {
@@ -434,7 +454,7 @@ let function mkShopFeatured(armyId, sItem, offer, content, templates,
     onClick
     sound
     onHover
-    hotkeys = (sf & S_HOVER) != 0 && infoCb != null
+    hotkeys = (sf & S_HOVER) && infoCb != null
       ? [["^J:Y", { description = loc("info"), action = infoCb }]]
       : null
     children = {
@@ -450,11 +470,274 @@ let function mkShopFeatured(armyId, sItem, offer, content, templates,
 }
 
 
+let function getMaxCount(shopItem) {
+  let { limit = 0, premiumDays = 0, squads = [] } = shopItem
+  let isSoldier = (shopItemContentCtor(shopItem)?.value.content.soldierClasses.len() ?? 0) > 0
+  return limit > 0 ||  premiumDays > 0 || squads.len() > 0 ? 1
+    : isSoldier ? min(99, max(curArmyReserveCapacity.value - curArmyReserve.value.len(), 0))
+    : 99
+}
+
+let function mkShopCounter(shopItem, countWatched) {
+  let maxCount = getMaxCount(shopItem)
+  return maxCount <= 1 || countWatched == null ? null
+    : {
+        size = [flex(), hdpx(86)]
+        vplace = ALIGN_BOTTOM
+        valign = ALIGN_CENTER
+        halign = ALIGN_CENTER
+        rendObj = ROBJ_WORLD_BLUR
+        fillColor = bgColor(0, false)
+        color = defItemBlur
+        children = mkCounter(maxCount, countWatched)
+      }
+}
+
+
+let function getTierInterval(items, templates) {
+  local minTier = -1
+  local maxTier = -1
+  foreach (tpl, _ in items ?? {}) {
+    let { tier = 0 } = templates?[tpl]
+    if (minTier < 0 || tier < minTier)
+      minTier = tier
+    if (maxTier < tier)
+      maxTier = tier
+  }
+  return { minTier, maxTier }
+}
+
+let function mkShopItemInfoTier(minTier, maxTier, override = {}) {
+  if (maxTier <= 0)
+    return null
+
+  let starsObj = maxTier == minTier
+    ? levelBlock({ curLevel = maxTier + 1 })
+    : {
+        flow = FLOW_HORIZONTAL
+        gap = smallPadding
+        valign = ALIGN_CENTER
+        children = [
+          levelBlock({ curLevel = minTier + 1 })
+          mkText("—")
+          levelBlock({ curLevel = maxTier + 1 })
+        ]
+      }
+  let starsTxt = maxTier <= minTier ? null
+    : {
+        size = [hdpxi(220), SIZE_TO_CONTENT]
+        rendObj = ROBJ_TEXTAREA
+        behavior = Behaviors.TextArea
+        text = loc("shop/upgradeLevel", { maxUpgrade = maxTier, minUpgrade = minTier })
+        color = defTxtColor
+      }.__update(fontSub, override)
+  return {
+    flow = FLOW_VERTICAL
+    gap = smallPadding
+    children = [
+      mkText(utf8ToUpper(loc("itemLevel")))
+      starsObj
+      starsTxt
+    ]
+  }
+}
+
+
+let iconSize = hdpxi(36)
+let iconGap = hdpxi(18)
+let getKindIcon = memoize(@(img, sz) Picture("ui/skin#{0}:{1}:{1}:K".subst(img, sz.tointeger())))
+
+let function mkCanUseInfo(itemtype, armyId, itemtmpl) {
+  if (itemtype == "vehicle") {
+    let vehicleSquadIds = (allowedVehicles.value?[armyId] ?? {})
+      .filter(@(squad) squad?[itemtmpl]).keys()
+    let squadsCount = vehicleSquadIds.len()
+    return {
+      flow = FLOW_VERTICAL
+      gap = iconGap
+      halign = ALIGN_CENTER
+      hplace = ALIGN_CENTER
+      children = [
+        mkText(utf8ToUpper(loc("shop/squadsCanUse", { squadsCount })))
+        @() {
+          watch = [armySquadsById, lockedArmySquadsById, curArmySquadsUnlocks]
+          flow = FLOW_HORIZONTAL
+          gap = iconGap
+          children = vehicleSquadIds.map(function(squadId) {
+            local squad = armySquadsById.value?[armyId][squadId]
+            local unlockLevel = 0
+            if (!squad) {
+              squad = lockedArmySquadsById.value?[armyId][squadId]
+              unlockLevel = (curArmySquadsUnlocks.value ?? {})
+                .findvalue(@(s) s.unlockId == squadId)?.level ?? 0
+            }
+            return mkSquadCard({
+              idx = 0
+              isSelected = Watched(false)
+              unlockLevel
+            }.__update(squad), KWARG_NON_STRICT)
+          })
+        }
+      ]
+    }
+  }
+
+  let kindsList = getEquipClasses(armyId, itemtmpl, itemtype)
+    .reduce(function(tbl, sClass) {
+      let { kind, isPremium = false, isEvent = false } = getClassCfg(sClass)
+      if (!isPremium && !isEvent)
+        tbl[kind] <- true
+      return tbl
+    }, {}).keys()
+
+  let count = kindsList.len()
+  if (count == 0)
+    return null
+
+  let isAccessible = count == soldierKindsList.len()
+  let headerTxt = loc(isAccessible ? "shop/allCanUse" : "shop/someCanUse", { classes = "" })
+  let classesListObj = isAccessible ? null
+    : {
+        flow = FLOW_HORIZONTAL
+        gap = iconGap
+        children = kindsList.map(function(sKind) {
+          let cfg = getKindCfg(sKind)
+          return {
+            flow = FLOW_VERTICAL
+            gap = smallPadding
+            halign = ALIGN_CENTER
+            children = [
+              {
+                rendObj = ROBJ_IMAGE
+                size = [iconSize, iconSize]
+                image = getKindIcon(cfg.icon, iconSize)
+              }
+              mkText(loc(cfg.locId))
+            ]
+          }
+        })
+      }
+  return {
+    flow = FLOW_VERTICAL
+    gap = iconGap
+    halign = ALIGN_CENTER
+    hplace = ALIGN_CENTER
+    children = [
+      mkText(utf8ToUpper(headerTxt))
+      classesListObj
+    ]
+  }
+}
+
+let mkCanUseShopItemInfo = @(crateContent) function() {
+  let res = { watch = [allItemTemplates, crateContent] }
+  let itemsList = extractItems(crateContent.value?.content) ?? []
+  if (itemsList.len() != 1)
+    return res
+
+  let { armyId = null } = crateContent.value
+  let templates = allItemTemplates.value?[armyId]
+  let itemtmpl = itemsList[0]
+  let { itemtype = null } = templates?[itemtmpl]
+  return res.__update(mkCanUseInfo(itemtype, armyId, itemtmpl) ?? {}, {halign = ALIGN_CENTER})
+}
+
+
+let msgBoxViewSize = [hdpxi(500), hdpxi(340)]
+let function mkShopMsgBoxView(shopItem, crateContent, countWatched, showDiscount = false) {
+  if (crateContent == null)
+    return null
+
+  let {
+    nameLocId = "", showIntervalTs = [], isPriceHidden = false,
+    image = null, discountInPercent = 0
+  } = shopItem
+  let discountVal = showDiscount ? discountInPercent : 0
+  return function() {
+    let { armyId = null, content = null } = crateContent.value
+    let templates = allItemTemplates.value
+    let { minTier, maxTier } = getTierInterval(content?.items, templates?[armyId])
+    let icon = mkShopIcon(armyId, content, templates)
+    return {
+      watch = [crateContent, allItemTemplates]
+      valign = ALIGN_CENTER
+      halign = ALIGN_RIGHT
+      children = [
+        {
+          flow = FLOW_VERTICAL
+          gap = largePadding
+          children = [
+            {
+              size = [flex(), SIZE_TO_CONTENT]
+              flow = FLOW_HORIZONTAL
+              gap = smallPadding
+              halign = ALIGN_CENTER
+              valign = ALIGN_CENTER
+              children = [
+                icon
+                mkText(utf8ToUpper(loc(nameLocId)), titleTxtStyle)
+              ]
+            }
+            {
+              size = msgBoxViewSize
+              children = [
+                mkShopItemImg(image)
+                mkBgParticles(msgBoxViewSize)
+                mkShopPremIcon(shopItem)
+                {
+                  margin = smallPadding
+                  children = mkTimeAvailable(showIntervalTs)
+                }
+                {
+                  size = flex()
+                  flow = FLOW_VERTICAL
+                  gap = midPadding
+                  valign = ALIGN_BOTTOM
+                  children = [
+                    {
+                      size = [flex(), SIZE_TO_CONTENT]
+                      children = [
+                        mkDiscountWidget(discountVal, { pos = [hdpx(10), 0] })
+                        isPriceHidden ? null : {
+                          children = [
+                            mkShopItemPrice(shopItem)
+                            mkGlare({
+                              nestWidth = hdpx(248)
+                              glareWidth = hdpx(124)
+                              glareDuration = 0.7
+                              hasMask = true
+                            })
+                          ]
+                        }
+                      ]
+                    }
+                    mkShopCounter(shopItem, countWatched)
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        {
+          size = [hdpxi(220), SIZE_TO_CONTENT]
+          pos = [hdpxi(250), 0]
+          children = mkShopItemInfoTier(minTier, maxTier)
+        }
+      ]
+    }
+  }
+}
+
+
 return {
   mkBaseShopItem
   mkLowerShopItem
+  mkSoldierShopItem
   mkDiscountBar
   mkShopFeatured
   lowerSlotSize
   mkAlertObject
+  mkShopMsgBoxView
+  mkCanUseShopItemInfo
+  getTierInterval
 }

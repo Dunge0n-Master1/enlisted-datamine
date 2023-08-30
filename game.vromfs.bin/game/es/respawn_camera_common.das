@@ -27,7 +27,11 @@ def get_polygons_center(polygons : Point2List) : float2
 
 def get_above_camera_target() : float2
   var aboveCamTarget : float2
-  var foundMid = false
+  var foundMid = find_query() <| $ [es] (respawn_camera_target__curLookPos : float3)
+    aboveCamTarget = respawn_camera_target__curLookPos.xz
+    return true
+  if foundMid
+    return aboveCamTarget
   query() <| $ [es] (battle_area__showActiveArea : bool;
                      battle_area__activeBattleAreasPolygon : Point2List;
                      battle_area__nextBattleAreasPolygon : Point2List)

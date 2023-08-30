@@ -36,8 +36,7 @@ def artillery_init_squads_have_radio(evt : Event; armies : Object; army : string
       if radio != null
         artillery__hasRadioInArmySquads = true
 
-[es(tag=server, on_appear, track=human_equipment__slots)]
-def artillery_radio_track_equipment(evt : Event; human_equipment__slots : Object; var human_weap__radioEid : EntityId&)
+def update_radio_eid_for_owner(human_equipment__slots : Object; var human_weap__radioEid : EntityId&)
   for it in human_equipment__slots
     let slot = get_ecs_object(it.value)
     if slot != null
@@ -45,6 +44,17 @@ def artillery_radio_track_equipment(evt : Event; human_equipment__slots : Object
       if has(itemEid, "radio_use")
         human_weap__radioEid = itemEid
         return
+
+[es(tag=server, on_appear, track=human_equipment__slots)]
+def artillery_radio_track_equipment(evt : Event; human_equipment__slots : Object; var human_weap__radioEid : EntityId&)
+  update_radio_eid_for_owner(human_equipment__slots, human_weap__radioEid)
+
+[es(tag=server, on_appear, REQUIRE=radio_use)]
+def artillery_radio_create_equipment(evt : Event;
+                                     slot_attach__attachedTo : EntityId)
+  query(slot_attach__attachedTo) <| $ [es] (human_equipment__slots : Object;
+                                            var human_weap__radioEid : EntityId&)
+    update_radio_eid_for_owner(human_equipment__slots, human_weap__radioEid)
 
 [es(tag=gameClient, track=(radioMode__startTime, radioMode__endTime))]
 def radio_mode_animation(evt : Event; human_weap__radioEid : EntityId; radioMode__startTime : float; radioMode__endTime : float)

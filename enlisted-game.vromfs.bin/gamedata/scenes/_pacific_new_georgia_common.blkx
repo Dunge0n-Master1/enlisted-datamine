@@ -1,0 +1,335 @@
+import{
+  scene:t="content/enlisted/gamedata/scenes/_pacific_new_georgia_sounds.blk"
+  scene:t="content/enlisted/gamedata/scenes/_pacific_gpu_objects.blk"
+  scene:t="content/enlisted/gamedata/scenes/_pacific_new_georgia_biome_fx.blk"
+  scene:t="content/enlisted/gamedata/scenes/_pacific_new_georgia_vfx.blk"
+}
+
+entity{
+  _template:t="ground_holes_updater"
+}
+
+entity{
+  _template:t="ground_holes_zones_updater"
+}
+
+entity{
+  _template:t="aircraft_box_battle_area"
+  transform:m=[[22821.8, 0.0, 20997.7] [0.0, 8000.03, -0.0] [-20997.7, 0.0, 22821.8] [103.719, 240.916, -196.341]]
+  battle_area__team:i=-1
+}
+
+entity{
+  _template:t="human_hidden_ui_battle_area+building_carrier_restricted_zone"
+  transform:m=[[-215.82, 0.0, 165.079] [0.0, 5.47114, 0.0] [-19.713, 0.0, -25.7724] [2622.72, 16.1888, -2264.87]]
+  battle_area__team:i=1
+}
+
+entity{
+  _template:t="human_hidden_ui_battle_area+building_carrier_restricted_zone"
+  transform:m=[[-215.82, 0.0, 165.079] [0.0, 5.47114, 0.0] [-19.713, 0.0, -25.7724] [2627.71, 16.1887, -2397.72]]
+  battle_area__team:i=1
+}
+
+entity{
+  _template:t="human_hidden_ui_battle_area+building_carrier_restricted_zone"
+  transform:m=[[226.446, 0.0, -83.1213] [0.0, 6.43649, 0.0] [10.7554, -0.0, 29.3007] [-2846.18, 17.5429, 963.788]]
+  battle_area__team:i=2
+}
+
+entity{
+  _template:t="human_hidden_ui_battle_area+building_carrier_restricted_zone"
+  transform:m=[[227.212, 0.0, -81.0035] [0.0, 6.43649, 0.0] [10.4814, -0.0, 29.3999] [-2835.85, 17.543, 851.912]]
+  battle_area__team:i=2
+}
+
+entity{
+  _template:t="pacific_level_b"
+  level__blk:t="content/enlisted/levels/pacific_new_georgia.blk"
+}
+
+entity{
+  _template:t="clouds_hole_target"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+}
+
+entity{
+  _template:t="wind"
+  dyn_wind__cumulus_alt_multiplier:r=3.0
+  dyn_wind__strata_alt_multiplier:r=2.0
+  wind__strength:r=6.0
+  wind__noiseStrength:r=1.5
+  wind__noiseSpeed:r=1.5
+  wind__noiseScale:r=15.0
+}
+
+entity{
+  _template:t="water"
+  shore__amplitude_to_length:r=800.0
+  shore__hmap_size:r=512.0
+  shore__parallelism_to_wind:r=0.5
+  shore__rivers_width:r=30.0
+  shore__texture_size:i=512
+  shore__wave_gspeed:r=0.4
+  shore__waves_dist:p4=20.0, 10.0, 1.0, 50.0
+  shore__width_k:r=0.6
+  waterTrail__useObstacle:b=yes
+  water__level:r=0.0
+  water__strength:r=2.3
+  water__wind_dir:r=230.0
+  water__wind_strength:r=0.001
+  water__smallWaterAIWalkHeight:r=0.5
+  water__deepWaterAIAreaCost:r=2.0
+  water__flowmap:b=yes
+  water__flowmap_tex:t="pacific_new_georgia_water_det_flowmap"
+  water__flowmap_area:p4=-2048.0, 2048.0, 2048.0, -2048.0
+  water__flowmap_depth:p4=0.4, 0.4, 0.3, 0.5
+  water__flowmap_fading:r=4.0
+  water__flowmap_foam:p4=0.7, 0.7, 1.0, 1.0
+  water__flowmap_foam_tiling:r=1.0
+  water__flowmap_strength:p4=0.5, 0.5, 0.1, 0.0
+  water__flowmap_strength_add:p4=0.5, 1.0, 1.0, 0.5
+}
+
+entity{
+  _template:t="shaderVars"
+
+  "shader_vars__vars:object"{
+    max_river_width:r=50.0
+    hmap_displacement_up:r=0.3
+    ocean0:c=30, 55, 55, 0
+    ocean1:c=40, 50, 100, 0
+    ocean_density:r=0.7
+    land_selfillum_worldscale:r=0.9
+    river0:c=30, 55, 55, 0
+    river1:c=40, 50, 100, 0
+    hmap_displacement_down:r=-0.15
+    autodetect_land_selfillum_color:p4=0.53, 0.0, 0.0, 0.16
+    paint_details_tex:t="pacific_color_tex_palette*"
+    land_selfillum_strength:r=32.0
+    water_color_noise_size:r=71.0
+    river_density:r=0.5
+    puddle_increase:r=-0.5
+  }
+}
+
+entity{
+  _template:t="pacific_new_georgia_minimap"
+}
+
+entity{
+  _template:t="postfx_color_grading_tonemap_death_alive_enlisted"
+}
+
+entity{
+  _template:t="postfx_roundctrl"
+}
+
+entity{
+  _template:t="door_mult_ent_generator"
+  ri_extra_gen__blk:t="content/enlisted/gamedata/pacific_doors.blk"
+}
+
+entity{
+  _template:t="session_finalizer"
+  session_finalizer__timer:r=10.0
+}
+
+entity{
+  _template:t="group_switch_timer"
+  group_switch_timer__time:r=0.0
+  group_switch_timer__activateGroup:t="aircraft_spawn_on_carrier"
+}
+
+entity{
+  _template:t="group_switch_timer"
+  group_switch_timer__time:r=7200.0
+  group_switch_timer__deactivateGroup:t="aircraft_spawn_on_carrier"
+  group_switch_timer__activateGroup:t="aircraft_spawn_in_air"
+}
+
+entity{
+  _template:t="aircraft_carrier_landing_zone"
+  transform:m=[[-218.055, 0.0, 165.794] [0.0, 32.0817, 0.0] [-18.3076, 0.0, -24.0786] [2623.41, 14.9795, -2264.41]]
+}
+
+entity{
+  _template:t="aircraft_carrier_landing_zone"
+  transform:m=[[-215.421, -2.3083e-06, 165.283] [4.26142e-07, 30.0, 9.74386e-07] [-18.2617, 1.03246e-06, -23.8014] [2627.52, 14.9797, -2398.6]]
+}
+
+entity{
+  _template:t="aircraft_carrier_landing_zone"
+  transform:m=[[220.071, -2.09804e-06, -79.527] [2.47384e-07, 30.0, -1.06871e-07] [10.1958, 1.64343e-08, 28.2143] [-2843.15, 6.55493, 963.609]]
+}
+
+entity{
+  _template:t="aircraft_carrier_landing_zone"
+  transform:m=[[219.983, -3.35828e-06, -79.7728] [2.33038e-07, 30.0, -6.20313e-07] [10.2273, 5.03709e-07, 28.2029] [-2831.75, 6.72299, 851.623]]
+}
+
+entity{
+  _template:t="respAircraftOnCarrier"
+  respawnbaseType:t="aircraft_fighter"
+  groupName:t="aircraft_spawn_on_carrier"
+  transform:m=[[-0.793466, 0.0, 0.608614] [0.0, 1.0, 0.0] [-0.608614, 0.0, -0.793466] [2713.62, 14.4224, -2335.04]]
+  team:i=1
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftOnCarrier"
+  respawnbaseType:t="aircraft_assault"
+  groupName:t="aircraft_spawn_on_carrier"
+  transform:m=[[-0.798301, 0.0, 0.60226] [0.0, 1.0, 0.0] [-0.602259, 0.0, -0.798301] [2727.44, 14.7101, -2472.41]]
+  team:i=1
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftOnWater"
+  respawnbaseType:t="aircraft_assault"
+  groupName:t="aircraft_spawn_on_carrier"
+  transform:m=[[-0.805542, 0.0, 0.592538] [0.0, 1.0, 0.0] [-0.592538, 0.0, -0.805542] [2631.33, 0.71048, -2576.53]]
+  team:i=1
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+  sphere_zone__radius:r=500.0
+}
+
+entity{
+  _template:t="respAircraftOnCarrier"
+  respawnbaseType:t="aircraft_fighter"
+  groupName:t="aircraft_spawn_on_carrier"
+  transform:m=[[0.94295, 0.0, -0.332936] [0.0, 1.0, 0.0] [0.332936, -0.0, 0.94295] [-2927.94, 15.391, 884.447]]
+  team:i=2
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftOnCarrier"
+  respawnbaseType:t="aircraft_assault"
+  groupName:t="aircraft_spawn_on_carrier"
+  transform:m=[[0.936385, 0.0, -0.350972] [0.0, 1.0, 0.0] [0.350973, -0.0, 0.936385] [-2938.13, 16.1225, 997.533]]
+  team:i=2
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftOnWater"
+  respawnbaseType:t="aircraft_assault"
+  groupName:t="aircraft_spawn_on_carrier"
+  transform:m=[[0.934841, -0.0228478, -0.354331] [0.0146375, 0.999559, -0.0258345] [0.354765, 0.0189647, 0.934764] [-2929.11, 0.317275, 1067.75]]
+  team:i=2
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+  sphere_zone__radius:r=500.0
+}
+
+entity{
+  _template:t="respAircraftInAir"
+  respawnbaseType:t="aircraft_fighter"
+  groupName:t="aircraft_spawn_in_air"
+  transform:m=[[-0.707268, 0.0, 0.706944] [0.0, 1.0, 0.0] [-0.706944, 0.0, -0.707269] [1951.0, 842.868, -3566.21]]
+  team:i=1
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftInAir"
+  respawnbaseType:t="aircraft_fighter"
+  groupName:t="aircraft_spawn_in_air"
+  transform:m=[[-0.707268, 0.0, 0.706944] [0.0, 1.0, 0.0] [-0.706944, 0.0, -0.707269] [2059.36, 842.868, -3398.78]]
+  team:i=1
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftInAir"
+  respawnbaseType:t="aircraft_assault"
+  groupName:t="aircraft_spawn_in_air"
+  transform:m=[[-0.707268, 0.0, 0.706944] [0.0, 1.0, 0.0] [-0.706944, 0.0, -0.707269] [1910.43, 642.868, -3580.68]]
+  team:i=1
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftInAir"
+  respawnbaseType:t="aircraft_assault"
+  groupName:t="aircraft_spawn_in_air"
+  transform:m=[[-0.707268, 0.0, 0.706944] [0.0, 1.0, 0.0] [-0.706944, 0.0, -0.707269] [2059.61, 642.868, -3398.15]]
+  team:i=1
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftInAir"
+  respawnbaseType:t="aircraft_fighter"
+  groupName:t="aircraft_spawn_in_air"
+  transform:m=[[0.970369, 0.0, -0.241637] [0.0, 1.0, 0.0] [0.241637, -0.0, 0.970369] [-3958.8, 1023.92, -337.578]]
+  team:i=2
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftInAir"
+  respawnbaseType:t="aircraft_fighter"
+  groupName:t="aircraft_spawn_in_air"
+  transform:m=[[0.99039, 0.0, -0.138301] [0.0, 1.0, 0.0] [0.138301, -0.0, 0.99039] [-3996.38, 1023.92, -614.864]]
+  team:i=2
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftInAir"
+  respawnbaseType:t="aircraft_assault"
+  groupName:t="aircraft_spawn_in_air"
+  transform:m=[[0.975581, 0.0, -0.219642] [0.0, 1.0, 0.0] [0.219642, -0.0, 0.975581] [-3921.2, 823.92, -304.497]]
+  team:i=2
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftInAir"
+  respawnbaseType:t="aircraft_assault"
+  groupName:t="aircraft_spawn_in_air"
+  transform:m=[[0.99812, 0.0, 0.0612847] [0.0, 1.0, -0.0] [-0.0612847, 0.0, 0.99812] [-3995.48, 823.92, -613.193]]
+  team:i=2
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="resupply_for_air_planes_only_zone"
+  transform:m=[[0.473545, 0.0, 0.880768] [0.0, 1.0, 0.0] [-0.880768, 0.0, 0.473545] [3079.5, 480.289, -1895.66]]
+  resupply_zone__team:i=1
+}
+
+entity{
+  _template:t="resupply_for_air_planes_only_zone"
+  transform:m=[[-0.995385, 0.0, 0.0959728] [0.0, 1.0, 0.0] [-0.0959728, 0.0, -0.995385] [-3506.47, 346.87, 213.616]]
+  resupply_zone__team:i=2
+}
+
+entity{
+  _template:t="resupply_for_seaplanes_zone"
+  transform:m=[[0.473545, 0.0, 0.880768] [0.0, 1.0, 0.0] [-0.880768, 0.0, 0.473545] [3076.95, 480.289, -1896.88]]
+  resupply_zone__team:i=1
+}
+
+entity{
+  _template:t="resupply_for_seaplanes_zone"
+  transform:m=[[-0.995385, 0.0, 0.0959728] [0.0, 1.0, 0.0] [-0.0959728, 0.0, -0.995385] [-3506.33, 346.87, 213.975]]
+  resupply_zone__team:i=2
+}

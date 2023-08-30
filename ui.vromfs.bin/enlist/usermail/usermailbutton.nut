@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { defTxtColor } = require("%enlSqGlob/ui/designConst.nut")
 let { isUsermailWndOpend, hasUnseenLetters } = require("%enlist/usermail/usermailState.nut")
 let { hasUsermail } = require("%enlist/featureFlags.nut")
@@ -11,7 +11,7 @@ let { navBottomBarHeight } = require("%enlist/mainMenu/mainmenu.style.nut")
 
 let unseenIcon = blinkUnseenIcon(1).__update({ hplace = ALIGN_RIGHT })
 
-let hintTxtStyle = { color = defTxtColor }.__update(sub_txt)
+let hintTxtStyle = { color = defTxtColor }.__update(fontSub)
 
 let hoverHint = {
   rendObj = ROBJ_TEXT

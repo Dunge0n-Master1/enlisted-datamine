@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let displayOutsideBattleAreaWarning = require("%ui/hud/state/battle_area_warnings.nut")
-let { h2_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
 
 return function () {
   let watch = displayOutsideBattleAreaWarning
@@ -16,5 +16,5 @@ return function () {
     halign = ALIGN_CENTER
     margin = fsh(20)
     text = loc("leftBattleArea")
-  }.__update(h2_txt)
+  }.__update(fontHeading2)
 }

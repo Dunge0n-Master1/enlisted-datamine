@@ -407,6 +407,10 @@ attachable_ammo_case{
   "item__equipToSlots:array"{
     slot:t="ammo_case"
   }
+
+  "hideFlags:array"{
+    hideFlag:t="ammo_case"
+  }
 }
 
 attachable_pot{
@@ -580,6 +584,10 @@ attachable_backpack{
 
   "item__equipToSlots:array"{
     slot:t="backpack"
+  }
+
+  "hideFlags:array"{
+    hideFlag:t="backpack"
   }
 }
 

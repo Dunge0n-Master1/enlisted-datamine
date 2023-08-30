@@ -1,5 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
+let { fontawesome } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { rowHeight, defInputStyle, hoverInputStyle, textState, bgState, innerBtnStyle, closeBtnStyle
 } = require("equipDesign.nut")
 let { leftAppearanceAnim, defSlotBgColor } = require("%enlSqGlob/ui/designConst.nut")
@@ -17,7 +18,6 @@ let { presetEquipList, notFoundPresetItems, applyEquipmentPreset, saveEquipmentP
   renameEquipmentPreset, PreviewState, PresetTarget
 } = require("%enlist/preset/presetEquipUtils.nut")
 let fa = require("%ui/components/fontawesome.map.nut")
-let { fontawesome } = require("%enlSqGlob/ui/fonts_style.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 
 let { isGamepad } = require("%ui/control/active_controls.nut")

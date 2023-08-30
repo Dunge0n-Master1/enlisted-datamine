@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let faComp = require("%ui/components/faComp.nut")
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {
   smallOffset, bigPadding, smallPadding, activeTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
@@ -35,7 +35,7 @@ let { wallpostersCfg } = require("%enlist/profile/wallpostersState.nut")
 let { mkWallposterImg } = require("%enlist/profile/wallpostersPkg.nut")
 
 
-let defTxtStyle = { color = activeTxtColor }.__update(sub_txt)
+let defTxtStyle = { color = activeTxtColor }.__update(fontSub)
 let waitingSpinner = spinner(btnSizeBig[1]/2)
 let buySquadParams = mkWatched(persist, "buySquadParams")
 

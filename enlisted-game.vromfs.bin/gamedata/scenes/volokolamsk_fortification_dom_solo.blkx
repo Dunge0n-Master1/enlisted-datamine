@@ -258,28 +258,28 @@ entity{
 
   "shader_vars__vars:object"{
     envi_cover_specular_color:p4=1.0, 1.0, 1.0, 0.0
-    hmap_displacement_up:r=0.3
+    envi_cover_intensity_map_top_left_bottom_right:p4=-2048.0, -2048.0, 2048.0, 2048.0
+    envi_cover_normal_mask_threshold:r=0.5
+    envi_cover_intensity_map:t="volokolamsk_countryside_winter_det_snow_cover_tex_m*"
+    envi_cover_translucency:r=1.0
+    envi_cover_noise_high_frequency:r=8.0
+    envi_cover_normal_infl:r=0.3
+    envi_cover_normal:p4=0.0, 1.0, 0.1, 0.0
+    envi_cover_smoothness:r=0.1
+    envi_cover:i=1
+    envi_cover_albedo:p4=0.729, 0.961, 1.0, 0.0
+    water_color_noise_size:r=71.0
+    river1:c=142, 137, 71, 0
+    river0:c=76, 63, 5, 0
+    river_density:r=0.3
     ocean1:c=142, 137, 71, 0
     ocean0:c=76, 63, 5, 0
     ocean_density:r=0.1
-    layered_fog_density:r=0.001
-    envi_cover_intensity_map_top_left_bottom_right:p4=-2048.0, -2048.0, 2048.0, 2048.0
-    river1:c=142, 137, 71, 0
-    river0:c=76, 63, 5, 0
+    hmap_displacement_up:r=0.3
     hmap_displacement_down:r=-0.15
-    envi_cover_normal_mask_threshold:r=0.5
-    envi_cover_intensity_map:t="volokolamsk_countryside_winter_det_snow_cover_tex_m*"
-    envi_cover_noise_high_frequency:r=8.0
+    layered_fog_density:r=0.001
     puddle_flat_hmap_reduce:r=0.03
-    envi_cover_translucency:r=1.0
     paint_details_tex:t="volokolamsk_building_colors_tex_palette*"
-    envi_cover_normal_infl:r=0.3
-    envi_cover_normal:p4=0.0, 1.0, 0.1, 0.0
-    water_color_noise_size:r=71.0
-    envi_cover_smoothness:r=0.1
-    envi_cover:i=1
-    river_density:r=0.3
-    envi_cover_albedo:p4=0.729, 0.961, 1.0, 0.0
   }
 }
 

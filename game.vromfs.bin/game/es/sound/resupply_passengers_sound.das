@@ -4,7 +4,6 @@ require enlisted.events_enlisted
 
 
 [es(tag=sound, REQUIRE=hero)]
-def resupply_passengers_play_complete_sound(evt : CmdResupplyPassengersFinished)
-  let sound = get_string(evt.vehicle, "resupply_vehicle__resupplyPassengersSound", "")
-  if !empty(sound)
-    oneshot(sound)
+def resupply_passengers_sound_resupply_finished(evt : CmdResupplyPassengersFinished)
+  query(evt.vehicle) <| $ [es] (resupply_passengers_sound__path : string)
+    oneshot(resupply_passengers_sound__path)

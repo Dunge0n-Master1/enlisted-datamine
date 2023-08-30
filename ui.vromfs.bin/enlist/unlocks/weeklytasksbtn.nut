@@ -1,8 +1,8 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { midPadding, commonBtnHeight, defTxtColor, startBtnWidth, bigPadding,
-  defItemBlur, transpPanelBgColor, colPart, darkTxtColor, smallPadding, hoverSlotBgColor
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { midPadding, commonBtnHeight, defTxtColor, startBtnWidth, bigPadding, defItemBlur,
+  transpPanelBgColor, darkTxtColor, smallPadding, hoverSlotBgColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let { blinkUnseen, unblinkUnseen } = require("%ui/components/unseenComponents.nut")
 let profileScene = require("%enlist/profile/profileScene.nut")
@@ -11,7 +11,7 @@ let { hasWeeklyTasks, hasUnopenedWeeklyTasks, hasUnseenWeeklyTasks
 
 
 let buttonSize = [startBtnWidth, commonBtnHeight]
-let iconSize = [colPart(0.4), colPart(0.5)]
+let iconSize = [hdpxi(24), hdpxi(30)]
 
 
 let weeklyUnseenSign = @() {
@@ -56,7 +56,7 @@ let buttonContent = watchElemState(@(sf) {
           padding = [0, midPadding]
           text = loc("profile/weeklyTasks")
           color = sf & S_HOVER ? darkTxtColor : defTxtColor
-        }.__update(fontLarge)
+        }.__update(fontBody)
       ]
     }
     weeklyUnseenSign

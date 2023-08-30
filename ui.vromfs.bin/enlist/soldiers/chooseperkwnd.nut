@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h2_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { blurBgColor, bigGap, defTxtColor, activeTxtColor, bigPadding,
   isWide, perkBigIconSize, perkIconSize
 } = require("%enlSqGlob/ui/viewConst.nut")
@@ -88,7 +88,7 @@ let closeButton = closeBtnBase({ onClick = close })
 
 let mkText = @(text) {
   rendObj = ROBJ_TEXT, color = defTxtColor, text
-}.__update(h2_txt)
+}.__update(fontHeading2)
 
 
 let possiblePerksBtn = @(_soldier) @() {
@@ -146,7 +146,7 @@ let recPerksHeader = {
       behavior = Behaviors.TextArea
       color = defTxtColor
       text = loc("recommended_perks_list")
-    }.__update(body_txt)
+    }.__update(fontBody)
   ]
 }
 

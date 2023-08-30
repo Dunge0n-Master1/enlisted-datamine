@@ -46,7 +46,7 @@ let wallpostersListUi = function() {
         gap = bigPadding
         children = makeVertScroll({
           xmbNode = XmbContainer({
-            canFocus = @() false
+            canFocus = false
             scrollSpeed = 5.0
             isViewport = true
           })

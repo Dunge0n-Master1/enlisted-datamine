@@ -34,14 +34,13 @@ base_ship{
   animchar_render__enabled:b=yes
   squad:i=-1
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  _tracked:t="transform"
-  _tracked:t="vehicle__localControls"
-  _tracked:t="isAlive"
   auto_anchor__minSpeedForAnchor:r=20.0
   auto_anchor__delay:r=15.0
   auto_anchor__nextAnchorTime:r=0.0
   vehicle_seats__restrictToTeam:i=-1
   vehicle_acceleration__viscAcceleration:p3=0.0, 0.0, 0.0
+  _tracked:t="vehicle__localControls"
+  _tracked:t="isAlive"
   last_driver_leave_time:r=0.0
   isAlive:b=yes
   lastDamageType:i=0
@@ -53,6 +52,9 @@ base_ship{
   pair_collision__tag:t="collidableToShip"
   grid_obj__gridType:t="vehicles"
   grid_obj__fixedTmScale:r=-1.0
+
+  "grid_obj__updateAlways:tag"{
+  }
 
   "ship:tag"{
   }
@@ -229,7 +231,6 @@ civil_boat{
   grid_obj__fixedTmScale:r=-1.0
   hitpoints__stoppingPower:r=0.0
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  _tracked:t="transform"
   pair_collision__tag:t="collidableToShip"
 
   grid_obj{

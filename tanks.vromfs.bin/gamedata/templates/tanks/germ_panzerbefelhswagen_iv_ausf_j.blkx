@@ -16,6 +16,8 @@ germ_panzerbefelhswagen_IV_ausf_J{
 germ_panzerbefelhswagen_IV_ausf_J_common{
   _extends:t="base_panzerbefelhswagen_iv_ausf_j"
   _extends:t="tank_panzer3_engine_sound"
+  item__iconOffset:p2=0.1, 0.15
+  item__iconScale:r=1.4
 
   "turrets__initAmmoDistribution:array"{
 

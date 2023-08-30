@@ -36,7 +36,8 @@ def load
   if app::get_game_name() == "aot" || (get_DAGOR_DBGLEVEL() > 0 && find_index(get_command_line_arguments(), "--das-no-linter") == -1)
     ok = load_das("%danetlibs/dascript_base/linter.das") && ok
 
-  if !is_in_aot() && get_DAGOR_ADDRESS_SANITIZER() == 0 && ecs_has_tag("render") && typeinfo(builtin_module_exists network) && typeinfo(builtin_module_exists debugapi) && find_index(get_command_line_arguments(), "--das-no-debugger") == -1
+  if (!is_in_aot() && get_DAGOR_ADDRESS_SANITIZER() == 0 && get_DAGOR_THREAD_SANITIZER() == 0 && ecs_has_tag("render")
+      && typeinfo(builtin_module_exists network) && typeinfo(builtin_module_exists debugapi) && find_index(get_command_line_arguments(), "--das-no-debugger") == -1)
     ok = load_das("%danetlibs/dascript_base/debugger_debug.das") && ok
 
   ok = load_nut_binds() && ok

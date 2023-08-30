@@ -22,7 +22,7 @@ let { teammatesAvatarsSet, teammatesAvatarsGetWatched } = require("%ui/hud/state
 let { showTeammateName, showTeammateMarkers } = require("%ui/hud/state/hudOptionsState.nut")
 
 let defTransform = {}
-let hpIconSize = [fsh(2.5), fsh(2.5)].map(@(v) v.tointeger())
+let hpIconSize = [hdpxi(27), hdpxi(27)]
 
 let mkIcon = function(colorInner, colorOuter, sizeFactor) {
   let unitIconSize = [fsh(1*sizeFactor), fsh(1.25*sizeFactor)].map(@(v) v.tointeger())
@@ -87,7 +87,7 @@ let mkHpIcon = @(eid, colorInner, colorOuter) {
   ]
 }
 
-let ammoBoxIconSize = [fsh(6.0), fsh(6.0)].map(@(v) v.tointeger())
+let ammoBoxIconSize = [hdpxi(65), hdpxi(65)]
 let build_ammo_ico = Picture($"ui/skin#building_ammo_box.svg:{ammoBoxIconSize[0]}:{ammoBoxIconSize[1]}:K")
 let requestAmmoBoxIcon = freeze({
   rendObj = ROBJ_IMAGE
@@ -97,7 +97,7 @@ let requestAmmoBoxIcon = freeze({
   minDistance = 0.5
 })
 
-let rallyPointIconSize = [fsh(6.0), fsh(6.0)].map(@(v) v.tointeger())
+let rallyPointIconSize = [hdpxi(65), hdpxi(65)]
 let pic_rally = Picture($"ui/skin#custom_spawn_point.svg:{rallyPointIconSize[0]}:{rallyPointIconSize[1]}:K")
 let requestRallyPointIcon = freeze({
   rendObj = ROBJ_IMAGE
@@ -203,9 +203,9 @@ let unit = function(eid, showMed){
           nameComp
           showTeammateMarkers.value
           ? (showMed && needShowMed.value && iconHpColor
-             ? mkHpIcon(eid, iconHpColor, HUD_COLOR_MEDIC_HP_OUTER)
-             : icon)
-          : {size=[fsh(1).tointeger(), fsh(1.25).tointeger()]}
+              ? mkHpIcon(eid, iconHpColor, HUD_COLOR_MEDIC_HP_OUTER)
+              : icon)
+          : { size=[hdpxi(10), hdpxi(13)] }
         ]
       }
     }

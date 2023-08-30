@@ -45,16 +45,6 @@ armyEffects.subscribe(function(effects) {
     requestCratesContent(armyId, curCrates.keys())
 })
 
-let function getCrateContentComp(armyId, crateId) {
-  requestCratesContent(armyId, [crateId])
-  let res = Computed(@() requestedCratesContent.value?[armyId][crateId])
-  res.subscribe(function(r) {
-    if (r == null)
-      requestCratesContent(armyId, [crateId])
-  })
-  return res
-}
-
 
 let function removeCrateContent(cratesData) {
   requestedCratesContent.mutate(function(cc) {
@@ -133,7 +123,6 @@ let function getShopListForItem(tpl, armyId, itemsToShopItems, allItemTemplates)
 }
 
 return {
-  getCrateContentComp
   getShopListForItem
   removeCrateContent
   requestCratesContent

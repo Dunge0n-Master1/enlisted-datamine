@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h2_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { makeVertScroll, thinStyle } = require("%ui/components/scrollbar.nut")
 let { boosterItems, allBoosters } = require("%enlist/soldiers/model/boosters.nut")
@@ -13,7 +13,7 @@ let emptyBoostersText = txt({
   text = loc("profile/boostersIsEmpty")
   hplace = ALIGN_CENTER
   color = disabledTxtColor
-}).__update(h2_txt)
+}).__update(fontHeading2)
 
 let function mkBooster(boosterBase) {
   let { campaignLimit } = boosterBase
@@ -24,7 +24,7 @@ let function mkBooster(boosterBase) {
   let valueText = boosterBase.expMul > 0 ? "booster/expBonusVal" : "booster/expPenaltyVal"
   return {
     xmbNode = XmbNode({
-      canFocus = @() true
+      canFocus = true
       wrap = false
       isGridLine=true
       scrollToEdge = [false, true]
@@ -60,17 +60,17 @@ let function mkBooster(boosterBase) {
               txt({
                 text = limitText
                 margin = [hdpx(7), 0]
-              }).__update(sub_txt)
-              txt(loc(typeText)).__update(sub_txt)
+              }).__update(fontSub)
+              txt(loc(typeText)).__update(fontSub)
               txt({
                 text = loc(valueText, {exp = abs(boosterBase.expMul * 100).tostring()})
                 color = boosterBase.expMul > 0 ? accentColor : blockedTxtColor
                 margin = [hdpx(14), 0]
-              }).__update(h2_txt)
+              }).__update(fontHeading2)
               txt({
                 padding = [0, 0, hdpx(20), 0]
                 text = loc("booster/allTypes")
-              }).__update(sub_txt)
+              }).__update(fontSub)
             ]
           }
         ]
@@ -104,7 +104,7 @@ let boostersListUi = function() {
 
   return {
     xmbNode = XmbContainer({
-      canFocus = @() false
+      canFocus = false
       isGridLine=true
       scrollSpeed = [0, 2.0]
       scrollToEdge = [false, true]

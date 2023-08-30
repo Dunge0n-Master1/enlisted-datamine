@@ -136,7 +136,7 @@ def trace_ri_under_building(building_pos : float3; building_radius : float; rayM
   return riDesc.riExtraHandle
 
 def is_above_other_building(pos : float3; buildingRadius : float)
-  return find_ri_extra_eid(trace_ri_under_building(pos, buildingRadius)) |> has("building__destroyable")
+  return find_ri_extra_eid(trace_ri_under_building(pos, buildingRadius)) |> has("building__canDismantle")
 
 def is_human_respawn_selector_in_radius_for_team(pos; radius; for_team)
   if radius < 0.0
@@ -300,7 +300,7 @@ def is_not_attachable_gun(building_eid : EntityId)
     return false
   return res
 
-def is_required_space_above_object_free(pos : float3; diameter : float; check_height : float; eps = 0.1)
+def is_required_space_above_object_free(pos : float3; diameter : float; check_height : float; offset)
   if check_height == 0.f
     return true
   let radius = 0.5 * diameter
@@ -310,9 +310,10 @@ def is_required_space_above_object_free(pos : float3; diameter : float; check_he
                 pos + float3(0.0, 0.0, radius);
                 pos + float3(0.0, 0.0, -radius)]]
   for curPos in poses
-    let traceStart = curPos + float3(0.0, check_height + eps, 0.0)
-    let dir = float3(0, -1, 0)
-    if rayhit_normalized(traceStart, dir, check_height, ETF_ALL, -1)
+    let traceStart = curPos + float3(0.0, check_height, 0.0)
+    var t = check_height - offset
+    var matId = -1
+    if tracedown_normalized(traceStart, t, matId, ETF_ALL)
       return false
   return true
 

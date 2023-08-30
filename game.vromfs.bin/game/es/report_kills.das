@@ -5,6 +5,7 @@ require game.utils.team
 require game.events_game
 require enlisted.events_enlisted
 require enlisted.game.es.offender_cache_common
+require game.es.damage_type_common
 require DngNet
 require strings
 
@@ -88,4 +89,5 @@ def report_kill_es(evt : EventAnyEntityDied) // broadcast
 
 
     let victimPos = victim_transform != null ? (*victim_transform)[3] : float3()
-    print("player {killerName} ({killerPos}) kills {victimName} ({victimPos}) by {damageType} with {gunName} hit to {nodeType}")
+    let damageName = DAMAGE_TYPE_NAMES?[damageType] ?? "{damageType}"
+    print("player {killerName} ({killerPos}) kills {victimName} ({victimPos}) by {damageName} with {gunName} hit to {nodeType}")

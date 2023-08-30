@@ -1,10 +1,10 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {sub_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontSub} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {curWeaponFiringMode} = require("%ui/hud/state/hero_weapons.nut")
 let {blurBack, DEFAULT_TEXT_COLOR} = require("style.nut")
 
-let heightFireMode = calc_str_box("auto", sub_txt)[1]
+let heightFireMode = calc_str_box("auto", fontSub)[1]
 
 
 let firingModeTxtCmp = @(mode) {
@@ -13,7 +13,7 @@ let firingModeTxtCmp = @(mode) {
   minHeight=heightFireMode
   text = loc("firing_mode/{0}".subst(mode))
   color = DEFAULT_TEXT_COLOR
-}.__update(sub_txt)
+}.__update(fontSub)
 
 let firingModeCmpStub = freeze({
   size = [0, calc_comp_size(firingModeTxtCmp("A"))[1]]

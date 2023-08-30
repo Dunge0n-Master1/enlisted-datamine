@@ -7,17 +7,29 @@ require common_shooter.es.human.human_reload_common
 require common_shooter.es.human.gun_reload_common
 require common_shooter.es.human_weap_common
 require enlisted.events_enlisted
+require game.events_game
 
 
 
-def gun_reload_try_enable_state(gun_eid : EntityId; state : int; length : float; can_loop : bool = false)
+def gun_reload_try_enable_state(gun_eid : EntityId;
+                                state : int;
+                                length : float;
+                                flags : GunReloadStateFlags = bitfield(0);
+                                state_specific_check : block<() : bool> = $ () => true)
   var isEnabled = false
   query(gun_eid) <| $ [es] (gun_reload__isReloading : bool;
                             var gun_reload__stateStartTime : float&;
                             var gun_reload__stateEndTime : float&;
                             var gun_reload__state : int&;
-                            var gun_reload__isNextStateSelected : bool&)
-    if !gun_reload__isReloading || gun_reload__isNextStateSelected || gun_reload__state > state || (gun_reload__state == state && !can_loop)
+                            var gun_reload__isNextStateSelected : bool&;
+                            var gun_reload__stateAcceptsInterruptRequest : bool&)
+    if (!gun_reload__isReloading ||
+        gun_reload__isNextStateSelected ||
+        gun_reload__state > state ||
+        (gun_reload__state == state && !flags.CanLoop))
+      return
+
+    if !(state_specific_check |> invoke())
       return
 
     let currentTime = get_sync_time()
@@ -26,6 +38,7 @@ def gun_reload_try_enable_state(gun_eid : EntityId; state : int; length : float;
     gun_reload__state = state
     isEnabled = true
     gun_reload__isNextStateSelected = true
+    gun_reload__stateAcceptsInterruptRequest = flags.CanInterrupt
 
   return isEnabled
 
@@ -43,7 +56,7 @@ def gun_reload_state_prepare(evt : CmdStartNextReloadState;
                              gun_reload_state__prepareTime : float)
   let reloadSpeedMult = get_float(gun__owner, "entity_mods__reloadMult") ?? 1.0
   let stateTime = gun_reload_state__prepareTime * reloadSpeedMult
-  gun_reload_try_enable_state(eid, int(GunReloadState PREPARE), stateTime)
+  gun_reload_try_enable_state(eid, int(GunReloadState LOOP_PREPARE), stateTime)
 
 
 [es(after=gun_reload_state_prepare)]
@@ -52,7 +65,7 @@ def gun_reload_state_bullet_multiple_load(evt : CmdStartNextReloadState;
                                           gun_reload__state : int;
                                           gun__owner : EntityId;
                                           gun_reload_state__bulletMultipleCount : int)
-  if gun_reload__state == int(GunReloadState BULLET_MULTIPLE)
+  if gun_reload__state == int(GunReloadState LOOP_BULLET_MULTIPLE)
     query(gun__owner) <| $ [es] (var itemContainer : EidList&)
       reload_with_bullets(gun__owner, itemContainer, eid, gun_reload_state__bulletMultipleCount, ReloadAmmoMode CONSUME)
 
@@ -68,13 +81,22 @@ def gun_reload_state_bullet_multiple(evt : CmdStartNextReloadState;
                                      gun_reload__shouldInterrupt : bool;
                                      gun_reload_state__bulletMultipleTime : float;
                                      gun_reload_state__bulletMultipleCount : int)
-  assume bulletsToInsert = gun_reload_state__bulletMultipleCount
-  let hasCapacityToInsert = gun__maxAmmo - gun__ammo >= bulletsToInsert
-  let hasEnoughAmmo = has_holder_with_enough_bullets(gun__owner, bulletsToInsert, gun__wishAmmoItemType, gun__ammoHolderIds, gun__maxAmmo)
-  if hasCapacityToInsert && hasEnoughAmmo && !gun_reload__shouldInterrupt
-    let reloadSpeedMult = get_float(gun__owner, "entity_mods__reloadMult") ?? 1.0
-    let stateTime = gun_reload_state__bulletMultipleTime * reloadSpeedMult
-    gun_reload_try_enable_state(eid, int(GunReloadState BULLET_MULTIPLE), stateTime, true)
+  let reloadSpeedMult = get_float(gun__owner, "entity_mods__reloadMult") ?? 1.0
+  let stateTime = gun_reload_state__bulletMultipleTime * reloadSpeedMult
+  gun_reload_try_enable_state(eid,
+                              int(GunReloadState LOOP_BULLET_MULTIPLE),
+                              stateTime,
+                              GunReloadStateFlags CanLoop | GunReloadStateFlags CanInterrupt) <| $()
+    assume bulletsToInsert = gun_reload_state__bulletMultipleCount
+    let hasCapacityToInsert = gun__maxAmmo - gun__ammo >= bulletsToInsert
+
+    // if gun has no ammo do at least one load
+    let shouldInterrupt = gun_reload__shouldInterrupt && gun__ammo > 0
+    // fast checks fisrt, then has_holder_with_enough_bullets which is slower
+    if !hasCapacityToInsert || shouldInterrupt
+      return false
+
+    return has_holder_with_enough_bullets(gun__owner, bulletsToInsert, gun__wishAmmoItemType, gun__ammoHolderIds, gun__maxAmmo)
 
 
 [es(after=gun_reload_state_bullet_multiple)]
@@ -82,7 +104,7 @@ def gun_reload_state_bullet_single_load(evt : CmdStartNextReloadState;
                                         eid : EntityId;
                                         gun__owner : EntityId;
                                         gun_reload__state : int)
-  if gun_reload__state == int(GunReloadState BULLET_SINGLE)
+  if gun_reload__state == int(GunReloadState LOOP_BULLET_SINGLE)
     query(gun__owner) <| $ [es] (var itemContainer : EidList&)
       reload_with_bullets(gun__owner, itemContainer, eid, 1, ReloadAmmoMode CONSUME)
 
@@ -97,13 +119,22 @@ def gun_reload_state_bullet_single(evt : CmdStartNextReloadState;
                                    gun__wishAmmoItemType : int;
                                    gun_reload__shouldInterrupt : bool;
                                    gun_reload_state__bulletSingleTime : float)
-  let bulletsToInsert = 1
-  let hasCapacityToInsert = gun__maxAmmo - gun__ammo >= bulletsToInsert
-  let hasEnoughAmmo = has_holder_with_enough_bullets(gun__owner, bulletsToInsert, gun__wishAmmoItemType, gun__ammoHolderIds, gun__maxAmmo)
-  if hasCapacityToInsert && hasEnoughAmmo && !gun_reload__shouldInterrupt
-    let reloadSpeedMult = get_float(gun__owner, "entity_mods__reloadMult") ?? 1.0
-    let stateTime = gun_reload_state__bulletSingleTime * reloadSpeedMult
-    gun_reload_try_enable_state(eid, int(GunReloadState BULLET_SINGLE), stateTime, true)
+  let reloadSpeedMult = get_float(gun__owner, "entity_mods__reloadMult") ?? 1.0
+  let stateTime = gun_reload_state__bulletSingleTime * reloadSpeedMult
+  gun_reload_try_enable_state(eid,
+                              int(GunReloadState LOOP_BULLET_SINGLE),
+                              stateTime,
+                              GunReloadStateFlags CanLoop | GunReloadStateFlags CanInterrupt) <| $()
+    let bulletsToInsert = 1
+    let hasCapacityToInsert = gun__maxAmmo - gun__ammo >= bulletsToInsert
+
+    // if gun has no ammo do at least one load
+    let shouldInterrupt = gun_reload__shouldInterrupt && gun__ammo > 0
+    // fast checks fisrt, then has_holder_with_enough_bullets which is slower
+    if !hasCapacityToInsert || shouldInterrupt
+      return false
+
+    return has_holder_with_enough_bullets(gun__owner, bulletsToInsert, gun__wishAmmoItemType, gun__ammoHolderIds, gun__maxAmmo)
 
 
 [es(after=gun_reload_state_post_reset_anim_state)]
@@ -113,16 +144,18 @@ def gun_reload_state_post(evt : CmdStartNextReloadState;
                           gun_reload_state__postTime : float)
   let reloadSpeedMult = get_float(gun__owner, "entity_mods__reloadMult") ?? 1.0
   let stateTime = gun_reload_state__postTime * reloadSpeedMult
-  gun_reload_try_enable_state(eid, int(GunReloadState POST), stateTime)
+  gun_reload_try_enable_state(eid, int(GunReloadState LOOP_POST), stateTime)
 
 
 def gun_reload_finish(eid)
   query(eid) <| $ [es] (var gun_reload__isReloading : bool&;
                         var gun_reload__shouldInterrupt : bool&;
-                        var gun_reload__state : int&)
+                        var gun_reload__state : int&;
+                        var gun_reload__stateAcceptsInterruptRequest : bool&)
     gun_reload__shouldInterrupt = false
     gun_reload__state = int(GunReloadState NONE)
     gun_reload__isReloading = false
+    gun_reload__stateAcceptsInterruptRequest = false
 
 
 [es(after=gun_reload_state_post)]
@@ -135,6 +168,14 @@ def gun_reload_state_finished(evt : CmdStartNextReloadState;
   gun_reload_finish(eid)
 
 
+[es(tag=server, track=gun_reload__isRequesting)]
+def gun_reload_request_interrupt(evt : Event;
+                                 gun_reload__isReloading : bool;
+                                 gun_reload__isRequesting : bool;
+                                 gun_reload__stateAcceptsInterruptRequest : bool;
+                                 var gun_reload__shouldInterrupt : bool&)
+  if gun_reload__isReloading && !gun_reload__isRequesting && gun_reload__stateAcceptsInterruptRequest
+    gun_reload__shouldInterrupt = true
 
 
 [es(after=human_weap_anim_es, before=gun_anim_updater_es, REQUIRE=multiStateReloadSystem)]
@@ -176,13 +217,6 @@ def on_human_requested_reload(evt : CmdRequestReload;
                            gun__wishAmmoItemType : int;
                            gun__ammoHolderIds : IntList;
                            var gun_reload__isReloading : bool&)
-    // TODO: after reload started we are most likely to get another CmdRequestReload on the next frame
-    // we need to redo this somehow so that it reset only after another press
-    // if gun_reload__isReloading
-    //   // interrupt reload if possible
-    //   gun_reload__shouldInterrupt = true
-    //   return
-
     // do not reload full ammo
     if gun__ammo >= gun__maxAmmo && gun__ammo > 0
       return
@@ -209,3 +243,26 @@ def gun_reload_ignore_interrupt_when_not_reloading(evt : Event;
                                                    var gun_reload__shouldInterrupt : bool&)
   if !gun_reload__isReloading
     gun_reload__shouldInterrupt = false
+
+[es(on_appear, track=gun_reload__isReloading)]
+def gun_reload_set_human_reload(evt : Event;
+                                eid : EntityId;
+                                gun_reload__isReloading : bool;
+                                gun__owner : EntityId)
+  query(gun__owner) <| $ [es] (human_weap__currentGunEid : EntityId;
+                               var human_weap__isReloading : bool&)
+    if eid == human_weap__currentGunEid
+      human_weap__isReloading = gun_reload__isReloading
+
+[es]
+def gun_reload_reset_human_reload_on_weap_switch(evt : EventOnSelectWeap;
+                                                 human_weap__gunEids : EidList;
+                                                 var human_weap__isReloading : bool&)
+  // we dont know from what weapon we switched so just stop all reloads
+  for gunEid in human_weap__gunEids
+    gun_reload_finish(gunEid)
+  human_weap__isReloading = false
+
+[es]
+def gun_reload_interrupt_immediately(evt : CmdInterruptReloadImmediately; human_weap__currentGunEid : EntityId)
+  gun_reload_finish(human_weap__currentGunEid)

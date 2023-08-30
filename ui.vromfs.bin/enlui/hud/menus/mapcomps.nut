@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let uiHotkeysHint = require("%ui/components/uiHotkeysHint.nut").mkHintRow
 let formatInputBinding = require("%ui/control/formatInputBinding.nut")
 let { DEFAULT_TEXT_COLOR } = require("%ui/hud/style.nut")
@@ -11,7 +11,7 @@ let hintTextFunc = @(text, color = DEFAULT_TEXT_COLOR) {
   rendObj = ROBJ_TEXT
   text
   color
-}.__update(body_txt, shadowStyle)
+}.__update(fontBody, shadowStyle)
 
 let function mkTips(keys, locId){
   return {

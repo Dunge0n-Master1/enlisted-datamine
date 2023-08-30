@@ -201,6 +201,12 @@ Human.Reload{
   type:i=1
 }
 
+Human.RotateBuilding{
+  dev:i=3
+  btn:i=14
+  type:i=1
+}
+
 Human.WeapModToggle{
   dev:i=3
   btn:i=2
@@ -719,6 +725,13 @@ Human.ContextCommand{
 }
 
 Human.VehicleMaintenance{
+  dev:i=3
+  btn:i=14
+  type:i=1
+  stickyToggle:b=yes
+}
+
+Human.RepairBuilding{
   dev:i=3
   btn:i=14
   type:i=1

@@ -1,8 +1,8 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let { accentColor, defTxtColor, midPadding, transpPanelBgColor, colPart, disabledTxtColor,
-  darkTxtColor, defItemBlur, startBtnWidth, titleTxtColor, hoverSlotBgColor, highlightLineTop
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { accentColor, defTxtColor, midPadding, transpPanelBgColor, disabledTxtColor, darkTxtColor,
+  defItemBlur, startBtnWidth, titleTxtColor, hoverSlotBgColor, highlightLineTop
 } = require("%enlSqGlob/ui/designConst.nut")
 let { blinkUnseen, unblinkUnseen } = require("%ui/components/unseenComponents.nut")
 let crossplayIcon = require("%enlist/components/crossplayIcon.nut")
@@ -69,7 +69,7 @@ let changeGameModeBtn = watchElemState(function(sf) {
   return {
     watch = [canChangeQueueParams, selectedGameMode, isGamepad]
     rendObj = ROBJ_WORLD_BLUR
-    size = [startBtnWidth, colPart(0.806)]
+    size = [startBtnWidth, SIZE_TO_CONTENT]
     color = defItemBlur
     fillColor = sf & S_HOVER
       ? hoverSlotBgColor
@@ -91,7 +91,9 @@ let changeGameModeBtn = watchElemState(function(sf) {
       {
         valign = ALIGN_CENTER
         padding = [0, midPadding]
-        size = flex()
+        margin = [midPadding, 0]
+        size = [flex(), SIZE_TO_CONTENT]
+        flow = FLOW_HORIZONTAL
         children = [
           isGamepad.value && canChangeQueueParams.value ? changeModeHotkey : null
           {
@@ -99,14 +101,14 @@ let changeGameModeBtn = watchElemState(function(sf) {
             flow = FLOW_VERTICAL
             children = [
               {
-                rendObj = ROBJ_TEXT
-                size = [pw(90), SIZE_TO_CONTENT]
-                behavior = Behaviors.Marquee
+                rendObj = ROBJ_TEXTAREA
+                size = [flex(), SIZE_TO_CONTENT]
+                behavior = Behaviors.TextArea
                 hplace = ALIGN_CENTER
                 halign = ALIGN_CENTER
                 text = loc("changeGameMode/Mode", { gameMode })
                 color = mkTxtColor(sf, !isVersionCompatible)
-              }.__update(sub_txt)
+              }.__update(fontSub)
               serversComp
             ]
           }

@@ -4,6 +4,8 @@ ussr_t_34_1940_L_11{
   _extends:t="tank_t34_vehicle_tracks_sound"
   commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
   gunner_cam_limit__useCockpitDir:b=yes
+  item__iconOffset:p2=0.05, 0.05
+  item__iconScale:r=1.16
 
   "vehicle_seats__seatsProvideOrder:tag"{
   }
@@ -194,6 +196,7 @@ ussr_t_34_1940_L_11_gunner_cockpit{
 
   "cockpit__slitTemplates:list<t>"{
     slit:t="ussr_tod_6"
+    slit:t="ussr_pt_1"
   }
 
   "cockpit__slitEids:list<eid>"{

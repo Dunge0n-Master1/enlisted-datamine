@@ -288,3 +288,6 @@ struct CmdSetCameraTarget
 [event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
 struct RequestCamSwitch
   isTpsView : bool
+
+[event(unicast)]
+struct CmdVoxelGridRebuild{}

@@ -12,6 +12,8 @@ germ_flakpanzer_i_ausf_a_common{
   armorThicknessTurret:p3=7.0, 0.0, 0.0
   vehicle_seats__exitTime:r=1.0
   vehicle_seats__enterTime:r=2.0
+  item__iconOffset:p2=-0.03, 0.05
+  item__iconScale:r=1.15
   commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
   gunner_cam_limit__useCockpitDir:b=yes
   vehicle_commander_cam__attachToVehicle:b=yes
@@ -131,7 +133,7 @@ germ_flakpanzer_i_ausf_a_gunner_cockpit{
   cockpit__minForwardOffset:r=0.0
 
   "cockpit__cockpitOffsetBySlit:list<p3>"{
-    item:p3=-0.8, 0.31, -0.15
+    item:p3=-0.7, 0.31, -0.15
   }
 
   "cockpit__attachNodeNames:list<t>"{
@@ -150,7 +152,7 @@ germ_flakpanzer_i_ausf_a_gunner_cockpit{
   }
 
   "cockpit__slitForwardOffset:list<r>"{
-    slit:r=0.22
+    slit:r=0.23
   }
 
   "cockpit__slitIsGun:list<b>"{

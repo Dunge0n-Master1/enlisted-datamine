@@ -693,7 +693,7 @@ planegun_b_34_7_62mm_browning30_turret_01{
   gun__shootNodeName:t="flare3"
   gun__maxAmmo:i=1000
   turret__aimNodeName:t="turret2"
-  turret__limit:p4=-12.0, 12.0, -25.0, 8.0
+  turret__limit:p4=-8.0, 30.0, -18.0, 18.0
   turret__yawSpeed:r=100.0
   turret__pitchSpeed:r=100.0
 }
@@ -706,7 +706,7 @@ planegun_b_34_7_62mm_browning30_turret_02{
   gun__shootNodeName:t="flare4"
   gun__maxAmmo:i=1000
   turret__aimNodeName:t="turret2"
-  turret__limit:p4=-12.0, 12.0, -25.0, 8.0
+  turret__limit:p4=-8.0, 30.0, -18.0, 18.0
   turret__yawSpeed:r=100.0
   turret__pitchSpeed:r=100.0
 }

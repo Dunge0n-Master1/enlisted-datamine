@@ -8,6 +8,8 @@ ussr_is_2_1943_common{
   _extends:t="tank_heavy_vehicle_tracks_sound"
   commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
   gunner_cam_limit__useCockpitDir:b=yes
+  item__iconOffset:p2=0.07, 0.1
+  item__iconScale:r=1.13
 
   "vehicle_seats__seats:shared:array"{
 
@@ -170,6 +172,7 @@ ussr_is_2_1943_gunner_cockpit{
 
   "cockpit__slitTemplates:list<t>"{
     slit:t="ussr_10t_17"
+    slit:t="default_periscope"
   }
 
   "cockpit__slitEids:list<eid>"{

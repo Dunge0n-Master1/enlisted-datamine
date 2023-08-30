@@ -19,8 +19,8 @@ let REPAIR_ICON_MAX_DIST = 50
 let MIN_HUD_ICON_MAX_DIST = 200
 let ICON_MAX_DIST = 1000
 
-let unitIconSize = [fsh(1), fsh(1)].map(@(v) v.tointeger())
-let repairIconSize = [fsh(3), fsh(3)].map(@(v) v.tointeger())
+let unitIconSize = [hdpxi(10), hdpxi(10)]
+let repairIconSize = [hdpxi(32), hdpxi(32)]
 
 let tank_unit_outer = Picture($"ui/skin#tank_unit_outer.svg:{unitIconSize[0]}:{unitIconSize[1]}:K")
 let tank_unit_inner = Picture($"ui/skin#tank_unit_inner.svg:{unitIconSize[0]}:{unitIconSize[1]}:K")

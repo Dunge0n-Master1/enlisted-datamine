@@ -23,9 +23,12 @@ jp_jp_type_95_ha_go_common_with_base{
 jp_type_95_ha_go_common{
   _extends:t="tank_m10_engine_sound"
   _extends:t="tank_light_vehicle_tracks_sound"
-  item__iconOffset:p2=0.0, 0.0
+  item__iconOffset:p2=-0.05, 0.05
+  item__iconScale:r=1.2
   commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
   gunner_cam_limit__useCockpitDir:b=yes
+  armorThicknessHull:p3=12.0, 12.0, 10.0
+  armorThicknessTurret:p3=30.0, 12.0, 12.0
 
   "vehicle_seats__seats:shared:array"{
 

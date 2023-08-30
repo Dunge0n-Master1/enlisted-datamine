@@ -17,6 +17,7 @@ def reset_human_aim_zoom(var human_net_phys : HumanActor; var camera__magnificat
 def human_weap_phys_es(
                        info : ParallelUpdateFrameDelayed;
                        human_weap__reloadAtTime : float;
+                       human_weap__isReloading : bool;
                        human_weap__weapModActivateStartTime : float;
                        human_weap__blockAiming : bool;
                        boltActionProgress : float;
@@ -29,7 +30,7 @@ def human_weap_phys_es(
                        action__running = false)
 
   assume ct = human_net_phys.phys.currentState
-  let reloading = (info.curTime <= human_weap__reloadAtTime) || (human_weap__weapModActivateStartTime > 0.0f)
+  let reloading = info.curTime <= human_weap__reloadAtTime || human_weap__weapModActivateStartTime > 0.0f || human_weap__isReloading
   let standState = ct.standState
   let isCrawling = ct.moveState != HUMoveState EMS_STAND && ct.isCrawl
   let isShootingStandState = standState == HUStandState ESS_STAND || standState == HUStandState ESS_CROUCH || standState == HUStandState ESS_CRAWL

@@ -2,7 +2,8 @@ mass:r=0.096
 recoilMultiplier:r=0.35
 caliber:r=0.02
 speed:r=800.0
-maxDistance:r=2500.0
+maxDistance:r=3500.0
+Cx:r=0.4717
 normalizationPreset:t="default"
 modelName:t="tank_bullet_ap"
 ricochetPreset:t="defaultExt"
@@ -15,20 +16,11 @@ stabilityReductionAfterRicochet:r=0.5
 hitPowerMult:r=1.0
 stabilityReductionAfterPenetration:r=0.15
 onHitChanceMultFire:r=1.5
-bulletType:t="frag_i_t"
 effectiveDistance:r=700.0
 relativeVelHitShift:p2=300.0, 1000.0
 relativeVelArmorShift:p2=200.0, 1000.0
 explodeTreshold:r=0.1
-explodeHitPower:r=13.0
-explodeArmorPower:r=5.0
-explodeRadius:p2=0.035, 0.35
 fuseDelayDist:r=0.04
-shutterDamage:b=yes
-shutterDamageRadius:r=1.2
-shutterAmount:i=15
-shutterArmorPower:r=6.0
-shutterHit:r=3.5
 
 stabilityRicochetModifier{
   mod1:p2=0.0, 0.05
@@ -51,6 +43,50 @@ armorpower{
   ArmorPower1000m:p2=1.0, 1000.0
   ArmorPower1450m:p2=0.5, 1450.0
   ArmorPower1500m:p2=0.0, 1500.0
+}
+
+damage{
+
+  kinetic{
+    damageType:t="generic"
+    demarrePenetrationK:r=0.15
+    demarreSpeedPow:r=1.43
+    demarreMassPow:r=0.71
+    demarreCaliberPow:r=1.07
+  }
+
+  shatter{
+    useRealShatters:b=yes
+    countPortion:r=0.3
+
+    segment{
+      radiusScale:r=1.085
+      penetrationScale:r=1.2
+      damageScale:r=1.3
+      angles:p2=20.0, 160.0
+      countPortion:r=0.4
+    }
+
+    segment{
+      radiusScale:r=1.085
+      penetrationScale:r=1.2
+      damageScale:r=1.3
+      angles:p2=200.0, 340.0
+      countPortion:r=0.4
+    }
+
+    segment{
+      radiusScale:r=1.085
+      penetrationScale:r=1.2
+      damageScale:r=1.3
+      angles:p2=0.0, 359.0
+      countPortion:r=0.2
+    }
+  }
+}
+
+shatterDamage{
+  breachConeAngle:r=45.0
 }
 
 visual{

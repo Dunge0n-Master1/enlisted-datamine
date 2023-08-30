@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let JB = require("%ui/control/gui_buttons.nut")
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let spinner = require("%ui/components/spinner.nut")
 let { WindowTransparent } = require("%ui/style/colors.nut")
 let { titleTxtColor, commonBtnHeight } = require("%enlSqGlob/ui/viewConst.nut")
@@ -22,7 +22,7 @@ let queueTitle = noteTextArea({
   text = loc("mods/Downloading")
   halign = ALIGN_CENTER
   color = titleTxtColor
-}).__update(body_txt)
+}).__update(fontBody)
 
 let queueContent = @(message) {
   rendObj = ROBJ_TEXTAREA
@@ -36,7 +36,7 @@ let queueContent = @(message) {
   children = txt({
       text = loc(message)
       color = titleTxtColor
-    }).__update(body_txt)
+    }).__update(fontBody)
 }
 
 let closeButton = Bordered(loc("Ok"),

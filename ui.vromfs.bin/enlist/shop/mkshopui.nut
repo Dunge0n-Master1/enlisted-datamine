@@ -2,12 +2,13 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let shopItemClick = require("shopItemClick.nut")
 let armySelectUi = require("%enlist/soldiers/army_select.ui.nut")
+let viewShopItemsScene = require("viewShopItemsScene.nut")
 let hoverHoldAction = require("%darg/helpers/hoverHoldAction.nut")
 let mkDotPaginator = require("%enlist/components/mkDotPaginator.nut")
 
 let { Bordered } = require("%ui/components/txtButton.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
-let { fontMedium, fontLarge, fontXLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { curArmyData } = require("%enlist/soldiers/model/state.nut")
 let { makeVertScroll, styling } = require("%ui/components/scrollbar.nut")
 let { offersByShopItem } = require("%enlist/offers/offersState.nut")
@@ -22,8 +23,8 @@ let {
 } = require("shopState.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
 let {
-  defTxtColor, colFull, colPart, columnGap, smallPadding, midPadding, darkTxtColor,
-  contentOffset, titleTxtColor, hoverSlotBgColor, largePadding
+  defTxtColor, largePadding, smallPadding, midPadding, darkTxtColor, contentOffset, titleTxtColor,
+  hoverSlotBgColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let {
   mkBaseShopItem, mkLowerShopItem, lowerSlotSize, mkShopFeatured, mkDiscountBar
@@ -42,7 +43,7 @@ let mkShopGroup = function(group, isSelected, onClick) {
     fillColor = sf & S_HOVER ? hoverSlotBgColor : 0
     borderColor = Color(255,255,255)
     borderWidth = isSelected ? [0,0,smallPadding,0] : 0
-    size = [SIZE_TO_CONTENT, colPart(0.75)]
+    size = [SIZE_TO_CONTENT, hdpx(46)]
     behavior = Behaviors.Button
     onClick
     sound = {
@@ -50,25 +51,25 @@ let mkShopGroup = function(group, isSelected, onClick) {
       click = "ui/enlist/button_click"
       active = "ui/enlist/button_action"
     }
-    padding = [smallPadding, columnGap]
-    maxWidth = colPart(12)
-    minWidth = colPart(1)
+    padding = [smallPadding, largePadding]
+    maxWidth = fsh(69)
+    minWidth = hdpx(62)
     valign = ALIGN_CENTER
     halign = ALIGN_CENTER
     children = {
       rendObj = ROBJ_TEXT
       text
-      color = (sf & S_HOVER)
+      color = sf & S_HOVER
         ? darkTxtColor
         : isSelected ? titleTxtColor : defTxtColor
-    }.__update(fontLarge)
+    }.__update(fontBody)
   })
 }
 let shopGroupTxtHgt = calc_str_box({rendObj = ROBJ_TEXT text= "H"})[1]
 
 const SWITCH_SEC = 8.0
 
-let contentWidth = colFull(20)
+let contentWidth = min(sw(90), fsh(142))
 
 let scrollStyle = styling.__merge({ Bar = styling.Bar(false) })
 
@@ -77,7 +78,7 @@ let paginatorTimer = Watched(SWITCH_SEC)
 let featuredPaginator = mkDotPaginator({
   id = "featured"
   pageWatch = curFeaturedIdx
-  dotSize = columnGap
+  dotSize = largePadding
   switchTime = paginatorTimer
 })
 
@@ -102,7 +103,7 @@ let mkDiscount = @(discount) mkDiscountBar({
   rendObj = ROBJ_TEXT
   text = discount > 0 ? $"-{discount}%" : locSpecialOffer
   color = darkTxtColor
-}.__update(fontMedium)).__update({
+}.__update(fontBody)).__update({
   vplace = ALIGN_BOTTOM
   pos = [0, shopGroupTxtHgt]
 })
@@ -136,7 +137,7 @@ let function buildShopUi() {
       flow = FLOW_HORIZONTAL
       halign = ALIGN_CENTER
       valign = ALIGN_CENTER
-      gap = columnGap
+      gap = largePadding
       children = curShopItemsByGroup.value.map(function(group, idx) {
         let { hasUnseen = false, unopened = [], discount = 0, showSpecialOffer = false } = dataByGroup?[group.id]
         let hasDiscount = discount > 0 || showSpecialOffer
@@ -168,7 +169,13 @@ let function buildShopUi() {
     }
   }
 
-  let function shopItemAction(sItem) {
+  let function shopItemAction(sItem, content, isLocked) {
+    let { items = {} } = content
+    if (items.len() > 0 && !sItem?.isStarterPack && isLocked) {
+      viewShopItemsScene(sItem)
+      return
+    }
+
     shopItemClick(sItem)
   }
 
@@ -201,15 +208,16 @@ let function buildShopUi() {
 
     return function() {
       let content = crateContent == null ? null : crateContent.value?.content
-      let clickCb = @() cb(sItem)
+      let isLocked = armyLevel > level
+      let clickCb = @() cb(sItem, content, isLocked)
       let templates = allItemTemplates.value
       let reqFreemium = campaignGroup != CAMPAIGN_NONE && needFreemiumStatus.value
-      let lockTxt = armyLevel > level ? loc("levelInfo", { level = armyLevel })
+      let lockTxt = isLocked ? loc("levelInfo", { level = armyLevel })
         : reqFreemium ? loc("shopItemReqFreemium")
         : ""
 
       let infoCb = sItem?.isStarterPack ? @() starterPack(sItem)
-        : squad == null || armyLevel > level ? null
+        : squad == null || isLocked ? null
         : @() buySquadWindow({
             shopItem = sItem
             productView = mkProductView(sItem, allItemTemplates)
@@ -275,7 +283,7 @@ let function buildShopUi() {
     let res = {
       watch
       xmbNode = XmbContainer({
-        canFocus = @() false
+        canFocus = false
         scrollSpeed = 10.0
         isViewport = true
       })
@@ -292,7 +300,7 @@ let function buildShopUi() {
         color = defTxtColor
         size = flex()
         text = loc("shop/emptyTab")
-      }, fontXLarge)
+      }, fontBody)
 
     let offers = offersByShopItem.value
     let army = curArmyData.value
@@ -326,14 +334,11 @@ let function buildShopUi() {
       hplace = ALIGN_CENTER
       size = [contentWidth, flex()]
       children = makeVertScroll(
-        {
-          size = [contentWidth, SIZE_TO_CONTENT]
-          children = wrap(shopContent, {
-            width = contentWidth
-            vGap = columnGap
-            hGap = columnGap
-          })
-        },
+        wrap(shopContent, {
+          width = contentWidth
+          vGap = largePadding
+          hGap = largePadding
+        })
         {
           size = flex()
           rootBase = {
@@ -352,7 +357,6 @@ let function buildShopUi() {
     size = flex()
     flow = FLOW_VERTICAL
     margin = [contentOffset,0,0,0]
-    gap = columnGap * 2
     children = [
       armySelectUi
       {

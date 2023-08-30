@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { connectToHost, lobbyStatus, startSession, leaveRoom, destroyRoom, roomMembers, room,
   chatId, canOperateRoom, LobbyStatus, roomTeamArmies, startSessionWithLocalDedicated,
   canStartWithLocalDedicated
@@ -69,7 +69,7 @@ let function memberName(member) {
       margin = fsh(1)
       hplace = ALIGN_LEFT
       validateStaticText = false
-    }.__update(body_txt)
+    }.__update(fontBody)
   }
 }
 
@@ -161,7 +161,7 @@ let header = {
         :
         null
 //      loc("lobby/roomName","Name: ") + (room.value?.roomId != null ? room.value.public.roomName : "")
-    }.__update(sub_txt)
+    }.__update(fontSub)
   }
 }
 
@@ -224,7 +224,7 @@ let function statusText() {
       rendObj = ROBJ_TEXT
       text = text
       color = Color(200,200,50)
-    }.__update(body_txt)
+    }.__update(fontBody)
   }
 }
 

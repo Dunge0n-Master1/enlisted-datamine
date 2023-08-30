@@ -56,7 +56,6 @@ def vehicle_input_turret_es(evt : CmdTurretsUpdate;
 
 [es(after=vehicle_input_turret_es, before=turret_direction_control_es)]
 def apply_turret_aim_pos_to_remote_wish_dir_es(evt : CmdTurretsUpdate;
-                                               animchar : AnimcharBaseComponent;
                                                turret_control__gunEids : EidList;
                                                net_phys__role : int;
                                                vehicle__localControls : VehicleControlsState const?)
@@ -65,15 +64,17 @@ def apply_turret_aim_pos_to_remote_wish_dir_es(evt : CmdTurretsUpdate;
   let isCanControlTurrets = (vehicle__localControls != null && vehicle__localControls.canControlTurrets)
   if isValidNetRole || isCanControlTurrets
     for gunEid in turret_control__gunEids
-      query(gunEid) <| $ [es(REQUIRE=resolvedTurret)] (turret__emitterNodeId : int;
+      query(gunEid) <| $ [es(REQUIRE=resolvedTurret)] (turret__emitterOwner : EntityId;
+                                                       turret__emitterNodeId : int;
                                                        turret_aim__shootToPos : float3&;
                                                        var turret_state : TurretState)
-        if turret__emitterNodeId < 0
+        if turret__emitterOwner == INVALID_ENTITY_ID || turret__emitterNodeId < 0
           return
 
-        let nwp = *animchar.nodeTree |> geomtree_getNodeWpos(turret__emitterNodeId)
-        let gunDir = normalize(turret_aim__shootToPos - nwp)
-        turret_state.remote |> remote_state_setWishDirection(gunDir)
+        query(turret__emitterOwner) <| $ [es] (animchar : AnimcharBaseComponent)
+          let nwp = *animchar.nodeTree |> geomtree_getNodeWpos(turret__emitterNodeId)
+          let gunDir = normalize(turret_aim__shootToPos - nwp)
+          turret_state.remote |> remote_state_setWishDirection(gunDir)
 
 
 [es(tag=server)]

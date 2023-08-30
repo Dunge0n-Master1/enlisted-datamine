@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { currenciesById } = require("%enlist/currency/currencies.nut")
 
 let priceWidget = function(price, currencyId) {
@@ -19,7 +19,7 @@ let priceWidget = function(price, currencyId) {
         text = currency
           ? price
           : loc($"priceText/{currencyId}", { price }, $"{price}{currencyId}")
-      }.__update(body_txt)
+      }.__update(fontBody)
     ]
   }
 }

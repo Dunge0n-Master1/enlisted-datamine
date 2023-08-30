@@ -1,8 +1,8 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {body_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontBody} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {CONTROL_BG_COLOR} = require("%ui/hud/style.nut")
-let cursors = require("%ui/style/cursors.nut")
+let { normal, setTooltip } = require("%ui/style/cursors.nut")
 
 let JB = require("%ui/control/gui_buttons.nut")
 
@@ -36,14 +36,16 @@ let windowButtons = @(params) function() {
   }
 }
 
-let function optionRowContainer(children) {
+let function optionRowContainer(children, opt) {
   let stateFlags = Watched(0)
+  let { hint = null } = opt
   return @() {
     watch = stateFlags
     size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_HORIZONTAL
     valign = ALIGN_CENTER
     behavior = Behaviors.Button
+    onHover = hint == null ? null : @(on) setTooltip(on ? hint : null)
     onElemState = @(sf) stateFlags(sf)
     skipDirPadNav = true
     children
@@ -59,12 +61,10 @@ let function optionRowContainer(children) {
 let function makeOptionRow(opt) {
   let group = ElemGroup()
   let xmbNode = XmbNode()
-  if ("rowCtor" in opt)
-    return opt.rowCtor(opt, group) ?? {}
 
   let widget = opt.widgetCtor(opt, group, xmbNode)
   if (!widget)
-    return {}
+    return null
 
   let baseHeight = fsh(4.8)
   let height = baseHeight
@@ -82,7 +82,7 @@ let function makeOptionRow(opt) {
     ]
   }
 
-  return optionRowContainer(row)
+  return optionRowContainer(row, opt)
 }
 
 let sepColor = Color(120,120,120)
@@ -104,7 +104,7 @@ let function mkSeparator(opt){
         fontFx = FFT_GLOW
         fontFxOffsX = hdpx(1)
         fontFxOffsY = hdpx(1)
-      }.__update(body_txt)
+      }.__update(fontBody)
       sepLine
     ] : sepLine
   })
@@ -112,7 +112,7 @@ let function mkSeparator(opt){
 let isSeparator = @(v) v?.isSeparator
 
 let function optionsPage(params) {
-  let xmbNode = XmbContainer({wrap=true})
+  let xmbNode = XmbContainer({ wrap = false })
   let {options, currentTab} = params
 
   return function() {
@@ -155,7 +155,7 @@ let function settingsMenu(params) {
 
   return @(){
     size = [sw(100), sh(100)]
-    cursor = cursors.normal
+    cursor = normal
     watch = [active_controls.isGamepad]
     key = params?.key
     children = {

@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { PORTRAIT_SIZE, mkRatingBlock, mkPortraitIcon } = require("decoratorPkg.nut")
 let { getPortrait, frameNick } = require("%enlSqGlob/ui/decoratorsPresentation.nut")
@@ -31,7 +31,7 @@ let decoratorBlock = @() {
         txt({
           text = frameNick(anoProfileData.value?.player.name, anoProfileData.value?.player.nickFrame)
           color = titleTxtColor
-        }).__update(body_txt)
+        }).__update(fontBody)
       ]
     }
   ]

@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontXLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { smallPadding, bigPadding, defTxtColor, startBtnWidth, colPart, transpPanelBgColor, defItemBlur,
+let { fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { smallPadding, bigPadding, defTxtColor, startBtnWidth, transpPanelBgColor, defItemBlur,
   highlightLineTop, hoverSlotBgColor, darkTxtColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let { BP_INTERVAL_STARS } = require("%enlSqGlob/bpConst.nut")
@@ -17,8 +17,8 @@ let { soundDefault } = require("%ui/components/textButton.nut")
 let { hasBattlePass } = require("%enlist/unlocks/taskRewardsState.nut")
 
 
-let starSize = colPart(0.33)
-let bpButtonHeight = colPart(1.3) + smallPadding * 2
+let starSize = hdpxi(20)
+let bpButtonHeight = hdpx(80) + smallPadding * 2
 local visibleStars = null
 let showUnseenBPStars = function() {
   for (local i = 0; i < BP_INTERVAL_STARS; i++)
@@ -57,7 +57,7 @@ let mkStar = @(idx, isFilled = false, hasRewardAnim = false, hasAppearAnim = fal
                 trigger }
               { prop = AnimProp.scale, from = [3,3], to = [1,1], duration = 0.5,
                 play = hasAppearAnim, trigger }
-              { prop = AnimProp.translate, from = [colPart(0.82 + idx * 0.65),-colPart(0.49)],
+              { prop = AnimProp.translate, from = [hdpx(50 + idx * 40),-hdpx(30)],
                 to = [0,0], duration = 0.5, play = hasAppearAnim, trigger }
             ]
           }
@@ -78,7 +78,7 @@ let function rewardProgress() {
   let visible = visibleStars ?? BP_INTERVAL_STARS
   visibleStars = hasRewardVal ? BP_INTERVAL_STARS : filledStars
   return {
-    watch = currentProgress
+    watch = [currentProgress, hasReward]
     flow = FLOW_HORIZONTAL
     gap = smallPadding
     children = array(BP_INTERVAL_STARS).map(function(_, idx) {
@@ -99,7 +99,7 @@ let titleBpBlock = @(sf) {
       rendObj = ROBJ_TEXT
       text = loc("bp/battlePassUpper")
       color = sf & S_HOVER ? darkTxtColor : defTxtColor
-    }.__update(fontXLarge)
+    }.__update(fontHeading2)
     rewardProgress
   ]
 }
@@ -132,7 +132,7 @@ let mkWidgetInfo = @(sf) {
       valign = ALIGN_CENTER
       padding = [smallPadding, 0, smallPadding, bigPadding]
       children = [
-        dynamicSeasonBPIcon(colPart(0.85))
+        dynamicSeasonBPIcon(hdpxi(52))
         {
           size = [flex(), SIZE_TO_CONTENT]
           valign = ALIGN_CENTER
@@ -164,7 +164,7 @@ let mkBpWidgetOpen = @(onHover = null) @() {
     onHover
     children = [
       timeTracker
-      dynamicSeasonBpBg([colPart(6), colPart(1.58)], (sf & S_HOVER) != 0 ? 1 : 0.7)
+      dynamicSeasonBpBg([hdpxi(373), hdpxi(98)], sf & S_HOVER ? 1 : 0.7)
       mkWidgetInfo(sf)
       highlightLineTop
     ]

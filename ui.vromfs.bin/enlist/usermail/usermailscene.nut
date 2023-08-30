@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { sceneWithCameraAdd, sceneWithCameraRemove
 } = require("%enlist/sceneWithCamera.nut")
 let { bigPadding, smallPadding, defInsideBgColor, defTxtColor, blurBgFillColor, activeTxtColor,
@@ -36,7 +36,7 @@ let noMessagesTitle = {
   halign = ALIGN_CENTER
   color = activeTxtColor
   text = loc("mail/no_messages")
-}.__update(body_txt)
+}.__update(fontBody)
 
 let function mkRewards(rewards, hasReceived = true) {
   if (rewards.len() == 0)
@@ -86,7 +86,7 @@ let function messageRow(message, idx) {
               textOverflowY = TOVERFLOW_LINE
               text = loc(text)
               color = listTxtColor(sf, isSelected)
-            }.__update(body_txt)
+            }.__update(fontBody)
             hasTimeout ? mkSeasonTime(timeToEnd) : null
           ]
         }

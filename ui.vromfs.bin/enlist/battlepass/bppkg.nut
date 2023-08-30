@@ -1,8 +1,8 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let {
-  h0_txt, h1_txt, h2_txt, sub_txt, body_txt, tiny_txt
-} = require("%enlSqGlob/ui/fonts_style.nut")
+  fontTitle, fontHeading2, fontSub, fontBody, fontTiny, fontHeading1
+} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {
   activeTxtColor, defBgColor
 } = require("%enlSqGlob/ui/viewConst.nut")
@@ -27,6 +27,7 @@ let { hasEliteBattlePass } = require("eliteBattlePass.nut")
 let { getItemName } = require("%enlSqGlob/ui/itemsInfo.nut")
 let msgbox = require("%ui/components/msgbox.nut")
 let JB = require("%ui/control/gui_buttons.nut")
+let { dynamicSeasonBPIcon } = require("battlePassPkg.nut")
 
 const DAY_SEC = 86400
 const BP_LEFT_DAYS_ALERT = 3
@@ -69,12 +70,12 @@ let curItemName = @(locId) locId == null ? null : {
   padding = [midPadding, 0]
   text = loc(locId)
   color = titleTxtColor
-}.__update(h2_txt)
+}.__update(fontHeading2)
 
 let textAreaStyle = {
   rendObj = ROBJ_TEXTAREA
   behavior = Behaviors.TextArea
-}.__update(sub_txt)
+}.__update(fontSub)
 
 let curItemDescription = @(locId) locId == null ? null : {
   size = [hdpx(500), SIZE_TO_CONTENT]
@@ -90,19 +91,14 @@ let function lockScreenBlock() {
     return res
 
   return res.__update({
-    pos = [0, sh(49)]
-    size = [0, 0]
     hplace = ALIGN_CENTER
-    halign = ALIGN_CENTER
+    vplace = ALIGN_CENTER
+    flow = FLOW_VERTICAL
+    pos = [-sh(0.5), -sh(8)]
+    gap = sh(12)
     children = [
       {
-        rendObj = ROBJ_TEXT
-        text = loc("bp/required")
-        color = titleTxtColor
-      }.__update(h2_txt)
-      {
         rendObj = ROBJ_IMAGE
-        pos = [-sh(0.5), -sh(17)]
         hplace = ALIGN_CENTER
         vplace = ALIGN_CENTER
         behavior = Behaviors.Button
@@ -110,6 +106,11 @@ let function lockScreenBlock() {
         onHover = @(on) setTooltip(on ? loc("bp/required/tip") : null)
         image = Picture($"!ui/uiskin/battlepass/lock_bp.svg:{lockBPLarge[0]}:{lockBPLarge[1]}:K")
       }
+      {
+        rendObj = ROBJ_TEXT
+        text = loc("bp/required")
+        color = titleTxtColor
+      }.__update(fontHeading2)
     ]
   })
 }
@@ -149,7 +150,7 @@ let bpTitle = @(hasPremiumBp, tailWidth = null) mkHeaderFlag(
     padding = [midPadding * 2, midPadding * 3]
     rendObj = ROBJ_TEXT
     text = hasPremiumBp ? loc("bp/eliteBP") : loc("bp/battlePass")
-  }.__update(h0_txt),
+  }.__update(fontTitle),
   {
     tail = tailWidth
     transform = {}
@@ -175,14 +176,14 @@ let msgEndSeason = @() msgbox.showMessageWithContent({
         rendObj = ROBJ_TEXT
         color = attentionTxtColor
         text = loc("bp/attention")
-      }.__update(h1_txt)
+      }.__update(fontHeading1)
       {
         size = [sw(50), SIZE_TO_CONTENT]
         halign = ALIGN_CENTER
         rendObj = ROBJ_TEXTAREA
         behavior = Behaviors.TextArea
         text = loc("bp/endSeasonMsg")
-      }.__update(body_txt)
+      }.__update(fontBody)
     ]
   }
   buttons = [
@@ -202,7 +203,7 @@ let endSeasonAlert = {
       size = [flex(), SIZE_TO_CONTENT]
       text = loc("bp/endSeasonMsgShort")
       color = attentionTxtColor
-    }.__update(tiny_txt)
+    }.__update(fontTiny)
   ]
 }
 
@@ -246,17 +247,18 @@ let function mkTimerBlock() {
   }
 }
 
-let bpHeader = @(showingItem, closeButton, needLockScreen = true) {
+let bpHeader = @(showingItem, closeButton) {
   size = [flex(), SIZE_TO_CONTENT]
   children = [
     mkTimerBlock()
     bpItemInfo(showingItem)
-    needLockScreen && (showingItem?.isPremium || showingItem?.isSpecial)
-      ? lockScreenBlock
-      : null
     closeButton
   ]
 }
+
+let lockScreen = @(showingItem) (showingItem?.isPremium || showingItem?.isSpecial)
+  ? lockScreenBlock
+  : null
 
 let cardIconReceivedHeader = faComp("check", {
   padding = smallPadding
@@ -276,7 +278,7 @@ let mkCardTopText = @(text) {
     color = activeTxtColor
     hplace = ALIGN_CENTER
     vplace = ALIGN_CENTER
-  }.__update(sub_txt)
+  }.__update(fontSub)
 }
 
 let cardFreeHeader = mkCardTopText(loc("bp/freeReward"))
@@ -312,7 +314,7 @@ let cardCount = @(count, style = {}) {
     padding = [0, smallPadding]
     text = count > 99 ? count : loc("common/amountShort", { count = count })
     color = attentionTxtColor
-  }.__update(body_txt)
+  }.__update(fontBody)
 }.__update(style)
 
 let mkCardCountCtor = @(size, fontStyle) @(count) {
@@ -332,8 +334,8 @@ let mkCardCountCtor = @(size, fontStyle) @(count) {
   }.__update(fontStyle)
 }
 
-let cardCountCircle = mkCardCountCtor(hdpxi(43), body_txt)
-let cardCountCircleSmall = mkCardCountCtor(hdpxi(30), sub_txt)
+let cardCountCircle = mkCardCountCtor(hdpxi(43), fontBody)
+let cardCountCircleSmall = mkCardCountCtor(hdpxi(30), fontSub)
 
 let cardBottom = @(count, cardIcon){
   size = [flex(), SIZE_TO_CONTENT]
@@ -374,8 +376,8 @@ let function mkCard(reward, count, templates, onClick, isSelected, isReceived, i
         size = flex()
         padding = midPadding
         children = [
-          mkBoosterInfo(template, body_txt.__merge({ color = activeTxtColor }))
-          mkBoosterLimits(template, body_txt.__merge({ color = activeTxtColor }))
+          mkBoosterInfo(template, fontBody.__merge({ color = activeTxtColor }))
+          mkBoosterLimits(template, fontBody.__merge({ color = activeTxtColor }))
         ]
       }
       isReceived ? null : isPremium ? cardPremiumHeader : null
@@ -443,6 +445,36 @@ let btnBuyPremiumPass = @(txt, cb) Purchase(txt, cb,
     hotkeys = [["^J:Y", { description = { skip = true }}]]
   })
 
+let premiumPassHeader = {
+  flow = FLOW_HORIZONTAL
+  gap = midPadding
+  padding = [sh(5), 0, 0, 0]
+  children = [
+    {
+      rendObj = ROBJ_TEXT
+      text = loc("bp/elite")
+      color = attentionTxtColor
+    }.__update(fontBody)
+    {
+      rendObj = ROBJ_TEXT
+      text = loc("bp/battlePass")
+      color = titleTxtColor
+    }.__update(fontBody)
+  ]
+}
+
+let mkBpIconBlock = @(children = []) {
+  size = [sw(20), flex()]
+  hplace = ALIGN_RIGHT
+  flow = FLOW_VERTICAL
+  halign = ALIGN_CENTER
+  gap = midPadding
+  children = [
+    premiumPassHeader
+    dynamicSeasonBPIcon(hdpxi(220))
+  ].extend(children)
+}
+
 return {
   timeTracker
   bpTitle
@@ -459,4 +491,7 @@ return {
   cardCountCircleSmall
   imageSize
   gapCards
+  lockScreen
+  premiumPassHeader
+  mkBpIconBlock
 }

@@ -241,6 +241,79 @@ hit_effect_group_antitank_rocket_explosion{
   _extends:t="hit_effect_group_explosion_packet_explosion"
 }
 
+hit_effect_group_small_rocket_explosion{
+  _extends:t="shell_explosion_fx_info"
+  shell_explosion_fx__default:t="hit_20_60mm_he_sand_effect"
+  shell_explosion_fx__traceLength:r=1.5
+
+  "shell_explosion_fx__info:object"{
+
+    "soil:object"{
+      fx:t="hit_20_60mm_he_sand_effect"
+    }
+
+    "dirt:object"{
+      fx:t="hit_20_60mm_he_sand_effect"
+    }
+
+    "mud:object"{
+      fx:t="hit_20_60mm_he_sand_effect"
+    }
+
+    "roadmud:object"{
+      fx:t="hit_20_60mm_he_sand_effect"
+    }
+
+    "roadSoil:object"{
+      fx:t="hit_20_60mm_he_sand_effect"
+    }
+
+    "hard_soil:object"{
+      fx:t="hit_20_60mm_he_sand_effect"
+    }
+
+    "concrete:object"{
+      fx:t="hit_20_60mm_he_stone_effect"
+    }
+
+    "sand:object"{
+      fx:t="hit_20_60mm_he_sand_effect"
+    }
+
+    "snow:object"{
+      fx:t="hit_20_60mm_he_snow_effect"
+    }
+
+    "ice:object"{
+      fx:t="hit_20_60mm_he_snow_effect"
+    }
+
+    "water3d:object"{
+      fx:t="hit_water_medium_big_effect"
+    }
+
+    "stone:object"{
+      fx:t="hit_20_60mm_he_stone_effect"
+    }
+
+    "ceramic:object"{
+      fx:t="hit_20_60mm_he_sand_effect"
+    }
+
+    "glass:object"{
+      fx:t="hit_basic_glass_effect"
+    }
+
+    "flesh:object"{
+      fx:t="hit_20_60mm_he_sand_effect"
+    }
+
+    "fabric:object"{
+      fx:t="hit_basic_cloth_effect"
+    }
+  }
+}
+
 hit_effect_group_antipersonel_mine_explosion{
   _extends:t="hit_effect_group_grenade_explosion"
 }

@@ -10,7 +10,7 @@ let {
 const DEF_KIND = "rifle"
 
 
-let mkAlertInfo = @(soldierInfo, _isSelected) {
+let mkAlertInfo = @(soldierInfo, _sf, _isSelected) {
   flow = FLOW_HORIZONTAL
   hplace = ALIGN_RIGHT
   vplace = ALIGN_TOP

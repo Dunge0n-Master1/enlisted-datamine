@@ -50,7 +50,7 @@ let function psnConstructFriendsList(psn_friends, contacts) {
   psn_friendsUpdate(result)
   psnApprovedUids(uidsList)
 
-  eventbus.send("PSNAuthContactsRecieved", null)
+  eventbus.send("PSNAuthContactsReceived", null)
 }
 
 let function psnConstructBlocksList(profile_blocked, psn_contacts, callback) {

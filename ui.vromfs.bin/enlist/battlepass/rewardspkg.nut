@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { defTxtColor, activeTxtColor, accentTitleTxtColor, titleTxtColor, smallPadding
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { taskMinHeight, taskSlotPadding } = require("%enlSqGlob/ui/tasksPkg.nut")
@@ -94,7 +94,7 @@ let mkSeasonTime = @(timeLeft, override = {}) {
       rendObj = ROBJ_TEXT
       text = secondsToHoursLoc(timeLeft)
       color = accentTitleTxtColor
-    }.__update(sub_txt, override)
+    }.__update(fontSub, override)
   ]
 }
 
@@ -105,7 +105,7 @@ let function mkRewardTooltip(presentation) {
       rendObj = ROBJ_TEXT
       text = presentation.name
       color = activeTxtColor
-    }.__update(body_txt))
+    }.__update(fontBody))
   if ("description" in presentation)
     children.append({
       rendObj = ROBJ_TEXTAREA
@@ -113,7 +113,7 @@ let function mkRewardTooltip(presentation) {
       maxWidth = hdpx(500)
       text = presentation.description
       color = defTxtColor
-    }.__update(sub_txt))
+    }.__update(fontSub))
 
   return children.len() == 0 ? null : tooltipBox({ flow = FLOW_VERTICAL, children })
 }
@@ -133,7 +133,7 @@ let function mkRewardBlock(rewardData, isFinished = false) {
             fontFx = FFT_GLOW
             fontFxColor = 0xCC000000
             fontFxFactor = hdpx(32)
-          }).__update(sub_txt)
+          }).__update(fontSub)
     ]
   }
 }

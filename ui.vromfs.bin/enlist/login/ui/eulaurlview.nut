@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {showEula} = require("%enlist/eula/eula.nut")
 let urlText = require("%enlist/components/urlText.nut")
 let {verPadding, horPadding} = require("%enlSqGlob/safeArea.nut")
@@ -13,7 +13,7 @@ let eulaUrlView = {
     children = urlText(loc("eula/urlViewText"), null, {
       onClick = @() showEula(null)
       skipDirPadNav = true
-    }.__update(sub_txt))
+    }.__update(fontSub))
 }
 let bottomEulaUrl = @(){
   size = flex()

@@ -326,7 +326,7 @@ let function getWeaponData(templateId) {
   return itemData
 }
 
-let function processArmorOverride(data, sourceKey, targetKey) {
+let function processArmorOverride(data, sourceKey, targetKey, addParam = {}) {
   if (sourceKey not in data)
     return
   let points = delete data[sourceKey]
@@ -334,6 +334,8 @@ let function processArmorOverride(data, sourceKey, targetKey) {
   foreach (key, target in armorPointKeys)
     if (key in points)
       armor[target] <- points[key]
+
+  armor.__update(addParam)
   if (armor.len() > 0)
     data[targetKey] <- armor
 }
@@ -416,8 +418,12 @@ let function getVehicleData(templateId) {
   }
 
   // vehicle template with predefined armor setup
-  processArmorOverride(vehicleData, "armorThicknessHull", "armor__body")
-  processArmorOverride(vehicleData, "armorThicknessTurret", "armor__turret")
+  let turretTop = (vehicleData?.armor__turret.top ?? 0).tointeger()
+  let bodyBottom = (vehicleData?.armor__body.bottom ?? 0).tointeger()
+  processArmorOverride(vehicleData, "armorThicknessHull", "armor__body",
+    bodyBottom > 0 ? { bottom = bodyBottom } : {})
+  processArmorOverride(vehicleData, "armorThicknessTurret", "armor__turret",
+    turretTop > 0 ? { top = turretTop } : {})
 
   return vehicleData
 }

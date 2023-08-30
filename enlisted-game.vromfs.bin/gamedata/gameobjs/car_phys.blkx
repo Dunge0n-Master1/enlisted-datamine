@@ -1,0 +1,7 @@
+collisionResource{
+
+  props{
+    cls_body_01:t="convex_hull"
+    cls_body_02:t="convex_hull"
+  }
+}

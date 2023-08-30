@@ -1,26 +1,32 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { tipCmp } = require("%ui/hud/huds/tips/tipComponent.nut")
 let { squadsCanSpawn, isSpectatorEnabled } = require("%ui/hud/state/respawnState.nut")
 
-const hideAfter = 15
+const SHOW_TIME = 15
 
-let reason = Watched(null)
+let showTip = Watched(false)
+let hideTip = @() showTip(false)
+let isTipAvailable = keepref(Computed(@() isSpectatorEnabled.value && !squadsCanSpawn.value))
 
-let function showNoRepsawnReason(val) {
-  reason(val && !squadsCanSpawn.value
-      ? loc("respawn/no_spawn_squads")
-      : null)
-  gui_scene.setTimeout(hideAfter, @() reason(null))
+let tip = tipCmp({
+  text = loc("respawn/no_spawn_squads")
+}.__update(fontSub))
+
+let function showNoRespawnReason(state) {
+  if (!state)
+    return
+
+  showTip(true)
+  gui_scene.resetTimeout(SHOW_TIME, hideTip)
 }
 
-isSpectatorEnabled.subscribe(showNoRepsawnReason)
+isTipAvailable.subscribe(showNoRespawnReason)
 
 let no_respawn_reason_tip = @() {
-  rendObj = ROBJ_TEXT
-  text = reason.value
-  watch = reason
-  margin = hdpx(20)
-}.__update(sub_txt)
+  watch = showTip
+  text = showTip.value ? tip : null
+}
 
 return no_respawn_reason_tip

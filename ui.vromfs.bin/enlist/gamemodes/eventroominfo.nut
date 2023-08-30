@@ -4,7 +4,7 @@ let { format } = require("string")
 let { unixtime_to_local_timetbl } = require("dagor.time")
 let { txt, textArea, smallCampaignIcon, lockIcon, iconInBattle, iconPreparingBattle } = require("roomsPkg.nut")
 let getPlayersCountInRoomText = require("getPlayersCountInRoomText.nut")
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {
   defTxtColor, titleTxtColor, smallPadding, bigPadding, accentTitleTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
@@ -26,15 +26,15 @@ let headerTxtColor = 0xFF808080
 
 let defTxtStyle = {
   color = defTxtColor
-}.__update(sub_txt)
+}.__update(fontSub)
 
 let headerTxtStyle = {
   color = headerTxtColor
-}.__update(sub_txt)
+}.__update(fontSub)
 
 let accentTxtStyle = {
   color = accentTitleTxtColor
-}.__update(sub_txt)
+}.__update(fontSub)
 
 const SHOW_MISSIONS_WHEN_HIDDEN = 3
 const MAX_LENGTH_SHOW_ALL_MISSION = 5

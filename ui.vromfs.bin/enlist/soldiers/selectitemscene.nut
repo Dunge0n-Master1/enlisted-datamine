@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {round_by_value} = require("%sqstd/math.nut")
 let { blinkUnseenIcon } = require("%ui/components/unseenSignal.nut")
 let { Notifiers, markNotifierSeen } = require("%enlist/tutorial/notifierTutorial.nut")
@@ -21,15 +21,15 @@ let { mkItemDemands, mkItemListDemands } = require("model/mkItemDemands.nut")
 let { sceneWithCameraAdd, sceneWithCameraRemove } = require("%enlist/sceneWithCamera.nut")
 let { itemTypesInSlots } = require("model/all_items_templates.nut")
 let closeBtnBase = require("%ui/components/closeBtn.nut")
-let { mkDetailsInfo, lockedInfo } = require("components/itemDetailsComp.nut")
-let { blur } = require("%enlist/soldiers/components/itemDetailsPkg.nut")
+let { mkViewItemDetails, lockedInfo } = require("components/itemDetailsComp.nut")
 let { curUpgradeDiscount, campPresentation } = require("%enlist/campaigns/campaignConfig.nut")
 let { setTooltip, normalTooltipTop } = require("%ui/style/cursors.nut")
 let spinner = require("%ui/components/spinner.nut")
 let mkHeader = require("%enlist/components/mkHeader.nut")
 let mkToggleHeader = require("%enlist/components/mkToggleHeader.nut")
 
-let defcomps= require("%enlSqGlob/ui/defcomps.nut")
+let { requestCratesContent } = require("%enlist/soldiers/model/cratesContent.nut")
+let defcomps = require("%enlSqGlob/ui/defcomps.nut")
 let mkItemWithMods = require("mkItemWithMods.nut")
 let mkSoldierInfo = require("mkSoldierInfo.nut")
 let { soldierClasses } = require("%enlSqGlob/ui/soldierClasses.nut")
@@ -126,9 +126,9 @@ let defStatusCtor = function(item, soldierWatch) {
 
 let function txt(text) {
   let children = (type(text) == "string")
-    ? defcomps.txt({text}.__update(sub_txt))
+    ? defcomps.txt({text}.__update(fontSub))
     : defcomps.txt(text)
-  return blur({ children })
+  return { children }
 }
 
 let activeItemParams = {
@@ -219,14 +219,13 @@ let dropExceptionCb = function(dropItem) {
     processItemDrop(dropItem, checkDropItem)
 }
 
-let mkStdCtorData = @(itemSize, needGunLayout = false) {
+let mkStdCtorData = @(itemSize) {
   size = itemSize
   itemsInRow = 1
   ctor = @(item, override) mkItemWithMods({
     isXmb = true
     item = item
     itemSize
-    needGunLayout
     canDrag = !!item?.basetpl
     selectedKey = selectedKey
     selectKey = getItemSelectKey(item)
@@ -253,9 +252,9 @@ let mkStdCtorData = @(itemSize, needGunLayout = false) {
   }.__update(override))
 }
 
-let defaultCtorData = mkStdCtorData([3.8 * unitSize, 2.2 * unitSize], false).__update({ itemsInRow = 2 })
+let defaultCtorData = mkStdCtorData([3.8 * unitSize, 2.2 * unitSize]).__update({ itemsInRow = 2 })
 
-let mainWeaponCtorData = mkStdCtorData([9.0 * unitSize, 2.2 * unitSize], true)
+let mainWeaponCtorData = mkStdCtorData([9.0 * unitSize, 2.2 * unitSize])
 
 let getCtorData = @(typesInSlots, itemType)
   itemType in typesInSlots.mainWeapon ? mainWeaponCtorData : defaultCtorData
@@ -294,7 +293,7 @@ let function mkDemandHeader(demand) {
     margin = [tinyOffset, 0, 0, 0]
     text = loc($"itemDemandsHeader/{key}{suffix}", demand)
     color = defTxtColor
-  }.__update(sub_txt)
+  }.__update(fontSub)
 }
 
 let mkItemsGroupedList = kwarg(@(listWatch, overrideParams, newWatch, onlyNew = false)
@@ -388,7 +387,7 @@ let chooseButtonUi = function() {
     return res
   let children = Flat(loc("mainmenu/btnSelect"), @() selectItem(item), {
     margin = [0, bigPadding, 0, 0], hotkeys = [[ "^J:Y" ]]
-  }.__update(primaryButtonStyle,  body_txt))
+  }.__update(primaryButtonStyle,  fontBody))
   return res.__update({ children })
 }
 
@@ -412,7 +411,12 @@ let function mkObtainButton(item) {
           { margin = [0, bigPadding, 0, 0] }
         )
       : shopItemsCmp.value.len() > 0 && shopItemsCmp.value[0] ? Flat(loc("btn/buy"),
-          @() clickShopItem(shopItemsCmp.value[0], curArmyData.value?.level ?? 0),
+          function() {
+            let shopItem = shopItemsCmp.value[0]
+            let crates = (shopItem?.crates ?? []).map(@(c) c.id)
+            requestCratesContent(curArmyData.value.guid, crates)
+            clickShopItem(shopItem, curArmyData.value?.level ?? 0)
+          },
           { margin = [0, bigPadding, 0, 0], hotkeys = [["^J:X"]] }
         )
       : null
@@ -459,7 +463,7 @@ let mkItemsListBlock = @(children) {
   fillColor = blurBgFillColor
   behavior = [Behaviors.DragAndDrop]
   xmbNode = XmbContainer({
-    canFocus = @() false
+    canFocus = false
     scrollSpeed = 5.0
     isViewport = true
   })
@@ -694,7 +698,7 @@ let infoBlock = @() {
   halign = ALIGN_RIGHT
   gap = bigPadding
   children = [
-    mkDetailsInfo(viewItem, isDetailsFull)
+    mkViewItemDetails(viewItem.value, isDetailsFull, fsh(80))
     mkDemandsInfo(viewItem.value)
     detailsModeCheckbox
     buttonsUi

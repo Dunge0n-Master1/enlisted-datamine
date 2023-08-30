@@ -5,7 +5,7 @@ let { destroyable_ri_Set, destroyable_ri_GetWatched } = require("%ui/hud/state/d
 let { localPlayerTeam } = require("%ui/hud/state/local_player.nut")
 let {HUD_COLOR_TEAMMATE_INNER, HUD_COLOR_TEAMMATE_OUTER, HUD_COLOR_ENEMY_INNER, HUD_COLOR_ENEMY_OUTER} = require("%enlSqGlob/ui/style/unit_colors.nut")
 let is_teams_friendly = require("%enlSqGlob/is_teams_friendly.nut")
-let destroyableRiIconSize = [fsh(1), fsh(1.25)].map(@(v) v.tointeger())
+let destroyableRiIconSize = [hdpxi(10), hdpxi(14)]
 
 let picInner = Picture($"ui/skin#unit_inner.svg:{destroyableRiIconSize[0]}:{destroyableRiIconSize[1]}:K")
 let picOuter = Picture($"ui/skin#unit_outer.svg:{destroyableRiIconSize[0]}:{destroyableRiIconSize[1]}:K")

@@ -43,6 +43,22 @@ DamageParts{
       hp:r=15.0
     }
 
+    cannon3_dm{
+      hp:r=15.0
+    }
+
+    cannon4_dm{
+      hp:r=15.0
+    }
+
+    cannon5_dm{
+      hp:r=15.0
+    }
+
+    cannon6_dm{
+      hp:r=15.0
+    }
+
     mgun1_dm{
       hp:r=15.0
     }
@@ -214,6 +230,22 @@ DamageParts{
     }
 
     cover4_dm{
+      hp:r=19.5
+    }
+
+    cover5_dm{
+      hp:r=19.5
+    }
+
+    cover6_dm{
+      hp:r=19.5
+    }
+
+    cover7_dm{
+      hp:r=19.5
+    }
+
+    cover8_dm{
       hp:r=19.5
     }
   }
@@ -456,6 +488,22 @@ DamageEffects{
   }
 
   part{
+    name:t="cannon3_dm"
+  }
+
+  part{
+    name:t="cannon4_dm"
+  }
+
+  part{
+    name:t="cannon5_dm"
+  }
+
+  part{
+    name:t="cannon6_dm"
+  }
+
+  part{
     name:t="cover1_dm"
   }
 
@@ -469,6 +517,22 @@ DamageEffects{
 
   part{
     name:t="cover4_dm"
+  }
+
+  part{
+    name:t="cover5_dm"
+  }
+
+  part{
+    name:t="cover6_dm"
+  }
+
+  part{
+    name:t="cover7_dm"
+  }
+
+  part{
+    name:t="cover8_dm"
   }
 
   part{
@@ -935,6 +999,13 @@ DamageEffects{
       wing_l_dm:r=0.5
     }
 
+    onHit{
+      damage:r=200.0
+      wingcontrol_dm:r=0.2
+      wingcontrol_l_dm:r=0.2
+      wingcontrol_r_dm:r=0.2
+    }
+
     onKill{
       wingcontrol_l_dm:r=1.0
       wingcontrol_r_dm:r=1.0
@@ -975,6 +1046,13 @@ DamageEffects{
       wing_l_dm:r=1.0
       wing_r_dm:r=1.0
     }
+
+    onKill{
+      damage:r=200.0
+      wingcontrol_dm:r=0.4
+      wingcontrol_l_dm:r=0.4
+      wingcontrol_r_dm:r=0.4
+    }
   }
 
   part{
@@ -998,6 +1076,13 @@ DamageEffects{
     onHit{
       damage:r=50.0
       tail_dm:r=1.0
+    }
+
+    onHit{
+      damage:r=200.0
+      wingcontrol_dm:r=0.2
+      wingcontrol_l_dm:r=0.2
+      wingcontrol_r_dm:r=0.2
     }
 
     onKill{
@@ -1045,6 +1130,13 @@ DamageEffects{
       damage:r=50.0
       tail_dm:r=1.0
       nothing:r=1.0
+    }
+
+    onKill{
+      damage:r=200.0
+      wingcontrol_dm:r=0.4
+      wingcontrol_l_dm:r=0.4
+      wingcontrol_r_dm:r=0.4
     }
   }
 
@@ -1252,10 +1344,20 @@ DamageEffects{
 
   part{
     name:t="spar_l_dm"
+
+    onKill{
+      nothing:r=100.0
+      cut:r=0.001
+    }
   }
 
   part{
     name:t="spar_r_dm"
+
+    onKill{
+      nothing:r=100.0
+      cut:r=0.001
+    }
   }
 
   part{

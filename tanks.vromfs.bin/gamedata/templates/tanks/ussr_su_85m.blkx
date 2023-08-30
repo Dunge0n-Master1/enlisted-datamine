@@ -19,7 +19,10 @@ ussr_su_85m_common{
   _extends:t="tank_su100_vehicle_tracks_sound"
   commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
   gunner_cam_limit__useCockpitDir:b=yes
-  item__iconOffset:p2=0.0, 0.2
+  item__iconOffset:p2=0.1, 0.2
+  item__iconScale:r=1.25
+  armorThicknessHull:p3=75.0, 45.0, 45.0
+  armorThicknessTurret:p3=75.0, 45.0, 45.0
 
   "vehicle_seats__seats:shared:array"{
 
@@ -178,6 +181,7 @@ ussr_su_85m_gunner_cockpit{
 
   "cockpit__slitTemplates:list<t>"{
     slit:t="ussr_tsh_15"
+    slit:t="default_periscope"
   }
 
   "cockpit__slitEids:list<eid>"{

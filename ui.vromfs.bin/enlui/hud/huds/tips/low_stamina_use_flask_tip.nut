@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { DEFAULT_TEXT_COLOR } = require("%ui/hud/style.nut")
 let { tipCmp } = require("%ui/hud/huds/tips/tipComponent.nut")
 let { hasHeroFlask, flaskAffectApplied } = require("%ui/hud/state/flask.nut")
@@ -24,7 +24,7 @@ let tip = tipCmp({
   text = loc("tips/use_flask"),
   textColor = DEFAULT_TEXT_COLOR,
   inputId = "Inventory.UseFlask"
-}.__update(body_txt))
+}.__update(fontBody))
 
 return @() {
   flow = FLOW_HORIZONTAL

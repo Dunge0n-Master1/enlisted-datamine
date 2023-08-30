@@ -35,9 +35,9 @@ let function setSectionsSorted(sections){
   }
   sectionsSorted.clear()
   sectionsSorted.extend(sections)
-  sectionsGeneration(sectionsGeneration.value+1)
-  if (sectionsSorted?.len() && !(sectionsSorted ?? []).findvalue(@(s) s?.id == curSection.value))
+  if (!sectionsSorted.findvalue(@(s) s?.id == curSection.value))
     curSection(sectionsSorted?[0].id)
+  sectionsGeneration(sectionsGeneration.value + 1)
 }
 
 let function setCurSection(id) {

@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let controlsTypes = require("%ui/control/controls_types.nut")
 let controllerType = require("%ui/control/controller_type.nut")
 let dainput = require("dainput2")
@@ -221,7 +221,7 @@ let function getBtnImageHeight(imageName, aHeight) {
   return ((heightMuls?[imageName] ?? defHeightMul) * aHeight).tointeger()
 }
 
-let defHeight = calc_str_box("A", body_txt)[1].tointeger()
+let defHeight = calc_str_box("A", fontBody)[1].tointeger()
 let pic = memoize( @(text, hgt) Picture("ui/input#{0}.svg:{1}:{1}:K".subst(text, hgt)))
 
 local function mkImageComp(text, params = defHeight){

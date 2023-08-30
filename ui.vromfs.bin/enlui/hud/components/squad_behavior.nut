@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let {
   SquadBehaviour, SquadFormationSpread, SquadBehaviour_COUNT, SquadFormationSpread_COUNT
 } = require("%enlSqGlob/dasenums.nut")
-let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { mkHotkey } = require("%ui/components/uiHotkeysHint.nut")
 let { HUD_TIPS_HOTKEY_FG } = require("%ui/hud/style.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
@@ -33,19 +33,19 @@ let mkStatus = @(action, children) watchElemState(@(sf) {
   VALIGN = ALIGN_CENTER
   padding = hdpx(5)
   gap = hdpx(10)
-  color = (sf & S_HOVER) ? Color(200,200,200) : Color(240,240,240)
+  color = sf & S_HOVER ? Color(200,200,200) : Color(240,240,240)
   onClick = action
   children
 })
 
 
 let squadBehaviourNames = {
-  [SquadBehaviour.ESB_AGRESSIVE] = loc("squad_orders/behaviour_agressive", "Aggressive"),
+  [SquadBehaviour.ESB_AGGRESSIVE] = loc("squad_orders/behaviour_aggressive", "Aggressive"),
   [SquadBehaviour.ESB_PASSIVE] = loc("squad_orders/behaviour_passive", "Passive")
 }
 
 let squadBehaviourDescs = {
-[SquadBehaviour.ESB_AGRESSIVE] = loc("squad_orders/behaviour_agressive/desc"),
+[SquadBehaviour.ESB_AGGRESSIVE] = loc("squad_orders/behaviour_aggressive/desc"),
   [SquadBehaviour.ESB_PASSIVE] = loc("squad_orders/behaviour_passive/desc")
 }
 
@@ -65,12 +65,12 @@ let changeBehaviour = mkStatus(selectNextBehaviour, [
         rendObj = ROBJ_TEXT
         watch = currentSquadBehaviourText
         text = currentSquadBehaviourText.value
-      }.__update(body_txt)
+      }.__update(fontBody)
       @() {
         rendObj = ROBJ_TEXT
         watch = currentSquadBehaviourDescText
         text = currentSquadBehaviourDescText.value
-      }.__update(sub_txt)
+      }.__update(fontSub)
     ]
   }
 ])
@@ -104,12 +104,12 @@ let changeFormation = mkStatus(selectNextFormation, [
         rendObj = ROBJ_TEXT
         watch = currentSquadFormationText
         text = currentSquadFormationText.value
-      }.__update(body_txt)
+      }.__update(fontBody)
       @() {
         rendObj = ROBJ_TEXT
         watch = currentSquadFormationDescText
         text = currentSquadFormationDescText.value
-      }.__update(sub_txt)
+      }.__update(fontSub)
     ]
   }
 ])

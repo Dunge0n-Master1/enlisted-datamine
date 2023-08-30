@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h2_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {
   activeTxtColor, tinyOffset
 } = require("%enlSqGlob/ui/viewConst.nut")
@@ -31,7 +31,7 @@ let function txtColor(sf, isSelected=true){
 }
 
 let mkTabText = @(text, color) type(text) == "function" ? text(color)
-  : { rendObj = ROBJ_TEXT, color, text }.__update(h2_txt)
+  : { rendObj = ROBJ_TEXT, color, text }.__update(fontHeading2)
 
 let mkWindowTab = @(text, onClick, isSelected, override = {}, unseenMarkType = Watched(null))
   watchElemState(@(sf) {

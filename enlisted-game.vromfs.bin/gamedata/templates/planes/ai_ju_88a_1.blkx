@@ -97,17 +97,43 @@ ai_ju_88a_1{
     }
 
     "vars:object"{
-      wishYawParamName:t="gun1_aim:targetYaw"
+      paramMinPitchAngle:t="turret1_min_pitch_angle"
       wishPitchParamName:t="gun1_aim:targetPitch"
-      curYawParamName:t="turret1_yaw"
+      paramYawSpeedMul:t="turret1_yaw_mul"
+      paramYawSpeed:t="turret1_yaw_speed"
+      paramMaxYawAngle:t="turret1_max_yaw_angle"
+      aimActiveParamName:t="gun1_aim_active"
+      curWorldPitchParamName:t="gun1_world_pitch"
+      curWorldYawParamName:t="turret1_world_yaw"
+      paramPitchSpeedMul:t="gun1_pitch_mul"
+      paramYawAccel:t="turret1_yaw_accel"
+      paramPitchAccel:t="gun1_pitch_accel"
+      paramPitchSpeed:t="gun1_pitch_speed"
+      wishYawParamName:t="gun1_aim:targetYaw"
+      paramMaxPitchAngle:t="turret1_max_pitch_angle"
       curPitchParamName:t="gun1_pitch"
+      curYawParamName:t="turret1_yaw"
+      paramMinYawAngle:t="turret1_min_yaw_angle"
     }
 
     "vars:object"{
-      wishYawParamName:t="gun2_aim:targetYaw"
+      paramMinPitchAngle:t="turret2_min_pitch_angle"
       wishPitchParamName:t="gun2_aim:targetPitch"
-      curYawParamName:t="turret2_yaw"
+      paramYawSpeedMul:t="turret2_yaw_mul"
+      paramYawSpeed:t="turret2_yaw_speed"
+      paramMaxYawAngle:t="turret2_max_yaw_angle"
+      aimActiveParamName:t="gun2_aim_active"
+      curWorldPitchParamName:t="gun2_world_pitch"
+      curWorldYawParamName:t="turret2_world_yaw"
+      paramPitchSpeedMul:t="gun2_pitch_mul"
+      paramYawAccel:t="turret2_yaw_accel"
+      paramPitchAccel:t="gun2_pitch_accel"
+      paramPitchSpeed:t="gun2_pitch_speed"
+      wishYawParamName:t="gun2_aim:targetYaw"
+      paramMaxPitchAngle:t="turret2_max_pitch_angle"
       curPitchParamName:t="gun2_pitch"
+      curYawParamName:t="turret2_yaw"
+      paramMinYawAngle:t="turret2_min_yaw_angle"
     }
   }
 
@@ -165,27 +191,6 @@ ai_ju_88a_1{
 }
 
 base_ai_ju_88a_1_7_92mm_mg15{
-  item__name:t="guns/gunmg15"
-  gun__blk:t="gamedata/weapons/ju_88a_1/7_92mm_mg15.blk"
-  gun__shotFreq:r=16.66
-  gun__locName:t="gunmg15"
-  gun__shootNodeName:t="bone_mg_gun_twin"
-  gun__maxAmmo:i=375
-
-  "gun__firingModes:array"{
-
-    "mode:object"{
-      modeType:t="automatic"
-    }
-  }
-
-  "gun__firingModeNames:array"{
-    mode:t="automatic"
-  }
-
-  "gun__shellsAmmo:array"{
-    ammo:i=375
-  }
 
   "gun__ammoSetsInfo:shared:array"{
 
@@ -201,27 +206,6 @@ base_ai_ju_88a_1_7_92mm_mg15{
 }
 
 base_ai_ju_88a_1_7_92mm_mg15_turret{
-  item__name:t="guns/gunmg15_turret"
-  gun__blk:t="gamedata/weapons/ju_88a_1/7_92mm_mg15_turret.blk"
-  gun__shotFreq:r=17.5
-  gun__locName:t="gunmg15_turret"
-  gun__shootNodeName:t="bone_mg_gun_twin"
-  gun__maxAmmo:i=600
-
-  "gun__firingModes:array"{
-
-    "mode:object"{
-      modeType:t="automatic"
-    }
-  }
-
-  "gun__firingModeNames:array"{
-    mode:t="automatic"
-  }
-
-  "gun__shellsAmmo:array"{
-    ammo:i=600
-  }
 
   "gun__ammoSetsInfo:shared:array"{
 
@@ -309,38 +293,18 @@ planegun_ai_ju_88a_1_sc_50_launcher_04{
 }
 
 planegun_ai_ju_88a_1_7_92mm_mg15_01{
-  _extends:t="tankgun"
-  _extends:t="base_plane_machinegun"
+  _extends:t="planegun_ju_88a_1_7_92mm_mg15_01"
   _extends:t="base_ai_ju_88a_1_7_92mm_mg15"
-  _extends:t="gunsound_7_92mm_mg15_aircraft"
-  gun__shootNodeName:t="flare3"
-  gun__maxAmmo:i=375
 }
 
 planegun_ai_ju_88a_1_7_92mm_mg15_turret_01{
-  _extends:t="tankgun"
-  _extends:t="base_plane_machinegun"
+  _extends:t="planegun_ju_88a_1_7_92mm_mg15_turret_01"
   _extends:t="base_ai_ju_88a_1_7_92mm_mg15_turret"
-  _extends:t="gunsound_7_92mm_mg15_turret_aircraft"
-  gun__shootNodeName:t="flare1"
-  gun__maxAmmo:i=600
-  turret__aimNodeName:t="turret1"
-  turret__limit:p4=-35.0, 35.0, 0.0, 60.0
-  turret__yawSpeed:r=100.0
-  turret__pitchSpeed:r=100.0
 }
 
 planegun_ai_ju_88a_1_7_92mm_mg15_turret_02{
-  _extends:t="tankgun"
-  _extends:t="base_plane_machinegun"
+  _extends:t="planegun_ju_88a_1_7_92mm_mg15_turret_02"
   _extends:t="base_ai_ju_88a_1_7_92mm_mg15_turret"
-  _extends:t="gunsound_7_92mm_mg15_turret_aircraft"
-  gun__shootNodeName:t="flare2"
-  gun__maxAmmo:i=525
-  turret__aimNodeName:t="turret2"
-  turret__limit:p4=-30.0, 30.0, -60.0, -5.0
-  turret__yawSpeed:r=100.0
-  turret__pitchSpeed:r=100.0
 }
 
 ai_ju_88a_1_driver_cockpit{

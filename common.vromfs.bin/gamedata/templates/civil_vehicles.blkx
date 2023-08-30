@@ -481,14 +481,13 @@ vehicle_no_ai{
   squad:i=-1
   team:i=-1
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  _tracked:t="transform"
+  shreddableInDarkZone:b=yes
+  vehicleCameraType:i=0
+  isTpsView:b=no
   _tracked:t="isTpsView"
   _tracked:t="vehicleCameraType"
   _tracked:t="vehicle__localControls"
   _tracked:t="isAlive"
-  shreddableInDarkZone:b=yes
-  vehicleCameraType:i=0
-  isTpsView:b=no
   driverFpsCamMaxAngle:p2=90.0, 50.0
   passengerFpsCamMaxAngle:p2=90.0, 50.0
   last_driver_leave_time:r=0.0
@@ -513,6 +512,9 @@ vehicle_no_ai{
   collision_physMatId:i=-1
   vehicle_seats__restrictToGroup:i64=0
   pair_collision__tag:t="collidableToVehicle"
+
+  "grid_obj__updateAlways:tag"{
+  }
 
   grid_obj{
   }

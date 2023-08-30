@@ -1,7 +1,7 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {tipCmp} = require("%ui/hud/huds/tips/tipComponent.nut")
 let { mkOnlineSaveData } = require("%enlSqGlob/mkOnlineSaveData.nut")
 let { curWeaponWeapType } = require("%ui/hud/state/hero_weapons.nut")
@@ -60,7 +60,7 @@ let machineGunTip = tipCmp({
   inputId = "Human.Crawl"
   style = {onAttach = @() gui_scene.setTimeout(TIP_SHOW_TIME, @() showTip(false))
            onDetach = @() hasShownCurGame(true)}
-}.__update(body_txt))
+}.__update(fontBody))
 
 let lie_down_to_shoot_accurately_tip = @() {
   watch = showTip

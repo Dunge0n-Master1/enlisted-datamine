@@ -84,16 +84,27 @@ def find_usable_buildings(is_engineer, trace_from, trace_to, trace_max_len)
     return !!buildingEid
   return buildingEid
 
-def find_destroyable_buildings(is_engineer, trace_from, trace_to, trace_max_len)
-  var previewEid = INVALID_ENTITY_ID
-  find_query() <| $ [es(REQUIRE=building__destroyable, REQUIRE_NOT=(builder_additive_preview, builder_server_preview))] (eid : EntityId;
-                                                                                                                         transform : float3x4;
-                                                                                                                         buildingRadius : float;
-                                                                                                                         buildingCenterOffset : float3;
-                                                                                                                         object__useDist : float const?)
-    previewEid = find_fortification_object_impl(eid, is_engineer, transform[3], buildingCenterOffset, buildingRadius, trace_from, trace_to, object__useDist ?? trace_max_len)
-    return !!previewEid
-  return previewEid
+def find_dismantlable_buildings(is_engineer, trace_from, trace_to, trace_max_len)
+  var buildingEid = INVALID_ENTITY_ID
+  find_query() <| $ [es(REQUIRE=building__canDismantle, REQUIRE_NOT=(builder_additive_preview, builder_server_preview))] (eid : EntityId;
+                                                                                                                          transform : float3x4;
+                                                                                                                          buildingRadius : float;
+                                                                                                                          buildingCenterOffset : float3;
+                                                                                                                          object__useDist : float const?)
+    buildingEid = find_fortification_object_impl(eid, is_engineer, transform[3], buildingCenterOffset, buildingRadius, trace_from, trace_to, object__useDist ?? trace_max_len)
+    return !!buildingEid
+  return buildingEid
+
+def find_repairable_buildings(is_engineer, trace_from, trace_to, trace_max_len)
+  var buildingEid = INVALID_ENTITY_ID
+  find_query() <| $ [es(REQUIRE=building__canRepairBroken, REQUIRE_NOT=(builder_additive_preview, builder_server_preview))] (eid : EntityId;
+                                                                                                                             transform : float3x4;
+                                                                                                                             buildingRadius : float;
+                                                                                                                             buildingCenterOffset : float3;
+                                                                                                                             object__useDist : float const?)
+    buildingEid = find_fortification_object_impl(eid, is_engineer, transform[3], buildingCenterOffset, buildingRadius, trace_from, trace_to, object__useDist ?? trace_max_len)
+    return !!buildingEid
+  return buildingEid
 
 [es(tag=gameClient, REQUIRE=watchedByPlr, after=hero_human_use_human_object_es, after=hero_human_use_stationary_gun_object_es, after=hero_human_pre_use_object_es, before=(human_use_action_es, hero_human_final_use_object_sync))]
 def find_bilding_action_target(info : ParallelUpdateFrameDelayed;
@@ -133,7 +144,9 @@ def find_bilding_action_target(info : ParallelUpdateFrameDelayed;
     return
   human_use_object__selectedBuilding = find_server_preview(isEngineer, tracePos, endOfTrace, human_use_object__useDist)
   if !human_use_object__selectedBuilding
-    human_use_object__selectedBuilding = find_destroyable_buildings(isEngineer, tracePos, endOfTrace, human_use_object__useDist)
+    human_use_object__selectedBuilding = find_dismantlable_buildings(isEngineer, tracePos, endOfTrace, human_use_object__useDist)
+  if !human_use_object__selectedBuilding
+    human_use_object__selectedBuilding = find_repairable_buildings(isEngineer, tracePos, endOfTrace, human_use_object__useDist)
   if !human_use_object__selectedObject
     human_use_object__selectedObject = find_usable_buildings(isEngineer, tracePos, endOfTrace, human_use_object__useDist)
   broadcastEvent([[EventUpdateBuildingColors selectedObject = human_use_object__selectedBuilding,

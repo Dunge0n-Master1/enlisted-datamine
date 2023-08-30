@@ -12,8 +12,6 @@ PhysMats{
     damage_k:r=0.3
     deformable_width:r=0.05
     resistanceK:r=0.0006
-    sound_step_material:t="grass"
-    sound_material:t="dirt"
 
     bulletHole{
       type:t="bullet_hole"
@@ -40,8 +38,6 @@ PhysMats{
     damage_k:r=0.3
     deformable_width:r=0.15
     resistanceK:r=0.0006
-    sound_step_material:t="grass"
-    sound_material:t="dirt"
 
     billboardDecal{
       type:t="soil_bullet_hole"
@@ -59,8 +55,6 @@ PhysMats{
   verLandMesh{
     color:c=255, 162, 0, 100
     damage_k:r=0.3
-    sound_step_material:t="grass"
-    sound_material:t="dirt"
 
     damageModel{
       ricochetAngleMult:r=2.0
@@ -72,8 +66,6 @@ PhysMats{
 
   waterPuddle{
     color:c=0, 0, 255, 10
-    sound_step_material:t="water"
-    sound_material:t="water"
 
     damageModel{
       ricochetAngleMult:r=1.0
@@ -85,8 +77,6 @@ PhysMats{
 
   water3d{
     color:c=255, 162, 0, 100
-    sound_step_material:t="water"
-    sound_material:t="water"
 
     damageModel{
       ricochetAngleMult:r=0.5
@@ -98,8 +88,6 @@ PhysMats{
 
   water{
     color:c=0, 0, 255, 200
-    sound_step_material:t="water"
-    sound_material:t="water"
 
     damageModel{
       ricochetAngleMult:r=1.0
@@ -113,8 +101,6 @@ PhysMats{
     bf_class:t="concrete"
     color:c=255, 255, 0, 200
     damage_k:r=0.3
-    sound_step_material:t="concrete"
-    sound_material:t="concrete"
     is_solid:b=yes
 
     vehicleSound{
@@ -144,8 +130,6 @@ PhysMats{
     bf_class:t="concrete"
     color:c=255, 255, 0, 200
     damage_k:r=0.3
-    sound_step_material:t="concrete"
-    sound_material:t="concrete"
     is_solid:b=yes
 
     vehicleSound{
@@ -175,8 +159,6 @@ PhysMats{
     bf_class:t="stone"
     color:c=255, 255, 0, 200
     damage_k:r=0.3
-    sound_step_material:t="concrete"
-    sound_material:t="concrete"
     is_solid:b=yes
 
     vehicleSound{
@@ -199,8 +181,6 @@ PhysMats{
   buildings{
     color:c=255, 255, 0, 200
     damage_k:r=0.3
-    sound_step_material:t="concrete"
-    sound_material:t="concrete"
 
     vehicleSound{
       concrete:r=1.0
@@ -215,8 +195,6 @@ PhysMats{
   wood{
     bf_class:t="wood"
     damage_k:r=0.3
-    sound_step_material:t="wood"
-    sound_material:t="wood"
 
     vehicleSound{
       concrete:r=0.5
@@ -240,8 +218,6 @@ PhysMats{
   wood_snow{
     bf_class:t="wood"
     damage_k:r=0.3
-    sound_step_material:t="wood"
-    sound_material:t="wood"
 
     vehicleSound{
       concrete:r=0.5
@@ -265,8 +241,6 @@ PhysMats{
   wood_fall{
     bf_class:t="wood"
     damage_k:r=0.3
-    sound_step_material:t="wood"
-    sound_material:t="wood"
 
     vehicleSound{
       concrete:r=0.5
@@ -290,8 +264,6 @@ PhysMats{
   wood_dead{
     bf_class:t="wood"
     damage_k:r=0.3
-    sound_step_material:t="wood"
-    sound_material:t="wood"
 
     vehicleSound{
       concrete:r=0.5
@@ -315,8 +287,6 @@ PhysMats{
   wood_palm{
     bf_class:t="wood"
     damage_k:r=0.3
-    sound_step_material:t="wood"
-    sound_material:t="wood"
 
     vehicleSound{
       concrete:r=0.5
@@ -340,8 +310,6 @@ PhysMats{
   wood_solid{
     bf_class:t="wood"
     damage_k:r=0.3
-    sound_step_material:t="wood"
-    sound_material:t="wood"
 
     vehicleSound{
       concrete:r=0.5
@@ -365,8 +333,6 @@ PhysMats{
   wood_snow_solid{
     bf_class:t="wood"
     damage_k:r=0.3
-    sound_step_material:t="wood"
-    sound_material:t="wood"
 
     vehicleSound{
       concrete:r=0.5
@@ -390,8 +356,6 @@ PhysMats{
   wood_fall_solid{
     bf_class:t="wood"
     damage_k:r=0.3
-    sound_step_material:t="wood"
-    sound_material:t="wood"
 
     vehicleSound{
       concrete:r=0.5
@@ -415,8 +379,6 @@ PhysMats{
   wood_dead_solid{
     bf_class:t="wood"
     damage_k:r=0.3
-    sound_step_material:t="wood"
-    sound_material:t="wood"
 
     vehicleSound{
       concrete:r=0.5
@@ -440,8 +402,6 @@ PhysMats{
   wood_palm_solid{
     bf_class:t="wood"
     damage_k:r=0.3
-    sound_step_material:t="wood"
-    sound_material:t="wood"
 
     vehicleSound{
       concrete:r=0.5
@@ -465,8 +425,6 @@ PhysMats{
   wood_railway{
     bf_class:t="wood"
     damage_k:r=0.3
-    sound_step_material:t="wood"
-    sound_material:t="wood"
 
     vehicleSound{
       concrete:r=0.5
@@ -490,8 +448,6 @@ PhysMats{
   window_wood{
     bf_class:t="window"
     damage_k:r=0.3
-    sound_step_material:t="wood"
-    sound_material:t="wood"
 
     physDestructible{
       climbingThrough:b=yes
@@ -537,8 +493,6 @@ PhysMats{
   steel{
     bf_class:t="steel"
     color:c=0, 0, 255, 200
-    sound_step_material:t="steel"
-    sound_material:t="metal"
     is_solid:b=yes
 
     vehicleSound{
@@ -555,20 +509,18 @@ PhysMats{
 
     bulletHole{
       type:t="bullet_hole"
-      scale:r=0.7
+      scale:r=1.0
     }
 
     billboardDecal{
       type:t="metal_bullet_hole"
-      scale:r=4.0
+      scale:r=2.0
     }
   }
 
   metal{
     bf_class:t="steel"
     color:c=0, 0, 255, 200
-    sound_step_material:t="steel"
-    sound_material:t="metal"
 
     vehicleSound{
       concrete:r=0.5
@@ -584,20 +536,18 @@ PhysMats{
 
     bulletHole{
       type:t="bullet_hole"
-      scale:r=0.7
+      scale:r=1.0
     }
 
     billboardDecal{
       type:t="metal_bullet_hole"
-      scale:r=4.0
+      scale:r=2.0
     }
   }
 
   train{
     bf_class:t="steel"
     color:c=0, 0, 255, 200
-    sound_step_material:t="steel"
-    sound_material:t="metal"
 
     vehicleSound{
       concrete:r=0.5
@@ -613,12 +563,12 @@ PhysMats{
 
     bulletHole{
       type:t="bullet_hole"
-      scale:r=0.7
+      scale:r=1.0
     }
 
     billboardDecal{
       type:t="metal_bullet_hole"
-      scale:r=4.0
+      scale:r=2.0
     }
   }
 
@@ -638,8 +588,6 @@ PhysMats{
   cactus{
     bf_class:t="wood"
     damage_k:r=0.3
-    sound_step_material:t="wood"
-    sound_material:t="wood"
 
     vehicleSound{
       concrete:r=0.5
@@ -664,8 +612,6 @@ PhysMats{
     bf_class:t="soil"
     deformable_width:r=0.2
     resistanceK:r=0.0008
-    sound_step_material:t="grass"
-    sound_material:t="dirt"
 
     billboardDecal{
       type:t="soil_bullet_hole"
@@ -684,8 +630,6 @@ PhysMats{
     bf_class:t="soil"
     deformable_width:r=0.2
     resistanceK:r=0.0008
-    sound_step_material:t="grass"
-    sound_material:t="dirt"
 
     billboardDecal{
       type:t="soil_bullet_hole"
@@ -704,8 +648,6 @@ PhysMats{
     bf_class:t="leaves"
     deformable_width:r=0.1
     resistanceK:r=0.0008
-    sound_step_material:t="grass"
-    sound_material:t="dirt"
 
     billboardDecal{
       type:t="soil_bullet_hole"
@@ -724,8 +666,6 @@ PhysMats{
     bf_class:t="mud"
     deformable_width:r=0.2
     resistanceK:r=0.0008
-    sound_step_material:t="mud"
-    sound_material:t="dirt"
 
     billboardDecal{
       type:t="soil_bullet_hole"
@@ -744,8 +684,6 @@ PhysMats{
     bf_class:t="dirt"
     deformable_width:r=0.3
     resistanceK:r=0.001
-    sound_step_material:t="grass"
-    sound_material:t="dirt"
 
     billboardDecal{
       type:t="soil_bullet_hole"
@@ -757,8 +695,6 @@ PhysMats{
     bf_class:t="roadSoil"
     deformable_width:r=0.05
     resistanceK:r=0.0002
-    sound_step_material:t="concrete"
-    sound_material:t="dirt"
 
     vehicleSound{
       concrete:r=1.0
@@ -774,8 +710,6 @@ PhysMats{
     bf_class:t="roadmud"
     deformable_width:r=0.05
     resistanceK:r=0.0008
-    sound_step_material:t="mud"
-    sound_material:t="dirt"
 
     billboardDecal{
       type:t="soil_bullet_hole"
@@ -793,8 +727,6 @@ PhysMats{
   sand{
     bf_class:t="sand"
     deformable_width:r=0.2
-    sound_step_material:t="sand"
-    sound_material:t="dirt"
 
     billboardDecal{
       type:t="soil_bullet_hole"
@@ -805,8 +737,6 @@ PhysMats{
   moon_sand{
     bf_class:t="moon_sand"
     deformable_width:r=0.2
-    sound_step_material:t="sand"
-    sound_material:t="dirt"
 
     billboardDecal{
       type:t="moon_sand_bullet_hole"
@@ -818,8 +748,6 @@ PhysMats{
     bf_class:t="quarrySand"
     deformable_width:r=0.05
     resistanceK:r=0.0002
-    sound_step_material:t="sand"
-    sound_material:t="dirt"
 
     vehicleSound{
       concrete:r=1.0
@@ -835,8 +763,6 @@ PhysMats{
     bf_class:t="sand_slope"
     deformable_width:r=0.05
     resistanceK:r=0.0002
-    sound_step_material:t="sand"
-    sound_material:t="dirt"
 
     vehicleSound{
       concrete:r=1.0
@@ -852,8 +778,6 @@ PhysMats{
     bf_class:t="roadSand"
     deformable_width:r=0.1
     resistanceK:r=0.0002
-    sound_step_material:t="sand"
-    sound_material:t="dirt"
 
     vehicleSound{
       concrete:r=1.0
@@ -868,8 +792,6 @@ PhysMats{
   quickSand{
     bf_class:t="sand"
     deformable_width:r=0.6
-    sound_step_material:t="concrete"
-    sound_material:t="dirt"
 
     vehicleSound{
       concrete:r=1.0
@@ -879,41 +801,31 @@ PhysMats{
   snow{
     bf_class:t="snow"
     deformable_width:r=0.3
-    sound_step_material:t="snow"
-    sound_material:t="dirt"
   }
 
   hardSnow{
     bf_class:t="snow"
     deformable_width:r=0.3
-    sound_step_material:t="snow"
-    sound_material:t="dirt"
   }
 
   ice{
     bf_class:t="ice"
-    sound_step_material:t="ice"
-    sound_material:t="dirt"
     is_solid:b=yes
 
     billboardDecal{
       type:t="metal_bullet_hole"
-      scale:r=4.0
+      scale:r=2.0
     }
   }
 
   snowLower{
     bf_class:t="snow"
     deformable_width:r=0.2
-    sound_step_material:t="snow"
-    sound_material:t="dirt"
   }
 
   roadSnow{
     bf_class:t="roadSnow"
     deformable_width:r=0.05
-    sound_step_material:t="snow"
-    sound_material:t="dirt"
   }
 
   lava{
@@ -922,8 +834,6 @@ PhysMats{
     damage_k:r=0.3
     deformable_width:r=0.05
     resistanceK:r=0.0006
-    sound_step_material:t="grass"
-    sound_material:t="dirt"
 
     bulletHole{
       type:t="bullet_hole"
@@ -945,8 +855,6 @@ PhysMats{
 
   rocks{
     bf_class:t="rocks"
-    sound_step_material:t="concrete"
-    sound_material:t="concrete"
     is_solid:b=yes
 
     vehicleSound{
@@ -973,8 +881,6 @@ PhysMats{
 
   rocksSlippery{
     bf_class:t="rocksSlippery"
-    sound_step_material:t="concrete"
-    sound_material:t="concrete"
     is_solid:b=yes
 
     vehicleSound{
@@ -989,8 +895,6 @@ PhysMats{
 
   gravel{
     bf_class:t="gravel"
-    sound_step_material:t="concrete"
-    sound_material:t="concrete"
     is_solid:b=yes
 
     vehicleSound{
@@ -1018,8 +922,6 @@ PhysMats{
 
   rubber{
     bf_class:t="rubber"
-    sound_step_material:t="concrete"
-    sound_material:t="dirt"
 
     vehicleSound{
       concrete:r=1.0
@@ -1028,8 +930,6 @@ PhysMats{
 
   ceramic{
     bf_class:t="ceramic"
-    sound_step_material:t="concrete"
-    sound_material:t="concrete"
 
     vehicleSound{
       concrete:r=1.0
@@ -1043,16 +943,9 @@ PhysMats{
 
   fabric{
     bf_class:t="fabric"
-    sound_step_material:t="fabric"
-    sound_material:t="dirt"
 
     vehicleSound{
       concrete:r=1.0
-    }
-
-    billboardDecal{
-      type:t="wood_bullet_hole"
-      scale:r=5.0
     }
 
     damageModel{
@@ -1063,8 +956,6 @@ PhysMats{
   hay{
     bf_class:t="wood"
     damage_k:r=0.3
-    sound_step_material:t="highgrass"
-    sound_material:t="dirt"
 
     vehicleSound{
       concrete:r=0.5
@@ -1087,7 +978,6 @@ PhysMats{
 
   paper{
     bf_class:t="paper"
-    sound_step_material:t="concrete"
 
     vehicleSound{
       concrete:r=1.0
@@ -1101,7 +991,6 @@ PhysMats{
 
   plastic{
     bf_class:t="plastic"
-    sound_step_material:t="concrete"
 
     vehicleSound{
       concrete:r=1.0
@@ -1110,7 +999,6 @@ PhysMats{
 
   bushes{
     bf_class:t="bushes"
-    sound_step_material:t="highgrass"
 
     softCollision{
       physViscosity:r=2.5
@@ -1123,7 +1011,6 @@ PhysMats{
 
   bushes_fall{
     bf_class:t="bushes"
-    sound_step_material:t="highgrass"
 
     softCollision{
       physViscosity:r=2.5
@@ -1136,7 +1023,6 @@ PhysMats{
 
   bushes_snow{
     bf_class:t="bushes"
-    sound_step_material:t="highgrass"
 
     softCollision{
       physViscosity:r=2.5
@@ -1149,7 +1035,6 @@ PhysMats{
 
   bushes_dead{
     bf_class:t="bushes"
-    sound_step_material:t="highgrass"
 
     softCollision{
       physViscosity:r=2.5
@@ -1162,7 +1047,6 @@ PhysMats{
 
   bushes_palm{
     bf_class:t="bushes"
-    sound_step_material:t="highgrass"
 
     softCollision{
       physViscosity:r=2.5
@@ -1175,7 +1059,6 @@ PhysMats{
 
   barbwire{
     bf_class:t="barbwire"
-    sound_step_material:t="barbwire"
 
     softCollision{
       physViscosity:r=2.5
@@ -1237,8 +1120,6 @@ PhysMats{
   softWoodDoor{
     bf_class:t="softWoodDoor"
     damage_k:r=0.3
-    sound_step_material:t="wood"
-    sound_material:t="wood"
 
     vehicleSound{
       concrete:r=0.5
@@ -1265,8 +1146,6 @@ PhysMats{
   softSteelDoor{
     bf_class:t="softSteelDoor"
     damage_k:r=0.3
-    sound_step_material:t="steel"
-    sound_material:t="metal"
 
     vehicleSound{
       concrete:r=0.5
@@ -1286,28 +1165,25 @@ PhysMats{
 
     bulletHole{
       type:t="bullet_hole"
-      scale:r=0.7
+      scale:r=1.0
     }
 
     billboardDecal{
       type:t="metal_bullet_hole"
-      scale:r=4.0
+      scale:r=2.0
     }
   }
 
   small_debris{
     bf_class:t="small_debris"
-    sound_step_material:t="concrete"
   }
 
   small_decor{
     bf_class:t="small_decor"
-    sound_step_material:t="concrete"
   }
 
   bullet_transparent{
     bf_class:t="bullet_transparent"
-    sound_step_material:t="concrete"
   }
 
   gunRay{

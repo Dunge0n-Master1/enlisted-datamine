@@ -84,12 +84,16 @@ def human_anim_radio_es(info : ParallelUpdateFrameDelayed;
 def base_menu_animchar_set_weapon_selected(info : ParallelUpdateFrameDelayed;
                                            human_weap__gunEids : EidList;
                                            human_anim__selectedWeaponVarId : int;
+                                           human_weap__currentGunSlot : int;
                                            animchar__visible : bool = true;
                                            var phys_vars : PhysVars)
   if !animchar__visible || human_anim__selectedWeaponVarId < 0 || length(human_weap__gunEids) == 0
     return
 
-  let gunEid = human_weap__gunEids[0] // currently all menu characters hold weapon in primary slot only
+  if human_weap__currentGunSlot < 0 || human_weap__currentGunSlot >= length(human_weap__gunEids)
+    return
+
+  let gunEid = human_weap__gunEids[human_weap__currentGunSlot]
 
   query(gunEid) <| $ [es] (gun__propsId : int)
     if gun__propsId >= 0

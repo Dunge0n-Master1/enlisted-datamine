@@ -72,7 +72,6 @@ def update_walk_dir(var actor : HumanActor&;
                     strafe : double = 0.0lf)
   actor.phys.producedCT |> human_control_state_set_walk_dir(float2(move, -strafe))
 
-
 def update_movement(dt : float;
                     human_input__aim : int;
                     human_input__aimDelta : int;
@@ -95,6 +94,8 @@ def update_movement(dt : float;
                     human_input__resetSprintMoveThreshold : float = DEFAULT_RESET_SPRINT_MOVE_THRESHOLD;
                     human_input__lookAngleTau : float = 0.;
                     human_vehicle__isShootingPassenger : bool;
+                    human_freefall__isFreefall : bool;
+                    human_freefall__inputLimits : float2;
                     var actor : HumanActor&;
                     var aim_angle : float2&;
                     var human_input__lookAngle : float2&)
@@ -156,6 +157,9 @@ def update_movement(dt : float;
     if shouldResetLookAngle
       human_input__lookAngle.x = approach(prevLookAngle.x, 0., dt, human_input__lookAngleTau)
       human_input__lookAngle.y = approach(prevLookAngle.y, 0., dt, human_input__lookAngleTau)
+    if human_freefall__isFreefall
+      ax = clamp(ax, double(-human_freefall__inputLimits[0]), double(human_freefall__inputLimits[0]))
+      ay = clamp(ay, double(-human_freefall__inputLimits[1]), double(human_freefall__inputLimits[1]))
     update_look_dir(actor,
                     aim_angle,
                     aim_offset,
@@ -215,6 +219,8 @@ def fix_changed_hero_input(dt : float;
                            human_input__blockLookModeCounter : int;
                            human_input__isGyroAimEnabled : bool;
                            human_vehicle__isShootingPassenger : bool;
+                           human_freefall__isFreefall : bool;
+                           human_freefall__inputLimits : float2;
                            aim_offset : float2&;
                            vehicle_input__aim : int const?;
                            isInVehicle : bool;
@@ -256,6 +262,8 @@ def fix_changed_hero_input(dt : float;
                   human_input__lookAngleTau,
                   human_input__resetSprintMoveThreshold,
                   human_vehicle__isShootingPassenger,
+                  human_freefall__isFreefall,
+                  human_freefall__inputLimits,
                   human_net_phys, aim_angle,
                   human_input__lookAngle)
   human_input__hasValidState = true
@@ -382,6 +390,8 @@ def human_input_es(info : UpdateStageUpdateInput;
                    human_vehicle__isShootingPassenger : bool = false;
                    human_melee_charge__targetFound : bool = false;
                    human_melee_charge__longPressTime : float = 0.2;
+                   human_freefall__isFreefall : bool = false;
+                   human_freefall__inputLimits : float2 = float2();
                    isTpsView : bool = false;
                    human_input__followVehicleRotationInFirstPerson : bool = true;
                    var human_melee_charge__forceEnabled : bool&;
@@ -446,6 +456,8 @@ def human_input_es(info : UpdateStageUpdateInput;
                            human_input__blockLookModeCounter,
                            human_input__isGyroAimEnabled,
                            human_vehicle__isShootingPassenger,
+                           human_freefall__isFreefall,
+                           human_freefall__inputLimits,
                            human_input__aimAngleOffset,
                            vehicleInputAim, isInVehicle,
                            human_input__resetSprintMovementThreshold,
@@ -501,6 +513,8 @@ def human_input_es(info : UpdateStageUpdateInput;
                   human_input__resetSprintMoveThreshold,
                   human_input__lookAngleTau,
                   human_vehicle__isShootingPassenger,
+                  human_freefall__isFreefall,
+                  human_freefall__inputLimits,
                   human_net_phys, human_input__aimAngle,
                   human_input__lookAngle)
 

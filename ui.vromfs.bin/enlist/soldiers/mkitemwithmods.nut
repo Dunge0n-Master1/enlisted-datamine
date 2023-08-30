@@ -24,7 +24,6 @@ let MAKE_PARAMS = { //+all params of itemComp
   onHoverCb = null
   selectedKey = Watched(null)
   isXmb = false
-  needGunLayout = false
   hasUnseenSign = Watched(false)
 }
 

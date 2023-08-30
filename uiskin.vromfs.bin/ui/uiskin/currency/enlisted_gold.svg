@@ -1,18 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 25.3.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="coin" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve">
-<circle style="fill-rule:evenodd;clip-rule:evenodd;fill:#1D1D1D;" cx="50" cy="50" r="42.9"/>
-<linearGradient id="Ellipse_1_copy_3_1_" gradientUnits="userSpaceOnUse" x1="77.161" y1="1079" x2="22.839" y2="981" gradientTransform="matrix(1 0 0 1 0 -980)">
-	<stop  offset="0" style="stop-color:#C68B37"/>
-	<stop  offset="0.154" style="stop-color:#C68B37"/>
-	<stop  offset="0.3" style="stop-color:#926D32"/>
-	<stop  offset="0.478" style="stop-color:#D09D40"/>
-	<stop  offset="0.861" style="stop-color:#F3F294"/>
-	<stop  offset="1" style="stop-color:#FDFCC2"/>
-</linearGradient>
-<path id="Ellipse_1_copy_3" style="fill-rule:evenodd;clip-rule:evenodd;fill:url(#Ellipse_1_copy_3_1_);" d="M50,1
-	c27.1,0,49,21.9,49,49S77.1,99,50,99S1,77.1,1,50S22.9,1,50,1z M50,11.2c21.4,0,38.8,17.4,38.8,38.8S71.4,88.8,50,88.8
-	S11.2,71.4,11.2,50S28.6,11.2,50,11.2L50,11.2z M50,16.7c18.4,0,33.3,14.9,33.3,33.3S68.4,83.3,50,83.3S16.7,68.4,16.7,50
-	S31.6,16.7,50,16.7L50,16.7z M62,47H45V36h20v-8H35v47h30v-8H45V55h17V47z"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="coin" xmlns="http://www.w3.org/2000/svg" width="100" height="100" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#linear-gradient);
+        fill-rule: evenodd;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="80.53" y1="100.21" x2="19.29" y2="-.51" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#c68b37"/>
+      <stop offset=".15" stop-color="#c68b37"/>
+      <stop offset=".3" stop-color="#926d32"/>
+      <stop offset=".48" stop-color="#d09d40"/>
+      <stop offset=".86" stop-color="#f3f294"/>
+      <stop offset="1" stop-color="#fdfcc2"/>
+    </linearGradient>
+  </defs>
+  <path id="golden" class="cls-1" d="m66.45,29.68c-3.49-2.76-8.02-4.14-13.57-4.14-7.93,0-14.23,2.3-18.9,6.9-4.67,4.6-7,10.59-7,17.99s2.13,13.36,6.39,17.82,10.06,6.7,17.41,6.7c3.27,0,6.65-.45,10.12-1.35,3.47-.9,6.22-2.09,8.31-3.57v-20.81h-14.86v5.54h7.39v11.19c-2.4,2.09-5.54,3.13-9.42,3.13-5.46,0-9.77-1.69-12.94-5.06-3.17-3.37-4.75-7.82-4.75-13.34,0-5.81,1.61-10.47,4.84-13.99,3.23-3.52,7.63-5.28,13.21-5.28,3.52,0,7.11,1.22,10.77,3.65l3.02-5.38Zm-16.42-14.75c19.38,0,35.09,15.7,35.09,35.07s-15.71,35.07-35.09,35.07S14.93,69.37,14.93,50c0-19.37,15.71-35.07,35.09-35.07ZM10.03,50.08c0,22.04,17.9,39.91,39.98,39.91s39.98-17.87,39.98-39.91S72.1,10.17,50.02,10.17,10.03,28.04,10.03,50.08ZM50,1c27.06,0,49,21.94,49,49s-21.94,49-49,49S1,77.06,1,50,22.94,1,50,1Z"/>
 </svg>

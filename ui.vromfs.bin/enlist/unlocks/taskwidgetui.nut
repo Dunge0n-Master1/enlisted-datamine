@@ -1,10 +1,10 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontSmall, fontMedium } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontSub, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let msgbox = require("%enlist/components/msgbox.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
 let { smallPadding, bigPadding, defTxtColor, disabledTxtColor, hoverTxtColor, startBtnWidth,
-  largePadding, colPart
+  largePadding
 } = require("%enlSqGlob/ui/designConst.nut")
 let { dailyTasksByDifficulty, receiveTaskRewards, getTotalRerolls, getLeftRerolls,
   isRerollInProgress, canTakeDailyTaskReward, doRerollUnlock, rewardDailyTask
@@ -26,13 +26,13 @@ let JB = require("%ui/control/gui_buttons.nut")
 let mkBpWidgetOpen = require("%enlist/battlepass/battlePassButton.nut")
 let { rewardWeeklyTask } = require("%enlist/unlocks/weeklyUnlocksState.nut")
 
-let defTxtStyle = { color = defTxtColor }.__update(fontSmall)
-let disabledTxtStyle = { color = disabledTxtColor }.__update(fontSmall)
-let hoveredTxtStyle = { color = hoverTxtColor }.__update(fontSmall)
-let headerTxtStyle = { color = defTxtColor }.__update(fontMedium)
-let disabledHeaderTxtStyle = { color = disabledTxtColor }.__update(fontMedium)
-let hoveredHeaderTxtStyle = { color = hoverTxtColor }.__update(fontMedium)
-let smallGap = colPart(0.064)
+let defTxtStyle = { color = defTxtColor }.__update(fontSub)
+let disabledTxtStyle = { color = disabledTxtColor }.__update(fontSub)
+let hoveredTxtStyle = { color = hoverTxtColor }.__update(fontSub)
+let headerTxtStyle = { color = defTxtColor }.__update(fontBody)
+let disabledHeaderTxtStyle = { color = disabledTxtColor }.__update(fontBody)
+let hoveredHeaderTxtStyle = { color = hoverTxtColor }.__update(fontBody)
+let smallGap = hdpx(4)
 let waitingSpinner = spinner()
 
 

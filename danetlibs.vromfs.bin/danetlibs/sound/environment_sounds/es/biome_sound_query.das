@@ -1,11 +1,13 @@
 require ecs
 require soundEvent
 require soundSystem
+require gpuReadbackQuery
 require landMesh
 require DagorMath
 require DagorSystem
 require sound_utils_net.modules.sound_utils_net_events
 
+let INVALID_QUERY_ID = -1
 
 [es(tag=sound, on_appear)]
 def biome_sound_query_appear(evt : Event;
@@ -17,7 +19,7 @@ def biome_sound_query_appear(evt : Event;
   biome_sound_query__values |> resize(count)
   for i in range(count)
     biome_sound_query__values[i] = float3(0., 0., 0.)
-  biome_sound_query__id = -1
+  biome_sound_query__id = INVALID_QUERY_ID
 
 
 [es(tag=sound, no_order)]
@@ -31,7 +33,7 @@ def biome_sound_query_update(info : ParallelUpdateFrameDelayed;
                              var biome_sound_query__timeRange : float2&;
                              var biome_sound_query__nextQueryTime : float&)
 
-  if biome_sound_query__id == -1 && info.curTime >= biome_sound_query__nextQueryTime
+  if biome_sound_query__id == INVALID_QUERY_ID && info.curTime >= biome_sound_query__nextQueryTime
     biome_sound_query__id = biome_query_start(get_listener_pos(), biome_sound_query__range)
     biome_sound_query__nextQueryTime = info.curTime + biome_sound_query__period
 
@@ -46,20 +48,20 @@ def biome_sound_query_update(info : ParallelUpdateFrameDelayed;
 
       if state == GpuReadbackResultState SUCCEEDED
 
-        for idx in range(length(biome_sound_query__values))
+        for value, name in biome_sound_query__values, biome_sound_query__biomeNames
           // .x - lerp from
           // .y - lerp to
           // .z - current
-          biome_sound_query__values[idx].x = biome_sound_query__values[idx].z
+          value.x = value.z
 
-          let groupId = get_biome_group_id(string(biome_sound_query__biomeNames[idx]))
+          let groupId = get_biome_group_id(string(name))
 
           if groupId == result.mostFrequentBiomeGroupIndex
-            biome_sound_query__values[idx].y = result.mostFrequentBiomeGroupWeight
+            value.y = result.mostFrequentBiomeGroupWeight
           elif groupId == result.secondMostFrequentBiomeGroupIndex
-            biome_sound_query__values[idx].y = result.secondMostFrequentBiomeGroupWeight
+            value.y = result.secondMostFrequentBiomeGroupWeight
           else
-            biome_sound_query__values[idx].y = 0.
+            value.y = 0.
 
         //sound_debug("{get_biome_group_name(result.mostFrequentBiomeGroupIndex)};
         //             {result.mostFrequentBiomeGroupWeight};
@@ -68,8 +70,8 @@ def biome_sound_query_update(info : ParallelUpdateFrameDelayed;
 
         biome_sound_query__timeRange = float2(info.curTime, info.curTime + biome_sound_query__period)
 
-      biome_sound_query__id = -1
+      biome_sound_query__id = INVALID_QUERY_ID
 
-  for idx in range(length(biome_sound_query__values))
-    biome_sound_query__values[idx].z = cvt(info.curTime, biome_sound_query__timeRange.x, biome_sound_query__timeRange.y, biome_sound_query__values[idx].x, biome_sound_query__values[idx].y)
-    set_var_global(string(biome_sound_query__varNames[idx]), biome_sound_query__values[idx].z)
+  for value, varName in biome_sound_query__values, biome_sound_query__varNames
+    value.z = cvt(info.curTime, biome_sound_query__timeRange.x, biome_sound_query__timeRange.y, value.x, value.y)
+    set_var_global(string(varName), value.z)

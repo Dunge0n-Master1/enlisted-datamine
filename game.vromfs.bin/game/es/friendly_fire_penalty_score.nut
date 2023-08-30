@@ -2,9 +2,14 @@ import "%dngscripts/ecs.nut" as ecs
 let calcScoringPlayerScore = require("%scripts/game/utils/calcPlayerScore.nut")
 let { isNoBotsMode } = require("%enlSqGlob/missionType.nut")
 
+let friendlyFireKickQuery = ecs.SqQuery("friendlyFireKickQuery", { comps_ro = [["game_option__friendlyFireKick", ecs.TYPE_BOOL]] })
+
 ecs.register_es("count_friendly_fire_penalty", {
     function onChange(_, comp) {
-      comp["scoring_player__friendlyFirePenalty"] = calcScoringPlayerScore(comp, isNoBotsMode())
+      local friendlyFireKickEnabled = true
+      friendlyFireKickQuery.perform(@(_eid, comp) friendlyFireKickEnabled = comp.game_option__friendlyFireKick)
+      if (friendlyFireKickEnabled)
+        comp["scoring_player__friendlyFirePenalty"] = calcScoringPlayerScore(comp, isNoBotsMode())
     }
   },
   { comps_track = [

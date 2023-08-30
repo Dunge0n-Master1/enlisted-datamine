@@ -241,6 +241,10 @@ def reinit_battle_areas_on_player_squad_death(evt : Event; squad__isAlive : bool
 def reinit_battle_areas_on_player_vehicle_exit(evt : Event)
   set_require_update_battle_areas_in_ui()
 
+[es(tag=(ui, dev), on_event=CmdInitPolyBattleAreas)]
+def reinit_battle_areas_on_command(evt : Event)
+  set_require_update_battle_areas_in_ui()
+
 def init_box_battle_area_lines(tm : float3x4; var points : array<float2>&)
   let diag2 = (tm[0].xz + tm[2].xz) * 0.5
   let diag1 = (tm[0].xz - tm[2].xz) * 0.5
@@ -252,83 +256,84 @@ def init_box_battle_area_lines(tm : float3x4; var points : array<float2>&)
 
 [es(tag=ui, no_order)]
 def areas_update_es(info : ParallelUpdateFrameDelayed;
-                    var battle_area__requireUpdate : bool&;
-                    var battle_area__showActiveArea : bool&;
-                    var battle_area__activeBattleAreasPolygon : Point2List;
-                    var battle_area__nextBattleAreasPolygon : Point2List)
+                    eid : EntityId;
+                    battle_area__requireUpdate : bool&)
   if !battle_area__requireUpdate
     return
+  ecs::query(eid) <| $ [es] (var battle_area__requireUpdate : bool&;
+                             var battle_area__showActiveArea : bool&;
+                             var battle_area__activeBattleAreasPolygon : Point2List;
+                             var battle_area__nextBattleAreasPolygon : Point2List)
+    battle_area__requireUpdate = false
+    clear(battle_area__activeBattleAreasPolygon)
+    clear(battle_area__nextBattleAreasPolygon)
 
-  battle_area__requireUpdate = false
-  clear(battle_area__activeBattleAreasPolygon)
-  clear(battle_area__nextBattleAreasPolygon)
+    var battleAreasInfo : array<BattleAreaInfo>
+    var nextBattleAreasInfo : array<BattleAreaInfo>
 
-  var battleAreasInfo : array<BattleAreaInfo>
-  var nextBattleAreasInfo : array<BattleAreaInfo>
+    var heroCaprureTag = "humanTriggerable"
+    let heroTeam = get_local_player_team()
 
-  var heroCaprureTag = "humanTriggerable"
-  let heroTeam = get_local_player_team()
+    query() <| $ [es(REQUIRE=watchedByPlr)] (zones_visitor__triggerTag : string; human_freefall__isFreefall : bool = false; isAlive : bool)
+      if !human_freefall__isFreefall && isAlive
+        heroCaprureTag := zones_visitor__triggerTag
 
-  query() <| $ [es(REQUIRE=watchedByPlr)] (zones_visitor__triggerTag : string; human_freefall__isFreefall : bool = false; isAlive : bool)
-    if !human_freefall__isFreefall && isAlive
-      heroCaprureTag := zones_visitor__triggerTag
+    query() <| $ [es(REQUIRE=battle_area, REQUIRE_NOT=hideOnMinimap)] (eid : EntityId;
+                                                                       active : bool;
+                                                                       battleAreaPoints : Point2List;
+                                                                       battle_area__isVisible : bool;
+                                                                       battle_area__team : int = TEAM_UNASSIGNED;
+                                                                       battle_area__deactivatedAtTime : float = -1.f;
+                                                                       deactivationDelay : float = 0.f)
+      if !active || !battle_area__isVisible || (battle_area__team != heroTeam && battle_area__team != TEAM_UNASSIGNED)
+        return
 
-  query() <| $ [es(REQUIRE=battle_area, REQUIRE_NOT=hideOnMinimap)] (eid : EntityId;
-                                                                     active : bool;
-                                                                     battleAreaPoints : Point2List;
-                                                                     battle_area__isVisible : bool;
-                                                                     battle_area__team : int = TEAM_UNASSIGNED;
-                                                                     battle_area__deactivatedAtTime : float = -1.f;
-                                                                     deactivationDelay : float = 0.f)
-    if !active || !battle_area__isVisible || (battle_area__team != heroTeam && battle_area__team != TEAM_UNASSIGNED)
-      return
+      if !has(eid, heroCaprureTag, ecs_hash(heroCaprureTag))
+        return
 
-    if !has(eid, heroCaprureTag, ecs_hash(heroCaprureTag))
-      return
+      var polyBattleAreaPoits : array<float2>
+      for point in battleAreaPoints
+        polyBattleAreaPoits |> push(point)
 
-    var polyBattleAreaPoits : array<float2>
-    for point in battleAreaPoints
-      polyBattleAreaPoits |> push(point)
-
-    battleAreasInfo |> emplace([[BattleAreaInfo
-      areaEid = eid,
-      points := polyBattleAreaPoits
-    ]])
-    let deactivationTime = battle_area__deactivatedAtTime >= 0.f ? battle_area__deactivatedAtTime + deactivationDelay : -1.f
-    if deactivationTime < 0.
-      nextBattleAreasInfo |> emplace([[BattleAreaInfo
+      battleAreasInfo |> emplace([[BattleAreaInfo
         areaEid = eid,
         points := polyBattleAreaPoits
       ]])
+      let deactivationTime = battle_area__deactivatedAtTime >= 0.f ? battle_area__deactivatedAtTime + deactivationDelay : -1.f
+      if deactivationTime < 0.
+        nextBattleAreasInfo |> emplace([[BattleAreaInfo
+          areaEid = eid,
+          points := polyBattleAreaPoits
+        ]])
 
-  query() <| $ [es(REQUIRE=(battle_area, box_zone), REQUIRE_NOT=hideOnMinimap)] (eid : EntityId;
-                                                                                 active : bool;
-                                                                                 transform : float3x4;
-                                                                                 battle_area__isVisible : bool;
-                                                                                 battle_area__team : int = TEAM_UNASSIGNED;
-                                                                                 battle_area__deactivatedAtTime : float = -1.f;
-                                                                                 deactivationDelay : float = 0.f)
-    if !active || !battle_area__isVisible || (battle_area__team != heroTeam && battle_area__team != TEAM_UNASSIGNED)
-      return
+    query() <| $ [es(REQUIRE=(battle_area, box_zone), REQUIRE_NOT=hideOnMinimap)] (eid : EntityId;
+                                                                                   active : bool;
+                                                                                   transform : float3x4;
+                                                                                   battle_area__isVisible : bool;
+                                                                                   battle_area__team : int = TEAM_UNASSIGNED;
+                                                                                   battle_area__deactivatedAtTime : float = -1.f;
+                                                                                   deactivationDelay : float = 0.f)
+      if !active || !battle_area__isVisible || (battle_area__team != heroTeam && battle_area__team != TEAM_UNASSIGNED)
+        return
 
-    if !has(eid, heroCaprureTag, ecs_hash(heroCaprureTag))
-      return
+      if !has(eid, heroCaprureTag, ecs_hash(heroCaprureTag))
+        return
 
-    var boxBattleAreaPoits : array<float2>
-    init_box_battle_area_lines(transform, boxBattleAreaPoits)
-    battleAreasInfo |> emplace([[BattleAreaInfo
-      areaEid = eid,
-      points := boxBattleAreaPoits
-    ]])
-    let deactivationTime = battle_area__deactivatedAtTime >= 0.f ? battle_area__deactivatedAtTime + deactivationDelay : -1.f
-    if deactivationTime < 0.
-      nextBattleAreasInfo |> emplace([[BattleAreaInfo
+      var boxBattleAreaPoits : array<float2>
+      init_box_battle_area_lines(transform, boxBattleAreaPoits)
+      battleAreasInfo |> emplace([[BattleAreaInfo
         areaEid = eid,
         points := boxBattleAreaPoits
       ]])
+      let deactivationTime = battle_area__deactivatedAtTime >= 0.f ? battle_area__deactivatedAtTime + deactivationDelay : -1.f
+      if deactivationTime < 0.
+        nextBattleAreasInfo |> emplace([[BattleAreaInfo
+          areaEid = eid,
+          points := boxBattleAreaPoits
+        ]])
 
-  build_battle_area_polygon(battleAreasInfo, battle_area__activeBattleAreasPolygon)
-  battle_area__showActiveArea = true
-  if length(battleAreasInfo) != length(nextBattleAreasInfo)
-    battle_area__showActiveArea = false
-    build_battle_area_polygon(nextBattleAreasInfo, battle_area__nextBattleAreasPolygon)
+    build_battle_area_polygon(battleAreasInfo, battle_area__activeBattleAreasPolygon)
+    battle_area__showActiveArea = true
+    if length(battleAreasInfo) != length(nextBattleAreasInfo)
+      battle_area__showActiveArea = false
+      build_battle_area_polygon(nextBattleAreasInfo, battle_area__nextBattleAreasPolygon)

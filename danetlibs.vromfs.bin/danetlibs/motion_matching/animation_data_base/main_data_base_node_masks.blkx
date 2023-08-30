@@ -70,3 +70,31 @@ demo_mocap_nodemask{
   "Bip01 R Foot":r=1.0
   "Bip01 R Toe0":r=1.0
 }
+
+soldier_sprint_nodemask{
+  Bip01:r=1.0
+  "Bip01 Pelvis":r=1.0
+  "Bip01 Spine":r=1.0
+  "Bip01 Spine1":r=1.0
+  "Bip01 L Clavicle":r=1.0
+  "Bip01 L UpperArm":r=1.0
+  "Bip01 L Forearm":r=1.0
+  "Bip01e L Twist":r=1.0
+  "Bip01e L Twist1":r=1.0
+  "Bip01 L Hand":r=1.0
+  "Bip01 R Clavicle":r=1.0
+  "Bip01 R UpperArm":r=1.0
+  "Bip01 R Forearm":r=1.0
+  "Bip01e R Twist":r=1.0
+  "Bip01e R Twist1":r=1.0
+  "Bip01 R Hand":r=1.0
+  "Bip01 L Thigh":r=1.0
+  "Bip01 L Calf":r=1.0
+  "Bip01 L Foot":r=1.0
+  "Bip01 L Toe0":r=1.0
+  "Bip01 R Thigh":r=1.0
+  "Bip01 R Calf":r=1.0
+  "Bip01 R Foot":r=1.0
+  "Bip01 R Toe0":r=1.0
+  weapon:r=1.0
+}

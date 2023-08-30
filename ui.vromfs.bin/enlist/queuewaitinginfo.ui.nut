@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let { colPart, transpPanelBgColor, panelBgColor, defItemBlur, bigPadding, largePadding, defTxtColor,
+let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { transpPanelBgColor, panelBgColor, defItemBlur, bigPadding, largePadding, defTxtColor,
   sidePadding
 } = require("%enlSqGlob/ui/designConst.nut")
 let { secondsToStringLoc } = require("%ui/helpers/time.nut")
@@ -28,18 +28,18 @@ let {
 let { doubleSideHighlightLine, doubleSideHighlightLineBottom, doubleSideBg
 } = require("%enlSqGlob/ui/defComponents.nut")
 let { mkDailyTasksUi } = require("%enlist/unlocks/taskWidgetUi.nut")
-let headerTxtStyle = { color = defTxtColor }.__update(body_txt)
+let headerTxtStyle = { color = defTxtColor }.__update(fontBody)
 
-const TIME_BEFORE_SHOW_QUEUE = 15
+const TIME_BEFORE_SHOW_QUEUE = 1
 const MIN_VISIBLE_PLAYERS_AMOUNT = 2
 
-let defaultSize = [fsh(45), fsh(53)]
+let defaultSize = [fsh(45), fsh(55)]
 let defPosSize = {
   size = defaultSize
   pos = [ sw(50) - defaultSize[0] / 2, sh(80) - defaultSize[1] ]
 }
-let titleHeight = colPart(1)
-let spinnerHeight = colPart(1.1)
+let titleHeight = fsh(5.1)
+let spinnerHeight = fsh(6.3)
 let waitingSpinner = spinner(spinnerHeight)
 
 let posSize = Watched(defPosSize)
@@ -76,7 +76,7 @@ let function queueTitle() {
           })
           halign = ALIGN_CENTER
           color = titleTxtColor
-        }).__update(body_txt)
+        }).__update(fontBody)
       )
       doubleSideHighlightLineBottom
     ]
@@ -97,7 +97,7 @@ let armiesGap = {
 let queueContent = @() {
   watch = [queueInfo, timeInQueue]
   size = [flex(), hdpx(160)]
-  children = (timeInQueue.value > TIME_BEFORE_SHOW_QUEUE && (queueInfo.value?.matched ?? 0) > 0)
+  children = (timeInQueue.value / 1000 > TIME_BEFORE_SHOW_QUEUE)
     ? function(){
         local armyList = curArmiesList.value
         local armyId = curArmy.value
@@ -132,7 +132,7 @@ let queueContent = @() {
                     : txt({
                         text = queueInfo.value?.matchedByTeams[idx] ?? 0
                         color = titleTxtColor
-                      }).__update(body_txt)
+                      }).__update(fontBody)
                 ]
               })
             }
@@ -146,7 +146,7 @@ let randomTeamHint = noteTextArea({
   text = loc("queue/join_any_team_hint")
   halign = ALIGN_CENTER
   color = titleTxtColor
-}).__update(sub_txt)
+}).__update(fontSub)
 
 let function mkRandomTeamContent() {
   let res = { watch = [randTeamAvailable, isCurQueueReqRandomSide, matchRandomTeam] }

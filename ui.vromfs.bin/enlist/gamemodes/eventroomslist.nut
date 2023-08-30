@@ -3,7 +3,7 @@ from "eventRoomsListState.nut" import *
 
 let { format } = require("string")
 let { unixtime_to_local_timetbl } = require("dagor.time")
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { defTxtColor, rowBg, bigPadding, commonBtnHeight, titleTxtColor, activeTxtColor, isWide,
   accentTitleTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
@@ -177,12 +177,12 @@ let headerTxt = @(column) watchElemState(@(sf) {
       rendObj = ROBJ_TEXT
       color = cellHeaderColor(sf, column)
       text = column.label
-    }.__update(body_txt)
+    }.__update(fontBody)
     curSorting.value.column == column
       ? faComp(curSorting.value.isReverse? "caret-up" : "caret-down", {
           color = cellHeaderColor(sf, column)
           padding = [0, 0, 0, hdpx(5)]
-          fontSize = body_txt.fontSize
+          fontSize = fontBody.fontSize
           valign = ALIGN_CENTER
         })
       : null

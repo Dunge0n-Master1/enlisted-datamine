@@ -16,7 +16,7 @@ let sectionContent = function() {
     children = @() {
       size = flex()
       children
-      watch = sectionWatched
+      watch = [sectionWatched, curSection]
       key = curSection.value
       transform = {}
       animations = menuContentAnimation

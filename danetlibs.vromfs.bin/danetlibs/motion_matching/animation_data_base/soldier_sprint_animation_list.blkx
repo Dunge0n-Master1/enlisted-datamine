@@ -1,0 +1,85 @@
+tags:t="sprint"
+optional_tags:t="play_only_from_start"
+
+clips{
+  default_animation_mask:t="soldier_sprint_nodemask"
+  default_tags:t="sprint"
+
+  sprint_circle_l_mm{
+
+    use_foot_ik_locker{
+    }
+
+    root_motion_smoothing{
+      position_filter_radius:i=7
+      direction_filter_radius:i=15
+    }
+  }
+
+  sprint_circle_r_mm{
+
+    use_foot_ik_locker{
+    }
+
+    root_motion_smoothing{
+      position_filter_radius:i=7
+      direction_filter_radius:i=15
+    }
+  }
+
+  sprint_start_l_mm{
+    root_direction:p3=0.0, 0.0, -1.0
+    optional_tags:t="play_only_from_start"
+
+    use_foot_ik_locker{
+    }
+
+    extrapolate_trajectory{
+      end_velocity:p3=0.0, 0.0, -5.2
+    }
+  }
+
+  sprint_start_r_mm{
+    root_direction:p3=0.0, 0.0, -1.0
+    optional_tags:t="play_only_from_start"
+
+    use_foot_ik_locker{
+    }
+
+    extrapolate_trajectory{
+      end_velocity:p3=0.0, 0.0, -5.2
+    }
+  }
+
+  sprint_stop_l_mm{
+    root_direction:p3=0.0, 0.0, -1.0
+
+    use_foot_ik_locker{
+    }
+
+    extrapolate_trajectory{
+      start_velocity:p3=0.0, 0.0, -5.2
+    }
+  }
+
+  sprint_stop_r_mm{
+    root_direction:p3=0.0, 0.0, -1.0
+
+    use_foot_ik_locker{
+    }
+
+    extrapolate_trajectory{
+      start_velocity:p3=0.0, 0.0, -5.2
+    }
+  }
+
+  sprint_v5_mm{
+    root_direction:p3=0.0, 0.0, -1.0
+    play_speed_multiplier_range:p2=0.5, 2.0
+    nextClip:t="sprint_v5_mm"
+    endLabel:t="end"
+
+    use_foot_ik_locker{
+    }
+  }
+}

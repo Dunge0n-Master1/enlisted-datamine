@@ -8,7 +8,7 @@ let { makeVertScroll } = require("%ui/components/scrollbar.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { curArmy } = require("%enlist/soldiers/model/state.nut")
-let { mkDetailsInfo } = require("%enlist/soldiers/components/itemDetailsComp.nut")
+let { mkViewItemDetails } = require("%enlist/soldiers/components/itemDetailsComp.nut")
 let {
   sceneWithCameraAdd, sceneWithCameraRemove
 } = require("%enlist/sceneWithCamera.nut")
@@ -38,7 +38,7 @@ let mkItemContent = @(item) item == null ? null : @(){
   color = blurBgColor
   fillColor = blurBgFillColor
   xmbNode = XmbContainer({
-    canFocus = @() false
+    canFocus = false
     scrollSpeed = 5.0
     isViewport = true
   })
@@ -108,10 +108,9 @@ let function viewItemScene() {
             ]
           }
           {
-            size = SIZE_TO_CONTENT
             hplace = ALIGN_RIGHT
             vplace = ALIGN_BOTTOM
-            children = mkDetailsInfo(itemToShow)
+            children = mkViewItemDetails(itemToShow.value)
           }
         ]
       }

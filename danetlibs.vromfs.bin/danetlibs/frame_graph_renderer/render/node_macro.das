@@ -23,7 +23,7 @@ class FrameGraphNodeAnnotation : AstStructureAnnotation
     add_function(st._module, initfn)
 
     // add c++ part
-    st |> append_annotation("FrameGraph", "_frame_graph_node", [[array< tuple<argname : string; argvalue : RttiValue> >]])
+    st |> append_annotation("daBfg", "_frame_graph_node", [[array< tuple<argname : string; argvalue : RttiValue> >]])
 
     return true
 

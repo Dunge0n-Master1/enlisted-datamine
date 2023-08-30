@@ -10,10 +10,8 @@ let globInput = require("%ui/glob_input.nut")
 let { hotkeysButtonsBar } = require("%ui/hotkeysPanel.nut")
 let {modalWindowsComponent} = require("%ui/components/modalWindows.nut")
 let platform = require("%dngscripts/platform.nut")
-let {editor, showUIinEditor, editorIsActive} = require("%ui/editor.nut")
-let {extraPropPanelCtors = null} = require("%daeditor/state.nut")
+let {editorActivness, uiInEditor} = require("%enlSqGlob/editorState.nut")
 let {serviceInfo} = require("%ui/service_info.nut")
-let {sandboxEditorEnabled, sandboxEditor} = require("sandbox_editor.nut")
 let {canShowReplayHud, canShowGameHudInReplay} = require("%ui/hud/replay/replayState.nut")
 let {isReplay} = require("%ui/hud/state/replay_state.nut")
 
@@ -25,9 +23,6 @@ catch(e){
   log(e)
   logerr("errr loading hud.nut")
 }
-
-if (extraPropPanelCtors!=null)
-  extraPropPanelCtors([require("%ui/editorCustomView.nut")])
 
 require("dainput2").set_double_click_time(220)
 
@@ -58,15 +53,11 @@ let function root() {
     : [ content ]
 
 
-  if (editorIsActive.value && !showUIinEditor.value)
-    children = [globInput, editor]
-  else if (showUIinEditor.value)
-    children.append(editor)
+  if (editorActivness.value && !uiInEditor.value)
+    children = [globInput]
 
   if (!uiDisabled.value && levelLoaded.value)
     children.append(serviceInfo)
-  if (sandboxEditorEnabled.value)
-    children.append(sandboxEditor)
   if (isReplay.value) {
     let idxToRemove = children.findindex(@(v) v == hotkeysButtonsBar)
     if (idxToRemove != null)
@@ -80,7 +71,7 @@ let function root() {
   }
 
   return {
-    watch = [showLoading, uiDisabled, editorIsActive, showUIinEditor, levelLoaded, sandboxEditorEnabled, isReplay]
+    watch = [showLoading, uiDisabled, editorActivness, uiInEditor, levelLoaded, isReplay]
     size = flex()
     children
   }

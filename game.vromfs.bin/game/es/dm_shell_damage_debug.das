@@ -43,7 +43,9 @@ def debug_draw_shell_explosion(info : UpdateStageInfoRenderDebug;
   draw_cached_debug_sphere(pos, shell_damage_debug__shatterRadius, E3DCOLOR(0xFF00ccFF), 32)
 
   add_debug_text_mark(pos, "splash: {shell_damage_debug__splashDamage}", -1, -1.0, E3DCOLOR(0xFFFFFFFF))
-  add_debug_text_mark(pos, "shatter: {shell_damage_debug__shatterCount} X {shell_damage_debug__shatterDamage}", -1, 0.0, E3DCOLOR(0xFFFFFFFF))
+  add_debug_text_mark(pos, "splash radius: {shell_damage_debug__splashInnerRadius} - {shell_damage_debug__splashOuterRadius}", -1, 0.0, E3DCOLOR(0xFFFFFFFF))
+  add_debug_text_mark(pos, "shatter: {shell_damage_debug__shatterCount} X {shell_damage_debug__shatterDamage}", -1, 1.0, E3DCOLOR(0xFFFFFFFF))
+  add_debug_text_mark(pos, "shatter radius: {shell_damage_debug__shatterRadius}", -1, 2.0, E3DCOLOR(0xFFFFFFFF))
 
 [es(tag=(dev, render))]
 def debug_shell_explosion_damage_received(evt : EventShellExplosionDamageDebug; transform : float3x4)

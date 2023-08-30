@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {tipCmp} = require("%ui/hud/huds/tips/tipComponent.nut")
 let { inPlane, isDriver } = require("%ui/hud/state/vehicle_state.nut")
 let { mkHasBinding } = require("%ui/components/controlHudHint.nut")
@@ -32,7 +32,7 @@ return function() {
       text = loc($"controls/{key}")
       style = {rendObj = null}
       animations
-    }.__update(sub_txt))): null
+    }.__update(fontSub))): null
   return res.__update({
     flow = FLOW_VERTICAL
     gap = hdpx(3)

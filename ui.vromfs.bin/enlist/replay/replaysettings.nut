@@ -3,23 +3,29 @@ let { scan_folder, file_exists } = require("dagor.fs")
 let { flatten } = require("%sqstd/underscore.nut")
 let { showReplayTabInProfile } = require("%enlist/featureFlags.nut")
 let { load_replay_meta_info, replay_play } = require("app")
-let { NET_PROTO_VERSION, get_dasevent_net_version } = require("net")
+let { NET_PROTO_VERSION, get_replay_proto_version } = require("net")
 let {get_setting_by_blk_path } = require("settings")
 let msgbox = require("%enlist/components/msgbox.nut")
 let { remove } = require("system")
 let datacache = require("datacache")
-let { mkVersionFromString } = require("%sqstd/version.nut")
 
 let allowProtoMismatch = get_setting_by_blk_path("replay/allowProtoMismatch") ?? false
 let storageLimitMB = get_setting_by_blk_path("replay/storageLimitMB") ?? 300
 
-datacache.init_cache("records",
-{
-  mountPath = "records"
-  maxSize = storageLimitMB << 20
-  manualEviction = true
-  timeoutSec = -1
-})
+let replayStorageInited = Watched(false)
+let initReplayStorage = function() {
+  if (replayStorageInited.value)
+    return
+
+  datacache.init_cache("records",
+  {
+    mountPath = "records"
+    maxSize = storageLimitMB << 20
+    manualEviction = true
+    timeoutSec = -1
+  })
+  replayStorageInited(true)
+}
 
 let defaultRecordFolder = "replays/"
 let recordsFolders = [
@@ -31,12 +37,10 @@ let records = Watched([])
 let isReplayTabHidden = Computed(@() !showReplayTabInProfile.value)
 
 
-let isReplayProtocolValid = @(meta)
-  meta?.protocol_version == NET_PROTO_VERSION
-    && meta?.dasevent_net_version == get_dasevent_net_version()
-    && (mkVersionFromString(meta?.exe_version)[1].tointeger() != 4 || mkVersionFromString(meta?.exe_version)[2].tointeger() >= 5) // temp fix to not allow old replays
+let isReplayProtocolValid = @(meta) meta?.replay_version == get_replay_proto_version(NET_PROTO_VERSION)
 
 let function getFiles() {
+  initReplayStorage()
   let recordFiles = datacache.get_all_entries("records").map(function(v) {
     let fname = v.path.split("/").top()
     let recordInfo = load_replay_meta_info(v.path ?? "")
@@ -65,6 +69,7 @@ let function getFiles() {
 let updateReplays = @() records(getFiles())
 
 let function deleteReplay(replayPath){
+  initReplayStorage()
   let record = records.value.findvalue(@(v) v.id == replayPath)
   if (record == null)
     return
@@ -118,4 +123,5 @@ return {
   records
   updateReplays
   isReplayProtocolValid
+  initReplayStorage
 }

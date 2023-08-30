@@ -5,7 +5,7 @@ let tooltipBox = require("%ui/style/tooltipBox.nut")
 let colorize = require("%ui/components/colorize.nut")
 let sClassesCfg = require("%enlist/soldiers/model/config/sClassesConfig.nut")
 let spinner = require("%ui/components/spinner.nut")
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { utf8ToLower } = require("%sqstd/string.nut")
 let { getRomanNumeral } = require("%sqstd/math.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
@@ -232,7 +232,7 @@ let function makeCrateToolTip(crateContent, headerTxt = "", size = SIZE_TO_CONTE
   if (crateContent == null)
     return null
 
-  let header = headerTxt == "" ? null : mkTextArea(headerTxt).__update(body_txt)
+  let header = headerTxt == "" ? null : mkTextArea(headerTxt).__update(fontBody)
   return tooltipBox(function() {
     let { armyId = "", content = null } = crateContent.value
     return {

@@ -3,7 +3,7 @@ from "string" import split_by_chars
 
 let colors = require("%ui/style/colors.nut")
 let { isStringInteger, isStringFloat, isStringLatin } = require("%sqstd/string.nut")
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { setTooltip } = require("%ui/style/cursors.nut")
 let tooltipBox = require("%ui/style/tooltipBox.nut")
 let { defTxtColor, activeTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
@@ -75,14 +75,14 @@ let function defaultFrame(inputObj, group, sf) {
     rendObj = ROBJ_FRAME
     borderWidth = [hdpx(1), hdpx(1), 0, hdpx(1)]
     size = [flex(), SIZE_TO_CONTENT]
-    color = (sf & S_KB_FOCUS) ? Color(180, 180, 180) : Color(120, 120, 120)
+    color = sf & S_KB_FOCUS ? Color(180, 180, 180) : Color(120, 120, 120)
     group = group
 
     children = {
       rendObj = ROBJ_FRAME
       borderWidth = [0, 0, hdpx(1), 0]
       size = [flex(), SIZE_TO_CONTENT]
-      color = (sf & S_KB_FOCUS) ? Color(250, 250, 250) : Color(180, 180, 180)
+      color = sf & S_KB_FOCUS ? Color(250, 250, 250) : Color(180, 180, 180)
       group = group
 
       children = inputObj
@@ -209,7 +209,7 @@ let function textInput(text_state, options={}, frameCtor=defaultFrame) {
           behavior = Behaviors.TextArea
           color = defTxtColor
           text = hint
-        }.__update(sub_txt))
+        }.__update(fontSub))
       : null)
   }
 

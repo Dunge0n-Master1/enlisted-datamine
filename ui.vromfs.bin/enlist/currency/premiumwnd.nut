@@ -6,8 +6,8 @@ let buyShopItem = require("%enlist/shop/buyShopItem.nut")
 let mkCountdownTimer = require("%enlSqGlob/ui/mkCountdownTimer.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
-let { giant_txt, h0_txt, h1_txt, h2_txt, body_txt, sub_txt
-} = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontGiant, fontTitle, fontHeading1, fontHeading2, fontBody, fontSub
+} = require("%enlSqGlob/ui/fontsStyle.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { premiumProducts } = require("%enlist/shop/armyShopState.nut")
 let { sendBigQueryUIEvent } = require("%enlist/bigQueryEvents.nut")
@@ -98,13 +98,13 @@ let premiumDesc = @(idx, unitVal, descText, unitDesc = null) {
           transform = {}
           animations = mkPremiumValAnim(BLINK_DELAY * idx + BONUSES_TEXT_DELAY,
             accentTitleTxtColor, activeTxtColor)
-        }.__update(giant_txt))
+        }.__update(fontGiant))
         unitDesc == null ? null
           : txt({
               text = unitDesc
               color = activeTxtColor
               padding = [0, bigPadding]
-            }.__update(h2_txt))
+            }.__update(fontHeading2))
       ]
     }
     {
@@ -112,7 +112,7 @@ let premiumDesc = @(idx, unitVal, descText, unitDesc = null) {
       flow = FLOW_HORIZONTAL
       children = [
         { size = [hdpx(40), 0]}
-        noteTextArea(descText).__update({ color = activeTxtColor }, body_txt)
+        noteTextArea(descText).__update({ color = activeTxtColor }, fontBody)
       ]
     }
   ]
@@ -159,14 +159,16 @@ let function onPurchase(shopItem, premItemView, offer = null) {
 
 let saveValueBlock = @(selected, percents) {
   rendObj = selected ? ROBJ_SOLID : ROBJ_BOX
-  size = selected ? [hdpx(120), SIZE_TO_CONTENT] : SIZE_TO_CONTENT
+  size = [hdpx(120), SIZE_TO_CONTENT]
   color = selected ? accentTitleTxtColor : null
   halign = ALIGN_CENTER
   borderWidth = [0, 0, hdpx(2), 0]
   padding = [hdpx(5), 0]
   children = {
     rendObj = ROBJ_TEXTAREA
+    size = [flex(), SIZE_TO_CONTENT]
     behavior = Behaviors.TextArea
+    halign = ALIGN_CENTER
     text = loc("shop/youSave", {
       percents = colorize(selected ? selectedTxtColor :  accentTitleTxtColor, $"{percents}%")
     })
@@ -190,7 +192,7 @@ let mkDiscountBanner = @(locId, endTime) {
         rendObj = ROBJ_TEXT
         text = utf8ToUpper(loc(locId))
         color = titleTxtColor
-      }.__update(sub_txt)
+      }.__update(fontSub)
       endTime == 0 ? null : mkCountdownTimer({ timestamp = endTime })
     ]
   }, primeFlagStyle.__merge({
@@ -204,7 +206,7 @@ let mkPremItemView = @(selected, size, days, saveVal, sf = 0) {
   rendObj = ROBJ_BOX
   size
   borderWidth = hdpx(1)
-  borderColor = (selected || (sf & S_HOVER)) ? accentTitleTxtColor : basePremiumColor
+  borderColor = selected || (sf & S_HOVER) ? accentTitleTxtColor : basePremiumColor
   children = {
     flow = FLOW_VERTICAL
     hplace = ALIGN_CENTER
@@ -215,12 +217,12 @@ let mkPremItemView = @(selected, size, days, saveVal, sf = 0) {
         : saveValueBlock(selected, saveVal)
       txt({
         text = days
-        color = (selected || (sf & S_HOVER)) ? accentTitleTxtColor : activeTxtColor
-      }.__update(h0_txt))
+        color = selected || (sf & S_HOVER) ? accentTitleTxtColor : activeTxtColor
+      }.__update(fontTitle))
       txt({
         text = loc("premiumDays", { days })
         color = activeTxtColor
-      }.__update(h2_txt))
+      }.__update(fontHeading2))
     ]
   }
 }
@@ -305,9 +307,9 @@ let mkPremItem = kwarg(
                       currency
                       price
                       fullPrice
-                      txtStyle = { color = activeTxtColor }.__update(body_txt)
-                      discountStyle = { color = activeTxtColor }.__update(body_txt)
-                      dimStyle = { color = basePremiumColor}.__update(body_txt)
+                      txtStyle = { color = activeTxtColor }.__update(fontBody)
+                      discountStyle = { color = activeTxtColor }.__update(fontBody)
+                      dimStyle = { color = basePremiumColor}.__update(fontBody)
                     })
                   ]
                 }
@@ -385,11 +387,11 @@ let premiumInfo = {
         noteTextArea(loc("premiumDescBase"))
           .__update({
             color = activeTxtColor
-          }, body_txt)
+          }, fontBody)
         {
           size = flex()
           halign = ALIGN_RIGHT
-          children = premiumActiveInfo(h2_txt, accentTitleTxtColor)
+          children = premiumActiveInfo(fontHeading2, accentTitleTxtColor)
         }
       ]
     }
@@ -406,7 +408,7 @@ let premiumBlockContent = @() {
       padding = [fsh(2), fsh(3)]
       rendObj = ROBJ_TEXT
       text = utf8ToUpper(loc("premium/title"))
-    }.__update(h1_txt), primeFlagStyle)
+    }.__update(fontHeading1), primeFlagStyle)
     {
       size = [flex(), SIZE_TO_CONTENT]
       flow = FLOW_VERTICAL

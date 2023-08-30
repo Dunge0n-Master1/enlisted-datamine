@@ -1,7 +1,3 @@
-#default:no-func-decl-sugar
-#default:no-class-decl-sugar
-#default:no-root-fallback
-#default:explicit-this
 #default:forbid-root-table
 
 from "%enlSqGlob/ui_library.nut" import *
@@ -13,6 +9,13 @@ override_dashboard_show(SM_SHOW)
 ecs.clear_vm_entity_systems()
 
 let {safeAreaAmount,safeAreaVerPadding, safeAreaHorPadding} = require("%enlSqGlob/safeArea.nut")
+let {editorActivness, uiInEditor} = require("%enlSqGlob/editorState.nut")
+let {editor} = require("editor.nut")
+let {sandboxEditorEnabled, sandboxEditor} = require("sandbox_editor.nut")
+let {extraPropPanelCtors = null} = require("%daeditor/state.nut")
+if (extraPropPanelCtors!=null)
+  extraPropPanelCtors([require("editorCustomView.nut")])
+
 screenScaleUpdate(safeAreaAmount.value)
 
 require("%dngscripts/globalState.nut").setUniqueNestKey("Enlist")
@@ -155,16 +158,19 @@ let outOfBattleChildren = freeze([
 ])
 
 let showCursor = Computed(@() !isInBattleState.value)
+let showUi = Computed(@() !editorActivness.value || uiInEditor.value)
 
 return function Root() {
   return {
     cursor = showCursor.value ? cursors.normal : null
-    watch = [ showCursor, gui_scene.isActive, isInBattleState ]
-    children = !gui_scene.isActive.value
-      ? null
-      : isInBattleState.value
-          ? inBattleUiChildren
-          : outOfBattleChildren
+    watch = [ showCursor, gui_scene.isActive, isInBattleState, showUi, editorActivness, sandboxEditorEnabled ]
+    children = []
+      .extend((!gui_scene.isActive || !showUi.value)
+        ? []
+        : isInBattleState.value
+            ? inBattleUiChildren
+            : outOfBattleChildren
+      ).append(editorActivness.value ? editor : null, sandboxEditorEnabled.value ? sandboxEditor : null)
   }
 }
 

@@ -575,7 +575,7 @@ dmg{
 
 dmg{
   name:t="tree_african_bush_wide_a"
-  material:t="bushes_palm"
+  material:t="bushes"
   bushBehaviour:b=yes
   canopyTriangle:b=no
   canopyTopPart:r=0.7
@@ -588,7 +588,7 @@ dmg{
 
 dmg{
   name:t="tree_african_bush_wide_b"
-  material:t="bushes_palm"
+  material:t="bushes"
   bushBehaviour:b=yes
   canopyTriangle:b=no
   canopyTopPart:r=0.7
@@ -601,26 +601,26 @@ dmg{
 
 dmg{
   name:t="tree_fraxinus_bush_medium_a"
-  material:t="bushes_fall"
+  material:t="bushes"
   bushBehaviour:b=yes
   canopyTopPart:r=0.8
   canopyWidthPart:r=0.35
   canopyTopOffset:r=0.1
   canopyOpacity:r=0.5
-  fxTemplate:t="envir_destr_bush_fall_effect"
-  dmgFxTemplate:t="envir_collision_bush_fall_effect"
+  fxTemplate:t="envir_destr_bush_green_effect"
+  dmgFxTemplate:t="envir_collision_bush_green_effect"
 }
 
 dmg{
   name:t="tree_fraxinus_bush_medium_b"
-  material:t="bushes_fall"
+  material:t="bushes"
   bushBehaviour:b=yes
   canopyTopPart:r=0.8
   canopyWidthPart:r=0.35
   canopyTopOffset:r=0.1
   canopyOpacity:r=0.5
-  fxTemplate:t="envir_destr_bush_fall_effect"
-  dmgFxTemplate:t="envir_collision_bush_fall_effect"
+  fxTemplate:t="envir_destr_bush_green_effect"
+  dmgFxTemplate:t="envir_collision_bush_green_effect"
 }
 
 dmg{
@@ -900,6 +900,78 @@ dmg{
 }
 
 dmg{
+  name:t="tree_guadua_angustifolia_bush_a"
+  material:t="bushes"
+  bushBehaviour:b=yes
+  canopyTopPart:r=0.7
+  canopyWidthPart:r=0.85
+  canopyTopOffset:r=0.3
+  canopyOpacity:r=0.75
+  fxTemplate:t="envir_destr_bush_green_effect"
+  dmgFxTemplate:t="envir_collision_bush_palm_effect"
+}
+
+dmg{
+  name:t="tree_guadua_angustifolia_bush_b"
+  material:t="bushes"
+  bushBehaviour:b=yes
+  canopyTopPart:r=0.7
+  canopyWidthPart:r=0.85
+  canopyTopOffset:r=0.3
+  canopyOpacity:r=0.75
+  fxTemplate:t="envir_destr_bush_green_effect"
+  dmgFxTemplate:t="envir_collision_bush_palm_effect"
+}
+
+dmg{
+  name:t="hedge_griselinia_box_a"
+  material:t="bushes"
+  bushBehaviour:b=yes
+  canopyTopPart:r=0.85
+  canopyWidthPart:r=0.6
+  canopyTopOffset:r=0.2
+  canopyOpacity:r=0.75
+  fxTemplate:t="envir_destr_bush_green_effect"
+  dmgFxTemplate:t="envir_collision_bush_green_effect"
+}
+
+dmg{
+  name:t="hedge_griselinia_box_b"
+  material:t="bushes"
+  bushBehaviour:b=yes
+  canopyTopPart:r=0.95
+  canopyWidthPart:r=0.6
+  canopyTopOffset:r=0.2
+  canopyOpacity:r=0.75
+  fxTemplate:t="envir_destr_bush_green_effect"
+  dmgFxTemplate:t="envir_collision_bush_green_effect"
+}
+
+dmg{
+  name:t="hedge_griselinia_arch"
+  material:t="bushes"
+  bushBehaviour:b=yes
+  canopyTopPart:r=0.2
+  canopyWidthPart:r=0.2
+  canopyTopOffset:r=0.1
+  canopyOpacity:r=0.75
+  fxTemplate:t="envir_destr_bush_green_effect"
+  dmgFxTemplate:t="envir_collision_bush_green_effect"
+}
+
+dmg{
+  name:t="hedge_griselinia_box_sphere"
+  material:t="bushes"
+  bushBehaviour:b=yes
+  canopyTopPart:r=0.9
+  canopyWidthPart:r=0.4
+  canopyTopOffset:r=0.1
+  canopyOpacity:r=0.75
+  fxTemplate:t="envir_destr_bush_green_effect"
+  dmgFxTemplate:t="envir_collision_bush_green_effect"
+}
+
+dmg{
   name:t="monstera_bush_a"
   material:t="bushes"
   bushBehaviour:b=yes
@@ -1109,8 +1181,8 @@ dmg{
   canopyWidthPart:r=0.3
   canopyTopOffset:r=0.3
   canopyOpacity:r=0.2
-  fxTemplate:t="envir_destr_bush_green_effect"
-  dmgFxTemplate:t="envir_collision_bush_green_effect"
+  fxTemplate:t="envir_destr_bush_snow_effect"
+  dmgFxTemplate:t="envir_collision_bush_snow_effect"
 }
 
 dmg{
@@ -1123,8 +1195,8 @@ dmg{
   canopyWidthPart:r=0.4
   canopyTopOffset:r=0.4
   canopyOpacity:r=0.2
-  fxTemplate:t="envir_destr_bush_green_effect"
-  dmgFxTemplate:t="envir_collision_bush_green_effect"
+  fxTemplate:t="envir_destr_bush_snow_effect"
+  dmgFxTemplate:t="envir_collision_bush_snow_effect"
 }
 
 dmg{
@@ -1137,8 +1209,8 @@ dmg{
   canopyTopOffset:r=0.1
   canopyOpacity:r=0.5
   canopyTriangle:b=yes
-  fxTemplate:t="envir_destr_bush_green_effect"
-  dmgFxTemplate:t="envir_collision_bush_green_effect"
+  fxTemplate:t="envir_destr_bush_dead_effect"
+  dmgFxTemplate:t="envir_collision_bush_dead_effect"
 }
 
 dmg{
@@ -1151,8 +1223,8 @@ dmg{
   canopyTopOffset:r=0.1
   canopyOpacity:r=0.5
   canopyTriangle:b=yes
-  fxTemplate:t="envir_destr_bush_green_effect"
-  dmgFxTemplate:t="envir_collision_bush_green_effect"
+  fxTemplate:t="envir_destr_bush_dead_effect"
+  dmgFxTemplate:t="envir_collision_bush_dead_effect"
 }
 
 dmg{
@@ -1322,7 +1394,7 @@ dmg{
 dmg{
   name:t="tree_olive_a"
   destructionImpulse:r=5500.0
-  material:t="wood_solid"
+  material:t="wood_dead_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.4
   canopyWidthPart:r=0.5
@@ -1334,7 +1406,7 @@ dmg{
 dmg{
   name:t="tree_olive_b"
   destructionImpulse:r=5500.0
-  material:t="wood_solid"
+  material:t="wood_dead_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.4
   canopyWidthPart:r=0.5
@@ -1346,7 +1418,7 @@ dmg{
 dmg{
   name:t="tree_olive_c"
   destructionImpulse:r=5500.0
-  material:t="wood_solid"
+  material:t="wood_dead_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.4
   canopyWidthPart:r=0.5
@@ -1358,7 +1430,7 @@ dmg{
 dmg{
   name:t="tree_olive_d"
   destructionImpulse:r=5500.0
-  material:t="wood_solid"
+  material:t="wood_dead_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.4
   canopyWidthPart:r=0.5
@@ -1370,7 +1442,7 @@ dmg{
 dmg{
   name:t="tree_olive_bush_a"
   destructionImpulse:r=5500.0
-  material:t="bushes"
+  material:t="bushes_dead"
   bushBehaviour:b=yes
   canopyTriangle:b=no
   canopyTopPart:r=0.7
@@ -1384,7 +1456,7 @@ dmg{
 dmg{
   name:t="tree_olive_bush_b"
   destructionImpulse:r=5500.0
-  material:t="bushes"
+  material:t="bushes_dead"
   bushBehaviour:b=yes
   canopyTriangle:b=no
   canopyTopPart:r=0.7
@@ -1934,25 +2006,25 @@ dmg{
 dmg{
   name:t="tree_tilia_small_a"
   destructionImpulse:r=4000.0
-  material:t="wood_fall_solid"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.55
   canopyWidthPart:r=0.4
   canopyTopOffset:r=0.05
   canopyOpacity:r=0.5
-  fxTemplate:t="envir_destr_tree_fall_med_effect"
+  fxTemplate:t="envir_destr_tree_green_med_effect"
 }
 
 dmg{
   name:t="tree_tilia_small_b"
   destructionImpulse:r=4000.0
-  material:t="wood_fall_solid"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.55
   canopyWidthPart:r=0.4
   canopyTopOffset:r=0.05
   canopyOpacity:r=0.5
-  fxTemplate:t="envir_destr_tree_fall_med_effect"
+  fxTemplate:t="envir_destr_tree_green_med_effect"
 }
 
 dmg{
@@ -2390,49 +2462,49 @@ dmg{
 dmg{
   name:t="tree_tilia_medium_a"
   destructionImpulse:r=9000.0
-  material:t="wood_fall_solid"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.6
   canopyWidthPart:r=0.5
   canopyTopOffset:r=0.1
   canopyOpacity:r=0.5
-  fxTemplate:t="envir_destr_tree_fall_med_effect"
+  fxTemplate:t="envir_destr_tree_green_med_effect"
 }
 
 dmg{
   name:t="tree_tilia_medium_b"
   destructionImpulse:r=9000.0
-  material:t="wood_fall_solid"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.6
   canopyWidthPart:r=0.5
   canopyTopOffset:r=0.1
   canopyOpacity:r=0.5
-  fxTemplate:t="envir_destr_tree_fall_med_effect"
+  fxTemplate:t="envir_destr_tree_green_med_effect"
 }
 
 dmg{
   name:t="tree_tilia_medium_c"
   destructionImpulse:r=9000.0
-  material:t="wood_fall_solid"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.6
   canopyWidthPart:r=0.5
   canopyTopOffset:r=0.1
   canopyOpacity:r=0.5
-  fxTemplate:t="envir_destr_tree_fall_med_effect"
+  fxTemplate:t="envir_destr_tree_green_med_effect"
 }
 
 dmg{
   name:t="tree_tilia_medium_d"
   destructionImpulse:r=9000.0
-  material:t="wood_fall_solid"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.6
   canopyWidthPart:r=0.65
   canopyTopOffset:r=0.1
   canopyOpacity:r=0.5
-  fxTemplate:t="envir_destr_tree_fall_med_effect"
+  fxTemplate:t="envir_destr_tree_green_med_effect"
 }
 
 dmg{
@@ -2485,7 +2557,7 @@ dmg{
 
 dmg{
   name:t="tree_guadua_angustifolia_medium_a"
-  destructionImpulse:r=9000.0
+  destructionImpulse:r=1800.0
   material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.4
@@ -2497,7 +2569,7 @@ dmg{
 
 dmg{
   name:t="tree_guadua_angustifolia_medium_b"
-  destructionImpulse:r=9000.0
+  destructionImpulse:r=1800.0
   material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.4
@@ -2509,7 +2581,7 @@ dmg{
 
 dmg{
   name:t="tree_guadua_angustifolia_small_a"
-  destructionImpulse:r=9000.0
+  destructionImpulse:r=1800.0
   material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.4
@@ -2521,7 +2593,7 @@ dmg{
 
 dmg{
   name:t="tree_guadua_angustifolia_small_b"
-  destructionImpulse:r=9000.0
+  destructionImpulse:r=1800.0
   material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.4
@@ -2533,35 +2605,35 @@ dmg{
 
 dmg{
   name:t="tree_guadua_angustifolia_bend_a"
-  destructionImpulse:r=9000.0
+  destructionImpulse:r=1800.0
   material:t="wood_solid"
   fxTemplate:t="envir_destr_tree_green_med_effect"
 }
 
 dmg{
   name:t="tree_guadua_angustifolia_bend_b"
-  destructionImpulse:r=9000.0
+  destructionImpulse:r=1800.0
   material:t="wood_solid"
   fxTemplate:t="envir_destr_tree_green_med_effect"
 }
 
 dmg{
   name:t="tree_guadua_angustifolia_bend_c"
-  destructionImpulse:r=9000.0
+  destructionImpulse:r=1800.0
   material:t="wood_solid"
   fxTemplate:t="envir_destr_tree_green_med_effect"
 }
 
 dmg{
   name:t="tree_guadua_angustifolia_cut_a"
-  destructionImpulse:r=9000.0
+  destructionImpulse:r=1800.0
   material:t="wood_solid"
   fxTemplate:t="envir_destr_tree_green_med_effect"
 }
 
 dmg{
   name:t="tree_guadua_angustifolia_cut_b"
-  destructionImpulse:r=9000.0
+  destructionImpulse:r=1800.0
   material:t="wood_solid"
   fxTemplate:t="envir_destr_tree_green_med_effect"
 }
@@ -2701,7 +2773,7 @@ dmg{
 dmg{
   name:t="tree_tilia_medium_burnt_a"
   destructionImpulse:r=9000.0
-  material:t="wood_solid"
+  material:t="wood_dead_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.4
   canopyWidthPart:r=0.005
@@ -2713,7 +2785,7 @@ dmg{
 dmg{
   name:t="tree_tilia_medium_burnt_b"
   destructionImpulse:r=9000.0
-  material:t="wood_solid"
+  material:t="wood_dead_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.4
   canopyWidthPart:r=0.005
@@ -2819,54 +2891,6 @@ dmg{
 }
 
 dmg{
-  name:t="tree_tectona_grandis_medium_a"
-  destructionImpulse:r=9000.0
-  material:t="wood_solid"
-  canopyTriangle:b=no
-  canopyTopPart:r=0.35
-  canopyWidthPart:r=0.45
-  canopyTopOffset:r=0.2
-  canopyOpacity:r=0.5
-  fxTemplate:t="envir_destr_tree_green_med_effect"
-}
-
-dmg{
-  name:t="tree_tectona_grandis_medium_b"
-  destructionImpulse:r=9000.0
-  material:t="wood_solid"
-  canopyTriangle:b=no
-  canopyTopPart:r=0.35
-  canopyWidthPart:r=0.45
-  canopyTopOffset:r=0.2
-  canopyOpacity:r=0.5
-  fxTemplate:t="envir_destr_tree_green_med_effect"
-}
-
-dmg{
-  name:t="tree_agathis_robusta_medium_a"
-  destructionImpulse:r=9000.0
-  material:t="wood_solid"
-  canopyTriangle:b=no
-  canopyTopPart:r=0.35
-  canopyWidthPart:r=0.5
-  canopyTopOffset:r=0.1
-  canopyOpacity:r=0.5
-  fxTemplate:t="envir_destr_tree_green_med_effect"
-}
-
-dmg{
-  name:t="tree_agathis_robusta_medium_b"
-  destructionImpulse:r=9000.0
-  material:t="wood_solid"
-  canopyTriangle:b=no
-  canopyTopPart:r=0.35
-  canopyWidthPart:r=0.4
-  canopyTopOffset:r=0.05
-  canopyOpacity:r=0.5
-  fxTemplate:t="envir_destr_tree_green_med_effect"
-}
-
-dmg{
   name:t="tree_pacific_mangroves_a"
   destructionImpulse:r=90000.0
   material:t="wood_solid"
@@ -2953,25 +2977,25 @@ dmg{
 dmg{
   name:t="tree_acacia_wide_a"
   destructionImpulse:r=11000.0
-  material:t="wood_solid"
+  material:t="wood_dead_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.3
   canopyWidthPart:r=0.7
   canopyTopOffset:r=0.2
   canopyOpacity:r=0.75
-  fxTemplate:t="envir_destr_tree_green_big_effect"
+  fxTemplate:t="envir_destr_tree_dead_big_effect"
 }
 
 dmg{
   name:t="tree_acacia_wide_b"
   destructionImpulse:r=11000.0
-  material:t="wood_solid"
+  material:t="wood_dead_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.3
   canopyWidthPart:r=0.7
   canopyTopOffset:r=0.2
   canopyOpacity:r=0.75
-  fxTemplate:t="envir_destr_tree_green_big_effect"
+  fxTemplate:t="envir_destr_tree_dead_big_effect"
 }
 
 dmg{
@@ -3038,30 +3062,6 @@ dmg{
   destructionImpulse:r=11000.0
   material:t="wood_dead_solid"
   fxTemplate:t="envir_destr_tree_dead_big_effect"
-}
-
-dmg{
-  name:t="tree_agathis_robusta_tall_a"
-  destructionImpulse:r=11000.0
-  material:t="wood_solid"
-  canopyTriangle:b=no
-  canopyTopPart:r=0.45
-  canopyWidthPart:r=0.35
-  canopyTopOffset:r=0.1
-  canopyOpacity:r=0.5
-  fxTemplate:t="envir_destr_tree_green_big_effect"
-}
-
-dmg{
-  name:t="tree_agathis_robusta_tall_b"
-  destructionImpulse:r=11000.0
-  material:t="wood_solid"
-  canopyTriangle:b=no
-  canopyTopPart:r=0.45
-  canopyWidthPart:r=0.35
-  canopyTopOffset:r=0.1
-  canopyOpacity:r=0.5
-  fxTemplate:t="envir_destr_tree_green_big_effect"
 }
 
 dmg{
@@ -3276,30 +3276,6 @@ dmg{
   canopyTopPart:r=0.45
   canopyWidthPart:r=0.5
   canopyTopOffset:r=0.1
-  canopyOpacity:r=0.5
-  fxTemplate:t="envir_destr_tree_green_big_effect"
-}
-
-dmg{
-  name:t="tree_tectona_grandis_tall_a"
-  destructionImpulse:r=90000.0
-  material:t="wood_solid"
-  canopyTriangle:b=no
-  canopyTopPart:r=0.35
-  canopyWidthPart:r=0.45
-  canopyTopOffset:r=0.2
-  canopyOpacity:r=0.5
-  fxTemplate:t="envir_destr_tree_green_big_effect"
-}
-
-dmg{
-  name:t="tree_tectona_grandis_tall_b"
-  destructionImpulse:r=90000.0
-  material:t="wood_solid"
-  canopyTriangle:b=no
-  canopyTopPart:r=0.35
-  canopyWidthPart:r=0.45
-  canopyTopOffset:r=0.2
   canopyOpacity:r=0.5
   fxTemplate:t="envir_destr_tree_green_big_effect"
 }
@@ -3595,37 +3571,37 @@ dmg{
 dmg{
   name:t="tree_tilia_tall_a"
   destructionImpulse:r=9000.0
-  material:t="wood_fall_solid"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.45
   canopyWidthPart:r=0.3
   canopyTopOffset:r=0.15
   canopyOpacity:r=0.5
-  fxTemplate:t="envir_destr_tree_fall_big_effect"
+  fxTemplate:t="envir_destr_tree_green_med_effect"
 }
 
 dmg{
   name:t="tree_tilia_tall_b"
   destructionImpulse:r=9000.0
-  material:t="wood_fall_solid"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.45
   canopyWidthPart:r=0.3
   canopyTopOffset:r=0.15
   canopyOpacity:r=0.5
-  fxTemplate:t="envir_destr_tree_fall_big_effect"
+  fxTemplate:t="envir_destr_tree_green_med_effect"
 }
 
 dmg{
   name:t="tree_tilia_tall_c"
   destructionImpulse:r=9000.0
-  material:t="wood_fall_solid"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.45
   canopyWidthPart:r=0.6
   canopyTopOffset:r=0.15
   canopyOpacity:r=0.5
-  fxTemplate:t="envir_destr_tree_fall_big_effect"
+  fxTemplate:t="envir_destr_tree_green_med_effect"
 }
 
 dmg{
@@ -3739,45 +3715,45 @@ dmg{
 dmg{
   name:t="tree_tilia_slim_a"
   destructionImpulse:r=9000.0
-  material:t="wood_fall_solid"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.45
   canopyWidthPart:r=0.35
   canopyTopOffset:r=0.15
   canopyOpacity:r=0.5
-  fxTemplate:t="envir_destr_tree_fall_big_effect"
+  fxTemplate:t="envir_destr_tree_green_big_effect"
 }
 
 dmg{
   name:t="tree_tilia_slim_b"
   destructionImpulse:r=9000.0
-  material:t="wood_fall_solid"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.45
   canopyWidthPart:r=0.35
   canopyTopOffset:r=0.15
   canopyOpacity:r=0.5
-  fxTemplate:t="envir_destr_tree_fall_big_effect"
+  fxTemplate:t="envir_destr_tree_green_big_effect"
 }
 
 dmg{
   name:t="tree_tilia_tall_burnt_a"
   destructionImpulse:r=9000.0
   material:t="wood_dead_solid"
-  fxTemplate:t="envir_destr_tree_green_big_effect"
+  fxTemplate:t="envir_destr_tree_dead_big_effect"
 }
 
 dmg{
   name:t="tree_tilia_tall_burnt_b"
   destructionImpulse:r=9000.0
   material:t="wood_dead_solid"
-  fxTemplate:t="envir_destr_tree_green_big_effect"
+  fxTemplate:t="envir_destr_tree_dead_big_effect"
 }
 
 dmg{
   name:t="tree_tilia_mobile_dead_tall_a"
   destructionImpulse:r=9000.0
-  material:t="wood_solid"
+  material:t="wood_dead_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.45
   canopyWidthPart:r=0.35
@@ -3789,7 +3765,7 @@ dmg{
 dmg{
   name:t="tree_tilia_mobile_dead_tall_b"
   destructionImpulse:r=9000.0
-  material:t="wood_solid"
+  material:t="wood_dead_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.45
   canopyWidthPart:r=0.35
@@ -3814,7 +3790,7 @@ dmg{
   canopyWidthPart:r=0.5
   canopyTopOffset:r=0.15
   canopyOpacity:r=0.5
-  fxTemplate:t="envir_destr_tree_dead_big_effect"
+  fxTemplate:t="envir_destr_tree_green_big_effect"
 }
 
 dmg{
@@ -3826,13 +3802,13 @@ dmg{
   canopyWidthPart:r=0.5
   canopyTopOffset:r=0.15
   canopyOpacity:r=0.5
-  fxTemplate:t="envir_destr_tree_dead_big_effect"
+  fxTemplate:t="envir_destr_tree_green_big_effect"
 }
 
 dmg{
   name:t="tree_apple_dead_wide_a"
   destructionImpulse:r=50000.0
-  material:t="wood_solid"
+  material:t="wood_dead_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.55
   canopyWidthPart:r=0.5
@@ -3844,7 +3820,7 @@ dmg{
 dmg{
   name:t="tree_apple_dead_wide_b"
   destructionImpulse:r=50000.0
-  material:t="wood_solid"
+  material:t="wood_dead_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.55
   canopyWidthPart:r=0.5
@@ -4168,7 +4144,7 @@ dmg{
 dmg{
   name:t="tree_tilia_dead_tall_a"
   destructionImpulse:r=60000.0
-  material:t="wood_solid"
+  material:t="wood_dead_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.4
   canopyWidthPart:r=0.4
@@ -4180,7 +4156,7 @@ dmg{
 dmg{
   name:t="tree_tilia_dead_tall_b"
   destructionImpulse:r=60000.0
-  material:t="wood_solid"
+  material:t="wood_dead_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.4
   canopyWidthPart:r=0.4
@@ -4430,7 +4406,7 @@ dmg{
   canopyWidthPart:r=0.45
   canopyTopOffset:r=0.1
   canopyOpacity:r=0.25
-  fxTemplate:t="envir_destr_tree_dead_big_effect"
+  fxTemplate:t="envir_destr_tree_green_big_effect"
 }
 
 dmg{
@@ -4442,7 +4418,7 @@ dmg{
   canopyWidthPart:r=0.45
   canopyTopOffset:r=0.1
   canopyOpacity:r=0.25
-  fxTemplate:t="envir_destr_tree_dead_big_effect"
+  fxTemplate:t="envir_destr_tree_green_big_effect"
 }
 
 dmg{
@@ -4454,7 +4430,7 @@ dmg{
   canopyWidthPart:r=0.45
   canopyTopOffset:r=0.1
   canopyOpacity:r=0.25
-  fxTemplate:t="envir_destr_tree_dead_big_effect"
+  fxTemplate:t="envir_destr_tree_green_big_effect"
 }
 
 dmg{
@@ -4466,7 +4442,7 @@ dmg{
   canopyWidthPart:r=0.45
   canopyTopOffset:r=0.1
   canopyOpacity:r=0.25
-  fxTemplate:t="envir_destr_tree_dead_big_effect"
+  fxTemplate:t="envir_destr_tree_green_big_effect"
 }
 
 dmg{
@@ -4599,7 +4575,6 @@ dmg{
   canopyTopOffset:r=0.1
   canopyOpacity:r=0.5
   fxTemplate:t="envir_destr_tree_dead_big_effect"
-  fxTemplate:t="envir_destr_tree_dead_big_effect"
 }
 
 dmg{
@@ -4612,7 +4587,6 @@ dmg{
   canopyTopOffset:r=0.1
   canopyOpacity:r=0.5
   FxTemplate:t="envir_destr_tree_dead_big_effect"
-  fxTemplate:t="envir_destr_tree_dead_big_effect"
 }
 
 dmg{
@@ -4624,7 +4598,6 @@ dmg{
   canopyWidthPart:r=0.5
   canopyTopOffset:r=0.2
   canopyOpacity:r=0.5
-  fxTemplate:t="envir_destr_tree_fall_big_effect"
   fxTemplate:t="envir_destr_tree_dead_big_effect"
 }
 
@@ -4637,7 +4610,6 @@ dmg{
   canopyWidthPart:r=0.5
   canopyTopOffset:r=0.2
   canopyOpacity:r=0.5
-  fxTemplate:t="envir_destr_tree_fall_big_effect"
   fxTemplate:t="envir_destr_tree_dead_big_effect"
 }
 
@@ -4650,8 +4622,7 @@ dmg{
   canopyWidthPart:r=0.6
   canopyTopOffset:r=0.2
   canopyOpacity:r=0.5
-  fxTemplate:t="envir_destr_tree_fall_med_effect"
-  fxTemplate:t="envir_destr_tree_dead_big_effect"
+  fxTemplate:t="envir_destr_tree_dead_med_effect"
 }
 
 dmg{
@@ -4663,8 +4634,7 @@ dmg{
   canopyWidthPart:r=0.6
   canopyTopOffset:r=0.2
   canopyOpacity:r=0.5
-  fxTemplate:t="envir_destr_tree_fall_med_effect"
-  fxTemplate:t="envir_destr_tree_dead_big_effect"
+  fxTemplate:t="envir_destr_tree_dead_med_effect"
 }
 
 dmg{
@@ -4676,8 +4646,7 @@ dmg{
   canopyWidthPart:r=0.7
   canopyTopOffset:r=0.25
   canopyOpacity:r=0.5
-  fxTemplate:t="envir_destr_tree_fall_med_effect"
-  fxTemplate:t="envir_destr_tree_dead_big_effect"
+  fxTemplate:t="envir_destr_tree_dead_med_effect"
 }
 
 dmg{
@@ -4689,8 +4658,7 @@ dmg{
   canopyWidthPart:r=0.7
   canopyTopOffset:r=0.2
   canopyOpacity:r=0.5
-  fxTemplate:t="envir_destr_tree_fall_med_effect"
-  fxTemplate:t="envir_destr_tree_dead_big_effect"
+  fxTemplate:t="envir_destr_tree_dead_med_effect"
 }
 
 dmg{
@@ -4702,8 +4670,7 @@ dmg{
   canopyWidthPart:r=0.7
   canopyTopOffset:r=0.2
   canopyOpacity:r=0.5
-  fxTemplate:t="envir_destr_tree_fall_med_effect"
-  fxTemplate:t="envir_destr_tree_dead_big_effect"
+  fxTemplate:t="envir_destr_tree_dead_med_effect"
 }
 
 dmg{
@@ -4715,7 +4682,6 @@ dmg{
   canopyWidthPart:r=0.6
   canopyTopOffset:r=0.1
   canopyOpacity:r=0.5
-  fxTemplate:t="envir_destr_tree_fall_big_effect"
   fxTemplate:t="envir_destr_tree_green_big_effect"
 }
 
@@ -4728,7 +4694,6 @@ dmg{
   canopyWidthPart:r=0.6
   canopyTopOffset:r=0.1
   canopyOpacity:r=0.5
-  fxTemplate:t="envir_destr_tree_fall_big_effect"
   fxTemplate:t="envir_destr_tree_green_big_effect"
 }
 
@@ -4741,7 +4706,6 @@ dmg{
   canopyWidthPart:r=0.8
   canopyTopOffset:r=0.2
   canopyOpacity:r=0.5
-  fxTemplate:t="envir_destr_tree_fall_big_effect"
   fxTemplate:t="envir_destr_tree_green_big_effect"
 }
 
@@ -4754,7 +4718,6 @@ dmg{
   canopyWidthPart:r=0.8
   canopyTopOffset:r=0.2
   canopyOpacity:r=0.5
-  fxTemplate:t="envir_destr_tree_fall_big_effect"
   fxTemplate:t="envir_destr_tree_green_big_effect"
 }
 
@@ -4855,6 +4818,102 @@ dmg{
 }
 
 dmg{
+  name:t="tree_tectona_grandis_medium_a"
+  destructionImpulse:r=5000000.0
+  material:t="wood_solid"
+  canopyTriangle:b=no
+  canopyTopPart:r=0.35
+  canopyWidthPart:r=0.45
+  canopyTopOffset:r=0.2
+  canopyOpacity:r=0.5
+  fxTemplate:t="envir_destr_tree_green_med_effect"
+}
+
+dmg{
+  name:t="tree_tectona_grandis_medium_b"
+  destructionImpulse:r=5000000.0
+  material:t="wood_solid"
+  canopyTriangle:b=no
+  canopyTopPart:r=0.35
+  canopyWidthPart:r=0.45
+  canopyTopOffset:r=0.2
+  canopyOpacity:r=0.5
+  fxTemplate:t="envir_destr_tree_green_med_effect"
+}
+
+dmg{
+  name:t="tree_tectona_grandis_tall_a"
+  destructionImpulse:r=5000000.0
+  material:t="wood_solid"
+  canopyTriangle:b=no
+  canopyTopPart:r=0.35
+  canopyWidthPart:r=0.45
+  canopyTopOffset:r=0.2
+  canopyOpacity:r=0.5
+  fxTemplate:t="envir_destr_tree_green_big_effect"
+}
+
+dmg{
+  name:t="tree_tectona_grandis_tall_b"
+  destructionImpulse:r=5000000.0
+  material:t="wood_solid"
+  canopyTriangle:b=no
+  canopyTopPart:r=0.35
+  canopyWidthPart:r=0.45
+  canopyTopOffset:r=0.2
+  canopyOpacity:r=0.5
+  fxTemplate:t="envir_destr_tree_green_big_effect"
+}
+
+dmg{
+  name:t="tree_agathis_robusta_medium_a"
+  destructionImpulse:r=5000000.0
+  material:t="wood_solid"
+  canopyTriangle:b=no
+  canopyTopPart:r=0.35
+  canopyWidthPart:r=0.5
+  canopyTopOffset:r=0.1
+  canopyOpacity:r=0.5
+  fxTemplate:t="envir_destr_tree_green_med_effect"
+}
+
+dmg{
+  name:t="tree_agathis_robusta_medium_b"
+  destructionImpulse:r=5000000.0
+  material:t="wood_solid"
+  canopyTriangle:b=no
+  canopyTopPart:r=0.35
+  canopyWidthPart:r=0.4
+  canopyTopOffset:r=0.05
+  canopyOpacity:r=0.5
+  fxTemplate:t="envir_destr_tree_green_med_effect"
+}
+
+dmg{
+  name:t="tree_agathis_robusta_tall_a"
+  destructionImpulse:r=5000000.0
+  material:t="wood_solid"
+  canopyTriangle:b=no
+  canopyTopPart:r=0.45
+  canopyWidthPart:r=0.35
+  canopyTopOffset:r=0.1
+  canopyOpacity:r=0.5
+  fxTemplate:t="envir_destr_tree_green_big_effect"
+}
+
+dmg{
+  name:t="tree_agathis_robusta_tall_b"
+  destructionImpulse:r=5000000.0
+  material:t="wood_solid"
+  canopyTriangle:b=no
+  canopyTopPart:r=0.45
+  canopyWidthPart:r=0.35
+  canopyTopOffset:r=0.1
+  canopyOpacity:r=0.5
+  fxTemplate:t="envir_destr_tree_green_big_effect"
+}
+
+dmg{
   name:t="tree_cocos_nucifera_medium_a"
   destructionImpulse:r=6000.0
   canopyTriangle:b=no
@@ -4862,7 +4921,7 @@ dmg{
   canopyTopOffset:r=0.2
   canopyWidthPart:r=0.15
   canopyOpacity:r=0.5
-  material:t="wood_solid"
+  material:t="wood_palm_solid"
   isParent:b=yes
   fxTemplate:t="envir_destr_tree_palm_med_effect"
 }
@@ -4875,7 +4934,7 @@ dmg{
   canopyTopOffset:r=0.2
   canopyWidthPart:r=0.15
   canopyOpacity:r=0.5
-  material:t="wood_solid"
+  material:t="wood_palm_solid"
   isParent:b=yes
   fxTemplate:t="envir_destr_tree_palm_med_effect"
 }
@@ -4888,7 +4947,7 @@ dmg{
   canopyTopOffset:r=0.2
   canopyWidthPart:r=0.15
   canopyOpacity:r=0.5
-  material:t="wood_solid"
+  material:t="wood_palm_solid"
   isParent:b=yes
   fxTemplate:t="envir_destr_tree_palm_med_effect"
 }
@@ -4901,7 +4960,7 @@ dmg{
   canopyTopOffset:r=0.2
   canopyWidthPart:r=0.15
   canopyOpacity:r=0.5
-  material:t="wood_solid"
+  material:t="wood_palm_solid"
   isParent:b=yes
   fxTemplate:t="envir_destr_tree_palm_med_effect"
 }
@@ -4914,7 +4973,7 @@ dmg{
   canopyTopOffset:r=0.25
   canopyWidthPart:r=0.1
   canopyOpacity:r=0.5
-  material:t="wood_solid"
+  material:t="wood_palm_solid"
   isParent:b=yes
   fxTemplate:t="envir_destr_tree_palm_med_effect"
 }
@@ -4927,7 +4986,7 @@ dmg{
   canopyTopOffset:r=0.25
   canopyWidthPart:r=0.15
   canopyOpacity:r=0.5
-  material:t="wood_solid"
+  material:t="wood_palm_solid"
   isParent:b=yes
   fxTemplate:t="envir_destr_tree_palm_med_effect"
 }
@@ -4940,7 +4999,7 @@ dmg{
   canopyTopOffset:r=0.25
   canopyWidthPart:r=0.15
   canopyOpacity:r=0.5
-  material:t="wood_solid"
+  material:t="wood_palm_solid"
   isParent:b=yes
   fxTemplate:t="envir_destr_tree_palm_med_effect"
 }
@@ -4953,7 +5012,7 @@ dmg{
   canopyTopOffset:r=0.25
   canopyWidthPart:r=0.15
   canopyOpacity:r=0.5
-  material:t="wood_solid"
+  material:t="wood_palm_solid"
   isParent:b=yes
   fxTemplate:t="envir_destr_tree_palm_med_effect"
 }
@@ -4966,7 +5025,7 @@ dmg{
   canopyTopOffset:r=0.17
   canopyWidthPart:r=0.15
   canopyOpacity:r=0.5
-  material:t="wood_solid"
+  material:t="wood_palm_solid"
   isParent:b=yes
   fxTemplate:t="envir_destr_tree_palm_big_effect"
 }
@@ -4979,7 +5038,7 @@ dmg{
   canopyTopOffset:r=0.17
   canopyWidthPart:r=0.15
   canopyOpacity:r=0.5
-  material:t="wood_solid"
+  material:t="wood_palm_solid"
   isParent:b=yes
   fxTemplate:t="envir_destr_tree_palm_big_effect"
 }
@@ -4992,7 +5051,7 @@ dmg{
   canopyTopOffset:r=0.17
   canopyWidthPart:r=0.15
   canopyOpacity:r=0.5
-  material:t="wood_solid"
+  material:t="wood_palm_solid"
   isParent:b=yes
   fxTemplate:t="envir_destr_tree_palm_big_effect"
 }
@@ -5005,7 +5064,7 @@ dmg{
   canopyTopOffset:r=0.17
   canopyWidthPart:r=0.15
   canopyOpacity:r=0.5
-  material:t="wood_solid"
+  material:t="wood_palm_solid"
   isParent:b=yes
   fxTemplate:t="envir_destr_tree_palm_big_effect"
 }
@@ -5018,7 +5077,7 @@ dmg{
   canopyTopOffset:r=0.2
   canopyWidthPart:r=0.2
   canopyOpacity:r=0.5
-  material:t="wood_solid"
+  material:t="wood_palm_solid"
   fxTemplate:t="envir_destr_tree_palm_med_effect"
 }
 
@@ -5030,7 +5089,7 @@ dmg{
   canopyTopOffset:r=0.2
   canopyWidthPart:r=0.2
   canopyOpacity:r=0.5
-  material:t="wood_solid"
+  material:t="wood_palm_solid"
   fxTemplate:t="envir_destr_tree_palm_med_effect"
 }
 
@@ -5042,7 +5101,7 @@ dmg{
   canopyTopOffset:r=0.27
   canopyWidthPart:r=0.32
   canopyOpacity:r=0.5
-  material:t="wood_solid"
+  material:t="wood_palm_solid"
   fxTemplate:t="envir_destr_tree_palm_med_effect"
 }
 
@@ -5054,7 +5113,7 @@ dmg{
   canopyTopOffset:r=0.27
   canopyWidthPart:r=0.32
   canopyOpacity:r=0.5
-  material:t="wood_solid"
+  material:t="wood_palm_solid"
   fxTemplate:t="envir_destr_tree_palm_med_effect"
 }
 
@@ -5066,7 +5125,7 @@ dmg{
   canopyTopOffset:r=0.21
   canopyWidthPart:r=0.32
   canopyOpacity:r=0.5
-  material:t="wood_solid"
+  material:t="wood_palm_solid"
   fxTemplate:t="envir_destr_tree_palm_big_effect"
 }
 
@@ -5078,7 +5137,7 @@ dmg{
   canopyTopOffset:r=0.21
   canopyWidthPart:r=0.32
   canopyOpacity:r=0.5
-  material:t="wood_solid"
+  material:t="wood_palm_solid"
   fxTemplate:t="envir_destr_tree_palm_big_effect"
 }
 
@@ -5129,7 +5188,7 @@ dmg{
   canopyTopOffset:r=0.3
   canopyWidthPart:r=1.2
   canopyOpacity:r=0.5
-  material:t="bushes"
+  material:t="bushes_dead"
   fxTemplate:t="envir_destr_bush_dead_effect"
   dmgFxTemplate:t="envir_collision_bush_dead_effect"
 }
@@ -5142,7 +5201,7 @@ dmg{
   canopyTopOffset:r=0.3
   canopyWidthPart:r=1.2
   canopyOpacity:r=0.5
-  material:t="bushes"
+  material:t="bushes_dead"
   fxTemplate:t="envir_destr_bush_dead_effect"
   dmgFxTemplate:t="envir_collision_bush_dead_effect"
 }
@@ -5409,6 +5468,22 @@ riExtra{
     physRes:t="wooden_trash_l_destr_phobj"
   }
 
+  debris_trash_wood_plank_a{
+    hp:r=10.0
+    material:t="wood"
+    fxTemplate:t="envir_destr_wood_small_effect"
+    fxScale:r=1.0
+    floatable:b=yes
+  }
+
+  debris_trash_wood_plank_b{
+    hp:r=10.0
+    material:t="wood"
+    fxTemplate:t="envir_destr_wood_small_effect"
+    fxScale:r=1.0
+    floatable:b=yes
+  }
+
   village_barn_a{
     hp:r=40.0
     impulseThreshold:r=15.0
@@ -5458,6 +5533,7 @@ riExtra{
     fxTemplate:t="envir_destr_wood_med_effect"
     fxScale:r=1.0
     physRes:t="wooden_barrel_a_destr_phobj"
+    floatable:b=yes
   }
 
   wooden_barrel_b{
@@ -5469,6 +5545,7 @@ riExtra{
     fxTemplate:t="envir_destr_wood_med_effect"
     fxScale:r=1.0
     physRes:t="wooden_barrel_b_destr_phobj"
+    floatable:b=yes
   }
 
   wooden_barrel_c{
@@ -5480,11 +5557,13 @@ riExtra{
     fxTemplate:t="envir_destr_wood_med_effect"
     fxScale:r=1.0
     physRes:t="wooden_barrel_c_destr_phobj"
+    floatable:b=yes
   }
 
   bobbin_cable_a{
-    hp:r=4000.0
-    impulseThreshold:r=1000.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     material:t="wood"
     fxTemplate:t="envir_destr_wood_med_effect"
     fxScale:r=1.0
@@ -5492,8 +5571,9 @@ riExtra{
   }
 
   bobbin_cable_set_a{
-    hp:r=4000.0
-    impulseThreshold:r=1000.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     material:t="wood"
     fxTemplate:t="envir_destr_wood_med_effect"
     fxScale:r=1.0
@@ -5517,6 +5597,7 @@ riExtra{
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
     physRes:t="metal_barrel_a_destr_phobj"
+    floatable:b=yes
   }
 
   metal_barrel_b{
@@ -5527,6 +5608,7 @@ riExtra{
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
     physRes:t="metal_barrel_b_destr_phobj"
+    floatable:b=yes
   }
 
   metal_barrel_c{
@@ -5537,6 +5619,7 @@ riExtra{
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
     physRes:t="metal_barrel_c_destr_phobj"
+    floatable:b=yes
   }
 
   metal_barrels_pile_a{
@@ -7209,46 +7292,6 @@ riExtra{
     fxTemplate:t="envir_destr_metal_small_effect"
     fxScale:r=1.0
     physRes:t="blast_furnace_stair_fence_right_b_destr_phobj"
-  }
-
-  industrial_lamp_steel_floor_a{
-    nextRes:t="industrial_lamp_steel_floor_a_dmg"
-    hp:r=10.0
-    fxTemplate:t="envir_destr_metal_small_effect"
-    fxScale:r=1.0
-    physRes:t="industrial_lamp_steel_floor_a_destr_phobj"
-  }
-
-  industrial_lamp_steel_wall_a{
-    nextRes:t="industrial_lamp_steel_wall_a_dmg"
-    hp:r=10.0
-    fxTemplate:t="envir_destr_metal_small_effect"
-    fxScale:r=1.0
-    physRes:t="industrial_lamp_steel_wall_a_destr_phobj"
-  }
-
-  industrial_lamp_steel_wall_a_base{
-    nextRes:t="industrial_lamp_steel_wall_a_dmg"
-    hp:r=10.0
-    fxTemplate:t="envir_destr_metal_small_effect"
-    fxScale:r=1.0
-    physRes:t="industrial_lamp_steel_wall_a_destr_phobj"
-  }
-
-  industrial_lamp_steel_floor_a_on{
-    nextRes:t="industrial_lamp_steel_floor_a_dmg"
-    hp:r=10.0
-    fxTemplate:t="envir_destr_metal_small_effect"
-    fxScale:r=1.0
-    physRes:t="industrial_lamp_steel_floor_a_destr_phobj"
-  }
-
-  industrial_lamp_steel_wall_a_on{
-    nextRes:t="industrial_lamp_steel_wall_a_dmg"
-    hp:r=10.0
-    fxTemplate:t="envir_destr_metal_small_effect"
-    fxScale:r=1.0
-    physRes:t="industrial_lamp_steel_wall_a_destr_phobj"
   }
 
   normandy_decor_door_ext_2200_arch_d1_r{
@@ -9564,6 +9607,16 @@ riExtra{
     fxTemplate:t="envir_destr_wood_med_effect"
     fxScale:r=1.0
     physRes:t="german_checkpoint_a_booth_destr_phobj"
+  }
+
+  road_checkpoint_a_barrier{
+    hp:r=60.0
+    impulseThreshold:r=21.0
+    isParent:b=no
+    fxTemplate:t="envir_destr_wood_small_effect"
+    fxScale:r=1.0
+    physRes:t="road_checkpoint_a_barrier_destr_phobj"
+    isObstacle:b=no
   }
 
   fortification_gate_a_l{
@@ -12177,8 +12230,9 @@ riExtra{
   }
 
   fence_bricks_column_400_a{
-    hp:r=330.0
-    impulseThreshold:r=200.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     material:t="concrete"
     isParent:b=yes
     fxTemplate:t="envir_destr_concrete_med_effect"
@@ -12187,8 +12241,9 @@ riExtra{
   }
 
   fence_bricks_section_1000_a{
-    hp:r=330.0
-    impulseThreshold:r=200.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     material:t="concrete"
     isParent:b=yes
     fxTemplate:t="envir_destr_concrete_med_effect"
@@ -12197,8 +12252,9 @@ riExtra{
   }
 
   fence_bricks_section_3300_a{
-    hp:r=330.0
-    impulseThreshold:r=200.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     material:t="concrete"
     isParent:b=yes
     fxTemplate:t="envir_destr_concrete_med_effect"
@@ -12207,8 +12263,9 @@ riExtra{
   }
 
   fence_bricks_section_3000_a{
-    hp:r=330.0
-    impulseThreshold:r=200.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     material:t="concrete"
     isParent:b=yes
     fxTemplate:t="envir_destr_concrete_med_effect"
@@ -12217,8 +12274,9 @@ riExtra{
   }
 
   fence_bricks_section_3000_a_hole{
-    hp:r=330.0
-    impulseThreshold:r=200.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     material:t="concrete"
     isParent:b=yes
     fxTemplate:t="envir_destr_concrete_med_effect"
@@ -12229,8 +12287,9 @@ riExtra{
   }
 
   fence_bricks_section_750_a{
-    hp:r=330.0
-    impulseThreshold:r=200.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     material:t="concrete"
     isParent:b=yes
     fxTemplate:t="envir_destr_concrete_med_effect"
@@ -12239,8 +12298,9 @@ riExtra{
   }
 
   fence_red_bricks_column_400_a{
-    hp:r=330.0
-    impulseThreshold:r=200.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     material:t="concrete"
     isParent:b=yes
     fxTemplate:t="envir_destr_concrete_med_effect"
@@ -12249,8 +12309,9 @@ riExtra{
   }
 
   fence_red_bricks_section_1000_a{
-    hp:r=330.0
-    impulseThreshold:r=200.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     material:t="concrete"
     isParent:b=yes
     fxTemplate:t="envir_destr_concrete_med_effect"
@@ -12259,8 +12320,9 @@ riExtra{
   }
 
   fence_red_bricks_section_3300_a{
-    hp:r=330.0
-    impulseThreshold:r=200.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     material:t="concrete"
     isParent:b=yes
     fxTemplate:t="envir_destr_concrete_med_effect"
@@ -12269,8 +12331,9 @@ riExtra{
   }
 
   fence_red_bricks_section_3000_a{
-    hp:r=330.0
-    impulseThreshold:r=200.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     material:t="concrete"
     isParent:b=yes
     fxTemplate:t="envir_destr_concrete_med_effect"
@@ -12279,8 +12342,9 @@ riExtra{
   }
 
   fence_red_bricks_section_750_a{
-    hp:r=330.0
-    impulseThreshold:r=200.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     material:t="concrete"
     isParent:b=yes
     fxTemplate:t="envir_destr_concrete_med_effect"
@@ -13176,6 +13240,7 @@ riExtra{
     fxTemplate:t="envir_destr_wood_med_effect"
     fxScale:r=1.0
     physRes:t="russia_fence_prison_camp_logs_a_section_4000_a_dmg_type_c_debris_destr_phobj"
+    isObstacle:b=no
   }
 
   russia_fence_prison_camp_logs_a_section_4000_a_dmg_type_a_debris{
@@ -13188,6 +13253,7 @@ riExtra{
     fxTemplate:t="envir_destr_wood_med_effect"
     fxScale:r=1.0
     physRes:t="russia_fence_prison_camp_logs_a_section_4000_a_dmg_type_a_debris_destr_phobj"
+    isObstacle:b=no
   }
 
   russia_fence_prison_camp_logs_a_section_4000_a_dmg_type_a_hole{
@@ -13225,6 +13291,7 @@ riExtra{
     fxTemplate:t="envir_destr_wood_med_effect"
     fxScale:r=1.0
     physRes:t="russia_fence_prison_camp_logs_a_section_4000_a_dmg_type_b_debris_destr_phobj"
+    isObstacle:b=no
   }
 
   russia_fence_prison_camp_planks_a_section_4000_b{
@@ -14352,6 +14419,7 @@ riExtra{
     fxTemplate:t="envir_destr_wood_med_effect"
     fxScale:r=1.0
     physRes:t="shed_1story_a_08_base_destr_phobj"
+    isObstacle:b=no
   }
 
   shed_1story_a_09_base{
@@ -14387,6 +14455,7 @@ riExtra{
     fxTemplate:t="envir_destr_wood_med_effect"
     fxScale:r=1.0
     physRes:t="wood_pier_b_cover_destr_phobj"
+    isObstacle:b=no
   }
 
   sand_sifter_a_base_big{
@@ -15222,7 +15291,8 @@ riExtra{
   }
 
   russia_wooden_planks_5000_a{
-    impulseThreshold:r=12800.0
+    destructionImpulse:r=12800.0
+    impulseThreshold:r=256.0
     material:t="wood"
     isParent:b=yes
     destructibleByParent:b=yes
@@ -15232,7 +15302,8 @@ riExtra{
   }
 
   russia_wooden_planks_5000_b{
-    impulseThreshold:r=12800.0
+    destructionImpulse:r=12800.0
+    impulseThreshold:r=256.0
     material:t="wood"
     isParent:b=yes
     destructibleByParent:b=yes
@@ -15242,7 +15313,8 @@ riExtra{
   }
 
   russia_wooden_planks_5000_c{
-    impulseThreshold:r=12800.0
+    destructionImpulse:r=12800.0
+    impulseThreshold:r=256.0
     material:t="wood"
     isParent:b=yes
     destructibleByParent:b=yes
@@ -15252,7 +15324,8 @@ riExtra{
   }
 
   russia_wooden_planks_a{
-    impulseThreshold:r=12800.0
+    destructionImpulse:r=12800.0
+    impulseThreshold:r=256.0
     material:t="wood"
     isParent:b=yes
     destructibleByParent:b=yes
@@ -15262,7 +15335,8 @@ riExtra{
   }
 
   russia_wooden_planks_b{
-    impulseThreshold:r=12800.0
+    destructionImpulse:r=12800.0
+    impulseThreshold:r=256.0
     material:t="wood"
     isParent:b=yes
     destructibleByParent:b=yes
@@ -15272,7 +15346,8 @@ riExtra{
   }
 
   russia_wooden_planks_c{
-    impulseThreshold:r=12800.0
+    destructionImpulse:r=12800.0
+    impulseThreshold:r=256.0
     material:t="wood"
     isParent:b=yes
     destructibleByParent:b=yes
@@ -15282,7 +15357,8 @@ riExtra{
   }
 
   russia_wooden_planks_d{
-    impulseThreshold:r=12800.0
+    destructionImpulse:r=12800.0
+    impulseThreshold:r=256.0
     material:t="wood"
     isParent:b=yes
     destructibleByParent:b=yes
@@ -15292,7 +15368,8 @@ riExtra{
   }
 
   russia_wooden_planks_e{
-    impulseThreshold:r=12800.0
+    destructionImpulse:r=12800.0
+    impulseThreshold:r=256.0
     material:t="wood"
     isParent:b=yes
     destructibleByParent:b=yes
@@ -15302,7 +15379,8 @@ riExtra{
   }
 
   debris_spruce_stump_a{
-    impulseThreshold:r=12800.0
+    destructionImpulse:r=12800.0
+    impulseThreshold:r=256.0
     material:t="wood"
     fxTemplate:t="envir_destr_wood_med_effect"
     fxScale:r=1.0
@@ -15310,7 +15388,8 @@ riExtra{
   }
 
   debris_spruce_stump_b{
-    impulseThreshold:r=12800.0
+    destructionImpulse:r=12800.0
+    impulseThreshold:r=256.0
     material:t="wood"
     fxTemplate:t="envir_destr_wood_med_effect"
     fxScale:r=1.0
@@ -15331,6 +15410,105 @@ riExtra{
     fxTemplate:t="envir_destr_wood_med_effect"
     fxScale:r=1.0
     physRes:t="suburban_station_urn_destr_phobj"
+  }
+
+  tree_fallen_tropic_a{
+    destructionImpulse:r=12800.0
+    impulseThreshold:r=256.0
+    material:t="wood"
+    fxTemplate:t="envir_destr_wood_med_effect"
+    fxScale:r=1.0
+    physRes:t="tree_fallen_tropic_a_destr_phobj"
+  }
+
+  tree_fallen_tropic_b{
+    destructionImpulse:r=12800.0
+    impulseThreshold:r=256.0
+    material:t="wood"
+    fxTemplate:t="envir_destr_wood_med_effect"
+    fxScale:r=1.0
+    physRes:t="tree_fallen_tropic_b_destr_phobj"
+  }
+
+  cocos_nucifera_fallen_a{
+    destructionImpulse:r=12800.0
+    impulseThreshold:r=256.0
+    material:t="wood_solid"
+    fxTemplate:t="envir_destr_wood_med_effect"
+    fxScale:r=1.0
+    physRes:t="cocos_nucifera_fallen_a_destr_phobj"
+  }
+
+  cocos_nucifera_fallen_b{
+    destructionImpulse:r=12800.0
+    impulseThreshold:r=256.0
+    material:t="wood_solid"
+    fxTemplate:t="envir_destr_wood_med_effect"
+    fxScale:r=1.0
+    physRes:t="cocos_nucifera_fallen_b_destr_phobj"
+  }
+
+  tree_cocos_nucifera_burnt_fallen_a{
+    destructionImpulse:r=12800.0
+    impulseThreshold:r=256.0
+    material:t="wood_solid"
+    fxTemplate:t="envir_destr_wood_med_effect"
+    fxScale:r=1.0
+    physRes:t="tree_cocos_nucifera_burnt_fallen_a_destr_phobj"
+  }
+
+  tree_cocos_nucifera_burnt_fallen_b{
+    destructionImpulse:r=12800.0
+    impulseThreshold:r=256.0
+    material:t="wood_solid"
+    fxTemplate:t="envir_destr_wood_med_effect"
+    fxScale:r=1.0
+    physRes:t="tree_cocos_nucifera_burnt_fallen_b_destr_phobj"
+  }
+
+  tree_cocos_nucifera_burnt_small_fallen_a{
+    destructionImpulse:r=12800.0
+    impulseThreshold:r=256.0
+    material:t="wood_solid"
+    fxTemplate:t="envir_destr_wood_med_effect"
+    fxScale:r=1.0
+    physRes:t="tree_cocos_nucifera_burnt_small_fallen_a_destr_phobj"
+  }
+
+  tree_cocos_nucifera_burnt_small_fallen_b{
+    destructionImpulse:r=12800.0
+    impulseThreshold:r=256.0
+    material:t="wood_solid"
+    fxTemplate:t="envir_destr_wood_med_effect"
+    fxScale:r=1.0
+    physRes:t="tree_cocos_nucifera_burnt_small_fallen_b_destr_phobj"
+  }
+
+  tree_cocos_nucifera_burnt_stump_a{
+    destructionImpulse:r=12800.0
+    impulseThreshold:r=256.0
+    material:t="wood_solid"
+    fxTemplate:t="envir_destr_wood_med_effect"
+    fxScale:r=1.0
+    physRes:t="tree_cocos_nucifera_burnt_stump_a_destr_phobj"
+  }
+
+  tree_cocos_nucifera_burnt_stump_b{
+    destructionImpulse:r=12800.0
+    impulseThreshold:r=256.0
+    material:t="wood_solid"
+    fxTemplate:t="envir_destr_wood_med_effect"
+    fxScale:r=1.0
+    physRes:t="tree_cocos_nucifera_burnt_stump_b_destr_phobj"
+  }
+
+  tree_cocos_nucifera_burnt_stump_c{
+    destructionImpulse:r=12800.0
+    impulseThreshold:r=256.0
+    material:t="wood_solid"
+    fxTemplate:t="envir_destr_wood_med_effect"
+    fxScale:r=1.0
+    physRes:t="tree_cocos_nucifera_burnt_stump_c_destr_phobj"
   }
 
   russian_water_tower_a_window_frame_1300x750_a{
@@ -15827,7 +16005,8 @@ riExtra{
 
   zis_5_b{
     hp:r=1350.0
-    destructionImpulse:r=40000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     material:t="steel"
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
@@ -15838,7 +16017,8 @@ riExtra{
 
   zis_5_damaged_d_trailer{
     hp:r=1350.0
-    destructionImpulse:r=40000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     material:t="steel"
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
@@ -18012,8 +18192,9 @@ riExtra{
   }
 
   reichchancellery_fence_corner_a{
-    hp:r=330.0
-    impulseThreshold:r=254.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
@@ -18023,8 +18204,9 @@ riExtra{
   }
 
   reichchancellery_fence_corner_b{
-    hp:r=330.0
-    impulseThreshold:r=254.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
@@ -18033,8 +18215,9 @@ riExtra{
   }
 
   reichchancellery_fence_corner_c{
-    hp:r=330.0
-    impulseThreshold:r=254.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
@@ -18043,8 +18226,9 @@ riExtra{
   }
 
   reichchancellery_fence_corner_d{
-    hp:r=330.0
-    impulseThreshold:r=254.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
@@ -18053,8 +18237,9 @@ riExtra{
   }
 
   reichchancellery_fence_gate{
-    hp:r=330.0
-    impulseThreshold:r=254.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
@@ -18063,8 +18248,9 @@ riExtra{
   }
 
   reichchancellery_fence_roof_a_crushed{
-    hp:r=330.0
-    impulseThreshold:r=254.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     isParent:b=no
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
@@ -18073,8 +18259,9 @@ riExtra{
   }
 
   reichchancellery_fence_roof_b_crushed{
-    hp:r=330.0
-    impulseThreshold:r=254.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     isParent:b=no
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
@@ -18083,8 +18270,9 @@ riExtra{
   }
 
   reichchancellery_fence_roof{
-    hp:r=330.0
-    impulseThreshold:r=254.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     isParent:b=no
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
@@ -18093,8 +18281,9 @@ riExtra{
   }
 
   reichchancellery_fence_wall_a_crushed{
-    hp:r=330.0
-    impulseThreshold:r=254.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
@@ -18103,8 +18292,9 @@ riExtra{
   }
 
   reichchancellery_fence_wall_a{
-    hp:r=330.0
-    impulseThreshold:r=254.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
@@ -18113,8 +18303,9 @@ riExtra{
   }
 
   reichchancellery_fence_wall_b_crushed{
-    hp:r=330.0
-    impulseThreshold:r=254.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
@@ -18123,8 +18314,9 @@ riExtra{
   }
 
   reichchancellery_fence_wall_c_crushed{
-    hp:r=330.0
-    impulseThreshold:r=254.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
@@ -18133,8 +18325,9 @@ riExtra{
   }
 
   reichchancellery_fence_wall_b{
-    hp:r=330.0
-    impulseThreshold:r=254.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
@@ -18143,8 +18336,9 @@ riExtra{
   }
 
   reichchancellery_fence_wall_d{
-    hp:r=330.0
-    impulseThreshold:r=254.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
@@ -18153,8 +18347,9 @@ riExtra{
   }
 
   reichchancellery_fence_wall_e{
-    hp:r=330.0
-    impulseThreshold:r=254.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     isParent:b=no
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
@@ -19184,8 +19379,9 @@ riExtra{
 
   reichstag_fortifications_a_a{
     nextRes:t="reichstag_fortifications_a_a_dmg"
-    hp:r=330.0
-    impulseThreshold:r=254.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
@@ -19195,8 +19391,9 @@ riExtra{
 
   reichstag_fortifications_a_b{
     nextRes:t="reichstag_fortifications_a_b_dmg"
-    hp:r=330.0
-    impulseThreshold:r=254.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
@@ -19206,8 +19403,9 @@ riExtra{
 
   reichstag_fortifications_a_c{
     nextRes:t="reichstag_fortifications_a_c_dmg"
-    hp:r=330.0
-    impulseThreshold:r=254.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
@@ -19217,8 +19415,9 @@ riExtra{
 
   reichstag_fortifications_a_d{
     nextRes:t="reichstag_fortifications_a_d_dmg"
-    hp:r=330.0
-    impulseThreshold:r=254.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
@@ -19228,8 +19427,9 @@ riExtra{
 
   reichstag_fortifications_a_e{
     nextRes:t="reichstag_fortifications_a_e_dmg"
-    hp:r=330.0
-    impulseThreshold:r=254.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
@@ -19239,8 +19439,9 @@ riExtra{
 
   reichstag_fortifications_a_f{
     nextRes:t="reichstag_fortifications_a_f_dmg"
-    hp:r=330.0
-    impulseThreshold:r=254.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
@@ -19250,8 +19451,9 @@ riExtra{
 
   reichstag_fortifications_a_g{
     nextRes:t="reichstag_fortifications_a_g_dmg"
-    hp:r=330.0
-    impulseThreshold:r=254.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
@@ -19261,8 +19463,9 @@ riExtra{
 
   reichstag_fortifications_b_a{
     nextRes:t="reichstag_fortifications_b_a_dmg"
-    hp:r=330.0
-    impulseThreshold:r=254.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
@@ -19272,8 +19475,9 @@ riExtra{
 
   reichstag_fortifications_b_b{
     nextRes:t="reichstag_fortifications_b_b_dmg"
-    hp:r=330.0
-    impulseThreshold:r=254.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
@@ -19283,8 +19487,9 @@ riExtra{
 
   reichstag_fortifications_b_c{
     nextRes:t="reichstag_fortifications_b_c_dmg"
-    hp:r=330.0
-    impulseThreshold:r=254.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
@@ -19294,8 +19499,9 @@ riExtra{
 
   reichstag_fortifications_b_d{
     nextRes:t="reichstag_fortifications_b_d_dmg"
-    hp:r=330.0
-    impulseThreshold:r=254.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
@@ -19305,8 +19511,9 @@ riExtra{
 
   reichstag_fortifications_b_e{
     nextRes:t="reichstag_fortifications_b_e_dmg"
-    hp:r=330.0
-    impulseThreshold:r=254.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
@@ -19316,8 +19523,9 @@ riExtra{
 
   reichstag_fortifications_b_f{
     nextRes:t="reichstag_fortifications_b_f_dmg"
-    hp:r=330.0
-    impulseThreshold:r=254.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
@@ -19327,8 +19535,9 @@ riExtra{
 
   reichstag_fortifications_b_g{
     nextRes:t="reichstag_fortifications_b_g_dmg"
-    hp:r=330.0
-    impulseThreshold:r=254.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
@@ -19338,8 +19547,9 @@ riExtra{
 
   reichchancellery_garage_fence_corner_a{
     nextRes:t="reichchancellery_garage_fence_corner_a_dmg"
-    hp:r=330.0
-    impulseThreshold:r=254.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
@@ -19348,8 +19558,9 @@ riExtra{
 
   reichchancellery_garage_fence_corner_b{
     nextRes:t="reichchancellery_garage_fence_corner_b_dmg"
-    hp:r=330.0
-    impulseThreshold:r=254.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
@@ -19358,8 +19569,9 @@ riExtra{
 
   reichchancellery_garage_fence_corner_crushed{
     nextRes:t="reichchancellery_garage_fence_corner_crushed_dmg"
-    hp:r=330.0
-    impulseThreshold:r=254.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
@@ -19369,8 +19581,9 @@ riExtra{
 
   reichchancellery_garage_fence_gate{
     nextRes:t="reichchancellery_garage_fence_gate_dmg"
-    hp:r=330.0
-    impulseThreshold:r=254.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
@@ -19379,8 +19592,9 @@ riExtra{
 
   reichchancellery_garage_fence_wall{
     nextRes:t="reichchancellery_garage_fence_wall_dmg"
-    hp:r=330.0
-    impulseThreshold:r=254.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
@@ -19389,8 +19603,9 @@ riExtra{
 
   reichchancellery_garage_fence_wall_crushed{
     nextRes:t="reichchancellery_garage_fence_wall_crushed_dmg"
-    hp:r=330.0
-    impulseThreshold:r=254.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
@@ -19398,8 +19613,9 @@ riExtra{
   }
 
   reichchancellery_garage_fence_frame_a{
-    hp:r=330.0
-    impulseThreshold:r=254.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     isParent:b=no
     fxTemplate:t="envir_destr_metal_small_effect"
     fxScale:r=1.0
@@ -19723,6 +19939,14 @@ riExtra{
     physRes:t="canister_gasoline_ger_b_destr_phobj"
   }
 
+  canister_gasoline_ger_c{
+    hp:r=42.0
+    material:t="steel"
+    fxTemplate:t="envir_destr_metal_small_effect"
+    fxScale:r=1.0
+    physRes:t="canister_gasoline_ger_c_destr_phobj"
+  }
+
   pontone_n2p_36_baluster_a{
     hp:r=42.0
     isParent:b=yes
@@ -19760,8 +19984,8 @@ riExtra{
   }
 
   pontone_n2p_36_head{
-    destructionImpulse:r=50000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     isParent:b=yes
     destructibleByParent:b=yes
     fxTemplate:t="envir_destr_metal_med_effect"
@@ -19770,8 +19994,8 @@ riExtra{
   }
 
   pontone_n2p_36_middle{
-    destructionImpulse:r=50000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     isParent:b=yes
     destructibleByParent:b=yes
     fxTemplate:t="envir_destr_metal_med_effect"
@@ -19780,8 +20004,8 @@ riExtra{
   }
 
   pontone_tmp_head{
-    destructionImpulse:r=50000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     isParent:b=yes
     destructibleByParent:b=yes
     fxTemplate:t="envir_destr_metal_med_effect"
@@ -19790,8 +20014,8 @@ riExtra{
   }
 
   pontone_tmp_middle{
-    destructionImpulse:r=50000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     isParent:b=yes
     destructibleByParent:b=yes
     fxTemplate:t="envir_destr_metal_med_effect"
@@ -19948,8 +20172,8 @@ riExtra{
   }
 
   zis_5{
-    destructionImpulse:r=50000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
@@ -19958,8 +20182,8 @@ riExtra{
   }
 
   zis_5_damaged_a{
-    destructionImpulse:r=50000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
@@ -19968,8 +20192,8 @@ riExtra{
   }
 
   zis_5_damaged_b{
-    destructionImpulse:r=50000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
@@ -19978,8 +20202,8 @@ riExtra{
   }
 
   zis_5_damaged_c{
-    destructionImpulse:r=50000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
@@ -19988,8 +20212,8 @@ riExtra{
   }
 
   refueler_kfz_384_damaged_a{
-    destructionImpulse:r=50000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
@@ -19998,8 +20222,8 @@ riExtra{
   }
 
   refueler_kfz_384_damaged_b{
-    destructionImpulse:r=50000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
@@ -20008,8 +20232,8 @@ riExtra{
   }
 
   refueler_kfz_384{
-    destructionImpulse:r=50000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
@@ -24695,6 +24919,42 @@ riExtra{
     physRes:t="is_covered_commode_a_destr_phobj"
   }
 
+  is_covered_chair_a{
+    hp:r=30.0
+    material:t="wood"
+    isParent:b=yes
+    fxTemplate:t="envir_destr_wood_small_effect"
+    fxScale:r=1.0
+    physRes:t="is_covered_chair_a_destr_phobj"
+  }
+
+  is_covered_chair_b{
+    hp:r=30.0
+    material:t="wood"
+    isParent:b=yes
+    fxTemplate:t="envir_destr_wood_small_effect"
+    fxScale:r=1.0
+    physRes:t="is_covered_chair_a_destr_phobj"
+  }
+
+  is_covered_chair_c{
+    hp:r=30.0
+    material:t="wood"
+    isParent:b=yes
+    fxTemplate:t="envir_destr_wood_small_effect"
+    fxScale:r=1.0
+    physRes:t="is_covered_chair_a_destr_phobj"
+  }
+
+  is_covered_chair_d{
+    hp:r=30.0
+    material:t="wood"
+    isParent:b=yes
+    fxTemplate:t="envir_destr_wood_small_effect"
+    fxScale:r=1.0
+    physRes:t="is_covered_chair_a_destr_phobj"
+  }
+
   is_covered_crib_a{
     hp:r=70.0
     material:t="wood"
@@ -24705,7 +24965,7 @@ riExtra{
   }
 
   is_covered_sofa_a{
-    hp:r=70.0
+    hp:r=150.0
     material:t="wood"
     isParent:b=yes
     fxTemplate:t="envir_destr_wood_small_effect"
@@ -27325,6 +27585,132 @@ riExtra{
     physRes:t="fishing_lodge_a_destr_phobj"
   }
 
+  is_african_single_bed_b{
+    hp:r=60.0
+    material:t="wood"
+    isParent:b=yes
+    fxTemplate:t="envir_destr_basic_small_effect"
+    fxScale:r=1.0
+    physRes:t="is_african_single_bed_b_destr_phobj"
+  }
+
+  is_african_single_bed_e{
+    hp:r=60.0
+    material:t="wood"
+    isParent:b=yes
+    fxTemplate:t="envir_destr_basic_small_effect"
+    fxScale:r=1.0
+    physRes:t="is_african_single_bed_e_destr_phobj"
+  }
+
+  is_african_single_bed_d{
+    hp:r=60.0
+    material:t="wood"
+    isParent:b=yes
+    fxTemplate:t="envir_destr_basic_small_effect"
+    fxScale:r=1.0
+    physRes:t="is_african_single_bed_d_destr_phobj"
+  }
+
+  is_african_mat_b{
+    hp:r=12.0
+    material:t="fabric"
+    isParent:b=yes
+    fxTemplate:t="envir_destr_basic_small_effect"
+    fxScale:r=1.0
+    physRes:t="is_african_mat_b_destr_phobj"
+  }
+
+  is_african_single_bed_e_fabric_a{
+    hp:r=30.0
+    material:t="fabric"
+    isParent:b=no
+    fxTemplate:t="envir_destr_basic_small_effect"
+    fxScale:r=1.0
+    physRes:t="is_african_single_bed_e_fabric_a_destr_phobj"
+  }
+
+  is_african_single_bed_b_fabric_a{
+    hp:r=30.0
+    material:t="fabric"
+    isParent:b=no
+    fxTemplate:t="envir_destr_basic_small_effect"
+    fxScale:r=1.0
+    physRes:t="is_african_single_bed_e_fabric_a_destr_phobj"
+  }
+
+  is_african_single_bed_e_fabric_b{
+    hp:r=30.0
+    material:t="fabric"
+    isParent:b=no
+    fxTemplate:t="envir_destr_basic_small_effect"
+    fxScale:r=1.0
+    physRes:t="is_african_single_bed_e_fabric_b_destr_phobj"
+  }
+
+  is_african_single_bed_b_fabric_b{
+    hp:r=30.0
+    material:t="fabric"
+    isParent:b=no
+    fxTemplate:t="envir_destr_basic_small_effect"
+    fxScale:r=1.0
+    physRes:t="is_african_single_bed_e_fabric_b_destr_phobj"
+  }
+
+  is_african_single_bed_e_fabric_c{
+    hp:r=30.0
+    material:t="fabric"
+    isParent:b=no
+    fxTemplate:t="envir_destr_basic_small_effect"
+    fxScale:r=1.0
+    physRes:t="is_african_single_bed_e_fabric_c_destr_phobj"
+  }
+
+  is_african_single_bed_b_fabric_c{
+    hp:r=30.0
+    material:t="fabric"
+    isParent:b=no
+    fxTemplate:t="envir_destr_basic_small_effect"
+    fxScale:r=1.0
+    physRes:t="is_african_single_bed_e_fabric_c_destr_phobj"
+  }
+
+  is_african_single_bed_d_fabric_a{
+    hp:r=30.0
+    material:t="fabric"
+    isParent:b=no
+    fxTemplate:t="envir_destr_basic_small_effect"
+    fxScale:r=1.0
+    physRes:t="is_african_single_bed_d_fabric_a_destr_phobj"
+  }
+
+  is_african_single_bed_d_fabric_b{
+    hp:r=30.0
+    material:t="fabric"
+    isParent:b=no
+    fxTemplate:t="envir_destr_basic_small_effect"
+    fxScale:r=1.0
+    physRes:t="is_african_single_bed_d_fabric_b_destr_phobj"
+  }
+
+  is_african_single_bed_d_fabric_c_a{
+    hp:r=30.0
+    material:t="fabric"
+    isParent:b=no
+    fxTemplate:t="envir_destr_basic_small_effect"
+    fxScale:r=1.0
+    physRes:t="is_african_single_bed_d_fabric_c_a_destr_phobj"
+  }
+
+  is_african_single_bed_e_fabric_c_a{
+    hp:r=30.0
+    material:t="fabric"
+    isParent:b=no
+    fxTemplate:t="envir_destr_basic_small_effect"
+    fxScale:r=1.0
+    physRes:t="is_african_single_bed_e_fabric_c_a_destr_phobj"
+  }
+
   debris_african_amphora_dmg_a{
     hp:r=5.0
     material:t="clay"
@@ -28030,8 +28416,9 @@ riExtra{
 
   tunisia_brick_fence_a{
     nextRes:t="tunisia_brick_fence_a_dmg"
-    hp:r=60.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="tunisia_brick_fence_a_destr_phobj"
@@ -28039,8 +28426,9 @@ riExtra{
 
   tunisia_brick_fence_a_column{
     nextRes:t="tunisia_brick_fence_a_column_dmg"
-    hp:r=60.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="tunisia_brick_fence_a_column_destr_phobj"
@@ -28048,8 +28436,9 @@ riExtra{
 
   tunisia_brick_fence_a_dmg_hard{
     nextRes:t="tunisia_brick_fence_a_dmg_hard_dmg"
-    hp:r=60.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="tunisia_brick_fence_a_dmg_hard_destr_phobj"
@@ -28058,8 +28447,9 @@ riExtra{
 
   tunisia_brick_fence_a_dmg_low{
     nextRes:t="tunisia_brick_fence_a_dmg_low_dmg"
-    hp:r=60.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="tunisia_brick_fence_a_dmg_low_destr_phobj"
@@ -28067,8 +28457,9 @@ riExtra{
 
   tunisia_brick_fence_a_dmg_medium{
     nextRes:t="tunisia_brick_fence_a_dmg_medium_dmg"
-    hp:r=60.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="tunisia_brick_fence_a_dmg_medium_destr_phobj"
@@ -28076,8 +28467,9 @@ riExtra{
 
   tunisia_brick_fence_a_gate_arc{
     nextRes:t="tunisia_brick_fence_a_gate_arc_dmg"
-    hp:r=60.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
@@ -28087,8 +28479,9 @@ riExtra{
 
   tunisia_brick_fence_a_short{
     nextRes:t="tunisia_brick_fence_a_short_dmg"
-    hp:r=60.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="tunisia_brick_fence_a_short_destr_phobj"
@@ -28096,9 +28489,9 @@ riExtra{
 
   tunisia_brick_fence_a_small{
     nextRes:t="tunisia_brick_fence_a_small_dmg"
-    hp:r=60.0
-    destructionImpulse:r=140.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="tunisia_brick_fence_a_small_destr_phobj"
@@ -28106,9 +28499,9 @@ riExtra{
 
   tunisia_brick_fence_a_small_column{
     nextRes:t="tunisia_brick_fence_a_small_column_dmg"
-    hp:r=60.0
-    destructionImpulse:r=140.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="tunisia_brick_fence_a_small_column_destr_phobj"
@@ -28116,9 +28509,9 @@ riExtra{
 
   tunisia_brick_fence_a_small_column_b{
     nextRes:t="tunisia_brick_fence_a_small_column_b_dmg"
-    hp:r=60.0
-    destructionImpulse:r=140.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="tunisia_brick_fence_a_small_column_b_destr_phobj"
@@ -28126,9 +28519,9 @@ riExtra{
 
   tunisia_brick_fence_a_small_dmg{
     nextRes:t="tunisia_brick_fence_a_small_dmg_dmg"
-    hp:r=60.0
-    destructionImpulse:r=140.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="tunisia_brick_fence_a_small_dmg_destr_phobj"
@@ -28137,9 +28530,9 @@ riExtra{
 
   tunisia_brick_fence_a_small_short{
     nextRes:t="tunisia_brick_fence_a_small_short_dmg"
-    hp:r=60.0
-    destructionImpulse:r=140.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="tunisia_brick_fence_a_small_short_destr_phobj"
@@ -28147,8 +28540,9 @@ riExtra{
 
   tunisia_brick_fence_b{
     nextRes:t="tunisia_brick_fence_b_dmg"
-    hp:r=60.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="tunisia_brick_fence_b_destr_phobj"
@@ -28156,8 +28550,9 @@ riExtra{
 
   tunisia_brick_fence_b_column{
     nextRes:t="tunisia_brick_fence_b_column_dmg"
-    hp:r=60.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="tunisia_brick_fence_b_column_destr_phobj"
@@ -28165,8 +28560,9 @@ riExtra{
 
   tunisia_brick_fence_c{
     nextRes:t="tunisia_brick_fence_c_dmg"
-    hp:r=60.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
@@ -28176,8 +28572,9 @@ riExtra{
 
   tunisia_brick_fence_c_column{
     nextRes:t="tunisia_brick_fence_c_column_dmg"
-    hp:r=60.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="tunisia_brick_fence_c_column_destr_phobj"
@@ -28701,7 +29098,7 @@ riExtra{
 
   tunis_village_decor_stairs_steps_a_a{
     hp:r=450.0
-    destructionImpulse:r=20000.0
+    destructionImpulse:r=50000.0
     impulseThreshold:r=800.0
     material:t="wood"
     fxTemplate:t="envir_destr_wood_med_effect"
@@ -29027,8 +29424,9 @@ riExtra{
 
   berlin_brick_fence_a{
     nextRes:t="berlin_brick_fence_a_dmg"
-    hp:r=60.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="berlin_brick_fence_a_destr_phobj"
@@ -29036,8 +29434,9 @@ riExtra{
 
   berlin_brick_fence_a_dirt{
     nextRes:t="berlin_brick_fence_a_dmg_dirt"
-    hp:r=60.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="berlin_brick_fence_a_destr_phobj"
@@ -29046,8 +29445,9 @@ riExtra{
   berlin_brick_fence_a_column_a{
     nextRes:t="berlin_brick_fence_a_column_a_dmg"
     isParent:b=yes
-    hp:r=60.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="berlin_brick_fence_a_column_a_destr_phobj"
@@ -29056,8 +29456,9 @@ riExtra{
   berlin_brick_fence_a_column_a_dirt{
     nextRes:t="berlin_brick_fence_a_column_a_dmg_dirt"
     isParent:b=yes
-    hp:r=60.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="berlin_brick_fence_a_column_a_destr_phobj"
@@ -29065,8 +29466,9 @@ riExtra{
 
   berlin_brick_fence_a_low{
     nextRes:t="berlin_brick_fence_a_low_dmg"
-    hp:r=60.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="berlin_brick_fence_a_low_destr_phobj"
@@ -29074,8 +29476,9 @@ riExtra{
 
   berlin_brick_fence_a_low_dirt{
     nextRes:t="berlin_brick_fence_a_low_dmg_dirt"
-    hp:r=60.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="berlin_brick_fence_a_low_destr_phobj"
@@ -29083,8 +29486,9 @@ riExtra{
 
   berlin_brick_fence_a_medium{
     nextRes:t="berlin_brick_fence_a_low_dmg_dirt"
-    hp:r=60.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="berlin_brick_fence_a_medium_destr_phobj"
@@ -29092,8 +29496,9 @@ riExtra{
 
   berlin_brick_fence_a_medium_dirt{
     nextRes:t="berlin_brick_fence_a_low_dmg_dirt"
-    hp:r=60.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="berlin_brick_fence_a_medium_destr_phobj"
@@ -29101,8 +29506,9 @@ riExtra{
 
   berlin_brick_fence_a_hard{
     nextRes:t="berlin_brick_fence_a_dmg"
-    hp:r=60.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="berlin_brick_fence_a_hard_destr_phobj"
@@ -29110,8 +29516,9 @@ riExtra{
 
   berlin_brick_fence_a_hard_dirt{
     nextRes:t="berlin_brick_fence_a_low_dmg_dirt"
-    hp:r=60.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="berlin_brick_fence_a_hard_destr_phobj"
@@ -29127,8 +29534,9 @@ riExtra{
 
   berlin_brick_fence_a_half{
     nextRes:t="berlin_brick_fence_a_dmg_half"
-    hp:r=60.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="berlin_brick_fence_a_half_destr_phobj"
@@ -29136,8 +29544,9 @@ riExtra{
 
   berlin_brick_fence_a_half_dirt{
     nextRes:t="berlin_brick_fence_a_dmg_half_dirt"
-    hp:r=60.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="berlin_brick_fence_a_half_destr_phobj"
@@ -29145,8 +29554,9 @@ riExtra{
 
   berlin_brick_fence_b{
     nextRes:t="berlin_brick_fence_b_dmg"
-    hp:r=60.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="berlin_brick_fence_b_destr_phobj"
@@ -29154,8 +29564,9 @@ riExtra{
 
   berlin_brick_fence_b_column_a{
     nextRes:t="berlin_brick_fence_b_column_a_dmg"
-    hp:r=60.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="berlin_brick_fence_b_column_a_destr_phobj"
@@ -29163,8 +29574,9 @@ riExtra{
 
   berlin_brick_fence_b_low{
     nextRes:t="berlin_brick_fence_b_low_dmg"
-    hp:r=60.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="berlin_brick_fence_b_low_destr_phobj"
@@ -29172,8 +29584,9 @@ riExtra{
 
   berlin_brick_fence_b_medium{
     nextRes:t="berlin_brick_fence_b_dmg"
-    hp:r=60.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="berlin_brick_fence_b_medium_destr_phobj"
@@ -29181,8 +29594,9 @@ riExtra{
 
   berlin_brick_fence_b_hard{
     nextRes:t="berlin_brick_fence_b_low_dmg"
-    hp:r=60.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="berlin_brick_fence_a_hard_destr_phobj"
@@ -29190,8 +29604,9 @@ riExtra{
 
   berlin_brick_fence_b_half{
     nextRes:t="berlin_brick_fence_b_half_dmg"
-    hp:r=60.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="berlin_brick_fence_b_half_destr_phobj"
@@ -29293,6 +29708,26 @@ riExtra{
     fxTemplate:t="envir_destr_metal_small_effect"
     fxScale:r=1.0
     physRes:t="coil_cable_a_destr_phobj"
+  }
+
+  wire_coil_a{
+    hp:r=230.0
+    impulseThreshold:r=75.0
+    material:t="steel"
+    isParent:b=no
+    fxTemplate:t="envir_destr_metal_small_effect"
+    fxScale:r=1.0
+    physRes:t="wire_coil_a_destr_phobj"
+  }
+
+  wire_coil_b{
+    hp:r=230.0
+    impulseThreshold:r=75.0
+    material:t="steel"
+    isParent:b=no
+    fxTemplate:t="envir_destr_metal_small_effect"
+    fxScale:r=1.0
+    physRes:t="wire_coil_b_destr_phobj"
   }
 
   tripod_lift_wood_a{
@@ -32457,36 +32892,6 @@ riExtra{
     isObstacle:b=no
   }
 
-  rope_bridge_a_section_a{
-    nextRes:t="rope_bridge_a_section_a_dmg"
-    hp:r=70.0
-    material:t="wood"
-    fxTemplate:t="envir_destr_wood_med_effect"
-    fxScale:r=1.0
-    physRes:t="rope_bridge_a_section_a_destr_phobj"
-    isObstacle:b=no
-  }
-
-  rope_bridge_a_section_b{
-    nextRes:t="rope_bridge_a_section_a_dmg"
-    hp:r=70.0
-    material:t="wood"
-    fxTemplate:t="envir_destr_wood_med_effect"
-    fxScale:r=1.0
-    physRes:t="rope_bridge_a_section_a_destr_phobj"
-    isObstacle:b=no
-  }
-
-  rope_bridge_a_section_c{
-    nextRes:t="rope_bridge_a_section_a_dmg"
-    hp:r=70.0
-    material:t="wood"
-    fxTemplate:t="envir_destr_wood_med_effect"
-    fxScale:r=1.0
-    physRes:t="rope_bridge_a_section_a_destr_phobj"
-    isObstacle:b=no
-  }
-
   mexican_unic_palace_a_window_grid_arch{
     nextRes:t="mexican_unic_palace_a_window_grid_arch_dmg"
     hp:r=12.0
@@ -32662,6 +33067,98 @@ riExtra{
     fxTemplate:t="envir_destr_wood_med_effect"
     fxScale:r=1.0
     physRes:t="garage_wooden_shelf_j_destr_phobj"
+  }
+
+  field_sink_a{
+    hp:r=30.0
+    material:t="steel"
+    isParent:b=no
+    fxTemplate:t="envir_destr_metal_med_effect"
+    fxScale:r=1.0
+    physRes:t="field_sink_a_destr_phobj"
+  }
+
+  field_stove_a{
+    hp:r=30.0
+    material:t="steel"
+    isParent:b=no
+    fxTemplate:t="envir_destr_metal_med_effect"
+    fxScale:r=1.0
+    physRes:t="field_stove_a_destr_phobj"
+  }
+
+  first_aid_bag_a{
+    hp:r=10.0
+    material:t="fabric"
+    isParent:b=no
+    fxScale:r=1.0
+  }
+
+  medical_service_signpost_a{
+    hp:r=10.0
+    material:t="wood"
+    isParent:b=no
+    fxTemplate:t="envir_destr_wood_small_effect"
+    fxScale:r=1.0
+    physRes:t="medical_service_signpost_a_destr_phobj"
+  }
+
+  medicine_box_a{
+    hp:r=40.0
+    material:t="wood"
+    isParent:b=yes
+    destructibleByParent:b=yes
+    fxTemplate:t="envir_destr_wood_med_effect"
+    fxScale:r=1.0
+    physRes:t="medicine_box_a_destr_phobj"
+  }
+
+  medicine_box_b{
+    hp:r=40.0
+    material:t="wood"
+    isParent:b=yes
+    destructibleByParent:b=yes
+    fxTemplate:t="envir_destr_wood_med_effect"
+    fxScale:r=1.0
+    physRes:t="medicine_box_b_destr_phobj"
+  }
+
+  medicine_set_a{
+    hp:r=20.0
+    material:t="fabric"
+    isParent:b=no
+    fxScale:r=1.0
+  }
+
+  medicine_set_b{
+    hp:r=20.0
+    material:t="fabric"
+    isParent:b=no
+    fxScale:r=1.0
+  }
+
+  medicine_set_c{
+    hp:r=20.0
+    material:t="fabric"
+    isParent:b=no
+    fxScale:r=1.0
+  }
+
+  medicine_set_d{
+    hp:r=20.0
+    material:t="fabric"
+    isParent:b=no
+    fxScale:r=1.0
+  }
+
+  stretcher_a{
+    hp:r=40.0
+    material:t="wood"
+    isParent:b=yes
+    destructibleByParent:b=yes
+    fxTemplate:t="envir_destr_wood_med_effect"
+    fxScale:r=1.0
+    physRes:t="stretcher_a_destr_phobj"
   }
 
   br_sink_a{
@@ -33422,12 +33919,30 @@ riExtra{
   }
 
   is_armchair_a{
-    nextRes:t="is_armchair_a_old_b"
     hp:r=200.0
     material:t="wood"
     isParent:b=yes
     fxTemplate:t="envir_destr_wood_small_effect"
     fxScale:r=1.0
+    physRes:t="is_armchair_a_destr_phobj"
+  }
+
+  is_armchair_a_old_a{
+    hp:r=200.0
+    material:t="wood"
+    isParent:b=yes
+    fxTemplate:t="envir_destr_wood_small_effect"
+    fxScale:r=1.0
+    physRes:t="is_armchair_a_old_a_destr_phobj"
+  }
+
+  is_armchair_a_old_b{
+    hp:r=200.0
+    material:t="wood"
+    isParent:b=yes
+    fxTemplate:t="envir_destr_wood_small_effect"
+    fxScale:r=1.0
+    physRes:t="is_armchair_a_old_b_destr_phobj"
   }
 
   is_armchair_b{
@@ -33487,6 +34002,26 @@ riExtra{
     fxTemplate:t="envir_destr_wood_small_effect"
     fxScale:r=1.0
     physRes:t="is_book_case_a_destr_phobj"
+  }
+
+  is_book_case_a_dmg_a{
+    hp:r=150.0
+    impulseThreshold:r=35.0
+    material:t="wood"
+    isParent:b=yes
+    fxTemplate:t="envir_destr_wood_small_effect"
+    fxScale:r=1.0
+    physRes:t="is_book_case_a_dmg_a_destr_phobj"
+  }
+
+  is_book_case_a_dmg_b{
+    hp:r=150.0
+    impulseThreshold:r=35.0
+    material:t="wood"
+    isParent:b=yes
+    fxTemplate:t="envir_destr_wood_small_effect"
+    fxScale:r=1.0
+    physRes:t="is_book_case_a_dmg_b_destr_phobj"
   }
 
   is_book_shelf_a{
@@ -33670,6 +34205,33 @@ riExtra{
     physRes:t="is_bed_c_broken_mattress_destr_phobj"
   }
 
+  is_bed_d{
+    hp:r=60.0
+    material:t="steel"
+    isParent:b=yes
+    fxTemplate:t="envir_destr_basic_small_effect"
+    fxScale:r=1.0
+    physRes:t="is_bed_d_dmg_a_destr_phobj"
+  }
+
+  is_bed_d_dmg_a{
+    hp:r=60.0
+    material:t="steel"
+    isParent:b=yes
+    fxTemplate:t="envir_destr_basic_small_effect"
+    fxScale:r=1.0
+    physRes:t="is_bed_d_dmg_a_destr_phobj"
+  }
+
+  is_bed_d_dmg_b{
+    hp:r=60.0
+    material:t="steel"
+    isParent:b=yes
+    fxTemplate:t="envir_destr_basic_small_effect"
+    fxScale:r=1.0
+    physRes:t="is_bed_d_dmg_b_destr_phobj"
+  }
+
   is_bench_a{
     hp:r=20.0
     material:t="wood"
@@ -33686,6 +34248,42 @@ riExtra{
     fxTemplate:t="envir_destr_metal_small_effect"
     fxScale:r=5.0
     physRes:t="is_birdcage_a_destr_phobj"
+  }
+
+  is_sofa_a{
+    hp:r=60.0
+    material:t="wood"
+    isParent:b=yes
+    fxTemplate:t="envir_destr_wood_small_effect"
+    fxScale:r=1.0
+    physRes:t="is_sofa_a_destr_phobj"
+  }
+
+  is_sofa_a_old{
+    hp:r=60.0
+    material:t="wood"
+    isParent:b=yes
+    fxTemplate:t="envir_destr_wood_small_effect"
+    fxScale:r=1.0
+    physRes:t="is_sofa_a_old_destr_phobj"
+  }
+
+  is_sofa_a_dmg_a{
+    hp:r=60.0
+    material:t="wood"
+    isParent:b=yes
+    fxTemplate:t="envir_destr_wood_small_effect"
+    fxScale:r=1.0
+    physRes:t="is_sofa_a_dmg_a_destr_phobj"
+  }
+
+  is_sofa_a_dmg_b{
+    hp:r=60.0
+    material:t="wood"
+    isParent:b=yes
+    fxTemplate:t="envir_destr_wood_small_effect"
+    fxScale:r=1.0
+    physRes:t="is_sofa_a_dmg_b_destr_phobj"
   }
 
   is_cabinet_a_glass{
@@ -34016,6 +34614,24 @@ riExtra{
     physRes:t="is_commode_a_destr_phobj"
   }
 
+  is_commode_a_dmg_a{
+    hp:r=60.0
+    material:t="wood"
+    isParent:b=yes
+    fxTemplate:t="envir_destr_wood_small_effect"
+    fxScale:r=1.0
+    physRes:t="is_commode_a_dmg_a_destr_phobj"
+  }
+
+  is_commode_a_dmg_b{
+    hp:r=60.0
+    material:t="wood"
+    isParent:b=yes
+    fxTemplate:t="envir_destr_wood_small_effect"
+    fxScale:r=1.0
+    physRes:t="is_commode_a_dmg_b_destr_phobj"
+  }
+
   is_commode_b{
     hp:r=60.0
     material:t="wood"
@@ -34032,6 +34648,24 @@ riExtra{
     fxTemplate:t="envir_destr_wood_small_effect"
     fxScale:r=1.0
     physRes:t="is_commode_b_broken_destr_phobj"
+  }
+
+  is_commode_b_broken_a{
+    hp:r=60.0
+    material:t="wood"
+    isParent:b=yes
+    fxTemplate:t="envir_destr_wood_small_effect"
+    fxScale:r=1.0
+    physRes:t="is_commode_b_broken_a_destr_phobj"
+  }
+
+  is_commode_b_broken_b{
+    hp:r=60.0
+    material:t="wood"
+    isParent:b=yes
+    fxTemplate:t="envir_destr_wood_small_effect"
+    fxScale:r=1.0
+    physRes:t="is_commode_b_broken_b_destr_phobj"
   }
 
   is_crib_a{
@@ -34340,7 +34974,7 @@ riExtra{
     isParent:b=yes
     fxTemplate:t="envir_destr_wood_small_effect"
     fxScale:r=1.0
-    physRes:t="**_destr_phobj"
+    physRes:t="furniture_locker_c_destr_phobj"
   }
 
   rack_1500_a{
@@ -34656,6 +35290,42 @@ riExtra{
     fxTemplate:t="envir_destr_wood_small_effect"
     fxScale:r=1.0
     physRes:t="is_rocking_chair_a_destr_phobj"
+  }
+
+  is_rocking_chair_a_dmg_a{
+    hp:r=30.0
+    material:t="wood"
+    isParent:b=no
+    fxTemplate:t="envir_destr_wood_small_effect"
+    fxScale:r=1.0
+    physRes:t="is_rocking_chair_a_dmg_a_destr_phobj"
+  }
+
+  is_rocking_chair_a_dmg_b{
+    hp:r=30.0
+    material:t="wood"
+    isParent:b=no
+    fxTemplate:t="envir_destr_wood_small_effect"
+    fxScale:r=1.0
+    physRes:t="is_rocking_chair_a_dmg_a_destr_phobj"
+  }
+
+  is_rocking_chair_dmg_a{
+    hp:r=30.0
+    material:t="wood"
+    isParent:b=no
+    fxTemplate:t="envir_destr_wood_small_effect"
+    fxScale:r=1.0
+    physRes:t="is_rocking_chair_dmg_a_destr_phobj"
+  }
+
+  is_rocking_chair_dmg_b{
+    hp:r=30.0
+    material:t="wood"
+    isParent:b=no
+    fxTemplate:t="envir_destr_wood_small_effect"
+    fxScale:r=1.0
+    physRes:t="is_rocking_chair_dmg_b_destr_phobj"
   }
 
   is_lamp_wall_e_on{
@@ -35246,6 +35916,15 @@ riExtra{
     fxTemplate:t="envir_destr_ceramic_small_effect"
     fxScale:r=1.0
     physRes:t="is_plates_a2_destr_phobj"
+  }
+
+  is_plates_a3{
+    hp:r=10.0
+    material:t="glass"
+    isParent:b=no
+    fxTemplate:t="envir_destr_ceramic_small_effect"
+    fxScale:r=1.0
+    physRes:t="is_plates_a3_destr_phobj"
   }
 
   is_plates_b1{
@@ -39582,8 +40261,8 @@ riExtra{
   }
 
   tractor_stz_1_assembly_a{
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
@@ -39592,8 +40271,8 @@ riExtra{
   }
 
   tractor_stz_1_assembly_b{
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
@@ -39674,8 +40353,8 @@ riExtra{
   }
 
   tractor_stz_3_assembly_b{
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
@@ -39738,8 +40417,8 @@ riExtra{
   }
 
   tractor_stz_5_assembly_b{
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
@@ -40310,8 +40989,8 @@ riExtra{
   }
 
   mercedes_benz_lg3000{
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
@@ -40320,15 +40999,15 @@ riExtra{
   }
 
   mercedes_benz_lg3000_tent{
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=200.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     destructibleByParent:b=yes
     physRes:t="mercedes_benz_lg3000_tent_destr_phobj"
   }
 
   steyer_1500a{
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
@@ -40337,8 +41016,8 @@ riExtra{
   }
 
   sd_kfz9_crane_a{
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     isParent:b=yes
     destructibleByParent:b=yes
     fxTemplate:t="envir_destr_metal_med_effect"
@@ -40347,8 +41026,8 @@ riExtra{
   }
 
   sd_kfz9_crane_b{
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     isParent:b=yes
     destructibleByParent:b=yes
     fxTemplate:t="envir_destr_metal_med_effect"
@@ -40357,8 +41036,8 @@ riExtra{
   }
 
   sd_kfz9{
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     isParent:b=yes
     destructibleByParent:b=yes
     fxTemplate:t="envir_destr_metal_med_effect"
@@ -40368,8 +41047,8 @@ riExtra{
   }
 
   sd_kfz9_hull{
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     isParent:b=yes
     destructibleByParent:b=yes
     fxTemplate:t="envir_destr_metal_med_effect"
@@ -40875,6 +41554,15 @@ riExtra{
     physRes:t="is_lamp_ceiling_b_destr_phobj"
   }
 
+  is_lamp_ceiling_b_on{
+    hp:r=15.0
+    material:t="glass"
+    isParent:b=no
+    fxTemplate:t="envir_destr_glass_effect"
+    fxScale:r=1.0
+    physRes:t="is_lamp_ceiling_b_destr_phobj"
+  }
+
   is_work_table_ashtray{
     hp:r=3.0
     isParent:b=no
@@ -41080,8 +41768,9 @@ riExtra{
 
   factory_xix_brick_fence_a_a{
     nextRes:t="factory_xix_brick_fence_a_a_dmg"
-    hp:r=60.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="factory_xix_brick_fence_a_a_destr_phobj"
@@ -41089,8 +41778,9 @@ riExtra{
 
   factory_xix_brick_fence_a_b{
     nextRes:t="factory_xix_brick_fence_a_a_dmg"
-    hp:r=60.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="factory_xix_brick_fence_a_a_destr_phobj"
@@ -41098,8 +41788,9 @@ riExtra{
 
   factory_xix_brick_fence_a_broken_a{
     nextRes:t="factory_xix_brick_fence_a_broken_a_dmg"
-    hp:r=60.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="factory_xix_brick_fence_a_broken_a_destr_phobj"
@@ -41107,8 +41798,9 @@ riExtra{
 
   factory_xix_brick_fence_a_broken_b{
     nextRes:t="factory_xix_brick_fence_a_broken_b_dmg"
-    hp:r=60.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="factory_xix_brick_fence_a_broken_b_destr_phobj"
@@ -41116,8 +41808,9 @@ riExtra{
 
   factory_xix_brick_fence_a_c{
     nextRes:t="factory_xix_brick_fence_a_a_dmg"
-    hp:r=60.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="factory_xix_brick_fence_a_a_destr_phobj"
@@ -41125,8 +41818,9 @@ riExtra{
 
   factory_xix_brick_fence_b_a{
     nextRes:t="factory_xix_brick_fence_b_a_dmg"
-    hp:r=60.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="factory_xix_brick_fence_b_a_destr_phobj"
@@ -41134,8 +41828,9 @@ riExtra{
 
   factory_xix_brick_fence_b_b{
     nextRes:t="factory_xix_brick_fence_b_a_dmg"
-    hp:r=60.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="factory_xix_brick_fence_b_a_destr_phobj"
@@ -41143,8 +41838,9 @@ riExtra{
 
   factory_xix_brick_fence_b_broken_a{
     nextRes:t="factory_xix_brick_fence_b_broken_a_dmg"
-    hp:r=60.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="factory_xix_brick_fence_b_broken_a_destr_phobj"
@@ -41152,8 +41848,9 @@ riExtra{
 
   factory_xix_brick_fence_b_broken_b{
     nextRes:t="factory_xix_brick_fence_b_broken_b_dmg"
-    hp:r=60.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="factory_xix_brick_fence_b_broken_b_destr_phobj"
@@ -41161,8 +41858,9 @@ riExtra{
 
   factory_xix_brick_fence_b_c{
     nextRes:t="factory_xix_brick_fence_b_a_dmg"
-    hp:r=60.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="factory_xix_brick_fence_b_a_destr_phobj"
@@ -41170,8 +41868,9 @@ riExtra{
 
   factory_xix_brick_fence_column_a_a{
     nextRes:t="factory_xix_brick_fence_column_a_a_dmg"
-    hp:r=60.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="factory_xix_brick_fence_column_a_a_destr_phobj"
@@ -41179,8 +41878,9 @@ riExtra{
 
   factory_xix_brick_fence_column_a_b{
     nextRes:t="factory_xix_brick_fence_column_a_a_dmg"
-    hp:r=60.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="factory_xix_brick_fence_column_a_a_destr_phobj"
@@ -41188,8 +41888,9 @@ riExtra{
 
   factory_xix_brick_fence_column_a_c{
     nextRes:t="factory_xix_brick_fence_column_a_a_dmg"
-    hp:r=60.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="factory_xix_brick_fence_column_a_a_destr_phobj"
@@ -41197,8 +41898,9 @@ riExtra{
 
   factory_xix_brick_fence_column_b_a{
     nextRes:t="factory_xix_brick_fence_column_b_a_dmg"
-    hp:r=60.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="factory_xix_brick_fence_column_b_a_destr_phobj"
@@ -41206,8 +41908,9 @@ riExtra{
 
   factory_xix_brick_fence_column_b_b{
     nextRes:t="factory_xix_brick_fence_column_b_a_dmg"
-    hp:r=60.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="factory_xix_brick_fence_column_b_a_destr_phobj"
@@ -41215,8 +41918,9 @@ riExtra{
 
   factory_xix_brick_fence_column_b_c{
     nextRes:t="factory_xix_brick_fence_column_b_a_dmg"
-    hp:r=60.0
-    impulseThreshold:r=19.0
+    hp:r=280.0
+    impulseThreshold:r=250.0
+    destructionImpulse:r=11000.0
     fxTemplate:t="envir_destr_concrete_small_effect"
     fxScale:r=1.0
     physRes:t="factory_xix_brick_fence_column_b_a_destr_phobj"
@@ -42134,10 +42838,10 @@ riExtra{
     physRes:t="lamppost_d_glass_destr_phobj"
   }
 
-  lamppost_d_glass_on{
+  lamppost_d_glass_flicker_cls{
     hp:r=5.0
     material:t="glass"
-    isParent:b=no
+    isParent:b=yes
     fxTemplate:t="envir_destr_glass_effect"
     fxScale:r=1.0
     physRes:t="lamppost_d_glass_destr_phobj"
@@ -42623,6 +43327,71 @@ riExtra{
     fxTemplate:t="envir_destr_glass_effect"
     fxScale:r=1.0
     physRes:t="lamppost_huge_c_glass_destr_phobj"
+  }
+
+  industrial_lamp_steel_floor_a{
+    nextRes:t="industrial_lamp_steel_floor_a_dmg"
+    hp:r=10.0
+    fxTemplate:t="envir_destr_metal_small_effect"
+    fxScale:r=1.0
+    physRes:t="industrial_lamp_steel_floor_a_destr_phobj"
+  }
+
+  industrial_lamp_steel_wall_a{
+    nextRes:t="industrial_lamp_steel_wall_a_dmg"
+    hp:r=10.0
+    fxTemplate:t="envir_destr_metal_small_effect"
+    fxScale:r=1.0
+    physRes:t="industrial_lamp_steel_wall_a_destr_phobj"
+  }
+
+  industrial_lamp_steel_wall_a_base{
+    nextRes:t="industrial_lamp_steel_wall_a_dmg"
+    hp:r=10.0
+    fxTemplate:t="envir_destr_metal_small_effect"
+    fxScale:r=1.0
+    physRes:t="industrial_lamp_steel_wall_a_destr_phobj"
+  }
+
+  industrial_lamp_steel_floor_a_on{
+    nextRes:t="industrial_lamp_steel_floor_a_dmg"
+    hp:r=10.0
+    fxTemplate:t="envir_destr_metal_small_effect"
+    fxScale:r=1.0
+    physRes:t="industrial_lamp_steel_floor_a_destr_phobj"
+    isObstacle:b=no
+  }
+
+  industrial_lamp_steel_wall_a_on{
+    nextRes:t="industrial_lamp_steel_wall_a_dmg"
+    hp:r=10.0
+    fxTemplate:t="envir_destr_metal_small_effect"
+    fxScale:r=1.0
+    physRes:t="industrial_lamp_steel_wall_a_destr_phobj"
+  }
+
+  factory_lamp_g{
+    nextRes:t="factory_lamp_g_dmg"
+    hp:r=10.0
+    isParent:b=yes
+    fxTemplate:t="envir_destr_metal_small_effect"
+    fxScale:r=1.0
+  }
+
+  factory_lamp_g_on{
+    nextRes:t="factory_lamp_g_dmg"
+    hp:r=10.0
+    isParent:b=yes
+    fxTemplate:t="envir_destr_metal_small_effect"
+    fxScale:r=1.0
+  }
+
+  factory_lamp_g_red{
+    nextRes:t="factory_lamp_g_dmg"
+    hp:r=10.0
+    isParent:b=yes
+    fxTemplate:t="envir_destr_metal_small_effect"
+    fxScale:r=1.0
   }
 
   playground_horizontal_bar_a{
@@ -46272,6 +47041,7 @@ riExtra{
     fxTemplate:t="envir_destr_basic_small_effect"
     fxScale:r=1.0
     physRes:t="military_tent_a_a_destr_phobj"
+    isObstacle:b=no
   }
 
   military_tent_a_b{
@@ -46281,6 +47051,7 @@ riExtra{
     fxTemplate:t="envir_destr_basic_small_effect"
     fxScale:r=1.0
     physRes:t="military_tent_a_b_destr_phobj"
+    isObstacle:b=no
   }
 
   military_tent_a_frame{
@@ -46290,6 +47061,7 @@ riExtra{
     fxTemplate:t="envir_destr_wood_small_effect"
     fxScale:r=1.0
     physRes:t="military_tent_a_frame_destr_phobj"
+    isObstacle:b=no
   }
 
   military_tent_b_a{
@@ -46299,6 +47071,7 @@ riExtra{
     fxTemplate:t="envir_destr_basic_small_effect"
     fxScale:r=1.0
     physRes:t="military_tent_b_a_destr_phobj"
+    isObstacle:b=no
   }
 
   military_tent_b_b{
@@ -46308,6 +47081,7 @@ riExtra{
     fxTemplate:t="envir_destr_basic_small_effect"
     fxScale:r=1.0
     physRes:t="military_tent_b_b_destr_phobj"
+    isObstacle:b=no
   }
 
   military_tent_b_frame{
@@ -46317,6 +47091,7 @@ riExtra{
     fxTemplate:t="envir_destr_wood_small_effect"
     fxScale:r=1.0
     physRes:t="military_tent_b_frame_destr_phobj"
+    isObstacle:b=no
   }
 
   military_tent_c_a{
@@ -46326,6 +47101,7 @@ riExtra{
     fxTemplate:t="envir_destr_basic_small_effect"
     fxScale:r=1.0
     physRes:t="military_tent_c_a_destr_phobj"
+    isObstacle:b=no
   }
 
   military_tent_c_b{
@@ -46335,6 +47111,7 @@ riExtra{
     fxTemplate:t="envir_destr_basic_small_effect"
     fxScale:r=1.0
     physRes:t="military_tent_c_b_destr_phobj"
+    isObstacle:b=no
   }
 
   military_tent_c_frame{
@@ -46344,6 +47121,7 @@ riExtra{
     fxTemplate:t="envir_destr_wood_small_effect"
     fxScale:r=1.0
     physRes:t="military_tent_c_frame_destr_phobj"
+    isObstacle:b=no
   }
 
   military_tent_d_a{
@@ -46353,6 +47131,7 @@ riExtra{
     fxTemplate:t="envir_destr_basic_small_effect"
     fxScale:r=1.0
     physRes:t="military_tent_d_a_destr_phobj"
+    isObstacle:b=no
   }
 
   military_tent_d_b{
@@ -46362,6 +47141,7 @@ riExtra{
     fxTemplate:t="envir_destr_basic_small_effect"
     fxScale:r=1.0
     physRes:t="military_tent_d_b_destr_phobj"
+    isObstacle:b=no
   }
 
   military_tent_d_frame{
@@ -46371,6 +47151,126 @@ riExtra{
     fxTemplate:t="envir_destr_wood_small_effect"
     fxScale:r=1.0
     physRes:t="military_tent_d_frame_destr_phobj"
+    isObstacle:b=no
+  }
+
+  military_tent_big_a_a{
+    nextRes:t="military_tent_big_a_a_dmg"
+    hp:r=700.0
+    material:t="fabric"
+    fxTemplate:t="envir_destr_basic_small_effect"
+    fxScale:r=1.0
+    physRes:t="military_tent_big_a_a_destr_phobj"
+    isObstacle:b=no
+  }
+
+  military_tent_big_a_a_section_a{
+    nextRes:t="military_tent_big_a_a_dmg"
+    isParent:b=yes
+    hp:r=700.0
+    material:t="fabric"
+    fxTemplate:t="envir_destr_basic_small_effect"
+    fxScale:r=1.0
+    physRes:t="military_tent_big_a_a_section_a_destr_phobj"
+    isObstacle:b=no
+  }
+
+  military_tent_big_a_a_section_b{
+    nextRes:t="military_tent_big_a_a_dmg"
+    isParent:b=yes
+    hp:r=700.0
+    material:t="fabric"
+    fxTemplate:t="envir_destr_basic_small_effect"
+    fxScale:r=1.0
+    physRes:t="military_tent_big_a_a_section_b_destr_phobj"
+    isObstacle:b=no
+  }
+
+  military_tent_big_a_a_section_c{
+    nextRes:t="military_tent_big_a_a_dmg"
+    isParent:b=yes
+    hp:r=700.0
+    material:t="fabric"
+    fxTemplate:t="envir_destr_basic_small_effect"
+    fxScale:r=1.0
+    physRes:t="military_tent_big_a_a_section_c_destr_phobj"
+    isObstacle:b=no
+  }
+
+  military_tent_big_a_a_frame{
+    hp:r=40.0
+    material:t="wood"
+    isParent:b=yes
+    fxTemplate:t="envir_destr_wood_small_effect"
+    fxScale:r=1.0
+    physRes:t="military_tent_big_a_a_frame_destr_phobj"
+    isObstacle:b=no
+  }
+
+  military_tent_big_a_a_frame_section_a{
+    hp:r=40.0
+    material:t="wood"
+    fxTemplate:t="envir_destr_wood_small_effect"
+    fxScale:r=1.0
+    physRes:t="military_tent_big_a_a_frame_section_a_destr_phobj"
+    isObstacle:b=no
+  }
+
+  military_tent_big_a_a_frame_section_b{
+    hp:r=40.0
+    material:t="wood"
+    fxTemplate:t="envir_destr_wood_small_effect"
+    fxScale:r=1.0
+    physRes:t="military_tent_big_a_a_frame_section_b_destr_phobj"
+    isObstacle:b=no
+  }
+
+  military_tent_big_a_a_frame_section_c{
+    hp:r=40.0
+    material:t="wood"
+    fxTemplate:t="envir_destr_wood_small_effect"
+    fxScale:r=1.0
+    physRes:t="military_tent_big_a_a_frame_section_c_destr_phobj"
+    isObstacle:b=no
+  }
+
+  military_tent_big_a_b{
+    isParent:b=yes
+    nextRes:t="military_tent_big_a_b_dmg"
+    hp:r=700.0
+    material:t="fabric"
+    fxTemplate:t="envir_destr_basic_small_effect"
+    fxScale:r=1.0
+    physRes:t="military_tent_big_a_b_destr_phobj"
+    isObstacle:b=no
+  }
+
+  military_tent_big_a_b_frame{
+    hp:r=40.0
+    material:t="wood"
+    fxTemplate:t="envir_destr_wood_small_effect"
+    fxScale:r=1.0
+    physRes:t="military_tent_big_a_b_frame_destr_phobj"
+    isObstacle:b=no
+  }
+
+  military_tent_big_b_a{
+    isParent:b=yes
+    hp:r=700.0
+    material:t="fabric"
+    fxTemplate:t="envir_destr_basic_small_effect"
+    fxScale:r=1.0
+    physRes:t="military_tent_big_b_a_destr_phobj"
+    isObstacle:b=no
+  }
+
+  military_tent_big_b_a_frame{
+    hp:r=40.0
+    material:t="wood"
+    fxTemplate:t="envir_destr_wood_small_effect"
+    fxScale:r=1.0
+    physRes:t="military_tent_big_b_a_frame_destr_phobj"
+    isObstacle:b=no
   }
 
   european_building_window_awning_a{
@@ -46614,6 +47514,7 @@ riExtra{
     fxTemplate:t="envir_destr_wood_small_effect"
     fxScale:r=1.0
     physRes:t="ammunition_box_b_destr_phobj"
+    floatable:b=yes
   }
 
   ammunition_box_c{
@@ -46622,6 +47523,7 @@ riExtra{
     fxTemplate:t="envir_destr_wood_small_effect"
     fxScale:r=1.0
     physRes:t="ammunition_box_c_destr_phobj"
+    floatable:b=yes
   }
 
   ammunition_box_d{
@@ -46678,6 +47580,7 @@ riExtra{
     fxTemplate:t="envir_destr_wood_small_effect"
     fxScale:r=1.0
     physRes:t="ammunition_box_j_destr_phobj"
+    floatable:b=yes
   }
 
   ammunition_box_k{
@@ -47157,6 +48060,7 @@ riExtra{
     fxTemplate:t="envir_destr_sandbags_effect"
     fxScale:r=1.0
     physRes:t="sandbags_wall_low_l2000_a_destr_phobj"
+    isObstacle:b=no
   }
 
   sandbags_wall_low_rounded_a{
@@ -47188,6 +48092,7 @@ riExtra{
     fxTemplate:t="envir_destr_sandbags_effect"
     fxScale:r=1.0
     physRes:t="sandbags_wall_medium_l1000_side_r_destr_phobj"
+    isObstacle:b=no
   }
 
   sandbags_wall_medium_l1000_side_r_short{
@@ -47399,6 +48304,7 @@ riExtra{
     fxTemplate:t="envir_destr_sandbags_effect"
     fxScale:r=1.0
     physRes:t="sandbag_single_destr_phobj"
+    isObstacle:b=no
   }
 
   sandbag_single_f{
@@ -47409,6 +48315,7 @@ riExtra{
     fxTemplate:t="envir_destr_sandbags_effect"
     fxScale:r=1.0
     physRes:t="sandbag_single_destr_phobj"
+    isObstacle:b=no
   }
 
   sandbags_wall_mid_a{
@@ -47731,6 +48638,24 @@ riExtra{
     physRes:t="wooden_power_pole_d_glass_destr_phobj"
   }
 
+  wooden_power_pole_lamp_a{
+    hp:r=10.0
+    material:t="metal"
+    isParent:b=no
+    fxTemplate:t="envir_destr_glass_effect"
+    fxScale:r=1.0
+    physRes:t="wooden_power_pole_lamp_a_destr_phobj"
+  }
+
+  wooden_power_pole_lamp_a_base{
+    hp:r=10.0
+    material:t="metal"
+    isParent:b=no
+    fxTemplate:t="envir_destr_glass_effect"
+    fxScale:r=1.0
+    physRes:t="wooden_power_pole_lamp_a_destr_phobj"
+  }
+
   wooden_power_pole_e{
     destructionImpulse:r=11500.0
     impulseThreshold:r=256.0
@@ -47982,8 +48907,8 @@ riExtra{
   }
 
   bf_109g_14_a_destroyed{
-    destructionImpulse:r=9500.0
-    impulseThreshold:r=256.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
@@ -48009,8 +48934,8 @@ riExtra{
   }
 
   bf_109g_14_a_destroyed_tail{
-    destructionImpulse:r=9500.0
-    impulseThreshold:r=256.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
@@ -48064,8 +48989,8 @@ riExtra{
   }
 
   opel_blitz_kfz_305{
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
@@ -48074,8 +48999,8 @@ riExtra{
   }
 
   opel_blitz_kfz_305_destroyed{
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
@@ -48090,8 +49015,8 @@ riExtra{
   }
 
   opel_blitz_kfz_305_broken{
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
@@ -48100,8 +49025,8 @@ riExtra{
   }
 
   nissan_80{
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
@@ -48110,8 +49035,8 @@ riExtra{
   }
 
   nissan_80_broken{
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
@@ -48120,8 +49045,8 @@ riExtra{
   }
 
   nissan_80_destroyed{
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
@@ -48131,14 +49056,14 @@ riExtra{
 
   nissan_80_tent{
     destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    impulseThreshold:r=200.0
     fxScale:r=1.0
     physRes:t="nissan_80_tent_destr_phobj"
   }
 
   nissan_80_tent_broken{
     destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    impulseThreshold:r=200.0
     fxScale:r=1.0
     physRes:t="nissan_80_tent_broken_destr_phobj"
   }
@@ -48334,8 +49259,8 @@ riExtra{
   }
 
   mobile_crane_lifting_a{
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
@@ -48344,8 +49269,8 @@ riExtra{
   }
 
   mobile_crane_lifting_a_frame{
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     isParent:b=yes
     destructibleByParent:b=yes
     fxTemplate:t="envir_destr_metal_med_effect"
@@ -48354,8 +49279,8 @@ riExtra{
   }
 
   tractor_stz_1{
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
@@ -48364,8 +49289,8 @@ riExtra{
   }
 
   tractor_stz_1_abandoned_a{
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
@@ -48374,8 +49299,8 @@ riExtra{
   }
 
   tractor_stz_1_abandoned_b{
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
@@ -48384,8 +49309,8 @@ riExtra{
   }
 
   tractor_stz_1_abandoned_c{
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
@@ -48394,8 +49319,8 @@ riExtra{
   }
 
   pv_opel_blitz_kfz_305_destroyed_a{
-    destructionImpulse:r=50000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
@@ -48403,8 +49328,8 @@ riExtra{
   }
 
   pv_opel_blitz_kfz_305_destroyed_b{
-    destructionImpulse:r=50000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
@@ -48552,8 +49477,8 @@ riExtra{
   }
 
   kubelwagen_destroyed{
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
@@ -48671,8 +49596,8 @@ riExtra{
   }
 
   vw_beetle_destroyed{
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
@@ -48852,8 +49777,8 @@ riExtra{
   gaz_0330_destroyed_a_burnt{
     nextRes:t="gaz_0330_destroyed_dmg"
     physRes:t="gaz_0330_destroyed_a_burnt_destr_phobj"
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
     isParent:b=yes
@@ -48862,8 +49787,8 @@ riExtra{
   gaz_0330_destroyed_b_burnt{
     nextRes:t="gaz_0330_destroyed_dmg"
     physRes:t="gaz_0330_destroyed_b_burnt_destr_phobj"
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
     isParent:b=yes
@@ -48872,8 +49797,8 @@ riExtra{
   gaz_0330_destroyed_c_burnt{
     nextRes:t="gaz_0330_destroyed_dmg"
     physRes:t="gaz_0330_destroyed_c_burnt_destr_phobj"
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
     isParent:b=yes
@@ -48882,8 +49807,8 @@ riExtra{
   gaz_0330_destroyed_a_painted{
     nextRes:t="gaz_0330_destroyed_dmg"
     physRes:t="gaz_0330_destroyed_a_painted_destr_phobj"
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
     isParent:b=yes
@@ -48892,8 +49817,8 @@ riExtra{
   gaz_0330_destroyed_b_painted{
     nextRes:t="gaz_0330_destroyed_dmg"
     physRes:t="gaz_0330_destroyed_b_painted_destr_phobj"
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
     isParent:b=yes
@@ -48902,8 +49827,8 @@ riExtra{
   gaz_0330_destroyed_c_painted{
     nextRes:t="gaz_0330_destroyed_dmg"
     physRes:t="gaz_0330_destroyed_c_painted_destr_phobj"
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
     isParent:b=yes
@@ -48912,8 +49837,8 @@ riExtra{
   gaz_aa_destroyed_a_burnt{
     nextRes:t="gaz_aa_destroyed_dmg"
     physRes:t="gaz_aa_destroyed_a_burnt_destr_phobj"
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
     isParent:b=yes
@@ -48922,8 +49847,8 @@ riExtra{
   gaz_aa_destroyed_b_burnt{
     nextRes:t="gaz_aa_destroyed_dmg"
     physRes:t="gaz_aa_destroyed_b_burnt_destr_phobj"
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
     isParent:b=yes
@@ -48932,8 +49857,8 @@ riExtra{
   gaz_aa_destroyed_c_burnt{
     nextRes:t="gaz_aa_destroyed_dmg"
     physRes:t="gaz_aa_destroyed_c_burnt_destr_phobj"
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
     isParent:b=yes
@@ -48942,8 +49867,8 @@ riExtra{
   gaz_aa_destroyed_a_painted{
     nextRes:t="gaz_aa_destroyed_dmg"
     physRes:t="gaz_aa_destroyed_a_painted_destr_phobj"
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
     isParent:b=yes
@@ -48952,8 +49877,8 @@ riExtra{
   gaz_aa_destroyed_b_painted{
     nextRes:t="gaz_aa_destroyed_dmg"
     physRes:t="gaz_aa_destroyed_b_painted_destr_phobj"
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
     isParent:b=yes
@@ -48962,8 +49887,8 @@ riExtra{
   gaz_aa_destroyed_c_painted{
     nextRes:t="gaz_aa_destroyed_dmg"
     physRes:t="gaz_aa_destroyed_c_painted_destr_phobj"
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
     isParent:b=yes
@@ -48972,8 +49897,8 @@ riExtra{
   gaz_m1_destroyed_a_burnt{
     nextRes:t="gaz_m1_destroyed_dmg"
     physRes:t="gaz_m1_destroyed_a_burnt_destr_phobj"
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
     isParent:b=yes
@@ -48982,8 +49907,8 @@ riExtra{
   gaz_m1_destroyed_b_burnt{
     nextRes:t="gaz_m1_destroyed_dmg"
     physRes:t="gaz_m1_destroyed_b_burnt_destr_phobj"
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
     isParent:b=yes
@@ -48992,8 +49917,8 @@ riExtra{
   gaz_m1_destroyed_c_burnt{
     nextRes:t="gaz_m1_destroyed_dmg"
     physRes:t="gaz_m1_destroyed_c_burnt_destr_phobj"
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
     isParent:b=yes
@@ -49002,8 +49927,8 @@ riExtra{
   gaz_m1_destroyed_a_painted{
     nextRes:t="gaz_m1_destroyed_dmg"
     physRes:t="gaz_m1_destroyed_a_painted_destr_phobj"
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
     isParent:b=yes
@@ -49012,8 +49937,8 @@ riExtra{
   gaz_m1_destroyed_b_painted{
     nextRes:t="gaz_m1_destroyed_dmg"
     physRes:t="gaz_m1_destroyed_b_painted_destr_phobj"
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
     isParent:b=yes
@@ -49022,8 +49947,8 @@ riExtra{
   gaz_m1_destroyed_c_painted{
     nextRes:t="gaz_m1_destroyed_dmg"
     physRes:t="gaz_m1_destroyed_c_painted_destr_phobj"
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
     isParent:b=yes
@@ -49126,8 +50051,8 @@ riExtra{
   }
 
   sovmil_scaffold_a{
-    destructionImpulse:r=10000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     isParent:b=yes
     isParent:b=no
     fxTemplate:t="envir_destr_metal_med_effect"
@@ -49136,8 +50061,8 @@ riExtra{
   }
 
   sovmil_scaffold_b{
-    destructionImpulse:r=10000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     isParent:b=yes
     isParent:b=no
     fxTemplate:t="envir_destr_metal_med_effect"
@@ -49192,6 +50117,7 @@ riExtra{
     fxTemplate:t="envir_destr_wood_small_effect"
     fxScale:r=1.0
     physRes:t="debris_wooden_beam_d_a_destr_phobj"
+    isObstacle:b=yes
   }
 
   debris_wooden_beam_d_b{
@@ -49202,6 +50128,7 @@ riExtra{
     fxTemplate:t="envir_destr_wood_small_effect"
     fxScale:r=1.0
     physRes:t="debris_wooden_beam_d_b_destr_phobj"
+    isObstacle:b=yes
   }
 
   debris_wooden_beam_d_c{
@@ -49212,6 +50139,7 @@ riExtra{
     fxTemplate:t="envir_destr_wood_small_effect"
     fxScale:r=1.0
     physRes:t="debris_wooden_beam_d_c_destr_phobj"
+    isObstacle:b=yes
   }
 
   debris_wooden_beam_d_d{
@@ -49222,6 +50150,7 @@ riExtra{
     fxTemplate:t="envir_destr_wood_small_effect"
     fxScale:r=1.0
     physRes:t="debris_wooden_beam_d_d_destr_phobj"
+    isObstacle:b=yes
   }
 
   debris_wooden_beam_pile_4000x8000_a{
@@ -50833,6 +51762,7 @@ riExtra{
     fxTemplate:t="envir_destr_cactus_effect"
     fxScale:r=1.0
     physRes:t="cactus_pachycereus_a_a_destr_phobj"
+    dmgFxTemplate:t="envir_collision_bush_dead_effect"
   }
 
   cactus_pachycereus_a_b{
@@ -50841,6 +51771,7 @@ riExtra{
     fxTemplate:t="envir_destr_cactus_effect"
     fxScale:r=1.0
     physRes:t="cactus_pachycereus_a_b_destr_phobj"
+    dmgFxTemplate:t="envir_collision_bush_dead_effect"
   }
 
   cactus_pachycereus_a_c{
@@ -50849,6 +51780,7 @@ riExtra{
     fxTemplate:t="envir_destr_cactus_effect"
     fxScale:r=1.0
     physRes:t="cactus_pachycereus_a_c_destr_phobj"
+    dmgFxTemplate:t="envir_collision_bush_dead_effect"
   }
 
   cactus_pachycereus_b_a{
@@ -50857,6 +51789,7 @@ riExtra{
     fxTemplate:t="envir_destr_cactus_effect"
     fxScale:r=1.0
     physRes:t="cactus_pachycereus_b_a_destr_phobj"
+    dmgFxTemplate:t="envir_collision_bush_dead_effect"
   }
 
   cactus_pachycereus_b_b{
@@ -50865,6 +51798,7 @@ riExtra{
     fxTemplate:t="envir_destr_cactus_effect"
     fxScale:r=1.0
     physRes:t="cactus_pachycereus_b_b_destr_phobj"
+    dmgFxTemplate:t="envir_collision_bush_dead_effect"
   }
 
   cactus_pachycereus_b_c{
@@ -50873,6 +51807,7 @@ riExtra{
     fxTemplate:t="envir_destr_cactus_effect"
     fxScale:r=1.0
     physRes:t="cactus_pachycereus_b_c_destr_phobj"
+    dmgFxTemplate:t="envir_collision_bush_dead_effect"
   }
 
   cactus_pachycereus_c_a{
@@ -50881,6 +51816,7 @@ riExtra{
     fxTemplate:t="envir_destr_cactus_effect"
     fxScale:r=1.0
     physRes:t="cactus_pachycereus_c_a_destr_phobj"
+    dmgFxTemplate:t="envir_collision_bush_dead_effect"
   }
 
   cactus_pachycereus_c_b{
@@ -50889,6 +51825,7 @@ riExtra{
     fxTemplate:t="envir_destr_cactus_effect"
     fxScale:r=1.0
     physRes:t="cactus_pachycereus_c_b_destr_phobj"
+    dmgFxTemplate:t="envir_collision_bush_dead_effect"
   }
 
   cactus_pachycereus_c_c{
@@ -50897,6 +51834,7 @@ riExtra{
     fxTemplate:t="envir_destr_cactus_effect"
     fxScale:r=1.0
     physRes:t="cactus_pachycereus_c_c_destr_phobj"
+    dmgFxTemplate:t="envir_collision_bush_dead_effect"
   }
 
   cultivated_plants_pumpkin_foetus_a{
@@ -50915,45 +51853,50 @@ riExtra{
 
   cocos_nucifera_coconut_a{
     hp:r=5.0
-    fxTemplate:t="envir_destr_cactus_effect"
+    fxTemplate:t="envir_destr_bush_palm_effect"
     fxScale:r=1.0
     physRes:t="cocos_nucifera_coconut_a_destr_phobj"
+    dmgFxTemplate:t="envir_collision_bush_palm_effect"
     isParent:b=yes
     destructibleByParent:b=yes
   }
 
   cocos_nucifera_coconut_b{
     hp:r=5.0
-    fxTemplate:t="envir_destr_cactus_effect"
+    fxTemplate:t="envir_destr_bush_palm_effect"
     fxScale:r=1.0
     physRes:t="cocos_nucifera_coconut_b_destr_phobj"
+    dmgFxTemplate:t="envir_collision_bush_palm_effect"
     isParent:b=yes
     destructibleByParent:b=yes
   }
 
   cocos_nucifera_coconut_c{
     hp:r=5.0
-    fxTemplate:t="envir_destr_cactus_effect"
+    fxTemplate:t="envir_destr_bush_palm_effect"
     fxScale:r=1.0
     physRes:t="cocos_nucifera_coconut_c_destr_phobj"
+    dmgFxTemplate:t="envir_collision_bush_palm_effect"
     isParent:b=yes
     destructibleByParent:b=yes
   }
 
   cocos_nucifera_coconut_d{
     hp:r=5.0
-    fxTemplate:t="envir_destr_cactus_effect"
+    fxTemplate:t="envir_destr_bush_palm_effect"
     fxScale:r=1.0
     physRes:t="cocos_nucifera_coconut_d_destr_phobj"
+    dmgFxTemplate:t="envir_collision_bush_palm_effect"
     isParent:b=yes
     destructibleByParent:b=yes
   }
 
   cocos_nucifera_coconut_e{
     hp:r=5.0
-    fxTemplate:t="envir_destr_cactus_effect"
+    fxTemplate:t="envir_destr_bush_palm_effect"
     fxScale:r=1.0
     physRes:t="cocos_nucifera_coconut_e_destr_phobj"
+    dmgFxTemplate:t="envir_collision_bush_palm_effect"
     isParent:b=yes
     destructibleByParent:b=yes
   }
@@ -53778,6 +54721,25 @@ riExtra{
     physRes:t="aborigen_village_small_house_burned_round_a_destr_phobj"
   }
 
+  trench_tent_a_big_a{
+    hp:r=100.0
+    impulseThreshold:r=25.0
+    material:t="fabric"
+    fxTemplate:t="envir_destr_basic_small_effect"
+    fxScale:r=1.0
+    physRes:t="trench_tent_a_big_a_destr_phobj"
+    isObstacle:b=no
+  }
+
+  cargo_ship_yamazuki_maru_window_a{
+    hp:r=5.0
+    material:t="glass"
+    fxTemplate:t="envir_destr_glass_effect"
+    fxScale:r=1.0
+    physRes:t="cargo_ship_yamazuki_maru_window_a_destr_phobj"
+    nextRes:t="cargo_ship_yamazuki_maru_window_a_dmg"
+  }
+
   poluglisser_pg_117_broken{
     hp:r=100.0
     physRes:t="poluglisser_pg_117_broken_destr_phobj"
@@ -54825,8 +55787,8 @@ riExtra{
   }
 
   gmc_cckw_353_a{
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
@@ -54835,8 +55797,8 @@ riExtra{
   }
 
   gmc_cckw_353_b{
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
@@ -54845,8 +55807,8 @@ riExtra{
   }
 
   gmc_cckw_353_a_broken{
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
@@ -54855,8 +55817,8 @@ riExtra{
   }
 
   gmc_cckw_353_b_broken{
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
@@ -54865,8 +55827,8 @@ riExtra{
   }
 
   gmc_cckw_353_destroyed{
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     isParent:b=yes
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
@@ -54876,7 +55838,7 @@ riExtra{
 
   gmc_cckw_353_tent{
     destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    impulseThreshold:r=200.0
     isParent:b=no
     fxTemplate:t="envir_destr_wood_small_effect"
     fxScale:r=0.1
@@ -54885,7 +55847,7 @@ riExtra{
 
   gmc_cckw_353_tent_broken{
     destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    impulseThreshold:r=200.0
     isParent:b=no
     fxTemplate:t="envir_destr_wood_small_effect"
     fxScale:r=0.1
@@ -54940,16 +55902,16 @@ riExtra{
   }
 
   a6m2_mod11_destroyed_fuse{
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
     physRes:t="a6m2_mod11_destroyed_fuse_destr_phobj"
   }
 
   a6m2_mod11_destroyed_tail{
-    destructionImpulse:r=40000.0
-    impulseThreshold:r=2000.0
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
     physRes:t="a6m2_mod11_destroyed_tail_destr_phobj"
@@ -54969,6 +55931,7 @@ riExtra{
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
     physRes:t="a6m2_mod11_destroyed_wing_destr_phobj"
+    isObstacle:b=no
   }
 
   frame_horsehouse_window_1200_a_l{
@@ -55051,6 +56014,38 @@ riExtra{
     physRes:t="frame_house_window_1200_c_r_destr_phobj"
   }
 
+  frame_house_window_1200_c_l_damaged{
+    hp:r=6.0
+    material:t="window_wood"
+    fxTemplate:t="envir_destr_wood_window_small_effect"
+    fxScale:r=1.0
+    physRes:t="frame_house_window_1200_c_l_damaged_destr_phobj"
+  }
+
+  frame_house_window_1200_c_r_damaged{
+    hp:r=6.0
+    material:t="window_wood"
+    fxTemplate:t="envir_destr_wood_window_small_effect"
+    fxScale:r=1.0
+    physRes:t="frame_house_window_1200_c_r_damaged_destr_phobj"
+  }
+
+  frame_house_window_1200_b_l_damaged{
+    hp:r=6.0
+    material:t="window_wood"
+    fxTemplate:t="envir_destr_wood_window_small_effect"
+    fxScale:r=1.0
+    physRes:t="frame_house_window_1200_b_l_damaged_destr_phobj"
+  }
+
+  frame_house_window_1200_b_r_damaged{
+    hp:r=6.0
+    material:t="window_wood"
+    fxTemplate:t="envir_destr_wood_window_small_effect"
+    fxScale:r=1.0
+    physRes:t="frame_house_window_1200_b_r_damaged_destr_phobj"
+  }
+
   frame_house_window_2400_a_l{
     hp:r=6.0
     material:t="window_wood"
@@ -55097,18 +56092,6 @@ riExtra{
     fxTemplate:t="envir_destr_wood_window_small_effect"
     fxScale:r=1.0
     physRes:t="frame_house_window_2400_c_r_destr_phobj"
-  }
-
-  frame_horsehouse_b_stair_a{
-    hp:r=150.0
-    impulseThreshold:r=41.0
-    material:t="wood"
-    isParent:b=no
-    fxTemplate:t="envir_destr_wood_small_effect"
-    fxScale:r=1.0
-    nextRes:t="frame_horsehouse_b_stair_a_dmg"
-    physRes:t="frame_horsehouse_b_stair_a_destr_phobj"
-    isObstacle:b=no
   }
 
   frame_house_fence_2000_a{
@@ -55231,75 +56214,23 @@ riExtra{
     physRes:t="frame_house_railing_b_destr_phobj"
   }
 
-  frame_stairs_outdoor_a{
+  frame_house_railing_b{
     hp:r=150.0
     impulseThreshold:r=41.0
     material:t="wood"
     isParent:b=no
     fxTemplate:t="envir_destr_wood_small_effect"
     fxScale:r=1.0
-    physRes:t="frame_stairs_outdoor_a_destr_phobj"
-    isObstacle:b=no
+    physRes:t="frame_house_railing_b_destr_phobj"
   }
 
-  frame_stairs_outdoor_b_a{
-    hp:r=150.0
-    impulseThreshold:r=41.0
+  frame_stable_window_shutters_a{
+    hp:r=70.0
     material:t="wood"
     isParent:b=no
     fxTemplate:t="envir_destr_wood_small_effect"
     fxScale:r=1.0
-    nextRes:t="frame_stairs_outdoor_b_a_dmg"
-    physRes:t="frame_stairs_outdoor_b_a_destr_phobj"
-    isObstacle:b=no
-  }
-
-  frame_stairs_outdoor_b_b{
-    hp:r=150.0
-    impulseThreshold:r=41.0
-    material:t="wood"
-    isParent:b=no
-    fxTemplate:t="envir_destr_wood_small_effect"
-    fxScale:r=1.0
-    nextRes:t="frame_stairs_outdoor_b_b_dmg"
-    physRes:t="frame_stairs_outdoor_b_b_destr_phobj"
-    isObstacle:b=no
-  }
-
-  frame_stairs_outdoor_b_c{
-    hp:r=150.0
-    impulseThreshold:r=41.0
-    material:t="wood"
-    isParent:b=no
-    fxTemplate:t="envir_destr_wood_small_effect"
-    fxScale:r=1.0
-    nextRes:t="frame_stairs_outdoor_b_c_dmg"
-    physRes:t="frame_stairs_outdoor_b_c_destr_phobj"
-    isObstacle:b=no
-  }
-
-  frame_stairs_outdoor_c{
-    hp:r=150.0
-    impulseThreshold:r=41.0
-    material:t="wood"
-    isParent:b=no
-    fxTemplate:t="envir_destr_wood_small_effect"
-    fxScale:r=1.0
-    nextRes:t="frame_stairs_outdoor_c_dmg"
-    physRes:t="frame_stairs_outdoor_c_destr_phobj"
-    isObstacle:b=no
-  }
-
-  frame_stairs_outdoor_d{
-    hp:r=150.0
-    impulseThreshold:r=41.0
-    material:t="wood"
-    isParent:b=no
-    fxTemplate:t="envir_destr_wood_small_effect"
-    fxScale:r=1.0
-    nextRes:t="frame_stairs_outdoor_d_dmg"
-    physRes:t="frame_stairs_outdoor_d_destr_phobj"
-    isObstacle:b=no
+    physRes:t="frame_stable_window_shutters_a_destr_phobj"
   }
 
   northeuropean_village_building_brick_a_door_saloon_l{
@@ -55376,6 +56307,22 @@ riExtra{
     fxTemplate:t="envir_destr_wood_door_med_effect"
     fxScale:r=1.0
     physRes:t="frame_house_door_1300_2000_a_destr_phobj"
+  }
+
+  frame_house_door_1300_2000_a_damaged{
+    hp:r=60.0
+    material:t="softWoodDoor"
+    fxTemplate:t="envir_destr_wood_door_med_effect"
+    fxScale:r=1.0
+    physRes:t="frame_house_door_1300_2000_a_damaged_destr_phobj"
+  }
+
+  frame_house_door_1300_2000_c_damaged{
+    hp:r=60.0
+    material:t="softWoodDoor"
+    fxTemplate:t="envir_destr_wood_door_med_effect"
+    fxScale:r=1.0
+    physRes:t="frame_house_door_1300_2000_c_damaged_destr_phobj"
   }
 
   frame_house_door_1300_2000_b{
@@ -55749,6 +56696,166 @@ riExtra{
     fxTemplate:t="envir_destr_wood_med_effect"
     fxScale:r=1.0
     physRes:t="dugout_table_a_destr_phobj"
+  }
+
+  indigenous_crossing_wooden_section_5x4_a{
+    physRes:t="indigenous_crossing_wooden_section_5x4_a_destr_phobj"
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
+    isParent:b=yes
+    fxTemplate:t="envir_destr_wood_door_med_effect"
+    fxScale:r=1.0
+    isObstacle:b=no
+  }
+
+  indigenous_crossing_wooden_section_5x4_b{
+    physRes:t="indigenous_crossing_wooden_section_5x4_b_destr_phobj"
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
+    isParent:b=yes
+    fxTemplate:t="envir_destr_wood_door_med_effect"
+    fxScale:r=1.0
+    isObstacle:b=no
+  }
+
+  indigenous_crossing_wooden_section_5x4_c{
+    physRes:t="indigenous_crossing_wooden_section_5x4_c_destr_phobj"
+    destructionImpulse:r=100000.0
+    impulseThreshold:r=10000.0
+    isParent:b=yes
+    fxTemplate:t="envir_destr_wood_door_med_effect"
+    fxScale:r=1.0
+    isObstacle:b=no
+  }
+
+  bunker_grid_1375x1280_a{
+    physRes:t="bunker_grid_1375x1280_a_destr_phobj"
+    nextRes:t="bunker_grid_1375x1280_a_dmg"
+    hp:r=10.0
+    fxTemplate:t="envir_destr_metal_small_effect"
+    fxScale:r=1.0
+  }
+
+  metal_basin_a{
+    physRes:t="metal_basin_a_destr_phobj"
+    hp:r=10.0
+    isParent:b=yes
+    destructibleByParent:b=yes
+    fxTemplate:t="envir_destr_metal_small_effect"
+    fxScale:r=1.0
+  }
+
+  metal_basin_b{
+    physRes:t="metal_basin_b_destr_phobj"
+    hp:r=10.0
+    fxTemplate:t="envir_destr_metal_small_effect"
+    fxScale:r=1.0
+  }
+
+  metal_bath_a{
+    physRes:t="metal_bath_a_destr_phobj"
+    hp:r=30.0
+    isParent:b=yes
+    destructibleByParent:b=yes
+    fxTemplate:t="envir_destr_metal_small_effect"
+    fxScale:r=1.0
+  }
+
+  metal_ladle_a{
+    physRes:t="metal_ladle_a_destr_phobj"
+    hp:r=10.0
+    fxTemplate:t="envir_destr_metal_small_effect"
+    fxScale:r=1.0
+  }
+
+  washboard_a{
+    physRes:t="washboard_a_destr_phobj"
+    hp:r=10.0
+    fxTemplate:t="envir_destr_wood_small_effect"
+    fxScale:r=1.0
+  }
+
+  wood_basin_a{
+    physRes:t="wood_basin_a_destr_phobj"
+    hp:r=30.0
+    isParent:b=yes
+    destructibleByParent:b=yes
+    fxTemplate:t="envir_destr_wood_small_effect"
+    fxScale:r=1.0
+  }
+
+  wood_bath_a{
+    physRes:t="wood_bath_a_destr_phobj"
+    hp:r=30.0
+    isParent:b=yes
+    destructibleByParent:b=yes
+    fxTemplate:t="envir_destr_wood_small_effect"
+    fxScale:r=1.0
+  }
+
+  wood_bucket_a{
+    physRes:t="wood_bucket_a_destr_phobj"
+    hp:r=20.0
+    isParent:b=yes
+    destructibleByParent:b=yes
+    fxTemplate:t="envir_destr_wood_small_effect"
+    fxScale:r=1.0
+  }
+
+  wood_bucket_b{
+    physRes:t="wood_bucket_b_destr_phobj"
+    hp:r=20.0
+    isParent:b=yes
+    destructibleByParent:b=yes
+    fxTemplate:t="envir_destr_wood_small_effect"
+    fxScale:r=1.0
+  }
+
+  wood_ladle_a{
+    physRes:t="wood_ladle_a_destr_phobj"
+    hp:r=20.0
+    fxTemplate:t="envir_destr_wood_small_effect"
+    fxScale:r=1.0
+  }
+
+  wood_trough_a{
+    physRes:t="wood_trough_a_destr_phobj"
+    hp:r=30.0
+    fxTemplate:t="envir_destr_wood_small_effect"
+    fxScale:r=1.0
+  }
+
+  field_tank_gas_station_a_frame{
+    physRes:t="field_tank_gas_station_a_frame_destr_phobj"
+    nextRes:t="field_tank_gas_station_a_frame_dmg"
+    destructionImpulse:r=2000.0
+    impulseThreshold:r=250.0
+    isParent:b=yes
+    fxTemplate:t="envir_destr_wood_door_med_effect"
+    fxScale:r=1.0
+  }
+
+  pacific_wooden_stair{
+    physRes:t="pacific_wooden_stair_frame_destr_phobj"
+    destructionImpulse:r=100.0
+    impulseThreshold:r=20.0
+    fxTemplate:t="envir_destr_wood_door_med_effect"
+    fxScale:r=1.0
+  }
+
+  field_tank_gas_station_filling_hose_a{
+    destructionImpulse:r=2000.0
+    impulseThreshold:r=250.0
+  }
+
+  field_tank_gas_station_filling_hose_b{
+    destructionImpulse:r=2000.0
+    impulseThreshold:r=250.0
+  }
+
+  field_tank_gas_station_filling_hose_c{
+    destructionImpulse:r=2000.0
+    impulseThreshold:r=250.0
   }
 
   stz_entry_group_metal_gates_door_l{
@@ -56520,5 +57627,11 @@ riExtra{
     fxTemplate:t="envir_destr_wood_window_small_effect"
     fxScale:r=1.0
     physRes:t="workshop_window_casement_90_185cm_a_r_destr_phobj"
+  }
+
+  sample_box_1000x1000x1000{
+    hp:r=9999.0
+    destructionImpulse:r=99999.0
+    impulseThreshold:r=9999.0
   }
 }

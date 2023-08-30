@@ -12,8 +12,7 @@ require math.ang
 require ecs.safe
 
 def create_paratroopers_aircraft(respawnerEid : EntityId; squadId : int; memberId : int)
-  query(respawnerEid) <| $ [es] (respawner__paratroopersPointCoords : float3;
-                                 respawner__paratroopersAircraftStartPointOffset : float;
+  query(respawnerEid) <| $ [es] (respawner__paratroopersAircraftStartPointOffset : float;
                                  respawner__paratroopersAircraftEndPointOffset : float;
                                  respawner__paratroopersAircraftHeight : float;
                                  respawner__paratroopersAircraftSpawnDist : float;
@@ -21,7 +20,8 @@ def create_paratroopers_aircraft(respawnerEid : EntityId; squadId : int; memberI
                                  respawner__paratroopersAircraftHeightToDistanceOffsetMult : float;
                                  [[shared_comp]] respawner__paratroopersAircraftAngels : FloatList;
                                  respawner__paratroopersAircraftTemplate : string;
-                                 team aka player_team : int)
+                                 team aka player_team : int;
+                                 var respawner__paratroopersPointCoords : float3&)
     let teamEid = get_team_eid(player_team)
     query(teamEid) <| $ [es] (paratroopersAircraftCrewAndPlaneTemplate : string;
                               var paratroopersAircraftSpawnPoints : Object&)
@@ -70,7 +70,7 @@ def create_paratroopers_aircraft(respawnerEid : EntityId; squadId : int; memberI
         init |> set("ai_aircraft__targetPos", point)
         init |> set("ai_aircraft__state", int(AIAircraftState FLY_TO_END))
         init |> set("paratroopers_aircraft__respawnerEid", respawnerEid)
-        init |> set("paratroopers_aircraft__flyToKickTimer", get_sync_time() + 15.)
+        init |> set("paratroopers_aircraft__flyToKickTimer", get_sync_time() + 30.)
         var tm = IDENT_TM
 
         tm[0] = xAxis
@@ -79,4 +79,18 @@ def create_paratroopers_aircraft(respawnerEid : EntityId; squadId : int; memberI
         tm[3] = startpoint
 
         init |> set("transform", tm)
+
+        point[1] -= offset + respawner__paratroopersAircraftHeight
+        respawner__paratroopersPointCoords = point
+
+        query() <| $ [es] (counter_team : int;
+                           paratroopers_target_points__lifeTime : float;
+                           var paratroopers_target_points : Point3List;
+                           var paratroopers_target_points__eids : EidList;
+                           var paratroopers_target_points__disappearanceTime : FloatList)
+          if team == counter_team
+            push(paratroopers_target_points, point)
+            push(paratroopers_target_points__eids, respawnerEid)
+            push(paratroopers_target_points__disappearanceTime, get_sync_time() + paratroopers_target_points__lifeTime)
+
       set(paratroopersAircraftSpawnPoints, string(uint(aircraftEid)), startpoint)

@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { isSpectator, spectatingPlayerName } = require("%ui/hud/state/spectator_state.nut")
 let { isReplay } = require("%ui/hud/state/replay_state.nut")
 
@@ -22,7 +22,7 @@ let function spectatorMode_tip() {
     fontFx = FFT_GLOW
     fontFxColor = 0xCC000000
     fontFxFactor = min(16, hdpx(16))
-  }.__update(sub_txt))
+  }.__update(fontSub))
 }
 
 return spectatorMode_tip

@@ -1,9 +1,9 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontXLarge, fontSmall, fontMedium } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { colPart, colFull, bigPadding, defTxtColor, titleTxtColor, midPadding, commonBorderRadius,
-  accentColor, smallPadding, transpBgColor, footerContentHeight, darkTxtColor,
-  panelBgColor, defItemBlur, sidePadding
+let { fontHeading2, fontSub, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { bigPadding, defTxtColor, titleTxtColor, midPadding, commonBorderRadius, accentColor,
+  smallPadding, transpBgColor, footerContentHeight, darkTxtColor, panelBgColor, defItemBlur,
+  sidePadding, selectedPanelBgColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
 let { doesLocTextExist } = require("dagor.localize")
@@ -56,21 +56,21 @@ let scrollStyle = styling.__merge({ Bar = styling.Bar(false) })
 
 
 let isTutorialsWndOpened = Watched(false)
-let hasCrossplayDesc = Watched(true)
+let hasCrossplayDesc = Watched(crossnetworkPlay.value != CrossplayState.OFF && needShowCrossnetworkPlayIcon)
 let isOpened = mkWatched(persist, "isOpened", false)
 let defCustomGameImage = "ui/game_mode_moscow_solo.avif"
 
-let titleTxtStyle = freeze({ color = titleTxtColor }.__update(fontXLarge))
-let defTxtStyle = freeze({ color = defTxtColor }.__update(fontMedium))
-let activeTxtStyle = freeze({ color = darkTxtColor }.__update(fontMedium))
-let selectedTxtStyle = freeze({ color = accentColor }.__update(fontMedium))
-let descTxtStyle = freeze({ color = titleTxtColor }.__update(fontSmall))
+let titleTxtStyle = freeze({ color = titleTxtColor }.__update(fontHeading2))
+let defTxtStyle = freeze({ color = defTxtColor }.__update(fontBody))
+let activeTxtStyle = freeze({ color = darkTxtColor }.__update(fontBody))
+let selectedTxtStyle = freeze({ color = accentColor }.__update(fontBody))
+let descTxtStyle = freeze({ color = titleTxtColor }.__update(fontSub))
 
 
 let gap = hdpx(32)
-let cardSize = [colFull(4), colPart(7.516)]
-let nameBlockSize = [colFull(4), colPart(1.322)]
-let unseenPanelPos = [0, -colPart(0.709) - colPart(0.387)]
+let cardSize = [fsh(27.5), fsh(43)]
+let nameBlockSize = [fsh(27.5), hdpx(82)]
+let unseenPanelPos = [0, -hdpx(68)]
 let cardDescritionHeight = cardSize[1] - nameBlockSize[1]
 
 
@@ -119,7 +119,7 @@ let mkImage = @(image, fbImage, isAvailable, sf) {
 
 
 let mkLevelLock = @(level){
-  size = [flex(), colPart(0.333)]
+  size = [flex(), hdpx(20)]
   flow = FLOW_HORIZONTAL
   gap = midPadding
   valign = ALIGN_CENTER
@@ -145,7 +145,7 @@ let descriptionBlock = @(text, sf) @() {
   size = [flex(), cardDescritionHeight]
   rendObj = ROBJ_SOLID
   color = transpBgColor
-  padding = [colPart(0.4), smallPadding]
+  padding = [hdpx(26), smallPadding]
   valign = ALIGN_BOTTOM
   transform = sf == 0 ? { translate = [0, cardSize[1]] } : { translate = [0, 0] }
   transitions = [{ prop = AnimProp.translate, duration = 0.2, easing = InOutCubic}]
@@ -158,14 +158,13 @@ let descriptionBlock = @(text, sf) @() {
   }.__update(descTxtStyle)
 }
 
-let selectedColor = mul_color(panelBgColor, 1.5)
 let nameBlock = @(name, sf, needShowCrossplayIcon = false, isSelected = false) @() {
   watch = crossnetworkPlay
   rendObj = ROBJ_WORLD_BLUR
   size = [flex(), nameBlockSize[1]]
-  fillColor = sf & S_HOVER
-    ? accentColor
-    : isSelected ? selectedColor : panelBgColor
+  fillColor = sf & S_HOVER ? accentColor
+    : isSelected ? selectedPanelBgColor
+    : panelBgColor
   color = defItemBlur
   valign = ALIGN_CENTER
   padding = [0, smallPadding]
@@ -178,16 +177,16 @@ let nameBlock = @(name, sf, needShowCrossplayIcon = false, isSelected = false) @
       text = name
       halign = ALIGN_CENTER
       hplace = ALIGN_CENTER
-    }.__update((sf & S_HOVER) != 0
-      ? activeTxtStyle
-      : isSelected ? selectedTxtStyle : defTxtStyle)
+    }.__update(sf & S_HOVER ? activeTxtStyle
+      : isSelected ? selectedTxtStyle
+      : defTxtStyle)
     needShowCrossnetworkPlayIcon && needShowCrossplayIcon
       && crossnetworkPlay.value != CrossplayState.OFF
         ? crossplayIcon({
-            iconSize = colPart(0.5),
-            iconColor = (sf & S_HOVER) != 0
-              ? darkTxtColor
-              : isSelected ? accentColor : defTxtColor
+            iconSize = hdpxi(32),
+            iconColor = sf & S_HOVER ? darkTxtColor
+              : isSelected ? accentColor
+              : defTxtColor
           })
         : null
   ]
@@ -272,7 +271,7 @@ let mkTutorialsButton = @(unseenSign, defaultFbImage, defTutorialParams) watchEl
 
 
 let title = {
-  size = [colFull(8), colPart(1.023)]
+  size = [fsh(56), hdpx(64)]
   hplace = ALIGN_CENTER
   children = [
     doubleSideBg({
@@ -338,7 +337,7 @@ gameModeOnClickAction = function(gameMode) {
 
 
 let selectedLine = {
-  size = [flex(), colPart(0.06)]
+  size = [flex(), hdpx(4)]
   rendObj = ROBJ_BOX
   borderWidth = 0
   borderRadius = commonBorderRadius
@@ -466,7 +465,7 @@ let function mkGameModesList(defaultFbImage, defTutorialParams, customGameMode) 
       watch = [seenGamemodes, customGameMode, mainModes, tutorialModes,
         isTutorialsWndOpened, activeEvents]
       xmbNode = XmbContainer({
-        canFocus = @() false
+        canFocus = false
         scrollSpeed = 10.0
         isViewport = true
       })
@@ -505,13 +504,13 @@ let function crossplayDescBlock() {
   if (!hasCrossplayDesc.value)
     return res
   return res.__update({
-    size = [colFull(5), SIZE_TO_CONTENT]
+    size = [fsh(34.6), SIZE_TO_CONTENT]
     halign = ALIGN_CENTER
     flow = FLOW_HORIZONTAL
     valign = ALIGN_CENTER
     gap = bigPadding
     children = [
-      crossplayIcon({ iconSize = colPart(0.5) })
+      crossplayIcon({ iconSize = hdpxi(32) })
       {
         size = [flex(), SIZE_TO_CONTENT]
         rendObj = ROBJ_TEXTAREA
@@ -524,7 +523,7 @@ let function crossplayDescBlock() {
 
 
 let bottomBlock = freeze({
-  size = [flex(), colPart(2)]
+  size = [flex(), fsh(11)]
   padding = [0, 0, footerContentHeight, 0]
   vplace = ALIGN_BOTTOM
   children = [

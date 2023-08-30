@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {h2_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontHeading2} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {connectivity} = require("%ui/hud/state/network.nut")
 let {sound_play} = require("%dngscripts/sound_system.nut")
 let {CONNECTIVITY_OK, CONNECTIVITY_NO_PACKETS} = require("connectivity")
@@ -29,7 +29,7 @@ let msgDisrupted = freeze({
     { prop=AnimProp.opacity, from=1, to=0, duration=0.25, playFadeOut=true, easing=OutCubic }
     { prop=AnimProp.color, from=color0, to=color1, duration=1.0, play=true, loop=true, easing=CosineFull }
   ]
-}.__update(h2_txt))
+}.__update(fontHeading2))
 
 let function root() {
   return {

@@ -27,6 +27,13 @@ sound_debug_draw_enable{
   }
 }
 
+sound_debug_draw_template{
+
+  "soundDebugDrawTemplate:tag"{
+    _tags:t="sound"
+  }
+}
+
 sound_banks_state{
   _tracked:t="sound_banks_state__isPresetLoaded"
 
@@ -92,7 +99,9 @@ disable_sound_control{
 
   _group{
     _tags:t="sound"
-    sound_control__enable:b=no
+
+    "disableSoundControl:tag"{
+    }
   }
 }
 
@@ -162,10 +171,6 @@ base_game_object_sound{
 game_object_sound{
   _extends:t="base_game_object_sound"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-
-  "game_object_sound__shape:u32"{
-    value:i=0
-  }
 }
 
 game_object_compound_sound{

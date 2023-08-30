@@ -9,7 +9,8 @@ enum antiAliasingMode {
   TSR = 3,
   DLSS = 4,
   XESS = 6,
-  FSR2 = 7
+  FSR2 = 7,
+  SSAA = 8
 };
 
 let antiAliasingModeToString = {
@@ -20,6 +21,7 @@ let antiAliasingModeToString = {
   [antiAliasingMode.DLSS] = { optName = "option/dlss", defLocString = "NVIDIA DLSS" },
   [antiAliasingMode.XESS] = { optName = "option/xess", defLocString = "Intel XeSS" },
   [antiAliasingMode.FSR2] = { optName = "option/fsr2", defLocString = "FSR2" },
+  [antiAliasingMode.SSAA] = { optName = "options/optSSAA", defLocString = "SSAA" },
 }
 
 let renderSettingsTbl = freeze({

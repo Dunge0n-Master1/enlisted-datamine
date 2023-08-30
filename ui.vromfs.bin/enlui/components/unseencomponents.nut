@@ -1,16 +1,15 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { colPart, titleTxtColor, fullTransparentBgColor } = require("%enlSqGlob/ui/designConst.nut")
+let { titleTxtColor, fullTransparentBgColor, unseenColor } = require("%enlSqGlob/ui/designConst.nut")
 let { mkTwoSidesGradientX } = require("%enlSqGlob/ui/gradients.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
-let { fontLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 
 
-let panelTxtStyle = { color = titleTxtColor }.__update(fontLarge)
-let unseenColor = 0xFF00FF6C
-let defUnseenDotSize = colPart(0.35)
-let blinkingSize = colPart(0.3)
-let unblinkSignDotSize = colPart(0.135)
+let panelTxtStyle = { color = titleTxtColor }.__update(fontBody)
+let defUnseenDotSize = hdpxi(22)
+let blinkingSize = hdpxi(18)
+let unblinkSignDotSize = hdpxi(8)
 
 const BLINK_TRIGGER = "start_blinking_animation"
 const BLINK_DELAY = 4
@@ -70,7 +69,7 @@ let unblinkUnseen = {
 let panelBgImg = mkTwoSidesGradientX({sideColor = 0x00116C15, centerColor = 0x00116C15, isAlphaPremultiplied=false})
 
 let unseenPanel = @(text, override = null, txtStyle = null) {
-  size = [flex(), colPart(0.709)]
+  size = [flex(), hdpx(44)]
   rendObj = ROBJ_IMAGE
   image = panelBgImg
   halign = ALIGN_CENTER

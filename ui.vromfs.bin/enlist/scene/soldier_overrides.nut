@@ -112,11 +112,6 @@ let function switchSoldierFace(guid, dir) {
 
 let getSoldierFaceGen = @(animChar, faceId) faceGenOverrides.value?[animChar][faceId?.tostring()]
 
-let function faceGenClear(animChar) {
-  if (animChar in faceGenOverrides.value)
-    faceGenOverrides.mutate(@(v) delete v[animChar])
-}
-
 local function faceGenRandomize(animChar, fromId, toId = -1) {
   toId = max(toId, fromId)
   if (!animChar || fromId < 0 || toId >= FACE_ID_COUNT)
@@ -202,7 +197,6 @@ return {
 
   faceGenOverrides
   getSoldierFaceGen
-  faceGenClear
   faceGenRandomize
   faceGenAll = @(animChar) faceGenRandomize(animChar, 0, FACE_ID_COUNT - 1)
   faceGenSave

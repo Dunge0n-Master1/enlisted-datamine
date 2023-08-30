@@ -7,7 +7,7 @@ ownerAnimVars{
 }
 
 melee{
-  hitPower:r=21.0
+  hitPower:r=25.0
   armorPower:r=0.8
   impulsePower:r=10.0
   node:t="Bip01 Neck"

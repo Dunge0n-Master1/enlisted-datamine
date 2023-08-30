@@ -7,19 +7,12 @@ germ_dickermax_common{
   _extends:t="tank_panzer3_engine_sound"
   commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
   gunner_cam_limit__useCockpitDir:b=yes
-  item__iconOffset:p2=0.0, 0.5
-  item__iconScale:r=1.3
-  vehicle_commander_cam__attachToVehicle:b=yes
+  item__iconOffset:p2=0.05, 0.3
+  item__iconScale:r=1.6
+  armorThicknessHull:p3=50.0, 20.0, 20.0
+  armorThicknessTurret:p3=30.0, 20.0, 20.0
 
-  _group{
-    _tags:t="render"
-    animchar_camera_target__node_name:t="bone_camera_gunner"
-    animchar_camera_target__node_offset:p3=0.0, 0.5, 0.0
-    animchar_camera_target__nodeIndex:i=-1
-  }
-
-  "bullet_holes__movingCollisionNodes:array"{
-    _tags:t="render"
+  "vehicle_seats__effectors:array"{
   }
 
   "vehicle_seats__seats:shared:array"{
@@ -30,14 +23,24 @@ germ_dickermax_common{
       seatOwnsEntityControl:b=yes
       attachNode:t="driver"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.25, 0.0]]
+      attachTm:m=[[0.978137, 0.207909, 0.0] [-0.207909, 0.978139, 0.0] [0.0, 0.0, 0.999992] [-0.33, -0.31, -0.02]]
       seatComponent:t="isDriver"
       nextSeat:t="main_gunner"
-      shouldHideOwner:b=yes
+      shouldHideOwner:b=no
       receiveDamageFromDMPart:t="driver"
       cameraNodeName:t="bone_camera_driver"
       cameraOffset:p3=0.15, -0.0, -0.0
       cockpitTemplate:t="germ_dickermax_driver_cockpit"
+      seatAnimUpper:t="drive_passenger"
+      seatAnimLower:t="drive_passenger"
+      isHoldGunModeAllowed:b=no
+
+      "effectors:object"{
+        r.hand:t="righthand_4"
+        l.hand:t="lefthand_4"
+        r.foot:t="pedal_rfoot_4"
+        l.foot:t="pedal_lfoot_4"
+      }
     }
 
     "seats:object"{
@@ -45,7 +48,7 @@ germ_dickermax_common{
       locName:t="vehicle_seats/gunner"
       attachNode:t="gunner"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.2, 0.0]]
+      attachTm:m=[[0.933598, -0.358367, 4.92679e-08] [0.352922, 0.919413, -0.173648] [0.062229, 0.162116, 0.984824] [-0.25, -0.17, 0.0]]
       seatComponent:t="isGunner"
       nextSeat:t="driver"
       shouldHideOwner:b=no
@@ -57,6 +60,13 @@ germ_dickermax_common{
       "turretNames:array"{
         turret:t="turret_01"
       }
+
+      "effectors:object"{
+        r.hand:t="righthand_2"
+        l.hand:t="lefthand_2"
+        r.foot:t="pedal_rfoot_2"
+        l.foot:t="pedal_lfoot_2"
+      }
     }
 
     "seats:object"{
@@ -65,22 +75,19 @@ germ_dickermax_common{
       attachNode:t="commander"
       shouldHideOwner:b=no
       maxPosWithOpenHatch:r=0.4
-      maxPosWithOpenHatch:r=0.0
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.3, -0.7, -0.0]]
+      attachTm:m=[[0.596883, -0.705527, 0.381823] [0.6862, 0.695529, 0.212488] [-0.415184, 0.135079, 0.89863] [-0.3, 0.1, -0.1]]
       cameraType:t="commander"
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="commander"
       cockpitTemplate:t="germ_dickermax_commander_cockpit"
-      seatAnimUpper:t="gunner_upper_hands"
-      seatAnimLower:t="lower_stand"
-      cameraOffset:p3=-3.3, 0.8, 1.1
-      hatchRotationAxis:p3=0.0, 0.0, 0.0
-      isHatchControlInversed:b=yes
       isHoldGunModeAllowed:b=no
 
-      "hatchNodes:array"{
-        node:t="bone_camera_gunner"
+      "effectors:object"{
+        r.hand:t="righthand_1"
+        l.hand:t="lefthand_1"
+        r.foot:t="pedal_rfoot_1"
+        l.foot:t="pedal_lfoot_1"
       }
     }
 
@@ -88,17 +95,22 @@ germ_dickermax_common{
       locName:t="vehicle_seats/loader"
       attachNode:t="loader"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.15, -0.9, 0.0]]
+      attachTm:m=[[0.371707, -0.529761, -0.761992] [0.200742, 0.847226, -0.491095] [0.906049, 0.0295895, 0.421407] [-0.17, -0.05, 0.31]]
       seatComponent:t="isPassenger"
       shouldHideOwner:b=no
       receiveDamageFromDMPart:t="loader"
       cameraNodeName:t="bone_camera_driver"
-      seatAnimUpper:t="gunner_upper_hands"
-      seatAnimLower:t="lower_stand"
       isHoldGunModeAllowed:b=no
 
       "loaderTurretNames:array"{
         turret:t="turret_01"
+      }
+
+      "effectors:object"{
+        r.hand:t="righthand_5"
+        l.hand:t="lefthand_5"
+        r.foot:t="pedal_rfoot_5"
+        l.foot:t="pedal_lfoot_5"
       }
     }
 
@@ -106,13 +118,20 @@ germ_dickermax_common{
       locName:t="vehicle_seats/radioman"
       attachNode:t="machine_gunner"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.2, 0.0]]
+      attachTm:m=[[0.906316, -0.422616, -1.40075e-08] [0.421587, 0.904108, 0.0697566] [-0.0294802, -0.0632215, 0.997576] [-0.31, -0.2, 0.0]]
       seatComponent:t="isPassenger"
       seatComponent:t="isGunner"
       shouldHideOwner:b=no
       receiveDamageFromDMPart:t="machine_gunner"
       cameraNodeName:t="bone_camera_driver"
       isHoldGunModeAllowed:b=no
+
+      "effectors:object"{
+        r.hand:t="righthand_3"
+        l.hand:t="lefthand_3"
+        r.foot:t="pedal_rfoot_3"
+        l.foot:t="pedal_lfoot_3"
+      }
     }
   }
 }
@@ -255,5 +274,12 @@ germ_dickermax_commander_cockpit{
 
   "cockpit__slitZoomTime:list<r>"{
     slit:r=0.0
+  }
+
+  "cockpit__slitTemplates:list<t>"{
+    slit:t="default_periscope"
+  }
+
+  "cockpit__slitEids:list<eid>"{
   }
 }

@@ -116,11 +116,9 @@ tutorial_bot_spawn_base{
 
 tutorial_bot_anim_state{
   _extends:t="game_effect_base"
+  _extends:t="disable_battle_area_damage"
   game_effect__forceAnimState:t="enlisted_idle_13_weapon"
   game_effect__forceAnimStateId:i=-1
-
-  "notTakeDamageFromBattleArea:tag"{
-  }
 
   "tutorial_bot_anim_state:tag"{
   }

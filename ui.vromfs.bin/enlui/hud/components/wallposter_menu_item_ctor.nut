@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 
 let white = Color(255,255,255)
 let dark = Color(200,200,200)
@@ -27,7 +27,7 @@ return @(_idx, image, hintText) function(curIdx, idx) {
       rendObj = ROBJ_TEXT
       color = isCurrent ? curTextColor : defTextColor
       text = hintText
-    }.__update(sub_txt)
+    }.__update(fontSub)
 
     return {
       size = menuSize

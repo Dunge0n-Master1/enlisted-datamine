@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { ceil } = require("math")
 let { getRomanNumeral } = require("%sqstd/math.nut")
 let msgbox = require("%enlist/components/msgbox.nut")
@@ -38,8 +38,8 @@ let { focusResearch, findResearchTrainClass, hasResearchSquad
 } = require("%enlist/researches/researchesFocus.nut")
 let { soldierClasses } = require("%enlSqGlob/ui/soldierClasses.nut")
 let { curUpgradeDiscount, disablePerkReroll } = require("%enlist/campaigns/campaignConfig.nut")
-let { Notifiers, markNotifierSeen } = require("%enlist/tutorial/notifierTutorial.nut")
 let JB = require("%ui/control/gui_buttons.nut")
+let { Notifiers, markNotifierSeen } = require("%enlist/tutorial/notifierTutorial.nut")
 
 local slotNumber = 0
 let waitingSpinner = spinner(hdpx(20))
@@ -51,7 +51,7 @@ let mkText = @(txt) {
   rendObj = ROBJ_TEXT
   color = defTxtColor
   text = txt
-}.__update(sub_txt)
+}.__update(fontSub)
 
 let mkTextArea = @(txt) {
   rendObj = ROBJ_TEXTAREA
@@ -59,7 +59,7 @@ let mkTextArea = @(txt) {
   size = [flex(), SIZE_TO_CONTENT]
   color = defTxtColor
   text = txt
-}.__update(sub_txt)
+}.__update(fontSub)
 
 let choosePerkRow  = @(slotIdx, icon, locId, onClick = null) perkCardBg(slotIdx, onClick, {
   size = [flex(), SIZE_TO_CONTENT]
@@ -96,7 +96,7 @@ let useSoldierLevelOrdersMsg = @(perks, tier, ordersToNextLevel, barterData, onS
     productView = mkTextArea(loc("buy/soldierLevelConfirmOrder")).__update({
       halign = ALIGN_CENTER
       color = titleTxtColor
-    }.__update(body_txt)),
+    }.__update(fontBody)),
     currenciesAmount = mkItemCurrency({
       currencyTpl = ordersToNextLevel.orderTpl
       count = curCampItemsCount.value?[ordersToNextLevel.orderTpl] ?? 0
@@ -133,7 +133,7 @@ let function buySoldierLevelMsg(perks, cb, ordersToNextLevel) {
           halign = ALIGN_CENTER
           padding = bigPadding
           children = [
-            mkText(loc("notEnoughOrders")).__update(body_txt)
+            mkText(loc("notEnoughOrders")).__update(fontBody)
             mkItemCurrency({
               currencyTpl = ordersToNextLevel.orderTpl,
               count = ordersToNextLevel.ordersRequire
@@ -329,7 +329,7 @@ let function onPerksChoice(soldierGuid, perks, tierIdx, slotIdx) {
         mkTextArea(loc(isDrop ? "msg/dropPerk" : "msg/useRetrainingPoint")).__update({
           halign = ALIGN_CENTER
           color = titleTxtColor
-        }.__update(body_txt))
+        }.__update(fontBody))
       ]
     }
     buttons = [
@@ -497,7 +497,7 @@ let mkRetrainingPoints = @(soldierGuid) function() {
                 mkText(availPerks).__update({
                   key = availPerks
                   color = titleTxtColor
-                }.__update(body_txt))
+                }.__update(fontBody))
               ]
             }
           ]

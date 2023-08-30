@@ -1,7 +1,7 @@
 require ecs
 require enlisted.events_enlisted
 
-[es(tag=gameClient)]
+[es(before=human_weap_phys_es)]
 def human_weap_block_aim_es(info : ParallelUpdateFrameDelayed;
                             isInVehicle : bool;
                             human_vehicle__canHoldWeapon : bool;

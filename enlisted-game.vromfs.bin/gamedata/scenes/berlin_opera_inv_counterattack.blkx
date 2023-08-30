@@ -1791,6 +1791,14 @@ entity{
 }
 
 entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-684.091, 3.40664, 101.229]]
+  battle_area_polygon_point__forBattleAreaId:t="1_area2"
+  battle_area_polygon_point__id:t="point5"
+  battle_area_polygon_point__nextId:t="point1"
+}
+
+entity{
   _template:t="resupply_in_air_zone"
   transform:m=[[-0.999999, 0.0, -0.000445871] [0.0, 1.0, 0.0] [0.000445871, 0.0, -0.999999] [1106.7, 399.937, 2911.05]]
   resupply_zone__team:i=1
@@ -1894,14 +1902,6 @@ entity{
   moveCameraToHeight:r=190.0
   respawnSelectorDistanceMult:r=1.0
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-708.293, 196.222, -28.2723]]
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-684.091, 3.40664, 101.229]]
-  battle_area_polygon_point__forBattleAreaId:t="1_area2"
-  battle_area_polygon_point__id:t="point5"
-  battle_area_polygon_point__nextId:t="point1"
 }
 
 entity{

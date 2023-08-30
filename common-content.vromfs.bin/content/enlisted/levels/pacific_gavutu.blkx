@@ -744,7 +744,6 @@ grass{
 
     underwater_plants{
       id:i=11
-      waterplant_generic_a:r=5.0
       waterplant_generic_b:r=5.0
       nograss:r=1.0
     }

@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { isBooster } = require("%enlist/soldiers/model/boosters.nut")
 let {
   mkRewardIcon, mkRewardImages, rewardWidthToHeight
@@ -22,6 +22,8 @@ let sizeIcon = hdpx(35)
 let imageHeight = hdpx(180)
 let imageSize = [(rewardWidthToHeight * imageHeight).tointeger(), imageHeight]
 let trigger = "rewardAnim"
+let wndPadding = sh(1)
+let rewardWidth = hdpxi(160)
 
 let wndParams = {
   bgColor = Color(11, 11, 19)
@@ -43,7 +45,7 @@ let cardBottom = @(count, cardIcon){
       padding = [0, smallPadding]
       text = count > 99 ? count : loc("common/amountShort", { count = count })
       color = activeTxtColor
-    }.__update(body_txt)
+    }.__update(fontBody)
     cardIcon
   ]
 }
@@ -64,22 +66,22 @@ let mkRewardCardByTemplate = @(itemTemplate, allItemTemplates, commonArmy)
             padding = smallPadding
             children = [
               mkXpBooster(template)
-              mkBoosterInfo(template, body_txt.__merge({ color = titleTxtColor }))
-              mkBoosterLimits(template, body_txt.__merge({ color = titleTxtColor }))
+              mkBoosterInfo(template, fontBody.__merge({ color = titleTxtColor }))
+              mkBoosterLimits(template, fontBody.__merge({ color = titleTxtColor }))
             ]
           })
         : res
     }
   : null
 
-let function mkRewardCardByPresentanion(presentanion, count, allItemTemplates, commonArmy) {
-  let itemTpl = presentanion.itemTemplate
+let function mkRewardCardByPresentation(presentation, count, allItemTemplates, commonArmy) {
+  let itemTpl = presentation.itemTemplate
   let template = allItemTemplates.value?[commonArmy.value][itemTpl]
   if (isBooster(template))
     return mkRewardCardByTemplate(itemTpl, allItemTemplates, commonArmy)
 
-  let cardIcon = mkRewardIcon(presentanion, sizeIcon, { vplace = ALIGN_CENTER })
-  let cardImages = mkRewardImages(presentanion, imageSize, {
+  let cardIcon = mkRewardIcon(presentation, sizeIcon, { vplace = ALIGN_CENTER })
+  let cardImages = mkRewardImages(presentation, imageSize, {
     hplace = ALIGN_CENTER
     pos = [0, smallPadding]
   })
@@ -101,7 +103,7 @@ let mkBoosterItemRow = @(itemTemplate, tpl, armyId, count) {
       minWidth = hdpx(32)
       text = $"x{count}"
       color = wndParams.rewardColor
-    }).__update(sub_txt)
+    }).__update(fontSub)
     mkItemRow(mkShopItem(itemTemplate, tpl, armyId))
   ]
 }
@@ -112,7 +114,7 @@ let mkTextArea = @(text) {
   size = [flex(), SIZE_TO_CONTENT]
   text
   color = activeTxtColor
-}.__update(sub_txt)
+}.__update(fontSub)
 
 let boosterTopHint = mkTextArea(loc("boosterTooltipHeader"))
 let boosterBottomHint = mkTextArea(loc("boosterTooltipHint"))
@@ -181,14 +183,51 @@ let mkRollAnim = @(delay, yPos, onEnter = null, onFinish = null, soundName = nul
     play = true, delay = delay + ROLL_DURATION - 0.05, trigger, onFinish }
 ]
 
+let mkGrayBox = @(w) {
+  rendObj = ROBJ_BOX
+  fillColor = 0xFF404040
+  borderColor = 0xFF606060
+  borderWidth = hdpx(1)
+  size = [hdpx(w), flex()]
+}
+
+let mkGrayArrow = @(x, y, w, h) {
+  pos = [hdpx(x), hdpx(y)]
+  rendObj = ROBJ_IMAGE
+  size = [hdpxi(w), hdpxi(h)]
+  image = Picture("!ui/skin#rewards/arrow_rewards.svg:{0}:{1}:K".subst(hdpxi(w), hdpxi(h)))
+}
+
+let bigRewardSeparatorBoxes = {
+  padding = [wndPadding / 2, 0]
+  flow = FLOW_HORIZONTAL
+  gap = hdpx(2)
+  size = [hdpx(10), rewardWidth]
+  children = [
+    mkGrayBox(4)
+    mkGrayBox(6)
+  ]
+}
+
+let bigRewardSeparatorArrows = {
+  size = [hdpx(10), hdpx(40)]
+  children = [
+    mkGrayArrow(-6, 0, 19, 40)
+    mkGrayArrow(2, 0, 19, 40)
+  ]
+}
+
 return {
   wndParams
   sizeCard
-  mkRewardCardByPresentanion
+  mkRewardCardByPresentation
   mkRewardCardByTemplate
   mkBoosterItemsView
   mkMoveDownAnim
   mkAppearAnim
   mkRollAnim
   animTrigger = trigger
+  bigRewardSeparatorBoxes
+  bigRewardSeparatorArrows
+  rewardWidth
 }

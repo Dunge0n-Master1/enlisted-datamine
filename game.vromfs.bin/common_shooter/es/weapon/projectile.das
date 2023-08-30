@@ -182,6 +182,13 @@ def update_projectile_es(info : ParallelUpdateFrameDelayed;
     projectile__exploded = true
 
 
+[es(tag=render, no_order)]
+def projectile_effect_velocity_update(info : UpdateStageInfoAct;
+                                      projectile_ballistics : ProjectileBallistics;
+                                      var effect__velocity : float3&)
+  effect__velocity = projectile_ballistics.state.vel
+
+
 [es(on_appear)]
 def projectile_trajectory_init_es(evt : Event;
                                   eid : EntityId;

@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let faComp = require("%ui/components/faComp.nut")
 let { CheckBoxContentActive, CheckBoxContentHover, CheckBoxContentDefault, ControlBg,
   TextInactive } = require("%ui/style/colors.nut")
@@ -11,9 +11,8 @@ let { stateChangeSounds } = require("%ui/style/sounds.nut")
 
 let checkFontSize = hdpx(12)
 let boxSize = hdpx(20)
-let calcColor = @(sf)
-  (sf & S_ACTIVE) ? CheckBoxContentActive
-  : (sf & S_HOVER) ? CheckBoxContentHover
+let calcColor = @(sf) sf & S_ACTIVE ? CheckBoxContentActive
+  : sf & S_HOVER ? CheckBoxContentHover
   : CheckBoxContentDefault
 
 let box = @(isSelected, color) {
@@ -37,7 +36,7 @@ let label = @(text, color) {
   text
   behavior = [Behaviors.Marquee]
   scrollOnHover = true
-}.__update(body_txt)
+}.__update(fontBody)
 
 let function optionCtor(option, isSelected, onClick) {
   let stateFlags = Watched(0)

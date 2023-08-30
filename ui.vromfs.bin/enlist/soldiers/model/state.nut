@@ -406,9 +406,15 @@ let function getDemandingSlotsInfo(ownerGuid, slotType) {
 
 let maxCampaignLevel = Computed(@() armies.value.reduce(@(v,camp) max(v, camp?.level ?? 0), 0))
 
+
+let unequippableSlots = {
+  paratrooper = ["secondary"]
+}
+
 let function canChangeEquipmentInSlot(soldierClass, weaponSlot) {
-  let { isPremium = false } = getClassCfg(soldierClass)
-  return !isPremium || weaponSlot != weaponSlotsKeys[EWS_PRIMARY]
+  let { isPremium = false, kind = "unknown" } = getClassCfg(soldierClass)
+  return (!isPremium || weaponSlot != weaponSlotsKeys[EWS_PRIMARY])
+    && !unequippableSlots?[kind].contains(weaponSlot)
 }
 
 
@@ -427,7 +433,7 @@ console_register_command(function() {
   setCurArmies(tmpArmies)
 }, "meta.selectArmyScene")
 console_register_command(@(exp) addArmyExp(curArmy.value, exp), "meta.addCurArmyExp")
-console_register_command(@(squadId) add_squad(curArmy.value, squadId), "meta.addSquad")
+console_register_command(@(squadId) add_squad(squadId), "meta.addSquad")
 console_register_command(@(guid) remove_squad(guid), "meta.removeSquad")
 console_register_command(@() add_all_squads(), "meta.addAllSquads")
 console_register_command(@(shopId) get_shop_item(shopId), "meta.getFromShop")

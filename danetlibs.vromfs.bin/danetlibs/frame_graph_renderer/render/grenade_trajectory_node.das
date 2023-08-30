@@ -1,5 +1,5 @@
 
-require FrameGraph
+require daBfg
 require DagorShaders
 require DagorMath
 require danetlibs/frame_graph_renderer/render/node_macro

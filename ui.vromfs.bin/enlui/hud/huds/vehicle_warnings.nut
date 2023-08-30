@@ -6,9 +6,10 @@ let {vehicleEngineBroken, vehicleTransmissionBroken, vehicleTracksBroken, vehicl
   vehicleTurretHorDriveBroken, vehicleTurretVerDriveBroken, vehiclePartDamaged
 } = require("%ui/hud/state/vehicle_damage_state.nut")
 let {inVehicle, isVehicleAlive,
-  isHighSpeedWarningEnabled} = require("%ui/hud/state/vehicle_state.nut")
+  isHighSpeedWarningEnabled, isFlapsCritical, isOverloadCritical} = require("%ui/hud/state/vehicle_state.nut")
   let { isAlive } = require("%ui/hud/state/health_state.nut")
 let {implode} = require("%sqstd/string.nut")
+let { isTutorial } = require("%ui/hud/tutorial/state/tutorial_state.nut")
 
 let vehicleCantMoveWarnings = [
   {state = vehicleEngineBroken, text = @() loc("hud/engine_broken", "engine broken")}
@@ -24,7 +25,7 @@ let vehicleTurretDriveWarnings = [
 
 let showVehicleWarnings = Computed(@() inVehicle.value && isVehicleAlive.value && isAlive.value)
 
-let watch = [ showVehicleWarnings, vehiclePartDamaged, isHighSpeedWarningEnabled ]
+let watch = [ showVehicleWarnings, vehiclePartDamaged, isHighSpeedWarningEnabled, isFlapsCritical, isOverloadCritical, isTutorial ]
   .extend(vehicleCantMoveWarnings.map(@(w) w.state), vehicleTurretDriveWarnings.map(@(w) w.state))
 
 let function mkTip(warnings, msgKey, msgDefVal) {
@@ -32,7 +33,7 @@ let function mkTip(warnings, msgKey, msgDefVal) {
   let text = reasons.len() > 0 ? loc(msgKey, msgDefVal, {reason = implode(reasons, ", ")}) : null
   return tipCmp({
     text
-    textColor =  DEFAULT_TEXT_COLOR
+    textColor = DEFAULT_TEXT_COLOR
   })
 }
 
@@ -43,13 +44,25 @@ return function () {
     children.append(mkTip(vehicleCantMoveWarnings, "hud/vehicle_cant_move", "Vehicle can't move: {reason}")) //warning disable: -forgot-subst
     children.append(mkTip(vehicleTurretDriveWarnings, "hud/vehicle_turret_cant_move", "Vehicle turret can't move: {reason}")) //warning disable: -forgot-subst
     children.append(tipCmp({
-      text = vehiclePartDamaged.value ? loc("hud/vehicle_part_damaged_warning", "A part of the vehicle is damaged, go out to fix it") : null
-      textColor =  DEFAULT_TEXT_COLOR
+      text = (isTutorial.value ? vehicleTracksBroken.value : vehiclePartDamaged.value)
+        ? loc("hud/vehicle_part_damaged_warning", "A part of the vehicle is damaged, go out to fix it")
+        : null
+      textColor = DEFAULT_TEXT_COLOR
     }))
     children.append(tipCmp({
       text = isHighSpeedWarningEnabled.value ? loc("hud/vehicle_high_speed_warning") : null
       textColor = FAIL_TEXT_COLOR
     }))
+    if (isFlapsCritical.value)
+      children.append(tipCmp({
+        text = loc("hud/plane_flaps_critical_warning")
+        textColor = FAIL_TEXT_COLOR
+      }))
+    if (isOverloadCritical.value)
+      children.append(tipCmp({
+        text = loc("hud/plane_overload_critical_warning")
+        textColor = FAIL_TEXT_COLOR
+      }))
   }
 
   return {

@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { setTooltip } = require("%ui/style/cursors.nut")
 let mkBattleHeroAwardIcon = require("%enlSqGlob/ui/battleHeroAwardIcon.nut")
 let { BattleHeroesAward } = require("%enlSqGlob/ui/battleHeroesAwards.nut")
@@ -18,7 +18,7 @@ let function awardText(award) {
         vplace = ALIGN_CENTER
         halign = ALIGN_CENTER
         text
-      }.__update(sub_txt)
+      }.__update(fontSub)
     : null
 }
 
@@ -47,7 +47,7 @@ let awardValue = @(awardWatch) @(){
         rendObj = ROBJ_TEXT
         text = awardWatch.value
         color = Color(51,51,51)
-      }.__update(body_txt)
+      }.__update(fontBody)
     }
     : null
 }

@@ -7,11 +7,11 @@ decalTypes{
     displacementMin:r=-0.25
     displacementMax:r=0.35
     displacementScale:r=0.3
+    displacementFalloffRadius:r=0.65
     displacementMask:b=yes
     reflectance:r=0.15
     ao:r=0.9
     microdetail:i=102
-    sizeScale:r=1.35
     decalsCount:i=1000
   }
 
@@ -22,11 +22,11 @@ decalTypes{
     displacementMin:r=-0.25
     displacementMax:r=0.35
     displacementScale:r=0.3
+    displacementFalloffRadius:r=0.65
     displacementMask:b=yes
     reflectance:r=0.15
     ao:r=0.9
     microdetail:i=102
-    sizeScale:r=1.35
     decalsCount:i=1000
   }
 
@@ -37,11 +37,11 @@ decalTypes{
     displacementMin:r=-0.25
     displacementMax:r=0.35
     displacementScale:r=0.3
+    displacementFalloffRadius:r=0.65
     displacementMask:b=yes
     reflectance:r=0.15
     ao:r=0.9
     microdetail:i=102
-    sizeScale:r=1.35
     decalsCount:i=1000
   }
 
@@ -52,10 +52,10 @@ decalTypes{
     displacementMin:r=-0.25
     displacementMax:r=0.35
     displacementScale:r=0.3
+    displacementFalloffRadius:r=0.65
     displacementMask:b=yes
     reflectance:r=0.15
     microdetail:i=102
-    sizeScale:r=1.35
     decalsCount:i=1000
   }
 

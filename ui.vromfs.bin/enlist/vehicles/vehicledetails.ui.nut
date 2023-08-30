@@ -1,10 +1,8 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h2_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { round_by_value } = require("%sqstd/math.nut")
-let {
-  unitSize, bigPadding, smallPadding, textBgBlurColor, detailsHeaderColor,
-  activeTxtColor
+let { bigPadding, smallPadding, textBgBlurColor, activeTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let defcomps = require("%enlSqGlob/ui/defcomps.nut")
 let { Flat, PrimaryFlat } = require("%ui/components/textButton.nut")
@@ -14,13 +12,11 @@ let { viewVehicle, selectVehicle, selectedVehicle, selectVehParams,
   CAN_USE, LOCKED, CANT_USE, AVAILABLE_AT_CAMPAIGN, CAN_PURCHASE,
   CAN_RECEIVE_BY_ARMY_LEVEL, vehicleClear
 } = require("vehiclesListState.nut")
-let { getItemName } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let { focusResearch, findResearchUpgradeUnlock
 } = require("%enlist/researches/researchesFocus.nut")
 let { jumpToArmyProgress } = require("%enlist/mainMenu/sectionsState.nut")
-let { blur, mkItemDescription, mkVehicleDetails, mkUpgrades
-} = require("%enlist/soldiers/components/itemDetailsPkg.nut")
+let { mkViewItemDetails } = require("%enlist/soldiers/components/itemDetailsComp.nut")
 let { scrollToCampaignLvl } = require("%enlist/soldiers/model/armyUnlocksState.nut")
 let spinner = require("%ui/components/spinner.nut")
 let { isItemActionInProgress } = require("%enlist/soldiers/model/itemActions.nut")
@@ -37,23 +33,22 @@ let { openUpgradeItemMsg, openDisposeItemMsg
 } = require("%enlist/soldiers/components/modifyItemComp.nut")
 let { getShopItemsCmp, curArmyShopItems, openAndHighlightItems
 } = require("%enlist/shop/armyShopState.nut")
-let { mkSpecialItemIcon } = require("%enlSqGlob/ui/mkSpecialItemIcon.nut")
 let { isDmViewerEnabled } = require("%enlist/vehicles/dmViewer.nut")
-let { detailsStatusTier } = require("%enlist/soldiers/components/itemDetailsComp.nut")
 let JB = require("%ui/control/gui_buttons.nut")
+let { inventoryItemDetailsWidth } = require("%enlSqGlob/ui/designConst.nut")
 
 let unseenIcon = blinkUnseenIcon(0.8).__update({ hplace = ALIGN_RIGHT })
 let waitingSpinner = spinner(hdpx(25))
 
 let function txt(text) {
   return type(text) == "string"
-    ? defcomps.txt({text}.__update(sub_txt))
+    ? defcomps.txt({text}.__update(fontSub))
     : defcomps.txt(text)
 }
 
 let mkStatusRow = @(text, icon) {
   size = [flex(), SIZE_TO_CONTENT]
-  padding = smallPadding
+  padding = [smallPadding, 0]
   flow = FLOW_HORIZONTAL
   valign = ALIGN_CENTER
   gap = smallPadding
@@ -62,21 +57,6 @@ let mkStatusRow = @(text, icon) {
     icon
   ]
 }
-
-let vehicleNameRow = @(item) item == null ? null
-  : {
-      flow = FLOW_HORIZONTAL
-      gap = hdpx(6)
-      vplace = ALIGN_BOTTOM
-      valign = ALIGN_CENTER
-      children = [
-        mkSpecialItemIcon(item, hdpxi(30))
-        defcomps.txt({
-          color = detailsHeaderColor
-          text = getItemName(item)
-        }.__update(h2_txt))
-      ]
-    }
 
 let vehicleStatusRow = @(item) item == null || item.status.flags == CAN_USE ? null
   : mkStatusRow(item.status?.statusText ?? "",
@@ -295,30 +275,27 @@ return function() {
     anim_start("vehicleDetailsAnim")
   }
   return res.__update({
-    size = [unitSize * 10, flex()]
+    size = [inventoryItemDetailsWidth, flex()]
     flow = FLOW_VERTICAL
-    gap = bigPadding
+    gap = hdpx(30)
     valign = ALIGN_BOTTOM
     halign = ALIGN_RIGHT
     transform = {}
     animations = animations
     children = !isDmViewerEnabled.value
       ? [
-          blur({
-            size = [flex(), SIZE_TO_CONTENT]
-            flow = FLOW_VERTICAL
-            gap = bigPadding
-            children = [
-              vehicleNameRow(vehicle)
-              detailsStatusTier(vehicle)
-              vehicleStatusRow(vehicle)
-              mkItemDescription(vehicle)
-              mkVehicleDetails(vehicle, true)
-              mkUpgrades(vehicle)
-            ]
-          })
-          manageButtons
-        ]
+          {
+          size = flex()
+          flow = FLOW_VERTICAL
+          valign = ALIGN_BOTTOM
+          gap = bigPadding
+          children = [
+            mkViewItemDetails(viewVehicle.value)
+            vehicleStatusRow(vehicle)
+          ]
+        }
+        manageButtons
+      ]
       : manageButtons
   })
 }

@@ -1,37 +1,43 @@
+motion_matching_trajectory{
+  _tags:t="render"
+  mm_trajectory__historyLength:i=0
+  mm_trajectory__lastHistoryIdx:i=-1
+  mm_trajectory__lastHistoryTime:r=0.0
+  mm_trajectory__historyDt:r=0.0
+  mm_trajectory__prevPosition:p3=0.0, 0.0, 0.0
+  mm_trajectory__prevRotation:p4=0.0, 0.0, 0.0, 1.0
+  mm_trajectory__currPosition:p3=0.0, 0.0, 0.0
+  mm_trajectory__currRotation:p4=0.0, 0.0, 0.0, 1.0
+  mm_trajectory__linearVelocity:p3=0.0, 0.0, 0.0
+  mm_trajectory__angularVelocity:p3=0.0, 0.0, 0.0
+  mm_trajectory__linearVelocityViscosity:r=0.1
+  mm_trajectory__angularVelocityViscosity:r=0.1
+
+  "mm_trajectory__historyPositions:list<p3>"{
+  }
+
+  "mm_trajectory__historyRotations:list<p4>"{
+  }
+
+  "mm_trajectory__featurePositions:list<p3>"{
+  }
+
+  "mm_trajectory__featureDirections:list<p3>"{
+  }
+}
+
 motion_matching_animchar_component{
+  _extends:t="motion_matching_trajectory"
   _tags:t="render"
   motion_matching__enabled:b=no
   motion_matching__blendTimeToAnimtree:r=0.45
-  motion_matching__trajectoryInertionFactor:r=0.75
-  motion_matching__linearVelocityViscosity:r=0.1
-  motion_matching__angularVelocityViscosity:r=0.1
-  motion_matching__linearVelocity:p3=0.0, 0.0, 0.0
-  motion_matching__angularVelocity:p3=0.0, 0.0, 0.0
-  motion_matching__linearVelocityAmortized:p3=0.0, 0.0, 0.0
-  motion_matching__angularVelocityAmortized:p3=0.0, 0.0, 0.0
   motion_matching__metricaTolerance:r=0.0
-  motion_matching__prevAnimcharRotation:p4=0.0, 0.0, 0.0, 1.0
   motion_matching__animationBlendTime:r=0.45
   motion_matching__updateProgress:r=0.0
   motion_matching__distanceFactor:r=1.0
   motion_matching__trajectoryTolerance:r=0.0
   motion_matching__presetIdx:i=-1
-  motion_matching__dataBaseTemplateName:t="motion_matchign_animation_database"
-
-  "motion_matching__trajectoryTimes:list<r>"{
-  }
-
-  "motion_matching__desiredPositions:list<p3>"{
-  }
-
-  "motion_matching__desiredDirections:list<p3>"{
-  }
-
-  "motion_matching__predictedPositions:list<p3>"{
-  }
-
-  "motion_matching__predictedDirections:list<p3>"{
-  }
+  motion_matching__dataBaseTemplateName:t="motion_matching_animation_database"
 
   "motion_matching__goalFeature:FrameFeatures"{
   }
@@ -91,10 +97,9 @@ motion_matching_foot_ik_locker{
   }
 }
 
-motion_matchign_animation_database{
+motion_matching_animation_database{
   _singleton:b=yes
   _tags:t="render"
-  dataBaseName:t="motion_matchign_animation_database"
   main_database__loaded:b=no
   main_database__perFrameLimit:i=-1
   weightsPath:t="%danetlibs/motion_matching/animation_data_base/main_data_base_weights.blk"
@@ -124,12 +129,15 @@ motion_matchign_animation_database{
 
   "main_database__presetsTagsName:list<t>"{
   }
+
+  "main_database__pbcWeightOverrides:object"{
+    "#body_dir_rotate_applier":r=0.0
+  }
 }
 
-motion_matchign_animation_database_extended{
-  _extends:t="motion_matchign_animation_database"
+motion_matching_animation_database_extended{
+  _extends:t="motion_matching_animation_database"
   _tags:t="render"
-  dataBaseName:t="motion_matchign_animation_database_extended"
 
   "data_bases_paths:list<t>"{
     path:t="%danetlibs/motion_matching/animation_data_base/legacy_locomotion.blk"
@@ -137,9 +145,44 @@ motion_matchign_animation_database_extended{
   }
 }
 
-optional_motion_matching{
+soldier_mm_database{
+  _extends:t="motion_matching_animation_database"
+  _singleton:b=yes
+  _tags:t="render"
+  weightsPath:t="%danetlibs/motion_matching/animation_data_base/soldier_mm_weights.blk"
+  rootMotionPath:t="%danetlibs/motion_matching/animation_data_base/soldier_mm_root_motion.blk"
 
-  "optionalRequestMotionMatching:tag"{
+  "data_bases_paths:list<t>"{
+    path:t="%danetlibs/motion_matching/animation_data_base/soldier_sprint_animation_list.blk"
+  }
+
+  "main_database__pbcWeightOverrides:object"{
+    "#body_dir_rotate_applier":r=0.0
+    "#alignToNeckDir":r=0.5
+  }
+}
+
+soldier_mm_component{
+  _extends:t="motion_matching_animchar_component"
+  _tags:t="render"
+  motion_matching__blendTimeToAnimtree:r=0.3
+  motion_matching__dataBaseTemplateName:t="soldier_mm_database"
+  mm_trajectory__wishLinearVelocity:p3=0.0, 0.0, 0.0
+  motion_matching__afterSprintTime:r=0.0
+}
+
+soldier_optional_motion_matching_component{
+  _tags:t="render,dev"
+  motion_matching__optionalSubtemplate:t="soldier_mm_component"
+}
+
+motion_matching_optional_subtemplates_manager{
+  _singleton:b=yes
+
+  _group{
+    _tags:t="render,dev"
+    _track:b=yes
+    motion_matching__optionalSubtemplatesEnabled:b=no
   }
 }
 
@@ -172,16 +215,25 @@ animation_tester{
   animation_tester__moveTarget:p3=0.0, 0.0, 0.0
 }
 
+motion_matching_camera_target{
+  motion_matching__followWithFreeCamera:b=yes
+  motion_matching__freeCameraOffset:p3=0.0, 4.0, -4.0
+}
+
+motion_matching_debug_label{
+  motion_matching__debugLabel:t=""
+}
+
 animation_self_tester{
   _extends:t="motion_matching_animchar_component"
   _extends:t="animation_tester"
   _extends:t="animation_test_target"
-  motion_matching__debugLabel:t=""
+  _extends:t="motion_matching_debug_label"
 
   _group{
     _tags:t="render"
     motion_matching__enabled:b=yes
-    motion_matching__dataBaseTemplateName:t="motion_matchign_animation_database_extended"
+    motion_matching__dataBaseTemplateName:t="motion_matching_animation_database_extended"
   }
 }
 
@@ -209,8 +261,8 @@ motion_matching_inertial_blend_tester{
   }
 }
 
-animation_test_pair{
-  _extends:t="animation_test_target"
+animation_test_pair_base{
+  _extends:t="motion_matching_camera_target"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 
   "animationTestPair:tag"{
@@ -218,6 +270,11 @@ animation_test_pair{
 
   "tester_list:list<eid>"{
   }
+}
+
+animation_test_pair{
+  _extends:t="animation_test_pair_base"
+  _extends:t="animation_test_target"
 }
 
 motion_matching_imgui_state{
@@ -233,6 +290,9 @@ motion_matching_imgui_state{
   mm_clips_historyIndex:ip2=-1, 0
   mm_clips_animationPlaySpeed:r=1.0
   mm_clips_animationPlayMode:i=0
+
+  "mm_imguiAnimcharEid:eid"{
+  }
 
   "mm_clips_clipProgress:list<i>"{
   }

@@ -61,7 +61,7 @@ def available_animation_sliders(data_base : AnimationDataBase const?;
     console_command("app.timeSpeed {animationPlaySpeed}")
 
   resize(clip_progress, length(data_base.clips))
-  let curClipIdx = controller |> getCurrentClip()
+  let curClipIdx = controller |> empty() ? -1 : controller |> getCurrentClip()
   for clip, clipIdx in data_base.clips, iter_range(data_base.clips)
     if animation_play_mode != int(AnimationPlayMode DISABLED) && curClipIdx == clipIdx
       clip_progress[clipIdx] = controller |> getCurrentFrame()

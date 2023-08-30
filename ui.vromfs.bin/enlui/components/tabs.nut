@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {body_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontBody} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {ControlBgOpaque, BtnTextHover, BtnTextActive, BtnTextHilite, BtnTextNormal, BtnBgNormal, BtnBgHover, BtnBgActive} = require("%ui/style/colors.nut")
 let { makeHorizScroll } = require("%ui/components/scrollbar.nut")
 let { safeAreaHorPadding } = require("%enlSqGlob/safeArea.nut")
@@ -12,8 +12,8 @@ let function tabCtor(tab, is_current, handler) {
   let stateFlags = Watched(0)
 
   return function() {
-    let isHover = (stateFlags.value & S_HOVER)
-    let isFocus = (stateFlags.value & S_KB_FOCUS)
+    let isHover = stateFlags.value & S_HOVER
+    let isFocus = stateFlags.value & S_KB_FOCUS
     local fillColor, textColor, borderColor
     if (is_current || isFocus) {
       textColor = isHover ? BtnTextHover : BtnTextActive
@@ -56,7 +56,7 @@ let function tabCtor(tab, is_current, handler) {
 
         text = tab.text
         group = grp
-      }.__update(body_txt)
+      }.__update(fontBody)
     }
   }
 }

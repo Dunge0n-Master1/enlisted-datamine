@@ -90,7 +90,6 @@ return {
 
   currenciesBalance
   currenciesExpiring
-  currenciesPurchases
   hasValidBalance
 
   currenciesList

@@ -75,6 +75,7 @@ def collision_damage_vehicle(evt : EventOnCollision;
                              collision_damage__crawlMult : float;
                              collision_damage__downedMult : float;
                              human_net_phys : HumanActor;
+                             human_anim__vehicleSelected : EntityId = INVALID_ENTITY_ID;
                              vehicle__lastEid : EntityId const? = null;
                              vehicle__lastTime : float = 0.f;
                              isInVehicle : bool = false)
@@ -83,6 +84,8 @@ def collision_damage_vehicle(evt : EventOnCollision;
     poseDmgMult *= collision_damage__crawlMult
   elif human_phys_state_get_is_downed(human_net_phys.phys.currentState)
     poseDmgMult *= collision_damage__downedMult
+  if !!human_anim__vehicleSelected && human_anim__vehicleSelected == evt.offender
+    return
   apply_vehicle_collision_dmg(evt,
                               eid,
                               team,

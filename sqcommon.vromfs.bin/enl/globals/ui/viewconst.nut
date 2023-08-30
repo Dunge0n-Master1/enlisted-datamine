@@ -20,10 +20,10 @@ let bigPadding = hdpx(8)
 let tinyOffset = hdpx(12)
 let smallOffset = hdpx(24)
 let bigOffset = hdpx(48)
-let unitSize = hdpx(45) //unit, 1920x1080 - 45x24)
+let unitSize = hdpxi(45) //unit, 1920x1080 - 45x24)
 let researchListTabBorder = hdpx(4)
 
-let multySquadPanelSize = [(unitSize * 2.4).tointeger(), (unitSize * 2.4).tointeger()]
+let multySquadPanelSize = [(unitSize * 3.2).tointeger(), (unitSize * 2.2).tointeger()]
 let squadSlotHorSize = [hdpxi(660), hdpxi(72)]
 
 let soldierWndWidth = unitSize * 10
@@ -160,16 +160,16 @@ return {
 
   listCtors = {
     nameColor = @(flags, _selected = false)
-      (flags & S_HOVER) ? selectedTxtColor : titleTxtColor
+      flags & S_HOVER ? selectedTxtColor : titleTxtColor
 
     weaponColor = @(flags, _selected = false)
-      (flags & S_HOVER) ? selectedTxtColor : weaponTxtColor
+      flags & S_HOVER ? selectedTxtColor : weaponTxtColor
 
     txtColor = @(flags, selected = false)
       (flags & S_HOVER) || (flags & S_ACTIVE) || selected ? selectedTxtColor : defTxtColor
 
     txtDisabledColor = @(flags, _selected = false)
-      (flags & S_HOVER) ? selectedTxtColor : disabledTxtColor
+      flags & S_HOVER ? selectedTxtColor : disabledTxtColor
 
     bgColor = @(flags, selected = false, idx = 0) selected ? activeBgColor
       : flags & S_HOVER ? hoverBgColor
@@ -178,7 +178,7 @@ return {
   }
 
   rowBg = @(sf, idx, isSelected = false) isSelected ? Color(70, 70, 70, 25)
-    : (sf & S_HOVER) ? Color(10,10,10,25)
+    : sf & S_HOVER ? Color(10,10,10,25)
     : (idx % 2) ? Color(35, 35, 35, 25)
     : Color(25, 25, 25, 25)
 
@@ -197,8 +197,8 @@ return {
         size = [hdpx(8), flex()]
         borderWidth = [0, hdpx(1), 0, hdpx(1)]
         borderColor = Color(0, 0, 0, 0)
-        fillColor = (sf & S_ACTIVE) ? Color(255,255,255)
-          : (sf & S_HOVER) ? Color(110, 120, 140, 80)
+        fillColor = sf & S_ACTIVE ? Color(255,255,255)
+          : sf & S_HOVER ? Color(110, 120, 140, 80)
           : Color(110, 120, 140, 160)
       }
     }

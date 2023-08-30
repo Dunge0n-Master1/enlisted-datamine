@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {h2_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontHeading2} = require("%enlSqGlob/ui/fontsStyle.nut")
 let function centeredText(text, options={}) {
   return {
     rendObj = ROBJ_TEXT
@@ -9,7 +9,7 @@ let function centeredText(text, options={}) {
 
     hplace = ALIGN_CENTER
     vplace = ALIGN_CENTER
-  }.__update(h2_txt)
+  }.__update(fontHeading2)
 }
 
 

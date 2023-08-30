@@ -82,5 +82,7 @@ def human_aim_punch_events_es(evt : EventOnEntityHit;
   let strength = max(strengthFromDamage - human_aim_punch__curPower * human_aim_punch__strengthDamageAdaptationMultiplier, 0f)
 
   let dir = gfrnd() * TWOPI;
-  human_aim_punch__queuedEvents |> push(float3(time, sin(dir) * strength, cos(dir) * strength))
+  var dirSin, dirCos : float
+  sincos(dir, dirSin, dirCos)
+  human_aim_punch__queuedEvents |> push(float3(time, dirSin * strength, dirCos * strength))
   human_aim_punch__curPower = max(human_aim_punch__curPower, strengthFromDamage)

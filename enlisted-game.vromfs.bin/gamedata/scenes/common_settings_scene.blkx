@@ -9,3 +9,13 @@ entity{
 entity{
   _template:t="hitmarks_groups_id_table"
 }
+
+entity{
+  _template:t="paratroopers_target_icons_counter"
+  counter_team:i=2
+}
+
+entity{
+  _template:t="paratroopers_target_icons_counter"
+  counter_team:i=1
+}

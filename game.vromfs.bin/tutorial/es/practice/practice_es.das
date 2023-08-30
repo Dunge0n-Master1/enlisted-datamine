@@ -1,6 +1,7 @@
 require ecs
-require HumanPhys
+require ecs.safe
 require ecs.common
+require HumanPhys
 require DagorSystem
 require DagorDataBlock
 require game.es.events
@@ -29,13 +30,9 @@ def show_squad_menu_es(evt : CmdSwitchSquad)
   tutorial_squad_change()
 
 [es(tag=gameClient, track=human_weap__gunEids, REQUIRE=hero, before=human_weapon_set_gun_info_es)]
-def practice_weapon_pickup(evt : Event; team : int; human_weap__gunEids : EidList; var human_weap__weapInfo : Array&)
+def practice_weapon_pickup(evt : Event; team : int; human_weap__gunEids : EidList)
   for slotId in [[HUWeaponSlots HUWeaponSlots EWS_PRIMARY; HUWeaponSlots EWS_SECONDARY; HUWeaponSlots EWS_TERTIARY]]
-    var weapInfo = getRW_ecs_object(human_weap__weapInfo[int(slotId)])
-    if weapInfo == null
-      continue
-
-    let gunEid = human_weap__gunEids[int(slotId)]
+    let gunEid = human_weap__gunEids?[int(slotId)] ?? INVALID_ENTITY_ID
     query(gunEid) <| $ [es] (gun__ammoHolders : Array;
                              var item__ownedByTeam : int&;
                              var gun__reserveAmmoTemplate : das_string&;

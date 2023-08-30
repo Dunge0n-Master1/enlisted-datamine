@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { popupsGen, getPopups } = require("%enlSqGlob/ui/popup/popupsState.nut")
 let { replayBgColor } = require("%ui/hud/replay/replayConst.nut")
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 
 return function(custom_style) {
   return function() {
@@ -33,7 +33,7 @@ return function(custom_style) {
           children = {
             rendObj = ROBJ_TEXT
             text = popup.text
-          }.__update(body_txt)
+          }.__update(fontBody)
           key = $"popup_block_{popup.uid}"
         }
         animations = [

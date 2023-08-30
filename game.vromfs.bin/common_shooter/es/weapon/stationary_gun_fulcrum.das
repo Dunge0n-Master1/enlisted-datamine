@@ -12,7 +12,7 @@ def stationary_gun_fulcrum__node_init(evt : Event;
   if (stationary_gun_fulcrum__nodeId < 0)
     logerr("Can't find stationary_gun_fulcrum node {stationary_gun_fulcrum__node}");
 
-[es(on_appear)]
+[es(on_appear, track=gun__boxNode)]
 def gun__boxNode_init(evt : Event;
                       var gun__boxNodeId : int&;
                       animchar : AnimcharBaseComponent;

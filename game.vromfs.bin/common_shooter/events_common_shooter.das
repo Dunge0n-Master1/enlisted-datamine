@@ -95,12 +95,6 @@ struct EventProjectileHitScene
   vel : float3
   riexHandle : riex_handle_t
 
-[event(unicast)]
-struct EventProjectileHitCanopy
-  pos : float3
-  matId : int
-  norm : float3
-
 [event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
 struct EventEntityDowned
   offender : EntityId
@@ -401,39 +395,39 @@ struct HumanWeapRequestSwitchFiringMode
 struct CmdAutoequipGunMod
   slotId : int
 
-[cpp_event(unicast)]
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
 struct HumanPickupWeapRequest
   itemEid : EntityId
   slotId : int
 
-[cpp_event(unicast)]
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
 struct HumanDropWeapRequest
   slotId : int
 
-[cpp_event(unicast)]
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
 struct HumanSwapWeapRequest
   fromSlotId : int
   toSlotId : int
 
-[cpp_event(unicast)]
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
 struct HumanInstallItemOnWeapRequest
   itemEid : EntityId
   slotId : int
   slotName : string
 
-[cpp_event(unicast)]
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
 struct HumanPickupAndInstallItemOnWeapRequest
   itemEid : EntityId
   slotId : int
   slotName : string
 
-[cpp_event(unicast)]
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
 struct HumanRemoveItemFromWeapRequest
   slotId : int
   slotName : string
   toGround : bool
 
-[cpp_event(unicast)]
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
 struct HumanSwapWeaponModsRequest
   fromSlotId : int
   fromWeapModSlot : string
@@ -485,3 +479,14 @@ struct EventShotDry {}
 [cpp_event(unicast)]
 struct CmdGuidanceLockSwitch
   on : bool
+
+[cpp_event(unicast)]
+struct EventOnPlayerLooted
+  itemType : string
+  region : string
+
+[cpp_event(unicast)]
+struct CmdSwapEquipSlots
+  item : EntityId
+  fromSlotName : string
+  toSlotName : string

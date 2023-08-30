@@ -7,7 +7,6 @@ require app
 require enlisted.events_enlisted
 require game.utils.team
 require DngWeapon
-require game.es.sound_net.sound_net_events
 require math
 require math.base
 require DngPlane
@@ -114,7 +113,6 @@ def apply_zone(at_time : float;
     resupply_fuel(visitor_eid)
   let cooldownEndTime = resupplyAtTime > 0. ? resupplyAtTime + resupply_zone__cooldown : 0.
   if !resupplyStarted && at_time > cooldownEndTime && need_resupply(turret_control__gunEids)
-    sendEvent(visitor_eid, [[CmdRequestPlayNetSoundPos name="resupplyStart", pos=visitor_pos]])
     resupplyAtTime = at_time + resupply_zone__duration
     resupplyStarted = true
   if !resupplyPassengersStarted && at_time > cooldownEndTime
@@ -185,7 +183,6 @@ def resupply_on_ground_zone_timer(info : UpdateStageInfoAct;
 [es(no_order, tag=server)]
 def resupply_vehicle_timer(info : UpdateStageInfoAct;
                            eid : EntityId;
-                           transform : float3x4;
                            resupplyAtTime : float;
                            resupplyPassengersAtTime : float;
                            var resupplyStarted : bool&;
@@ -193,7 +190,6 @@ def resupply_vehicle_timer(info : UpdateStageInfoAct;
   if resupplyStarted && info.curTime > resupplyAtTime
     resupplyStarted = false
     send_net_event(eid, [[CmdResupplyVehicle]])
-    sendEvent(eid, [[CmdRequestPlayNetSoundPos name="resupplyEnd", pos=transform[3]]])
   if resupplyPassengersStarted && info.curTime > resupplyPassengersAtTime
     resupplyPassengersStarted = false
     sendEvent(eid, [[CmdResupplyPassengers]])

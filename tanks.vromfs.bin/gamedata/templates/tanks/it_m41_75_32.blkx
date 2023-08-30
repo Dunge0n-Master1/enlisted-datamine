@@ -21,9 +21,12 @@ it_m41_75_32{
 
 it_m41_75_32_common{
   _extends:t="base_m41_75_32"
-  item__iconOffset:p2=0.0, 0.4
   commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
   gunner_cam_limit__useCockpitDir:b=yes
+  item__iconOffset:p2=0.05, 0.27
+  item__iconScale:r=1.55
+  armorThicknessHull:p3=30.0, 25.0, 27.0
+  armorThicknessTurret:p3=50.0, 25.0, 25.0
 
   "vehicle_seats__seatsProvideOrder:tag"{
   }
@@ -184,6 +187,7 @@ it_m41_75_32_gunner_cockpit{
 
   "cockpit__slitTemplates:list<t>"{
     slit:t="it_se_75_18"
+    slit:t="default_periscope"
   }
 
   "cockpit__slitEids:list<eid>"{

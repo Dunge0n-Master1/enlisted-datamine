@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h2_txt, body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2, fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let background = require("%enlist/login/ui/background.nut")
 let {local_storage} = require("app")
 let auth = require("auth")
@@ -32,7 +32,7 @@ let forgotPassword  = urlText(loc("forgotPassword"), forgotPasswordUrl, {
   opacity = 0.7
   hplace = ALIGN_CENTER
   padding = hdpx(7)
-}.__update(sub_txt))
+}.__update(fontSub))
 
 const autologinBlkPath = "autologin"
 let doAutoLogin = mkWatched(persist, "doAutoLogin", get_setting_by_blk_path(autologinBlkPath) ?? false)
@@ -225,7 +225,7 @@ let loginBtn = @(){
     { halign = ALIGN_CENTER, margin = 0
       hotkeys = [["^J:Y", { description = { skip = true }}]]
     }.__update(
-      h2_txt,
+      fontHeading2,
       textButton.loginBtnStyle.__update({
         size = [flex(), hdpx(70)]
         style = {
@@ -240,9 +240,9 @@ let hotkeysRootChild = {hotkeys = [["^Tab", @() tabFocusTraverse(1)], ["^L.Shift
 
 let function loginOptions() {
   let res = [
-    {t = formText, w = formStateLogin, p = {placeholder=loc("login (e-mail)"), inputType="mail", title="login", showPlaceHolderOnFocus=true}.__update(body_txt)},
-    {t = formPwd, w = formStatePassword, p = {placeholder=loc("password"), password="\u2022", title="password", showPlaceHolderOnFocus=true}.__update(body_txt)},
-    need2Step.value ? {t=formText, w = formStateTwoStepCode, p = { placeholder=loc("2 step code"), title="twoStepCode", showPlaceHolderOnFocus=true}.__update(body_txt)} : null,
+    {t = formText, w = formStateLogin, p = {placeholder=loc("login (e-mail)"), inputType="mail", title="login", showPlaceHolderOnFocus=true}.__update(fontBody)},
+    {t = formPwd, w = formStatePassword, p = {placeholder=loc("password"), password="\u2022", title="password", showPlaceHolderOnFocus=true}.__update(fontBody)},
+    need2Step.value ? {t=formText, w = formStateTwoStepCode, p = { placeholder=loc("2 step code"), title="twoStepCode", showPlaceHolderOnFocus=true}.__update(fontBody)} : null,
     {t = formCheckbox, w = formStateSaveLogin, p = {title=loc("Store login (e-mail)")}},
     formStateSaveLogin.value ? {t = formCheckbox, w = formStateSavePassword, p = {title=loc("Store password (this is unsecure!)")}} : null
   ].filter(@(v) v!=null).map(@(v, idx) v.t(v.w, v.p, idx))
@@ -302,7 +302,7 @@ let function loginRoot() {
   }.__update(loginBlockOverride.value)
 }
 
-let headerHeight = calc_comp_size({size=SIZE_TO_CONTENT children={margin = [fsh(1), 0] size=[0, fontH(100)] rendObj=ROBJ_TEXT}.__update(h2_txt)})[1]*0.75
+let headerHeight = calc_comp_size({size=SIZE_TO_CONTENT children={margin = [fsh(1), 0] size=[0, fontH(100)] rendObj=ROBJ_TEXT}.__update(fontHeading2)})[1]*0.75
 let enterHandler = @(){
   hotkeys = [["^Enter", function() {
   if ((formStateLogin.value ?? "").len()>1 && (formStatePassword.value ?? "").len()>1)

@@ -1,5 +1,3 @@
-#no-func-decl-sugar
-
 from "frp" import *
 from "daRg" import *
 
@@ -162,7 +160,7 @@ let function XmbNode(params={}) {
 
 let function XmbContainer(params={}) {
   return XmbNode({
-    canFocus = @() false
+    canFocus = false
   }.__merge(params))
 }
 

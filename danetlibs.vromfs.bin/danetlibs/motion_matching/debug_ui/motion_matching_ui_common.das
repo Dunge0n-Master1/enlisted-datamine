@@ -39,7 +39,6 @@ def edit_preset(var preset : TagPreset)
   let hash = unsafe(addr(preset))
 
   safe_slider("animationBlendTime##{hash}", preset.animationBlendTime, 0f, 1f)
-  safe_slider("trajectoryInertionFactor##{hash}", preset.trajectoryInertionFactor, 0f, 1f)
   safe_slider("linearVelocityViscosity##{hash}", preset.linearVelocityViscosity, 0f, 1f)
   safe_slider("angularVelocityViscosity##{hash}", preset.angularVelocityViscosity, 0f, 1f)
   safe_slider("metricaToleranceMin##{hash}", preset.metricaToleranceMin, 0f, 5f)
@@ -106,22 +105,20 @@ def edit_root_update_params(var controller : MotionMatchingController)
     safe_slider("angle", controller.rootClampingMaxAngle, 0f, PI)
     imgui::Unindent();
 
-def edit_params(eid : EntityId)
-  query(eid) <| $ [es] (motion_matching__presetIdx : int;
-                        var motion_matching__controller : MotionMatchingController;
-                        var motion_matching__animationBlendTime : float&;
-                        var motion_matching__trajectoryInertionFactor : float&;
-                        var motion_matching__linearVelocityViscosity : float&;
-                        var motion_matching__angularVelocityViscosity : float&)
+def edit_params(characterEid, dataBaseEid : EntityId)
+  query(characterEid) <| $ [es] (motion_matching__presetIdx : int;
+                                 var motion_matching__controller : MotionMatchingController;
+                                 var motion_matching__animationBlendTime : float&;
+                                 var mm_trajectory__linearVelocityViscosity : float&;
+                                 var mm_trajectory__angularVelocityViscosity : float&)
     if imgui::BeginTabItem("params")
       safe_slider("blend time", motion_matching__animationBlendTime, 0f, 1f)
-      safe_slider("inertion", motion_matching__trajectoryInertionFactor, 0f, 1f)
-      safe_slider("velocity viscosity", motion_matching__linearVelocityViscosity, 0f, 1f)
-      safe_slider("rotation viscosity", motion_matching__angularVelocityViscosity, 0f, 1f)
+      safe_slider("velocity viscosity", mm_trajectory__linearVelocityViscosity, 0f, 1f)
+      safe_slider("rotation viscosity", mm_trajectory__angularVelocityViscosity, 0f, 1f)
       imgui::Text("weights preset index = {motion_matching__presetIdx}")
 
       edit_root_update_params(motion_matching__controller)
-      query() <| $ [es] (var foot_ik_locker_enabled : bool&)
+      query(dataBaseEid) <| $ [es] (var foot_ik_locker_enabled : bool&)
         safe_checkbox("Foot IK locker", foot_ik_locker_enabled)
 
       imgui::EndTabItem()
@@ -294,22 +291,18 @@ def edit_presets_root_motion(dataBaseEid : EntityId)
   return invalidateDatabase
 
 def edit_presets(dataBaseEid : EntityId)
+  // add sub tabs for weights and root motion
+  if imgui::BeginTabItem("presets")
+    imgui::BeginTabBar("presets_Tabs")
+    var invalidateDatabase = false
+    invalidateDatabase = edit_presets_weights(dataBaseEid)
+    invalidateDatabase = edit_presets_root_motion(dataBaseEid) || invalidateDatabase
+    imgui::EndTabBar()
 
-  query(dataBaseEid) <| $ [es] (var main_database__loaded : bool&)
+    if invalidateDatabase
+      broadcastEvent([[InvalidateAnimationDataBase]])
 
-    // add sub tabs for weights and root motion
-    if imgui::BeginTabItem("presets")
-      imgui::BeginTabBar("presets_Tabs")
-      var invalidateDatabase = false
-      invalidateDatabase = edit_presets_weights(dataBaseEid)
-      invalidateDatabase = edit_presets_root_motion(dataBaseEid) || invalidateDatabase
-      imgui::EndTabBar()
-
-      if invalidateDatabase
-        main_database__loaded = false
-        broadcastEvent([[InvalidateAnimationDataBase]])
-
-      imgui::EndTabItem()
+    imgui::EndTabItem()
 
 def motion_matching_imgui(eid : EntityId)
 
@@ -318,7 +311,7 @@ def motion_matching_imgui(eid : EntityId)
 
   query(eid) <| $ [es] (motion_matching__controller : MotionMatchingController;
                         motion_matching__dataBaseEid : EntityId)
-    edit_params(eid)
+    edit_params(eid, motion_matching__dataBaseEid)
 
     var dataBase = motion_matching__controller.dataBase
     if dataBase == null
@@ -327,6 +320,8 @@ def motion_matching_imgui(eid : EntityId)
     var imguiStateEid = getSingletonEntity("motion_matching_imgui_state")
     if imguiStateEid == INVALID_ENTITY_ID
       imguiStateEid = createEntity("motion_matching_imgui_state")
+    query(imguiStateEid) <| $ [es] (var mm_imguiAnimcharEid : EntityId&)
+      mm_imguiAnimcharEid = eid
 
     debug_visualization_tab(imguiStateEid)
     edit_tags(eid, *dataBase)

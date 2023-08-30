@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {h1_txt, fontawesome} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontHeading1, fontawesome} = require("%enlSqGlob/ui/fontsStyle.nut")
 let { logerr } = require("dagor.debug")
 let {TEAM0_COLOR_FG, TEAM1_COLOR_FG} = require("%ui/hud/style.nut")
 let fa = require("%ui/components/fontawesome.map.nut")
@@ -104,7 +104,7 @@ let mkZoneToDefendIcon = memoize(@(_width, iconSz, animAppear) zoneFontAwesome("
 let mkZoneFailedIcon = memoize(@(_width, iconSz, animAppear) zoneFontAwesome("close",
   { size = iconSz, color = TEAM1_COLOR_FG, animAppear}), 1)
 
-let mkZoneTitle = memoize(@(text, iconSz, titleSize, animAppear) zoneBase({ text }.__update(h1_txt),
+let mkZoneTitle = memoize(@(text, iconSz, titleSize, animAppear) zoneBase({ text }.__update(fontHeading1),
     { size = titleSize > 0 ? [fsh(titleSize), fsh(titleSize)] : iconSz, animAppear}))
 
 let function mkObjectiveIcon(zoneData, iconSz, heroTeam, params={}) {

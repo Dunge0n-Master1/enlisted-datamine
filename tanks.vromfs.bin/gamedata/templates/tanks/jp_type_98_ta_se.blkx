@@ -7,14 +7,20 @@ jp_type_98_ta_se_common{
   _extends:t="tank_m10_engine_sound"
   _extends:t="tank_light_vehicle_tracks_sound"
   _extends:t="forestall"
-  destroyIfNoCrewLeft:b=no
   item__iconOffset:p2=0.0, 0.0
+  item__iconScale:r=1.1
+  destroyIfNoCrewLeft:b=no
   vehicle_seats__exitTime:r=1.0
   cockpit__zoomOutFov:r=1.5
   cockpit__zoomInFov:r=2.0
   commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
   gunner_cam_limit__useCockpitDir:b=yes
+  armorThicknessHull:p3=16.0, 12.0, 10.0
+  armorThicknessTurret:p3=12.0, 12.0, 12.0
   vehicle_commander_cam__attachToVehicle:b=yes
+
+  "vehicle_seats__effectors:array"{
+  }
 
   _group{
     _tags:t="render"
@@ -30,7 +36,7 @@ jp_type_98_ta_se_common{
       locName:t="vehicle_seats/gunner"
       attachNode:t="commander"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.28, -0.25, 0.0]]
+      attachTm:m=[[0.966096, -0.15643, -0.205346] [0.153012, 0.987682, -0.032523] [0.207904, -6.44228e-08, 0.978131] [-0.28, -0.25, 0.04]]
       seatComponent:t="isGunner"
       nextSeat:t="driver"
       shouldHideOwner:b=no
@@ -55,6 +61,13 @@ jp_type_98_ta_se_common{
       "turretNames:array"{
         turretNames:t="turret_01"
       }
+
+      "effectors:object"{
+        r.hand:t="righthand_3"
+        l.hand:t="lefthand_3"
+        r.foot:t="pedal_rfoot_3"
+        l.foot:t="pedal_lfoot_3"
+      }
     }
 
     "seats:object"{
@@ -63,13 +76,22 @@ jp_type_98_ta_se_common{
       seatOwnsEntityControl:b=yes
       attachNode:t="driver"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.25, 0.0]]
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.42, 0.0]]
       seatComponent:t="isGunner"
       nextSeat:t="main_gunner"
-      shouldHideOwner:b=yes
+      shouldHideOwner:b=no
       receiveDamageFromDMPart:t="driver"
       cameraNodeName:t="bone_camera_driver"
       cockpitTemplate:t="jp_type_98_ta_se_driver_cockpit"
+      seatAnimUpper:t="drive_passenger"
+      seatAnimLower:t="drive_passenger"
+
+      "effectors:object"{
+        r.hand:t="righthand_1"
+        l.hand:t="lefthand_1"
+        r.foot:t="pedal_rfoot_1"
+        l.foot:t="pedal_lfoot_1"
+      }
     }
 
     "seats:object"{
@@ -78,12 +100,18 @@ jp_type_98_ta_se_common{
       attachNode:t="loader"
       shouldHideOwner:b=no
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.3, -0.15]]
+      attachTm:m=[[0.945413, 0.0174524, 0.325499] [0.00624701, 0.997447, -0.0716251] [-0.325909, 0.0697467, 0.942864] [-0.25, -0.3, -0.15]]
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="loader"
 
       "loaderTurretNames:array"{
         turret:t="turret_01"
+      }
+
+      "effectors:object"{
+        r.hand:t="righthand_2"
+        r.foot:t="pedal_rfoot_2"
+        l.foot:t="pedal_lfoot_2"
       }
     }
   }

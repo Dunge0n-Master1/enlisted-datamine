@@ -1,0 +1,7 @@
+collisionResource{
+
+  props{
+    cls_body:t="convex_hull"
+    gun:t="convex_hull"
+  }
+}

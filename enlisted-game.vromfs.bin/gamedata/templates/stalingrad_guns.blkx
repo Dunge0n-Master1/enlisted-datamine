@@ -11,9 +11,8 @@ kar98k_wartime_production{
   item__template:t="kar98k_wartime_production_gun_item"
   item__proto:t="content/enlisted/gamedata/weapons/kar98k_wartime_production.blk"
   item__locDetails:t="7.92x57mm;"
-  item__id:i=0
   item__weapTemplate:t="kar98k_wartime_production_gun"
-  item__name:t="items/mauser_98k"
+  item__name:t="items/mauser_98k_default"
   item__weapType:t="rifle"
   item__weight:r=3.9
   gun__locName:t="Kar98k"
@@ -31,6 +30,11 @@ kar98k_wartime_production{
   gun_deviation__maxDeviation:r=15.0
   gun__reloadTime:r=3.4
   gun__kineticDamageMult:r=1.5
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
 
   "gun_shell_ejection__onShootRelease:tag"{
   }
@@ -219,7 +223,6 @@ mannlicher_m93_roman{
   item__template:t="mannlicher_m93_roman_gun_item"
   item__proto:t="content/enlisted/gamedata/weapons/mannlicher_m93_roman.blk"
   item__locDetails:t="6.5x52 Carcano;"
-  item__id:i=0
   item__weapTemplate:t="mannlicher_m93_roman_gun"
   item__name:t="items/mannlicher_m93_roman"
   item__weapType:t="rifle"
@@ -240,6 +243,11 @@ mannlicher_m93_roman{
   gun__reloadTime:r=3.5
   gun__altReloadTime:r=3.8
   gun__kineticDamageMult:r=1.5
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
 
   "gun_shell_ejection__onShootRelease:tag"{
   }
@@ -303,16 +311,12 @@ mannlicher_m93_roman_gun{
   "sound_irqs:shared:object"{
     _tags:t="sound"
 
-    "reload1:object"{
-      path:t="/weapon/rifle/carcano_m41/reload1/change_ammo"
+    "reload:object"{
+      path:t="/weapon/rifle/mannlicher_m93_roman/reload"
     }
 
-    "reload2:object"{
-      path:t="/weapon/rifle/carcano_m41/reload2/change_ammo"
-    }
-
-    "reload3:object"{
-      path:t="/weapon/rifle/carcano_m41/reload3/change_ammo"
+    "reload_alt:object"{
+      path:t="/weapon/rifle/mannlicher_m93_roman/reload_alt"
     }
 
     "boltAction:object"{
@@ -593,7 +597,6 @@ orita_m1941{
   item__template:t="orita_m1941_gun_item"
   item__proto:t="content/enlisted/gamedata/weapons/orita_m1941.blk"
   item__locDetails:t="RoF: 500; 9x19mm;"
-  item__id:i=0
   item__weapTemplate:t="orita_m1941_gun"
   item__name:t="items/orita_m1941"
   item__weapType:t="submachine_gun"
@@ -613,6 +616,11 @@ orita_m1941{
   gun_deviation__maxDeviation:r=20.0
   gun__reloadTime:r=2.6
   gun__altReloadTime:r=2.1
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
 
   "gun__ammoHolders:array"{
     ammoHolders:t="mp40_magazine"
@@ -898,7 +906,6 @@ ppsh_2{
   item__template:t="ppsh_2_gun_item"
   item__proto:t="content/enlisted/gamedata/weapons/ppsh_2.blk"
   item__locDetails:t="RoF: 500; 7.62x25mm;"
-  item__id:i=0
   item__weapTemplate:t="ppsh_2_gun"
   item__name:t="items/ppsh_2"
   item__weapType:t="submachine_gun"
@@ -918,6 +925,11 @@ ppsh_2{
   gun_deviation__maxDeviation:r=20.0
   gun__reloadTime:r=2.7
   gun__altReloadTime:r=2.1
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
 
   "gun__ammoHolders:array"{
     ammoHolders:t="pps_magazine"
@@ -1071,7 +1083,6 @@ stl_ppsh_41{
   item__template:t="stl_ppsh_41_gun_item"
   item__proto:t="content/enlisted/gamedata/weapons/ppsh_41.blk"
   item__locDetails:t="RoF: 1000; 7.62x25mm;"
-  item__id:i=0
   item__weapTemplate:t="stl_ppsh_41_gun"
   item__name:t="items/ppsh_41"
   item__weapType:t="submachine_gun"
@@ -1092,6 +1103,11 @@ stl_ppsh_41{
   gun__reloadTime:r=3.8
   gun__altReloadTime:r=3.4
   gun__kineticDamageMult:r=1.0
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
 
   "gun__ammoHolders:array"{
     ammoHolders:t="ppsh_drum"

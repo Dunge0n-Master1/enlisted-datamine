@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { popupsGen, getPopups } = require("%enlSqGlob/ui/popup/popupsState.nut")
 let textButton = require("%ui/components/textButton.nut")
 let { BtnBgNormal } = require("%ui/style/colors.nut")
@@ -25,7 +25,7 @@ let styles = {
     animColor = HighlightNeutral
   }
 }
-let popupWidth = calc_comp_size({rendObj = ROBJ_TEXT text = "" size=[fontH(1000), SIZE_TO_CONTENT]}.__update(body_txt))[0]
+let popupWidth = calc_comp_size({rendObj = ROBJ_TEXT text = "" size=[fontH(1000), SIZE_TO_CONTENT]}.__update(fontBody))[0]
 let defPopupBlockPos = [-safeAreaBorders.value[1] - popupWidth, -(safeAreaBorders.value[2] + 4*bigGap)]
 let popupBlockStyle = Watched({
     hplace = ALIGN_RIGHT
@@ -58,7 +58,7 @@ let function popupBlock() {
           rendObj = ROBJ_TEXTAREA
           behavior = Behaviors.TextArea
           size = [popupWidth, SIZE_TO_CONTENT]
-        }.__update(body_txt)
+        }.__update(fontBody)
         key = $"popup_block_{popup.uid}"
         animations = [
           { prop=AnimProp.fillColor, from=style.animColor, to=BtnBgNormal, easing=OutCubic, duration=0.5, play=true }

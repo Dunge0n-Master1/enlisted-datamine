@@ -12,6 +12,7 @@ import:t="projectile_sounds.blk"
 import:t="vehicle_sounds.blk"
 import:t="human_sounds.blk"
 import:t="gun_sounds.blk"
+import:t="environment_sounds.blk"
 import:t="hitpoints.blk"
 import:t="cameras.blk"
 import:t="replay.blk"
@@ -22,7 +23,6 @@ import:t="items.blk"
 import:t="previews.blk"
 import:t="doors.blk"
 import:t="lights.blk"
-import:t="light_flicker.blk"
 import:t="teams.blk"
 import:t="hud_entities.blk"
 import:t="color_grading_tonemap.blk"
@@ -37,38 +37,13 @@ import:t="debug_entities.blk"
 import:t="forestall.blk"
 import:t="scripts_loader.blk"
 import:t="smoke_occluders.blk"
-import:t="%danetlibs/wounds/templates/wounds.template.blk"
-import:t="%danetlibs/sound/sound_utils/templates/sound_utils.template.blk"
-import:t="%danetlibs/sound/sound_utils_net/templates/sound_utils_net.template.blk"
-import:t="%danetlibs/sound/common_sounds/templates/common_sounds.template.blk"
-import:t="%danetlibs/sound/environment_sounds/templates/environment_sounds.template.blk"
-import:t="%danetlibs/sound/door_sounds/templates/door_sounds.template.blk"
-import:t="%danetlibs/sound/human_sounds/templates/human_sounds.template.blk"
-import:t="%danetlibs/sound/human_sounds_net/templates/human_sounds_net.template.blk"
-import:t="%danetlibs/sound/vehicle_sounds/templates/vehicle_sounds.template.blk"
-import:t="%danetlibs/sound/vehicle_sounds_net/templates/vehicle_sounds_net.template.blk"
-import:t="%danetlibs/sound/ship_sounds/templates/ship_sounds.template.blk"
-import:t="%danetlibs/sound/plane_sounds/templates/plane_sounds.template.blk"
-import:t="%danetlibs/sound/weapon_sounds/templates/weapon_sounds.template.blk"
 import:t="cockpit.blk"
 import:t="updatable.blk"
 import:t="dedicated_server.blk"
-import:t="%danetlibs/outline/templates/outline.template.blk"
-import:t="%danetlibs/cables/templates/cables.template.blk"
-import:t="%danetlibs/route_prober/templates/route_prober.blk"
 import:t="darg_panels.blk"
-import:t="%danetlibs/screen_blood/templates/screen_blood.template.blk"
 import:t="custom_envi_probe.blk"
-import:t="%danetlibs/motion_matching/templates/motion_matching.template.blk"
-import:t="%danetlibs/renderer/templates/render_settings.template.blk"
-import:t="%danetlibs/renderer/templates/blood.template.blk"
-import:t="%danetlibs/renderer/templates/grass_render.template.blk"
-import:t="%danetlibs/renderer/templates/ssss.template.blk"
-import:t="%danetlibs/render_debug/templates/debug_visualization.template.blk"
-import:t="%danetlibs/frame_graph_renderer/templates/frame_graph_nodes.template.blk"
-import:t="%danetlibs/hero_cockpit/templates/hero_cockpit.template.blk"
-import:t="%danetlibs/assets_import/templates/assets_import.blk"
-import:t="%danetlibs/outdated_effects/templates/outdated_effects.template.blk"
+import:t="ground_hole.blk"
+import:t="dng_lib_entities.blk"
 
 ecs_no_debug{
 
@@ -408,21 +383,9 @@ respawn_camera{
   }
 }
 
-ground_hole_box{
-  _extends:t="ground_hole"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  ground_hole_sphere_shape:b=no
-}
-
-ground_hole_sphere{
-  _extends:t="ground_hole"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  ground_hole_sphere_shape:b=yes
-}
-
-landmesh_hole_zone_box{
-  _extends:t="landmesh_hole_zone"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+respawn_camera_target{
+  respawn_camera_target__curLookPos:p3=0.0, 0.0, 0.0
+  respawn_camera_target__posChangeDist:r=900.0
 }
 
 human_vehicle_custom_exit_animator{
@@ -546,6 +509,7 @@ hint{
 item_spawner{
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   spawnItemStep:p3=1.0, 0.0, 0.0
+  spawn_item__rotationDeg:p3=0.0, 0.0, 0.0
   team:i=-1
 
   "spawnItemList:array"{
@@ -993,4 +957,9 @@ dynmat_params_base{
       dynmat_param__emission_albedo_mult:r=0.1
     }
   }
+}
+
+asset_manager{
+  _tags:t="render"
+  _extends:t="base_asset_manager"
 }

@@ -1,5 +1,5 @@
 from "%enlSqGlob/ui_library.nut" import *
-let { h1_txt, sub_txt, h2_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading1, fontSub, fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let textButton = require("%ui/components/textButton.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let { mkHeaderFlag, casualFlagStyle }= require("%enlSqGlob/ui/mkHeaderFlag.nut")
@@ -41,7 +41,7 @@ let voteToKickHeader = mkHeaderFlag(
     rendObj = ROBJ_TEXT
     text = loc("voteKick/header")
     padding = [voteToKickPadding, hdpx(24)]
-  }.__update(h1_txt),
+  }.__update(fontHeading1),
   casualFlagStyle.__update({ offset = voteToKickPadding * 2})
 )
 
@@ -57,13 +57,13 @@ let voteToKickBody = @(name) {
       behavior = Behaviors.TextArea
       size = [flex(), SIZE_TO_CONTENT]
       text = loc("voteKick/desc")
-    }.__update(sub_txt)
+    }.__update(fontSub)
     {
       rendObj = ROBJ_TEXT
       size = flex()
       valign = ALIGN_CENTER
       text = loc("voteKick/accussedName", {name} )
-    }.__update(h2_txt)
+    }.__update(fontHeading2)
   ]
 }
 

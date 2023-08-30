@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontSmall } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { accentColor, commonBorderRadius, panelBgColor, disabledBdColor, disabledBgColor, colPart,
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { accentColor, commonBorderRadius, panelBgColor, disabledBdColor, disabledBgColor,
   disabledTxtColor, midPadding
 } = require("%enlSqGlob/ui/designConst.nut")
 let faComp = require("%ui/components/faComp.nut")
@@ -17,7 +17,7 @@ let mkLabel = @(label, size, textParams, isActive, isLeftOrientation = true) {
 
 
 let checkBox = @(isChecked, isActive, isHovered) {
-  size = [colPart(0.29), colPart(0.29)]
+  size = [hdpxi(18), hdpxi(18)]
   rendObj = ROBJ_BOX
   borderWidth = isHovered ? hdpx(2) : hdpx(1)
   borderRadius = commonBorderRadius * 2
@@ -27,14 +27,14 @@ let checkBox = @(isChecked, isActive, isHovered) {
   fillColor = isActive ? panelBgColor : disabledBgColor
   children = !isChecked ? null : faComp("check", {
     color = accentColor
-    fontSize = colPart(0.19)
+    fontSize = hdpxi(12)
   })
 }
 
 
 let function mkCheckbox(isChecked, label, params = {}) {
   let { canBeModified = true, isActive = true, size = [flex(), SIZE_TO_CONTENT],
-    isLeftOrientation = true, onClick = null, textParams = fontSmall, blockParams = {}
+    isLeftOrientation = true, onClick = null, textParams = fontSub, blockParams = {}
   } = params
 
   let defAction = @() isChecked(!isChecked.value)

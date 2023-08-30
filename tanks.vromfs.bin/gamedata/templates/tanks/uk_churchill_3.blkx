@@ -29,9 +29,10 @@ uk_churchill_3_normandy_premium{
 
 uk_churchill_3_common{
   _extends:t="base_churchill_3"
-  item__iconOffset:p2=0.0, 0.4
   commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
   gunner_cam_limit__useCockpitDir:b=yes
+  item__iconOffset:p2=0.0, 0.33
+  item__iconScale:r=1.47
 
   "turrets__initAmmoDistribution:array"{
 
@@ -214,6 +215,7 @@ uk_churchill_3_gunner_cockpit{
 
   "cockpit__slitTemplates:list<t>"{
     slit:t="uk_no_33_mkii_s"
+    slit:t="default_periscope"
   }
 
   "cockpit__slitEids:list<eid>"{
@@ -264,5 +266,12 @@ uk_churchill_3_commander_cockpit{
 
   "cockpit__slitZoomTime:list<r>"{
     slit:r=0.0
+  }
+
+  "cockpit__slitTemplates:list<t>"{
+    slit:t="default_periscope"
+  }
+
+  "cockpit__slitEids:list<eid>"{
   }
 }

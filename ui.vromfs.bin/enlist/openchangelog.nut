@@ -10,9 +10,15 @@ let textButton = require("%ui/components/textButton.nut")
 let {isGamepad} = require("%ui/control/active_controls.nut")
 
 let isOpened = mkWatched(persist, "isOpened", false)
-let {chosenPatchnote, curPatchnoteIdx, nextPatchNote, prevPatchNote, updateVersion} = require("changeLogState.nut")
+let {chosenPatchnote, curPatchnoteIdx, nextPatchNote, prevPatchNote, updateVersion,
+  markLastSeen
+} = require("changeLogState.nut")
+let { transpPanelBgColor } = require("%enlSqGlob/ui/designConst.nut")
 
-let close = @() isOpened(false)
+let close = function() {
+  markLastSeen()
+  isOpened(false)
+}
 let open = @() isOpened(true)
 
 let gap = hdpx(10)
@@ -25,16 +31,14 @@ let closeBtn = fontIconButton("close", {
   hotkeys=[[$"^{JB.B} | Esc", {description=loc("Close")}]]
 })
 
-let function nextButton(){
-  return {
-    size = SIZE_TO_CONTENT
-    children = curPatchnoteIdx.value != 0 ? btnNext : btnClose
-    watch = [curPatchnoteIdx]
-    hplace = ALIGN_RIGHT
-    function onAttach(elem) {
-      if (isGamepad.value) {
-        move_mouse_cursor(elem, false)
-      }
+let nextButton = @() {
+  size = SIZE_TO_CONTENT
+  children = curPatchnoteIdx.value != 0 ? btnNext : btnClose
+  watch = curPatchnoteIdx
+  hplace = ALIGN_RIGHT
+  function onAttach(elem) {
+    if (isGamepad.value) {
+      move_mouse_cursor(elem, false)
     }
   }
 }
@@ -47,13 +51,14 @@ let attractorForCursorDirPad = {
   eventPassThrough = true
 }
 
+let hkLB = ["^J:LB | Left", prevPatchNote, loc("shop/previousItem")]
+let hkRB = ["^J:RB | Right", nextPatchNote, loc("shop/nextItem")]
+
 let clicksHandler = {
-  size = flex(), eventPassThrough = true,
+  size = flex()
+  eventPassThrough = true
   behavior = Behaviors.Button
-  hotkeys = [
-    ["^J:LB | Left", nextPatchNote, loc("shop/nextItem")],
-    ["^J:RB | Right", prevPatchNote, loc("shop/previousItem")]
-  ]
+  hotkeys = [hkLB, hkRB]
   onClick = nextPatchNote
 }
 
@@ -63,7 +68,7 @@ let changelogRoot = {
     clicksHandler
     {
       rendObj = ROBJ_WORLD_BLUR_PANEL
-      fillColor = Color(0,0,0,90)
+      fillColor = transpPanelBgColor
       size = SIZE_TO_CONTENT
       flow = FLOW_VERTICAL
       padding = gap
@@ -71,14 +76,15 @@ let changelogRoot = {
       children = [
         closeBtn
         currentPatchnote
-        {
+        @() {
           size = [flex(), SIZE_TO_CONTENT]
           flow = FLOW_HORIZONTAL
           gap = gap
           valign = ALIGN_CENTER
+          watch = isGamepad
           children = [
             patchnoteSelector
-            nextButton
+            isGamepad.value ? null : nextButton
           ]
         }
       ]
@@ -88,7 +94,7 @@ let changelogRoot = {
   halign = ALIGN_CENTER
   valign = ALIGN_CENTER
   hotkeys = [
-    ["^J:Start | Esc | Space", {action=close, description = loc("mainmenu/btnClose")}]
+    ["Esc | Space", {action=close, description = loc("mainmenu/btnClose")}]
   ]
 }
 

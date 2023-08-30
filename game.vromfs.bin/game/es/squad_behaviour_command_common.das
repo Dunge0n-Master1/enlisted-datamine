@@ -3,5 +3,5 @@ require ecs.enum_macro
 
 [export_enum]
 enum SquadBehaviour
-  ESB_AGRESSIVE
+  ESB_AGGRESSIVE
   ESB_PASSIVE

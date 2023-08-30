@@ -449,9 +449,18 @@ filter_exclude{
 
   "^workshop_arch_gates_450_450cm_door_l.*$"{
   }
+
+  "^aborigen_village_chief_house_b_door_a.*$"{
+  }
+
+  "^aborigen_village_chief_house_b_door_b.*$"{
+  }
+
+  "^aborigen_village_chief_house_b_window_a.*$"{
+  }
 }
 
-doors{
+doors_n_windows{
   ignoreCollision:b=yes
 
   wooden_fence_door_a{
@@ -1672,6 +1681,12 @@ doors{
   frame_stable_stall_door_a{
   }
 
+  yamazuki_gates_a{
+  }
+
+  yamazuki_gates_b{
+  }
+
   factory_xix_entry_group_gate_l{
   }
 
@@ -1691,6 +1706,165 @@ doors{
   }
 
   normandy_fence_steel_a_gate_shutter_a{
+  }
+
+  workshop_window_7_5m_a{
+  }
+
+  workshop_window_9_4_m_frame{
+  }
+
+  workshop_window_13_7_m_frame{
+  }
+
+  workshop_window_30_95_cm_a{
+  }
+
+  workshop_window_60_120_cm_a{
+  }
+
+  workshop_window_65_155_cm_a{
+  }
+
+  workshop_window_65_200cm_a_l{
+  }
+
+  workshop_window_65_200cm_a_r{
+  }
+
+  workshop_window_70_185cm_a_l{
+  }
+
+  workshop_window_70_185cm_a_r{
+  }
+
+  workshop_window_90_185cm_a_l{
+  }
+
+  workshop_window_90_185cm_a_r{
+  }
+
+  workshop_window_90_295_cm_a{
+  }
+
+  workshop_window_100_130_cm{
+  }
+
+  workshop_window_100_160_cm_a{
+  }
+
+  workshop_window_115_115_cm_a{
+  }
+
+  workshop_window_150_270_cm_a{
+  }
+
+  workshop_window_200_200cm{
+  }
+
+  workshop_window_205_215_cm{
+  }
+
+  workshop_window_250_250_cm{
+  }
+
+  workshop_window_255_180_cm{
+  }
+
+  workshop_window_330_280_cm{
+  }
+
+  workshop_window_340_210_cm_a{
+  }
+
+  workshop_window_340_250_cm_a{
+  }
+
+  workshop_window_450_175_cm_a{
+  }
+
+  workshop_window_470x770cm_a{
+  }
+
+  workshop_window_540x390cm_a{
+  }
+
+  workshop_window_1000_335_cm_a{
+  }
+
+  workshop_window_1500_3200_a{
+  }
+
+  workshop_window_1500x3000_a{
+  }
+
+  workshop_window_arch_100_200_cm_a{
+  }
+
+  workshop_window_arch_150_390_cm_a{
+  }
+
+  workshop_window_arch_255_375_cm_a{
+  }
+
+  workshop_window_arch_275_295_cm_a{
+  }
+
+  workshop_window_arch_275_585_cm_a{
+  }
+
+  workshop_window_arch_275_685_cm_a{
+  }
+
+  workshop_window_arch_300_310_cm_a{
+  }
+
+  workshop_window_arch_300_400_cm_a{
+  }
+
+  workshop_window_arch_300_460_cm_a{
+  }
+
+  workshop_window_arch_300_770_cm_a{
+  }
+
+  workshop_window_arch_365_425_cm_a{
+  }
+
+  workshop_window_arch_370_300_cm_a{
+  }
+
+  workshop_window_arch_370_440_cm_a{
+  }
+
+  workshop_window_arched_5_3m_a{
+  }
+
+  workshop_window_casement_65_200cm_a_l{
+  }
+
+  workshop_window_casement_65_200cm_a_r{
+  }
+
+  workshop_window_casement_70_185cm_a_l{
+  }
+
+  workshop_window_casement_70_185cm_a_r{
+  }
+
+  workshop_window_casement_90_185cm_a_l{
+  }
+
+  workshop_window_casement_90_185cm_a_r{
+  }
+
+  workshop_window_tile_650_450cm_a{
+  }
+
+  bunker_gates_1250x3650_a_l{
+  }
+
+  bunker_gates_1250x3650_a_r{
   }
 }
 

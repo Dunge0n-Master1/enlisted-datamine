@@ -107,3 +107,137 @@ rendinst_damage_sound_decor_bell_fallen{
   _extends:t="base_rendinst_damage_sound"
   rendinst_damage_sound__projectile:t="impact/church_bell_fallen"
 }
+
+reverb_sound{
+  _extends:t="base_reverb_sound"
+
+  _group{
+    _tags:t="sound"
+
+    "reverb_sound__physmatAbsorption:array"{
+
+      "metal:object"{
+        valueMinMax:p2=0.0, 0.0
+
+        "physmats:list<t>"{
+          item:t="steel"
+          item:t="metal"
+          item:t="train"
+          item:t="softSteelDoor"
+          item:t="glass"
+        }
+      }
+
+      "stone:object"{
+        valueMinMax:p2=0.2, 0.2
+
+        "physmats:list<t>"{
+          item:t="concrete"
+          item:t="stone"
+          item:t="buildings"
+          item:t="ceramic"
+          item:t="rocks"
+          item:t="rocksSlippery"
+          item:t="ice"
+          item:t="brick_red"
+        }
+      }
+
+      "default:object"{
+        valueMinMax:p2=0.2, 0.2
+
+        "physmats:list<t>"{
+          item:t="default"
+          item:t="horLandMesh"
+          item:t="verLandMesh"
+          item:t="small_debris"
+          item:t="small_decor"
+          item:t="bullet_transparent"
+        }
+      }
+
+      "soil:object"{
+        valueMinMax:p2=0.5, 0.5
+
+        "physmats:list<t>"{
+          item:t="soil"
+          item:t="roadSoil"
+          item:t="hard_soil"
+        }
+      }
+
+      "wood:object"{
+        valueMinMax:p2=0.8, 0.8
+
+        "physmats:list<t>"{
+          item:t="wood"
+          item:t="wood_railway"
+          item:t="window_wood"
+          item:t="softWoodDoor"
+          item:t="paper"
+          item:t="wood_snow"
+          item:t="wood_fall"
+          item:t="wood_dead"
+          item:t="wood_palm"
+          item:t="wood_solid"
+          item:t="wood_snow_solid"
+          item:t="wood_fall_solid"
+          item:t="wood_dead_solid"
+          item:t="wood_palm_solid"
+        }
+      }
+
+      "max_absorption:object"{
+        valueMinMax:p2=1.0, 1.0
+
+        "physmats:list<t>"{
+          item:t="waterPuddle"
+          item:t="water3d"
+          item:t="water"
+          item:t="bushes"
+          item:t="barbwire"
+          item:t="cactus"
+          item:t="flesh"
+          item:t="quickSand"
+          item:t="hay"
+          item:t="sand"
+          item:t="roadSand"
+          item:t="quarrySand"
+          item:t="sand_slope"
+          item:t="fabric"
+          item:t="rubber"
+          item:t="plastic"
+          item:t="snow"
+          item:t="snowLower"
+          item:t="roadSnow"
+          item:t="roadmud"
+          item:t="mud"
+          item:t="dirt"
+          item:t="lava"
+          item:t="walker"
+          item:t="walkRay"
+          item:t="climbAiRay"
+          item:t="gravel"
+          item:t="leaves"
+          item:t="moon_sand"
+          item:t="hardSnow"
+          item:t="bushes_fall"
+          item:t="bushes_snow"
+          item:t="bushes_dead"
+          item:t="bushes_palm"
+          item:t="walkerBot"
+          item:t="bulletRay"
+          item:t="aimRay"
+          item:t="cameraRay"
+          item:t="tankTrack"
+          item:t="wheel"
+          item:t="spraySpawnerRay"
+          item:t="bombCraterCast"
+          item:t="grenadeRay"
+          item:t="gunRay"
+          item:t="build_ray"
+        }
+      }
+    }
+  }
+}

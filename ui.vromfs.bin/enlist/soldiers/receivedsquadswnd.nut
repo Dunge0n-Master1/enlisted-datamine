@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let closeBtnBase = require("%ui/components/closeBtn.nut")
 let colorize = require("%ui/components/colorize.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
-let { sub_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { addModalWindow, removeModalWindow } = require("%ui/components/modalWindows.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let { txt, noteTextArea } = require("%enlSqGlob/ui/defcomps.nut")
@@ -50,7 +50,7 @@ let function mkSquad(squadCfg) {
         .__update({
           padding = smallPadding
           color = activeTxtColor
-        }, sub_txt)
+        }, fontSub)
     ]
   }
 }
@@ -135,7 +135,7 @@ let function receivedSquadsUi() {
         gap = smallPadding
         padding = bigPadding
         children = [
-          noteTextArea(headerTxt).__update({ color = activeTxtColor }, body_txt)
+          noteTextArea(headerTxt).__update({ color = activeTxtColor }, fontBody)
           campaignSquads.len() == 1
             ? campaignSquads[0]
             : {
@@ -159,7 +159,7 @@ let function receivedSquadsUi() {
             text = utf8ToUpper(loc("squad/gotNewSquads"))
             hplace = ALIGN_CENTER
             color = activeTxtColor
-          }).__update(body_txt)
+          }).__update(fontBody)
           closeButton
         ]
       }

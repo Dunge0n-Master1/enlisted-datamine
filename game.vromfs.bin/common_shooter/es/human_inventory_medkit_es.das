@@ -3,6 +3,7 @@ require DngNet
 require inventory
 require DagorMath
 require DagorSystem
+require game.es.inventory_common
 require common_shooter.events_common_shooter
 require enlisted.events_enlisted
 require game.events_game
@@ -174,7 +175,7 @@ def human_inventory_medkit_es(evt : CmdMedkitUse;
 [es]
 def human_inventory_medkit_cancel_es(evt : CmdMedkitUseCancel; eid : ecs::EntityId)
   send_net_event(eid, [[CmdPutOutFireStop]])
-  inventory::stop_use_item(eid)
+  stop_use_item2(eid)
 
 [es(tag=server, on_appear, track=item__ownerEid, REQUIRE_NOT=item__targetUseOnly)]
 def apply_medkit_owner_perks(evt : Event;

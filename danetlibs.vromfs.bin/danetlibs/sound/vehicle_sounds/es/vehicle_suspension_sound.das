@@ -22,9 +22,10 @@ def vehicle_suspension_hit_sound(info : ParallelUpdateFrameDelayed;
                                  vehicle_sound_vars__noiseReduction : float;
                                  [[shared_comp]] vehicle_suspension_sound__path : Object;
                                  sound_tags : Object;
+                                 isAlive : bool;
                                  transform : float3x4)
   var total = 0.
-  if sound_control__shouldPlay
+  if sound_control__shouldPlay && isAlive
     for idx in range(int(vehicle_net_phys.phys.currentState.wheelCount))
       let wheel = vehicle_phys_get_wheel(vehicle_net_phys.phys, idx)
       if wheel != null
@@ -42,8 +43,9 @@ def vehicle_suspension_sound_update_surface(evt : Event;
                                             var vehicle_sound_update_surface__wheelIdx : int&;
                                             var vehicle_sound_update_surface__waterSurfaceMax : float&;
                                             var vehicle_sound_update_surface__concreteSurfaceMax : float&;
+                                            isAlive : bool;
                                             transform : float3x4)
-  if !sound_control__shouldPlay || int(vehicle_net_phys.phys.currentState.wheelCount) <= 0 || vehicle_sound_update_surface__wheelIdx >= int(vehicle_net_phys.phys.currentState.wheelCount)
+  if !sound_control__shouldPlay || !isAlive || int(vehicle_net_phys.phys.currentState.wheelCount) <= 0 || vehicle_sound_update_surface__wheelIdx >= int(vehicle_net_phys.phys.currentState.wheelCount)
     vehicle_sound_vars__concrete = 0.
     vehicle_sound_vars__water = 0.
     vehicle_sound_update_surface__concreteSurfaceMax = 0.

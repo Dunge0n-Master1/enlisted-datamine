@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { tiny_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontTiny } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { curHeroGrenadeEid } = require("%ui/hud/state/hero_weapons.nut")
 let { grenades, grenadesEids } = require("%ui/hud/state/inventory_grenades_es.nut")
 let {blurBack, notSelectedItemColor, HUD_ITEMS_COLOR, iconSize, itemAppearing} = require("style.nut")
@@ -8,7 +8,7 @@ let { grenadeIcon } = require("grenadeIcon.nut")
 
 let getGrenadeIcon = memoize(@(gtype) grenadeIcon(gtype, iconSize[1]))
 
-let curGrenadeSize = [fsh(2.5), fsh(2.5)].map(@(v) v.tointeger())
+let curGrenadeSize = [hdpxi(27), hdpxi(27)]
 let getCurGrenadeIcon = memoize(@(gtype) grenadeIcon(gtype, curGrenadeSize[1]))
 
 let small_count = @(count, color) {
@@ -19,7 +19,7 @@ let small_count = @(count, color) {
   vplace = ALIGN_BOTTOM
   pos = [0, hdpx(2)]
   animations = itemAppearing
-}.__update(tiny_txt)
+}.__update(fontTiny)
 
 
 let currentGrenadeType = Computed(@() grenadesEids.value?[curHeroGrenadeEid.value])

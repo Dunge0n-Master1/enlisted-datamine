@@ -1,7 +1,7 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let {h2_txt, body_txt, fontawesome} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontHeading2, fontBody, fontawesome} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {round_by_value} = require("%sqstd/math.nut")
 let {DEFAULT_TEXT_COLOR, CONTROL_BG_COLOR, HIGHLIGHT_COLOR} = require("%ui/hud/style.nut")
 let cursors = require("%ui/style/cursors.nut")
@@ -47,7 +47,6 @@ let {
   isAimAssistExists,
   isAimAssistEnabled,
   setAimAssist,
-  setAimAssistChangeManual,
   stick0_dz,
   set_stick0_dz,
   stick1_dz,
@@ -70,9 +69,9 @@ let MenuRowBgEven  = Color(0, 0, 0, 20)
 let MenuRowBgHover = Color(40, 40, 40, 40)
 
 let function menuRowColor (sf, isOdd) {
-  return (sf & S_HOVER)
-         ? MenuRowBgHover
-         : isOdd ? MenuRowBgOdd : MenuRowBgEven
+  return sf & S_HOVER ? MenuRowBgHover
+    : isOdd ? MenuRowBgOdd
+    : MenuRowBgEven
 }
 
 let function resetC0BindingsForOnlyGamepadsPlatforms(defaultPreset) {
@@ -382,7 +381,7 @@ let function cancelRecording() {
 
 
 
-let mediumText = @(text, params={}) dtext(text, {color = DEFAULT_TEXT_COLOR,}.__update(body_txt, params))
+let mediumText = @(text, params={}) dtext(text, {color = DEFAULT_TEXT_COLOR,}.__update(fontBody, params))
 
 let function recordingWindow() {
   //local text = loc("controls/recording", "Press a button (or move mouse / joystick axis) to bind action to")
@@ -420,7 +419,7 @@ let function recordingWindow() {
     gap = fsh(8)
     children = [
       {size=[0, flex(3)]}
-      dtext(locActionName(name), {color = Color(100,100,100)}.__update(h2_txt))
+      dtext(locActionName(name), {color = Color(100,100,100)}.__update(fontHeading2))
       mediumText(text, {
         function onAttach() {
           gui_scene.clearTimer(checkRecordingFinished)
@@ -709,7 +708,7 @@ let function bindingTextFunc(text) {
     color = DEFAULT_TEXT_COLOR
     rendObj = ROBJ_TEXT
     padding = hdpx(4)
-  }.__update(body_txt)
+  }.__update(fontBody)
 }
 
 
@@ -725,7 +724,7 @@ let function mkActionRowLabel(name, group=null){
     size = [flex(1.5), SIZE_TO_CONTENT]
     halign = ALIGN_RIGHT
     group
-  }.__update(body_txt)
+  }.__update(fontBody)
 }
 
 let function mkActionRowCells(label, columns){
@@ -798,8 +797,8 @@ let function bindingCell(ah, column, action_prop, list, tag, selection, name=nul
   let isForGamepad = isGamepadColumn(column)
 
   return watchElemState(function(sf) {
-    let hovered = (sf & S_HOVER)
-    let selected = isCellSelected(cellData, selection)
+    let isHovered = sf & S_HOVER
+    let isSelected = isCellSelected(cellData, selection)
     let isBindable = isForGamepad || !isGamepad.value
     return {
       watch = [selection, isGamepad]
@@ -812,10 +811,10 @@ let function bindingCell(ah, column, action_prop, list, tag, selection, name=nul
 
       children = {
         rendObj = ROBJ_BOX
-        fillColor = selected ? Color(0,0,0,255)
-                  : hovered ? Color(40, 40, 40, 80)
+        fillColor = isSelected ? Color(0,0,0,255)
+                  : isHovered ? Color(40, 40, 40, 80)
                   : Color(0, 0, 0, 40)
-        borderWidth = selected ? hdpx(2) : 0
+        borderWidth = isSelected ? hdpx(2) : 0
         borderColor = DEFAULT_TEXT_COLOR
         halign = ALIGN_CENTER
         valign = ALIGN_CENTER
@@ -879,7 +878,7 @@ let function mkBindingsHeader(colRange){
 let function bindingsPage(section_name) {
   let scrollHandler = ScrollHandler()
   let filteredActions = getActionsList().filter(@(ah) getActionTags(ah).indexof(section_name) != null)
-  let xmbRootNode = XmbContainer({wrap=true})
+  let xmbRootNode = XmbContainer({ wrap = false })
 
 
   return function() {
@@ -955,7 +954,7 @@ let function optionRow(labelText, comp, isOdd) {
     size = [flex(1), SIZE_TO_CONTENT]
     //halign = ALIGN_CENTER
     halign = ALIGN_RIGHT
-  }.__update(body_txt)
+  }.__update(fontBody)
 
   let children = [
     label
@@ -1150,11 +1149,6 @@ let controlsTypesMap = {
   [ControlsTypes.GAMEPAD] = loc("controls/type/pc/gamepad")
 }
 
-let setAimAssistForABTest = function(v) {
-  setAimAssist(v)
-  setAimAssistChangeManual(true)
-}
-
 let function options() {
   let onlyGamePad = controlsSettingOnlyForGamePad.value
   let toggleBg = makeBgToggle()
@@ -1194,7 +1188,7 @@ let function options() {
       [showGamepadOpts && isAimAssistExists,
         loc("options/aimAssist"),
         checkbox(isAimAssistEnabled, null,
-          { setValue = setAimAssistForABTest, useHotkeys = true, override={size=flex() valign = ALIGN_CENTER xmbNode=XmbNode()}})
+          { setValue = setAimAssist, useHotkeys = true, override={size=flex() valign = ALIGN_CENTER xmbNode=XmbNode()}})
       ],
       [showGamepadOpts, loc("controls/uiClickRumble"),
         checkbox(isUiClickRumbleEnabled, null,
@@ -1233,7 +1227,7 @@ let function sectionHeader(text) {
     text
     color = DEFAULT_TEXT_COLOR
     padding = [fsh(3), fsh(1), fsh(1)]
-  }.__update(h2_txt), false, {
+  }.__update(fontHeading2), false, {
     halign = ALIGN_CENTER
   })
 }
@@ -1254,7 +1248,7 @@ let function axisSetupWindow() {
     color = DEFAULT_TEXT_COLOR
     text = loc($"controls/{actionName}", actionName)
     margin = fsh(2)
-  }.__update(h2_txt)
+  }.__update(fontHeading2)
 
   let function buttons() {
     let children = []
@@ -1462,13 +1456,13 @@ let function actionTypeSelect(_cell_data, watched, value) {
           halign = ALIGN_CENTER
           rendObj = ROBJ_TEXT
           text = (watched.value == value) ? fa["circle"] : fa["circle-o"]
-          color = (sf & S_HOVER) ? HIGHLIGHT_COLOR : DEFAULT_TEXT_COLOR
+          color = sf & S_HOVER ? HIGHLIGHT_COLOR : DEFAULT_TEXT_COLOR
         }.__update(fontawesome)
         {
           rendObj = ROBJ_TEXT
-          color = (sf & S_HOVER) ? HIGHLIGHT_COLOR : DEFAULT_TEXT_COLOR
+          color = sf & S_HOVER ? HIGHLIGHT_COLOR : DEFAULT_TEXT_COLOR
           text = loc(eventTypeLabels[value])
-        }.__update(body_txt)
+        }.__update(fontBody)
       ]
     }
   })
@@ -1479,7 +1473,7 @@ let selectEventTypeHdr = {
   text = loc("controls/actionEventType", "Action on")
   color = DEFAULT_TEXT_COLOR
   halign = ALIGN_RIGHT
-}.__update(body_txt)
+}.__update(fontBody)
 
 let function buttonSetupWindow() {
   let cellData = configuredButton.value
@@ -1507,7 +1501,7 @@ let function buttonSetupWindow() {
     color = DEFAULT_TEXT_COLOR
     text = loc($"controls/{actionName}", actionName)
     margin = fsh(3)
-  }.__update(h2_txt)
+  }.__update(fontHeading2)
 
   let stickyToggle = Watched(binding.stickyToggle)
   stickyToggle.subscribe(function(new_val) {
@@ -1536,7 +1530,7 @@ let function buttonSetupWindow() {
       {
         color = DEFAULT_TEXT_COLOR
         text = loc("controls/digital/mode/isStickyToggle")
-      }.__update(body_txt)
+      }.__update(fontBody)
     )
   }
 

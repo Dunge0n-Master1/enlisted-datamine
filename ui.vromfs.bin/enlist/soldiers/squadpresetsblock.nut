@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let { defTxtColor, selectedTxtColor, disabledTxtColor, squadElemsBgColor,
   squadElemsBgHoverColor, commonBtnHeight, bigPadding, defBgColor, titleTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { availablePresetsCount, MAX_PRESETS_COUNT, squadsPresetWatch
 } = require("%enlist/squadPresets/squadPresetsState.nut")
 let { createSquadsPreset, updateSquadsPreset, deleteSquadsPreset, renameSquadsPreset,
@@ -46,8 +46,7 @@ let presetsListWatch = Computed(function() {
   return presetsList
 })
 
-let getSlotTextColor = @(sf, isDisabled = false)
-  (sf & S_HOVER) ? selectedTxtColor
+let getSlotTextColor = @(sf, isDisabled = false) sf & S_HOVER ? selectedTxtColor
   : isDisabled ? disabledTxtColor
   : defTxtColor
 
@@ -144,7 +143,7 @@ let actionButton = @(action, idx, presetInfo) (action?.isVisible(idx, presetInfo
         rendObj = ROBJ_TEXTAREA
         behavior = Behaviors.TextArea
         text = loc(action.locId)
-      }.__update(body_txt)
+      }.__update(fontBody)
     })
   : null
 
@@ -185,7 +184,7 @@ let mkInputBlock = @(idx, presetInfo) watchElemState(@(sf) {
         resetRenameState()
       }
       xmbNode = XmbNode()
-    }.__update(body_txt))
+    }.__update(fontBody))
   ].extend(renameButtonsList.map(@(action) actionButton(action, idx, presetInfo)))
 })
 
@@ -216,7 +215,7 @@ let mkPresetSlot = @(idx, presetInfo = null) @() {
             text = getDefaultPresetSlotName(presetInfo)
             color = getSlotTextColor(sf)
             scrollOnHover = true
-          }.__update(body_txt)
+          }.__update(fontBody)
         ].extend(sf & S_HOVER
           ? buttonsList.map(@(action) actionButton(action, idx, presetInfo))
           : [])
@@ -242,8 +241,8 @@ let mkPremiumPresetSlot = @(presetInfo) watchElemState(@(sf) {
       rendObj = ROBJ_TEXT
       text = getDefaultPresetSlotName(presetInfo)
       color = getSlotTextColor(sf, true)
-    }.__update(body_txt)
-    premiumImage(ADDITIONAL_ICON_SIZE, { color = (sf & S_HOVER) ? titleTxtColor : defTxtColor  })
+    }.__update(fontBody)
+    premiumImage(ADDITIONAL_ICON_SIZE, { color = sf & S_HOVER ? titleTxtColor : defTxtColor  })
   ]
 })
 

@@ -100,7 +100,7 @@ eventbus.subscribe("ipc.onBattleExitAccept",  function(_) {
 })
 
 
-subscribe_to_logout(function() {
+subscribe_to_logout(function(_updated) {
   if (currentStage.value) {
     logX("Seems like user was logged out from system during login parocess. Interrupting...")
     interrupt()

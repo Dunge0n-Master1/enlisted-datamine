@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h2_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let eulaLog = require("%enlSqGlob/library_logs.nut").with_prefix("[EULA]")
 let colors = require("%ui/style/colors.nut")
 let platform = require("%dngscripts/platform.nut")
@@ -29,11 +29,9 @@ let function loadConfig(fileName) {
 }
 
 let eula = loadConfig("content/enlisted/eula/eula.json")
-let nda = loadConfig("content/enlisted/nda/nda.json")
 
 eulaLog("language:", gameLanguage)
 eulaLog("eula config:", eula)
-eulaLog("nda config:", nda)
 
 local postProcessEulaText = @(text) text
 if (platform.is_sony) {
@@ -73,7 +71,7 @@ let function show(version, filePath, decisionCb) {
         behavior = Behaviors.TextArea
         color = colors.BtnTextNormal
         text = eulaTxt
-      }.__update(sh(100) <= 720 ? h2_txt : body_txt)
+      }.__update(sh(100) <= 720 ? fontHeading2 : fontBody)
     }, {
       size = SIZE_TO_CONTENT
       styling = thinStyle
@@ -108,14 +106,10 @@ let function show(version, filePath, decisionCb) {
 }
 
 let showEula = @(cb) show(eula.version, eula.filePath, cb)
-let showNda = @(cb) show(nda.version, nda.filePath, cb)
 
 console_register_command(@() showEula(@(a) log_for_user($"Result: {a}")), "eula.show")
-console_register_command(@() showNda(@(a) log_for_user($"Result: {a}")), "nda.show")
 
 return {
   showEula = showEula
   eulaVersion = eula.version
-  showNda = showNda
-  ndaVersion = nda.version
 }

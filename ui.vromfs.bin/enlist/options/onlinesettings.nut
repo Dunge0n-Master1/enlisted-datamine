@@ -1,21 +1,27 @@
 from "%enlSqGlob/ui_library.nut" import *
+from "modules" import on_module_unload
 
-let shutdownHandler = require("%enlist/state/shutdownHandler.nut")
 let eventbus = require("eventbus")
 let userInfo = require("%enlSqGlob/userInfo.nut")
 let { save_table_to_online_storage, get_table_from_online_storage, send_to_server, load_from_cloud } = require("onlineStorage")
-let { throttle } = require("%sqstd/timers.nut")
+let { debounce } = require("%sqstd/timers.nut")
 let logOS = require("%enlSqGlob/library_logs.nut").with_prefix("[ONLINE_SETTINGS] ")
-
 let onlineSettingUpdated = mkWatched(persist, "onlineSettingUpdated", false)
 let onlineSettingsInited = mkWatched(persist, "onlineSettingsInited", false)
-let settings = mkWatched(persist, "onlineSettings", get_table_from_online_storage("GBT_GENERAL_SETTINGS") ?? {})
+
+let cacheForModuleUnload = {value = null}
+let getOnlineTbl = @() get_table_from_online_storage("GBT_GENERAL_SETTINGS") ?? cacheForModuleUnload.value ?? {}
+let settings = Watched(getOnlineTbl())
+
+settings.subscribe(function(v){
+  if (v!=null)
+    cacheForModuleUnload.value = v
+})
 
 const SEND_PENDING_TIMEOUT_SEC = 600 //10 minutes should be ok
 
 let function onUpdateSettings(_userId) {
-  let fromOnline = get_table_from_online_storage("GBT_GENERAL_SETTINGS") ?? {}
-  settings.update(fromOnline)
+  settings.update(getOnlineTbl())
   onlineSettingUpdated(true)
   onlineSettingsInited(true)
 }
@@ -56,10 +62,12 @@ userInfo.subscribe(function (new_val) {
 
 let function save() {
   logOS("Save settings")
-  save_table_to_online_storage(settings.value, "GBT_GENERAL_SETTINGS")
+  let v = settings.value ?? cacheForModuleUnload.value
+  if ( v != null)
+    save_table_to_online_storage(v, "GBT_GENERAL_SETTINGS")
 }
 
-let lazySave = throttle(save, 10)
+let lazySave = debounce(save, 15)
 
 settings.subscribe(function(_new_val) {
   logOS("Queue setting to save")
@@ -71,12 +79,20 @@ let function loadFromCloud(userId, cb) {
   load_from_cloud(userId, cb)
 }
 
+local isExiting = false
+eventbus.subscribe("app.shutdown", function(_) {
+  isExiting = true
+  save()
+  sendToServer()
+})
+
 eventbus.subscribe("onlineSettings.sendToServer", @(_) sendToServer())
 
-shutdownHandler.add(function() {
-  logOS("Save and send online settings on shutdown")
-  save()
-  send_to_server()
+on_module_unload(function(...){
+  if (!isExiting && cacheForModuleUnload.value != null){
+    save_table_to_online_storage(cacheForModuleUnload.value, "GBT_GENERAL_SETTINGS")
+    send_to_server()
+  }
 })
 
 return {

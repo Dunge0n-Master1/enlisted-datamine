@@ -5,6 +5,7 @@ require game.events_game
 require game.es.stat_bq_common
 require DngDm
 require enlisted.game.es.offender_cache_common
+require strings
 
 def get_vehicle_type(eid : EntityId; is_empty : bool)
   if has(eid, "isTank")
@@ -42,12 +43,28 @@ def send_to_bq_vehicle_destroyed(evt : EventEntityDied;
     jw_key_value(jw, "victim_pos", "{transform[3]}")
 
     add_entity_type(jw, evt.offender, "offender")
-    query(evt.offender) <| $ [es] (soldier__sClass : string; transform : float3x4)
+    query(evt.offender) <| $ [es] (soldier__sClass : string;
+                                   transform : float3x4;
+                                   possessedByPlr : EntityId;
+                                   vehicle__lastEid : EntityId)
+      jw_key_value(jw, "offender_is_player", possessedByPlr != INVALID_ENTITY_ID)
       jw_key_value(jw, "soldier_class", soldier__sClass)
       jw_key_value(jw, "offender_pos", "{transform[3]}")
 
+      var weapTempl = gunPropsId >= 0 ? get_gun_component_by_props_id(gunPropsId, "item__weapTemplate") : ""
+      if weapTempl != ""
+        jw_key_value(jw, "weapon_template", weapTempl)
+      else
+        weapTempl = get_gun_template_by_props_id(gunPropsId)
+        let index = find(weapTempl, "+")
+        jw_key_value(jw, "weapon_template", slice(weapTempl, 0, index))
+      query(vehicle__lastEid) <| $ [es] ([[shared_comp]] turret_control__turretInfo : Array; killLogName : string)
+        for turret in turret_control__turretInfo
+          let obj = get_ecs_object(turret)
+          if get_string(obj, "gun", "") == weapTempl
+            jw_key_value(jw, "offender_vehicle", killLogName)
+
     jw_key_value(jw, "weapon_type", gunPropsId >= 0 ? get_gun_component_by_props_id(gunPropsId, "item__weapType") : "")
-    jw_key_value(jw, "weapon_template", gunPropsId >= 0 ? get_gun_component_by_props_id(gunPropsId, "item__weapTemplate") : "")
     jw_key_value(jw, "damage_type", "{damageTypeEnum}")
 
     jw_key_value(jw, "victim_type", victimType)

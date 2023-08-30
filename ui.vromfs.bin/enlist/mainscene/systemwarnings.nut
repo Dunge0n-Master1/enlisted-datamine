@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let { isRunningOnPS5 = @() false } = require_optional("sony")
 let { is_ps4 } = require("%dngscripts/platform.nut")
 let { attentionTxtColor, transpBgColor, bigPadding } = require("%enlSqGlob/ui/designConst.nut")
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 
 
 let messagesList = [
@@ -23,7 +23,7 @@ let getMessageBlock = @(data) {
     text = loc(data.locId)
     halign = ALIGN_CENTER
     color = attentionTxtColor
-  }.__update(body_txt)
+  }.__update(fontBody)
 }
 
 return {

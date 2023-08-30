@@ -193,6 +193,10 @@ me_410a_1_u4{
     part:t="zfr_4a"
     part:t="210mm_tube_l"
     part:t="210mm_tube_r"
+    part:t="armor8_dm"
+    part:t="mgun1_dm"
+    part:t="mgun2_dm"
+    part:t="armor9_dm"
   }
 }
 

@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt, h2_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody, fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let http = require("dagor.http")
 let { parse_json } = require("json")
 let { showWithCloseButton } = require("%enlist/components/msgbox.nut")
@@ -123,13 +123,13 @@ let function offersModMsgbox(mod) {
       gap = fsh(2)
       valign = ALIGN_CENTER
       children = [
-        txt({ text = loc("featured_mod")}).__update(h2_txt, { color = accentTitleTxtColor})
-        noteTextArea({ text = title }).__update(h2_txt, { color = titleTxtColor })
-        noteTextArea({ text = loc("mods/featuring") }).__update(body_txt)
+        txt({ text = loc("featured_mod")}).__update(fontHeading2, { color = accentTitleTxtColor})
+        noteTextArea({ text = title }).__update(fontHeading2, { color = titleTxtColor })
+        noteTextArea({ text = loc("mods/featuring") }).__update(fontBody)
         noteTextArea({ text = loc("mods/authorModDescription", { description = colorize(titleTxtColor, description) }) })
-          .__update(body_txt, { color = accentTitleTxtColor })
+          .__update(fontBody, { color = accentTitleTxtColor })
         noteTextArea({ text = loc("mods/author", { author = colorize(titleTxtColor, authorsNick) }) })
-          .__update(body_txt, { color = accentTitleTxtColor })
+          .__update(fontBody, { color = accentTitleTxtColor })
       ]
     }
     buttons

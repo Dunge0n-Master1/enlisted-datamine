@@ -1,7 +1,7 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let style = require("%ui/hud/style.nut")
 let { watchedHeroSquadMembers } = require("%ui/hud/state/squad_members.nut")
@@ -39,7 +39,7 @@ let function seatMember(seatDesc) {
     rendObj = ROBJ_TEXT
     text = $"{place}{name}"
     color
-  }.__update(sub_txt)
+  }.__update(fontSub)
 }
 
 let mkEmptyHint = @(width) {
@@ -51,7 +51,7 @@ let seatHint = @(seat, hintWidth) seat.order.canPlaceManually
       id = $"Human.Seat0{seat.order.seatNo + 1}"
       size = [hintWidth, SIZE_TO_CONTENT]
       hplace = ALIGN_RIGHT
-      text_params = sub_txt
+      text_params = fontSub
     })
   : mkEmptyHint(hintWidth)
 

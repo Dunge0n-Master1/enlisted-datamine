@@ -1,20 +1,18 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {body_txt, sub_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontBody, fontSub} = require("%enlSqGlob/ui/fontsStyle.nut")
 let { TEAM_UNASSIGNED } = require("team")
 let scrollbar = require("%ui/components/scrollbar.nut")
 let {CONTROL_BG_COLOR, TEAM1_TEXT_COLOR, TEAM0_TEXT_COLOR} = require("style.nut")
 let chatState = require("state/chat.nut")
 let {setInteractiveElement} = require("state/interactive_state.nut")
 let {localPlayerTeam, localPlayerName} = require("state/local_player.nut")
-let { DBGLEVEL } = require("dagor.system")
+let {switchSendModesAllowed} = require("state/chat_state.nut")
 let { remap_others } = require("%enlSqGlob/remap_nick.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let {sound_play_one_shot} = require("%dngscripts/sound_system.nut")
 let {UserNameColor} = require("%ui/style/colors.nut")
 let msgbox = require("%ui/components/msgbox.nut")
-
-let switchSendModesAllowed = DBGLEVEL > 0
 
 let showChatInput = mkWatched(persist, "showChatInput", false)
 
@@ -162,7 +160,7 @@ let function inputBox() {
               showChatInput(false)
             }, "Close chat"]
           ]
-        }.__update(sub_txt)
+        }.__update(fontSub)
       }
     ]
   }
@@ -185,32 +183,33 @@ let function inputBox() {
         vplace = ALIGN_CENTER
         text = loc("chat/help/short")
         color = Color(180, 180, 180, 180)
-      }.__update(sub_txt)
+      }.__update(fontSub)
       @() {
         rendObj = ROBJ_TEXT
         vplace = ALIGN_CENTER
         hplace = ALIGN_RIGHT
         watch = chatState.sendMode
         text = sendModeText()
-      }.__update(body_txt)
+      }.__update(fontBody)
     ]
   }
 
   let function switchSendModes() {
     let newMode = chatState.sendMode.value == "all" ? "team" : "all"
-    if (switchSendModesAllowed)
+    if (switchSendModesAllowed.value)
       chatState.sendMode(newMode)
   }
 
   return {
     size = [flex(), inputBoxHeight]
     flow = FLOW_VERTICAL
+    watch = switchSendModesAllowed
 
-    hotkeys = switchSendModesAllowed ? [ ["^Tab", switchSendModes] ] : null
+    hotkeys = switchSendModesAllowed.value ? [ ["^Tab", switchSendModes] ] : null
 
     children = [
       textInput
-      switchSendModesAllowed ? modesHelp : null
+      switchSendModesAllowed.value ? modesHelp : null
     ]
   }
 }

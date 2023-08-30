@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
-let { sub_txt, tiny_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub, fontTiny } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { secondsToHoursLoc } = require("%ui/helpers/time.nut")
 let {
   smallPadding, accentTitleTxtColor, defTxtColor
@@ -18,7 +18,7 @@ let function mkTimer(timestamp, prefixLocId = "", expiredLocId = "timeExpired",
   let prefixTxt = loc(prefixLocId)
   let expiredTxt = loc(expiredLocId)
   let expireSec = Computed(@() max(timestamp - serverTime.value, 0))
-  let txtStyle = isSmall ? tiny_txt : sub_txt
+  let txtStyle = isSmall ? fontTiny : fontSub
   let timerSize = isSmall ? smallTimerSize : defTimerSize
 
   return function() {

@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h1_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading1, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { debounce } = require("%sqstd/timers.nut")
 let { sceneWithCameraAdd, sceneWithCameraRemove } = require("%enlist/sceneWithCamera.nut")
 let canDisplayOffers = require("%enlist/canDisplayOffers.nut")
@@ -113,7 +113,7 @@ let function mkHeaderTimeLeft(time) {
     margin = bigPadding
     fontFx = FFT_BLUR
     fontFxColor = 0x7F000000
-  }.__update(body_txt)
+  }.__update(fontBody)
 }
 
 let function offersWindowTitle() {
@@ -138,7 +138,7 @@ let function offersWindowTitle() {
         text = utf8ToUpper(title)
         padding = [fsh(2), fsh(3)]
         color = titleTxtColor
-      }.__update(h1_txt),
+      }.__update(fontHeading1),
       casualFlagStyle)
     ]
   }
@@ -154,7 +154,7 @@ let descriptionLoading = freeze({
     {
       rendObj = ROBJ_TEXT
       text = loc("Loading")
-    }.__update(h1_txt)
+    }.__update(fontHeading1)
     waitingSpinner
   ]
 })
@@ -168,7 +168,7 @@ let descriptionCommon = {
     size = [fsh(60), SIZE_TO_CONTENT]
     behavior = Behaviors.TextArea
     text = loc("offers/commonDescription")
-  }.__update(body_txt)
+  }.__update(fontBody)
 }
 
 let function offersWindowDescription() {

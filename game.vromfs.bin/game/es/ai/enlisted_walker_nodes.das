@@ -804,11 +804,14 @@ class InteractWithBuildingTarget : BehNodeAdapter
       endAtTimeLimit = get_sync_time() + maxInteractTime + syncDelayExtraTime
 
     let weapon = get_Eid(agent.eid, "human_weap__currentGunEid") ?? INVALID_ENTITY_ID
-    if has(weapon, "buildingTool")
+    let buildingToolSelected = has(weapon, "buildingTool")
+    if buildingToolSelected
       phys.producedCT |> human_control_state_set_control_bit(HumanPhysControlType HCT_SHOOT, true)
 
     if get_Eid(agent.eid, "building_action__target") ?? INVALID_ENTITY_ID != target
       if has(target, "builder_server_preview")
+        if !buildingToolSelected
+          return EBehResult ER_SUCCESS // don't try to build without building tool
         send_net_event(agent.eid, [[EventSetBuildingTarget target = target]])
       else
         send_net_event(agent.eid, [[EventDismantleBuilding target=target]])
@@ -2574,7 +2577,7 @@ class FindCoverAroundPoint : BehNodeAdapter
   possibleCosAngle   : float = 0.5
   possibleAngleParam : int = -1
 
-  keepOldCoverChance : float = 0.6
+  keepOldCoverChance : float = 0.9
 
   maxOccupied  : int = -1
   traceVisible : bool = false
@@ -2617,10 +2620,16 @@ class FindCoverAroundPoint : BehNodeAdapter
     query() <| $ [es] (var covers : CoversComponent&)
       query(agentEid) <| $ [es] (walker_agent : EntityAgent;
                                  team : int = TEAM_UNASSIGNED;
+                                 squad_member__squad : EntityId = INVALID_ENTITY_ID;
                                  var cover_updater__heldCovers : ecs::IPoint2List&)
         var prevCoverId = int2(-1, 0)
         if length(cover_updater__heldCovers) > 0
           prevCoverId = cover_updater__heldCovers[0]
+
+        var allowTight = false
+        query(squad_member__squad) <| $ [es] (squad__formationSpread : int)
+          if squad__formationSpread == int(SquadFormationSpread ESFN_CLOSEST)
+            allowTight = true
 
         reset_covers(covers, cover_updater__heldCovers)
 
@@ -2643,7 +2652,12 @@ class FindCoverAroundPoint : BehNodeAdapter
         var bestDistSq = FLT_MAX
         var bestCoverId = int2(-1, 0)
         var bestScore = 0
+        var bestTight = true
+        var bestOKDir = false
         var bestFound = false
+
+        var dangerPoints : array<float3>
+        get_danger_points(dangerPoints, agentEid, walker_agent.pos, team)
 
         let filterInfo = get_filter_covers_info()
         covers_box_cull(covers, box) <| $ [unused_argument(tm)] (id : int;
@@ -2666,13 +2680,25 @@ class FindCoverAroundPoint : BehNodeAdapter
           var slotBestCoverId = int2(id, -1)
           var slotBestDistSq = bestDistSq
           var slotBestScore = bestScore
+          var slotBestTight = bestTight
+          var slotBestOKDir = bestOKDir
           for i in range(0, numSlots)
-            let isPrevCoverSlot = isPrevCover && i == prevCoverId.y
-            let score = eval_cover_score_stay(cover, coverDesc, i) + (isPrevCoverSlot ? 1 : 0)
-            if score < slotBestScore
+            if coverDesc.slots[i].numUsed > 0
               continue
+            let isPrevCoverSlot = isPrevCover && i == prevCoverId.y
             let coverSlotPosBase = get_cover_slot_pos(cover, coverDesc, i)
             if is_conflict_with_squad_leader_acting(avoidLeaderActing, coverSlotPosBase, agentEid)
+              continue
+            let isTight = !allowTight && check_covers_nearby_occupied(coverSlotPosBase, id, i, covers.list, covers.coverDescs)
+            let goodDir = check_cover_pos_vs_points(coverSlotPosBase, cover.dir, dangerPoints)
+            if isTight && !slotBestTight && !isPrevCoverSlot
+              continue
+            let isBetterByDir = goodDir && !slotBestOKDir
+            let isBetterByTight = !isTight && slotBestTight
+            let isBetter = isPrevCoverSlot || isBetterByTight || isBetterByDir
+            let extraScore = (isPrevCoverSlot ? 50 : 0) + (isTight ? 0 : 50) + (goodDir ? 101 : 0)
+            let score = eval_cover_score_stay(cover, coverDesc, i) * 100 + extraScore
+            if score < slotBestScore && !isBetter
               continue
             let coverSlotPos = coverSlotPosBase + traceHeightUp
             let coverSlotOfs = coverSlotPos - traceStartPos
@@ -2683,7 +2709,7 @@ class FindCoverAroundPoint : BehNodeAdapter
             let distFromAgentSq = distance_sq(midPos, coverSlotPos)
             if distToCenterSq < minDistSq || distToCenterSq > maxDistSq
               continue
-            if distFromAgentSq > slotBestDistSq && score == slotBestScore && !isPrevCoverSlot
+            if distFromAgentSq > slotBestDistSq && score == slotBestScore && !isBetter
               continue
             if !is_point_safe(coverSlotPos, team)
               continue
@@ -2698,10 +2724,14 @@ class FindCoverAroundPoint : BehNodeAdapter
             slotBestDistSq = distFromAgentSq
             slotBestCoverId = int2(id, i)
             slotBestScore = score
-            if isPrevCoverSlot
+            slotBestTight = isTight
+            slotBestOKDir = goodDir
+            if isPrevCoverSlot && !isTight
               bestDistSq = slotBestDistSq
               bestCoverId = slotBestCoverId
               bestScore = slotBestScore
+              bestTight = slotBestTight
+              bestOKDir = slotBestOKDir
               bestFound = true
               return
           if slotBestCoverId.y != -1
@@ -2712,6 +2742,8 @@ class FindCoverAroundPoint : BehNodeAdapter
               bestDistSq = slotBestDistSq
               bestCoverId = slotBestCoverId
               bestScore = slotBestScore
+              bestTight = slotBestTight
+              bestOKDir = slotBestOKDir
 
         if bestCoverId.x != -1
           assume cover     = covers.list[bestCoverId.x]

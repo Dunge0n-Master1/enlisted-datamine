@@ -22,7 +22,7 @@ curAvailableShopItems.subscribe(function(items) {
     if (unseenGuids.len()) {
       let savedTime = markedAllBundlesSeenTime.watch.value
       markedAllBundlesSeenTime.setValue(savedTime.__merge({[armyId] = serverTime.value}))
-      gui_scene.resetTimeout(0.1, @() markShopItemSeen(armyId, unseenGuids))
+      markShopItemSeen(armyId, unseenGuids)
     }
   }
   else if (hasNewbieUnlocksData.value && armyId) {

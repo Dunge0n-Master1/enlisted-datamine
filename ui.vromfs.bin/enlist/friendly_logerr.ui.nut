@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontawesome } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontawesome } = require("%enlSqGlob/ui/fontsStyle.nut")
 let fa = require("%ui/components/fontawesome.map.nut")
 let colors = require("%ui/style/colors.nut")
 let modalPopupWnd = require("%ui/components/modalPopupWnd.nut")
@@ -30,8 +30,6 @@ let function mkSimpleCb(locid) {
     addError(tag, logstring, timestamp, "logerr/{0}{1}".subst(is_pc ? "" : $"{platformId}/", locid))
   }
 }
-
-dagorDebug.clear_logerr_interceptors()
 
 let tagsForPopup = ["web-vromfs:", "[disk]", "[network]"]
 tagsForPopup.map(@(tag) dagorDebug.register_logerr_interceptor([tag], mkSimpleCb(tag)))
@@ -83,7 +81,7 @@ let function textarea(text, logstring) {
     rendObj = ROBJ_TEXTAREA
     behavior = [Behaviors.TextArea, Behaviors.Button]
     text = loc(text,loc("unknown error"))
-    color = (sf & S_HOVER) ? Color(220,220,220) : Color(128,128,128)
+    color = sf & S_HOVER ? Color(220,220,220) : Color(128,128,128)
     size = [flex(), SIZE_TO_CONTENT]
     onClick = onClick
     skipDirPadNav = true
@@ -154,7 +152,7 @@ let function mkBtn(){
       text = fa["exclamation-triangle"]
       fontSize = hdpx(12)
       font = fontawesome.font
-      color = (sf & S_HOVER) ? Color(255,255,255) : Color(245, 100, 30, 100)
+      color = sf & S_HOVER ? Color(255,255,255) : Color(245, 100, 30, 100)
     }
   }
 }

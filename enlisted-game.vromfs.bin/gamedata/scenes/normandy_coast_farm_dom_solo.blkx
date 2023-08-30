@@ -240,7 +240,6 @@ entity{
 entity{
   _template:t="respawn_camera"
   respawnCameraForTeam:i=1
-  respawnCameraLODMultiplier:r=0.75
   moveCameraToHeight:r=170.0
   respawnSelectorDistanceMult:r=1.5
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [241.186, 176.971, -296.885]]
@@ -249,7 +248,6 @@ entity{
 entity{
   _template:t="respawn_camera"
   respawnCameraForTeam:i=2
-  respawnCameraLODMultiplier:r=0.75
   moveCameraToHeight:r=170.0
   respawnSelectorDistanceMult:r=1.5
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-720.583, 211.385, -187.102]]

@@ -19,3 +19,14 @@ pacific_gavutu_minimap{
   farRightBottom:p2=8192.0, -8192.0
   northAngle:r=0.0
 }
+
+pacific_new_georgia_minimap{
+  _extends:t="minimap"
+  mapTex:t="pacific_new_georgia_det_minimap*"
+  farMapTex:t="pacific_new_georgia_far_minimap*"
+  left_top:p2=-1230.0, 0.0
+  right_bottom:p2=270.0, -1500.0
+  farLeftTop:p2=-8192.0, 8192.0
+  farRightBottom:p2=8192.0, -8192.0
+  northAngle:r=0.0
+}

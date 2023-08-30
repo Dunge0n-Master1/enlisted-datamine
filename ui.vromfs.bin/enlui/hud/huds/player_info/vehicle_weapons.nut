@@ -2,7 +2,7 @@ import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
 let faComp = require("%ui/components/faComp.nut")
-let {body_txt, fontawesome} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontBody, fontawesome} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {HUD_TIPS_HOTKEY_FG, FAIL_TEXT_COLOR, DEFAULT_TEXT_COLOR} = require("%ui/hud/style.nut")
 let heroVehicleState = require("%ui/hud/state/vehicle_hp.nut").hero
 let {vehicleTurrets, turretsReload, turretsReplenishment, turretsAmmo, showVehicleWeapons} = require("%ui/hud/state/vehicle_turret_state.nut")
@@ -28,7 +28,7 @@ let mkControlText = @(text) {
   text,
   color = HUD_TIPS_HOTKEY_FG,
   rendObj = ROBJ_TEXT padding = hdpx(4)
-}.__update(body_txt)
+}.__update(fontBody)
 
 const eventTypeToText = false
 let makeTurretControlTip = @(hotkey) function(){

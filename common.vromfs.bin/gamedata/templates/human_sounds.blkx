@@ -29,42 +29,13 @@ base_human_hit_sound{
   }
 }
 
-human_steps_sound_queries{
-
-  _group{
-    _tags:t="sound"
-    human_step_sound_queries__biomePhysMatId:i=-1
-    human_step_sound_queries__puddleDepth:r=0.0
-    human_step_sound_queries__biomeOverridesWater:b=no
-    human_step_sound_queries__farawayThreshold:r=15.0
-    human_step_sound_queries__interval:p2=0.1, 0.5
-    human_step_sound_queries__enemyInterval:p2=0.5, 1.0
-    human_step_sound_queries__lmeshDiff:r=2.0
-
-    human_step_sound_queries{
-    }
-
-    "human_step_sound_queries__biomeToMaterial:object"{
-
-      "mud:object"{
-        physmat:t="mud"
-      }
-
-      "snow:object"{
-        physmat:t="snow"
-        overrideWater:b=yes
-      }
-    }
-  }
-}
-
 base_human_steps_sound{
-  _extends:t="human_steps_sound_queries"
+  _extends:t="sound_landmesh_queries"
 
   _group{
     _tags:t="sound"
     human_steps_sound__lastTimeOnGround:r=0.0
-    human_steps_sound__matId:i=-1
+    human_steps_sound__smid:r=-1.0
     human_steps_sound__waterDepth:r=0.0
     human_steps_sound__physStates:i=-1
     human_steps_sound__irqObjIdx:i=-1
@@ -257,61 +228,11 @@ human_breath_sound{
 }
 
 human_collision_hit_sound{
-
-  _group{
-    _tags:t="sound"
-    human_collision_hit_sound__forceMax:r=0.0
-    human_collision_hit_sound__spdSummaryToForce:p4=0.2, 2.0, 0.0, 1.0
-    human_collision_hit_sound__vertSpeedThreshold:r=0.5
-  }
+  _extends:t="base_human_collision_hit_sound"
 }
 
 human_collision_scrape_sound{
-  human_collision_scrape_sound__descIdx:i=-1
-  _replicated:t="human_collision_scrape_sound__descIdx"
-
-  _group{
-    _tags:t="server"
-
-    "human_collision_scrape_net_sound__physmatIds:list<i>"{
-    }
-
-    "human_collision_scrape_net_sound__physmatNames:shared:list<t>"{
-      name:t="bushes"
-      name:t="bushes_fall"
-      name:t="bushes_palm"
-      name:t="bushes_dead"
-      name:t="bushes_snow"
-    }
-  }
-
-  _group{
-    _tags:t="sound"
-    human_collision_scrape_sound__speedToForce:p4=0.2, 2.0, 0.0, 1.0
-
-    "human_collision_scrape_sound__descs:shared:array"{
-
-      "bush:object"{
-        path:t="/walker/ww2_soldier/collision/bush"
-      }
-
-      "bushesFall:object"{
-        path:t="/walker/ww2_soldier/collision/bush"
-      }
-
-      "bushesPalm:object"{
-        path:t="/walker/ww2_soldier/collision/bush"
-      }
-
-      "bushesDead:object"{
-        path:t="/walker/ww2_soldier/collision/bush"
-      }
-
-      "bushesSnow:object"{
-        path:t="/walker/ww2_soldier/collision/bush"
-      }
-    }
-  }
+  _extends:t="base_human_collision_scrape_sound"
 }
 
 possessable_human_sound{

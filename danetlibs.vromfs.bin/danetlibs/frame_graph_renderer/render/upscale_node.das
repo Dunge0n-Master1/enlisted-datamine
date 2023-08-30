@@ -1,5 +1,4 @@
-
-require FrameGraph
+require daBfg
 require DagorShaders
 require DagorSystem
 require danetlibs/frame_graph_renderer/render/node_macro
@@ -17,6 +16,10 @@ class UpscaleTexGenerationNode : FrameGraphNode
     registrar |> addPreviousNode(string_view("prepare_lights_node"))
     registrar |> addFollowNode(string_view("combine_shadows_node"))
 
+    registrar |> bindResourceToShaderVar(string_view("depth_gbuf"),
+                                         string_view("gbuf_depth"),
+                                         ResourceUsageStage POST_RASTER,
+                                         false)
     registrar |> bindResourceToShaderVar(string_view("downsampled_checkerboard_depth_tex"),
                                          string_view("checkerboard_depth"),
                                          ResourceUsageStage POST_RASTER,
@@ -32,10 +35,8 @@ class UpscaleTexGenerationNode : FrameGraphNode
     query() <| $ [es] (upscale_shader : PostFxRenderer)
       let upscaleSamplingTex = accessor |> getTexture(string_view("upscale_sampling_tex"))
 
-      setBlock(globalFrameBlockId, LAYER_FRAME)
       upscale_render(upscaleSamplingTex |> get_tex2d, upscale_shader)
       set_texture(upscale_sampling_texVarId, upscaleSamplingTex |> get_res_id)
-      setBlock(-1, LAYER_FRAME)
 
   def override onDeviceReset()
     query() <| $ [es] (upscale_weights_buffer : UniqueBufHolder)
@@ -45,7 +46,7 @@ class UpscaleTexGenerationNode : FrameGraphNode
 struct OnRenderSettingsReady {}
 
 [es(on_event=OnRenderSettingsReady, track=render_settings__upscaleSamplingTex)]
-def init_upscale_node(evt : Event; render_settings__upscaleSamplingTex : bool; render_settings__bare_minimum : bool)
+def init_upscale_node(evt : Event; render_settings__upscaleSamplingTex : bool; render_settings__fullDeferred : bool; render_settings__bare_minimum : bool)
   if render_settings__upscaleSamplingTex
     createEntitySync("upscale_node")//we should create this entity sync, because framegraph requere to know about this node immediately
 
@@ -57,5 +58,5 @@ def init_upscale_node(evt : Event; render_settings__upscaleSamplingTex : bool; r
     destroyEntity(getSingletonEntity("upscale_node"))
     // TODO: replace with FG-based shadervar tracking
     set_texture(upscale_sampling_texVarId, BAD_TEXTUREID)
-    if !render_settings__bare_minimum
-      logerr("upscale_node is mandatory for all presets except bare minimum")
+    if render_settings__fullDeferred && !render_settings__bare_minimum
+      logerr("upscale_node is mandatory for all presets except bare minimum, nswitch, mobile")

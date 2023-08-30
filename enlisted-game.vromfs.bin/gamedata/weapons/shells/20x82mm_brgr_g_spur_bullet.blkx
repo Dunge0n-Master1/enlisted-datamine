@@ -6,17 +6,19 @@ maxDistance:r=3000.0
 normalizationPreset:t="default"
 modelName:t="tank_bullet_he"
 ricochetPreset:t="defaultExt"
-secondaryShattersPreset:t="ap"
+groundRicochetPreset:t="defaultExt"
 hitPowerMult:r=10.0
-stabilityThreshold:r=0.05
+secondaryShattersPreset:t="ap"
 onHitChanceMultFire:r=7.0
-stabilityCaliberToArmorThreshold:r=5.0
+stabilityThreshold:r=0.05
 recoilMultiplier:r=0.4
-stabilityReductionAfterPenetration:r=0.15
+stabilityReductionAfterRicochet:r=0.5
 effectiveDistance:r=700.0
-bulletType:t="i_t"
+stabilityReductionAfterPenetration:r=0.15
 relativeVelHitShift:p2=300.0, 1000.0
 relativeVelArmorShift:p2=200.0, 1000.0
+waterRicochetEffect:t="hit_19_27mm_water"
+groundRicochetEffect:t="hit_19_27mm_metal_ap"
 
 stabilityRicochetModifier{
   mod1:p2=0.0, 0.05

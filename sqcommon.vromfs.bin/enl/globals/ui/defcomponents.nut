@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { darkPanelBgColor, accentColor, colPart } = require("%enlSqGlob/ui/designConst.nut")
+let { darkPanelBgColor, accentColor } = require("%enlSqGlob/ui/designConst.nut")
 let { mkTwoSidesGradientX } = require("%enlSqGlob/ui/gradients.nut")
 
 
@@ -58,7 +58,7 @@ let function progressBar(value, override = {}, progressToAnim = {}) {
   let bgColor = override?.bgColor
   let progressColor = override?.progressColor
   return {
-    size = [flex(), colPart(0.161)]
+    size = [flex(), hdpxi(10)]
     children = [
       receivedProgress(curProgress, progressColor)
       emptyProgress(100 - curProgress, bgColor, anim)
@@ -81,7 +81,7 @@ let function gradientProgressBar(value, override = {}, progressToAnim = {}) {
   let bgImage = override.bgImage
   let emptyColor = override?.emptyColor ?? darkPanelBgColor
   return {
-    size = [flex(), colPart(0.161)]
+    size = [flex(), hdpxi(10)]
     children = [
       receivedGradProgress(bgImage)
       emptyProgress(100 - curProgress, emptyColor, anim)
@@ -94,13 +94,13 @@ let gradient = mkTwoSidesGradientX({sideColor = 0x00FFFFFF, centerColor=0x1AFFFF
 
 let doubleSideHighlightLine = freeze({
   rendObj = ROBJ_IMAGE
-  size = [flex(), colPart(0.06)]
+  size = [flex(), hdpx(4)]
   image = gradient
 })
 
 let doubleSideHighlightLineBottom = freeze({
   rendObj = ROBJ_IMAGE
-  size = [flex(), colPart(0.06)]
+  size = [flex(), hdpx(4)]
   image = gradient
   vplace = ALIGN_BOTTOM
 })

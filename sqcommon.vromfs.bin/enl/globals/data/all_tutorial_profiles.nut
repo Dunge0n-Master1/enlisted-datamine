@@ -2626,7 +2626,7 @@ return {
                            "slot" : "hair"
                         },
                         "head" : {
-                           "gametemplate" : "pilot_helmet_w_goggles_01_ita_summer_item",
+                           "gametemplate" : "attachable_wear_pilot_helmet_w_goggles_01_ita_summer_item",
                            "slot" : "head"
                         },
                         "pants" : {
@@ -6195,9 +6195,9 @@ return {
                            "gametemplate" : "attachable_wear_head_11_it_item",
                            "slot" : "face"
                         },
-                        "front_belt_r" : {
+                        "ammo_case" : {
                            "gametemplate" : "attachable_wear_case_01_ger_tropic_item",
-                           "slot" : "front_belt_r"
+                           "slot" : "ammo_case"
                         },
                         "hair" : {
                            "gametemplate" : "hair_02_ger_summer_item",
@@ -6309,9 +6309,9 @@ return {
                            "gametemplate" : "attachable_wear_head_01_it_item",
                            "slot" : "face"
                         },
-                        "front_belt_r" : {
+                        "ammo_case" : {
                            "gametemplate" : "attachable_wear_case_01_ger_tropic_item",
-                           "slot" : "front_belt_r"
+                           "slot" : "ammo_case"
                         },
                         "head" : {
                            "gametemplate" : "helmet_01_ger_tropic_item",

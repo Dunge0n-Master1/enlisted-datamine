@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let JB = require("%ui/control/gui_buttons.nut")
 let closeBtnBase = require("%ui/components/closeBtn.nut")
-let {body_txt, sub_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontBody, fontSub} = require("%enlSqGlob/ui/fontsStyle.nut")
 let { Flat } = require("%ui/components/textButton.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { defTxtColor, isWide } = require("%enlSqGlob/ui/viewConst.nut")
@@ -11,7 +11,7 @@ let { premiumUnlock, premiumStage0Unlock } = require("%enlist/unlocks/taskReward
 let { sceneWithCameraAdd, sceneWithCameraRemove } = require("%enlist/sceneWithCamera.nut")
 let { curSelectedItem } = require("%enlist/showState.nut")
 let { bpHeader, hugePadding, btnBuyPremiumPass, bpTitle, btnSize, cardCountCircle,
-  sizeCard, imageSize, gapCards
+  sizeCard, imageSize, gapCards, mkBpIconBlock
 } = require("bpPkg.nut")
 let { seasonIndex } = require("bpState.nut")
 let { elitePassItem, canBuyBattlePass, hasEliteBattlePass, isPurchaseBpInProgress
@@ -22,7 +22,7 @@ let { curArmy } = require("%enlist/soldiers/model/state.nut")
 let buyShopItem = require("%enlist/shop/buyShopItem.nut")
 let openUrl = require("%ui/components/openUrl.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
-let { dynamicSeasonBPIcon } = require("battlePassPkg.nut")
+let { midPadding } = require("%enlSqGlob/ui/designConst.nut")
 
 let circuitConf = require("app").get_circuit_conf()
 let linkToOpen = circuitConf?.battlePassUrl
@@ -99,7 +99,7 @@ let rewardBlock = @(allRewards) @(){
   size = [SIZE_TO_CONTENT, flex()]
   children = makeHorizScroll({
     xmbNode = XmbContainer({
-      canFocus = @() false
+      canFocus = false
       scrollSpeed = 10.0
       isViewport = true
     })
@@ -145,7 +145,7 @@ let cardBlock = @(txt, val) @(){
       behavior = Behaviors.TextArea
       size = [flex(), SIZE_TO_CONTENT]
       text = loc(txt)
-    }.__update(body_txt)
+    }.__update(fontBody)
     rewardBlock(val)
   ]
 }
@@ -168,7 +168,7 @@ let function cardsBlock(){
   }
 }
 
-let mkDescription = @(text, params = {}, txtSize = body_txt){
+let mkDescription = @(text, params = {}, txtSize = fontBody){
   rendObj = ROBJ_TEXTAREA
   behavior = Behaviors.TextArea
   size = [hdpx(500), SIZE_TO_CONTENT]
@@ -213,42 +213,44 @@ let btnBlock = {
         ]}
     }
     mkDescription(loc("bp/moreRewards"),
-      {hplace = ALIGN_RIGHT, size =[hdpx(150), SIZE_TO_CONTENT]}, sub_txt)
+      {hplace = ALIGN_RIGHT, size =[hdpx(150), SIZE_TO_CONTENT]}, fontSub)
   ]
 }
-
 
 let eliteBattlePassWnd = @(){
   size = flex()
   watch = [safeAreaBorders, showingItem, isOpened]
   padding = [safeAreaBorders.value[0] + hdpx(30), safeAreaBorders.value[1] + hdpx(25)]
   behavior = Behaviors.MenuCameraControl
+  flow = FLOW_VERTICAL
   children = [
-    {
-      hplace = ALIGN_RIGHT
-      margin = [hdpx(150), hdpx(100)]
-      children = dynamicSeasonBPIcon(hdpxi(220))
-    }
+    bpHeader(showingItem.value, closeButton)
     {
       size = flex()
-      flow = FLOW_VERTICAL
-      hplace = ALIGN_CENTER
       children = [
-        bpHeader(showingItem.value, closeButton, !isOpened.value)
-        {
-          size = [flex(), titleAndDescriptionBlockHeight]
-          gap = localGap
-          flow = FLOW_VERTICAL
-          children = [
-            bpTitle(true, hdpx(100))
-            mkDescription(loc("bp/description"))
-          ]
-        }
         {
           size = flex()
+          flow = FLOW_VERTICAL
+          hplace = ALIGN_CENTER
+          children = [
+            {
+              size = [flex(), titleAndDescriptionBlockHeight]
+              gap = localGap
+              flow = FLOW_VERTICAL
+              margin = [midPadding, 0]
+              children = [
+                bpTitle(true, hdpx(100))
+                mkDescription(loc("bp/description"))
+              ]
+            }
+            {
+              size = flex()
+            }
+            cardsBlock
+            btnBlock
+          ]
         }
-        cardsBlock
-        btnBlock
+        mkBpIconBlock()
       ]
     }
   ]

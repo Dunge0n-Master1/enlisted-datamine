@@ -34,20 +34,6 @@ let function progressContainerCtor(mask, borderImg, size) {
   }
 }
 
-let solidProgressCtor = @(key = "progress_bar")
-  @(progress, animations = [], color = pbColorCompleted, amimColor = null) {
-    key
-    rendObj = ROBJ_SOLID
-    size = [pw(progress * 100), flex()]
-    color
-    clipChildren = true
-    animations = [{ prop = AnimProp.color, from = amimColor ?? pbColorAcquired, to = color
-      easing = CosineFull, duration = 1.5, loop = true, play = true}]
-    children = animations.len() > 0
-      ? animChildren(animations)
-      : null
-  }
-
 let imageProgressCtor = @(image) {
   size = flex()
   rendObj = ROBJ_IMAGE
@@ -73,10 +59,23 @@ let gradientProgressLine = @(progress, image = "!ui/uiskin/progress_bar_gradient
 }
 
 
+let solidProgressCtor = @(key = "progress_bar")
+  @(progress, animations = [], color = pbColorCompleted, amimColor = null) {
+    key
+    rendObj = ROBJ_SOLID
+    size = [pw(progress * 100), flex()]
+    color
+    clipChildren = true
+    animations = [{ prop = AnimProp.color, from = amimColor ?? pbColorAcquired, to = color
+      easing = CosineFull, duration = 1.5, loop = true, play = true}]
+    children = animations.len() > 0
+      ? animChildren(animations)
+      : null
+  }
+
 return {
   progressBarHeight
   progressContainerCtor
-  solidProgressCtor
   imageProgressCtor
   gradientProgressLine
   completedProgressLine = solidProgressCtor("animated_progress_bar")

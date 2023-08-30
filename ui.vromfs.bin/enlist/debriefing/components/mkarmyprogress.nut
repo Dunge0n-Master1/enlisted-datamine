@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let faComp = require("%ui/components/faComp.nut")
 let progressBar = require("%enlist/components/progressBar.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
@@ -218,7 +218,7 @@ let function mkArmyExpDetailed(result, details, armyAddExp, squads, armyId) {
         withTooltip(txt(noviceBonus), @() loc("debriefing/noviceExpBonus"))
       ])
   let resultExp = withTooltip(
-    txt({text=armyAddExp, color=awardPositiveColor}.__update(body_txt))
+    txt({text=armyAddExp, color=awardPositiveColor}.__update(fontBody))
     @() mkArmyResultExpTooltip(squads, armyAddExp, details, isDeserter, armyId))
 
   return showDetailed
@@ -291,7 +291,7 @@ let mkSquadReward = @(squadCfg, level) {
       text = loc("levelReward/title", { level })
       color = activeTxtColor
       hplace = ALIGN_CENTER
-    }.__update(body_txt)
+    }.__update(fontBody)
     {
       size = flex()
       flow = FLOW_VERTICAL
@@ -333,7 +333,7 @@ local function mkSquadUnlock(gainLevel, squadCfg, armyId, animDelay, onFinish, g
             behavior = Behaviors.TextArea
             text = loc(titleLocId)
             color = Color(200, 150, 100)
-          }.__update(sub_txt)
+          }.__update(fontSub)
         ]
       }
     ]
@@ -476,7 +476,7 @@ let mkGainAwards = @(unlockedRewards) {
       text = loc("receivedAwards")
       color = activeTxtColor
       hplace = ALIGN_CENTER
-    }.__update(body_txt)
+    }.__update(fontBody)
     {
       size = flex()
       flow = FLOW_VERTICAL
@@ -489,7 +489,7 @@ let mkGainAwards = @(unlockedRewards) {
         children = [
           txt({
             text = loc("common/amountShort", { count })
-          }.__update(body_txt))
+          }.__update(fontBody))
           mkCurrencyImage(tpl, ticketHeight * 1.5)
           txt(getItemName(tpl))
         ]

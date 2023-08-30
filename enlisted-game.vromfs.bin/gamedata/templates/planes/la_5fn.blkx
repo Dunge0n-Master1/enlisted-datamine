@@ -15,7 +15,7 @@ la_5fn{
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="pilot_dm"
       cameraNodeName:t=""
-      cameraOffset:p3=-1.57, 0.92, 0.0
+      cameraOffset:p3=-1.7, 0.92, 0.0
       cockpitTemplate:t="la_5fn_driver_cockpit"
       roomSpace:i=0
 

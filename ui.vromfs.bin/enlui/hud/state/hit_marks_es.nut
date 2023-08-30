@@ -29,6 +29,10 @@ let function mkRemoveHitMarkById(state, id){
   }
 }
 
+let function removePreviousHitmarksByVictimEid(state, eid) {
+  state(state.value.filter((@(mark) mark.victimEid != eid)))
+}
+
 let function addMark(hitMark, state, ttl){
   state.mutate(function(v){
     return v.append(hitMark.__merge({ttl=ttl})) // warning disable: -unwanted-modification
@@ -98,8 +102,10 @@ let function onHit(victimEid, _offender, extHitPos, damageType, hitRes) {
   let hitMark = {id=counter, victimEid = victimEid, time = time,
     hitPos = hitPos, hitRes = hitRes, killPos = cachedShowWorldKillMark ? killPos : null, isKillHit=isKillHit,
     isDownedHit=isDownedHit, isMelee = isMelee, isImmunityHit = immunityTimer > 0.}
-  if (!independentKill)
+  if (!independentKill) {
+    removePreviousHitmarksByVictimEid(hitMarks, victimEid)
     addHitMark(hitMark)
+  }
   if (cachedShowWorldKillMark && (isKillHit || isDownedHit))
     addKillMark(hitMark)
 }

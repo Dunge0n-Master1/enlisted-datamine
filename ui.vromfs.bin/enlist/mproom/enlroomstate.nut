@@ -53,7 +53,7 @@ let roomTeamArmies = Computed(function() {
   let res = [[], []]
   foreach (campaign in roomCampaigns.value)
     foreach (teamIdx, army in gameProfile.value?.campaigns[campaign].armies ?? [])
-      if (teamIdx in res)
+      if (teamIdx in res) // warning disable: -in-instead-contains
         res[teamIdx].append(army.id)
 
   if (teamArmies != "historical")

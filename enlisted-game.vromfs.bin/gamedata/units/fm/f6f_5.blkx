@@ -97,7 +97,7 @@ Aerodynamics{
   BombBayCd:r=0.0
   FuseCd:r=0.0
   AirbrakeCd:r=0.0
-  CockpitDoorCd:r=0.007
+  CockpitDoorCd:r=0.0532
   SweepAxisByMachAuto:p3=0.0, 0.0, 1.0
   chuteCx:r=0.0
 

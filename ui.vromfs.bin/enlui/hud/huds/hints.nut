@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {h2_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontHeading2} = require("%enlSqGlob/ui/fontsStyle.nut")
 let { hints } = require("%ui/hud/state/eventlog.nut")
 
 let defTextAnims = [
@@ -19,7 +19,7 @@ let defHintCtor = @(hint) {
   key = hint
   transform = { pivot = [0, 1] }
   animations = defTextAnims
-}.__update(h2_txt)
+}.__update(fontHeading2)
 
 let hintsRoot = @() {
   watch = hints.events

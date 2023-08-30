@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt, tiny_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub, fontTiny } = require("%enlSqGlob/ui/fontsStyle.nut")
 let faComp = require("%ui/components/faComp.nut")
 let {
   msgHighlightedTxtColor, smallPadding, hoverTxtColor
@@ -55,7 +55,7 @@ let mkLevelBlock = @(level) mkBackBlock({
   halign = ALIGN_CENTER
   text = level
   color = hoverTxtColor
-}.__update(tiny_txt))
+}.__update(fontTiny))
 
 let statusIconCtor = @(demands) demands?.classLimit != null ? iconBlocked
   : demands == null ? null
@@ -68,7 +68,7 @@ let mkHintText = @(text) {
   behavior = Behaviors.TextArea
   text = text
   color = msgHighlightedTxtColor
-}.__update(sub_txt)
+}.__update(fontSub)
 
 let mkStatusHint = @(demands) demands == null ? null
   : demands?.classLimit != null ? mkHintText(loc("itemClassResearch", {

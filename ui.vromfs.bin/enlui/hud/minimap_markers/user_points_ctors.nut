@@ -3,24 +3,22 @@ from "%enlSqGlob/ui_library.nut" import *
 let { CmdDeleteMapUserPoint, sendNetEvent } = require("dasevents")
 let { user_points_by_type } = require("%ui/hud/state/user_points.nut")
 
-let markSz = [fsh(2), fsh(2.6)].map(@(v) v.tointeger())
-let enMarkSz = [fsh(0.9), fsh(1.4)].map(@(v) v.tointeger())
+let markSz = [hdpxi(21), hdpxi(28)]
+let enMarkSz = [hdpxi(9), hdpxi(15)]
 
 let main_user_mark = Picture("!ui/skin#map_pin.svg:{0}:{1}:K".subst(markSz[0],markSz[1]))
 let enemy_user_mark = Picture("!ui/skin#unit_inner.svg:{0}:{1}:K".subst(enMarkSz[0],enMarkSz[1]))
-let vehicleIconSize = [fsh(1.4), fsh(1.4)].map(@(v) v.tointeger())
+let vehicleIconSize = [hdpxi(15), hdpxi(15)]
 
 let mkPointMarkerCtor = kwarg(function(image = null, size=markSz, valign=null, colors = {myHover = Color(250,250,180,250), myDef = Color(250,250,50,250), foreignHover = Color(220,220,250,250), foreignDef = Color(180,180,250,250)}) {
   return function(eid, marker, options) {
     let {byLocalPlayer=false, customIcon = null} = marker
     let pin = watchElemState(function(sf) {
       local color
-      if (byLocalPlayer) {
-        color = (sf & S_HOVER) ? colors.myHover : colors.myDef
-      }
-      else {
-        color = (sf & S_HOVER) ? colors.foreignHover : colors.foreignDef
-      }
+      if (byLocalPlayer)
+        color = sf & S_HOVER ? colors.myHover : colors.myDef
+      else
+        color = sf & S_HOVER ? colors.foreignHover : colors.foreignDef
 
       return {
         size

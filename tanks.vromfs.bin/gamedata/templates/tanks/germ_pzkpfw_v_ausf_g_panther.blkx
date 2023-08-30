@@ -1,13 +1,51 @@
+germ_pzkpfw_v_ausf_g_panther_normandy{
+  _extends:t="germ_pzkpfw_V_ausf_g_panther_common"
+
+  "disableDMParts:list<t>"{
+    part:t="ex_armor_turret_l_01"
+    part:t="ex_armor_turret_l_02"
+    part:t="ex_armor_turret_l_03"
+    part:t="ex_armor_turret_l_04"
+    part:t="ex_armor_turret_l_05"
+    part:t="ex_armor_turret_r_01"
+    part:t="ex_armor_turret_r_02"
+    part:t="ex_armor_turret_r_03"
+    part:t="ex_armor_turret_r_04"
+    part:t="ex_armor_turret_r_05"
+  }
+}
+
 germ_pzkpfw_V_ausf_g_panther{
-  _extends:t="base_pzkpfw_v_ausf_g_panther"
-  _extends:t="tank_panzer3_engine_sound"
-  _extends:t="tank_heavy_vehicle_tracks_sound"
-  commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
-  gunner_cam_limit__useCockpitDir:b=yes
+  _extends:t="germ_pzkpfw_V_ausf_g_panther_common"
+
+  "disableDMParts:list<t>"{
+    part:t="ex_armor_turret_l_01"
+    part:t="ex_armor_turret_l_02"
+    part:t="ex_armor_turret_l_03"
+    part:t="ex_armor_turret_l_04"
+    part:t="ex_armor_turret_l_05"
+    part:t="ex_armor_turret_r_01"
+    part:t="ex_armor_turret_r_02"
+    part:t="ex_armor_turret_r_03"
+    part:t="ex_armor_turret_r_04"
+    part:t="ex_armor_turret_r_05"
+  }
 
   "animchar__objTexReplace:object"{
     "ger_camo_dunkelgelb*":t="ger_camo_dunkelgelb_green_braun_blots*"
   }
+}
+
+germ_pzkpfw_V_ausf_g_panther_common{
+  _extends:t="base_pzkpfw_v_ausf_g_panther"
+  _extends:t="tank_panzer3_engine_sound"
+  _extends:t="tank_heavy_vehicle_tracks_sound"
+  item__iconOffset:p2=0.04, 0.1
+  item__iconScale:r=1.19
+  commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
+  gunner_cam_limit__useCockpitDir:b=yes
+  armorThicknessHull:p3=80.0, 50.0, 40.0
+  armorThicknessTurret:p3=110.0, 45.0, 45.0
 
   "vehicle_seats__seats:shared:array"{
 
@@ -93,19 +131,6 @@ germ_pzkpfw_V_ausf_g_panther{
       shouldHideOwner:b=yes
       receiveDamageFromDMPart:t="machine_gunner"
     }
-  }
-
-  "disableDMParts:list<t>"{
-    part:t="ex_armor_turret_l_01"
-    part:t="ex_armor_turret_l_02"
-    part:t="ex_armor_turret_l_03"
-    part:t="ex_armor_turret_l_04"
-    part:t="ex_armor_turret_l_05"
-    part:t="ex_armor_turret_r_01"
-    part:t="ex_armor_turret_r_02"
-    part:t="ex_armor_turret_r_03"
-    part:t="ex_armor_turret_r_04"
-    part:t="ex_armor_turret_r_05"
   }
 }
 

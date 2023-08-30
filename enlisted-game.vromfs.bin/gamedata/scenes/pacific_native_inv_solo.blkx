@@ -1336,7 +1336,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-186.399, 41.4171, -267.653]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-185.455, 41.4171, -278.309]]
   battle_area_polygon_point__id:t="point25"
   battle_area_polygon_point__nextId:t="point26"
   battle_area_polygon_point__forBattleAreaId:t="area3_b_1"
@@ -5726,7 +5726,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam1"
-  transform:m=[[-0.763529, 0.0, -0.645776] [0.0, 1.0, 0.0] [0.645776, 0.0, -0.763529] [-232.727, 15.9416, -43.0793]]
+  transform:m=[[-0.90045, 0.0, -0.434962] [0.0, 1.0, 0.0] [0.434962, 0.0, -0.90045] [-232.269, 15.9416, -45.0255]]
   groupName:t="sector_3_a"
   respawnBaseGroup:i=1
   active:b=no
@@ -5814,7 +5814,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam1"
-  transform:m=[[-0.869448, 0.0, -0.494024] [0.0, 1.0, 0.0] [0.494024, 0.0, -0.869448] [-351.72, 25.0191, -117.592]]
+  transform:m=[[-0.869448, 0.0, -0.494024] [0.0, 1.0, 0.0] [0.494024, 0.0, -0.869448] [-351.72, 24.704, -117.592]]
   groupName:t="sector_4_a"
   respawnBaseGroup:i=2
   active:b=no
@@ -5822,7 +5822,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam1"
-  transform:m=[[-0.740047, 0.0, -0.672555] [0.0, 1.0, 0.0] [0.672556, 0.0, -0.740047] [-391.795, 18.4373, -66.3962]]
+  transform:m=[[-0.740047, 0.0, -0.672555] [0.0, 1.0, 0.0] [0.672556, 0.0, -0.740047] [-391.795, 19.2818, -66.3962]]
   groupName:t="sector_4_a"
   respawnBaseGroup:i=1
   active:b=no
@@ -6046,7 +6046,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam1"
-  transform:m=[[-0.775227, 0.0, -0.631685] [0.0, 1.0, 0.0] [0.631685, 0.0, -0.775227] [-223.372, 14.8119, -64.3056]]
+  transform:m=[[-0.74909, 0.0, -0.66247] [0.0, 1.0, 0.0] [0.66247, 0.0, -0.749091] [-229.805, 18.4062, -63.4743]]
   groupName:t="sector_3_a"
   respawnBaseGroup:i=1
   active:b=no
@@ -6466,7 +6466,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam1"
-  transform:m=[[-0.36708, 0.0, -0.93019] [0.0, 1.0, 0.0] [0.930189, 0.0, -0.36708] [-409.235, 6.76684, 73.6081]]
+  transform:m=[[-0.36708, 0.0, -0.93019] [0.0, 1.0, 0.0] [0.930189, 0.0, -0.36708] [-409.235, 7.68173, 73.6081]]
   groupName:t="sector_4_b"
   respawnBaseGroup:i=2
   active:b=no
@@ -6626,7 +6626,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam1"
-  transform:m=[[0.382349, 0.0, -0.924019] [0.0, 1.0, 0.0] [0.924019, -0.0, 0.382349] [-345.106, 10.1225, 18.9969]]
+  transform:m=[[0.382349, 0.0, -0.924019] [0.0, 1.0, 0.0] [0.924019, -0.0, 0.382349] [-344.187, 10.1225, 23.4283]]
   groupName:t="sector_3_b"
   respawnBaseGroup:i=1
   active:b=no

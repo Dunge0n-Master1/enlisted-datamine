@@ -3,9 +3,9 @@ muzzle_ground_8mm{
 
   _group{
     _tags:t="render"
-    effect__name:t="fire_muzzle_6_8mm_cmps_fx"
+    effect__name:t="fire_muzzle_rapid_cmps_fx"
     effect__distance_scale:r=1.0
-    gun_flash_fx__scaleMultiplier:r=0.3
+    gun_flash_fx__scaleMultiplier:r=1.5
   }
 }
 
@@ -14,9 +14,9 @@ muzzle_ground_15mm{
 
   _group{
     _tags:t="render"
-    effect__name:t="fire_muzzle_8_14mm_rapid_cmps_fx"
+    effect__name:t="fire_muzzle_high_caliber_rapid_cmps_fx"
     effect__distance_scale:r=1.0
-    gun_flash_fx__scaleMultiplier:r=0.7
+    gun_flash_fx__scaleMultiplier:r=1.2
   }
 }
 

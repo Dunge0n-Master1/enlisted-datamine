@@ -1,90 +1,139 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontSmall, fontXSmall } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { columnGap, smallPadding, titleTxtColor, accentColor, defTxtColor,
-  darkTxtColor, panelBgColor } = require("%enlSqGlob/ui/designConst.nut")
+let { fontSub, fontTiny } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { largePadding, smallPadding, titleTxtColor, defTxtColor, midPadding, accentColor,
+  brightAccentColor, darkTxtColor, panelBgColor, defBdColor, squadSlotBgHoverColor, defItemBlur,
+  fullTransparentBgColor, inventoryItemDetailsWidth,commonBtnHeight, hoverSlotBgColor, contentOffset
+} = require("%enlSqGlob/ui/designConst.nut")
 let { safeAreaSize } = require("%enlist/options/safeAreaState.nut")
 let { curArmy } = require("%enlist/soldiers/model/state.nut")
-let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
-let { GrowthStatus, curGrowthId, curGrowthConfig, curGrowthState, curGrowthSelected,
-  callGrowthSelect, callGrowthRewardTake } = require("growthState.nut")
 let armySelectUi = require("%enlist/soldiers/army_select.ui.nut")
+let { GrowthStatus, curGrowthId, curGrowthConfig, curGrowthState, curGrowthSelected,
+  callGrowthSelect, callGrowthRewardTake, curSquads, curTemplates, growthRelations, curGrowthTiers,
+  tierProgressByArmy
+} = require("growthState.nut")
 let { mkColoredGradientX } = require("%enlSqGlob/ui/gradients.nut")
 let { makeHorizScroll } = require("%ui/components/scrollbar.nut")
 let { gradientProgressBar } = require("%enlSqGlob/ui/defComponents.nut")
-let { splitThousands } = require("%sqstd/math.nut")
-let { getItemName, getItemDesc } = require("%enlSqGlob/ui/itemsInfo.nut")
+let { splitThousands, getRomanNumeral } = require("%sqstd/math.nut")
+let { getItemName } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { mkTierStars } = require("%enlSqGlob/ui/itemTier.nut")
 let { itemTypeIcon } = require("%enlist/soldiers/components/itemTypesData.nut")
 let iconByGameTemplate = require("%enlSqGlob/ui/icon3dByGameTemplate.nut")
-let { squadsCfgById } = require("%enlist/soldiers/model/config/squadsConfig.nut")
-let squadsPresentation = require("%enlSqGlob/ui/squadsPresentation.nut")
-let { mkSquadIcon, squadTypeIcon } = require("%enlSqGlob/ui/squadsUiComps.nut")
 let { Flat } = require("%ui/components/textButton.nut")
+let { mkSquadDetails, mkItemDetails } = require("%enlist/growth/growthPkg.nut")
 
 const DEFAULT_SQUAD_ICON = "!ui/uiskin/squad_default.svg"
 
-let curTemplates = Computed(@() allItemTemplates.value?[curArmy.value] ?? {})
-let curSquads = Computed(function() {
-  let armyId = curArmy.value
-  return (squadsCfgById.value?[armyId] ?? {})
-    .map(@(squad, squadId) squad.__merge(squadsPresentation?[armyId][squadId] ?? {}))
+let scrollBarsWidth = hdpx(150)
+let elemSize = [hdpx(218), hdpx(100)]
+let gapSize = [hdpx(30), hdpx(12)]
+let headerSize = hdpx(20)
+let tierHeight = hdpx(26)
+let templateSize = {
+  width = min(elemSize[0], (elemSize[1] - headerSize) * 3) - midPadding * 2
+  height = elemSize[1] - headerSize - midPadding * 2
+}
+let typeBackSize = hdpxi(20)
+let typeIconSize = hdpxi(14)
+let squadIconSize = [hdpxi(24), hdpxi(15)]
+let relationIconSize = [hdpxi(24), hdpxi(24)]
+
+let detailsTitleStyle = freeze({ color = titleTxtColor }.__update(fontSub))
+let progressTitleStyle = freeze({ color = titleTxtColor }.__update(fontTiny))
+let progressValueStyle = freeze({ color = titleTxtColor }.__update(fontTiny))
+
+let selectedWithBorder = [hdpx(1), hdpx(1), hdpx(4), hdpx(1)]
+let selectedNonBorder = [0,0, hdpx(4), 0]
+let activeProgressColor = 0xFF58603A
+let inactiveProgressColor = 0xFF667079
+let activeElemBgColor = 0xFFB0B2B3
+let unavailableElemBgColor = 0x99905D5D
+let rewardedElemBgColor = 0x99586476
+let activeElemsColor = 0xFF313841
+let defElemsColor = 0xFFB3BDC1
+
+let infoTabs = {
+  item = {
+    locId = "weaponry"
+    ctor = mkItemDetails
+  }
+  squad = {
+    locId = "squad"
+    ctor = mkSquadDetails
+  }
+}
+
+let curInfoTabId = Watched(null)
+let tabsToShow = Computed(function() {
+  let { itemTemplate = null, squadId = null, armyId = null
+    } = curGrowthConfig.value?[curGrowthId.value].reward
+  let res = []
+  let item = curTemplates.value?[itemTemplate]
+  if (item != null)
+    res.append({
+      tabId = "item"
+      data = {
+        item
+        itemTemplate
+        armyId
+      }
+    })
+
+  let squad = curSquads.value?[squadId]
+  if (squad != null)
+    res.append({
+      tabId = "squad"
+      data = {
+        squad
+        armyId
+      }
+    })
+  return res
 })
 
-let infoBlockSize = hdpx(250)
-let scrollBarsWidth = hdpx(150)
-let elemSize = [hdpx(150), hdpx(70)]
-let gapSize = [hdpx(70), hdpx(15)]
-let headerSize = hdpx(20)
-let templateSize = {
-  width = min(elemSize[0], (elemSize[1] - headerSize) * 3) - smallPadding * 2
-  height = elemSize[1] - headerSize - smallPadding * 2
-}
-let typeBackSize = hdpxi(16)
-let typeIconSize = hdpxi(13)
-let squadIconSize = hdpxi(50)
-
-let detailsTitleStyle = freeze({ color = titleTxtColor }.__update(fontSmall))
-let detailsDescStyle = freeze({ color = defTxtColor }.__update(fontXSmall))
-let progressTitleStyle = freeze({ color = accentColor }.__update(fontXSmall))
-let progressValueStyle = freeze({ color = darkTxtColor }.__update(fontXSmall))
+tabsToShow.subscribe(function(v) {
+  if (v.len() == 0)
+    return
+  if (curInfoTabId.value == null){
+    curInfoTabId(v[0].tabId)
+    return
+  }
+  let idxToSet = v.findindex(@(v) v.tabId == curInfoTabId.value)
+  if (idxToSet == null)
+    curInfoTabId(v[0].tabId)
+  else
+    curInfoTabId(v[idxToSet].tabId)
+  })
 
 let progressBarStyle = freeze({
-  bgImage = mkColoredGradientX({colorLeft=0xFFFC7A40, colorRight=accentColor})
+  size = [flex(), hdpx(22)]
+  bgImage = mkColoredGradientX({colorLeft=0xFFFC7A40, colorRight=titleTxtColor})
   emptyColor = panelBgColor
 })
 
-
-let elemCurrent = freeze({
-  rendObj = ROBJ_SOLID
+let elemInactive = @(isSelected, ...) {
+  rendObj = ROBJ_BOX
   size = [elemSize[0], flex()]
-  color = 0x55554422
-})
+  borderWidth = isSelected ? selectedNonBorder : 0
+  borderColor = isSelected ? accentColor : defBdColor
+  padding = isSelected ? selectedWithBorder : 0
+}
 
-let elemSelected = freeze({
-  rendObj = ROBJ_SOLID
+let elemActive = @(isSelected, progress, isCurrent) {
+  rendObj = ROBJ_BOX
   size = [elemSize[0], flex()]
-  color = 0x55445533
-})
-
-let elemRewarded = freeze({
-  rendObj = ROBJ_IMAGE
-  size = [elemSize[0], flex()]
-  image = mkColoredGradientX({colorLeft=0x22222222, colorRight=0x00030303})
-})
-
-let elemActive = freeze({
-  rendObj = ROBJ_IMAGE
-  size = [elemSize[0], flex()]
-  image = mkColoredGradientX({colorLeft=0x00223344, colorRight=0x00112233})
-})
-
-let elemInactive = freeze({
-  rendObj = ROBJ_FRAME
-  size = [elemSize[0], flex()]
-  borderWidth = hdpx(1)
-  color = 0x66666666
-})
+  borderWidth = isSelected ? selectedWithBorder : hdpx(1)
+  borderColor = isSelected ? accentColor
+    : isCurrent ? brightAccentColor
+    : defBdColor
+  padding = isSelected ? selectedWithBorder : hdpx(1)
+  children = progress == 0 ? null : {
+    size = [pw(progress), flex()]
+    rendObj = ROBJ_SOLID
+    color = isCurrent ? activeProgressColor : inactiveProgressColor
+  }
+}
 
 let lineDashSize = hdpx(10)
 let lineInactiveStyle = { rendObj = ROBJ_VECTOR_CANVAS, color = 0x66666666, lineWidth = hdpx(1) }
@@ -113,7 +162,6 @@ let lineStyles = {
 let mkTypeIcon = @(children) {
   rendObj = ROBJ_VECTOR_CANVAS
   size = [typeBackSize, typeBackSize]
-  margin = smallPadding
   hplace = ALIGN_RIGHT
   halign = ALIGN_CENTER
   valign = ALIGN_CENTER
@@ -127,9 +175,6 @@ let tinyIconSize = { size = [typeIconSize, typeIconSize] }
 
 let mkItemTypeIcon = @(itemtype, itemsubtype) itemtype == null ? null
   : mkTypeIcon(itemTypeIcon(itemtype, itemsubtype, tinyIconSize))
-
-let mkSquadTypeIcon = @(squadType) squadType == null ? null
-  : mkTypeIcon(squadTypeIcon(squadType, typeIconSize))
 
 enum LineDir {
   NONE
@@ -216,7 +261,6 @@ let function mkGrowthLine(res, colFrom, lineFrom, colTo, lineTo, isActive = fals
 }
 
 let mkLabel = @(text, style) {
-  size = [flex(), SIZE_TO_CONTENT]
   rendObj = ROBJ_TEXT
   text
 }.__update(style)
@@ -230,35 +274,128 @@ let mkText = @(text, style) {
 
 let emptyCell = @() { size = elemSize }
 
-let function mkElem(id, header, children) {
-  let group = ElemGroup()
-  return {
-    size = elemSize
-    flow = FLOW_VERTICAL
-    group
-    behavior = Behaviors.Button
-    children = [
-      {
-        rendObj = ROBJ_TEXT
-        size = [flex(), headerSize]
-        text = header
-        group
-        behavior = Behaviors.Marquee
-        clipChildren = true
-        scrollOnHover = true
-        color = titleTxtColor
-      }.__update(fontXSmall)
-      {
-        size = flex()
-        children
-      }
-    ]
-    onClick = @() curGrowthId(id)
-    onDoubleClick = @() callGrowthSelect(curArmy.value, id)
-  }
+let completedBgColor = @(sf, isSelected) isSelected || (sf & S_ACTIVE) ? activeProgressColor
+  : sf & S_HOVER ? squadSlotBgHoverColor
+  : activeProgressColor
+
+let activeBgColor = @(sf, isSelected) isSelected || (sf & S_ACTIVE) ? activeElemBgColor
+  : sf & S_HOVER ? squadSlotBgHoverColor
+  : fullTransparentBgColor
+
+let unavailableBgColor = @(sf, isSelected)
+  isSelected || (sf & S_ACTIVE) ? unavailableElemBgColor
+    : sf & S_HOVER ? squadSlotBgHoverColor
+    : unavailableElemBgColor
+
+let rewardedBgColor = @(sf, isSelected) isSelected || (sf & S_ACTIVE) ? activeElemBgColor
+  : sf & S_HOVER ? squadSlotBgHoverColor
+  : rewardedElemBgColor
+
+let slotBgColorMap = {
+  [GrowthStatus.COMPLETED] = completedBgColor,
+  [GrowthStatus.ACTIVE] = activeBgColor,
+  [GrowthStatus.UNAVAILABLE] = unavailableBgColor,
+  [GrowthStatus.REWARDED] = rewardedBgColor
 }
 
-let function mkGrowthElement(growthItem, progressState, tmplsCfg, squadsCfg) {
+let defChColor = @(sf, isSelected) isSelected || (sf & S_ACTIVE) || (sf & S_HOVER)
+  ? activeElemsColor
+  : defElemsColor
+
+let elemChildrenColorsMap = {
+  [GrowthStatus.COMPLETED] = brightAccentColor,
+  [GrowthStatus.REWARDED] = defElemsColor,
+  [GrowthStatus.UNAVAILABLE] = activeElemsColor
+}
+
+let squadIcon = @(color) {
+  rendObj = ROBJ_IMAGE
+  size = squadIconSize
+  hplace = ALIGN_RIGHT
+  vplace = ALIGN_BOTTOM
+  keepAspect = KEEP_ASPECT_FIT
+  margin = [0, 0, midPadding, 0]
+  image = Picture("!ui/squads/squad_icon.svg:{0}:{1}:K".subst(squadIconSize[0], squadIconSize[1]))
+  color
+}
+
+let relationsIcon = @(color) {
+  rendObj = ROBJ_IMAGE
+  size = relationIconSize
+  vplace = ALIGN_BOTTOM
+  keepAspect = KEEP_ASPECT_FIT
+  margin = [0, 0, midPadding, 0]
+  image = Picture("!ui/squads/angle_icon.svg:{0}:{1}:K"
+    .subst(relationIconSize[0], relationIconSize[1]))
+  color
+}
+
+let function mkElem(id, item, squad, curItemRelations, status, back, isSelected, isCurrent) {
+  let { itemtype = null, itemsubtype = null, tier = 0, gametemplate = "" } = item
+  let group = ElemGroup()
+  let itemName = getItemName(item)
+  let itemIcon = iconByGameTemplate(gametemplate, templateSize)
+  let typeIcon = mkItemTypeIcon(itemtype, itemsubtype)
+  return watchElemState(function(sf) {
+    let elemsColor = isCurrent.value ? brightAccentColor
+      : elemChildrenColorsMap?[status] ?? defChColor(sf, isSelected.value)
+    return {
+      watch = [isSelected, isCurrent]
+      size = elemSize
+      flow = FLOW_VERTICAL
+      group
+      behavior = Behaviors.Button
+      children = [
+        {
+          rendObj = ROBJ_TEXT
+          size = [flex(), headerSize]
+          text = itemName
+          group
+          behavior = Behaviors.Marquee
+          clipChildren = true
+          scrollOnHover = true
+          color = isCurrent.value || status == GrowthStatus.COMPLETED ? brightAccentColor
+            : isSelected.value || (sf & S_ACTIVE) ? titleTxtColor
+            : defTxtColor
+        }.__update(fontTiny)
+        {
+          rendObj = ROBJ_WORLD_BLUR_PANEL
+          size = flex()
+          fillColor = isCurrent.value
+            ? activeBgColor(sf, isSelected.value)
+            : slotBgColorMap[status](sf, isSelected.value)
+          color = defItemBlur
+          opacity = status == GrowthStatus.UNAVAILABLE && !isSelected.value ? 0.7 : 1
+          children = [
+            back
+            {
+              size = flex()
+              padding = [smallPadding, midPadding]
+              children = [
+                itemIcon
+                mkTierStars(tier, { fontSize = hdpxi(14) }.__update({ color = elemsColor }))
+                squad == null ? null : squadIcon(elemsColor)
+                curItemRelations == null ? null : relationsIcon(elemsColor)
+                typeIcon
+              ]
+            }
+          ]
+        }
+      ]
+      onClick = @() curGrowthId(id)
+      onDoubleClick = @() callGrowthSelect(curArmy.value, id)
+    }
+  })
+}
+
+let elemBgMap = {
+  [GrowthStatus.UNAVAILABLE] = elemInactive,
+  [GrowthStatus.REWARDED] = elemInactive,
+  [GrowthStatus.ACTIVE] = elemActive,
+  [GrowthStatus.COMPLETED] = elemActive
+}
+
+let function mkGrowthElement(growthItem, progressState, tmplsCfg, squadsCfg, relationsTbl) {
   let { itemTemplate = null, squadId = null } = growthItem?.reward
   let item = tmplsCfg?[itemTemplate]
   let squad = squadsCfg?[squadId]
@@ -266,44 +403,28 @@ let function mkGrowthElement(growthItem, progressState, tmplsCfg, squadsCfg) {
     return emptyCell
 
   let { id } = growthItem
+  let curItemRelations = relationsTbl?[id]
   let { status = GrowthStatus.UNAVAILABLE } = progressState?[id]
-  let isCurrent = Computed(@() curGrowthId.value == id)
-  let isSelected = Computed(@() curGrowthSelected.value == id)
-  let elemStatus = status == GrowthStatus.REWARDED ? elemRewarded
-    : status == GrowthStatus.COMPLETED ? elemActive // TODO actually active is completed all requirements
-    : elemInactive
+  let isSelected = Computed(@() curGrowthId.value == id)
+  let isCurrent = Computed(@() curGrowthSelected.value == id)
+
+  let progress = Computed(function() {
+    let { expRequired = 0 } = curGrowthConfig.value?[id]
+    if (expRequired == 0)
+      return 0
+
+    let { exp = 0 } = curGrowthState.value?[id]
+    return (exp.tofloat() / expRequired.tofloat()) * 100.0
+  })
+
+
   let back = @() {
-    watch = [isCurrent, isSelected]
+    watch = [isSelected, isCurrent, progress]
     size = flex()
-    children = isCurrent.value ? elemCurrent
-      : isSelected.value ? elemSelected
-      : elemStatus
+    children = elemBgMap[status](isSelected.value, progress.value, isCurrent.value)
   }
 
-  // Item reward
-  if (item != null) {
-    let { itemtype = null, itemsubtype = null, tier = 0, gametemplate = "" } = item
-    return mkElem(id, getItemName(item), [
-      back
-      iconByGameTemplate(gametemplate, templateSize)
-      mkItemTypeIcon(itemtype, itemsubtype)
-      mkTierStars(tier, { vplace = ALIGN_BOTTOM, margin = smallPadding })
-    ])
-  }
-
-  // Squad reward
-  if (squad != null) {
-    let { nameLocId, squadType = null, icon = null } = squad
-    return mkElem(id, loc(nameLocId), [
-      back
-      mkSquadTypeIcon(squadType)
-      mkSquadIcon(icon, {
-        size = [squadIconSize, squadIconSize], vplace = ALIGN_CENTER, hplace = ALIGN_CENTER
-      })
-    ])
-  }
-
-  return null
+  return mkElem(id, item, squad, curItemRelations, status, back, isSelected, isCurrent)
 }
 
 let treeScrollHandler = ScrollHandler()
@@ -334,7 +455,7 @@ let rightScroll = freeze({
   image = mkColoredGradientX({colorLeft=0x00000000, colorRight=0xFF03090C})
 })
 
-let function growthTree() {
+let mkGrowthTree = @(relationsTbl) function() {
   local maxCol = 0
   local { progress = {} } = curGrowthState.value
   let growthLines = curGrowthConfig.value
@@ -350,51 +471,47 @@ let function growthTree() {
     }, [])
 
   let growthElements = curGrowthConfig.value
-    .reduce(function(res, growth) {
-      let { col = 0, line = 0 } = growth
+    .reduce(function(res, growth, _, tbl) {
+      let { id, col = 0, line = 0 } = growth
       maxCol = max(col, maxCol)
       while (res.len() <= line)
         res.append([])
       let arr = res[line]
       if (arr.len() <= col)
         arr.resize(col + 1, null)
-      arr[col] = growth
+      if (arr?[col] == null)
+        arr[col] = growth
+      else if (id in relationsTbl) {
+        let relations = relationsTbl[id]
+        let unRewardedElem = relations.findvalue(@(v) progress?[v] != GrowthStatus.REWARDED) ?? id
+        arr[col] = tbl[unRewardedElem]
+      }
       return res
     }, [])
     .map(@(growthLine) {
       flow = FLOW_HORIZONTAL
       gap = gapSize[0]
-      children = growthLine.map(@(growthItem)
-        mkGrowthElement(growthItem, progress, curTemplates.value, curSquads.value))
+      children = growthLine.map(@(growthItem) mkGrowthElement(growthItem, progress,
+        curTemplates.value, curSquads.value, relationsTbl))
     })
 
   let maxLine = growthElements.len() - 1
   return {
     watch = [curGrowthConfig, curGrowthState, curTemplates, curSquads]
-    size = flex()
-    halign = ALIGN_CENTER
+    size = [SIZE_TO_CONTENT, flex()]
     children = [
-      makeHorizScroll({
-        xmbNode = XmbContainer({
-          canFocus = @() false
-          scrollSpeed = 10.0
-          isViewport = true
-        })
-        children = [
-          {
-            size = [
-              (elemSize[0] + gapSize[0]) * maxCol - gapSize[0],
-              (elemSize[1] + gapSize[1]) * maxLine - gapSize[1]
-            ]
-            children = growthLines
-          }
-          {
-            flow = FLOW_VERTICAL
-            gap = gapSize[1]
-            children = growthElements
-          }
+      {
+        size = [
+          (elemSize[0] + gapSize[0]) * maxCol - gapSize[0],
+          (elemSize[1] + gapSize[1]) * maxLine - gapSize[1]
         ]
-      }, { scrollHandler = treeScrollHandler })
+        children = growthLines
+      }
+      {
+        flow = FLOW_VERTICAL
+        gap = gapSize[1]
+        children = growthElements
+      }
       @() {
         watch = hasLeftScroll
         size = [SIZE_TO_CONTENT, flex()]
@@ -411,17 +528,102 @@ let function growthTree() {
   }
 }
 
+let function contentHeader() {
+  let { itemTemplate = null, squadId = null } = curGrowthConfig.value?[curGrowthId.value].reward
+  let res = { watch = [curTemplates, curGrowthConfig, curGrowthId] }
+  if (itemTemplate == null && squadId == null)
+    return res
+  let item = curTemplates.value?[itemTemplate]
+  let squad = curSquads.value?[squadId]
+  let children = []
+
+  if (item != null)
+    children.append(mkText(getItemName(item), detailsTitleStyle))
+  if (squad != null)
+    children.append(mkText(loc(squad.nameLocId), detailsTitleStyle))
+
+  return res.__update({
+    watch = [curTemplates, curGrowthConfig, curGrowthId]
+    size = [flex(), SIZE_TO_CONTENT]
+    flow = FLOW_VERTICAL
+    gap = smallPadding
+    children
+  })
+}
+
+let function mkInfoTab(tab) {
+  let { tabId } = tab
+  let isSelected = Computed(@() tabId == curInfoTabId.value)
+  return watchElemState(@(sf) {
+    watch = isSelected
+    rendObj = ROBJ_BOX
+    size = [flex(), commonBtnHeight]
+    fillColor = isSelected.value || (sf & S_HOVER) ? hoverSlotBgColor : panelBgColor
+    borderWidth = isSelected.value ? [0, 0, hdpx(4), 0] : 0
+    borderColor = accentColor
+    halign = ALIGN_CENTER
+    valign = ALIGN_CENTER
+    behavior = Behaviors.Button
+    onClick = @() curInfoTabId(tabId)
+    children = {
+      rendObj = ROBJ_TEXT
+      size = [flex(), SIZE_TO_CONTENT]
+      halign = ALIGN_CENTER
+      color = isSelected.value ? titleTxtColor
+        : (sf & S_HOVER) ? darkTxtColor
+        : defTxtColor
+      text = loc(infoTabs[tabId].locId)
+    }
+  })
+}
+
+let function infoTabsBlock() {
+  let res = { watch = tabsToShow }
+  if (tabsToShow.value.len() <= 0)
+    return res
+
+  let tabs = tabsToShow.value
+  return res.__update(
+    {
+      size = [inventoryItemDetailsWidth, flex()]
+      flow = FLOW_VERTICAL
+      gap = largePadding
+      children = [
+        tabs.len() <= 1 ? null : {
+          size = [flex(), SIZE_TO_CONTENT]
+          flow = FLOW_HORIZONTAL
+          children = tabs.map(mkInfoTab)
+        }
+        function() {
+          let curId = curInfoTabId.value
+          let curIdx = tabs.findindex(@(v) v.tabId == curId)
+          return {
+            watch = curInfoTabId
+            size = flex()
+            children = infoTabs[curId].ctor(tabs[curIdx].data)
+          }
+        }
+      ]
+    })
+}
+
 let function itemProgressUi() {
-  let res = { watch = [curGrowthId, curGrowthConfig, curGrowthState] }
+  let res = { watch = [curGrowthId, curGrowthConfig, curGrowthState, curGrowthSelected] }
   let { expRequired = 0 } = curGrowthConfig.value?[curGrowthId.value]
   if (expRequired <= 0)
     return res
 
   let { exp = 0, status = GrowthStatus.UNAVAILABLE } = curGrowthState.value?[curGrowthId.value]
-  let statusLocId = status == GrowthStatus.ACTIVE ? "growth/statusActive"
+  let isResearching = curGrowthId.value == curGrowthSelected.value
+  let statusLocId = isResearching ?"growth/statusGrowthing"
+    : status == GrowthStatus.ACTIVE ? "growth/statusActive"
     : status == GrowthStatus.COMPLETED ? "growth/statusCompleted"
     : status == GrowthStatus.REWARDED ? "growth/statusRewarded"
     : "growth/statusUnavailable"
+  let textBlock = mkLabel($"{splitThousands(exp)} / {splitThousands(expRequired)}", {
+    vplace = ALIGN_CENTER
+    padding = [0, smallPadding]
+  }.__update(progressValueStyle))
   return res.__update({
     size = [flex(), SIZE_TO_CONTENT]
 
@@ -429,57 +631,16 @@ let function itemProgressUi() {
     flow = FLOW_VERTICAL
     children = [
       mkText(loc(statusLocId), progressTitleStyle)
-      gradientProgressBar(exp.tofloat() / expRequired.tofloat(), progressBarStyle)
-      mkLabel($"{splitThousands(exp)} / {splitThousands(expRequired)}", progressValueStyle)
+      {
+        size = [flex(), SIZE_TO_CONTENT]
+        valign = ALIGN_CENTER
+        children = [
+          gradientProgressBar(exp.tofloat() / expRequired.tofloat(), progressBarStyle)
+          textBlock
+        ]
+      }
     ]
   })
-}
-
-let horDivider = {
-  size = [flex(), hdpx(1)]
-  margin = [columnGap, 0]
-  rendObj = ROBJ_SOLID
-  fillColor = 0xFFFFFFFF
-}
-
-let function elemDetailsUi() {
-  let { itemTemplate = null, squadId = null } = curGrowthConfig.value?[curGrowthId.value].reward
-  let item = curTemplates.value?[itemTemplate]
-  let squad = curSquads.value?[squadId]
-  let children = []
-
-  if (item != null) {
-    children.append({
-      size = [flex(), SIZE_TO_CONTENT]
-      flow = FLOW_VERTICAL
-      gap = columnGap
-      children = [
-        mkText(getItemName(item), detailsTitleStyle)
-        mkText(getItemDesc(item), detailsDescStyle)
-      ]
-    })
-  }
-
-  if (squad != null) {
-    let { nameLocId, announceLocId } = squad
-    children.append({
-      size = [flex(), SIZE_TO_CONTENT]
-      flow = FLOW_VERTICAL
-      gap = columnGap
-      children = [
-        mkText(loc(nameLocId), detailsTitleStyle)
-        mkText(loc(announceLocId), detailsDescStyle)
-      ]
-    })
-  }
-
-  return {
-    watch = [curGrowthId, curGrowthConfig, curTemplates, curSquads]
-    size = [flex(), SIZE_TO_CONTENT]
-    flow = FLOW_VERTICAL
-    gap = horDivider
-    children
-  }
 }
 
 let btnReward = Flat(loc("growth/btnTakeReward"), @()
@@ -502,31 +663,84 @@ let function growthControlsUi() {
 }
 
 let infoBlock = {
-  size = [infoBlockSize, SIZE_TO_CONTENT]
+  size = [inventoryItemDetailsWidth, flex()]
   flow = FLOW_VERTICAL
-  gap = columnGap
+  gap = midPadding
+  padding = [smallPadding, 0]
   children = [
+    armySelectUi
+    contentHeader
     itemProgressUi
+    infoTabsBlock
     growthControlsUi
-    elemDetailsUi
   ]
 }
 
-let growthUi = @() {
-  size = flex()
-  flow = FLOW_VERTICAL
-  children = [
-    armySelectUi
-    {
-      size = flex()
+let function mkTier(tierData) {
+  let { from, to, required, index } = tierData
+  let tierLength = to - from + 1
+  let tierWidth = elemSize[0] * tierLength + gapSize[0] * (tierLength - 1)
+  return function() {
+    let progress = tierProgressByArmy.value
+    let progressText = $"{progress}/{required}"
+    return {
+      watch = [curGrowthConfig, tierProgressByArmy]
+      size = [tierWidth, flex()]
+      rendObj = ROBJ_SOLID
+      color = panelBgColor
+      halign = ALIGN_CENTER
+      valign = ALIGN_CENTER
       flow = FLOW_HORIZONTAL
-      gap = columnGap
+      gap = smallPadding
       children = [
-        infoBlock
-        growthTree
+        mkLabel(loc("growth/tier", { tier = getRomanNumeral(index + 1) }),
+          {hplace = ALIGN_CENTER}.__update(progressTitleStyle))
+        mkLabel(progressText, {size = SIZE_TO_CONTENT}.__update(progressTitleStyle))
       ]
     }
-  ]
+  }
+}
+
+let function mkTiersHeader(tiersData) {
+  let tiers = tiersData.map(mkTier)
+  return {
+    size = [flex(), tierHeight]
+    flow = FLOW_HORIZONTAL
+    children = tiers
+    gap = gapSize[0]
+  }
+}
+
+let function mkGrowthUi() {
+  let relationsTbl = growthRelations()
+  let growthTiers = curGrowthTiers()
+  return {
+    rendObj = ROBJ_WORLD_BLUR_PANEL
+    size = flex()
+    padding = [contentOffset,0,0,0]
+    onAttach = function() {
+      let autoSelect = curGrowthSelected.value
+        ?? curGrowthState.value.findvalue(@(v) v.status == GrowthStatus.ACTIVE)?.id
+      curGrowthId(autoSelect)
+    }
+    children = {
+      size = flex()
+      flow = FLOW_HORIZONTAL
+      gap = largePadding
+      children = [
+        infoBlock
+        makeHorizScroll(@() {
+          watch = [relationsTbl, curArmy, growthTiers]
+          flow = FLOW_VERTICAL
+          gap = midPadding
+          children = [
+            mkTiersHeader(growthTiers.value)
+            mkGrowthTree(relationsTbl.value)
+          ]
+        }, { size = flex() })
+      ]
+    }
+  }
 }
 
 let function resetCurrent(_ = null) {
@@ -542,4 +756,4 @@ foreach (v in [curGrowthSelected, curGrowthConfig])
   v.subscribe(resetCurrent)
 resetCurrent()
 
-return growthUi
+return mkGrowthUi

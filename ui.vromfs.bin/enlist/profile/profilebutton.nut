@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontSmall, fontLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontSub, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
 let profileScene = require("%enlist/profile/profileScene.nut")
 let { setTooltip } = require("%ui/style/cursors.nut")
@@ -11,8 +11,8 @@ let {
 let { hasAchievementsReward } = require("%enlist/unlocks/taskListState.nut")
 let { chosenNickFrame, chosenPortrait } = require("%enlist/profile/decoratorState.nut")
 let { frameNick, getPortrait } = require("%enlSqGlob/ui/decoratorsPresentation.nut")
-let { midPadding, titleTxtColor, columnWidth, defItemBlur, darkTxtColor,
-  panelBgColor, colFull, bigPadding, hoverSlotBgColor
+let { midPadding, titleTxtColor, defItemBlur, darkTxtColor, panelBgColor, bigPadding,
+  hoverSlotBgColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let { mkPortraitIcon } = require("decoratorPkg.nut")
 let { mkRankImage, getRankConfig } = require("%enlSqGlob/ui/rankPresentation.nut")
@@ -24,7 +24,7 @@ let {
 } = require("%enlist/unlocks/unseenUnlocksState.nut")
 
 
-let portraitWidth = columnWidth
+let portraitWidth = hdpxi(62)
 let squareBlockSize= [portraitWidth, portraitWidth]
 
 
@@ -49,7 +49,7 @@ let playerRankBlock = @(sf) @() {
   fillColor = sf & S_HOVER ? hoverSlotBgColor : panelBgColor
   valign = ALIGN_CENTER
   halign = ALIGN_CENTER
-  children = mkRankImage(playerRank.value?.rank, { size = flex(), rendObj = null })
+  children = mkRankImage(playerRank.value?.rank, { size = squareBlockSize, rendObj = null })
 }
 
 
@@ -87,12 +87,12 @@ let nickNameBlock = @(sf) function() {
         text = frameNick(pNick, nickFrame)
         vplace = ALIGN_CENTER
         color = sf & S_HOVER ? darkTxtColor : titleTxtColor
-      }.__update(fontLarge)
+      }.__update(fontBody)
       curRank == null ? null : {
         rendObj = ROBJ_TEXT
         text = loc(curRank.locId)
         color = sf & S_HOVER ? darkTxtColor : titleTxtColor
-      }.__update(fontSmall)
+      }.__update(fontSub)
     ]
   }
 }
@@ -102,7 +102,7 @@ let profileButtonUi = watchElemState(@(sf) {
   size = [SIZE_TO_CONTENT, premiumBtnSize + bigPadding]
   padding = [bigPadding, 0, 0, 0]
   halign = ALIGN_RIGHT
-  minWidth = colFull(4)
+  minWidth = fsh(27.5)
   behavior = Behaviors.Button
   onHover = @(on) setTooltip(on ? loc("btn/openProfile") : null)
   onClick = profileScene

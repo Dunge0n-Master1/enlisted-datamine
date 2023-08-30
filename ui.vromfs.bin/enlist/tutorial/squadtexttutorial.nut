@@ -1,5 +1,5 @@
 from "%enlSqGlob/ui_library.nut" import *
-let { body_txt, h2_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody, fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { controlHudHint, mkHasBinding } = require("%ui/components/controlHudHint.nut")
 let { addModalWindow, removeModalWindow } = require("%ui/components/modalWindows.nut")
 let { Flat } = require("%ui/components/textButton.nut")
@@ -50,7 +50,7 @@ let topBlock = @(squadType){
   children = {
     rendObj = ROBJ_TEXT
     text = loc($"{squadType}_available_header")
-  }.__update(h2_txt)
+  }.__update(fontHeading2)
 }
 
 let tutorialPaginator = mkDotPaginator({
@@ -88,7 +88,7 @@ let centralBlock = @(neededTutorial, totalPagesCount) function() {
                 controlHudHint({
                   id = v ?? ""
                   text_params = {
-                    fontSize = body_txt.fontSize
+                    fontSize = fontBody.fontSize
                   }
                 })
               )
@@ -99,7 +99,7 @@ let centralBlock = @(neededTutorial, totalPagesCount) function() {
               size = [flex(), SIZE_TO_CONTENT]
               text = loc(value?.text ?? "")
               color = defTxtColor
-            }.__update(body_txt)
+            }.__update(fontBody)
           ]
         }
       ]

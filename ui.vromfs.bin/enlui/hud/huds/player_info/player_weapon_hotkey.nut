@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {sub_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontSub} = require("%enlSqGlob/ui/fontsStyle.nut")
 let { textListFromAction, buildElems } = require("%ui/control/formatInputBinding.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let { mkShortHudHintFromList } = require("%ui/components/controlHudHint.nut")
@@ -23,7 +23,7 @@ let function makeControlTip(hotkey, active) {
       color = active ? DEFAULT_TEXT_COLOR : disabledColor,
       padding = hdpx(4),
       text
-    }.__update(sub_txt)
+    }.__update(fontSub)
     local textList = textListFromAction(hotkey, isGamepad.value ? 1 : 0, eventTypeToText)
     if (isHotkeysEmpty(textList) && (["Human.Weapon1", "Human.Weapon2"].indexof(hotkey) != null)){
       textList = textListFromAction("Human.WeaponNextMain", isGamepad.value ? 1 : 0, eventTypeToText)

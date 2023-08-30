@@ -47,7 +47,14 @@ def sound_effect_update_moveable(evt : Event;
     set_pos(sound_effect__event.handle, transform * sound_effect__localOffset)
 
 
-[es(tag=sound, track=sound_banks_state__isPresetLoaded)]
+[es(tag=sound, track=sound_banks_state__isPresetLoaded, REQUIRE=sound_banks_state__isPresetLoaded)]
+def sound_effect_init_path(evt : Event;
+                           var sound_effect__path : das_string&;
+                           replicated_sound_effect__path : string)
+  sound_effect__path := replicated_sound_effect__path
+
+
+[es(tag=sound, track=sound_banks_state__isPresetLoaded, after=sound_effect_init_path)]
 def sound_effect_init(evt : Event;
                       sound_banks_state__isPresetLoaded : bool;
                       sound_effect__autoRange : bool;

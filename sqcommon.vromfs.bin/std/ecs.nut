@@ -124,7 +124,7 @@ local function register_es(name, onEvents={}, compsDesc={}, params = {}) {
     let comps_ro_optional_num = comps_ro.filter(@(v) type(v)=="array" && v.len() > 2).len()
     let comps_rw = comps?.comps_rw ?? []
     assert(
-      comps_len == 0 || !(comps_ro_optional_num == comps_ro.len() && ((comps_rw.len() ?? 0) + (comps?.comps_rq.len() ?? 0))==0),
+      comps_len == 0 || !(comps_ro_optional_num == comps_ro.len() && (comps_rw.len() + (comps?.comps_rq.len() ?? 0))==0),
       @() $"es {name} registered with all optional components"
     )
     assert(

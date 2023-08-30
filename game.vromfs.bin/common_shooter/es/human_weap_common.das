@@ -1,5 +1,6 @@
 module human_weap_common shared
 require ecs
+require ecs.common
 require ecs.safe
 require common_shooter.events_common_shooter
 require common_shooter.es.grenade_thrower_common
@@ -25,6 +26,8 @@ require common_shooter.es.human.human_reload_common
 require RendInst
 require Dacoll
 require daslib.strings_boost
+require game.es.inventory_drop_common
+require AnimatedPhys
 
 
 def reset_weapon_state(var phys : HumanPhys&)
@@ -305,7 +308,7 @@ def search_grenade_for_fast_throw(var result_ammo_type : int&;
 
 
 def human_weap_gun_update(var human_net_phys : HumanActor;
-                          var human_weap__gunEids : EidList;
+                          human_weap__gunEids : EidList;
                           var human_weap__throwMode : bool&;
                           ctx : GunUpdateCtx;
                           transform : float3x4;
@@ -453,6 +456,7 @@ def human_weap_gun_update(var human_net_phys : HumanActor;
     query(ctx.eid) <| $ [es] (human_inventory__entityToUse : EntityId;
                               human_sec_anim__play : bool = false;
                               human_weap__reloadFinishTime : float = -1.0;
+                              human_weap__isReloading : bool = false;
                               human_weap__weapModActivateStartTime : float = -1.0;
                               building_action__target : EntityId = INVALID_ENTITY_ID)
       if human_sec_anim__play
@@ -464,10 +468,7 @@ def human_weap_gun_update(var human_net_phys : HumanActor;
           logerr("active human_inventory.entityToUse in human_weap_gun_update with HCT_SHOOT set")
 
       if !human_weap__throwMode
-        var isReloading = false
-        query(gunEid) <| $ [es] (gun_reload__isReloading : bool)
-          isReloading = gun_reload__isReloading
-        shoot &&= ctx.atTime > human_weap__reloadFinishTime && !isReloading
+        shoot &&= ctx.atTime > human_weap__reloadFinishTime && !human_weap__isReloading
         shoot &&= human_weap__weapModActivateStartTime < 0.0
       elif ctx.isForReal
         query(gunEid) <| $ [es] (grenade_thrower__projectileEntity : EntityId;
@@ -508,10 +509,15 @@ def human_weap_gun_update(var human_net_phys : HumanActor;
         if !isSelectedGunChosen
           switch_to_first_weap_with_ammo(human_weap__gunEids, human_net_phys.phys)
 
-  if ct |> is_control_bit_set(HumanPhysControlType HCT_RELOAD) && ctx.isForReal && !isFastThrow
+  if ctx.isForReal && !isFastThrow
+    let isRequestingReload = ct |> is_control_bit_set(HumanPhysControlType HCT_RELOAD)
     // If we have subsidiary gun attached, reload it instead.
     // we can pick which gun to reload with some other key m.b. ?
-    sendEvent(ctx.eid, [[CmdRequestReload atTime=ctx.atTime, gunEid=overrideGunEid]])
+    if isRequestingReload
+      sendEvent(ctx.eid, [[CmdRequestReload atTime=ctx.atTime, gunEid=overrideGunEid]])
+    query(overrideGunEid) <| $ [es] (var gun_reload__isRequesting : bool&)
+      gun_reload__isRequesting = isRequestingReload
+
 
   using() <| $(var gctrl : GunControls#)
     gctrl.shoot = shoot
@@ -625,6 +631,7 @@ def human_weap_can_reload(human_eid : EntityId; gun_eid : EntityId) : bool
                               human_weap__throwMode : bool;
                               human_weap__weapModActivateStartTime : float;
                               boltActionProgress : float;
+                              human_weap__isReloading : bool = false;
                               human_weap__canOperate : bool = true;
                               human_weap__lockWeaponReload : bool = false;
                               burning__isBurning : bool = false;
@@ -641,6 +648,7 @@ def human_weap_can_reload(human_eid : EntityId; gun_eid : EntityId) : bool
 
     canReload = (!human_weap__throwMode &&
                  !isCrawlMoving &&
+                 !human_weap__isReloading &&
                  !burning__isBurning &&
                  (eqState == HUWeaponEquipState EES_EQUIPED || eqState == HUWeaponEquipState EES_DOWN || isAttachedToGun) &&
                  !isBlockedByBoltAction && !human_weap__lockWeaponReload && (human_weap__weapModActivateStartTime < 0.) &&
@@ -876,19 +884,19 @@ def steal_gun_from_owner2(eid, item_eid : EntityId) : void
 def find_best_weap_slot_id2(eid, item_eid : EntityId;
                             slot_id, currentSlot : int) : int
   var slotId = slot_id
-  query(eid) <| $ [es] (human_weap__gunEids : EidList;
-                        item__weapSlots : Array)
-    for slot in item__weapSlots
-      let slotName = slot ?? ""
-      let slotIdx = int(HUWeaponSlots(slotName))
-      if slotIdx == -1
-        logerr("incorrect weap slot name '{slotName}' for weapon {item_eid}<{getEntityTemplateName(item_eid)}>")
-        continue
+  query(eid) <| $ [es] (human_weap__gunEids : EidList)
+    query(item_eid) <| $ [es] (item__weapSlots : Array)
+      for slot in item__weapSlots
+        let slotName = slot ?? ""
+        let slotIdx = int(HUWeaponSlots(slotName))
+        if slotIdx == -1
+          logerr("incorrect weap slot name '{slotName}' for weapon {item_eid}<{getEntityTemplateName(item_eid)}>")
+          continue
 
-      if has(human_weap__gunEids[slotIdx], "disableItemDrop")
-        continue
-      if slotId < 0 || slotIdx == currentSlot
-        slotId = slotIdx
+        if has(human_weap__gunEids[slotIdx], "disableItemDrop")
+          continue
+        if slotId < 0 || slotIdx == currentSlot
+          slotId = slotIdx
 
   return slotId
 
@@ -956,9 +964,8 @@ def swap_weapons_in_slots2(eid : EntityId; from_slot_id, to_slot_id : int) : voi
     return
 
   var canSwapWeapons = true
-  query(eid) <| $ [es] (human_unarmed__hiddenWeapon : bool = false;
-                        human_weap__lockWeaponSwitch : bool = false)
-    canSwapWeapons = !human_unarmed__hiddenWeapon && !human_weap__lockWeaponSwitch
+  query(eid) <| $ [es] (human_unarmed__hiddenWeapon : bool = false)
+    canSwapWeapons = !human_unarmed__hiddenWeapon
 
   if !canSwapWeapons
     return
@@ -968,7 +975,7 @@ def swap_weapons_in_slots2(eid : EntityId; from_slot_id, to_slot_id : int) : voi
                         var human_weap__gunMods, human_weap__gunModsBySlot : Array;
                         var human_net_phys : HumanActor)
     if !is_server()
-      sendEvent(eid, [[HumanSwapWeapRequest fromSlotId=from_slot_id, toSlotId=to_slot_id]])
+      send_net_event(eid, [[HumanSwapWeapRequest fromSlotId=from_slot_id, toSlotId=to_slot_id]])
     swap_weapons_in_slots_impl2(eid, from_slot_id, to_slot_id,
                                human_weap__gunEids, human_weap__weapTemplates,
                                human_weap__gunMods, human_weap__gunModsBySlot)
@@ -1028,7 +1035,7 @@ def remove_item_from_weap_impl2(eid : EntityId; slot_id : int; weap_slot : strin
             desc.ownerEid = eid;
             desc.tm = transform;
             desc.tm[3] = transform * human_inventory__dropLootOffset
-            drop_item(desc, -1.0, true, INVALID_ENTITY_ID)
+            drop_item2(desc, -1.0, true, INVALID_ENTITY_ID)
 
         sendEvent(eid, [[EventOnLootDrop itemEid=INVALID_ENTITY_ID]])
         var nullCustomProps : Object? = null
@@ -1055,7 +1062,7 @@ def remove_item_from_weap2(eid : EntityId; slot_name, weap_slot : string; to_gro
   if is_server()
     remove_item_from_weap_impl2(eid, slotId, weap_slot, to_ground)
   else
-    sendEvent(eid, [[HumanRemoveItemFromWeapRequest slotId=slotId, slotName=weap_slot, toGround=to_ground]])
+    send_net_event(eid, [[HumanRemoveItemFromWeapRequest slotId=slotId, slotName=weap_slot, toGround=to_ground]])
 
 
 def is_gunmod_allowed2(gun_eid, mod_eid : EntityId) : bool
@@ -1159,4 +1166,309 @@ def swap_weapon_mods2(eid : EntityId;
   if is_server()
     swap_weapon_mods_impl2(eid, fromSlotId, from_weap_mod_slot, toSlotId, to_weap_mod_slot)
   else
-    sendEvent(eid, [[HumanSwapWeaponModsRequest fromSlotId=fromSlotId, fromWeapModSlot=from_weap_mod_slot, toSlotId=toSlotId, toWeapModSlot=to_weap_mod_slot]])
+    send_net_event(eid, [[HumanSwapWeaponModsRequest fromSlotId=fromSlotId, fromWeapModSlot=from_weap_mod_slot, toSlotId=toSlotId, toWeapModSlot=to_weap_mod_slot]])
+
+enum RecreateGunsFlags
+  None         = 0
+  Attach       = 1 << 0
+  ParentLoaded = 1 << 1
+
+
+def init_gun_comps(var init : ComponentsInitializer;
+                   gun_slot : int;
+                   eid : EntityId;
+                   init_comps : Object const? = null)
+  query(eid) <| $ [es] (human_weap__salt : IntList)
+    let salt = human_weap__salt[gun_slot]
+    if init_comps != null
+      set(init, "gun__initialComponents", *init_comps)
+      for kv in *init_comps
+        set(init, kv.key, kv.value)
+
+    set(init, "gun__salt", salt)
+    set(init, "gun__owner", eid)
+
+
+def create_gun_for_entity_impl(eid : EntityId;
+                               gun_slot : int;
+                               weap_templ_name : string;
+                               init_comps : Object const?;
+                               create : block<(n : string; var ci : ComponentsInitializer) : EntityId>)
+  if weap_templ_name == ""
+    return INVALID_ENTITY_ID
+
+  var name = weap_templ_name
+  query(eid) <| $ [es] (human_weap__itemRemap : Object)
+    if human_weap__itemRemap |> has(weap_templ_name)
+      let n = human_weap__itemRemap[weap_templ_name] |> get_ecs_string()
+      if n != null
+        name = *n |> string()
+
+  var gunEid = INVALID_ENTITY_ID
+  using() <| $(var init : ComponentsInitializer)
+    init_gun_comps(init, gun_slot, eid, init_comps)
+    gunEid = create |> invoke(name, init)
+  return gunEid
+
+
+def restore_ammo_type_impl(eid : EntityId;
+                           var itemContainer : EidList;
+                           ammo_template : string;
+                           ammo_num : int;
+                           calc_gun_ammo_cb : block<(ammo_item_id : int) : int>)
+  if ammo_num <= 0
+    return false
+
+  let reserveAmmoItemId = ammo_template != "" ? int(ecs_hash(ammo_template)) : INVALID_ITEM_ID
+
+  var initialNum = invoke(calc_gun_ammo_cb, reserveAmmoItemId) > 0 ? 1 : 0
+  for itemEid in itemContainer
+    var itemId = INVALID_ITEM_ID
+    query(itemEid) <| $ [es] (item__id aka entity_item__id : int)
+      itemId = entity_item__id
+    initialNum += (itemId == reserveAmmoItemId) ? 1 : 0
+  for _i in range(initialNum, ammo_num)
+    var itemEid = INVALID_ENTITY_ID
+    if ammo_template == ""
+      logerr("Can't restore ammo with invalid ammo template ( isn't define in '{getEntityTemplateName(eid)} )")
+      return false
+    using() <| $(var init : ComponentsInitializer)
+      set(init, "item__ownerEid", eid)
+      set(init, "item__lastOwner", eid)
+      itemEid = createInstantiatedEntitySync(ammo_template, init)
+      if itemEid == INVALID_ENTITY_ID
+        // createInstantiatedEntitySync may fail if the entity wasn't instantiated, it shouldn't be fatal, but should be fixed
+        logerr("Template dependency '{ammo_template}' isn't instantiated in '{getEntityTemplateName(eid)}'")
+        itemEid = createEntitySync(ammo_template, init)
+    if find_index(itemContainer, itemEid) == -1
+      itemContainer |> push(itemEid)
+
+  return true
+
+
+def restore_ammo_impl(eid : EntityId;
+                      human_weap__gunEids : EidList;
+                      gun_slot : int)
+  var result = false
+  query(eid) <| $ [es] (human_weap__weapInfo : Array;
+                        var itemContainer : EidList)
+    if gun_slot >= length(human_weap__weapInfo)
+      let guid = get_string(eid, "guid", "none")
+      print("Failed to restore ammo for eid {eid}  template '{getEntityTemplateName(eid)}'  guid {guid}")
+      print("weapInfo count {length(human_weap__weapInfo)}  gunEids count {length(human_weap__gunEids)}  wanted slot {gun_slot}")
+      logerr("Can't restore ammo for guid {guid}. See log for more details")
+      return
+    query(human_weap__gunEids[gun_slot]) <| $ [es(REQUIRE=gun)] (gun__ammo : int = 0; gun__ammoHolderEid : EntityId = INVALID_ENTITY_ID)
+      let weapInfoSlot = human_weap__weapInfo[gun_slot] |> get_ecs_object()
+      let curAmmoHolderItemId = get_int(gun__ammoHolderEid, "item__id") ?? INVALID_ITEM_ID
+      assume calcGunAmmoCb = ($(ammoItemId : int) : int { return ammoItemId == curAmmoHolderItemId? gun__ammo : 0; })
+
+      let numReserveAmmo = weapInfoSlot |> get_int("numReserveAmmo") ?? 0
+      if numReserveAmmo > 0
+        let reserveAmmoTemplate = weapInfoSlot |> get_ecs_string("reserveAmmoTemplate")
+        if reserveAmmoTemplate == null
+          print("eid: {eid} of template '{getEntityTemplateName(eid)}'")
+          logerr("'reserveAmmoTemplate' is missed in human_weap.weapInfo. See log for details.")
+          for item in human_weap__weapInfo
+            let obj = item |> get_ecs_object()
+            let objReserveAmmoTemplate = obj |> get_ecs_string("reserveAmmoTemplate")
+            let objReserveAmmoTemplateStr = objReserveAmmoTemplate != null ? *objReserveAmmoTemplate |> string() : ""
+            let objNumReserveAmmo = obj |> get_int("numReserveAmmo") ?? 0
+            print("[reserveAmmoTemplate] = {objReserveAmmoTemplateStr}")
+            print("[numReserveAmmo] = {objNumReserveAmmo}")
+          return
+        if !restore_ammo_type_impl(eid, itemContainer, string(*reserveAmmoTemplate), numReserveAmmo, calcGunAmmoCb)
+          return
+
+      let additionalAmmoTemplates = get_ecs_array(weapInfoSlot, "additionalReserveAmmoTemplates")
+      let additionalAmmoNums = get_ecs_array(weapInfoSlot, "additionalNumReserveAmmos")
+      if additionalAmmoTemplates != null && additionalAmmoNums != null
+        for ammoTemplateItem, ammoNumItem in *additionalAmmoTemplates, *additionalAmmoNums
+          let ammoTemplate = ammoTemplateItem ?? ""
+          let ammoNum = ammoNumItem ?? 0
+          if !restore_ammo_type_impl(eid, itemContainer, ammoTemplate, ammoNum, calcGunAmmoCb)
+            return
+
+      if (gun_slot != int(HUWeaponSlots EWS_GRENADE))
+        reload_impl(eid, gun_slot, ReloadAmmoMode CONSUME)
+      result = true
+  return result
+
+
+def restore_ammo_impl(eid : EntityId;
+                      human_weap__gunEids : EidList)
+  for i in iter_range(human_weap__gunEids)
+    if human_weap__gunEids[i] != INVALID_ENTITY_ID
+      restore_ammo_impl(eid, human_weap__gunEids, i)
+
+
+def get_total_ammo_count(item_container : EidList;
+                         wish_ammo_item_type : int;
+                         gun_eid : EntityId)
+  var res = 0
+  query(gun_eid) <| $ [es] (gun__ammoHolderIds : IntList;
+                            gun__shell_prop_ids : GunShellPropIds)
+    for itemEid in item_container
+      query(itemEid) <| $ [es] (shell_props : ShellPropIds const?;
+                                item__id : int = INVALID_ITEM_ID;
+                                ammo_holder__id : int const?;
+                                ammo_holder__ammoCount : int const?)
+        if wish_ammo_item_type != INVALID_ITEM_ID && item__id != wish_ammo_item_type
+          return
+        if ammo_holder__id != null && ammo_holder__ammoCount != null && is_ammo_for_gun(*ammo_holder__id, gun__ammoHolderIds)
+          res += *ammo_holder__ammoCount
+          return
+        if shell_props != null && is_shell_for_gun(*shell_props, gun__shell_prop_ids)
+          res++ // add 1 shell to total ammo count of gun
+          return
+  return res
+
+
+def server_init_gun_ammo(gun_eid : EntityId)
+  query(gun_eid) <| $ [es(REQUIRE=gun)] (gun__owner : EntityId;
+                                         gun__ammo : int;
+                                         gun__wishAmmoItemType : int;
+                                         var gun__serverAmmo : int&;
+                                         var gun__totalAmmo : int&)
+    gun__serverAmmo = gun__ammo
+    let itemContainer = get_ecs_EidList(gun__owner, "itemContainer")
+    if itemContainer != null
+      gun__totalAmmo = get_total_ammo_count(*itemContainer, gun__wishAmmoItemType, gun_eid)
+
+
+struct GunModInSlot
+  key : string
+  value : string
+
+
+def server_init_gun(eid : EntityId;
+                    gun_eid : EntityId;
+                    slot_id : int;
+                    var human_weap__gunEids : EidList)
+  human_weap__gunEids[slot_id] = gun_eid
+  query(eid) <| $ [es] (human_weap__currentGunSlot : int;
+                        var human_weap__gunModsBySlot : Array;
+                        var human_weap__gunMods : Array;
+                        var human_weap__currentGunEid : EntityId&;
+                        var human_weap__currentGunModEids : EidList&)
+    let gunEidInSlot = human_weap__gunEids[slot_id]
+    if gunEidInSlot != INVALID_ENTITY_ID
+      var gunModsInSlot = human_weap__gunModsBySlot[slot_id] |> getRW_ecs_object()
+      if gunModsInSlot != null
+        restore_ammo_impl(eid, human_weap__gunEids, slot_id)
+        query(gunEidInSlot) <| $ [es] (var gun_mods__slots : Object)
+          for slot in gun_mods__slots
+            let slotName = slot.key
+            if !*gunModsInSlot |> has(slotName)
+              *gunModsInSlot |> set(slotName, "")
+
+        if length(*gunModsInSlot) > 0
+          // Temp copy since we modifying gunModsBySlot[slot_id] within attach_item_to_gun_impl2()
+          var gunModsInSlotCopy : array<GunModInSlot>
+          gunModsInSlotCopy |> reserve(length(*gunModsInSlot))
+          for gunMod in *gunModsInSlot
+            let gunModStr = gunMod.value |> get_ecs_string()
+            let value = gunModStr != null ? *gunModStr |> string() : ""
+            gunModsInSlotCopy |> push([[GunModInSlot key=gunMod.key, value=value]])
+          for gunMod in gunModsInSlotCopy
+            var nullCustomProps : Object? = null
+            attach_item_to_gun_impl2(eid, human_weap__gunEids, slot_id, gunMod.value,
+                                    gunMod.key, human_weap__gunMods, nullCustomProps)
+
+      server_init_gun_ammo(gunEidInSlot)
+
+    if human_weap__currentGunSlot == slot_id
+      human_weap__currentGunEid = human_weap__gunEids[slot_id]
+      human_weap__currentGunModEids := *(human_weap__gunMods[slot_id] |> get_ecs_EidList())
+
+
+def human_weap_set_item_to_slot(eid : EntityId;
+                                template_name, custom_skin : string;
+                                slot_id : int;
+                                var custom_props : Object?) : void
+  if !is_server()
+    logerr("[Human weap set item to slot] Attempted to call human_weap_set_item_to_slot from client.")
+    return
+
+  query(eid) <| $ [es] (human_gun_skin_list : Array;
+                        human_weap__currentGunSlot : int;
+                        anim_phys : AnimatedPhys const?;
+                        var human_net_phys : HumanActor;
+                        var human_weap__gunEids : EidList;
+                        var human_weap__gunMods : Array;
+                        var human_weap__weapTemplates : Object;
+                        var human_weap__gunModsBySlot : Array)
+    var gunMods = human_weap__gunMods[slot_id] |> getRW_ecs_EidList()
+    if gunMods == null
+      return
+
+    for gunModEid in *gunMods
+      destroyEntity(gunModEid)
+    *gunMods |> clear()
+
+    if human_weap__gunEids[slot_id] != INVALID_ENTITY_ID
+      destroyEntity(human_weap__gunEids[slot_id])
+
+    human_weap__weapTemplates |> set(get_human_weapon_slot_name(slot_id), template_name)
+
+    if anim_phys != null
+      var gunInitComps : Object const?
+      if custom_props != null
+        gunInitComps = ((*custom_props)["initialComponents"]) |> get_ecs_object()
+
+      var fullTemplate = template_name
+      var skinTemplate = custom_skin
+      for item in human_gun_skin_list
+        let skin = item |> get_ecs_object()
+        if skin != null && template_name == get_string(skin, "gunTemplate", "")
+          skinTemplate = get_string(skin, "subTemplate", "")
+          break
+
+      if skinTemplate != ""
+        fullTemplate = add_sub_template_name(fullTemplate, skinTemplate)
+
+      human_weap__gunEids[slot_id] = create_gun_for_entity_impl(eid, slot_id, fullTemplate, gunInitComps) <| $(n : string;
+                                                                                                               var ci : ComponentsInitializer)// TODO: async creation
+        return createEntitySync(n, ci)
+      let selectFirstAvailableWeap = (slot_id == human_weap__currentGunSlot ||
+                                      human_weap__gunEids[int(human_net_phys.phys.currentState.weapEquipState.curSlot)] == INVALID_ENTITY_ID)
+
+      if human_weap__gunEids[slot_id] != INVALID_ENTITY_ID
+        query(human_weap__gunEids[slot_id]) <| $ [es] (var gun__customSkin : das_string)
+          gun__customSkin := skinTemplate
+
+        var weapSlot = human_weap__gunModsBySlot[slot_id] |> getRW_ecs_object()
+        if weapSlot == null
+          return
+        *weapSlot |> clear()
+
+        query(human_weap__gunEids[slot_id]) <| $ [es] (gun_mods__slots : Object)
+          for slot in gun_mods__slots
+            *weapSlot |> set(slot.key, "")
+        let isAttached = (human_weap__currentGunSlot == slot_id)
+        sendEvent(human_weap__gunEids[slot_id], [[CmdWeapAttach toEid=eid, isAttached=isAttached, slotId=slot_id]])
+        sendEvent(human_weap__gunEids[slot_id], [[EventOnParentLoaded eid=eid, slotId=slot_id]])
+        if human_weap__currentGunSlot == slot_id
+          sendEvent(eid, [[EventOnSelectWeap curr_gun_slot_id=human_weap__currentGunSlot]])
+      elif selectFirstAvailableWeap
+        for i in iter_range(human_weap__gunEids)
+          if human_weap__gunEids[i] != INVALID_ENTITY_ID
+            sendEvent(eid, [[HumanWeapSetCurrentGun slot=uint8(i)]])
+            human_net_phys.phys.producedCT |> set_chosen_weapon(HUWeaponSlots(i))
+            human_net_phys.phys.currentState.weapEquipState.curSlot = HUWeaponSlots(i)
+            break
+
+    if human_weap__gunEids[slot_id] != INVALID_ENTITY_ID
+      if custom_props != null
+        human_gun_from_custom_props(*custom_props, human_weap__gunEids[slot_id])
+        let gunModsObj = ((*custom_props)["gunMods"]) |> get_ecs_object()
+        if gunModsObj != null
+          var gunModPropsBySlot = ((*custom_props)["gunModProps"]) |> getRW_ecs_object()
+          for mod in *gunModsObj
+            var nullCustomProps : Object? = null
+            let slotTag = mod.value |> get_ecs_string()
+            human_weap_attach_item_to_gun2(eid, slot_id, slotTag != null ? string(*slotTag) : "", mod.key, false,
+              (gunModPropsBySlot != null ? getRW_ecs_object((*gunModPropsBySlot)[mod.key]) : nullCustomProps))
+
+    if custom_props != null
+      human_gun_custom_props_cleanup(*custom_props)

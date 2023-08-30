@@ -2,15 +2,51 @@ ussr_is_2_1944_berlin{
   _extends:t="ussr_is_2_1944_common"
 
   "disableDMParts:list<t>"{
-    part:t="ex_armor_turret_l_01"
-    part:t="ex_armor_turret_l_02"
-    part:t="ex_armor_turret_l_03"
-    part:t="ex_armor_turret_r_01"
-    part:t="ex_armor_turret_r_02"
-    part:t="ex_armor_turret_r_03"
-    part:t="bone_mg_aa_h_01"
-    part:t="bone_mg_aa_v_01"
-    part:t="gun_barrel_02"
+    part:t="ex_decor_30"
+    part:t="ex_decor_31"
+    part:t="ex_decor_32"
+    part:t="ex_decor_33"
+    part:t="ex_decor_34"
+    part:t="ex_decor_35"
+    part:t="ex_decor_36"
+    part:t="ex_decor_37"
+    part:t="ex_decor_38"
+    part:t="ex_decor_39"
+    part:t="ex_decor_turret_30"
+    part:t="ex_decor_turret_31"
+    part:t="ex_decor_turret_32"
+    part:t="ex_decor_turret_33"
+    part:t="antenna_01"
+    part:t="ex_armor_01"
+    part:t="ex_armor_02"
+    part:t="ex_armor_03"
+    part:t="ex_armor_04"
+    part:t="ex_armor_06"
+  }
+}
+
+is_2_1944_turret_01_122mm_d25t{
+  _override:b=yes
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/122mm_d25t_122mm_ussr_aphe.blk"
+        name:t="122mm_br_471b"
+        type:t="aphebc_tank"
+      }
+    }
+
+    "122mm_ussr_HE:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/122mm_d25t_122mm_ussr_he.blk"
+        name:t="122mm_of_471"
+        type:t="he_frag_tank"
+      }
+    }
   }
 }
 
@@ -20,6 +56,8 @@ ussr_is_2_1944_common{
   _extends:t="tank_heavy_vehicle_tracks_sound"
   commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
   gunner_cam_limit__useCockpitDir:b=yes
+  item__iconOffset:p2=0.07, 0.1
+  item__iconScale:r=1.13
 
   "vehicle_seats__seats:shared:array"{
 
@@ -60,20 +98,25 @@ ussr_is_2_1944_common{
     "seats:object"{
       name:t="commander"
       locName:t="vehicle_seats/commander"
-      attachNode:t="commander"
+      attachNode:t="bone_mg_aa_h_01"
       shouldHideOwner:b=yes
-      hatchRotationAxis:p3=1.6, 0.0, 0.0
+      hatchRotationAxis:p3=1.7, 0.0, 0.0
       maxPosWithOpenHatch:r=0.7
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.05, -0.3, 0.22]]
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.15, -0.65, 0.1]]
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="commander"
       cockpitTemplate:t="ussr_is_2_1944_commander_cockpit"
       cameraNodeName:t="bone_turret"
+      isHoldGunModeAllowed:b=no
 
       "hatchNodes:array"{
         node:t="hatch_01"
         node:t="hatch_02"
+      }
+
+      "hatchTurretNames:array"{
+        turret:t="turret_03"
       }
     }
 
@@ -112,7 +155,7 @@ ussr_is_2_1944_driver_cockpit{
   }
 
   "cockpit__slitForwardOffset:list<r>"{
-    slit:r=0.07
+    slit:r=0.09
   }
 }
 
@@ -124,7 +167,7 @@ ussr_is_2_1944_gunner_cockpit{
 
   "cockpit__cockpitOffsetBySlit:list<p3>"{
     item:p3=0.00491715, -0.0407845, 0.682348
-    item:p3=-0.2, 1.2, 0.535
+    item:p3=0.45, 1.1, 0.535
   }
 
   "cockpit__attachNodeNames:list<t>"{
@@ -156,7 +199,7 @@ ussr_is_2_1944_gunner_cockpit{
 
   "cockpit__periscopeLimits:list<p4>"{
     slit:p4=-0.0, 0.0, 0.0, 0.0
-    slit:p4=-90.0, 55.0, -0.0, 25.0
+    slit:p4=-55.0, 55.0, -0.0, 25.0
   }
 
   "cockpit__periscopeSpeed:list<p2>"{
@@ -183,6 +226,7 @@ ussr_is_2_1944_gunner_cockpit{
 
   "cockpit__slitTemplates:list<t>"{
     slit:t="ussr_tsh_17"
+    slit:t="default_periscope"
   }
 
   "cockpit__slitEids:list<eid>"{
@@ -192,11 +236,17 @@ ussr_is_2_1944_gunner_cockpit{
 ussr_is_2_1944_commander_cockpit{
   _extends:t="base_commander_tower_cockit_no_slits"
   animchar__res:t="pzkpfw_iii_b_commander_char"
-  cockpit__offset:p3=-0.495364, 0.82, 0.494493
+  cockpit__offset:p3=-0.495364, 0.8, 0.494493
 
   "cockpit__visibleVehicleNodeNames:list<t>"{
     node:t="gun_mask"
     node:t="gun_barrel"
+    part:t="ex_armor_turret_l_01"
+    part:t="ex_armor_turret_l_02"
+    part:t="ex_armor_turret_l_03"
+    part:t="ex_armor_turret_r_01"
+    part:t="ex_armor_turret_r_02"
+    part:t="ex_armor_turret_r_03"
   }
 
   "cockpit__cockpitOffsetBySlit:list<p3>"{

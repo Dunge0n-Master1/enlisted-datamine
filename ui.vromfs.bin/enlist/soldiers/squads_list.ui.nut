@@ -1,10 +1,9 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let mkCurSquadsList = require("%enlSqGlob/ui/mkSquadsList.nut")
-let { multySquadPanelSize, listCtors, bigGap, smallPadding
+let { multySquadPanelSize, listCtors, smallPadding
 } = require("%enlSqGlob/ui/viewConst.nut")
-let { commonBtnHeight } = require("%enlSqGlob/ui/designConst.nut")
 let { txtColor } = listCtors
 let { curArmy, curSquadId, setCurSquadId, curChoosenSquads, curUnlockedSquads
 } = require("model/state.nut")
@@ -67,50 +66,53 @@ let unseenSquadsIcon = @() {
     : null
 }
 
-let function mkSquadManagementBtn(restSquadsCount=null, size = null, margin = null ){
-  let squadManageButtonStateFlags = Watched(0)
 
+let function mkSquadManagementBtn(restSquadsCount = null, size = null,
+  margin = null, flow = FLOW_HORIZONTAL
+){
+  let squadManageButtonStateFlags = Watched(0)
+  let discount = @() {
+    watch = armySlotDiscount
+    vplace = ALIGN_BOTTOM
+    hplace = ALIGN_CENTER
+    pos = [0, smallPadding]
+    children = armySlotDiscount.value <= 0 ? null : mkNotifierBlink(loc("shop/discount",
+          { percents = armySlotDiscount.value }), {}, { color = 0xffff313b })
+  }
+  let notifier = @() { hplace = ALIGN_RIGHT children = unseenSquadsIcon}
   let squadManageButton = watchElemState(function(sf) {
     let rest = restSquadsCount?.value ?? 0
     return {
-      watch = [restSquadsCount, armySlotDiscount]
+      watch = [restSquadsCount]
       rendObj = ROBJ_SOLID
       size = size ?? [multySquadPanelSize[0], SIZE_TO_CONTENT]
-      minHeight = commonBtnHeight//(multySquadPanelSize[1] * 0.5).tointeger()
-      margin = margin ?? [bigGap, 0, 0, 0]
-      padding = smallPadding
-      gap = smallPadding
+      minHeight = (multySquadPanelSize[1] * 0.5).tointeger()
+      margin
       behavior = Behaviors.Button
       xmbNode = XmbNode()
       color = squadBgColor(sf, false)
       onClick = @() openChooseSquadsWnd(curArmy.value, curSquadId.value)
       onDetach = @() squadManageButtonStateFlags(0)
-      flow = FLOW_VERTICAL
-      halign = ALIGN_CENTER
-      valign = ALIGN_CENTER
       sound = soundDefault
       children = [
         {
-          flow = FLOW_HORIZONTAL
+          flow
           halign = ALIGN_CENTER
+          vplace = ALIGN_CENTER
           valign = ALIGN_CENTER
+          gap = smallPadding
+          size = flex()
           children = [
-            {
-              flow = FLOW_HORIZONTAL
-              gap = hdpx(2)
-              children = managementIcon(sf, [hdpxi(45), hdpxi(30)])
-            }
+            managementIcon(sf, [hdpxi(45), hdpxi(30)])
             rest < 1 ? null : {
               rendObj = ROBJ_TEXT
               color = txtColor(sf)
               text = $"+{rest}"
-              padding = smallPadding
-            }.__update(body_txt)
-            unseenSquadsIcon
+            }.__update(fontSub)
           ]
         }
-        armySlotDiscount.value <= 0 ? null : mkNotifierBlink(loc("shop/discount",
-          { percents = armySlotDiscount.value }), {}, { color = 0xffff313b })
+        notifier
+        discount
       ]
     }
   }, {stateFlags = squadManageButtonStateFlags})
@@ -140,7 +142,5 @@ let function mkSquadsList() {
 return {
   mkSquadsList
   mkSlotAlertsComponent
-  openChooseSquadsWnd
-  managementIcon
   mkSquadManagementBtn = kwarg(mkSquadManagementBtn)
 }

@@ -7,7 +7,8 @@ jp_type_2_ka_mi_common{
   _extends:t="tank_m10_engine_sound"
   _extends:t="tank_light_vehicle_tracks_sound"
   _extends:t="floatable_vehicle"
-  item__iconOffset:p2=0.0, 0.0
+  item__iconOffset:p2=-0.05, 0.2
+  item__iconScale:r=1.35
   commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
   gunner_cam_limit__useCockpitDir:b=yes
 

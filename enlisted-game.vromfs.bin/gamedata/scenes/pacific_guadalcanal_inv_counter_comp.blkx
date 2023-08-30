@@ -5409,7 +5409,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam1"
-  transform:m=[[-0.987417, 0.0, -0.158136] [0.0, 1.0, 0.0] [0.158136, 0.0, -0.987417] [-324.944, 5.7471, 56.5483]]
+  transform:m=[[-0.987417, 0.0, -0.158136] [0.0, 1.0, 0.0] [0.158136, 0.0, -0.987417] [-320.307, 5.7471, 59.2293]]
   groupName:t="sector_3_a"
   respawnBaseGroup:i=1
   active:b=no
@@ -5485,7 +5485,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam2"
-  transform:m=[[0.405739, 0.0, -0.913989] [0.0, 1.0, 0.0] [0.913988, -0.0, 0.405739] [-345.412, 0.861803, 133.405]]
+  transform:m=[[0.770696, 0.0, -0.637203] [0.0, 1.0, 0.0] [0.637202, -0.0, 0.770696] [-341.254, 1.31626, 126.555]]
   groupName:t="sector_2_b"
   respawnBaseGroup:i=2
   active:b=no
@@ -5501,7 +5501,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respVehicle+vehicle_resp_soft_ground_collision"
-  transform:m=[[0.594427, 0.0, -0.80415] [0.0, 1.0, 0.0] [0.80415, -0.0, 0.594427] [-459.989, 21.368, -51.6884]]
+  transform:m=[[0.383406, 0.0, -0.92358] [0.0, 1.0, 0.0] [0.92358, -0.0, 0.383406] [-457.05, 21.368, -48.5792]]
   groupName:t="sector_2_b"
   maxVehicleOnSpawn:i=2
   respTime:i=150
@@ -5512,7 +5512,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respMotorcycle"
-  transform:m=[[0.594427, 0.0, -0.80415] [0.0, 1.0, 0.0] [0.80415, -0.0, 0.594427] [-459.977, 21.368, -51.6157]]
+  transform:m=[[0.375771, 0.0, -0.926713] [0.0, 1.0, 0.0] [0.926713, -0.0, 0.375771] [-457.109, 21.368, -48.4843]]
   groupName:t="sector_2_b"
   respawnBaseGroup:i=1
   team:i=2
@@ -6353,7 +6353,7 @@ entity{
 
 entity{
   _template:t="respawnBaseWithGroupOnCapturePoint"
-  transform:m=[[0.990163, 0.0, -0.139912] [0.0, 1.0, 0.0] [0.139912, -0.0, 0.990163] [-326.721, 1.23341, 143.206]]
+  transform:m=[[0.990163, 0.0, -0.139912] [0.0, 1.0, 0.0] [0.139912, -0.0, 0.990163] [-326.721, 1.80437, 143.206]]
   groupName:t="sector_2_a"
   active:b=no
   respawnBaseGroup:i=4
@@ -6361,7 +6361,7 @@ entity{
 
 entity{
   _template:t="respawnBaseWithGroupOnCapturePoint"
-  transform:m=[[0.803915, 0.0, -0.594744] [0.0, 1.0, 0.0] [0.594744, -0.0, 0.803915] [-333.973, 2.12908, 130.126]]
+  transform:m=[[0.803915, 0.0, -0.594744] [0.0, 1.0, 0.0] [0.594744, -0.0, 0.803915] [-334.85, 2.32816, 128.629]]
   groupName:t="sector_2_a"
   active:b=no
   respawnBaseGroup:i=4

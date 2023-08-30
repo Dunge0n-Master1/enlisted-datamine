@@ -10,9 +10,11 @@ require game.es.vehicle.vehicle_events
 require common_shooter.events_common_shooter
 require common_shooter.es.repair_common
 
-def set_repairable_state(inProgress; operatorEid; targetEid; repairTimeMult : float  = 1.f; recoveryRatioAdd : float = 0.f)
+def set_repairable_state(inProgress; operatorEid; targetEid; partId : int; repairTimeMult : float  = 1.f; recoveryRatioAdd : float = 0.f)
   query(targetEid) <| $ [es] (var maintainable__operator : EntityId&;
                               var repairable__repairTime : float&;
+                              var repairable__repairTimeByPart : FloatList&;
+                              var repairable__repairPart : int&;
                               var repairable__repairTotalTime : float&;
                               var repairable__inProgress : bool&;
                               var repairable__recoveryRatio : float&;
@@ -20,14 +22,17 @@ def set_repairable_state(inProgress; operatorEid; targetEid; repairTimeMult : fl
                               repairable__baseRecoveryRatio : float)
     maintainable__operator = operatorEid
     repairable__inProgress = inProgress
+    repairable__repairPart = partId
     repairable__recoveryRatio = repairable__baseRecoveryRatio + recoveryRatioAdd
-    if repairable__repairTime < 0.f && inProgress
+    if partId < 0
+      return
+    if repairable__repairTimeByPart[partId] <= 0.f && inProgress
       repairable__repairTotalTime = repairable__baseRepairTotalTime * repairTimeMult
+      repairable__repairTimeByPart[partId] = repairable__repairTotalTime
       repairable__repairTime = repairable__repairTotalTime
 
-
 def stop_repair(maintenance__target)
-  set_repairable_state(false, INVALID_ENTITY_ID, maintenance__target)
+  set_repairable_state(false, INVALID_ENTITY_ID, maintenance__target, -1)
   return false
 
 
@@ -59,37 +64,79 @@ def find_repair_kit(item_container : EidList; uses_per_kit : int)
       return itemEid
   return INVALID_ENTITY_ID
 
+def calculate_total_repair_count(item_container : EidList; uses_per_kit : int) : int
+  var totalRepairCount = 0
+  for itemEid in item_container
+    let repairUses = get_int(itemEid, "repair_kit__useCounter")
+    if repairUses != null && (*repairUses == 0 || *repairUses < uses_per_kit)
+      totalRepairCount += uses_per_kit - *repairUses
+  return totalRepairCount
+
 [es(tag=server, on_appear, track=itemContainer)]
 def check_item_container_has_repair_kit(evt : Event;
                                         itemContainer : EidList;
                                         entity_mods__vehicleRepairUsagesPerKit : int = -1;
+                                        human_weap__gunEids : EidList;
                                         var repair__hasRepairKit : bool&;
                                         var repair__repairKit : EntityId&)
   repair__repairKit = find_repair_kit(itemContainer, entity_mods__vehicleRepairUsagesPerKit)
   repair__hasRepairKit = !!repair__repairKit
+  for gunEid in human_weap__gunEids
+    query(gunEid) <| $ [es] (repairKitWeapon : Tag const?;
+                             var gun__ammo : int&)
+      if repairKitWeapon != null
+        gun__ammo = calculate_total_repair_count(itemContainer, entity_mods__vehicleRepairUsagesPerKit)
 
-[es(tag=server, track=repair_kit__useCounter)]
+[es(tag=server, track=repair_kit__useCounter, on_appear)]
 def track_repair_kit_uses(evt : Event; eid : EntityId; item__ownerEid : EntityId; repair_kit__useCounter : int)
   query(item__ownerEid) <| $ [es] (itemContainer : EidList;
                                    entity_mods__vehicleRepairUsagesPerKit : int = -1;
+                                   human_weap__gunEids : EidList;
                                    var repair__hasRepairKit : bool&;
                                    var repair__repairKit : EntityId&)
     if repair__repairKit == eid && repair_kit__useCounter > 0 && repair_kit__useCounter >= entity_mods__vehicleRepairUsagesPerKit
       repair__repairKit = find_repair_kit(itemContainer, entity_mods__vehicleRepairUsagesPerKit)
       repair__hasRepairKit = !!repair__repairKit
+    for gunEid in human_weap__gunEids
+      query(gunEid) <| $ [es] (repairKitWeapon : Tag const?;
+                               var gun__ammo : int&)
+        if repairKitWeapon != null
+          gun__ammo = calculate_total_repair_count(itemContainer, entity_mods__vehicleRepairUsagesPerKit)
 
+[es(tag=server, on_appear, REQUIRE=repairKitWeapon)]
+def total_repair_count_on_weapon_appear(evt : Event;
+                                        gun__owner : EntityId;
+                                        var gun__ammo : int&)
+  query(gun__owner) <| $ [es] (itemContainer : EidList;
+                               entity_mods__vehicleRepairUsagesPerKit : int = -1)
+    gun__ammo = calculate_total_repair_count(itemContainer, entity_mods__vehicleRepairUsagesPerKit)
+
+def check_repair_require(damage_model : DamageModel&;
+                         dm_parts__canRepair : BoolList;
+                         dm_parts__considerAsAliveThreshold : float)
+  for i, canRepair in iter_range(dm_parts__canRepair), dm_parts__canRepair
+    if !canRepair
+      continue
+    assume part = damage_model.dmData.parts[i]
+    if uint(part.relHpFixed) < uint(dm_parts__considerAsAliveThreshold * float(MAX_REL_HP_FIXED))
+      return true
+  return false
 
 [es(tag=server)]
-def need_repair_check_on_part_damaged_es(evt : EventOnPartDamaged; var repairable__repairRequired : bool&)
-  if int(evt.hpFixed) == 0
-    repairable__repairRequired = true
+def need_repair_check_on_part_damaged_es(evt : EventOnPartDamaged;
+                                         damage_model : DamageModel&;
+                                         dm_parts__canRepair : BoolList;
+                                         var repairable__repairRequired : bool&;
+                                         dm_parts__considerAsAliveThreshold : float = 0.9)
+  repairable__repairRequired ||= check_repair_require(damage_model, dm_parts__canRepair, dm_parts__considerAsAliveThreshold)
 
-[es(tag=server)]
-def need_repair_check_on_volumetric_damaged_es(evt : EventOnVolumetricDamage; var repairable__repairRequired : bool&)
-  for part in evt.damagedParts
-    if get_int(get_ecs_object(part), "hpFixed") ?? -1 == 0
-      repairable__repairRequired = true
-      break
+[es(tag=server, after=damage_model_es)]
+def need_repair_check_on_volumetric_damaged_es(evt : EventOnVolumetricDamage;
+                                               damage_model : DamageModel&;
+                                               dm_parts__canRepair : BoolList;
+                                               var repairable__repairRequired : bool&;
+                                               dm_parts__considerAsAliveThreshold : float = 0.9)
+  repairable__repairRequired ||= check_repair_require(damage_model, dm_parts__canRepair, dm_parts__considerAsAliveThreshold)
 
 [es(tag=server)]
 def need_repair_check_on_meta_part_damage_es(evt : EventOnMetaPartDamage; var repairable__repairRequired : bool&)
@@ -102,8 +149,26 @@ def repair_es(evt : CmdStartRepair;
               var repair__active : bool&;
               entity_mods__vehicleRepairTimeMult : float = 1.f;
               entity_mods__vehicleRepairRecoveryRatioAdd : float = 0.f)
-  repair__active = true
-  set_repairable_state(true, eid, evt.target, entity_mods__vehicleRepairTimeMult, entity_mods__vehicleRepairRecoveryRatioAdd)
+  if evt.partId < 0
+    return
+  query(evt.target) <| $ [es] (damage_model : DamageModel;
+                               dm_parts__repairPartGroupIds : UInt8List;
+                               dm_parts__considerAsAliveThreshold : float = 0.9)
+    let partGroup = dm_parts__repairPartGroupIds[evt.partId]
+    if int(partGroup) > 0
+      for i in range(length(dm_parts__repairPartGroupIds))
+        if dm_parts__repairPartGroupIds[i] == partGroup
+          assume part = damage_model.dmData.parts[i]
+          if uint(part.relHpFixed) < uint(dm_parts__considerAsAliveThreshold * float(MAX_REL_HP_FIXED))
+            repair__active = true
+            //we want to init from first part in group, because timer isn't shared by the group
+            set_repairable_state(true, eid, evt.target, i, entity_mods__vehicleRepairTimeMult, entity_mods__vehicleRepairRecoveryRatioAdd)
+            return
+    else
+      assume part = damage_model.dmData.parts[evt.partId]
+      if uint(part.relHpFixed) < uint(dm_parts__considerAsAliveThreshold * float(MAX_REL_HP_FIXED))
+        repair__active = true
+        set_repairable_state(true, eid, evt.target, evt.partId, entity_mods__vehicleRepairTimeMult, entity_mods__vehicleRepairRecoveryRatioAdd)
 
 [es(REQUIRE=maintenance__target)]
 def repair_stop_es(evt : CmdStopRepair; var repair__active : bool&)
@@ -140,21 +205,38 @@ def stop_repairing_on_enter_vehicle_es(evt : EventEnterVehicle;
 def repair_external_es(info : UpdateStageInfoAct;
                        eid : EntityId;
                        var damage_model : DamageModel&;
-                       var meta_parts_state : MetaPartsState&;
                        var fire_protection : FireProtection&;
                        repairable__recoveryRatio : float;
                        maintainable__operator : EntityId;
+                       repairable__repairPart : int;
+                       dm_parts__canRepair : BoolList;
+                       dm_parts__repairPartGroupIds : UInt8List;
                        var repairable__repairTime : float&;
+                       var repairable__repairTimeByPart : FloatList&;
                        var repairable__inProgress : bool&;
-                       var repairable__repairRequired : bool&)
-  if !maintainable__operator || !repairable__inProgress || repairable__repairTime < 0.f
+                       var repairable__repairRequired : bool&;
+                       dm_parts__considerAsAliveThreshold : float = 0.9)
+  if repairable__repairPart < 0 || !maintainable__operator || !repairable__inProgress
     return
-  repairable__repairTime = repairable__repairTime - info.dt
-  if repairable__repairTime > 0.f
+
+  repairable__repairTime = repairable__repairTimeByPart[repairable__repairPart]
+  if repairable__repairTime <= 0.f
     return
+
+  repairable__repairTimeByPart[repairable__repairPart] -= info.dt
+  if repairable__repairTimeByPart[repairable__repairPart] > 0.f
+    return
+
   repairable__inProgress = false
-  repairable__repairRequired = false
-  repair_vehicle(repairable__recoveryRatio, meta_parts_state, damage_model, fire_protection)
+  let partGroup = dm_parts__repairPartGroupIds[repairable__repairPart]
+  if int(partGroup) > 0
+    for i in range(length(dm_parts__repairPartGroupIds))
+      if dm_parts__repairPartGroupIds[i] == partGroup
+        repair_vehicle_part(repairable__recoveryRatio, i, damage_model, fire_protection)
+  else
+    repair_vehicle_part(repairable__recoveryRatio, repairable__repairPart, damage_model, fire_protection)
+
+  repairable__repairRequired = check_repair_require(damage_model, dm_parts__canRepair, dm_parts__considerAsAliveThreshold)
   use_repair_kit(maintainable__operator)
   sendEvent(maintainable__operator, [[CmdStopRepair target=eid]])
   sendEvent(eid, [[CmdStopBurn]])

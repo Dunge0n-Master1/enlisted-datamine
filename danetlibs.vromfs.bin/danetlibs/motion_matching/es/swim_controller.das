@@ -20,27 +20,3 @@ def motion_matching_watch_swim(event : Event;
   set_tag(motion_matching__goalTags, human_net_phys__isSwimming, "swim")
   set_tag(motion_matching__optionalTags, human_net_phys__isUnderwater, "swim_underwater")
 
-
-[es(tag=gameClient, before=mm_lod_selector)]
-def update_mm_trajectory(act : ParallelUpdateFrameDelayed;
-                         animchar : AnimcharBaseComponent;
-                         var motion_matching__prevAnimcharRotation : float4&;
-                         var motion_matching__linearVelocity, motion_matching__angularVelocity : float3&;
-                         human_net_phys__velocity : float3;
-                         motion_matching__enabled : bool)
-  if motion_matching__enabled
-    var instantOmega : float3
-    var tm : float3x4
-    animchar |> animchar_get_tm(tm);
-    let animcharRotation = quat(tm);
-    let quaternion = inverse(quat(motion_matching__prevAnimcharRotation)) * animcharRotation
-    quat_to_euler(quaternion, instantOmega.x, instantOmega.y, instantOmega.z)
-    motion_matching__linearVelocity = inverse(animcharRotation) * human_net_phys__velocity
-    motion_matching__angularVelocity = float3(0.0, safediv(instantOmega.x, act.dt), 0.0)
-
-    // I don't like how immediate is `idle` tag apply, we need to do something with it
-    // Maybe just use amortized velocity? we already have it
-    // let isIdle = abs(motion_matching__angularVelocity.y) < PI * 0.01 && length(motion_matching__linearVelocity) < 0.01
-    // set_tag(motion_matching__goalTags, isIdle, "idle")
-
-    motion_matching__prevAnimcharRotation = float4(animcharRotation)

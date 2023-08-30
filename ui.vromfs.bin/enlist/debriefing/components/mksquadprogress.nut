@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let cursors = require("%ui/style/cursors.nut")
 let { sound_play } = require("%dngscripts/sound_system.nut")
 let { progressBar, txt } = require("%enlSqGlob/ui/defcomps.nut")
@@ -84,7 +84,7 @@ let function mkProgress(wasLevel, wasExp, addExp, toLevelExp, squad, result, awa
                 animations = mkAppearAnimations(animDelay + UNLOCK_ADD_EXP_TIME, function() {
                   sound_play("ui/debriefing/squad_progression_appear")
                 })
-              }, body_txt)
+              }, fontBody)
             : isMaxLevel
             ? {
                 rendObj = ROBJ_TEXTAREA
@@ -97,7 +97,7 @@ let function mkProgress(wasLevel, wasExp, addExp, toLevelExp, squad, result, awa
                 animations = mkAppearAnimations(animDelay + UNLOCK_ADD_EXP_TIME, function() {
                   sound_play("ui/debriefing/squad_progression_appear")
                 })
-              }.__update(body_txt)
+              }.__update(fontBody)
             : txt(loc("levelInfo", { level = wasLevel + 1 })).__update({
                 opacity = isNewLevel ? 0 : 1
                 animations = isNewLevel ? mkShowAnim(animDelay + UNLOCK_ADD_EXP_TIME - 0.1) : null
@@ -197,7 +197,7 @@ local function mkSquadProgress(p = SQUAD_CARD_PARAMS) {
                     color = activeTxtColor
                     transform = {}
                     animations = p.mkAppearAnimations(animDelay + 0.1, p.onFinishCb)
-                  }, sub_txt)
+                  }, fontSub)
                 }
               }
               mkProgress(squad?.wasLevel ?? 1,

@@ -30,7 +30,7 @@ def vehicle_tracks_sound(info : ParallelUpdateFrameDelayed;
                          vehicle_tracks_sound__surfaceWaterToVar : float = 10.;
                          vehicle_tracks_sound__surfaceConcreteToVar : float = 1.;
 
-                         vehicle_sound_vars__speed : float;
+                         vehicle_sound_vars__linearVelocity : float3;
                          vehicle_sound_vars__noiseReduction : float;
                          vehicle_sound_vars__slip : float;
                          vehicle_sound_vars__water : float;
@@ -41,9 +41,10 @@ def vehicle_tracks_sound(info : ParallelUpdateFrameDelayed;
                          [[shared_comp]] vehicle_tracks_sound__path : Object;
                          sound_tags : Object;
 
+                         isAlive : bool;
                          transform : float3x4)
 
-  if !sound_control__shouldPlay
+  if !sound_control__shouldPlay || !isAlive
     if vehicle_tracks_sound__event.enabled
       vehicle_tracks_sound__timer = -1.
       vehicle_tracks_sound__event.enabled = false
@@ -54,7 +55,8 @@ def vehicle_tracks_sound(info : ParallelUpdateFrameDelayed;
   if vehicle_tracks_sound__timer < 0.
     return
 
-  let speed = vehicle_sound_vars__speed * vehicle_tracks_sound__speedMul * vehicle_sound_vars__noiseReduction
+  let forwardSpeed = abs(dot(vehicle_sound_vars__linearVelocity, transform[0]))
+  let speed = forwardSpeed * vehicle_tracks_sound__speedMul * vehicle_sound_vars__noiseReduction
   if speed >= vehicle_tracks_sound__speedThreshold
     vehicle_tracks_sound__timer = 0.
     if !vehicle_tracks_sound__event.enabled
@@ -70,7 +72,7 @@ def vehicle_tracks_sound(info : ParallelUpdateFrameDelayed;
   if vehicle_tracks_sound__event.enabled
     set_var(vehicle_tracks_sound__event.handle, "speed", speed)
     let surfaceWater = vehicle_sound_vars__water * vehicle_tracks_sound__surfaceWaterToVar
-    let turn = vehicle_sound_vars__slip * cvt(vehicle_sound_vars__speed * vehicle_tracks_sound__speedMul,
+    let turn = vehicle_sound_vars__slip * cvt(forwardSpeed * vehicle_tracks_sound__speedMul,
                                               vehicle_tracks_sound__speedToTurnMul.x, vehicle_tracks_sound__speedToTurnMul.y,
                                               vehicle_tracks_sound__speedToTurnMul.z, vehicle_tracks_sound__speedToTurnMul.w)
     set_var(vehicle_tracks_sound__event.handle, "turn", saturate(1. - surfaceWater) * turn)

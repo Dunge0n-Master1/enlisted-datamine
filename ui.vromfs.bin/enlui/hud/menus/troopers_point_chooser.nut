@@ -57,10 +57,9 @@ let function pick_paratroopers_point(event){
 }
 
 let function paratroopersPointSelectorPanel(){
-  let res = { watch = showParatroopersPointProjection}
   if (!showParatroopersPointProjection.value)
-    return res
-  return res.__update({
+    return @(){ watch = showParatroopersPointProjection}
+  return  @(){
     watch = showParatroopersPointProjection
     size = [sw(100), sh(100)]
     behavior = Behaviors.Button
@@ -70,7 +69,7 @@ let function paratroopersPointSelectorPanel(){
       { prop = AnimProp.opacity, from = 0, to = 1, duration = 0.3, play = true }
       { prop = AnimProp.opacity, from = 1, to = 0, duration = 0.3, playFadeOut = true }
     ]
-  })
+  }
 }
 
 let paratroopers_point_ctor = {

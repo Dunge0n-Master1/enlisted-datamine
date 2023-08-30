@@ -40,7 +40,6 @@
   lodsShiftDistMul:r=1.0
   cloudsQuality:t="volumetric"
   volumeFogQuality:t="close"
-  decompressed_shaders_cache_size_in_mb:i=20
 }
 
 "@override:game_das_loading_threads":i=1

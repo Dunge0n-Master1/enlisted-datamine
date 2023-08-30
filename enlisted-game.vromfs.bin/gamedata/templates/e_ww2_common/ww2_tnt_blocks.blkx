@@ -35,7 +35,6 @@ tnt_block_exploder{
   item__weight:r=0.8
   item__proto:t="content/enlisted/gamedata/weapons/tnt_block_exploder.blk"
   item__locDetails:t=""
-  item__id:i=0
   tnt_block_exploder__state:i=0
   tnt_block_exploder__explodeAnimStartTime:r=0.0
   tnt_block_exploder__explodeAnimEndTime:r=0.0
@@ -62,6 +61,11 @@ tnt_block_exploder{
 
   "gun__firingModeNames:array"{
     mode:t=""
+  }
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
   }
 
   "item__weapSlots:array"{

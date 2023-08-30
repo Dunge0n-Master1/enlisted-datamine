@@ -1,20 +1,19 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { colPart } = require("%enlSqGlob/ui/designConst.nut")
 let { mkHorScrollMask } = require("%enlSqGlob/ui/gradients.nut")
 
 
 const GLARE_TRIGGER = "start_glare_animation"
 
-let glareImg = mkHorScrollMask(colPart(2), [colPart(1.8), colPart(0.1)])
-let glareMask = mkHorScrollMask(colPart(4), [0,colPart(4)])
+let glareImg = mkHorScrollMask(hdpxi(124), [hdpxi(112), hdpxi(6)])
+let glareMask = mkHorScrollMask(hdpxi(248), [0, hdpxi(248)])
 
 let startGlareAnim = @() anim_start(GLARE_TRIGGER)
 
 
 let GLARE_PARAMS = {
-  nestWidth = colPart(4)
-  glareWidth = colPart(1.5)
+  nestWidth = hdpxi(248)
+  glareWidth = hdpxi(92)
   glareDuration = 0.5
   glareDelay = 2
   glareOpacity = 0.3

@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let spinner = require("%ui/components/spinner.nut")
 let { WindowTransparent } = require("%ui/style/colors.nut")
 let { noteTextArea } = require("%enlSqGlob/ui/defcomps.nut")
@@ -26,7 +26,7 @@ let btnStyle = {
 
 let defaultSize = [hdpx(432), hdpx(324)]
 let replayWndClose = @() removeModalWindow(WND_UID)
-let defTxtStyle = { color = titleTxtColor }.__update(body_txt)
+let defTxtStyle = { color = titleTxtColor }.__update(fontBody)
 
 let closeButton = Bordered(loc("replay/Close"), replayWndClose, btnStyle)
 

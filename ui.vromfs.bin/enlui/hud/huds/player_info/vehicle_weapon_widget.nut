@@ -2,7 +2,7 @@ import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
 let {get_sync_time} = require("net")
-let {sub_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontSub} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {SELECTION_BORDER_COLOR} = require("%ui/hud/style.nut")
 let { blurBack } = require("style.nut")
 let iconWidget = require("%ui/components/icon3d.nut")
@@ -18,7 +18,7 @@ let function itemAppearing(duration=0.2) {
   return {prop=AnimProp.opacity, from=0, to=1, duration=duration, play=true, easing=InOutCubic}
 }
 let wWidth = hdpx(280)
-let aHgt = calc_str_box("A", sub_txt)[1]*2 //we want to be sure that weapon name and icon could be displayed without big overlapping
+let aHgt = calc_str_box("A", fontSub)[1]*2 //we want to be sure that weapon name and icon could be displayed without big overlapping
 let wHeight = max(aHgt+hdpx(2), hdpx(40))
 
 
@@ -47,7 +47,7 @@ let function weaponId(weapon, turretsAmmo, params={width=flex() height=wHeight})
           fontFxColor = Color(0,0,0,30)
           key = name
           color = weapon?.isCurrent ? curColor : color
-        }.__update(sub_txt)
+        }.__update(fontSub)
       }
     }
   }

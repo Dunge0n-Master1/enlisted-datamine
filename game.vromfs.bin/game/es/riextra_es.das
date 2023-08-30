@@ -7,6 +7,19 @@ require DagorMath
 require DagorSystem
 require Dacoll
 
+[es(on_event=EventRiExtraDestroyed, REQUIRE=(riExtraAuthority, rendinstDestrHasNextRes))]
+def riextra_next_res_create_es(evt : Event;
+                               ri_extra : RiExtraComponent;
+                               transform : float3x4)
+  if riex_isRiGenExtraValid(ri_extra.handle)
+    let poolId = handle_to_ri_type(ri_extra.handle)
+    let nextResId = rendinst_getRIExtraNextResIdx(int(poolId))
+    if nextResId < 0
+      return
+    let nextResName = riex_getRIGenExtraName(uint(nextResId))
+    createEntity("net_rendinst") <| $(var init : ComponentsInitializer)
+      set(init, "transform", transform)
+      set(init, "ri_extra__name", nextResName)
 
 [es(before=(rendinst_axis_state_es, rendinst_move_es), on_appear, on_event=EventRendinstsLoaded)]
 def riextra_create_es(evt : Event;

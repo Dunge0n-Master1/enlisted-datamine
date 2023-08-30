@@ -4,13 +4,14 @@ let {mkOnlineSaveData} = require("%enlSqGlob/mkOnlineSaveData.nut")
 let { squadLeaderState, isInSquad, isSquadLeader } = require("%enlist/squad/squadState.nut")
 let { unlockedCampaigns, visibleCampaigns, lockedProgressCampaigns } = require("campaigns.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
+let { nestWatched } = require("%dngscripts/globalState.nut")
 
 
 let curCampaignStorage = mkOnlineSaveData("curCampaign")
 let setCurCampaign = curCampaignStorage.setValue
 let curCampaignStored = curCampaignStorage.watch
-let roomCampaign = mkWatched(persist, "roomCampaign", null)
-let campaignOverride = mkWatched(persist, "campaignOverride", []) //squad leader campaign still will be more important
+let roomCampaign = nestWatched("roomCampaign", null)
+let campaignOverride = nestWatched("campaignOverride", []) //squad leader campaign still will be more important
 let topCampaignOverride = Computed(@() campaignOverride.value?[campaignOverride.value.len() - 1].campaign)
 
 let selectedCampaign = Computed(function() {

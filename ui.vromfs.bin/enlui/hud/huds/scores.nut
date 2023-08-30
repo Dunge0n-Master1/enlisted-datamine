@@ -1,7 +1,7 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { TEAM_UNASSIGNED, FIRST_GAME_TEAM } = require("team")
 let { teams } = require("%ui/hud/state/teams.nut")
 let { lightgray } = require("%ui/components/std.nut")
@@ -47,7 +47,7 @@ let function getScoresTeams() {
 let titleText = {
   size = [flex(), SIZE_TO_CONTENT]
   rendObj = ROBJ_TEXT
-}.__update(body_txt)
+}.__update(fontBody)
 
 let zoneParams = {
   customBack = @(_v) null
@@ -120,7 +120,7 @@ let hintTextFunc = @(text) {
   rendObj = ROBJ_TEXT
   text
   color = DEFAULT_TEXT_COLOR
-}.__update(body_txt)
+}.__update(fontBody)
 
 let function makeHintRow(hotkeys, text) {
   return {

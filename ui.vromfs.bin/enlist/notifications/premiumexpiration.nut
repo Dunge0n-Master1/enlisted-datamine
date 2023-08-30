@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let canDisplayOffers = require("%enlist/canDisplayOffers.nut")
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let { TIME_DAY_IN_SECONDS, secondsToHoursLoc, TIME_HOUR_IN_SECONDS
@@ -48,7 +48,7 @@ let function showExpiringWarn() {
       behavior = Behaviors.TextArea
       halign = ALIGN_CENTER
       text = timeText.value
-    }.__update(body_txt)
+    }.__update(fontBody)
     buttons = [
       {
         text = loc("Ok")

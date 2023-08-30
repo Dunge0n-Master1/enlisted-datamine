@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let loginCb = require("%enlist/login/login_cb.nut")
 let auth = require("auth")
-let user = require("%xboxLib/impl/user.nut")
+let user = require("%xboxLib/user.nut")
 let privileges = require("%xboxLib/impl/privileges.nut")
 let { xbox_login } = require("%enlist/xbox/login.nut")
 
@@ -11,8 +11,8 @@ let { xbox_login } = require("%enlist/xbox/login.nut")
 let function init_user(state, cb) {
   let login_function =
     (state.params?.xuid != null)
-    ? user.init_default_user
-    : user.init_user_with_ui
+    ? user.init_default
+    : user.init_with_ui
 
   login_function(function(xuid) {
     if (xuid > 0)
@@ -55,7 +55,7 @@ let function check_priveleges(_state, cb) {
 }
 
 let function onInterrupt(state) {
-  user.shutdown_user()
+  user.shutdown()
   loginCb.onInterrupt(state)
 }
 

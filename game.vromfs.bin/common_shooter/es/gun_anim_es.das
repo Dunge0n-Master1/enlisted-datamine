@@ -6,11 +6,13 @@ require common_shooter.es.gun_anim_common
 require daslib/enum_trait
 require enlisted.events_enlisted
 require common_shooter.es.human.human_reload_common
+require common_shooter.es.human.gun_reload_common
 
 [es(on_appear)]
 def gun_anim_init_es(evt : Event;
                      var phys_vars : PhysVars&;
                      var gun_anim__boltActionVarId : int&;
+                     var gun_anim__reloadStateId : int&;
                      var gun_anim__reloadVarId : int&;
                      var gun_anim__singleReloadVarId : int&;
                      var gun_anim__reloadStyleVarId : int&;
@@ -22,11 +24,13 @@ def gun_anim_init_es(evt : Event;
                      var gun_anim__weapModStateVarId : int&;
                      var gun_anim__singleReloadStates : IntList;
                      var gun_anim__reloadStyles : IntList;
+                     var gun_anim__reloadStates : IntList;
                      var gun_anim__weapModStates : IntList)
   gun_anim__boltActionVarId = registerVar(phys_vars, "bolt_action", 0.f)
   gun_anim__reloadVarId = registerVar(phys_vars, "reload_progress", 0.f)
   gun_anim__singleReloadVarId = registerVar(phys_vars, "single_reload_progress", 0.f)
   gun_anim__reloadStyleVarId = registerVar(phys_vars, "reload_style", 0.f)
+  gun_anim__reloadStateId = registerVar(phys_vars, "reload_state", 0.f)
   gun_anim__singleReloadStateVarId = registerVar(phys_vars, "single_reload_state", 0.f)
   gun_anim__haveProjectileInChamberVarId = registerVar(phys_vars, "have_projectile_in_chamber", 0.f)
   gun_anim__curNumAmmoVarId = registerVar(phys_vars, "cur_num_ammo", 0.f)
@@ -48,6 +52,11 @@ def gun_anim_init_es(evt : Event;
   for i in range(length(reloadStylesEnum))
     gun_anim__reloadStyles[i] = animV20_get_enum_value_by_name(reloadStylesEnum[i])
 
+  let reload_state_count = typeinfo(enum_length type<GunReloadState>)
+  resize(gun_anim__reloadStates, reload_state_count)
+  for i in range(length(GUN_RELOAD_STATE_NAMES))
+    gun_anim__reloadStates[i] = animV20_get_enum_value_by_name(GUN_RELOAD_STATE_NAMES[i])
+
   let weap_mode_count = typeinfo(enum_length type<GunWeapModState>)
   resize(gun_anim__weapModStates, weap_mode_count)
   for weap_mode in gun_anim__weapModStates
@@ -64,6 +73,7 @@ def  gun_anim_updater_es(info : ParallelUpdateFrameDelayed&;
                          gun_anim__reloadVarId : int;
                          gun_anim__singleReloadVarId : int;
                          gun_anim__reloadStyleVarId : int;
+                         gun_anim__reloadStateId : int;
                          gun_anim__singleReloadStateVarId : int;
                          gun_anim__haveProjectileInChamberVarId : int;
                          gun_anim__curNumAmmoVarId : int;
@@ -72,8 +82,10 @@ def  gun_anim_updater_es(info : ParallelUpdateFrameDelayed&;
                          gun_anim__weapModStateVarId : int;
                          gun_anim__singleReloadStates : IntList;
                          gun_anim__reloadStyles : IntList;
+                         gun_anim__reloadStates : IntList;
                          gun_anim__weapModStates : IntList;
                          gun : Gun const?;
+                         gun_reload__state : int = 0;
                          gun__ammo : int = 0;
                          visual_magazine_fullness__ammoCount : int = -1;
                          gun_anim__reloadProgress : float = -1.0f;
@@ -100,15 +112,17 @@ def  gun_anim_updater_es(info : ParallelUpdateFrameDelayed&;
     setVar(phys_vars, gun_anim__boltActionVarId, *gun |> gun_lerpBoltActionTime(info.curTime))
     setVar(phys_vars, gun_anim__haveProjectileInChamberVarId, (gun__showChamberedAmmo && gun.curState.loaded) ? 1.f : 0.f)
 
-  let reloadStateEnum = gun_anim__singleReloadStates[gun_anim__singleReloadState]
+  let singleReloadStateEnum = gun_anim__singleReloadStates[gun_anim__singleReloadState]
   let reloadStyleEnum = gun_anim__reloadStyles[gun_anim__reloadStyle]
+  let reloadStateEnum = gun_anim__reloadStates[gun_reload__state]
 
   setVar(phys_vars, gun_anim__weapModStateVarId, float(gun_anim__weapModStates[gun_anim__weapModState]))
   setVar(phys_vars, gun_anim__isSecondMagVarId, gun__isDualMagReady ? 0.f : 1.f)
   setVar(phys_vars, gun_anim__reloadVarId, gun_anim__reloadProgress)
   setVar(phys_vars, gun_anim__singleReloadVarId, gun_anim__singleReloadProgress)
-  setVar(phys_vars, gun_anim__singleReloadStateVarId, float(reloadStateEnum))
+  setVar(phys_vars, gun_anim__singleReloadStateVarId, float(singleReloadStateEnum))
   setVar(phys_vars, gun_anim__reloadStyleVarId, float(reloadStyleEnum))
+  setVar(phys_vars, gun_anim__reloadStateId, float(reloadStateEnum))
 
   setVar(phys_vars, gun_anim__curNumAmmoVarId, visual_magazine_fullness__ammoCount >= 0 ? float(visual_magazine_fullness__ammoCount) : float(gun__ammo))
   setVar(phys_vars, gun_anim__haveOpticsVarId, gun__opticsAttached ? 1.f : 0.f)

@@ -4,9 +4,12 @@ us_m4a2_sherman_1944{
 
 us_m4a2_sherman_1944_common{
   _extends:t="base_m4a2_sherman_1944"
-  item__iconOffset:p2=0.0, 0.15
   commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
   gunner_cam_limit__useCockpitDir:b=yes
+  item__iconOffset:p2=0.03, 0.18
+  item__iconScale:r=1.3
+  armorThicknessHull:p3=63.0, 38.0, 38.0
+  armorThicknessTurret:p3=76.0, 51.0, 51.0
 
   "turrets__initAmmoDistribution:array"{
 
@@ -24,19 +27,6 @@ us_m4a2_sherman_1944_common{
       slot:i=4
       count:i=7
     }
-  }
-
-  "bullet_holes__ignoreCollisionNodes:array"{
-    _tags:t="render"
-  }
-
-  "bullet_holes__movingCollisionNodes:array"{
-    _tags:t="render"
-    movingCollisionNodes:t="cls_turret_01"
-    movingCollisionNodes:t="turret_front"
-    movingCollisionNodes:t="turret_side"
-    movingCollisionNodes:t="gun_mask"
-    movingCollisionNodes:t="gun_mask_01"
   }
 
   "vehicle_seats__seats:shared:array"{
@@ -231,6 +221,13 @@ us_m4a2_sherman_1944_commander_cockpit{
   "cockpit__slitZoomTime:list<r>"{
     slit:r=0.0
   }
+
+  "cockpit__slitTemplates:list<t>"{
+    slit:t="default_periscope"
+  }
+
+  "cockpit__slitEids:list<eid>"{
+  }
 }
 
 us_m4a2_sherman_1944_gunner_cockpit{
@@ -299,6 +296,7 @@ us_m4a2_sherman_1944_gunner_cockpit{
 
   "cockpit__slitTemplates:list<t>"{
     slit:t="us_m70f"
+    slit:t="default_periscope"
   }
 
   "cockpit__slitEids:list<eid>"{

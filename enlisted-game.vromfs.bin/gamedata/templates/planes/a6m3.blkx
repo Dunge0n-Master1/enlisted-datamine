@@ -11,11 +11,11 @@ a6m3{
       seatOwnsEntityControl:b=yes
       attachNode:t="pilot1"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, -0.15]]
+      attachTm:m=[[0.999713, 0.0174501, 0.0] [-0.0174506, 0.999746, 0.0] [0.0, 0.0, 0.999971] [-0.21, 0.07, -0.13]]
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="pilot_dm"
       cameraNodeName:t=""
-      cameraOffset:p3=-0.875, 0.79, -0.032
+      cameraOffset:p3=-1.05, 0.79, -0.032
       cockpitTemplate:t="a6m3_driver_cockpit"
       roomSpace:i=0
 
@@ -26,6 +26,7 @@ a6m3{
         turret:t="turret_04"
         turret:t="turret_05"
         turret:t="turret_06"
+        turret:t="turret_07"
       }
 
       "cockpitEffectors:object"{
@@ -40,6 +41,7 @@ a6m3{
   "turret_control__emitterNodes:shared:array"{
     node:t="bomb1"
     node:t="bomb2"
+    node:t="drop_fueltank"
     node:t="flare1"
     node:t="flare2"
     node:t="flare3"
@@ -77,6 +79,11 @@ a6m3{
       curYawParamName:t="weapon_06_yaw"
       curPitchParamName:t="weapon_06_pitch"
     }
+
+    "vars:object"{
+      curYawParamName:t="weapon_07_yaw"
+      curPitchParamName:t="weapon_07_pitch"
+    }
   }
 
   "turret_control__turretInfo:shared:array"{
@@ -97,27 +104,34 @@ a6m3{
 
     "turretInfo:object"{
       turretName:t="turret_03"
-      turretGroup:t="main_turrets"
-      trigger:t="machine_guns"
-      gun:t="planegun_a6m3_7_7mm_type97_01"
+      turretGroup:t="bomb_turrets"
+      trigger:t="bombs"
+      gun:t="planegun_a6m3_330_liters_a_6m_launcher_01"
     }
 
     "turretInfo:object"{
       turretName:t="turret_04"
       turretGroup:t="main_turrets"
       trigger:t="machine_guns"
-      gun:t="planegun_a6m3_7_7mm_type97_02"
+      gun:t="planegun_a6m3_7_7mm_type97_01"
     }
 
     "turretInfo:object"{
       turretName:t="turret_05"
+      turretGroup:t="main_turrets"
+      trigger:t="machine_guns"
+      gun:t="planegun_a6m3_7_7mm_type97_02"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_06"
       turretGroup:t="cannon_turrets"
       trigger:t="cannons"
       gun:t="planegun_a6m3_20mm_type99_01"
     }
 
     "turretInfo:object"{
-      turretName:t="turret_06"
+      turretName:t="turret_07"
       turretGroup:t="cannon_turrets"
       trigger:t="cannons"
       gun:t="planegun_a6m3_20mm_type99_02"
@@ -127,6 +141,7 @@ a6m3{
   "turret_gun_flash_fx__flashNodes:shared:array"{
     node:t="bomb1"
     node:t="bomb2"
+    node:t="drop_fueltank"
     node:t="flare1"
     node:t="flare2"
     node:t="flare3"
@@ -136,6 +151,7 @@ a6m3{
   "turret_gun_flash_fx__flashFx:shared:array"{
     fx:t=""
     fx:t=""
+    fx:t=""
     fx:t="muzzle_air_8mm"
     fx:t="muzzle_air_8mm"
     fx:t="muzzle_air_20mm"
@@ -143,6 +159,7 @@ a6m3{
   }
 
   "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
     scale:r=1.0
     scale:r=1.0
     scale:r=1.0
@@ -328,6 +345,42 @@ base_a6m3_20mm_type99{
   }
 }
 
+base_a6m3_330_liters_a_6m_launcher{
+  item__name:t="guns/jp_330_liters_a6m"
+  gun__blk:t="gamedata/weapons/a6m3/330_liters_a_6m_launcher.blk"
+  gun__shotFreq:r=10.0
+  gun__locName:t="jp_330_liters_a6m"
+  gun__shootNodeName:t="bone_mg_gun_twin"
+  gun__maxAmmo:i=1
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="manual"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="bolt_action"
+  }
+
+  "gun__shellsAmmo:array"{
+    ammo:i=1
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "default:array"{
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/330_liters_a_6m.blk"
+        name:t="330_liters_a_6m"
+        type:t="he_frag_tank"
+      }
+    }
+  }
+}
+
 planegun_a6m3_navy_type_97mod_6_60kg_launcher_01{
   _extends:t="navy_type_97mod_6_60kg_launcher"
   _extends:t="base_a6m3_navy_type_97mod_6_60kg_launcher"
@@ -343,6 +396,14 @@ planegun_a6m3_navy_type_97mod_6_60kg_launcher_02{
   _extends:t="gunsound_navy_type_97mod_6_60kg_launcher_aircraft"
   gun__shootNodeName:t="bomb2"
   slot_attach__slotName:t="bomb2"
+  gun__maxAmmo:i=1
+}
+
+planegun_a6m3_330_liters_a_6m_launcher_01{
+  _extends:t="330_liters_a_6m_launcher"
+  _extends:t="base_a6m3_330_liters_a_6m_launcher"
+  gun__shootNodeName:t="drop_fueltank"
+  slot_attach__slotName:t="drop_fueltank"
   gun__maxAmmo:i=1
 }
 
@@ -384,10 +445,30 @@ planegun_a6m3_20mm_type99_02{
 
 a6m3_driver_cockpit{
   _extends:t="base_plane_cockpit"
-  cockpit__offset:p3=0.25, 0.0, 0.0
+  cockpit__offset:p3=0.0, 0.0, 0.0
   cockpit__angles:p3=0.0, 0.0, 0.0
   cockpit__scale:p3=1.0, 1.0, 1.0
   animchar__res:t="a6m3_cockpit_char"
   plane_anim__blk:t="gamedata/units/a6m3.blk"
   plane_sight__blk:t="gamedata/units/a6m3.blk"
+
+  "move_cockpit_node__nodeName:list<t>"{
+    node:t="stick_rhand_1"
+    node:t="throttle_lhand_1"
+  }
+
+  "move_cockpit_node__nodeId:list<i>"{
+    nodeId:i=-1
+    nodeId:i=-1
+  }
+
+  "move_cockpit_node__offset:list<p3>"{
+    item:p3=0.006, 0.0305, 0.003
+    item:p3=0.0075, -0.006, -0.0075
+  }
+
+  "move_cockpit_node__rotation:list<p2>"{
+    item:p2=6.9, 18.9
+    item:p2=-26.1, 8.5
+  }
 }

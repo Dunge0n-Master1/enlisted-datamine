@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 //let faComp = require("%ui/components/faComp.nut")
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { smallOffset,
   tinyOffset, accentTitleTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
@@ -20,7 +20,7 @@ let mkRowText = @(text, color) {
   rendObj = ROBJ_TEXT
   text
   color
-}.__update(sub_txt)
+}.__update(fontSub)
 
 let userLogStyle = {
   size = [flex(), SIZE_TO_CONTENT]
@@ -52,11 +52,11 @@ let mkUserLogHeader = @(_isSelected, logTime, logText, sf) {
       text = logText
       size = [flex(), SIZE_TO_CONTENT]
       color = sf & S_HOVER ? darkTxtColor : accentTitleTxtColor
-    }).__update(sub_txt)
+    }).__update(fontSub)
     txt({
       text = format_unix_time(logTime).replace("T", " ").replace("Z", "")
       color = sf & S_HOVER ? darkTxtColor : defTxtColor
-    }).__update(sub_txt)
+    }).__update(fontSub)
   ]
 }
 

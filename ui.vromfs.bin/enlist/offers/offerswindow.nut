@@ -8,7 +8,7 @@ let activatePremiumBttn = require("%enlist/shop/activatePremiumBtn.nut")
 let buyShopItem = require("%enlist/shop/buyShopItem.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { secondsToHoursLoc } = require("%ui/helpers/time.nut")
-let { sub_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
 let { Bordered, FAButton, Purchase } = require("%ui/components/textButton.nut")
@@ -94,11 +94,11 @@ let function mkShopItemSquads(squads, shopItem) {
           txt({
             text = loc("listWithDot", { text = $"{campaign} {name}" })
             color = sf & S_HOVER ? activeTxtColor : defTxtColor
-          }).__update(sub_txt)
+          }).__update(fontSub)
           txt({
             text = loc("btn/view")
             color = sf & S_HOVER ? defTxtColor : fadedTxtColor
-          }).__update(sub_txt)
+          }).__update(fontSub)
         ]
       })
     })
@@ -120,7 +120,7 @@ let mkOfferDesc = @(descLocId, params = {}) descLocId == "" ? null
       size = [flex(), SIZE_TO_CONTENT]
       color = activeTxtColor
       text = loc(descLocId, params)
-    }.__update(sub_txt)
+    }.__update(fontSub)
 
 let function mkOfferShopItem(personalOffer, shopItem, ownSquads) {
   let { descLocId = "" } = personalOffer
@@ -178,7 +178,10 @@ let function mkOfferShopItem(personalOffer, shopItem, ownSquads) {
               productView = mkProductView(shopItem, allItemTemplates)
               pOfferGuid = personalOffer?.guid
             }),
-            { hplace = ALIGN_RIGHT }
+            {
+              hplace = ALIGN_RIGHT
+              hotkeys = [[$"^J:X | Enter"]]
+            }
           )
         ]
       }
@@ -196,7 +199,7 @@ let mkOfferLifetimeInfo = @(lifeTime) {
   text = loc("specialOfferInfo", { timeInfo = secondsToHoursLoc(lifeTime) })
   margin = smallPadding
   color = defTxtColor
-}.__update(sub_txt)
+}.__update(fontSub)
 
 let function curOfferUi() {
   let offer = visibleOffersInWindow.value?[curOfferIdx.value]
@@ -223,7 +226,7 @@ let function curOfferUi() {
                   rendObj = ROBJ_TEXT
                   text = utf8ToUpper(loc("specialOfferHeader"))
                   padding = [fsh(2), fsh(3)]
-                }.__update(body_txt), primeFlagStyle)
+                }.__update(fontBody), primeFlagStyle)
                 {
                   size = [flex(), SIZE_TO_CONTENT]
                   flow = FLOW_VERTICAL

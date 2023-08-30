@@ -13,6 +13,19 @@ import:t="effects_vehicle_muzzle.blk"
 import:t="effects_includes/effects_trails.blk"
 import:t="%danetlibs/renderer/templates/effects.template.blk"
 
+global_fx_info{
+  _singleton:b=yes
+  _tags:t="render"
+  global_fx__target:i=0
+  global_fx__riColorSaturationMult:r=0.5
+  global_fx__riColorSaturationInc:r=0.5
+  global_fx__riColorValueMult:r=0.5
+  global_fx__riColorValueInc:r=0.5
+
+  "global_fx__rendinstColors:list<p4>"{
+  }
+}
+
 level_effect{
   _extends:t="sound_control"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
@@ -38,6 +51,7 @@ level_effect{
 base_effect{
   _extends:t="replicating"
   _extends:t="sound_control"
+  _extends:t="ecs_no_debug"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 
   effect{
@@ -55,7 +69,7 @@ base_effect{
   }
 }
 
-effect_light_restriction{
+effect_light_restriction_no_fx{
   _extends:t="replicating"
   effect__box:m=[[0.0, 0.0, 0.0] [0.0, 0.0, 0.0] [0.0, 0.0, 0.0] [0.0, 0.0, 0.0]]
   effect__use_box:b=yes
@@ -63,6 +77,10 @@ effect_light_restriction{
   _tracked:t="effect__box"
   _tracked:t="effect__use_box"
   _tracked:t="effect__automatic_box"
+}
+
+effect_light_restriction{
+  _extends:t="effect_light_restriction_no_fx"
 
   effect{
     _tags:t="render"
@@ -80,10 +98,10 @@ burst_fx_base{
   }
 }
 
-bonfire_effect_no_occluders{
+bonfire_effect_no_occluders_no_fx{
   _extends:t="replicating"
   _extends:t="sound_control"
-  _extends:t="effect_light_restriction"
+  _extends:t="effect_light_restriction_no_fx"
   _extends:t="damage_zone_obstacle_base"
   dmgzone__teamToDamage:i=-1
   dmgzone__damage:r=1.0
@@ -93,10 +111,6 @@ bonfire_effect_no_occluders{
   dm__damageTypeId:i=-1
   sphere_zone__radius:r=0.55
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-
-  effect{
-    _tags:t="render"
-  }
 
   _group{
     _tags:t="render"
@@ -115,6 +129,22 @@ bonfire_effect_no_occluders{
   }
 
   "staticEffect:tag"{
+  }
+}
+
+bonfire_effect_no_occluders{
+  _extends:t="bonfire_effect_no_occluders_no_fx"
+  _extends:t="effect_light_restriction"
+
+  effect{
+    _tags:t="render"
+  }
+}
+
+fire_effect_additive{
+
+  effect{
+    _tags:t="render"
   }
 }
 
@@ -572,7 +602,7 @@ dafx_rain{
     _tags:t="render"
     effect__offset:p3=0.0, -4.0, 0.0
 
-    "water_droplets_node:dabfg::NodeHandle"{
+    "needsWaterDroplets:tag"{
     }
   }
 
@@ -685,7 +715,7 @@ metaball_system{
     metaball_system__isTrans:b=yes
     metaball_system__aggressiveMode:b=no
     metaball_system__loweringLevel:r=0.0
-    metaball_system__aggresiveTriggerDistance:r=5.0
+    metaball_system__aggressiveTriggerDistance:r=5.0
 
     "metaball_system__balls:array"{
     }
@@ -708,6 +738,10 @@ projectors_manager{
   projectors_manager__noiseStrength:r=0.0
 
   projectors_manager{
+    _tags:t="render"
+  }
+
+  "projectors_node:dabfg::NodeHandle"{
     _tags:t="render"
   }
 }
@@ -1005,6 +1039,8 @@ gpu_object_placer{
     gpu_object_placer__filled:b=no
     gpu_object_placer__buffer_offset:i=-1
     gpu_object_placer__buffer_size:i=-1
+    gpu_object_placer__on_rendinst_geometry_count:i=0
+    gpu_object_placer__on_terrain_geometry_count:i=0
     gpu_object_placer__show_geometry:b=no
     gpu_object_placer__place_on_geometry:b=yes
     gpu_object_placer__min_gathered_triangle_size:r=0.1
@@ -1014,6 +1050,43 @@ gpu_object_placer{
 
 gpu_object_placer_box{
   _extends:t="gpu_object_placer"
+  _extends:t="replicating"
+
+  "ri_preload:GpuObjectRiResourcePreload"{
+    _tags:t="render"
+  }
+
+  "box_zone:tag"{
+  }
+}
+
+gpu_object_placer_liane_f{
+  _extends:t="gpu_object_placer"
+  _extends:t="replicating"
+  ri_gpu_object__name:t="tree_liane_f"
+
+  "ri_preload:GpuObjectRiResourcePreload"{
+    _tags:t="render"
+  }
+
+  _group{
+    gpu_object_placer__object_scale_range:p2=0.5, 1.0
+    gpu_object_placer__min_gathered_triangle_size:r=0.1
+    _tags:t="render"
+  }
+
+  "box_zone:tag"{
+  }
+}
+
+gpu_object_placer_stone{
+  _extends:t="gpu_object_placer"
+  _extends:t="replicating"
+  ri_gpu_object__name:t="earthen_eroded_stone_small_a"
+
+  "ri_preload:GpuObjectRiResourcePreload"{
+    _tags:t="render"
+  }
 
   "box_zone:tag"{
   }
@@ -1238,12 +1311,13 @@ turret_gun_flash_effect_base{
 
   _group{
     _tags:t="render"
-    gun_flash_fx__nodeId:i=-1
+    gun_fx__nodeId:i=-1
+    gun_fx__nodeMultTm:m=[[0.0, 1.0, 0.0] [1.0, 0.0, 0.0] [0.0, 0.0, -1.0] [0.0, 0.0, 0.0]]
 
     effect{
     }
 
-    "gun_flash_fx__gunEid:eid"{
+    "gun_fx__gunEid:eid"{
     }
   }
 
@@ -1527,6 +1601,7 @@ globe_entity{
 }
 
 hit_fx_readback_info{
+  _extends:t="ecs_no_debug"
   biome_color_query_id:i=-1
   live_frames:i=10
   biome_color:p4=1.0, 1.0, 1.0, 0.5
@@ -1665,28 +1740,40 @@ chimney_exhaust{
   }
 }
 
-base_gun_flash_unattached_fx{
+base_gun_unattached_fx{
   _extends:t="ecs_no_debug"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 
   _group{
     _tags:t="render"
     effect__name:t="muzzle_flash"
-    gun_flash_fx__nodeId:i=-1
+    gun_fx__nodeId:i=-1
 
     effect{
     }
 
-    "gun_flash_fx__gunEid:eid"{
+    "gun_fx__gunEid:eid"{
     }
+  }
+}
+
+base_gun_flash_fx{
+  _extends:t="base_gun_unattached_fx"
+
+  "attachedEffect:tag"{
   }
 
   "autodeleteEffectEntity:tag"{
   }
 }
 
-base_gun_flash_fx{
-  _extends:t="base_gun_flash_unattached_fx"
+base_gun_smoke_fx{
+  _extends:t="base_gun_unattached_fx"
+  _tracked:t="effect__colorMult"
+  effect__colorMult:c=255, 255, 255, 255
+
+  "gun_fx__destroyIfGunDoesNotExist:tag"{
+  }
 
   "attachedEffect:tag"{
   }
@@ -1723,6 +1810,10 @@ falling_weather_effect_template{
   }
 
   effect{
+    _tags:t="render"
+  }
+
+  "request_depth_above_render_transparent:tag"{
     _tags:t="render"
   }
 }
@@ -1842,6 +1933,21 @@ camera_storm_green_template{
   _group{
     _tags:t="render"
     effect__name:t="camera_storm_green_cmps_fx"
+  }
+}
+
+camera_underwater_template{
+  _extends:t="dafx_dust"
+  editableObj:b=no
+
+  effect{
+    _tags:t="render"
+  }
+
+  _group{
+    _tags:t="render"
+    effect__offset:p3=0.0, 0.02, 0.0
+    effect__name:t="camera_underwater_cmps_fx"
   }
 }
 

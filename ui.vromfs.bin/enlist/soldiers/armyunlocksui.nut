@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let fontIconButton = require("%ui/components/fontIconButton.nut")
 let { PrimaryFlat, Purchase } = require("%ui/components/textButton.nut")
 let { openUnlockSquadScene } = require("unlockSquadScene.nut")
@@ -51,7 +51,7 @@ let { CAMPAIGN_NONE, needFreemiumStatus, isCampaignBought,
   disableArmyExp, campPresentation } = require("%enlist/campaigns/campaignConfig.nut")
 let { mkDiscountWidget } = require("%enlist/shop/currencyComp.nut")
 let { isSquadRented } = require("%enlist/soldiers/model/squadInfoState.nut")
-let { colPart, bigPadding, contentOffset } = require("%enlSqGlob/ui/designConst.nut")
+let { bigPadding, contentOffset } = require("%enlSqGlob/ui/designConst.nut")
 
 
 let tblScrollHandler = ScrollHandler()
@@ -197,7 +197,7 @@ let emptyLevelUnlock = {
     text = loc("willBeAvailableSoon")
     hplace = ALIGN_CENTER
     vplace = ALIGN_CENTER
-  }.__update(body_txt)))
+  }.__update(fontBody)))
 }
 
 let mkSquadBlockByUnlock = @(unlock, armyData) function() {
@@ -366,12 +366,12 @@ let progressTxt = @(leftTxt = "", rightTxt = ""){
     {
       rendObj = ROBJ_TEXT
       text = leftTxt
-    }.__update(body_txt, shadowStyle)
+    }.__update(fontBody, shadowStyle)
     {
       rendObj = ROBJ_TEXT
       hplace = ALIGN_RIGHT
       text = rightTxt
-    }.__update(body_txt, shadowStyle)
+    }.__update(fontBody, shadowStyle)
   ]
 }
 
@@ -496,7 +496,7 @@ let noArmyUnlocks = freeze({
     vplace = ALIGN_CENTER
     hplace = ALIGN_CENTER
     text = loc("willBeAvailableSoon")
-  }.__update(body_txt)
+  }.__update(fontBody)
 })
 
 let isBtnArrowLeftVisible = Watched(false)
@@ -576,7 +576,7 @@ let function topBlock() {
   return {
     watch = [curCampaign, lockedProgressCampaigns]
     size = flex()
-    pos = unlockList == null ? [0, -colPart(0.65)] : null
+    pos = unlockList == null ? [0, -hdpx(40)] : null
     halign = ALIGN_RIGHT
     children = unlockList == null ? null : mkUnlockCampaignBlock(unlockList)
   }
@@ -589,7 +589,7 @@ let unlocksProgressBlock = @() {
   children = [
     makeHorizScroll({
       xmbNode = XmbContainer({
-        canFocus = @() false
+        canFocus = false
         scrollSpeed = 10.0
         isViewport = true
       })

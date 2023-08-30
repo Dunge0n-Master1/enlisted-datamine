@@ -52,6 +52,13 @@ def abandon_shot_loop(var sound_event : SoundEvent&; turret__owner : EntityId)
     abandon(sound_event.handle)
 
 
+def get_smid_from_gun_owner(gun__owner : EntityId) : float
+  var smid = 0.
+  query(gun__owner) <| $ [es] (human_steps_sound__smid : float)
+    smid = human_steps_sound__smid
+  return smid
+
+
 def on_launch(tm : float3x4;
               firing_mode : uint;
               gun : Gun;
@@ -93,13 +100,18 @@ def on_launch(tm : float3x4;
       return
     if should_apply_watched_prefix(path)
       path = isWatched ? "player{path}" : "enemy{path}"
-    sound_player_common::play_name_path(name, path, launchPos)
+    var handle = sound_player_common::play_name_path(name, path, launchPos, false)
+    if isWatched
+      set_var(handle, "mat", get_smid_from_gun_owner(gun__owner))
+    abandon(handle)
   else
     isLoop = sound_event.handle != invalid_sound_event_handle()
     if sound_event.handle == invalid_sound_event_handle()
       sound_event.handle = try_shot_loop(turret__owner, launchPos, shot_path, tags, isWatched)
     if sound_event.handle != invalid_sound_event_handle()
       set_pos(sound_event.handle, launchPos)
+      if isWatched
+        set_var(sound_event.handle, "mat", get_smid_from_gun_owner(gun__owner))
 
   broadcastEvent([[EventOnWeaponSound pos=launchPos, isLoop=isLoop]])
   shot_loop_timeout = (time_between_shots * time_between_shots_mad.x + time_between_shots_mad.y)

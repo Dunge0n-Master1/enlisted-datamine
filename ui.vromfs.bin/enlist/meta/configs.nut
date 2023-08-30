@@ -11,7 +11,7 @@ let { set_huge_alloc_threshold } = require("dagor.memtrace")
 const DISABLE_NETWORK_CONFIG = "disable_network_config.json"
 
 if (disableNetwork) {
-  let prevSize = set_huge_alloc_threshold(6656 << 10)
+  let prevSize = set_huge_alloc_threshold(66560 << 10)
   serverConfigs(loadJson(DISABLE_NETWORK_CONFIG))
   set_huge_alloc_threshold(prevSize)
 }

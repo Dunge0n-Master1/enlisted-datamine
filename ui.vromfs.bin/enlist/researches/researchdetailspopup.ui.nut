@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h2_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { gap, bigGap, blurBgColor, blurBgFillColor, researchListTabPadding
 } = require("%enlSqGlob/ui/viewConst.nut")
 let {statusIconLocked, statusIconChosen} =  require("%enlSqGlob/ui/style/statusIcon.nut")
@@ -18,7 +18,7 @@ let statusCfg = require("researchStatuses.nut")
 
 let priceIconSize = hdpxi(30)
 let waitingSpinner = spinner(hdpx(36))
-let mkActiveText = @(text) { rendObj = ROBJ_TEXT, text }.__update(body_txt)
+let mkActiveText = @(text) { rendObj = ROBJ_TEXT, text }.__update(fontSub)
 
 
 let mkResearchDescription = @(researchDef) {
@@ -29,7 +29,7 @@ let mkResearchDescription = @(researchDef) {
   color = TextDefault
   text = loc(researchDef?.description, researchDef?.params)
   tagsTable = mkGlyphsStyle(hdpx(24))
-}.__update(body_txt)
+}.__update(fontSub)
 
 let function mkResearchPrice(researchDef) {
   let { price = 0 } = researchDef
@@ -80,7 +80,7 @@ let mkResearchFooter = @(researchDef) function() {
         text = loc("research/unlocked")
         halign = ALIGN_CENTER
         color = statusIconChosen
-      }.__update(body_txt)
+      }.__update(fontSub)
     })
 
   return res.__update({
@@ -96,7 +96,7 @@ let mkResearchFooter = @(researchDef) function() {
         behavior = Behaviors.TextArea
         text = cfg?.info
         halign = ALIGN_CENTER
-      }.__update(body_txt)
+      }.__update(fontSub)
       !cfg?.warning ? null : {
         size = [flex(), SIZE_TO_CONTENT]
         rendObj = ROBJ_TEXTAREA
@@ -104,7 +104,7 @@ let mkResearchFooter = @(researchDef) function() {
         text = cfg?.warning
         halign = ALIGN_CENTER
         color = statusIconLocked
-      }.__update(body_txt)
+      }.__update(fontSub)
       cfg?.onResearch ? (cfg?.researchPrice ?? mkResearchPrice(researchDef)) : null
       cfg?.onResearch
         ? mkResearchBtn(cfg.onResearch, cfg?.researchText ?? loc("research/researchBtnText"))
@@ -139,7 +139,7 @@ let function researchInfoView() {
         behavior = Behaviors.TextArea
         text = loc(researchDef?.name, researchDef?.params)
         tagsTable = mkGlyphsStyle(hdpx(26))
-      }.__update(h2_txt)
+      }.__update(fontHeading2)
       {
         size = flex()
         margin = [researchListTabPadding]

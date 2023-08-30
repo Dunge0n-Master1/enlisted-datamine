@@ -44,6 +44,15 @@ rendinst{
   }
 }
 
+net_rendinst{
+  _extends:t="rendinst"
+  _extends:t="replicating"
+
+  "isRendinstDestr:tag"{
+    _tags:t="render"
+  }
+}
+
 game_rendinst{
   _extends:t="rendinst"
   _extends:t="replicating"
@@ -59,6 +68,9 @@ game_rendinst{
 
   "isRendinstDestr:tag"{
     _tags:t="render"
+  }
+
+  "levelRiExtra:tag"{
   }
 
   _info{
@@ -78,6 +90,9 @@ game_rendinst_decor{
   "ri_extra__overrideHitPoints:i"{
     value:i=-2
     _info:t="ri_hit_points"
+  }
+
+  "levelRiExtra:tag"{
   }
 
   _info{
@@ -104,6 +119,9 @@ unbaked_rendinst{
 
   "isRendinstDestr:tag"{
     _tags:t="render"
+  }
+
+  "levelRiExtra:tag"{
   }
 
   _info{
@@ -171,36 +189,60 @@ target_round_a{
   _extends:t="rendinst"
   _extends:t="replicating"
   ri_extra__name:t="target_round_a"
+
+  "isRendinstDestr:tag"{
+    _tags:t="render"
+  }
 }
 
 target_round_b{
   _extends:t="rendinst"
   _extends:t="replicating"
   ri_extra__name:t="target_round_b"
+
+  "isRendinstDestr:tag"{
+    _tags:t="render"
+  }
 }
 
 target_round_c{
   _extends:t="rendinst"
   _extends:t="replicating"
   ri_extra__name:t="target_round_c"
+
+  "isRendinstDestr:tag"{
+    _tags:t="render"
+  }
 }
 
 target_silhouette_a{
   _extends:t="rendinst"
   _extends:t="replicating"
   ri_extra__name:t="target_silhouette_a"
+
+  "isRendinstDestr:tag"{
+    _tags:t="render"
+  }
 }
 
 target_silhouette_b{
   _extends:t="rendinst"
   _extends:t="replicating"
   ri_extra__name:t="target_silhouette_b"
+
+  "isRendinstDestr:tag"{
+    _tags:t="render"
+  }
 }
 
 target_silhouette_c{
   _extends:t="rendinst"
   _extends:t="replicating"
   ri_extra__name:t="target_silhouette_c"
+
+  "isRendinstDestr:tag"{
+    _tags:t="render"
+  }
 }
 
 target_tank_a{
@@ -293,6 +335,12 @@ ammunition_box_n{
   ri_extra__name:t="ammunition_box_n"
 }
 
+sample_box_1000x1000x1000{
+  _extends:t="rendinst"
+  _extends:t="replicating"
+  ri_extra__name:t="sample_box_1000x1000x1000"
+}
+
 animated_scene_rendinst{
   _extends:t="replicating"
   _extends:t="key_track_animated"
@@ -364,12 +412,12 @@ floating_rendinst_res_group{
   _group{
     _track:b=yes
     floatingRiGroup__resName:t=""
-    floatingRiGroup__inertiaMult:p3=80.0, 0.1, 80.0
+    floatingRiGroup__inertiaMult:p3=1.0, 1.0, 1.0
     floatingRiGroup__volumesCount:i=-1
     floatingRiGroup__volumePresetName:t=""
-    floatingRiGroup__spheresRad:r=0.57
     floatingRiGroup__density:r=500.0
     floatingRiGroup__densityRandRange:r=0.0
+    floatingRiGroup__useBoxInertia:b=no
   }
 
   floatingRiGroup__riPhysFloatingModel{

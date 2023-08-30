@@ -8,7 +8,7 @@ let { initGraphicsAutodetect, getGpuBenchmarkDuration, startGpuBenchmark,
 let JB = require("%ui/control/gui_buttons.nut")
 let { secondsToStringLoc } = require("%ui/helpers/time.nut")
 let { addModalWindow, removeModalWindow } = require("%ui/components/modalWindows.nut")
-let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let textButton = require("%ui/components/textButton.nut")
 let { graphicsPresetUpdate } = require("%ui/hud/menus/options/quality_preset_common.nut")
 let { get_time_msec } = require("dagor.time")
@@ -17,8 +17,8 @@ let { bigPadding, defTxtColor, titleTxtColor } = require("%enlSqGlob/ui/viewCons
 const WND_UID = "benchmark"
 const BENCHMARK_FLAG_BLK = "graphics/benchmark"
 
-let defTxtStyle = { color = titleTxtColor }.__update(body_txt)
-let descTxtStyle = { color = defTxtColor }.__update(sub_txt)
+let defTxtStyle = { color = titleTxtColor }.__update(fontBody)
+let descTxtStyle = { color = defTxtColor }.__update(fontSub)
 
 let { benchmarkWindowSeen, benchmarkWindowSeenUpdate } = globalWatched("benchmarkWindowSeen",
   @() get_setting_by_blk_path(BENCHMARK_FLAG_BLK))

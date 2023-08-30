@@ -46,7 +46,7 @@ base_fortification_build{
   building_destroy__distanceVerifyThreshold:r=1.5
   building_destroy__disassembleSound:t="env_effects/building/destroy_action"
 
-  "building__destroyable:tag"{
+  "building__canDismantle:tag"{
   }
 
   "build_attach__riexHandle:u64"{
@@ -166,7 +166,6 @@ building_tool_gun{
   item__template:t="building_tools_item"
   animchar_render__enabled:b=yes
   item__proto:t="content/enlisted/gamedata/weapons/building_tool_gun.blk"
-  item__id:i=0
   item__weapTemplate:t="building_tool_gun"
   item__iconRoll:r=43.0
   item__iconYaw:r=0.0
@@ -181,6 +180,11 @@ building_tool_gun{
   weap__sprintLerpFactor:r=1.0
   melee_weapon__attackAt:r=0.4
   melee_weapon__attackTime:r=1.0
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
 
   "gun__owner:eid"{
   }
@@ -361,7 +365,7 @@ ger_building_tool_gun{
     template:t="barbedwire_engineer_a_preview"
     template:t="sandbags_wall_2_preview"
     template:t="cannon_germ_20mm_flak38_preview"
-    template:t="cannon_germ_towed_at_pak38_preview"
+    template:t="cannon_germ_towed_at_pak40_preview"
     template:t="sandbags_wall_mg_34_preview"
     template:t="sandbags_wall_mg_131_preview"
     template:t="sandbags_wall_ampulomet_preview"
@@ -667,8 +671,12 @@ artillery_radio_base{
   isVisibleOnPhoto:b=no
   item__weapType:t="radio"
   item__weight:r=3.0
-  item__id:i=0
   device_animation__postTime:r=1.0
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
 
   "item__equipToSlots:array"{
     slot:t="radio"
@@ -692,29 +700,6 @@ feldfu_b_radio{
   item__name:t="items/feldfu_b_radio_communication_station"
 }
 
-gun_anim{
-  _tags:t="render"
-  gun_anim__boltActionVarId:i=-1
-  gun_anim__reloadVarId:i=-1
-  gun_anim__singleReloadVarId:i=-1
-  gun_anim__reloadStyleVarId:i=-1
-  gun_anim__singleReloadStateVarId:i=-1
-  gun_anim__haveProjectileInChamberVarId:i=-1
-  gun_anim__curNumAmmoVarId:i=-1
-  gun_anim__haveOpticsVarId:i=-1
-  gun_anim__isSecondMagVarId:i=-1
-  gun_anim__weapModStateVarId:i=-1
-
-  "gun_anim__singleReloadStates:list<i>"{
-  }
-
-  "gun_anim__reloadStyles:list<i>"{
-  }
-
-  "gun_anim__weapModStates:list<i>"{
-  }
-}
-
 feldfu_b_radio_gun{
   weap__sprintLerpFactor:r=0.0
   _extends:t="feldfu_b_radio"
@@ -725,14 +710,11 @@ feldfu_b_radio_gun{
   gun__propsId:i=-1
   _replicated:t="gun__propsId"
   _replicated:t="gun__owner"
-  _replicated:t="gun__holsterGen"
   _replicated:t="slot_attach__visible"
   _replicated:t="human_gun_attached"
   _replicated:t="gun__visible"
   _tracked:t="gun__owner"
   _tracked:t="gun__visible"
-  gun__prevHolsterGen:i=0
-  gun__holsterGen:i=0
   animchar__updatable:b=no
   slot_attach__visible:b=no
   gun__visible:b=yes
@@ -795,14 +777,11 @@ ussr_p13_radio_gun{
   gun__propsId:i=-1
   _replicated:t="gun__propsId"
   _replicated:t="gun__owner"
-  _replicated:t="gun__holsterGen"
   _replicated:t="slot_attach__visible"
   _replicated:t="human_gun_attached"
   _replicated:t="gun__visible"
   _tracked:t="gun__owner"
   _tracked:t="gun__visible"
-  gun__prevHolsterGen:i=0
-  gun__holsterGen:i=0
   animchar__updatable:b=no
   slot_attach__visible:b=no
   gun__visible:b=yes
@@ -865,14 +844,11 @@ scr_300_gun{
   gun__propsId:i=-1
   _replicated:t="gun__propsId"
   _replicated:t="gun__owner"
-  _replicated:t="gun__holsterGen"
   _replicated:t="slot_attach__visible"
   _replicated:t="human_gun_attached"
   _replicated:t="gun__visible"
   _tracked:t="gun__owner"
   _tracked:t="gun__visible"
-  gun__prevHolsterGen:i=0
-  gun__holsterGen:i=0
   animchar__updatable:b=no
   slot_attach__visible:b=no
   gun__visible:b=yes
@@ -935,14 +911,11 @@ type_94_6_radio_gun{
   gun__propsId:i=-1
   _replicated:t="gun__propsId"
   _replicated:t="gun__owner"
-  _replicated:t="gun__holsterGen"
   _replicated:t="slot_attach__visible"
   _replicated:t="human_gun_attached"
   _replicated:t="gun__visible"
   _tracked:t="gun__owner"
   _tracked:t="gun__visible"
-  gun__prevHolsterGen:i=0
-  gun__holsterGen:i=0
   animchar__updatable:b=no
   slot_attach__visible:b=no
   gun__visible:b=yes
@@ -955,6 +928,10 @@ type_94_6_radio_gun{
   gun_attach__mainSlotId:i=-1
   gun_attach__alternativeSlot:t="weapon"
   gun_attach__altSlotId:i=-1
+  slot_attach__posOffset:p3=0.0, 0.0, 0.0
+  slot_attach__rotTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  gun_attach__holsterPosOffset:p3=-0.045, 0.03, 0.04
+  gun_attach__holsterAnimLerpFactor:r=12.0
 
   "gun__owner:eid"{
   }
@@ -1005,14 +982,11 @@ ita_rf1_radio_gun{
   gun__propsId:i=-1
   _replicated:t="gun__propsId"
   _replicated:t="gun__owner"
-  _replicated:t="gun__holsterGen"
   _replicated:t="slot_attach__visible"
   _replicated:t="human_gun_attached"
   _replicated:t="gun__visible"
   _tracked:t="gun__owner"
   _tracked:t="gun__visible"
-  gun__prevHolsterGen:i=0
-  gun__holsterGen:i=0
   animchar__updatable:b=no
   slot_attach__visible:b=no
   gun__visible:b=yes
@@ -1054,6 +1028,10 @@ ita_rf1_radio_gun_item{
   _extends:t="item_gun"
   _extends:t="ita_rf1_radio"
   collres__res:t="ita_rf1_radio_collision"
+
+  "hideFlags:array"{
+    hideFlag:t="backpack"
+  }
 }
 
 feldfu_b_radio_gun_item{
@@ -1095,7 +1073,6 @@ shovel{
   item__template:t="shovel_item"
   item__proto:t="content/enlisted/gamedata/weapons/shovel.blk"
   item__locDetails:t="Dmg: 1hp"
-  item__id:i=0
   item__weapTemplate:t="shovel_weapon"
   item__name:t="items/shovel"
   item__weapType:t="melee"
@@ -1105,6 +1082,11 @@ shovel{
   gun__reloadable:b=no
   melee_weapon__attackTime:r=1.2
   weap__sprintLerpFactor:r=1.0
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
 }
 
 shovel_weapon{

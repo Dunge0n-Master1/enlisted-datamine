@@ -333,8 +333,6 @@ if (isContactsEnabled) {
 }
 
 return {
-  searchContactsOnline
-
   searchContactsResults
   isOnlineContactsSearchEnabled
   isContactsEnabled
@@ -345,6 +343,5 @@ return {
 
   execContactsCharAction
   isContactsVisible
-  contactBlockExtensionCtr = Watched({})
   getContactsInviteId
 }

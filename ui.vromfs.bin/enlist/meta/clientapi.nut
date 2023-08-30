@@ -244,9 +244,9 @@ return {
     params = { armyId, crates }
   }, cb)
 
-  add_squad = @(armyId, squadId) request({
+  add_squad = @(squadId) request({
     method = "add_squad"
-    params = { armyId, squadId }
+    params = { squadId }
   })
 
   remove_squad = @(squadId) request({
@@ -663,5 +663,30 @@ return {
     method = "usermail_reset_reward"
     params = {}
   }, cb)
+
+  growth_select = @(armyId, growthId) request({
+    method = "growth_select"
+    params = { armyId, growthId }
+  })
+
+  growth_select_forced = @(armyId, growthId) request({
+    method = "growth_select_forced"
+    params = { armyId, growthId }
+  })
+
+  growth_reward_take = @(armyId, growthId) request({
+    method = "growth_reward_take"
+    params = { armyId, growthId }
+  })
+
+  growth_reward_take_forced = @(armyId, growthId) request({
+    method = "growth_reward_take_forced"
+    params = { armyId, growthId }
+  })
+
+  growth_add_exp = @(armyId, growthId, exp) request({
+    method = "growth_add_exp"
+    params = { armyId, growthId, exp }
+  })
 
 }

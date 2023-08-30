@@ -25,6 +25,7 @@ aim_ruler_debug{
 
 distance_meter_debug{
   _tags:t="gameClient"
+  distance_meter__referenceTravelSpeed:r=0.0
   distance_meter__navmeshMode:b=no
   distance_meter__selectedPointIdx:i=-1
   distance_meter__traceFrom:p3=0.0, 0.0, 0.0

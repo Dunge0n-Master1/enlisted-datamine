@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h1_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading1, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { TextDefault, TextHighlight, TextHover } = require("%ui/style/colors.nut")
 let cursors = require("%ui/style/cursors.nut")
 let gamepadImgByKey = require("%ui/components/gamepadImgByKey.nut")
@@ -30,7 +30,7 @@ let function callHandler(item) {
   item?.action()
 }
 
-let height = calc_str_box("A", body_txt)[1]
+let height = calc_str_box("A", fontBody)[1]
 
 let function makeMenuItem(data, idx) {
   let stateFlags = Watched(0)
@@ -87,7 +87,7 @@ let function makeMenuItem(data, idx) {
     onHover = @(on) on ? menuCurrentIndex(idx) : null
 
     cursorNavAnchor = [elemh(80), elemh(90)]
-  }.__update(h1_txt)
+  }.__update(fontHeading1)
 }
 
 let function goToNext(d) {

@@ -317,19 +317,19 @@ def reset_nav_points_on_agent_died(evt : Event;
 def set_agent_train_behavior(evt : Event;
                              beh_tree__data__passiveStayReactionTrain : string;
                              beh_tree__data__passiveMoveReactionTrain : string;
-                             beh_tree__data__agressiveStayReactionTrain : string;
-                             beh_tree__data__agressiveMoveReactionTrain : string;
+                             beh_tree__data__aggressiveStayReactionTrain : string;
+                             beh_tree__data__aggressiveMoveReactionTrain : string;
                              beh_tree__data__updateRegroupPosTrain : string;
                              var beh_tree__refs__passiveStayReaction : das_string&;
                              var beh_tree__refs__passiveMoveReaction : das_string&;
-                             var beh_tree__refs__agressiveStayReaction : das_string&;
-                             var beh_tree__refs__agressiveMoveReaction : das_string&;
+                             var beh_tree__refs__aggressiveStayReaction : das_string&;
+                             var beh_tree__refs__aggressiveMoveReaction : das_string&;
                              var beh_tree__refs__updateRegroupPos : das_string&)
   query() <| $ [es(REQUIRE=aiTrainBehaviour)] ()
     beh_tree__refs__passiveStayReaction := beh_tree__data__passiveStayReactionTrain
     beh_tree__refs__passiveMoveReaction := beh_tree__data__passiveMoveReactionTrain
-    beh_tree__refs__agressiveStayReaction := beh_tree__data__agressiveStayReactionTrain
-    beh_tree__refs__agressiveMoveReaction := beh_tree__data__agressiveMoveReactionTrain
+    beh_tree__refs__aggressiveStayReaction := beh_tree__data__aggressiveStayReactionTrain
+    beh_tree__refs__aggressiveMoveReaction := beh_tree__data__aggressiveMoveReactionTrain
     beh_tree__refs__updateRegroupPos := beh_tree__data__updateRegroupPosTrain
 
 [es(on_event=EventLevelLoaded)]

@@ -2,7 +2,7 @@ import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
 let { forcedMinimalHud } = require("%ui/hud/state/hudGameModes.nut")
-let { h2_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let playerGrenades = require("player_info/grenades.ui.nut")
 let {medicMedpacks} = require("player_info/medic_medpacks.ui.nut")
 let { barWidth } = require("player_info/style.nut")
@@ -28,16 +28,16 @@ let playerMedkits = @() {
 }
 
 let mainStyles = {
-  curAmmo = {fontFxColor=Color(0,0,0,50) fontFx=FFT_GLOW}.__update(h2_txt)
-  sep = {fontFxColor=Color(0,0,0,50) fontFx=FFT_GLOW}.__update(h2_txt)
-  totalAmmo = {fontFxColor=Color(0,0,0,50) fontFx=FFT_GLOW}.__update(h2_txt)
+  curAmmo = {fontFxColor=Color(0,0,0,50) fontFx=FFT_GLOW}.__update(fontHeading2)
+  sep = {fontFxColor=Color(0,0,0,50) fontFx=FFT_GLOW}.__update(fontHeading2)
+  totalAmmo = {fontFxColor=Color(0,0,0,50) fontFx=FFT_GLOW}.__update(fontHeading2)
   useBlur = false
 }
 
 let secondaryStyles = {
-  curAmmo = {fontFxColor=Color(0,0,0,50) fontFx=FFT_GLOW}.__update(sub_txt)
-  sep = {fontFxColor=Color(0,0,0,50) fontFx=FFT_GLOW}.__update(sub_txt)
-  totalAmmo = {fontFxColor=Color(0,0,0,50) fontFx=FFT_GLOW}.__update(sub_txt)
+  curAmmo = {fontFxColor=Color(0,0,0,50) fontFx=FFT_GLOW}.__update(fontSub)
+  sep = {fontFxColor=Color(0,0,0,50) fontFx=FFT_GLOW}.__update(fontSub)
+  totalAmmo = {fontFxColor=Color(0,0,0,50) fontFx=FFT_GLOW}.__update(fontSub)
   useBlur = false
 }
 

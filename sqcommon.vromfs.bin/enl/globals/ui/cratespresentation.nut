@@ -127,6 +127,9 @@ return freeze({
   crate_normandy_allies_level_39 = {
     image = "ui/campaign_rewards/reward_us_m18_hellcat_normandy.avif"
   }
+  crate_normandy_allies_level_40 = {
+    image = "ui/campaign_rewards/reward_us_m4a2_76w_sherman.avif"
+  }
 
 
 
@@ -172,6 +175,9 @@ return freeze({
   }
   crate_normandy_axis_level_39 = {
     image = "ui/campaign_rewards/reward_germ_panzerjager_iv_l_48_normandy.avif"
+  }
+  crate_normandy_axis_level_40 = {
+    image = "ui/campaign_rewards/reward_germ_pzkpfw_v_ausf_g_panther_normandy.avif"
   }
 
 
@@ -222,6 +228,12 @@ return freeze({
   crate_berlin_allies_level_37 = {
     image = "ui/campaign_rewards/reward_rd_44.avif"
   }
+  crate_berlin_allies_level_38 = {
+    image = "ui/campaign_rewards/reward_ussr_is_2_1944_berlin.avif"
+  }
+  crate_berlin_allies_level_39 = {
+    image = "ui/campaign_rewards/reward_as_44_late.avif"
+  }
 
 
 
@@ -270,6 +282,12 @@ return freeze({
   }
   crate_berlin_axis_level_37 = {
     image = "ui/campaign_rewards/reward_mg_15_saddle_drum.avif"
+  }
+  crate_berlin_axis_level_38 = {
+    image = "ui/campaign_rewards/reward_germ_pzkpfw_vi_ausf_b_tiger_iih_berlin.avif"
+  }
+  crate_berlin_axis_level_39 = {
+    image = "ui/campaign_rewards/reward_stg_44.avif"
   }
 
 
@@ -439,6 +457,9 @@ return freeze({
   crate_pacific_allies_level_29 = {
     image = "ui/campaign_rewards/reward_m1c_garand.avif"
   }
+  crate_pacific_allies_level_33 = {
+    image = "ui/campaign_rewards/reward_m1_thompson.avif"
+  }
 
 
 //PACIFIC AXIS
@@ -468,6 +489,9 @@ return freeze({
   }
   crate_pacific_axis_level_29 = {
     image = "ui/campaign_rewards/reward_sig_1920_type_be.avif"
+  }
+  crate_pacific_axis_level_33 = {
+    image = "ui/campaign_rewards/reward_type_100_smg_late.avif"
   }
 
 

@@ -1,16 +1,14 @@
 from "%enlSqGlob/ui_library.nut" import *
-let { Bordered } = require("%ui/components/textButton.nut")
-let { h2_txt, fontawesome } = require("%enlSqGlob/ui/fonts_style.nut")
+let { FAButton } = require("%ui/components/txtButton.nut")
+let { fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { smallPadding } = require("%enlSqGlob/ui/viewConst.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let { mkHotkey } = require("%ui/components/uiHotkeysHint.nut")
-let fa = require("%ui/components/fontawesome.map.nut")
+
 
 let changeButtonStyle = {
-  size = [hdpx(40),hdpx(40)]
+  size = [hdpxi(48), hdpxi(48)]
   margin = 0
-  fontSize = hdpx(15)
-  font = fontawesome.font
 }
 
 let tb = @(key, action) @() {
@@ -30,7 +28,7 @@ let function mkCounter(maxCount, countWatched, step = 1) {
     gap = smallPadding
     children = [
       tb("^J:LB", decCount)
-      Bordered(fa["minus"], decCount, changeButtonStyle)
+      FAButton("minus", decCount, changeButtonStyle)
       @() {
         rendObj = ROBJ_TEXT
         watch = countWatched
@@ -38,9 +36,10 @@ let function mkCounter(maxCount, countWatched, step = 1) {
         minWidth = hdpx(40)
         halign = ALIGN_CENTER
         vplace = ALIGN_CENTER
+        margin = [0, smallPadding]
         text = countWatched.value
-      }.__update(h2_txt)
-      Bordered(fa["plus"], incCount, changeButtonStyle)
+      }.__update(fontHeading2)
+      FAButton("plus", incCount, changeButtonStyle)
       tb("^J:RB",  incCount)
     ]
   }

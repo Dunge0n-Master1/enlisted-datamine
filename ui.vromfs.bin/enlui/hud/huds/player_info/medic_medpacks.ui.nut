@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { heroMedicMedpacks } = require("%ui/hud/state/medic_state.nut")
 let { heroSoldierKind } = require("%ui/hud/state/soldier_class_state.nut")
 
@@ -17,7 +17,7 @@ let medpackCount = @() {
   valign = ALIGN_CENTER
   watch = heroMedicMedpacks
   text = heroMedicMedpacks.value
-}.__update(sub_txt)
+}.__update(fontSub)
 
 let medicMedpacks = @() {
   watch = heroSoldierKind

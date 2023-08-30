@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { defTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
 let { UserNameColor } = require("%ui/style/colors.nut")
 let {
@@ -31,7 +31,7 @@ let mkLbCell = @(category, rowData) {
   halign = ALIGN_RIGHT
   text = category.getText(rowData)
 }.__update(
-  sub_txt,
+  fontSub,
   styleByCategory?[category] ?? {},
   rowData?.self ? { color = UserNameColor } : {})
 
@@ -53,7 +53,7 @@ let lbHeaderRow = @(categories) {
       rendObj = ROBJ_TEXT
       text = loc(category.locId)
       color = defTxtColor
-    }.__update(sub_txt)
+    }.__update(fontSub)
   })
 }
 

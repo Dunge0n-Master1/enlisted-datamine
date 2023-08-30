@@ -1,0 +1,105 @@
+sandstorm_sound{
+  _extends:t="sound_effect_2d"
+
+  _group{
+    _tags:t="sound"
+    sound_effect_2d__path:t="ambient/sandstorm"
+  }
+}
+
+sound_effect_mill_outside{
+  _extends:t="sound_effect"
+  _extends:t="replicating"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+
+  _group{
+    _tags:t="sound"
+    sound_effect__path:t="env_effects/mill/mill_outside"
+  }
+}
+
+sound_effect_mill_inside{
+  _extends:t="sound_effect"
+  _extends:t="replicating"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+
+  _group{
+    _tags:t="sound"
+    sound_effect__path:t="env_effects/mill/mill_inside"
+  }
+}
+
+sound_effect_is_clock_a{
+  _extends:t="occluded_sound"
+  _extends:t="destroyable_sound_effect"
+  _extends:t="replicating"
+  clock_chime__ringSound:t="events/003/clock_bells"
+  clock_chime__localOffset:p3=0.4, 1.8, 0.0
+  shreddableInDarkZone:b=yes
+
+  "occludedSoundWithSoundControl:tag"{
+  }
+
+  _group{
+    _tags:t="sound"
+    sound_effect__path:t="env_effects/clocks/clock_a"
+    sound_effect__localOffset:p3=0.4, 1.8, 0.0
+  }
+
+  _group{
+    _tags:t="sound"
+    occluded_sound__localOffset:p3=0.4, 1.8, 0.0
+  }
+
+  "clock_chime__event:SoundEvent"{
+    _tags:t="sound"
+  }
+}
+
+geyser_sound{
+  _extends:t="sound_effect"
+  geyser_sound__spawnRateThreshold:r=0.5
+
+  _group{
+    _tags:t="sound"
+    sound_effect__path:t="env_effects/geyser"
+  }
+}
+
+lava_sound{
+  _extends:t="sound_effect"
+
+  _group{
+    _tags:t="sound"
+    sound_effect__path:t="env_effects/fire/lava"
+  }
+}
+
+pipes_sound{
+  _extends:t="spline_sound"
+
+  _group{
+    _tags:t="sound"
+    spline_sound__path:t="ambient/positioned/water_pipe"
+  }
+}
+
+cave_volume_ambient_sound{
+  _extends:t="volume_ambient_sound"
+
+  _group{
+    _tags:t="sound"
+    volume_ambient_sound__fadeInOutSpeed:p2=0.25, 0.5
+    volume_ambient_sound__reverb_intensity_roomSize_absorption_weight:p4=100.0, 20.0, 0.0, 1.0
+  }
+}
+
+cave_compound_ambient_sound{
+  _extends:t="compound_ambient_sound"
+
+  _group{
+    _tags:t="sound"
+    compound_ambient_sound__fadeInOutSpeed:p2=0.25, 0.5
+    compound_ambient_sound__reverb_intensity_roomSize_absorption_weight:p4=100.0, 20.0, 0.0, 1.0
+  }
+}

@@ -1,0 +1,229 @@
+entity{
+  _template:t="fire_bonfire_medium_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-17.5008, 20.6072, -1065.67]]
+}
+
+entity{
+  _template:t="fire_bonfire_medium_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-26.0757, 23.834, -1009.59]]
+}
+
+entity{
+  _template:t="fire_bonfire_small_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-50.633, 19.8136, -1048.21]]
+}
+
+entity{
+  _template:t="fire_bonfire_small_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-35.868, 20.3588, -1059.88]]
+}
+
+entity{
+  _template:t="fire_bonfire_small_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-46.5743, 21.3201, -1037.44]]
+}
+
+entity{
+  _template:t="fire_bonfire_small_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-67.8785, 24.8595, -1005.12]]
+}
+
+entity{
+  _template:t="fire_bonfire_small_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-68.7572, 22.9879, -1021.8]]
+}
+
+entity{
+  _template:t="fire_bonfire_big_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-21.5661, 21.6641, -1069.55]]
+}
+
+entity{
+  _template:t="fire_bonfire_small_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-12.8995, 20.5607, -1075.84]]
+}
+
+entity{
+  _template:t="fire_spot_2m_effect"
+  transform:m=[[1.0, 0.0116923, 0.000548074] [-0.0117051, 1.0, 0.0468204] [0.0, -0.0468236, 1.0] [-37.9314, 20.0888, -1067.12]]
+}
+
+entity{
+  _template:t="fire_spot_1m_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-426.822, 0.213619, -1105.32]]
+}
+
+entity{
+  _template:t="fire_spot_1m_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-25.5435, 19.6147, -1081.81]]
+}
+
+entity{
+  _template:t="fire_spot_1m_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-19.751, 20.0351, -1082.78]]
+}
+
+entity{
+  _template:t="fire_spot_vertical_effect"
+  transform:m=[[1.0, 0.0, 0.0] [-0.0, 0.364916, 1.0] [0.0, -1.0, 0.364916] [-22.4, 22.95, -1106.67]]
+}
+
+entity{
+  _template:t="fire_spot_vertical_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-23.89, 23.11, -1048.7]]
+}
+
+entity{
+  _template:t="fire_bonfire_small_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-430.501, 2.37722, -1128.86]]
+}
+
+entity{
+  _template:t="fire_bonfire_small_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-468.121, 2.1, -1115.05]]
+}
+
+entity{
+  _template:t="fire_spot_1m_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-427.358, 0.213614, -1101.05]]
+}
+
+entity{
+  _template:t="fire_spot_1m_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-429.124, 0.213613, -1100.12]]
+}
+
+entity{
+  _template:t="fire_spot_1m_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-431.656, 0.213614, -1102.43]]
+}
+
+entity{
+  _template:t="fire_spot_1m_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-428.85, 0.213615, -1106.67]]
+}
+
+entity{
+  _template:t="fire_spot_1m_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-429.153, 0.213615, -1104.56]]
+}
+
+entity{
+  _template:t="fire_spot_1m_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-424.899, 0.213618, -1103.54]]
+}
+
+entity{
+  _template:t="fire_spot_vertical_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-403.251, 3.68366, -1063.52]]
+}
+
+entity{
+  _template:t="fire_spot_vertical_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-466.253, 2.68046, -1092.13]]
+}
+
+entity{
+  _template:t="envir_steam_medium_effect"
+  transform:m=[[0.379727, -0.740379, -0.554659] [0.418248, 0.67219, -0.610925] [0.825152, -1.49012e-08, 0.56491] [-451.065, 9.74453, -1079.37]]
+}
+
+entity{
+  _template:t="envir_steam_medium_effect"
+  transform:m=[[0.379727, -0.740379, -0.554659] [0.418248, 0.67219, -0.610925] [0.825152, -1.49012e-08, 0.56491] [-452.17, 9.74453, -1077.34]]
+}
+
+entity{
+  _template:t="fire_spot_vertical_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-386.883, 4.83538, -1053.52]]
+}
+
+entity{
+  _template:t="fire_bonfire_big_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-451.73, 4.3218, -989.442]]
+}
+
+entity{
+  _template:t="fire_bonfire_small_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-427.161, 1.73297, -973.659]]
+}
+
+entity{
+  _template:t="fire_bonfire_small_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-453.557, 2.95014, -980.036]]
+}
+
+entity{
+  _template:t="fire_bonfire_small_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-441.059, 2.9417, -976.349]]
+}
+
+entity{
+  _template:t="fire_bonfire_small_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-450.8, 2.65278, -955.159]]
+}
+
+entity{
+  _template:t="fire_bonfire_small_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-406.703, 3.47793, -972.344]]
+}
+
+entity{
+  _template:t="fire_bonfire_small_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-494.133, 1.95811, -945.319]]
+}
+
+entity{
+  _template:t="fire_bonfire_medium_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-480.088, 1.915, -926.662]]
+}
+
+entity{
+  _template:t="fire_bonfire_medium_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-470.049, 4.9006, -962.466]]
+}
+
+entity{
+  _template:t="fire_bonfire_medium_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-599.184, 2.43193, -766.387]]
+}
+
+entity{
+  _template:t="fire_bonfire_medium_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-556.77, 2.23, -768.71]]
+}
+
+entity{
+  _template:t="fire_bonfire_small_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-598.25, 2.59664, -734.305]]
+}
+
+entity{
+  _template:t="fire_bonfire_small_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-640.54, 2.87, -810.98]]
+}
+
+entity{
+  _template:t="fire_bonfire_small_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-729.121, 2.83175, -768.29]]
+}
+
+entity{
+  _template:t="fire_bonfire_small_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-940.108, 3.84046, -691.033]]
+}
+
+entity{
+  _template:t="fire_bonfire_small_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-946.391, 2.23815, -779.472]]
+}
+
+entity{
+  _template:t="fire_bonfire_small_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-713.613, 2.03365, -801.927]]
+}
+
+entity{
+  _template:t="fire_bonfire_big_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-389.29, 6.34363, -870.897]]
+}

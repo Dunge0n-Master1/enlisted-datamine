@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 import "%dngscripts/ecs.nut" as ecs
 
-let { body_txt, sub_txt, fontawesome } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody, fontSub, fontawesome } = require("%enlSqGlob/ui/fontsStyle.nut")
 let fa = require("%ui/components/fontawesome.map.nut")
 let { INVALID_USER_ID, INVALID_SESSION_ID } = require("matching.errors")
 let { remap_others } = require("%enlSqGlob/remap_nick.nut")
@@ -75,7 +75,7 @@ let rowText = @(text, width, playerData, sf = 0, override = {}) {
       rendObj = ROBJ_TEXT
       text
       color = playerColor(playerData, sf)
-    }.__update(sub_txt, override)
+    }.__update(fontSub, override)
 }
 
 let mkHeaderIcon = memoize(function(image) {
@@ -97,7 +97,7 @@ let deserterIcon = @(playerData, sf) {
 }
 
 let getFramedNick = @(player, isGroupmate)
-  frameNick( //TEMP FIX: Recieve already corrent name from server
+  frameNick( //TEMP FIX: Receive already corrent name from server
     remap_others(player.name, !isGroupmate),
     player?.decorators__nickFrame
   )
@@ -121,7 +121,7 @@ let mkMemberIcon = @(txt, playerData, sf = 0) {
       padding = [0,0,hdpx(1),hdpx(1)]
       text = txt
       color = Color(0,0,0)
-    }.__update(sub_txt)
+    }.__update(fontSub)
   ]
 }
 
@@ -389,7 +389,7 @@ let COLUMN_PLAYER_NAME = {
       rendObj = ROBJ_TEXT
       margin = [0, bigGap, 0, bigGap]
       text = p.teamText
-    }.__update(body_txt)
+    }.__update(fontBody)
     p.addChild
   ]
   headerOverride = { flow = FLOW_HORIZONTAL, halign = ALIGN_LEFT }

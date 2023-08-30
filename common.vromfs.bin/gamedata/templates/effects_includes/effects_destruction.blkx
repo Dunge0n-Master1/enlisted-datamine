@@ -1,5 +1,6 @@
 destruction_effect_base{
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  paint_color:p4=1.0, 1.0, 1.0, 0.5
 
   _group{
     _tags:t="render"
@@ -89,19 +90,39 @@ envir_destr_basic_small_effect{
 
 envir_destr_bush_fall_effect{
   _extends:t="destruction_effect_base"
+  _extends:t="on_appear_sound"
 
   _group{
     _tags:t="render"
+    effect__lowestFxQuality:i=1
+    usePaintColor:b=yes
+    paintFromLevelRiColors:b=yes
+    effect__riPoolUsedForColoring:i=-1
     effect__name:t="envir_destr_bush_fall_cmps_fx"
+  }
+
+  _group{
+    _tags:t="sound"
+    on_appear_sound__path:t="env_effects/object_crash/bush"
   }
 }
 
 envir_destr_bush_green_effect{
   _extends:t="destruction_effect_base"
+  _extends:t="on_appear_sound"
 
   _group{
     _tags:t="render"
+    effect__lowestFxQuality:i=1
+    usePaintColor:b=yes
+    paintFromLevelRiColors:b=yes
+    effect__riPoolUsedForColoring:i=-1
     effect__name:t="envir_destr_bush_green_cmps_fx"
+  }
+
+  _group{
+    _tags:t="sound"
+    on_appear_sound__path:t="env_effects/object_crash/bush"
   }
 }
 
@@ -110,115 +131,221 @@ envir_destr_bush_palm_effect{
 
   _group{
     _tags:t="render"
+    effect__lowestFxQuality:i=1
+    usePaintColor:b=yes
+    paintFromLevelRiColors:b=yes
+    effect__riPoolUsedForColoring:i=-1
     effect__name:t="envir_destr_bush_palm_cmps_fx"
   }
 }
 
 envir_destr_bush_snow_effect{
   _extends:t="destruction_effect_base"
+  _extends:t="on_appear_sound"
 
   _group{
     _tags:t="render"
+    effect__lowestFxQuality:i=1
     effect__name:t="envir_destr_bush_snow_cmps_fx"
+  }
+
+  _group{
+    _tags:t="sound"
+    on_appear_sound__path:t="env_effects/object_crash/bush"
   }
 }
 
 envir_destr_bush_dead_effect{
   _extends:t="destruction_effect_base"
+  _extends:t="on_appear_sound"
 
   _group{
     _tags:t="render"
+    effect__lowestFxQuality:i=1
     effect__name:t="envir_destr_bush_dead_cmps_fx"
+  }
+
+  _group{
+    _tags:t="sound"
+    on_appear_sound__path:t="env_effects/object_crash/bush"
   }
 }
 
 envir_destr_tree_fall_big_effect{
   _extends:t="destruction_effect_base"
+  _extends:t="on_appear_sound"
 
   _group{
     _tags:t="render"
+    effect__lowestFxQuality:i=1
+    usePaintColor:b=yes
+    paintFromLevelRiColors:b=yes
+    effect__riPoolUsedForColoring:i=-1
     effect__name:t="envir_destr_tree_fall_big_cmps_fx"
+  }
+
+  _group{
+    _tags:t="sound"
+    on_appear_sound__path:t="env_effects/object_crash/tree"
   }
 }
 
 envir_destr_tree_fall_med_effect{
   _extends:t="destruction_effect_base"
+  _extends:t="on_appear_sound"
 
   _group{
     _tags:t="render"
+    effect__lowestFxQuality:i=1
+    usePaintColor:b=yes
+    paintFromLevelRiColors:b=yes
+    effect__riPoolUsedForColoring:i=-1
     effect__name:t="envir_destr_tree_fall_med_cmps_fx"
+  }
+
+  _group{
+    _tags:t="sound"
+    on_appear_sound__path:t="env_effects/object_crash/tree"
   }
 }
 
 envir_destr_tree_green_big_effect{
   _extends:t="destruction_effect_base"
+  _extends:t="on_appear_sound"
 
   _group{
     _tags:t="render"
+    effect__lowestFxQuality:i=1
+    usePaintColor:b=yes
+    paintFromLevelRiColors:b=yes
+    effect__riPoolUsedForColoring:i=-1
     effect__name:t="envir_destr_tree_green_big_cmps_fx"
+  }
+
+  _group{
+    _tags:t="sound"
+    on_appear_sound__path:t="env_effects/object_crash/tree"
   }
 }
 
 envir_destr_tree_green_med_effect{
   _extends:t="destruction_effect_base"
+  _extends:t="on_appear_sound"
 
   _group{
     _tags:t="render"
+    effect__lowestFxQuality:i=1
+    usePaintColor:b=yes
+    paintFromLevelRiColors:b=yes
+    effect__riPoolUsedForColoring:i=-1
     effect__name:t="envir_destr_tree_green_med_cmps_fx"
+  }
+
+  _group{
+    _tags:t="sound"
+    on_appear_sound__path:t="env_effects/object_crash/tree"
   }
 }
 
 envir_destr_tree_palm_big_effect{
   _extends:t="destruction_effect_base"
+  _extends:t="on_appear_sound"
 
   _group{
     _tags:t="render"
+    effect__lowestFxQuality:i=1
+    usePaintColor:b=yes
+    paintFromLevelRiColors:b=yes
+    effect__riPoolUsedForColoring:i=-1
     effect__name:t="envir_destr_tree_palm_big_cmps_fx"
+  }
+
+  _group{
+    _tags:t="sound"
+    on_appear_sound__path:t="env_effects/object_crash/tree"
   }
 }
 
 envir_destr_tree_palm_med_effect{
   _extends:t="destruction_effect_base"
+  _extends:t="on_appear_sound"
 
   _group{
     _tags:t="render"
+    effect__lowestFxQuality:i=1
+    usePaintColor:b=yes
+    paintFromLevelRiColors:b=yes
+    effect__riPoolUsedForColoring:i=-1
     effect__name:t="envir_destr_tree_palm_med_cmps_fx"
+  }
+
+  _group{
+    _tags:t="sound"
+    on_appear_sound__path:t="env_effects/object_crash/tree"
   }
 }
 
 envir_destr_tree_snow_big_effect{
   _extends:t="destruction_effect_base"
+  _extends:t="on_appear_sound"
 
   _group{
     _tags:t="render"
+    effect__lowestFxQuality:i=1
     effect__name:t="envir_destr_tree_snow_big_cmps_fx"
+  }
+
+  _group{
+    _tags:t="sound"
+    on_appear_sound__path:t="env_effects/object_crash/tree"
   }
 }
 
 envir_destr_tree_snow_med_effect{
   _extends:t="destruction_effect_base"
+  _extends:t="on_appear_sound"
 
   _group{
     _tags:t="render"
+    effect__lowestFxQuality:i=1
     effect__name:t="envir_destr_tree_snow_med_cmps_fx"
+  }
+
+  _group{
+    _tags:t="sound"
+    on_appear_sound__path:t="env_effects/object_crash/tree"
   }
 }
 
 envir_destr_tree_dead_big_effect{
   _extends:t="destruction_effect_base"
+  _extends:t="on_appear_sound"
 
   _group{
     _tags:t="render"
+    effect__lowestFxQuality:i=1
     effect__name:t="envir_destr_tree_dead_big_cmps_fx"
+  }
+
+  _group{
+    _tags:t="sound"
+    on_appear_sound__path:t="env_effects/object_crash/tree"
   }
 }
 
 envir_destr_tree_dead_med_effect{
   _extends:t="destruction_effect_base"
+  _extends:t="on_appear_sound"
 
   _group{
     _tags:t="render"
+    effect__lowestFxQuality:i=1
     effect__name:t="envir_destr_tree_dead_med_cmps_fx"
+  }
+
+  _group{
+    _tags:t="sound"
+    on_appear_sound__path:t="env_effects/object_crash/tree"
   }
 }
 
@@ -228,6 +355,7 @@ envir_destr_cactus_effect{
 
   _group{
     _tags:t="render"
+    effect__lowestFxQuality:i=1
     effect__name:t="envir_destr_cactus_cmps_fx"
   }
 
@@ -242,6 +370,7 @@ envir_collision_bush_dead_effect{
 
   _group{
     _tags:t="render"
+    effect__lowestFxQuality:i=1
     effect__name:t="envir_destr_colloision_bush_dead_cmps_fx"
   }
 }
@@ -251,6 +380,10 @@ envir_collision_bush_fall_effect{
 
   _group{
     _tags:t="render"
+    effect__lowestFxQuality:i=1
+    usePaintColor:b=yes
+    paintFromLevelRiColors:b=yes
+    effect__riPoolUsedForColoring:i=-1
     effect__name:t="envir_destr_colloision_bush_fall_cmps_fx"
   }
 }
@@ -260,6 +393,10 @@ envir_collision_bush_green_effect{
 
   _group{
     _tags:t="render"
+    effect__lowestFxQuality:i=1
+    usePaintColor:b=yes
+    paintFromLevelRiColors:b=yes
+    effect__riPoolUsedForColoring:i=-1
     effect__name:t="envir_destr_colloision_bush_green_cmps_fx"
   }
 }
@@ -269,6 +406,10 @@ envir_collision_bush_palm_effect{
 
   _group{
     _tags:t="render"
+    effect__lowestFxQuality:i=1
+    usePaintColor:b=yes
+    paintFromLevelRiColors:b=yes
+    effect__riPoolUsedForColoring:i=-1
     effect__name:t="envir_destr_colloision_bush_palm_cmps_fx"
   }
 }
@@ -278,6 +419,7 @@ envir_collision_bush_snow_effect{
 
   _group{
     _tags:t="render"
+    effect__lowestFxQuality:i=1
     effect__name:t="envir_destr_colloision_bush_snow_cmps_fx"
   }
 }

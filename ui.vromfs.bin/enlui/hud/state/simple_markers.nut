@@ -16,7 +16,7 @@ ecs.register_es(
     [["onInit", "onChange"]] = function(_, eid, comp){
       if (comp.hud_icon__isActive)
         simple_hud_markers_UpdateEid(eid, {
-          team = comp.team
+          team = comp.hud_icon__anyTeam ? null : comp.team
           image = comp.hud_icon__image
           offsetY = comp.hud_icon__offsetY
           opacityRangeX = comp.hud_icon__opacityRangeX
@@ -47,6 +47,7 @@ ecs.register_es(
       ["hud_icon__opacityCenterRelativeDist", ecs.TYPE_FLOAT, null],
       ["hud_icon__opacityCenterMinMult", ecs.TYPE_FLOAT, null],
       ["hud_icon__visibleToSquad", ecs.TYPE_EID, null],
+      ["hud_icon__anyTeam", ecs.TYPE_BOOL, false],
       ["team", ecs.TYPE_INT, null],
     ]
   }

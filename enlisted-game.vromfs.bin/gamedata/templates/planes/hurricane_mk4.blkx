@@ -11,7 +11,7 @@ hurricane_mk4{
       seatOwnsEntityControl:b=yes
       attachNode:t="pilot1"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, -0.15]]
+      attachTm:m=[[0.988588, 0.139012, -0.0345267] [-0.137663, 0.988859, 0.0396986] [0.0397011, -0.0345277, 0.997727] [0.01, 0.11, -0.18]]
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="pilot_dm"
       cameraNodeName:t=""

@@ -1,7 +1,7 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {isAiming} = require("%ui/hud/huds/crosshair_state_es.nut")
 let showPlayerHuds = require("%ui/hud/state/showPlayerHuds.nut")
 let {inPlane, isDriver, isGunner} = require("%ui/hud/state/vehicle_state.nut")
@@ -78,7 +78,7 @@ let function aimRangeValuesTip(){
         tipCmp({
           text = loc(item.loc)
           textColor = entityAimRangePreset.value == idx ? activeColor : inactiveColor
-        }.__update(entityAimRangePreset.value == idx ? body_txt : sub_txt))
+        }.__update(entityAimRangePreset.value == idx ? fontBody : fontSub))
       )
     })
   }

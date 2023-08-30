@@ -709,7 +709,7 @@ base_soldier{
     entity_mods__fireDamageMult:r=1.0
     entity_mods__vehicleChangeSeatTimeMult:r=1.0
     entity_mods__vehicleExtinguishTimeMult:r=1.0
-    entity_mods__vehicleRepairUsagesPerKit:i=1
+    entity_mods__vehicleRepairUsagesPerKit:i=8
     entity_mods__vehicleRepairTimeMult:r=1.0
     entity_mods__vehicleRepairRecoveryRatioAdd:r=0.0
     entity_mods__vehicleReloadMult:r=1.0
@@ -1167,6 +1167,9 @@ dummy_enlisted_base_soldier{
   }
 
   collres{
+  }
+
+  "grid_obj__updateAlways:tag"{
   }
 
   capsule_approximation{

@@ -250,6 +250,11 @@ Human.Reload{
   btn:i=19
 }
 
+Human.RotateBuilding{
+  dev:i=1
+  btn:i=19
+}
+
 Human.WeapModToggle{
   dev:i=1
   btn:i=22
@@ -454,6 +459,11 @@ Human.ToggleHatch{
 }
 
 Human.VehicleMaintenance{
+  dev:i=1
+  btn:i=20
+}
+
+Human.RepairBuilding{
   dev:i=1
   btn:i=20
 }

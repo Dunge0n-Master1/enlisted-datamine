@@ -514,3 +514,14 @@ cross{
     zoom:r=1.44
   }
 }
+
+default_periscope{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/periscope.blk"
+  vehicle_sight__useAimDir:b=no
+  vehicle_sight__useGunDir:b=no
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=1.44
+  }
+}

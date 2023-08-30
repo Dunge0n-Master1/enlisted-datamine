@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {body_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontBody} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {isDowned, isAlive} = require("%ui/hud/state/health_state.nut")
 let {isSpectator} = require("%ui/hud/state/spectator_state.nut")
 let {downedEndTime} = require("%ui/hud/state/downed_state.nut")
@@ -38,7 +38,7 @@ let tip = {
       transform = pivot
       watch = [downedEndTime, curTime, isSpectator]
       animations = animColor
-    }.__update(body_txt)
+    }.__update(fontBody)
   ]
 }
 let function mkTip(){//try to avoid subscribe on timechange - to safe performance and clear profiler

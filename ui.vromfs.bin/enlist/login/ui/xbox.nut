@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h2_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let background = require("background.nut")
 let colors = require("%ui/style/colors.nut")
 let textButton = require("%ui/components/textButton.nut")
@@ -27,7 +27,7 @@ let function loginBtn() {
     children = textButton(loc("Login"), loginBtnAction,
       { size = [flex(), hdpx(70)], key = "loginBtn_{0}".subst(loginButtonRedrawCounter.value), halign = ALIGN_CENTER, margin = 0
         hotkeys = [["^J:Y", { description = { skip = true }}]]
-      }.__update(h2_txt))
+      }.__update(fontHeading2))
   }
 }
 
@@ -38,7 +38,7 @@ let descriptionBlock = @(text) {
   halign = ALIGN_CENTER
   color = colors.BtnTextNormal
   text
-}.__update(body_txt)
+}.__update(fontBody)
 
 let loginFormChildren = [
   loginBtn

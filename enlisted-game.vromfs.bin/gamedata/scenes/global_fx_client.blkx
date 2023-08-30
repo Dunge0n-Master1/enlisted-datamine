@@ -1,0 +1,7 @@
+entity{
+  _template:t="global_fx_info"
+}
+
+entity{
+  _template:t="global_track_fx_info"
+}

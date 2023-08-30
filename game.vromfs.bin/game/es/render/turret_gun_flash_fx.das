@@ -47,8 +47,8 @@ def turret_gun_flash_fx_inserter_es(info : ParallelUpdateFrameDelayed;
         createEntity(add_sub_template_name(string(gunFx.turret_gun_fx__fxTemplate),
             "turret_gun_flash_fx")) <| $(var init : ComponentsInitializer)
           set(init, "transform", tm)
-          set(init, "gun_flash_fx__gunEid", eid)
-          set(init, "gun_flash_fx__nodeId", gunFx.turret_gun_fx__nodeId)
+          set(init, "gun_fx__gunEid", eid)
+          set(init, "gun_fx__nodeId", gunFx.turret_gun_fx__nodeId)
 
 
 [soa_es, es(tag=render, on_appear)]

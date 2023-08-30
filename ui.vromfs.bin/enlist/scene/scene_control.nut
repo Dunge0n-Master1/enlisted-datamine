@@ -143,6 +143,12 @@ let function mkOffsetTMatrix(tm, offset) {
   return newTm
 }
 
+let setMenuItemFovProportion = ecs.SqQuery("setMenuItemFovProportion", {
+  comps_rw = [
+    ["menu_item__cameraCenterOffsetProportion", ecs.TYPE_FLOAT],
+  ]
+})
+
 local curCameraFov = 0
 
 let function setCamera(cameraComps) {
@@ -152,8 +158,11 @@ let function setCamera(cameraComps) {
       if (k in comp) {
         if (k == "transform")
           comp[k] = mkOffsetTMatrix(v, camOffset)
-        else if (k == "fov")
+        else if (k == "fov") {
           comp[k] = curCameraFov + cameraFovDelta.value
+          let fovProportion = 1.0 + (cameraFovDelta.value / curCameraFov)
+          setMenuItemFovProportion(@(_eid, comps) comps.menu_item__cameraCenterOffsetProportion = fovProportion)
+        }
         else
           comp[k] = v
       }

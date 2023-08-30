@@ -145,6 +145,10 @@ struct CmdEquipItemEntity
   name : string
 
 [cpp_event(unicast)]
+struct EventOnEquipmentEquiped
+  equipmentEid : EntityId
+
+[cpp_event(unicast)]
 struct EventOnEquipmentUnequiped
   equipmentEid : EntityId
 
@@ -356,3 +360,35 @@ struct CmdAddDefaultEntitiesInNetScope
 [event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
 struct CmdServerLoadAmmo
   ammoNum : int
+
+[cpp_event(unicast)]
+struct CmdPickupSpecialItem
+  pickuperEid : EntityId
+  usefulOnly : bool
+
+[cpp_event(unicast)]
+struct EventOnServerActionDisabled
+  reason : int
+  coinsNeed : int
+  coinsHave : int
+
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
+struct HumanPickupItemRequest
+  itemEid : EntityId
+  usefulOnly : bool
+
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
+struct HumanDropItemRequest
+  itemEid : EntityId
+
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
+struct HumanStopUseItemRequest {}
+
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
+struct HumanDropGearRequest
+  slotName : string
+
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
+struct HumanPickupGearRequest
+  itemEid : EntityId
+  slotName : string

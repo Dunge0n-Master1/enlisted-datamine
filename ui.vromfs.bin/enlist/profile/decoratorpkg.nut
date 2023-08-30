@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
-let { h0_txt, h2_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontTitle, fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { borderColor } = require("profilePkg.nut")
 let { secondsToHoursLoc } = require("%ui/helpers/time.nut")
@@ -117,7 +117,7 @@ let mkNickFrame = @(nCfg, color = defTxtColor, brdColor = idleBgColor) {
     hplace = ALIGN_CENTER
     vplace = ALIGN_CENTER
     color
-  }).__update(h0_txt)
+  }).__update(fontTitle)
 }
 
 let mkRatingBlock = function(rankDataWatch, hasRankUnseenWatch = Watched(false)) {
@@ -145,7 +145,7 @@ let mkRatingBlock = function(rankDataWatch, hasRankUnseenWatch = Watched(false))
             txt({
               text = loc(locId)
               color = titleTxtColor
-            }).__update(h2_txt)
+            }).__update(fontHeading2)
             {
               flow = FLOW_HORIZONTAL
               halign = ALIGN_RIGHT

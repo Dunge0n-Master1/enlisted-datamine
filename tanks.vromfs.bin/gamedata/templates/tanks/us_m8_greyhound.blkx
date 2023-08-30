@@ -64,10 +64,17 @@ us_m8_greyhound_common{
   _extends:t="base_m8_greyhound"
   _extends:t="vehicle_steering_assist"
   _extends:t="tank_with_wheels_vehicle_tracks_sound"
-  item__iconOffset:p2=0.0, 0.2
-  destroyIfNoCrewLeft:b=no
   commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
   gunner_cam_limit__useCockpitDir:b=yes
+  item__iconOffset:p2=0.0, 0.15
+  item__iconScale:r=1.3
+  destroyIfNoCrewLeft:b=no
+
+  "dm_parts__repairGroups:object"{
+  }
+
+  "vehicle_seats__effectors:array"{
+  }
 
   "vehicle_seats__seats:shared:array"{
 
@@ -77,13 +84,22 @@ us_m8_greyhound_common{
       seatOwnsEntityControl:b=yes
       attachNode:t="driver"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.25, 0.0]]
+      attachTm:m=[[0.984815, 0.173648, 0.0] [-0.17365, 0.984828, 0.0] [0.0, 0.0, 1.00002] [-0.29, -0.41, 0.0]]
       seatComponent:t="isDriver"
       nextSeat:t="main_gunner"
-      shouldHideOwner:b=yes
+      shouldHideOwner:b=no
       receiveDamageFromDMPart:t="driver"
       cameraNodeName:t="bone_camera_driver"
       cockpitTemplate:t="us_m8_greyhound_driver_cockpit"
+      seatAnimUpper:t="drive_passenger"
+      seatAnimLower:t="drive_passenger"
+
+      "effectors:object"{
+        r.hand:t="righthand_1"
+        l.hand:t="lefthand_1"
+        r.foot:t="pedal_rfoot_1"
+        l.foot:t="pedal_lfoot_1"
+      }
     }
 
     "seats:object"{
@@ -91,7 +107,7 @@ us_m8_greyhound_common{
       locName:t="vehicle_seats/gunner"
       attachNode:t="gunner"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.25, 0.04]]
+      attachTm:m=[[0.640938, -0.341981, -0.687214] [0.414578, 0.907693, -0.0650384] [0.646019, -0.243217, 0.72355] [-0.25, -0.1, 0.15]]
       seatComponent:t="isGunner"
       nextSeat:t="driver"
       shouldHideOwner:b=no
@@ -110,6 +126,13 @@ us_m8_greyhound_common{
       "hatchNodes:array"{
         node:t="emtr_fire_ammo_03"
       }
+
+      "effectors:object"{
+        r.hand:t="righthand_4"
+        l.hand:t="lefthand_4"
+        r.foot:t="pedal_rfoot_4"
+        l.foot:t="pedal_lfoot_4"
+      }
     }
 
     "seats:object"{
@@ -120,7 +143,7 @@ us_m8_greyhound_common{
       hatchRotationAxis:p3=0.0, 0.0, 0.0
       locName:t="vehicle_seats/commander"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.25, -0.05]]
+      attachTm:m=[[0.732265, -0.387793, 0.559779] [0.405089, 0.908927, 0.0997595] [-0.547447, 0.153699, 0.822611] [-0.25, -0.1, -0.15]]
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="commander"
       cameraNodeName:t="bone_turret"
@@ -141,17 +164,33 @@ us_m8_greyhound_common{
       "hatchTurretNames:array"{
         turret:t="turret_03"
       }
+
+      "effectors:object"{
+        r.hand:t="righthand_3"
+        l.hand:t="lefthand_3"
+        r.foot:t="pedal_rfoot_3"
+        l.foot:t="pedal_lfoot_3"
+      }
     }
 
     "seats:object"{
       attachNode:t="machine_gunner"
       locName:t="vehicle_seats/radioman"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.5, 0.0]]
+      attachTm:m=[[0.984815, 0.173648, 0.0] [-0.17365, 0.984828, 0.0] [0.0, 0.0, 1.00002] [-0.29, -0.41, 0.0]]
       seatComponent:t="isPassenger"
-      shouldHideOwner:b=yes
+      shouldHideOwner:b=no
       receiveDamageFromDMPart:t="machine_gunner"
       cameraNodeName:t="bone_camera_driver"
+      seatAnimUpper:t="drive_passenger"
+      seatAnimLower:t="drive_passenger"
+
+      "effectors:object"{
+        r.hand:t="righthand_2"
+        l.hand:t="lefthand_2"
+        r.foot:t="pedal_rfoot_2"
+        l.foot:t="pedal_lfoot_2"
+      }
     }
   }
 
@@ -317,5 +356,12 @@ us_m8_greyhound_commander_cockpit{
 
   "cockpit__slitZoomTime:list<r>"{
     slit:r=0.0
+  }
+
+  "cockpit__slitTemplates:list<t>"{
+    slit:t="default_periscope"
+  }
+
+  "cockpit__slitEids:list<eid>"{
   }
 }

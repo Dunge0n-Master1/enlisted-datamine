@@ -165,6 +165,63 @@ projectile_time_fuse{
   projectile__maxDistanceFromStartSq:r=0.0
 }
 
+effect_projectile{
+  _extends:t="base_projectile"
+  _extends:t="disable_ricochet"
+  projectile__destroyVel:r=0.0
+  projectile__addBulletHole:b=no
+
+  "projectile__destroyOnHit:tag"{
+  }
+
+  _group{
+    _tags:t="render"
+    effect__name:t=""
+
+    effect{
+    }
+  }
+}
+
+flame_firebomb_projectile{
+  _extends:t="base_projectile"
+  _extends:t="disable_ricochet"
+  projectile__destroyVel:r=0.0
+  projectile__maxLifeTime:r=4.0
+  projectile__addBulletHole:b=no
+  flame_projectile__onHitCreate:t="fire_spot_5m_big_effect"
+
+  "projectile__destroyOnHit:tag"{
+  }
+
+  "flame_projectile:tag"{
+  }
+}
+
+explosion_firebomb_projectile{
+  _extends:t="effect_projectile"
+  _extends:t="disable_ricochet"
+  projectile__maxLifeTime:r=2.0
+
+  _group{
+    _tags:t="render"
+    effect__name:t="explosion_firebomb_cmps_fx"
+  }
+}
+
+trail_firebomb_projectile{
+  _extends:t="effect_projectile"
+  _extends:t="disable_ricochet"
+  projectile__maxLifeTime:r=2.0
+  _tracked:t="effect__velocity"
+
+  _group{
+    _tags:t="render"
+    effect__velocity:p3=0.0, 0.0, 0.0
+    effect__name:t="trail_plane_fire_small_cmps_fx"
+  }
+}
+
 bullet_types_stoppable_by_water{
   _extends:t="replicating"
 
@@ -244,7 +301,7 @@ bomb_projectile_debug{
   _extends:t="bullet_projectile_debug"
 }
 
-base_bomb_projectile{
+base_bomb_projectile_no_crater{
   _extends:t="base_projectile"
   _extends:t="animchar"
   _extends:t="disable_ricochet"
@@ -275,19 +332,30 @@ base_bomb_projectile{
 
   "bomb_ballistics_props:ballistics::ShellProps"{
   }
+}
+
+base_bomb_projectile{
+  _extends:t="base_bomb_projectile_no_crater"
 
   "shouldCreateCrater:tag"{
   }
 }
 
-bomb_projectile{
-  _extends:t="base_bomb_projectile"
+bomb_projectile_no_crater{
+  _extends:t="base_bomb_projectile_no_crater"
   _extends:t="bomb_projectile_sound"
   _extends:t="bomb_projectile_lifetime_sound"
   shell__infantryKillStat:t="infantry_bomb_kills"
   shell__crewKillStat:t="crew_bomb_kills"
   shell__crewKillAward:t="infantry_bomb_kills"
   shell__vehicleKillStat:t="vehicle_bomb_kills"
+}
+
+bomb_projectile{
+  _extends:t="bomb_projectile_no_crater"
+
+  "shouldCreateCrater:tag"{
+  }
 }
 
 rocket_motor_trail{
@@ -307,8 +375,8 @@ rocket_motor_trail{
   }
 }
 
-rocket_projectile{
-  _extends:t="base_bomb_projectile"
+rocket_projectile_no_crater{
+  _extends:t="base_bomb_projectile_no_crater"
   _extends:t="rocket_projectile_sound"
   _extends:t="rocket_motor_trail"
   projectile__minLifeTime:r=0.1
@@ -319,6 +387,13 @@ rocket_projectile{
   shell__vehicleKillStat:t="vehicle_rocket_kills"
 
   "rocket_motor_props:ballistics::RocketMotorProps"{
+  }
+}
+
+rocket_projectile{
+  _extends:t="rocket_projectile_no_crater"
+
+  "shouldCreateCrater:tag"{
   }
 }
 
@@ -944,4 +1019,46 @@ type_94mod_10_bomb_projectile{
     value:r=23.0
     _tags:t="server"
   }
+}
+
+base_flame_bomb_projectile{
+  _extends:t="bomb_projectile_no_crater"
+  _extends:t="fire_splash_shell"
+  projectile__addBulletHole:b=no
+  projectile__minLifeTime:r=0.0
+  flame_bomb__auxProjectileBlk:t="content/enlisted/gamedata/weapons/bullets/effect_dummy.blk"
+  flame_bomb__flameProjectile:t="flame_firebomb_projectile"
+  flame_bomb__explosionProjectile:t="explosion_firebomb_projectile"
+  flame_bomb__trailProjectile:t="trail_firebomb_projectile"
+  flame_bomb__fireCount:i=30
+  flame_bomb__coilCount:r=12.0
+  flame_bomb__fireIdxOffset:i=0
+  flame_bomb__spreadSpeed:r=5.0
+  flame_bomb__carryVelCoeff:r=0.2
+  flame_bomb__normSpawnShift:r=0.1
+  flame_bomb__fireProjectileMaxSpawnHeight:r=3.0
+  flame_bomb__explosionSpawnHeight:r=2.0
+  flame_bomb__trailCount:i=6
+  flame_bomb__trailAngle:r=25.0
+
+  "flame_bomb:tag"{
+  }
+
+  "projectile__destroyOnHit:tag"{
+  }
+}
+
+330_liters_a_6m_bomb_projectile{
+  _extends:t="base_flame_bomb_projectile"
+  animchar__res:t="jp_330_liters_drop_tank_char"
+}
+
+150gal_drop_tank_bomb_projectile{
+  _extends:t="base_flame_bomb_projectile"
+  animchar__res:t="us_150gal_drop_tank_char"
+  flame_bomb__carryVelCoeff:r=0.23
+  flame_bomb__fireCount:i=40
+  flame_bomb__trailAngle:r=30.0
+  flame_bomb__spreadSpeed:r=6.0
+  flame_bomb__coilCount:r=25.0
 }

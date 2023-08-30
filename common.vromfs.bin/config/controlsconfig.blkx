@@ -242,6 +242,11 @@ actionSets{
       group_tag:t="Weapon"
     }
 
+    Human.RotateBuilding{
+      type:t="digital_button"
+      group_tag:t="Other"
+    }
+
     Human.WeapModToggle{
       type:t="digital_button"
       group_tag:t="Weapon"
@@ -489,6 +494,11 @@ actionSets{
     }
 
     Human.BuildingAction{
+      type:t="digital_button"
+      group_tag:t="Other"
+    }
+
+    Human.RepairBuilding{
       type:t="digital_button"
       group_tag:t="Other"
     }

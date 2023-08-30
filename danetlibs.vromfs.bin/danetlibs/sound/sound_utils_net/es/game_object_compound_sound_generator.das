@@ -18,8 +18,8 @@ def game_object_compound_sound_generator(evt : Event;
     for entityTypeIt in game_object_compound_sound_generator__entityTypes
       let entityType = entityTypeIt as Object
 
-      var volumes : array<float3x4>
-      var shapes : array<uint>
+      var transforms : array<float3x4>
+      var shapes : array<string>
 
       let objectTypes = entityType?.objectTypes ?as Object
       for it in *objectTypes
@@ -28,27 +28,32 @@ def game_object_compound_sound_generator(evt : Event;
         if scene != null
           scene |> find_scene_game_objects() <| $ [unused_argument(ni)] (ni : uint; tm : float3x4#)
             let t : float3x4 := tm
-            volumes |> push(t)
+            transforms |> push(t)
             let shape = get_ecs_string(it.value)
-            shapes |> push(sound_hash(shape != null ? string(*shape) : "box"))
+            shapes |> push(shape != null ? string(*shape) : "box")
             return false
 
-      if length(volumes) == 1 || (entityType?.forceSingleEntityTemplate ?? false)
-        let entityTemplate = entityType?.singleEntityTemplate ?? ""
+      if length(transforms) == 1
+        let entityTemplate = entityType?.singleEntityTemplate ?? "volume_ambient_sound"
         let soundName = entityType?.soundName ?? ""
-        for tm, shape in volumes, shapes
-          let eid = createEntity(entityTemplate) <| $(var init)
+        for tm, shape in transforms, shapes
+          let eid = createEntity("{entityTemplate}+{shape}_sound_shape") <| $(var init)
             init |> set("transform", tm)
-            init |> set("game_object_sound__shape", shape)
             init |> set("game_object_sound__name", soundName)
           push(game_object_compound_sound_generator__eids, eid)
-
-      elif !empty(volumes)
-        let entityTemplate = entityType?.compoundEntityTemplate ?? ""
+      elif !empty(transforms)
+        let entityTemplate = entityType?.compoundEntityTemplate ?? "compound_ambient_sound"
         let soundName = entityType?.soundName ?? ""
         let eid = createEntity(entityTemplate) <| $(var init)
-          init |> set("game_object_compound_sound__transforms", volumes)
-          init |> set("game_object_compound_sound__shapes", shapes)
+
+          var hashes : array<uint>
+          hashes |> resize(length(shapes))
+
+          for shape, hash in shapes, hashes
+            hash = sound_hash(shape)
+
+          init |> set("game_object_compound_sound__shapes", hashes)
+          init |> set("game_object_compound_sound__transforms", transforms)
           init |> set("game_object_sound__name", soundName)
         push(game_object_compound_sound_generator__eids, eid)
 

@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { TextNormal, TextHover, textMargin
 } = require("%ui/components/textButton.style.nut")
-let { h2_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { bigPadding } = require("%enlSqGlob/ui/viewConst.nut")
 let { HighlightFailure } = require("%ui/style/colors.nut")
 let { primaryFlatButtonStyle } = require("%enlSqGlob/ui/buttonsStyle.nut")
@@ -121,7 +121,7 @@ let mkBuyOrdersBtn = function(barterCost, action) {
                 rendObj = ROBJ_TEXT
                 text
                 color = sf & S_HOVER ? TextHover : TextNormal
-              }.__update(body_txt),
+              }.__update(fontBody),
               {
                 ["{cost}"] = orders.map(@(payData)  //warning disable: -forgot-subst
                   mkItemCurrency({
@@ -129,7 +129,7 @@ let mkBuyOrdersBtn = function(barterCost, action) {
                     count = payData[1]
                     textStyle = {
                       color = sf & S_HOVER ? TextHover : TextNormal
-                    }.__update(body_txt)
+                    }.__update(fontBody)
                   }))
               })
           }
@@ -155,13 +155,13 @@ let mkBuyButton = @(currency, action, hasDiscountExpiredVal) {
               rendObj = ROBJ_TEXT
               color = sf & S_HOVER ? TextHover : TextNormal
               text
-            }.__update(body_txt),
+            }.__update(fontBody),
             {
               ["{cost}"] = mkCurrency( //warning disable: -forgot-subst
                 currency.__update({ //warning disable: -unwanted-modification
                   txtStyle = {
                     color = sf & S_HOVER ? TextHover : TextNormal
-                  }.__update(body_txt)
+                  }.__update(fontBody)
                 }))
             })
         }
@@ -174,7 +174,7 @@ let mkBuyCurrencyBtn = @(currency, action) {
   action
   customStyle = {
     textCtor = @(_textComp, _params, handler, group, sf)
-      textButtonTextCtor(buyCurrencyText(currency, sf), h2_txt, handler, group, sf)
+      textButtonTextCtor(buyCurrencyText(currency, sf), fontHeading2, handler, group, sf)
   }
 }
 

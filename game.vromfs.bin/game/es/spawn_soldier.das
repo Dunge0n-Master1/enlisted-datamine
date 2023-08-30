@@ -14,6 +14,51 @@ require game.es.vehicle.vehicle_events
 require common_shooter.es.human.human_parachute_common
 require game.es.artillery_aircraft_common
 
+let
+  RECURSIVE = true
+  NON_RECURSIVE = false
+
+def create_additional_equipment(item_eid : EntityId; spawner_eid : EntityId; use_vehicle : bool)
+  var equipmentLeftToCreate = 0
+  query(item_eid) <| $ [es] (item__additionalSlotTemplates : Object)
+    using() <| $(var subequipment : Object)
+      for it in item__additionalSlotTemplates
+        let subitemTemplate = it.value ?? ""
+        subequipment |> set(subitemTemplate, it.key)
+        using() <| $(var emptyObj : Object)
+          equipmentLeftToCreate += create_equipment(spawner_eid, subequipment, emptyObj, use_vehicle, NON_RECURSIVE)
+  return equipmentLeftToCreate
+
+def create_equipment(spawner_eid : EntityId; equipment : Object; equipment_components : Object; use_vehicle : bool; is_recursive : bool)
+  var equipmentToCreateCount = 0
+  for kv in equipment
+    let gametempate = kv.key
+    let slot := get_string(kv.value, "")
+
+    let itemTemplate = get_item_template_for_equipment(gametempate, use_vehicle)
+    if empty(itemTemplate)
+      continue
+    equipmentToCreateCount++
+
+    let finalizeCreation <- @ <| (itemEid : EntityId)
+      query(spawner_eid) <| $ [es] (var equipmentEids : Object; var equipmentLeftToCreate : int&)
+        set(equipmentEids, slot, itemEid)
+        equipmentLeftToCreate -= 1
+        if is_recursive
+          equipmentLeftToCreate += create_additional_equipment(itemEid, spawner_eid, use_vehicle)
+        if equipmentLeftToCreate <= 0
+          sendEvent(spawner_eid, [[SoldierSpawnEquipmentCreated]])
+
+    createEntity(itemTemplate, finalizeCreation) <| $(var init : ComponentsInitializer)
+      let components = get_ecs_object(equipment_components, gametempate)
+      if components != null
+        let tpl = getTemplateByName(gametempate)
+        for comp in *components
+          let keyHash = ecs_hash(comp.key)
+          if tpl != null && templateHasComponent(*tpl, comp.key, keyHash)
+            set(init, comp.key, keyHash, comp.value)
+  return equipmentToCreateCount
+
 [es(tag=server, on_appear)]
 def spawn_soldier(evt : Event;
                   eid : EntityId;
@@ -26,32 +71,7 @@ def spawn_soldier(evt : Event;
   assume equipmentComponents = *equipmentComponentsPtr
 
   equipmentLeftToCreate = length(equipment)
-
-  let spawnerEid = eid
-  for kv in equipment
-    let gametempate = kv.key
-    let slot := get_string(kv.value, "")
-
-    let itemTemplate = get_item_template_for_equipment(gametempate, !!useVechicle)
-    if empty(itemTemplate)
-      equipmentLeftToCreate -= 1
-      continue
-
-    let finalizeCreation <- @ <| (itemEid : EntityId)
-      ecs::query(spawnerEid) <| $ [es] (var equipmentEids : Object; var equipmentLeftToCreate : int&)
-        set(equipmentEids, slot, itemEid)
-        equipmentLeftToCreate -= 1
-        if equipmentLeftToCreate <= 0
-          sendEvent(spawnerEid, [[SoldierSpawnEquipmentCreated]])
-
-    createEntity(itemTemplate, finalizeCreation) <| $(var init : ComponentsInitializer)
-      let components = get_ecs_object(equipmentComponents, gametempate)
-      if components != null
-        let tpl = getTemplateByName(gametempate)
-        for comp in *components
-          let keyHash = ecs_hash(comp.key)
-          if tpl != null && templateHasComponent(*tpl, comp.key, keyHash)
-            set(init, comp.key, keyHash, comp.value)
+  equipmentLeftToCreate = create_equipment(eid, equipment, *equipmentComponentsPtr, !!useVechicle, RECURSIVE)
 
   clear(equipment)
   clear(equipmentComponents)

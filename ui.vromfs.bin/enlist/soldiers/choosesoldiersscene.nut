@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let hoverHoldAction = require("%darg/helpers/hoverHoldAction.nut")
 let { blinkUnseenIcon } = require("%ui/components/unseenSignal.nut")
 let { curArmy } = require("%enlist/soldiers/model/state.nut")
@@ -223,7 +223,7 @@ let function chooseSoldiersScene() {
                     play = true, loop = true, easing = Blink
                   }]
                 : null
-            }.__update(sub_txt)
+            }.__update(fontSub)
             needHighlight.value ? highlightBorder : null
           ]
         }
@@ -289,7 +289,7 @@ let function chooseSoldiersScene() {
               isFaded = status != READY
               isClassRestricted = status & TOO_MUCH_CLASS
               hasAlertStyle = status & NOT_FIT_CUR_SQUAD
-              hasWeaponWarning = (status & NOT_READY_BY_EQUIP) != 0
+              hasWeaponWarning = !!(status & NOT_READY_BY_EQUIP)
               isFreemiumMode = needFreemiumStatus.value
               addChild = @(...) addObjects
             })
@@ -449,7 +449,7 @@ let function chooseSoldiersScene() {
     children = [
       noteTextArea({
         text = loc("squad/getMoreSoldiers")
-      }).__update(sub_txt, {halign = ALIGN_CENTER})
+      }).__update(fontSub, {halign = ALIGN_CENTER})
       Flat(loc("soldiers/purchaseSoldier"), @() isPurchaseWndOpend(true),
         unseenSoldierShopItems.value.len() <= 0 ? {} : {
           fgChild = smallUnseenNoBlink
@@ -490,7 +490,7 @@ let function chooseSoldiersScene() {
         reserveCountBlock
         makeVertScroll({
           xmbNode = XmbContainer({
-            canFocus = @() false
+            canFocus = false
             scrollSpeed = 5.0
           })
           flow = FLOW_VERTICAL

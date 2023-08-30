@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h2_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {
   soldierLvlColor, activeTxtColor, defBgColor, warningColor
 } = require("%enlSqGlob/ui/viewConst.nut")
@@ -182,7 +182,7 @@ let title = @(titleText) {
   transform = {}
   animations = textAnimations(ANIM_TITLE_TRIGGER)
   text = loc(titleText)
-}.__update(h2_txt)
+}.__update(fontHeading2)
 
 let curItemDescription = @(item) {
   size = [sw(50), SIZE_TO_CONTENT]
@@ -193,7 +193,7 @@ let curItemDescription = @(item) {
   text = getItemDesc(item)
   transform = {}
   animations = textAnimations(ANIM_TEXT_TRIGGER)
-}.__update(body_txt)
+}.__update(fontBody)
 
 let function soldierMedal(soldier) {
   if (soldier?.itemtype != "soldier")
@@ -210,7 +210,7 @@ let function curItemName(item, armyInfoId) {
         rendObj = ROBJ_TEXT
         text = loc($"{armyInfoId}/full")
         color = warningColor
-      }.__update(body_txt)
+      }.__update(fontBody)
   return {
     flow = FLOW_VERTICAL
     halign = ALIGN_CENTER
@@ -224,8 +224,8 @@ let function curItemName(item, armyInfoId) {
           {
             rendObj = ROBJ_TEXT
             size = SIZE_TO_CONTENT
-            text =  getObjectName(item)
-          }.__update(h2_txt)
+            text = getObjectName(item)
+          }.__update(fontHeading2)
           soldierMedal(item)
         ]
       }
@@ -503,7 +503,7 @@ let function upgradeItemBtn() {
           children = mkTextRow(loc("btn/upgrade/nextTier"),
             @(t) txt(t).__update({
               color = sf & S_HOVER ? TextHover : TextNormal
-            }, body_txt),
+            }, fontBody),
             {
               ["{stars}"] = mkItemTier(nextUpgrade) //warning disable: -forgot-subst
             })

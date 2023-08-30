@@ -1,3 +1,7 @@
 entity{
   _template:t="xray_context"
 }
+
+entity{
+  _template:t="armor_analyzer"
+}

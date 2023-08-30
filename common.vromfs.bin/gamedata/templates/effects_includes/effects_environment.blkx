@@ -1,5 +1,6 @@
 environment_effect_base{
   _extends:t="replicating"
+  _extends:t="ecs_no_debug"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 
   _group{
@@ -29,6 +30,43 @@ environment_sound_effect_base{
   _group{
     _tags:t="sound"
     sound_effect__abandonOnReset:b=yes
+  }
+}
+
+oneshot_environment_sound_effect_base{
+  _extends:t="environment_sound_effect_base"
+}
+
+envir_waterfall_medium_effect{
+  _extends:t="environment_effect_base"
+  _extends:t="range_pauseable_effect"
+  effect__emit_range_limit:r=180.0
+
+  _group{
+    _tags:t="render"
+    effect__name:t="water_waterfall_medium_cmps_fx"
+  }
+}
+
+envir_waterfall_medium_splash_effect{
+  _extends:t="environment_effect_base"
+  _extends:t="range_pauseable_effect"
+  effect__emit_range_limit:r=100.0
+
+  _group{
+    _tags:t="render"
+    effect__name:t="water_waterfall_medium_splash_cmps_fx"
+  }
+}
+
+envir_waterfall_medium_cloud_effect{
+  _extends:t="environment_effect_base"
+  _extends:t="range_pauseable_effect"
+  effect__emit_range_limit:r=100.0
+
+  _group{
+    _tags:t="render"
+    effect__name:t="water_waterfall_medium_cloud_cmps_fx"
   }
 }
 
@@ -98,6 +136,72 @@ envir_water_flow_splash_small_effect{
   }
 }
 
+envir_water_flow_stream_small_thin_effect{
+  _extends:t="environment_effect_base"
+  _extends:t="range_pauseable_effect"
+  effect__emit_range_limit:r=50.0
+
+  _group{
+    _tags:t="render"
+    effect__name:t="water_flow_stream_small_thin_cmps_fx"
+  }
+}
+
+envir_water_flow_splash_small_thin_effect{
+  _extends:t="environment_effect_base"
+  _extends:t="range_pauseable_effect"
+  effect__emit_range_limit:r=50.0
+
+  _group{
+    _tags:t="render"
+    effect__name:t="water_flow_splash_small_thin_cmps_fx"
+  }
+}
+
+envir_water_flow_stream_small_thin_2_effect{
+  _extends:t="environment_effect_base"
+  _extends:t="range_pauseable_effect"
+  effect__emit_range_limit:r=20.0
+
+  _group{
+    _tags:t="render"
+    effect__name:t="water_flow_stream_small_thin_2_cmps_fx"
+  }
+}
+
+envir_water_bubbles_big_effect{
+  _extends:t="environment_effect_base"
+  _extends:t="range_pauseable_effect"
+  effect__emit_range_limit:r=20.0
+
+  _group{
+    _tags:t="render"
+    effect__name:t="water_bubbles_big_cmps_fx"
+  }
+}
+
+envir_water_bubbles_medium_effect{
+  _extends:t="environment_effect_base"
+  _extends:t="range_pauseable_effect"
+  effect__emit_range_limit:r=15.0
+
+  _group{
+    _tags:t="render"
+    effect__name:t="water_bubbles_med_cmps_fx"
+  }
+}
+
+envir_water_bubbles_small_effect{
+  _extends:t="environment_effect_base"
+  _extends:t="range_pauseable_effect"
+  effect__emit_range_limit:r=10.0
+
+  _group{
+    _tags:t="render"
+    effect__name:t="water_bubbles_small_cmps_fx"
+  }
+}
+
 envir_steam_stream_effect{
   _extends:t="environment_effect_base"
   _extends:t="range_pauseable_effect"
@@ -129,11 +233,33 @@ envir_steam_small_effect{
 envir_steam_medium_effect{
   _extends:t="environment_effect_base"
   _extends:t="range_pauseable_effect"
-  effect__emit_range_limit:r=120.0
+  effect__emit_range_limit:r=400.0
 
   _group{
     _tags:t="render"
     effect__name:t="envir_smoke_static_steam_medium_cmps_fx"
+  }
+}
+
+envir_steam_big_effect{
+  _extends:t="environment_effect_base"
+  _extends:t="range_pauseable_effect"
+  effect__emit_range_limit:r=1500.0
+
+  _group{
+    _tags:t="render"
+    effect__name:t="envir_smoke_static_steam_big_cmps_fx"
+  }
+}
+
+envir_steam_tube_big_damage_effect{
+  _extends:t="environment_effect_base"
+  _extends:t="range_pauseable_effect"
+  effect__emit_range_limit:r=1500.0
+
+  _group{
+    _tags:t="render"
+    effect__name:t="envir_smoke_static_tube_big_damage_cmps_fx"
   }
 }
 
@@ -189,6 +315,17 @@ envir_smoke_big_effect{
   _group{
     _tags:t="render"
     effect__name:t="envir_smoke_static_big_cmps_fx"
+  }
+}
+
+envir_smoke_dark_medium_effect{
+  _extends:t="environment_effect_base"
+  _extends:t="range_pauseable_effect"
+  effect__emit_range_limit:r=800.0
+
+  _group{
+    _tags:t="render"
+    effect__name:t="envir_smoke_static_dark_medium_cmps_fx"
   }
 }
 
@@ -450,6 +587,55 @@ envir_sparks_burst_small_effect{
   }
 }
 
+envir_sparks_burst_tiny_smoke_effect{
+  _extends:t="environment_effect_base"
+  _extends:t="oneshot_environment_sound_effect_base"
+
+  "destroyable_with_rendinst:tag"{
+  }
+
+  _group{
+    _tags:t="render"
+    effect__name:t="envir_sparks_burst_tiny_smoke_cmps_fx"
+  }
+
+  _group{
+    _tags:t="sound"
+    sound_effect__path:t="env_effects/electric_sparks"
+  }
+
+  "autodeleteEffectEntity:tag"{
+  }
+}
+
+envir_sparks_burst_tiny_smoke_lamp_effect{
+  _extends:t="ecs_no_debug"
+  _extends:t="oneshot_environment_sound_effect_base"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+
+  "destroyable_with_rendinst:tag"{
+  }
+
+  _group{
+    _tags:t="render"
+    effect__name:t="envir_sparks_burst_tiny_smoke_cmps_fx"
+
+    effect{
+    }
+  }
+
+  _group{
+    _tags:t="sound"
+    sound_effect__path:t="env_effects/electric_sparks"
+  }
+
+  "autodeleteEffectEntity:tag"{
+  }
+
+  "staticEffect:tag"{
+  }
+}
+
 envir_sparks_small_continious_effect{
   _extends:t="environment_effect_base"
   _extends:t="environment_sound_effect_base"
@@ -470,6 +656,26 @@ envir_sparks_small_continious_effect{
   }
 }
 
+envir_sparks_small_continious_no_light_effect{
+  _extends:t="environment_effect_base"
+  _extends:t="environment_sound_effect_base"
+  _extends:t="range_pauseable_effect"
+  effect__emit_range_limit:r=80.0
+
+  "destroyable_with_rendinst:tag"{
+  }
+
+  _group{
+    _tags:t="render"
+    effect__name:t="envir_sparks_small_continious_no_light_cmps_fx"
+  }
+
+  _group{
+    _tags:t="sound"
+    sound_effect__path:t="env_effects/electric_continious_sparks"
+  }
+}
+
 envir_sparks_small_continious_column_effect{
   _extends:t="environment_effect_base"
   _extends:t="environment_sound_effect_base"
@@ -482,6 +688,26 @@ envir_sparks_small_continious_column_effect{
   _group{
     _tags:t="render"
     effect__name:t="envir_sparks_small_continious_column_cmps_fx"
+  }
+
+  _group{
+    _tags:t="sound"
+    sound_effect__path:t="env_effects/electric_continious_sparks"
+  }
+}
+
+envir_sparks_small_continious_column_no_light_effect{
+  _extends:t="environment_effect_base"
+  _extends:t="environment_sound_effect_base"
+  _extends:t="range_pauseable_effect"
+  effect__emit_range_limit:r=80.0
+
+  "destroyable_with_rendinst:tag"{
+  }
+
+  _group{
+    _tags:t="render"
+    effect__name:t="envir_sparks_small_continious_column_no_light_cmps_fx"
   }
 
   _group{
@@ -818,8 +1044,13 @@ fire_spot_5m_big_effect{
   _extends:t="environment_effect_base"
   _extends:t="environment_sound_effect_base"
   _extends:t="damage_fire_base"
+  _extends:t="fire_source"
   _extends:t="range_pauseable_effect"
-  sphere_zone__radius:r=2.2
+  fire_source__spreadTime:r=0.5
+  fire_source__fullForceTime:r=15.0
+  fire_source__maxFullForceTime:r=4.0
+  fire_source__fadeTime:r=15.0
+  dmgzone__maxRadius:r=3.2
   effect__emit_range_limit:r=400.0
 
   _group{
@@ -876,6 +1107,23 @@ fire_chimney_effect{
   _group{
     _tags:t="render"
     effect__name:t="fire_spot_chimney_cmps_fx"
+  }
+
+  _group{
+    _tags:t="sound"
+    sound_effect__path:t="env_effects/fire/fire_small"
+  }
+}
+
+fire_torch_effect{
+  _extends:t="environment_effect_base"
+  _extends:t="environment_sound_effect_base"
+  _extends:t="range_pauseable_effect"
+  effect__emit_range_limit:r=70.0
+
+  _group{
+    _tags:t="render"
+    effect__name:t="fire_spot_torch_cmps_fx"
   }
 
   _group{

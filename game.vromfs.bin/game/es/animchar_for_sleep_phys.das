@@ -24,21 +24,26 @@ def save_ship_sleep_state_phys_es(info : ParallelUpdateFrameDelayed;
                                   var phys__isAsleep : bool&)
   phys__isAsleep = ship_net_phys.isAsleep
 
-[es(before=(before_animchar_update_sync, anim_phys_updater_es), REQUIRE_NOT=animchar__updatableOnSleepPhys)]
+
+[es(after=after_net_phys_sync, before=(before_animchar_update_sync, anim_phys_updater_es), REQUIRE_NOT=animchar__updatableOnSleepPhys)]
 def animchar_update_sleep_phys_es(evt : ParallelUpdateFrameDelayed;
                                   phys__isAsleep : bool;
+                                  net_phys__lastAppliedControlsForTick : int;
+                                  sleep_phys__animInterpTimeDef : float;
+                                  var sleep_phys__animInterpTime : float&;
                                   var animchar__updatable : bool&;
-                                  var animchar__forceUpdateOnTmChanged : bool&)
-  animchar__updatable = !phys__isAsleep || animchar__forceUpdateOnTmChanged
-  animchar__forceUpdateOnTmChanged = false
+                                  var sleep_phys__lastUpdateAtControls : int&)
+  let requireUpdateByTick = sleep_phys__lastUpdateAtControls < net_phys__lastAppliedControlsForTick
 
-//Required for changing position after changing network lod (or other reason of changing tm). Entity must be updated in correct pos
-[es(track=transform, REQUIRE=(transform, phys__isAsleep), REQUIRE_NOT=animchar__updatableOnSleepPhys)]
-def update_anim_after_network_lod_changed(evt : Event;
-                                          animchar__updatable : bool;
-                                          var animchar__forceUpdateOnTmChanged : bool&)
-  if !animchar__updatable
-    animchar__forceUpdateOnTmChanged = true
+  if phys__isAsleep && requireUpdateByTick
+    sleep_phys__animInterpTime = sleep_phys__animInterpTimeDef
+
+  animchar__updatable = !phys__isAsleep || sleep_phys__animInterpTime > 0.
+
+  if sleep_phys__animInterpTime > 0.
+    sleep_phys__animInterpTime -= evt.dt
+
+  sleep_phys__lastUpdateAtControls = net_phys__lastAppliedControlsForTick
 
 [es(on_appear, REQUIRE=animchar__updatableOnSleepPhys)]
 def wakeup_sleeping_animchar(evt : Event; var animchar__updatable : bool&)

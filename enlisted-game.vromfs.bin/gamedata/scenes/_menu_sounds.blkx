@@ -1,8 +1,4 @@
 entity{
-  _template:t="sound_step_settings"
-}
-
-entity{
   _template:t="music_launcher_ambient_sound"
 }
 

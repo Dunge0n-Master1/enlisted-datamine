@@ -27,6 +27,7 @@ VehiclePhys{
 
   collisionProps{
     cls_turret_01:t="convex_hull"
+    cls_turret_02:t="convex_hull"
     cls_body_01:t="convex_hull"
   }
 
@@ -37,6 +38,7 @@ VehiclePhys{
   }
 
   mechanics{
+    steerType:t="clutch_braking"
     maxBrakeForce:r=250000.0
     driveGearRadius:r=0.37
     mainGearRatio:r=2.46
@@ -72,7 +74,7 @@ VehiclePhys{
 DamageParts{
   formatVersion:i=2
 
-  body_front{
+  turret_04_top{
     hitTestType:t="armor"
     malfunctionDamage:r=0.7
     stopChanceOnDeadPart:r=1.0
@@ -89,10 +91,11 @@ DamageParts{
     pressureDamageMult:r=0.0
     napalmDamageMult:r=0.0
     sonicDamageMult:r=0.0
+    externalArmorForHitDecals:b=no
     armorClass:t="RHA_tank"
     hp:r=10000.0
-    armorThickness:r=100.0
-    ignoreSolidDimension:b=yes
+    armorThickness:r=30.0
+    variableThickness:b=yes
   }
 
   body_side{
@@ -112,6 +115,7 @@ DamageParts{
     pressureDamageMult:r=0.0
     napalmDamageMult:r=0.0
     sonicDamageMult:r=0.0
+    externalArmorForHitDecals:b=no
     armorClass:t="RHA_tank"
     hp:r=10000.0
     armorThickness:r=90.0
@@ -134,6 +138,7 @@ DamageParts{
     pressureDamageMult:r=0.0
     napalmDamageMult:r=0.0
     sonicDamageMult:r=0.0
+    externalArmorForHitDecals:b=no
     armorClass:t="RHA_tank"
     hp:r=10000.0
     armorThickness:r=90.0
@@ -156,6 +161,7 @@ DamageParts{
     pressureDamageMult:r=0.0
     napalmDamageMult:r=0.0
     sonicDamageMult:r=0.0
+    externalArmorForHitDecals:b=no
     armorClass:t="RHA_tank"
     hp:r=10000.0
     armorThickness:r=60.0
@@ -178,6 +184,7 @@ DamageParts{
     pressureDamageMult:r=0.0
     napalmDamageMult:r=0.0
     sonicDamageMult:r=0.0
+    externalArmorForHitDecals:b=no
     armorClass:t="RHA_tank"
     hp:r=10000.0
     armorThickness:r=30.0
@@ -200,9 +207,11 @@ DamageParts{
     pressureDamageMult:r=0.0
     napalmDamageMult:r=0.0
     sonicDamageMult:r=0.0
+    externalArmorForHitDecals:b=no
     armorClass:t="RHA_tank"
     hp:r=10000.0
-    armorThickness:r=20.0
+    armorThickness:r=30.0
+    variableThickness:b=yes
   }
 
   superstructure_bottom{
@@ -222,31 +231,10 @@ DamageParts{
     pressureDamageMult:r=0.0
     napalmDamageMult:r=0.0
     sonicDamageMult:r=0.0
+    externalArmorForHitDecals:b=no
     armorClass:t="RHA_tank"
     hp:r=10000.0
     armorThickness:r=25.0
-  }
-
-  turret_01_bottom{
-    hitTestType:t="armor"
-    malfunctionDamage:r=0.7
-    stopChanceOnDeadPart:r=1.0
-    castOnKillAfterTankPartDead:b=no
-    fireProtectionHp:r=-1.0
-    externalArmor:b=yes
-    minRelHpSelfRepair:r=0.5
-    maxRelHpSelfRepair:r=0.5
-    selfRepairDelay:r=0.0
-    selfRepairTime:r=-1.0
-    ignoreDeadWithSplash:b=no
-    useForSeriousHit:b=yes
-    splashPenetrationToArmorThreshold:r=0.33
-    pressureDamageMult:r=0.0
-    napalmDamageMult:r=0.0
-    sonicDamageMult:r=0.0
-    armorClass:t="RHA_tank"
-    hp:r=10000.0
-    armorThickness:r=60.0
   }
 
   turret_02_side{
@@ -266,6 +254,7 @@ DamageParts{
     pressureDamageMult:r=0.0
     napalmDamageMult:r=0.0
     sonicDamageMult:r=0.0
+    externalArmorForHitDecals:b=no
     armorClass:t="RHA_tank"
     hp:r=10000.0
     armorThickness:r=5.0
@@ -288,6 +277,7 @@ DamageParts{
     pressureDamageMult:r=0.0
     napalmDamageMult:r=0.0
     sonicDamageMult:r=0.0
+    externalArmorForHitDecals:b=no
     armorClass:t="RHA_tank"
     hp:r=10000.0
     armorThickness:r=10.0
@@ -310,9 +300,199 @@ DamageParts{
     pressureDamageMult:r=0.0
     napalmDamageMult:r=0.0
     sonicDamageMult:r=0.0
+    externalArmorForHitDecals:b=no
     armorClass:t="RHA_tank"
     hp:r=10000.0
     armorThickness:r=10.0
+  }
+
+  turret_03_top{
+    hitTestType:t="armor"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=-1.0
+    externalArmor:b=yes
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
+    externalArmorForHitDecals:b=no
+    armorClass:t="RHA_tank"
+    hp:r=10000.0
+    armorThickness:r=10.0
+  }
+
+  body_front{
+    hitTestType:t="armor"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=-1.0
+    externalArmor:b=yes
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
+    externalArmorForHitDecals:b=no
+    armorClass:t="CHA_tank"
+    hp:r=10000.0
+    armorThickness:r=100.0
+    variableThickness:b=yes
+  }
+
+  superstructure_front{
+    hitTestType:t="armor"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=-1.0
+    externalArmor:b=yes
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
+    externalArmorForHitDecals:b=no
+    armorClass:t="CHA_tank"
+    hp:r=10000.0
+    armorThickness:r=100.0
+    variableThickness:b=yes
+  }
+
+  turret_01_bottom{
+    hitTestType:t="armor"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=-1.0
+    externalArmor:b=yes
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
+    externalArmorForHitDecals:b=no
+    armorClass:t="CHA_tank"
+    hp:r=10000.0
+    armorThickness:r=60.0
+    variableThickness:b=yes
+  }
+
+  turret_top{
+    hitTestType:t="armor"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=-1.0
+    externalArmor:b=yes
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
+    externalArmorForHitDecals:b=no
+    armorClass:t="RHA_tank"
+    hp:r=10000.0
+    armorThickness:r=30.0
+  }
+
+  turret_02_top{
+    hitTestType:t="armor"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=-1.0
+    externalArmor:b=yes
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
+    externalArmorForHitDecals:b=no
+    armorClass:t="RHA_tank"
+    hp:r=10000.0
+    armorThickness:r=30.0
+  }
+
+  turret_01_front{
+    hitTestType:t="armor"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=-1.0
+    externalArmor:b=yes
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
+    externalArmorForHitDecals:b=no
+    armorClass:t="CHA_tank"
+    hp:r=10000.0
+    armorThickness:r=100.0
+    variableThickness:b=yes
+  }
+
+  turret_front{
+    hitTestType:t="armor"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=-1.0
+    externalArmor:b=yes
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
+    externalArmorForHitDecals:b=no
+    armorClass:t="CHA_tank"
+    hp:r=10000.0
+    armorThickness:r=100.0
+    variableThickness:b=yes
   }
 
   gun_mask{
@@ -338,7 +518,7 @@ DamageParts{
     variableThickness:b=yes
   }
 
-  turret_side{
+  turret_bottom{
     hitTestType:t="armor"
     malfunctionDamage:r=0.7
     stopChanceOnDeadPart:r=1.0
@@ -355,18 +535,19 @@ DamageParts{
     pressureDamageMult:r=0.0
     napalmDamageMult:r=0.0
     sonicDamageMult:r=0.0
+    externalArmorForHitDecals:b=no
     armorClass:t="CHA_tank"
     hp:r=10000.0
-    armorThickness:r=100.0
+    armorThickness:r=30.0
   }
 
-  turret_front{
+  gun_mask_01{
     hitTestType:t="armor"
     malfunctionDamage:r=0.7
     stopChanceOnDeadPart:r=1.0
     castOnKillAfterTankPartDead:b=no
     fireProtectionHp:r=-1.0
-    externalArmor:b=yes
+    externalArmor:b=no
     minRelHpSelfRepair:r=0.5
     maxRelHpSelfRepair:r=0.5
     selfRepairDelay:r=0.0
@@ -379,7 +560,8 @@ DamageParts{
     sonicDamageMult:r=0.0
     armorClass:t="CHA_tank"
     hp:r=10000.0
-    armorThickness:r=100.0
+    armorThickness:r=120.0
+    variableThickness:b=yes
   }
 
   turret_commander{
@@ -402,161 +584,7 @@ DamageParts{
     armorClass:t="CHA_tank"
     hp:r=10000.0
     armorThickness:r=90.0
-  }
-
-  superstructure_front{
-    hitTestType:t="armor"
-    malfunctionDamage:r=0.7
-    stopChanceOnDeadPart:r=1.0
-    castOnKillAfterTankPartDead:b=no
-    fireProtectionHp:r=-1.0
-    externalArmor:b=yes
-    minRelHpSelfRepair:r=0.5
-    maxRelHpSelfRepair:r=0.5
-    selfRepairDelay:r=0.0
-    selfRepairTime:r=-1.0
-    ignoreDeadWithSplash:b=no
-    useForSeriousHit:b=yes
-    splashPenetrationToArmorThreshold:r=0.33
-    pressureDamageMult:r=0.0
-    napalmDamageMult:r=0.0
-    sonicDamageMult:r=0.0
-    armorClass:t="CHA_tank"
-    hp:r=10000.0
-    armorThickness:r=100.0
     variableThickness:b=yes
-  }
-
-  turret_01_front{
-    hitTestType:t="armor"
-    malfunctionDamage:r=0.7
-    stopChanceOnDeadPart:r=1.0
-    castOnKillAfterTankPartDead:b=no
-    fireProtectionHp:r=-1.0
-    externalArmor:b=yes
-    minRelHpSelfRepair:r=0.5
-    maxRelHpSelfRepair:r=0.5
-    selfRepairDelay:r=0.0
-    selfRepairTime:r=-1.0
-    ignoreDeadWithSplash:b=no
-    useForSeriousHit:b=yes
-    splashPenetrationToArmorThreshold:r=0.33
-    pressureDamageMult:r=0.0
-    napalmDamageMult:r=0.0
-    sonicDamageMult:r=0.0
-    armorClass:t="RHA_tank"
-    hp:r=10000.0
-    armorThickness:r=30.0
-  }
-
-  turret_top{
-    hitTestType:t="armor"
-    malfunctionDamage:r=0.7
-    stopChanceOnDeadPart:r=1.0
-    castOnKillAfterTankPartDead:b=no
-    fireProtectionHp:r=-1.0
-    externalArmor:b=yes
-    minRelHpSelfRepair:r=0.5
-    maxRelHpSelfRepair:r=0.5
-    selfRepairDelay:r=0.0
-    selfRepairTime:r=-1.0
-    ignoreDeadWithSplash:b=no
-    useForSeriousHit:b=yes
-    splashPenetrationToArmorThreshold:r=0.33
-    pressureDamageMult:r=0.0
-    napalmDamageMult:r=0.0
-    sonicDamageMult:r=0.0
-    armorClass:t="RHA_tank"
-    hp:r=10000.0
-    armorThickness:r=30.0
-  }
-
-  turret_bottom{
-    hitTestType:t="armor"
-    malfunctionDamage:r=0.7
-    stopChanceOnDeadPart:r=1.0
-    castOnKillAfterTankPartDead:b=no
-    fireProtectionHp:r=-1.0
-    externalArmor:b=yes
-    minRelHpSelfRepair:r=0.5
-    maxRelHpSelfRepair:r=0.5
-    selfRepairDelay:r=0.0
-    selfRepairTime:r=-1.0
-    ignoreDeadWithSplash:b=no
-    useForSeriousHit:b=yes
-    splashPenetrationToArmorThreshold:r=0.33
-    pressureDamageMult:r=0.0
-    napalmDamageMult:r=0.0
-    sonicDamageMult:r=0.0
-    armorClass:t="RHA_tank"
-    hp:r=10000.0
-    armorThickness:r=30.0
-  }
-
-  turret_03_front{
-    hitTestType:t="armor"
-    malfunctionDamage:r=0.7
-    stopChanceOnDeadPart:r=1.0
-    castOnKillAfterTankPartDead:b=no
-    fireProtectionHp:r=-1.0
-    externalArmor:b=yes
-    minRelHpSelfRepair:r=0.5
-    maxRelHpSelfRepair:r=0.5
-    selfRepairDelay:r=0.0
-    selfRepairTime:r=-1.0
-    ignoreDeadWithSplash:b=no
-    useForSeriousHit:b=yes
-    splashPenetrationToArmorThreshold:r=0.33
-    pressureDamageMult:r=0.0
-    napalmDamageMult:r=0.0
-    sonicDamageMult:r=0.0
-    armorClass:t="RHA_tank"
-    hp:r=10000.0
-    armorThickness:r=45.0
-  }
-
-  turret_04_top{
-    hitTestType:t="armor"
-    malfunctionDamage:r=0.7
-    stopChanceOnDeadPart:r=1.0
-    castOnKillAfterTankPartDead:b=no
-    fireProtectionHp:r=-1.0
-    externalArmor:b=yes
-    minRelHpSelfRepair:r=0.5
-    maxRelHpSelfRepair:r=0.5
-    selfRepairDelay:r=0.0
-    selfRepairTime:r=-1.0
-    ignoreDeadWithSplash:b=no
-    useForSeriousHit:b=yes
-    splashPenetrationToArmorThreshold:r=0.33
-    pressureDamageMult:r=0.0
-    napalmDamageMult:r=0.0
-    sonicDamageMult:r=0.0
-    armorClass:t="RHA_tank"
-    hp:r=10000.0
-    armorThickness:r=30.0
-  }
-
-  turret_02_top{
-    hitTestType:t="armor"
-    malfunctionDamage:r=0.7
-    stopChanceOnDeadPart:r=1.0
-    castOnKillAfterTankPartDead:b=no
-    fireProtectionHp:r=-1.0
-    externalArmor:b=yes
-    minRelHpSelfRepair:r=0.5
-    maxRelHpSelfRepair:r=0.5
-    selfRepairDelay:r=0.0
-    selfRepairTime:r=-1.0
-    ignoreDeadWithSplash:b=no
-    useForSeriousHit:b=yes
-    splashPenetrationToArmorThreshold:r=0.33
-    pressureDamageMult:r=0.0
-    napalmDamageMult:r=0.0
-    sonicDamageMult:r=0.0
-    armorClass:t="RHA_tank"
-    hp:r=10000.0
-    armorThickness:r=30.0
   }
 
   ex_decor_r_01{
@@ -816,6 +844,7 @@ DamageParts{
     pressureDamageMult:r=0.0
     napalmDamageMult:r=0.0
     sonicDamageMult:r=0.0
+    externalArmorForHitDecals:b=no
     armorClass:t="tank_structural_steel"
     hp:r=400.0
     armorThickness:r=4.0
@@ -3731,6 +3760,32 @@ DamageParts{
     armorThrough:r=12.0
   }
 
+  fuel_tank_r_02{
+    hitTestType:t="inner"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=15.0
+    externalArmor:b=no
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
+    vital:b=yes
+    fire:b=yes
+    ldmInner:b=yes
+    armorClass:t="tank_structural_steel"
+    hp:r=250.0
+    armorThickness:r=2.0
+    armorThrough:r=12.0
+  }
+
   fuel_tank_l_01{
     hitTestType:t="inner"
     malfunctionDamage:r=0.7
@@ -4033,16 +4088,11 @@ DamageEffects{
       damageType:t="fire"
       fire:r=0.1
     }
-
-    onKill{
-      fire:r=0.4
-      nothing:r=0.6
-      fHitCritical:b=yes
-    }
   }
 
   part{
     name:t="fuel_tank_r_01"
+    name:t="fuel_tank_r_02"
     name:t="fuel_tank_l_01"
 
     onHit{

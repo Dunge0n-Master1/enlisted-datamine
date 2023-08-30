@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {tipCmp} = require("%ui/hud/huds/tips/tipComponent.nut")
 let {inVehicle} = require("%ui/hud/state/vehicle_state.nut")
 let {showBigMap} = require("%ui/hud/menus/big_map.nut")
@@ -28,6 +28,6 @@ return function() {
       : tipCmp({
         text = loc(tipLocId.value),
         inputId = "Human.CancelContextCommand",
-      }.__update(sub_txt))
+      }.__update(fontSub))
   }
 }

@@ -16,8 +16,6 @@ entity{
   "game_object_compound_sound_generator__entityTypes:array"{
 
     "entity:object"{
-      singleEntityTemplate:t="volume_ambient_sound"
-      compoundEntityTemplate:t="compound_ambient_sound"
       soundName:t="plant"
 
       "objectTypes:object"{

@@ -22,7 +22,7 @@ def get_gunMod_eid_by_slot(slot : int; slotName : string; gunMods : Array)
 
 
 def switch_weap_mod(eid : EntityId; itemEid : EntityId; curGunEid : EntityId; curSlot : int; slotName : string; gunMods : Array)
-  if is_item_useful(eid, itemEid)
+  if is_item_useful2(eid, itemEid)
     return false
   if !is_gunmod_allowed2(curGunEid, itemEid)
     return false
@@ -39,7 +39,7 @@ def pickup_gun_mod_es(evt : CmdInventoryPickupGunMod;
                       human_weap__currentGunEid : EntityId)
   let itemEid = evt.item
   if human_weap__currentGunSlot < 0
-    pickup_item(eid, itemEid)
+    pickup_item2(eid, itemEid)
     return
   let curSlot = human_weap__currentGunSlot
   let curGunEid = human_weap__currentGunEid
@@ -50,4 +50,4 @@ def pickup_gun_mod_es(evt : CmdInventoryPickupGunMod;
       pickup_and_install_item_on_weap_impl2(eid, itemEid, curSlot, gunAttachable__slotName)
       return
 
-    pickup_item(eid, itemEid)
+    pickup_item2(eid, itemEid)

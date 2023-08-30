@@ -3,7 +3,8 @@ germ_pzkpfw_III_ausf_B{
   _extends:t="tank_panzer3_engine_sound"
   vehicle_net_phys__blk:t="content/tanks/gamedata/units/tanks/pzkpfw_iii_ausf_b.blk:VehiclePhys"
   damage_model__blk:t="content/tanks/gamedata/units/tanks/pzkpfw_iii_ausf_b.blk"
-  item__iconOffset:p2=0.0, 0.3
+  item__iconOffset:p2=0.0, 0.2
+  item__iconScale:r=1.4
   commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
   gunner_cam_limit__useCockpitDir:b=yes
 

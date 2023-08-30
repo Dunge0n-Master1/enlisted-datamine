@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {sub_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontSub} = require("%enlSqGlob/ui/fontsStyle.nut")
 let formatInputBinding = require("%ui/control/formatInputBinding.nut")
 let parseDargHotkeys =  require("%ui/components/parseDargHotkeys.nut")
 let {isGamepad} = require("%ui/control/active_controls.nut")
@@ -12,8 +12,8 @@ let function mkHintRow(hotkeys, params={}) {
     rendObj = ROBJ_TEXT
     text
     color = HUD_TIPS_HOTKEY_FG
-    font = params?.font ?? sub_txt.font
-    fontSize = params?.fontSize ?? sub_txt.fontSize
+    font = params?.font ?? fontSub.font
+    fontSize = params?.fontSize ?? fontSub.fontSize
   }
   let noWatchGamepad = params?.column != null
   return function(){

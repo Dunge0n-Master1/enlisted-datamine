@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontawesome } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontawesome } = require("%enlSqGlob/ui/fontsStyle.nut")
 let colors = require("%ui/style/colors.nut")
 let { bigGap, gap } = require("%enlSqGlob/ui/viewConst.nut")
 let scrollbar = require("%ui/components/scrollbar.nut")

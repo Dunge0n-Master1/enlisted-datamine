@@ -1,9 +1,9 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 
-let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { defTxtColor, titleTxtColor, smallPadding, panelBgColor, bigPadding, defItemBlur,
-  darkPanelBgColor, disabledTxtColor, fullTransparentBgColor, colFull
+  darkPanelBgColor, disabledTxtColor, fullTransparentBgColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let textInput = require("%ui/components/textInput.nut")
 let { makeVertScroll } = require("%ui/components/scrollbar.nut")
@@ -36,8 +36,8 @@ let hasFriendOnlineNotification = require("%enlist/contacts/onlineNotifications.
 
 const CONTACTLIST_MODAL_UID = "contactsListWnd_modalUid"
 let contactListWidth = hdpx(400)
-let defTxtStyle = freeze({ color = defTxtColor }.__update(sub_txt))
-let headerTxtStyle = freeze({ color = titleTxtColor }.__update(body_txt))
+let defTxtStyle = freeze({ color = defTxtColor }.__update(fontSub))
+let headerTxtStyle = freeze({ color = titleTxtColor }.__update(fontBody))
 
 
 const APPROVED_TAB = "approved"
@@ -256,7 +256,7 @@ let mkContactsGroupContent = @(groupKeys) function() {
 
     contactsArr = sortContacts(contactsArr, onlineStatus.value)
       .map(@(contact) {
-        size = [flex(), colFull(1)]
+        size = [flex(), hdpx(62)]
         children = mkContactBlock(contact, contextMenuActions, inContactActions)
       })
 
@@ -272,7 +272,7 @@ let mkContactsGroupContent = @(groupKeys) function() {
   return {
     watch
     xmbNode = XmbContainer({
-      canFocus = @() false
+      canFocus = false
       wrap = false
       scrollToEdge = true
     })

@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt, tiny_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub, fontTiny } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { fabs } = require("math")
 let {
   watchedHeroSquadMembers, selectedBotForOrderEid, isPersonalContextCommandMode,
@@ -92,7 +92,7 @@ let memberName = function(name) {
      transform = {}
      animations = memberNameAnimations
      watch = name
-   }.__update(tiny_txt)
+   }.__update(fontTiny)
 
   return {
     size = [SIZE_TO_CONTENT, iconSize]
@@ -141,7 +141,7 @@ let killRow = @(eid, kills) {
 
           animations = [{ prop = AnimProp.color, from = SUCCESS_TEXT_COLOR, to = DEFAULT_TEXT_COLOR,
             duration = 5, easing = InOutCubic, trigger = $"member_kill_{eid}" }]
-        }.__update(tiny_txt)
+        }.__update(fontTiny)
       ]
     }
   ]
@@ -269,7 +269,7 @@ let squadControlHints = @() {
       ? tipCmp({
           text = loc("squad_orders/switch_bot_for_order"),
           inputId = "Human.SwitchBotForOrders"
-        }.__update(sub_txt))
+        }.__update(fontSub))
       : null
 
     cancelContextCommandHint
@@ -282,11 +282,11 @@ let squadControlHints = @() {
         tipCmp({
           text = loc("controls/Human.SwitchContextCommandMode"),
           inputId = "Human.SwitchContextCommandMode"
-        }.__update(sub_txt))
+        }.__update(fontSub))
         isSquadSoldiersMenuAvailable.value ? tipCmp({
           text = loc("controls/HUD.SquadSoldiersMenu"),
           inputId = "HUD.SquadSoldiersMenu"
-        }.__update(sub_txt)) : null
+        }.__update(fontSub)) : null
       ]
     }
   ]

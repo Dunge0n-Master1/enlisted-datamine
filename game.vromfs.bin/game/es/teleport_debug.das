@@ -4,15 +4,16 @@ require DagorConsole
 require DagorSystem
 require game.es.teleport_common
 require game.utils.hero
+require game.es.net_console_macro
 
 
-[console_cmd(name="phys.teleport", hint="[x,y,z] [hero eid] Uses camera if no coords are provided")]
-def console_phys_teleport(x, y, z, w : float = 0.0)
+[net_console_cmd(name="phys.teleport", hint="[x,y,z] [hero eid] Uses camera if no coords are provided")]
+def console_phys_teleport(x, y, z, w : float = 0.0; [[net_hero]] hero_eid : EntityId)
   if y == 0.0 && z == 0.0 && w == 0.0
-    let eid = x == 0.0 ? get_controlled_hero() : EntityId(uint(x))
+    let eid = x == 0.0 ? hero_eid : EntityId(uint(x))
     teleport_eid_to(eid, float3(0, 0, 0), true)
   else
-    let eid = w == 0.0 ? get_controlled_hero() : EntityId(uint(w))
+    let eid = w == 0.0 ? hero_eid : EntityId(uint(w))
     teleport_eid_to(eid, float3(x, y, z), false)
 
 

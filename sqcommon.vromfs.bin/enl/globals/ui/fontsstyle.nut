@@ -1,55 +1,50 @@
-from "%darg/ui_imports.nut" import *
-let fonts = require("fonts_style.nut")
+from "%enlSqGlob/ui_library.nut" import *
+
+let fontTactical = freeze({
+  font = Fonts.tactical
+  fontSize = hdpxi(21)
+})
+
+let fontTiny = freeze({
+  font = Fonts.trebuchet
+  fontSize = max(13, hdpxi(13))
+})
+
+let fontSub = freeze({
+  font = Fonts.trebuchet
+  fontSize = max(15, hdpxi(16))
+})
+
+let fontBody = freeze({
+  font = Fonts.trebuchet
+  fontSize = hdpxi(22)
+})
+
+let fontHeading2 = freeze({
+  font = Fonts.trebuchet
+  fontSize = hdpxi(26)
+})
+
+let fontHeading1 = freeze({
+  font = Fonts.trebuchet
+  fontSize = hdpxi(34)
+})
+
+let fontTitle = freeze({
+  font = Fonts.trebuchet
+  fontSize = hdpxi(48)
+})
+
+let fontGiant = freeze({
+  font = Fonts.trebuchet
+  fontSize = hdpxi(62)
+})
 
 
-
-/**
-
-
-    !!!THIS IS JUST COPY of fonts_style.nut!!!
-    DO NOT ADD ANYTHING HERE!
-    WE KEEP IT only for simpler merging of 'new' desgin
-
-
-
-
-*/
-
-
-
-
-
-
-//!!!
-let fontXXSmall = fonts.tiny_txt //should be 12px, but tiny_txt =13px
-//!!!
-let fontXSmall = fonts.tiny_txt //should be 14px, but tiny_txt =13px
-
-let fontSmall = fonts.sub_txt //should be 16px
-
-//!!!
-let fontMedium = fonts.sub_txt //should be 18px but sub_txt is 16px
-let fontLarge = fonts.body_txt // 22px
-
-let fontXLarge = fonts.h2_txt  // 26px
-
-let fontXXLarge = fonts.h1_txt //35px
-let fontGiant = fonts.h0_txt // 50px
-
-//let fontLargeBold = fonts.body_bold_txt
-
-//let fontXLargeBold = fonts.h2_bold_txt
-
-//let fontXXLargeBold = fonts.h1_bold_txt
-
-let fontFontawesome = fonts.fontawesome
-
-let fontTactical = fonts.tactical_font
-
+let fontawesome = freeze({
+  font = Fonts.fontawesome
+  fontSize = hdpxi(21)
+})
 
 return {
-  fontXXSmall, fontXSmall, fontSmall, fontMedium, fontLarge, fontXLarge,
-  fontXXLarge, fontGiant,
-  //fontLargeBold, fontXLargeBold, fontXXLargeBold,
-  fontTactical, fontFontawesome
-}
+  fontGiant, fontTitle, fontHeading1, fontHeading2, fontBody, fontSub, fontTiny, fontawesome, fontTactical}

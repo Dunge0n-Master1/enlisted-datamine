@@ -3,7 +3,6 @@ require daslib/strings_boost
 require ecs
 require Dacoll
 require DagorSystem
-require DngCamera
 require AssetsImport
 require math.base
 require stddlg
@@ -61,7 +60,14 @@ def get_filtered_assets(type_name, filter : string; b : block<(arg1 : array<stri
       invoke(b, assetNames)
 
 def find_transform()
-  let cameraTm = get_cur_cam_entity() |> get_TMatrix("transform") ?? IDENT_TM
+  var cameraTm = IDENT_TM
+  let cameraWasFound = find_query() <| $ [es] (camera__active : bool; transform : float3x4)
+    if !camera__active
+      return false
+    cameraTm = transform
+    return true
+  if !cameraWasFound
+    return IDENT_TM
   let cameraPos = cameraTm[3]
   let dir = cameraTm[2]
   var dist = 500.0f

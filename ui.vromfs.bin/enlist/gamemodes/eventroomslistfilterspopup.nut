@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 from "eventRoomsListFilter.nut" import *
-let { sub_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { bigPadding, smallPadding, defTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
 let { localGap } = require("eventModeStyle.nut")
 let modalPopupWnd = require("%ui/components/modalPopupWnd.nut")
@@ -47,7 +47,7 @@ let bTxt = @(text) {
   rendObj = ROBJ_TEXT
   color = defTxtColor
   text
-}.__update(body_txt)
+}.__update(fontBody)
 
 let mkBlock = @(headerText, children) {
   size = [flex(), SIZE_TO_CONTENT]
@@ -60,7 +60,7 @@ let mkBlock = @(headerText, children) {
       rendObj = ROBJ_TEXT
       color = 0xFF808080
       text = headerText
-    }.__update(sub_txt)
+    }.__update(fontSub)
     children
   ]
 }

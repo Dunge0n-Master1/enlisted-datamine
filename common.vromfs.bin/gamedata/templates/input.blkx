@@ -17,13 +17,15 @@ glob_input{
 
 input_priority{
   _tags:t="input"
-  _tracked:t="input_priority__actionsAvailability"
   _tracked:t="input_priority__conflictedActionsTable"
 
   "input_priority__actionsOrder:list<t>"{
+    action:t="Human.ThrowBack"
     action:t="Human.BuildingAction"
-    action:t="Human.VehicleMaintenance"
-    action:t="Human.LeaveVehicleAlone && Human.Use"
+    action:t="Mortar.SwitchShellType"
+    action:t="Human.RepairBuilding"
+    action:t="Human.VehicleMaintenance && Human.LeaveVehicleAlone && Human.Use"
+    action:t="Human.RotateBuilding"
     action:t="Inventory.ForcedPickup"
     action:t="Inventory.Pickup"
     action:t="Human.Reload"

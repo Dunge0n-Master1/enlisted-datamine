@@ -11,11 +11,11 @@ bf_109f_4_trop{
       seatOwnsEntityControl:b=yes
       attachNode:t="pilot1"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.15, 0.05, -0.15]]
+      attachTm:m=[[0.992525, 0.121867, 0.0] [-0.121867, 0.992525, 0.0] [0.0, 0.0, 1.0] [-0.01, 0.05, -0.15]]
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="pilot_dm"
       cameraNodeName:t=""
-      cameraOffset:p3=-0.955, 0.76, -0.03
+      cameraOffset:p3=-1.05, 0.76, -0.03
       cockpitTemplate:t="bf_109f_4_trop_driver_cockpit"
       roomSpace:i=0
 
@@ -23,13 +23,6 @@ bf_109f_4_trop{
         turret:t="turret_01"
         turret:t="turret_02"
         turret:t="turret_03"
-      }
-
-      "cockpitEffectors:object"{
-        r.hand:t="stick_rhand_1"
-        l.hand:t="throttle_lhand_1"
-        r.foot:t="pedal_rfoot_1"
-        l.foot:t="pedal_lfoot_1"
       }
     }
   }
@@ -99,6 +92,13 @@ bf_109f_4_trop{
     scale:r=1.0
     scale:r=1.0
   }
+
+  "disableDMParts:list<t>"{
+    part:t="pylon_cannon_l"
+    part:t="pylon_cannon_r"
+    part:t="pylon_bomb1"
+    part:t="pylon_bomb2"
+  }
 }
 
 base_bf_109f_4_trop_7_92mm_mg17{
@@ -132,18 +132,6 @@ base_bf_109f_4_trop_7_92mm_mg17{
         blk:t="gamedata/weapons/shells/7_92mm_smk_l_spur_v_bullet.blk"
         name:t="v"
         type:t="ap_t_ball"
-      }
-
-      "shell:object"{
-        blk:t="gamedata/weapons/shells/7_92mm_s_bullet.blk"
-        name:t="s"
-        type:t="ball"
-      }
-
-      "shell:object"{
-        blk:t="gamedata/weapons/shells/7_92mm_s_bullet.blk"
-        name:t="s"
-        type:t="ball"
       }
 
       "shell:object"{

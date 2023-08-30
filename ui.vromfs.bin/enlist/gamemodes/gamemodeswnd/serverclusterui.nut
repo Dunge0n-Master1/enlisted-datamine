@@ -1,8 +1,8 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontMedium } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { colFull, defTxtColor, midPadding, smallPadding, panelBgColor,
-  hoverPanelBgColor, darkTxtColor, darkPanelBgColor, commonBtnHeight, titleTxtColor
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { defTxtColor, midPadding, smallPadding, panelBgColor, hoverPanelBgColor, darkTxtColor,
+  darkPanelBgColor, commonBtnHeight, titleTxtColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let { canChangeQueueParams, isInQueue } = require("%enlist/state/queueState.nut")
 let { availableClusters, clusters, clusterLoc, countryLoc, isAutoCluster, ownCountry
@@ -22,7 +22,7 @@ const SELECTION_ERROR_UID = "groupSizePopup"
 const NO_SERVER_ERROR = "noServerPopup"
 
 
-let fillBgColor = @(sf) (sf & S_ACTIVE) != 0 || (sf & S_HOVER) != 0
+let fillBgColor = @(sf) (sf & S_ACTIVE) || (sf & S_HOVER)
   ? hoverPanelBgColor
   : panelBgColor
 let isLocalClusters = Computed(@() !isInSquad.value || isSquadLeader.value)
@@ -117,7 +117,7 @@ let function openClustersMenu(event) {
     rendObj = ROBJ_SOLID
     color = darkPanelBgColor
     uid = CLUSTER_PANEL_UID
-    size = [colFull(4), SIZE_TO_CONTENT]
+    size = [fsh(27.5), SIZE_TO_CONTENT]
     popupOffset = 0
     padding = 0
     margin = [0, 0, midPadding, 0]
@@ -179,7 +179,7 @@ let function serversToShow(group = null, onClick = null) {
       valign = ALIGN_CENTER
       text = loc("quickMatch/curServers", { server = serversRow.value })
       color = txtColor(sf)
-    }.__update(fontMedium)
+    }.__update(fontSub)
   })
 }
 

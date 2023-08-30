@@ -259,9 +259,7 @@ let function setGameMode(id) {
 console_register_command(@() savedGameModeIdByCampaign.mutate({}), "meta.resetSavedGamemodes")
 
 return {
-  allGameModes
   allGameModesById
-  mainGameModes
   eventGameModes
   currentGameModeId
   currentGameMode

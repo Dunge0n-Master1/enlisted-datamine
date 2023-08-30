@@ -4,7 +4,7 @@ let { MY_SQUAD_TEXT_COLOR } = require("%ui/hud/style.nut")
 let { makeArrow } = require("%ui/hud/hud_markers/components/hud_markers_components.nut")
 let { localSquadOrder } = require("%ui/hud/state/squad_orders.nut")
 
-let moveToPicSize = array(2, fsh(4).tointeger())
+let moveToPicSize = array(2, hdpxi(43))
 let moveToPicName = $"!ui/skin#moveto.svg:{moveToPicSize[0]}:{moveToPicSize[1]}:K"
 
 let defTransform = {}

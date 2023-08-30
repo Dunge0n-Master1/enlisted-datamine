@@ -9,10 +9,16 @@ us_m8_scott{
 us_m8_scott_common{
   _extends:t="base_m8_scott"
   _extends:t="tank_light_vehicle_tracks_sound"
-  item__iconScale:r=0.8
-  vehicle_seats__enumVarName:t="tank"
   commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
   gunner_cam_limit__useCockpitDir:b=yes
+  vehicle_seats__enumVarName:t="tank"
+  item__iconOffset:p2=-0.05, -0.05
+  item__iconScale:r=1.05
+  armorThicknessHull:p3=28.5, 28.5, 25.4
+  armorThicknessTurret:p3=38.1, 25.4, 25.4
+
+  "vehicle_seats__effectors:array"{
+  }
 
   "vehicle_seats__seats:shared:array"{
 
@@ -21,7 +27,7 @@ us_m8_scott_common{
       locName:t="vehicle_seats/gunner"
       attachNode:t="gunner"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.5, 0.0]]
+      attachTm:m=[[0.815318, -0.308985, -0.489814] [0.282662, 0.950522, -0.129105] [0.50544, -0.0331885, 0.862264] [-0.36, -0.21, 0.1]]
       seatComponent:t="isGunner"
       nextSeat:t="driver"
       shouldHideOwner:b=no
@@ -33,6 +39,13 @@ us_m8_scott_common{
       "turretNames:array"{
         turretNames:t="turret_01"
       }
+
+      "effectors:object"{
+        r.hand:t="righthand_1"
+        l.hand:t="lefthand_1"
+        r.foot:t="pedal_rfoot_1"
+        l.foot:t="pedal_lfoot_1"
+      }
     }
 
     "seats:object"{
@@ -41,13 +54,22 @@ us_m8_scott_common{
       seatOwnsEntityControl:b=yes
       attachNode:t="driver"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.25, 0.0]]
+      attachTm:m=[[0.981546, 0.190793, 0.0] [-0.190793, 0.981546, 0.0] [0.0, 0.0, 0.999911] [-0.14, -0.37, 0.02]]
       seatComponent:t="isDriver"
       nextSeat:t="main_gunner"
-      shouldHideOwner:b=yes
+      shouldHideOwner:b=no
       receiveDamageFromDMPart:t="driver"
       cameraNodeName:t="bone_camera_driver"
       cockpitTemplate:t="us_m8_scott_driver_cockpit"
+      seatAnimUpper:t="drive_passenger"
+      seatAnimLower:t="drive_passenger"
+
+      "effectors:object"{
+        r.hand:t="righthand_4"
+        l.hand:t="lefthand_4"
+        r.foot:t="pedal_rfoot_4"
+        l.foot:t="pedal_lfoot_4"
+      }
     }
 
     "seats:object"{
@@ -79,7 +101,7 @@ us_m8_scott_common{
       attachNode:t="loader"
       locName:t="vehicle_seats/loader"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.7, 0.0]]
+      attachTm:m=[[0.347686, -0.241882, -0.905723] [0.231642, 0.958229, -0.166982] [0.908377, -0.151762, 0.389235] [-0.2, -0.22, 0.28]]
       seatComponent:t="isPassenger"
       shouldHideOwner:b=no
       receiveDamageFromDMPart:t="loader"
@@ -88,6 +110,13 @@ us_m8_scott_common{
 
       "loaderTurretNames:array"{
         turret:t="turret_01"
+      }
+
+      "effectors:object"{
+        r.hand:t="righthand_2"
+        l.hand:t="lefthand_2"
+        r.foot:t="pedal_rfoot_2"
+        l.foot:t="pedal_lfoot_2"
       }
     }
   }
@@ -216,6 +245,7 @@ us_m8_scott_gunner_cockpit{
 
   "cockpit__slitTemplates:list<t>"{
     slit:t="us_m56"
+    slit:t="default_periscope"
   }
 
   "cockpit__slitEids:list<eid>"{

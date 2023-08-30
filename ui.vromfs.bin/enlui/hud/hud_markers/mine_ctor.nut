@@ -6,8 +6,8 @@ let {HUD_COLOR_TEAMMATE_OUTER} = require("%enlSqGlob/ui/style/unit_colors.nut")
 let {mine_markers_Set, mine_markers_GetWatched} = require("%ui/hud/state/mine_markers.nut")
 let { mineIcon } = require("%ui/hud/huds/player_info/mineIcon.nut")
 
-let mineIconSize = [fsh(2.5), fsh(2.5)].map(@(v) v.tointeger())
-let mineTimerSize = [fsh(2.5), fsh(2.5)].map(@(v) v.tointeger())
+let mineIconSize = [hdpxi(27), hdpxi(27)]
+let mineTimerSize = [hdpxi(27), hdpxi(27)]
 let mineIconMemo = memoize(@(typ, size) mineIcon(typ, size), 1)
 
 let function mkTimerIcon(state) {

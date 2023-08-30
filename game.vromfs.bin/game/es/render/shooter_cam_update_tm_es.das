@@ -1,9 +1,11 @@
 require ecs
+require ecs.common
 require DagorMath
 require math
 require math.base
 require level
 require Dacoll
+require game.es.battle_area_common
 
 let REPLAY_CAMERA_MOVE_DT = 100.
 
@@ -107,7 +109,7 @@ def shooter_cam_update_tm_es(info : UpdateStageInfoAct;
   if !camera__active || is_level_loading()
     return
   let dt = replayCamera == null ? info.dt : REPLAY_CAMERA_MOVE_DT
-  query(camera__target) <| $ [es] (transform : float3x4;
+  query(camera__target) <| $ [es] (transform aka target_transform : float3x4;
                                    camera__look_at : DPoint3;
                                    camera__magnification = 1.f;
                                    camera__tauMult = 1.f;
@@ -140,11 +142,11 @@ def shooter_cam_update_tm_es(info : UpdateStageInfoAct;
     fov = rad_to_deg(atan(tan(deg_to_rad(fovSettings * 0.5f)) * safeinv(magnification))) * 2.f
     camera__totalMagnification = magnification
 
-    let lookAtPos = length_sq(camera__look_at) != 0. ? camera__look_at : DPoint3(transform[3])
+    let lookAtPos = length_sq(camera__look_at) != 0. ? camera__look_at : DPoint3(target_transform[3])
     var velMain = DPoint3(shooter_cam__velMain)
     var wishPos = lookAtPos
 
-    let animTmOffset = lookAtPos - DPoint3(transform[3])
+    let animTmOffset = lookAtPos - DPoint3(target_transform[3])
     var velAnim = DPoint3(shooter_cam__velAnim)
     var wishPosAnim = animTmOffset
 
@@ -165,7 +167,7 @@ def shooter_cam_update_tm_es(info : UpdateStageInfoAct;
 
     shooter_cam__isLastPosValid = true
 
-    wishPos = wishPos * (1.f - camera__tmToAnimRatio) + (wishPosAnim + DPoint3(transform[3])) * camera__tmToAnimRatio
+    wishPos = wishPos * (1.f - camera__tmToAnimRatio) + (wishPosAnim + DPoint3(target_transform[3])) * camera__tmToAnimRatio
 
     var cameraOffs = rotate(camera_transform, offset * shooter_cam__offset_multiplier * vehicleOffsetMult)
     let cameraBaseOffs = rotate(camera_transform, baseOffset * shooter_cam__offset_multiplier * vehicleOffsetMult)
@@ -199,7 +201,11 @@ def shooter_cam_update_tm_es(info : UpdateStageInfoAct;
       let tracePoint = float2(float(camera__accuratePos.x), float(camera__accuratePos.z))
       let lMeshHeight = traceht_lmesh(tracePoint)
       let minHeight = camera__fallenGroundDistance + lMeshHeight
-      if camera__accuratePos.y < double(minHeight)
+
+      let inLandmeshHole = find_query() <| $ [es(REQUIRE=landmesh_hole_zone)] (transform aka hole_transform : float3x4)
+        return is_point_in_box_zone(float3(camera__accuratePos), hole_transform)
+
+      if !inLandmeshHole && camera__accuratePos.y < double(minHeight)
         camera__accuratePos.y = double(minHeight)
 
     camera_transform[3] = float3(camera__accuratePos)

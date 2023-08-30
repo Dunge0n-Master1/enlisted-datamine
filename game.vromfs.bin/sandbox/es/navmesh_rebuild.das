@@ -95,6 +95,9 @@ def navmesh_rebuild_start_es(evt : CmdNavMeshRebuildStart)
   find_query() <| $ [es] (nav_rebuild__edgeMaxLen : float)
     rebuildNavMesh_setup("edgeMaxLen", nav_rebuild__edgeMaxLen)
     return true
+  find_query() <| $ [es] (water__level : float)
+    rebuildNavMesh_setup("waterLevel", water__level)
+    return true
 
   query() <| $ [es] (elevs : Array)
     for elev in elevs

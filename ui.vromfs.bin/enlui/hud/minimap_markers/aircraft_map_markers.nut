@@ -5,7 +5,7 @@ let {controlledVehicleEid} = require("%ui/hud/state/vehicle_state.nut")
 let {MAP_COLOR_TEAMMATE, MAP_COLOR_ENEMY, MAP_COLOR_UNIDENTIFIED} = require("%enlSqGlob/ui/style/unit_colors.nut")
 let {localPlayerTeam} = require("%ui/hud/state/local_player.nut")
 
-let iconSz = [fsh(1.4), fsh(1.4)].map(@(v) v.tointeger())
+let iconSz = [hdpxi(15), hdpxi(15)]
 let iconImg = Picture("!ui/skin#aircraft_icon.svg:{0}:{1}:K".subst(iconSz[0], iconSz[1]))
 
 let heroColor = Color(200,200,0,250)

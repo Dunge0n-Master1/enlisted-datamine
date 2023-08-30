@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontXXSmall } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { colFull, panelBgColor, midPadding, bigPadding, hoverSlotBgColor } = require("%enlSqGlob/ui/designConst.nut")
+let { fontTiny } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { panelBgColor, midPadding, bigPadding, hoverSlotBgColor } = require("%enlSqGlob/ui/designConst.nut")
 let cursors = require("%ui/style/cursors.nut")
 let tooltipBox = require("%ui/style/tooltipBox.nut")
 let premiumWnd = require("%enlist/currency/premiumWnd.nut")
@@ -14,8 +14,8 @@ let { hasPremium } = require("%enlist/currency/premium.nut")
 let mkGlare = require("%enlist/components/mkGlareAnim.nut")
 
 
-let IMAGE_WIDTH = colFull(1) - midPadding * 2
-let btnWidth = colFull(1)
+let IMAGE_WIDTH = hdpxi(62) - midPadding * 2
+let btnWidth = hdpxi(62)
 
 
 let hasDiscount = Computed(@() premiumProducts.value.findindex(@(i)
@@ -68,7 +68,7 @@ let premiumWidget = watchElemState(@(sf) {
         : mkNotifierBlink(loc("shop/discountNotify"), {
             size = SIZE_TO_CONTENT,
             vplace = ALIGN_BOTTOM
-          }, {}, fontXXSmall)
+          }, {}, fontTiny)
       hasPremium.value ? null : glareAnim
     ]
   }

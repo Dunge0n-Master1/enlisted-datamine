@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h2_txt, body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2, fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {
   smallPadding, bigPadding, accentColor, commonBtnHeight, blurBgFillColor, disabledTxtColor,
   titleTxtColor, maxContentWidth, defTxtColor, activeTxtColor, lockedSquadBgColor, accentTitleTxtColor
@@ -151,7 +151,7 @@ let defQuickMatchBtnParams = {
   halign = ALIGN_CENTER
   margin = 0
   borderWidth = hdpx(0)
-  textParams = { rendObj=ROBJ_TEXT }.__update(h2_txt)
+  textParams = { rendObj=ROBJ_TEXT }.__update(fontHeading2)
 }
 
 let function changeWindowTab(delta){
@@ -191,7 +191,7 @@ let availableCampaign = @(campaign, isInactive){
   rendObj = ROBJ_TEXT
   text = campaign
   color = isInactive ? disabledTxtColor : defTxtColor
-}.__update(sub_txt)
+}.__update(fontSub)
 
 let allCampaignsAvailable = {
   rendObj = ROBJ_TEXTAREA
@@ -199,7 +199,7 @@ let allCampaignsAvailable = {
   behavior = Behaviors.TextArea
   color = defTxtColor
   text = loc("allCampaignsAvailable")
-}.__update(sub_txt)
+}.__update(fontSub)
 
 let function mkEventBtn(eventGm) {
   let isSelected = Computed(@() selEvent.value == eventGm)
@@ -237,7 +237,7 @@ let function mkEventBtn(eventGm) {
             behavior = Behaviors.TextArea
             text = eventGm.title == "" ? eventGm.locId : eventGm.title
             color = txtColor(sf, isInactive)
-          }.__update(body_txt)
+          }.__update(fontBody)
           isCustom ? null
             : unlockedCampaigns.value.len() == eCampaigns.len() ? allCampaignsAvailable
             : wrap(eCampaigns.map(@(campaign) availableCampaign(loc(isEnded.value
@@ -277,7 +277,7 @@ let events = @(){
       halign = ALIGN_CENTER
       color = accentColor
       text = loc("events/noEvents")
-    }.__update(body_txt)
+    }.__update(fontBody)
   ]
 }
 
@@ -314,7 +314,7 @@ let mkRightBlockHeader = @(sf, label){
       padding = [0, bigPadding]
       color = txtColor(sf)
       text = label
-    }.__update(h2_txt)
+    }.__update(fontHeading2)
   ]
 }
 
@@ -336,7 +336,7 @@ let function curLbPlacementBlock() {
     size = [flex(), SIZE_TO_CONTENT]
     behavior = Behaviors.TextArea
     text
-  }.__update(body_txt))
+  }.__update(fontBody))
 }
 
 
@@ -522,7 +522,7 @@ let curCampaignName = @() {
   text = eventCustomProfile.value != null
     ? ""
     : loc(curCampaignLocId.value)
-}.__update(sub_txt)
+}.__update(fontSub)
 
 
 let topBar = {

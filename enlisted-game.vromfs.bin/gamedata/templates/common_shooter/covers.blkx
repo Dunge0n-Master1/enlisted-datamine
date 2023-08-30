@@ -2,6 +2,7 @@ covers{
   _singleton:b=yes
   nonCreatableObj:b=yes
   slotRadius:r=0.5
+  nearbyRadius:r=5.0
 
   covers{
   }

@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody} = require("%enlSqGlob/ui/fontsStyle.nut")
 let { startswith } = require("string")
 let {lastActiveControlsType, isGamepad} = require("%ui/control/active_controls.nut")
 let controllerType = require("%ui/control/controller_type.nut")
@@ -15,14 +15,14 @@ let {verPadding, horPadding} = require("%enlSqGlob/safeArea.nut")
 let {getHotkeysComps, hotkeysPanelCompsGen} = require("hotkeysPanelStateComps.nut")
 let {cursorPresent, cursorOverStickScroll, config, cursorOverClickable} = gui_scene
 
-let panel_ver_padding = fsh(1)
+let panel_ver_padding = hdpxi(6)
 
 let function mktext(text){
   return {
     rendObj = ROBJ_TEXT
     text
     color = colors.BtnTextNormal
-  }.__update(body_txt)
+  }.__update(fontBody)
 }
 
 let defaultJoyAHint = loc("ui/cursor.activate")

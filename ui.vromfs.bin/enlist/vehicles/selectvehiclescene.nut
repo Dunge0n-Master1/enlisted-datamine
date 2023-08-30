@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { sceneWithCameraAdd, sceneWithCameraRemove } = require("%enlist/sceneWithCamera.nut")
 let {
@@ -56,7 +56,7 @@ let function mkStatusHeader(status) {
         color = defTxtColor
         behavior = [Behaviors.Marquee, Behaviors.Button]
         scrollOnHover = true
-      }.__update(sub_txt)
+      }.__update(fontSub)
 }
 
 let function groupByStatus(itemsList) {
@@ -85,7 +85,7 @@ let function vehiclesList() {
   let available = []
   let unavailable = []
   foreach (vehicle in vehicles.value)
-    if ((vehicle.status.flags & CANT_USE) == 0)
+    if (!(vehicle.status.flags & CANT_USE))
       available.append(vehicle)
     else
       unavailable.append(vehicle)
@@ -111,6 +111,7 @@ let vehiclesBlock = {
   fillColor = blurBgFillColor
   padding = bigPadding
   flow = FLOW_VERTICAL
+  stopMouse = true
   children = scrollbar.makeVertScroll(vehiclesList, {
     size = [SIZE_TO_CONTENT, flex()]
     needReservePlace = false

@@ -88,6 +88,7 @@ def turret_control_init_es(evt : Event;
                            var turret__minPitchAngleVarId : int&;
                            var turret__maxPitchAngleVarId : int&;
                            var turret__gunRecoilVarId : int&;
+                           var turret__emitterOwner : EntityId&;
                            var turret__emitterNodeId : int&;
                            var turret__turretAimActiveVarId : int&;
                            var turret__stabilizerYawActiveVarId : int&;
@@ -110,6 +111,7 @@ def turret_control_init_es(evt : Event;
                                   animchar : AnimcharBaseComponent;
                                   var anim_phys : AnimatedPhys;
                                   var phys_vars : PhysVars)
+    turret__emitterOwner = turret__owner
     turret__emitterNodeId = find_node_index(animchar, turret_control__emitterNodes, turret__id)
 
     let animVars = get_ecs_object(turret_control__animVars, turret__id)
@@ -141,10 +143,11 @@ def turret_control_init_es(evt : Event;
         turret__maxYawAngleVarId     = registerVar(phys_vars, *animVars, "paramMaxYawAngle")
         turret__minPitchAngleVarId   = registerVar(phys_vars, *animVars, "paramMinPitchAngle")
         turret__maxPitchAngleVarId   = registerVar(phys_vars, *animVars, "paramMaxPitchAngle")
+        // NOTE: yaw limits are inverted, because of how AnimPostBlendAimCtrl works
         if turret__minYawAngleVarId >= 0
-          setVar(phys_vars, turret__minYawAngleVarId, (*turret__limit).x)
+          setVar(phys_vars, turret__minYawAngleVarId, -(*turret__limit).y)
         if turret__maxYawAngleVarId >= 0
-          setVar(phys_vars, turret__maxYawAngleVarId, (*turret__limit).y)
+          setVar(phys_vars, turret__maxYawAngleVarId, -(*turret__limit).x)
         if turret__minPitchAngleVarId >= 0
           setVar(phys_vars, turret__minPitchAngleVarId, (*turret__limit).z)
         if turret__maxPitchAngleVarId >= 0
@@ -164,6 +167,9 @@ def turret_control_init_es(evt : Event;
     turret__resolved = true
 
     addSubTemplate(eid, "resolved_turret")
+
+    if !turret__resolved
+      logerr("Turret '{turret__name}' for '{turret__owner}' ({getEntityTemplateName(turret__owner)}) was no resolved")
 
 [es(on_appear)]
 def turret_control_init_flash_nodes(evt : Event; turret__owner : EntityId; turret__id : int; var turret__flashNodeId : int&)

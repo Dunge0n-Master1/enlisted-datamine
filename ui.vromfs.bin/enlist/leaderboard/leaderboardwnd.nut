@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { doesLocTextExist } = require("dagor.localize")
-let { h0_txt, sub_txt, tiny_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontTitle, fontSub, fontTiny } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { withTooltip } = require("%ui/style/cursors.nut")
 let tooltipBox = require("%ui/style/tooltipBox.nut")
 let {
@@ -53,7 +53,7 @@ let mkLbCell = @(category, rowData, override) {
   halign = ALIGN_CENTER
   text = category.getText(rowData)
 }.__update(
-  sub_txt,
+  fontSub,
   styleByCategory?[category] ?? {},
   override)
 
@@ -78,7 +78,7 @@ let function mkLbRankCell(category, rowData, override) {
             rendObj = ROBJ_TEXT
             color = defTxtColor
             text = category.getText(rowData)
-        }.__update(sub_txt)
+        }.__update(fontSub)
       ]
     }
   }.__update(override, styleByCategory)
@@ -121,7 +121,7 @@ let lbHeaderFlag = {
       padding = [localGap, bigPadding * 3]
       rendObj = ROBJ_TEXT
       text = loc("Leaderboard")
-    }.__update(h0_txt),
+    }.__update(fontTitle),
     {
       offset = hdpx(15)
     }.__update(casualFlagStyle)
@@ -189,24 +189,22 @@ let mkHeaderName = @(category) {
           rendObj = ROBJ_TEXT
           text = loc(category.locId)
           color = defTxtColor
-        }.__update(tiny_txt)
+        }.__update(fontTiny)
       : withTooltip({
-          rendObj = ROBJ_IMAGE
-          color = defTxtColor
-          size = [iconHeaderSize, iconHeaderSize]
-          image = Picture(category.icon)
-        },
-        @() function() {
-          let text = mkCategoryTooltip(category, categoryTooltip.value)
-          return tooltipBox({
-            watch = categoryTooltip
-            rendObj = ROBJ_TEXTAREA
-            behavior = Behaviors.TextArea
-            maxWidth = hdpx(500)
-            text
-            color = Color(180, 180, 180, 120)
-          })
-        })
+            rendObj = ROBJ_IMAGE
+            color = defTxtColor
+            size = [iconHeaderSize, iconHeaderSize]
+            image = Picture(category.icon)
+          },
+          @() tooltipBox(@() {
+              watch = categoryTooltip
+              rendObj = ROBJ_TEXTAREA
+              behavior = Behaviors.TextArea
+              maxWidth = hdpx(500)
+              text = mkCategoryTooltip(category, categoryTooltip.value)
+              color = Color(180, 180, 180, 120)
+            })
+          )
   }.__update(styleByCategory?[category] ?? {})
 
 let lbHeaderRow = @(categories) {

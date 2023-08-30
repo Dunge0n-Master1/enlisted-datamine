@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { tiny_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontTiny } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {
   gap, bigPadding, slotBaseSize, disabledTxtColor, blockedTxtColor,
   deadTxtColor, defTxtColor, listCtors
@@ -23,10 +23,10 @@ let {
 let DISABLED_ITEM = { tint = Color(40, 40, 40, 120), picSaturate = 0.0 }
 let borderThickness = hdpxi(3)
 let iconDead = Picture("ui/skin#lb_deaths.avif")
-let panelBgDeadColor = Color(40,10,10,180)
+let panelBgBlockedColor = Color(40,10,10,180)
 
-let listSquadColor = @(flags, selected, hasAlertStyle, isDead)
-  isDead ? panelBgDeadColor
+let listSquadColor = @(flags, selected, hasAlertStyle, isBlocked)
+  isBlocked ? panelBgBlockedColor
     : flags & S_HOVER ? squadSlotBgHoverColor
     : selected ? squadSlotBgActiveColor
     : hasAlertStyle ? squadSlotBgAlertColor
@@ -34,18 +34,19 @@ let listSquadColor = @(flags, selected, hasAlertStyle, isDead)
 
 
 let iconSize = hdpxi(26)
+let deadIconSize = hdpxi(48)
 let deadIcon = {
   rendObj = ROBJ_IMAGE
-  size = [iconSize, iconSize]
-  padding = [0, gap]
+  size = [deadIconSize, deadIconSize]
+  hplace = ALIGN_CENTER
   vplace = ALIGN_CENTER
   image = iconDead
-  tint = 0xCC990000
+  opacity = 0.3
 }
 
 let mkPhotoSize = @(h) [h * 2 / 3, h]
 
-let function mkClassBlock(soldier, isClassRestricted, isPremium, isDead) {
+let function mkClassBlock(soldier, isClassRestricted, isPremium, displayedKind) {
   let { sKind = null, sClass = null, sClassRare = null, armyId = null } = soldier
   let color = isClassRestricted ? blockedTxtColor : defTxtColor
 
@@ -55,15 +56,14 @@ let function mkClassBlock(soldier, isClassRestricted, isPremium, isDead) {
     valign = ALIGN_CENTER
     rendObj = ROBJ_SOLID
     color = panelBgColor
-    children = isDead ? deadIcon
-      : withTooltip({
-          flow = FLOW_VERTICAL
-          gap
-          children = [
-            kindIcon(sKind, iconSize, sClassRare).__update({ color, vplace = ALIGN_CENTER })
-            isPremium ? null : classIcon(armyId, sClass, iconSize)
-          ]
-        }, @() classTooltip(armyId, sClass, sKind))
+    children = withTooltip({
+      flow = FLOW_VERTICAL
+      gap
+      children = [
+        kindIcon(displayedKind ?? sKind, iconSize, sClassRare).__update({ color, vplace = ALIGN_CENTER })
+        isPremium ? null : classIcon(armyId, sClass, iconSize)
+      ]
+    }, @() classTooltip(armyId, sClass, sKind))
   }
 }
 
@@ -82,7 +82,7 @@ let mkDropSoldierInfoBlock = @(soldierInfo, squadInfo, nameColor, textColor, gro
         behavior = Behaviors.TextArea
         text = loc(squadInfo.titleLocId)
         color = textColor
-      }.__update(tiny_txt)
+      }.__update(fontTiny)
     }
     autoscrollText({
       text = getObjectName(soldierInfo)
@@ -168,7 +168,7 @@ let mkSoldierInfoBlock = function(soldierInfo, nameColor, weaponRow, group, isFr
 let function soldierCard(soldierInfo, group = null, sf = 0, isSelected = false,
   isFaded = false, isDead = false, size = slotBaseSize, isClassRestricted = false,
   hasAlertStyle = false, hasWeaponWarning = false, addChild = null, squadInfo = null,
-  isDisarmed = false, isFreemiumMode = false, thresholdColor = 0, expToLevel = []
+  isDisarmed = false, isFreemiumMode = false, thresholdColor = 0, expToLevel = [], displayedKind = null
 ) {
   let {
     guid, photo = null, sClass = null, armyId = null, canSpawn = true, tier = 1
@@ -191,6 +191,7 @@ let function soldierCard(soldierInfo, group = null, sf = 0, isSelected = false,
         group, { text = noWeaponTxt })
     : (hasWeaponWarning ? mkWeaponRowWithWarning : mkWeaponRow)(soldierInfo,
         textColor(sf, isSelected), group)
+  let photoSize = mkPhotoSize(size[1])
 
   return {
     key = guid
@@ -209,9 +210,10 @@ let function soldierCard(soldierInfo, group = null, sf = 0, isSelected = false,
             color = listSquadColor(sf, isSelected, hasAlertStyle, isBlocked)
             children = [
               withTooltip({
+                size = photoSize
                 halign = ALIGN_RIGHT
                 children = [
-                  mkSoldierPhoto(photo, mkPhotoSize(size[1]), null, photoStyle)
+                  isDead ? deadIcon : mkSoldierPhoto(photo, photoSize, null, photoStyle)
                   tierText(tier).__update({ margin = [0, hdpx(2)] })
                 ]}, @() rankingTooltip(tier))
               {
@@ -239,13 +241,13 @@ let function soldierCard(soldierInfo, group = null, sf = 0, isSelected = false,
                     vplace = ALIGN_BOTTOM
                     hplace = ALIGN_RIGHT
                     margin = hdpx(2)
-                    children = addChild(soldierInfo, isSelected)
+                    children = addChild(soldierInfo, sf, isSelected)
                   }
                 ]
               }
             ]
           }
-          mkClassBlock(soldierInfo, isClassRestricted, isPremium, isDead)
+          mkClassBlock(soldierInfo, isClassRestricted, isPremium, displayedKind)
         ]
       }
       isPremium ? classIcon(armyId, sClass, iconSize) : null

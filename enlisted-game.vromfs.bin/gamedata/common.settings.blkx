@@ -8,7 +8,7 @@ entitiesPath:t="content/enlisted/gamedata/templates/enlisted.entities.blk"
 contactsGameId:t="enlisted"
 matchingGameName:t="enlisted"
 windowTitle:t="Enlisted"
-bgImage:t="ui/game_def_login_screen.avif; ui/game_d_day_login_screen_2.avif; ui/game_tunisia_login_screen_2.avif; ui/armored_train_login_screen.avif; ui/stalingrad_login_screen.avif; ui/burning_sky_loading_screen.avif; ui/pacific_usa_login_screen.avif; ui/pacific_jap_login_screen.avif; ui/high_caliber_login_screen.avif; ui/ussr_moscow_prem_mgun_2.avif; ui/ger_normandy_prem_assault_2.avif; ui/ussr_berlin_prem_assault_1.avif; ui/ger_moscow_prem_mgun_2.avif; ui/airborn_forces_login_screen.avif;"
+bgImage:t="ui/game_def_login_screen.avif; ui/game_d_day_login_screen_2.avif; ui/game_tunisia_login_screen_2.avif; ui/armored_train_login_screen.avif; ui/stalingrad_login_screen.avif; ui/burning_sky_loading_screen.avif; ui/pacific_usa_login_screen.avif; ui/pacific_jap_login_screen.avif; ui/high_caliber_login_screen.avif; ui/ussr_moscow_prem_mgun_2.avif; ui/ger_normandy_prem_assault_2.avif; ui/ussr_berlin_prem_assault_1.avif; ui/ger_moscow_prem_mgun_2.avif; ui/airborn_forces_login_screen.avif; ui/jungle_fire_login_screen.avif;"
 scene:t="content/enlisted/gamedata/scenes/campaigns_menu_squad_diorama_scene.blk"
 allowEmptyScenes:b=yes
 needPlatformMorphemesReplacement:b=yes
@@ -38,12 +38,13 @@ aiList:t="content/enlisted/gamedata/ai/enlisted_creatures_ailist.blk"
 aiList:t="content/enlisted/gamedata/ai/enlisted_train.blk"
 aiList:t="content/enlisted/gamedata/ai/enlisted_common_sub_trees.blk"
 aiList:t="content/enlisted/gamedata/ai/enlisted_passive_beh.blk"
-aiList:t="content/enlisted/gamedata/ai/enlisted_agressive_beh.blk"
+aiList:t="content/enlisted/gamedata/ai/enlisted_aggressive_beh.blk"
 aiList:t="content/enlisted/gamedata/ai/enlisted_defend_point.blk"
 aiList:t="content/enlisted/gamedata/ai/enlisted_personal_order.blk"
 aiList:t="content/enlisted/gamedata/ai/enlisted_order_req.blk"
 game_sq_script:t="%scripts/game/onGameScriptLoad.nut"
 game_das_loading_threads:i=1
+game_das_reload_threads:i=0
 game_das_project:t="%scripts/project.das_project"
 game_das_script:t="%scripts/enlisted.das"
 game_das_script_init:t="%scripts/enlisted_init.das"
@@ -53,6 +54,14 @@ graphics{
   anisotropy:i=4
   spotShadowBias:p4=-6e-05, -0.1, 0.001, 0.005
   dafx:t="cpu"
+  useFoamFx:b=no
+  decompressed_shaders_cache_size_in_mb:i=20
+
+  foamFxTexDividers{
+    divider:i=4
+    divider:i=2
+    divider:i=1
+  }
 }
 
 screenshots{
@@ -85,7 +94,7 @@ ps4{
   dcb_size_mb:i=4
   ccb_size_mb:i=4
   max_genmip_tex_sz:i=0
-  mem_reserve_mb:i=256
+  mem_reserve_mb:i=0
   enable_defrag:b=yes
   emergency_buffer_pages:i=64
   resolution_config:b=yes
@@ -291,6 +300,7 @@ __allowedConfigOverrides{
     perfMetrics:i=1
     enableHdr:b=no
     paperWhiteNits:i=200
+    ssaa:b=no
     fsr:t="off"
     dlssQuality:i=0
     xessQuality:i=0
@@ -549,10 +559,29 @@ chunksMapping{
 
 vromList{
 
+  vrom{
+    path:t="gamedata.vromfs.bin"
+    mnt:t="./"
+    optional:b=no
+  }
+
   pack{
     path:t="content/enlisted/fonts.vromfs.bin"
     mnt:t="ui/"
     optional:b=yes
+  }
+}
+
+localizationVroms{
+
+  loc{
+    vrom:t="content/enlisted/enlisted-lang.vromfs.bin"
+    path:t="lang/common"
+  }
+
+  loc{
+    vrom:t="content/enlisted/enlisted-lang-dev.vromfs.bin"
+    path:t="lang/pkg_dev"
   }
 }
 
@@ -724,6 +753,7 @@ addonBasePath{
     vrom:t="content/common/common-content.vromfs.bin"
     vromed:b=yes
     src:t="../develop/gameBase/content/common"
+    src:t="../develop/gameBase/content/enlisted"
   }
 
   addon{

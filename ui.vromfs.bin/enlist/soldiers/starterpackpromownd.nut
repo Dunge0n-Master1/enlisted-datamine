@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h1_txt, h2_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading1, fontHeading2, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { bigPadding, titleTxtColor, defTxtColor, maxContentWidth, accentTitleTxtColor, commonBtnHeight
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { shopItemContentArrayCtor } = require("%enlist/shop/armyShopState.nut")
@@ -43,8 +43,8 @@ let starterPack = Watched(null)
 let crateContent = shopItemContentArrayCtor(starterPack)
 
 
-let blockHeaderStyle = freeze({ color = accentTitleTxtColor }.__update(h2_txt))
-let defTxtStyle = freeze({ color = titleTxtColor }.__update(body_txt))
+let blockHeaderStyle = freeze({ color = accentTitleTxtColor }.__update(fontHeading2))
+let defTxtStyle = freeze({ color = titleTxtColor }.__update(fontBody))
 let bottomGradient = mkColoredGradientY({colorTop=0x00000000, colorBottom=0xFF000000})
 
 let mkTextArea = @(text, override = {}) {
@@ -67,7 +67,7 @@ let wndHeader = mkHeaderFlag(
     hplace = ALIGN_LEFT
     padding = [fsh(2), fsh(3)]
     text = utf8ToUpper(loc("shop/starter_pack"))
-  }.__update(h1_txt),
+  }.__update(fontHeading1),
   primeFlagStyle
 )
 
@@ -311,8 +311,8 @@ let mkCrateWeapon = @(crate) function() {
 
 let weaponsPlusSign = faComp("plus", {
   color = accentTitleTxtColor
-  fontSize = h1_txt.fontSize
-  pos = [0, weaponBlockSize[1]/2 - h1_txt.fontSize / 2]
+  fontSize = fontHeading1.fontSize
+  pos = [0, weaponBlockSize[1]/2 - fontHeading1.fontSize / 2]
   padding = [0, smallBlockPadding]
 })
 

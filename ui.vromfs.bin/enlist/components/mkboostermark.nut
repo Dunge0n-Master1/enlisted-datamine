@@ -1,9 +1,10 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let fa = require("%ui/components/fontawesome.map.nut")
-let { sub_txt, tiny_txt, fontawesome } = require("%enlSqGlob/ui/fonts_style.nut")
-let { accentColor } = require("%enlSqGlob/ui/designConst.nut")
+let { fontSub, fontTiny, fontawesome } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { round } = require("math")
+
+let darkColor = 0xFF113322
 
 let boosterBack = {
   rendObj = ROBJ_9RECT
@@ -17,7 +18,7 @@ let downArrow = {
   rendObj = ROBJ_TEXT
   color = 0xFFCC3300
   text = fa["arrow-circle-down"]
-}.__update(fontawesome, {fontSize = fsh(1.35)})
+}.__update(fontawesome, {fontSize = hdpxi(15)})
 
 let function mkBoosterText(expMul, expPenalty) {
   let boosterVal = round(((expMul + 1.0) * (expPenalty + 1.0) - 1.0) * 100)
@@ -31,9 +32,9 @@ let function mkBoosterText(expMul, expPenalty) {
       {
         rendObj = ROBJ_TEXTAREA
         behavior = Behaviors.TextArea
-        color = accentColor
+        color = darkColor
         text
-      }.__update(sub_txt)
+      }.__update(fontSub)
     ]
   }
 }
@@ -41,13 +42,12 @@ let function mkBoosterText(expMul, expPenalty) {
 let mkInfoText = @(text) "" == (text ?? "") ? null
   : {
       rendObj = ROBJ_TEXT
-      color = accentColor
+      color = darkColor
       text
-    }.__update(tiny_txt)
+    }.__update(fontTiny)
 
 let mkBoosterMark = @(expMul, expPenalty = 0.0, infoText = null, override = {}) {
   size = [SIZE_TO_CONTENT, hdpxi(60)]
-  valign = ALIGN_CENTER
   children = [
     boosterBack
     {

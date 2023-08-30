@@ -15,6 +15,8 @@ simple_damage_model{
 
 base_damage_model{
   _extends:t="simple_damage_model"
+  _extends:t="dm_parts_repair"
+  xray_resource__modelName:t=""
   isExploded:b=no
   triggerDamageEffects:b=yes
   damage_model__blk:t="content/enlisted/gamedata/units/cannons/germ_20mm_flak38_flakvierling.blk"
@@ -45,6 +47,14 @@ base_damage_model{
   fire_damage__innerRadiusMult:r=2.0
   damage_model__explosionDamageType:i=-1
   damage_model__fireDamageType:i=-1
+
+  _group{
+    _tags:t="render"
+    highlight_collision__color:p4=1.0, 0.0, 0.0, 1.0
+
+    "highlight_collision__nodes:list<i>"{
+    }
+  }
 
   "dm_state:list<u16>"{
   }

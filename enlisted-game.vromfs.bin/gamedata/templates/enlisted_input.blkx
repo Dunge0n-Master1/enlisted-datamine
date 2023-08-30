@@ -5,6 +5,7 @@ enlisted_human_hooray_input{
 enlisted_human_building_input{
   human_input__nextBuildingType:i=0
   human_input__buildingAction:i=0
+  human_input__repairBuilding:i=0
 }
 
 enlisted_human_artillery_input{

@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {TextHighlight, BtnTextHover} = require("%ui/style/colors.nut")
 
 let buildCounter = @(counterWatch, overrride = {}) @() {
@@ -13,6 +13,6 @@ let buildCounter = @(counterWatch, overrride = {}) @() {
   fontFx = FFT_GLOW
   fontFxColor = BtnTextHover
   text = counterWatch.value
-}.__update(sub_txt, overrride)
+}.__update(fontSub, overrride)
 
 return buildCounter

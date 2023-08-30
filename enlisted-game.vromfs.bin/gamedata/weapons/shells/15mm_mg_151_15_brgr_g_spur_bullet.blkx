@@ -1,7 +1,7 @@
 mass:r=0.057
 caliber:r=0.015
 speed:r=960.0
-Cx:r=0.15
+Cx:r=0.4143
 maxDistance:r=2000.0
 normalizationPreset:t="default"
 modelName:t="tank_bullet_ball"
@@ -25,6 +25,8 @@ shutterDamageRadius:r=0.3
 shutterAmount:i=10
 shutterArmorPower:r=3.0
 shutterHit:r=1.0
+waterRicochetEffect:t="hit_12_18mm_water"
+groundRicochetEffect:t="hit_12_18mm_dirt_ap"
 
 stabilityRicochetModifier{
   mod1:p2=0.0, 0.05

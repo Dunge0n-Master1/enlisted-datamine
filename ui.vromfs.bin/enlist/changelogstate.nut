@@ -10,10 +10,11 @@ let http = require("dagor.http")
 let { parse_json } = require("json")
 let { exe_version } = require("%dngscripts/appInfo.nut")
 let { onlineSettingUpdated, settings } = require("%enlist/options/onlineSettings.nut")
-let { getPlatformId, getLanguageId } = require("httpPkg.nut")
+let { getPlatformId, getLanguageId } = require("%enlSqGlob/httpPkg.nut")
 let { get_setting_by_blk_path } = require("settings")
 let { maxVersionInt } = require("%enlSqGlob/client_version.nut")
 let { isStringInteger } = require("%sqstd/string.nut")
+let isNewbie = require("%enlist/unlocks/isNewbie.nut")
 
 let changelogDisabled = get_setting_by_blk_path("disableChangelog") ?? false
 
@@ -211,6 +212,11 @@ let function markSeenVersion(v) {
     settings.mutate(@(value) value[SAVE_ID] <- v.id)
 }
 
+let function markLastSeen() {
+  let v = versions.value?[0]
+  markSeenVersion(v)
+}
+
 let updateVersion = @() markSeenVersion(curPatchnote.value)
 
 const PatchnoteReceived = "PatchnoteReceived"
@@ -284,17 +290,32 @@ let function haveUnseenHotfixVersions(){
 
 let haveUnseenVersions = Computed(@() unseenPatchnote.value != null)
 
+let function selectPatchnote(v) {
+  chosenPatchnote(v)
+  requestPatchnote(v)
+}
+
 let mkChangePatchNote = @(delta=1) function() {
   if (versions.value.len() == 0)
     return
   let nextIdx = clamp(curPatchnoteIdx.value-delta, 0, versions.value.len()-1)
   let patchnote = versions.value[nextIdx]
-  chosenPatchnote(patchnote)
-  requestPatchnote(patchnote)
+  selectPatchnote(patchnote)
 }
 
 let nextPatchNote = mkChangePatchNote()
 let prevPatchNote = mkChangePatchNote(-1)
+
+patchnotesReceived.subscribe(function(v){
+  if (isNewbie.value) {
+    markLastSeen()
+    return
+  }
+  if (!v || !haveUnseenVersions.value || curPatchnote.value == null)
+    return
+
+  selectPatchnote(curPatchnote.value)
+})
 
 console_register_command(function() {
   if (SAVE_ID in settings.value)
@@ -325,4 +346,6 @@ return {
   chosenPatchnoteLoaded
   requestPatchnotes
   maxVersionInt
+  markLastSeen
+  selectPatchnote
 }

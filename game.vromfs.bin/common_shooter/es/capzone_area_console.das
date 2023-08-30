@@ -76,7 +76,7 @@ def capzone_poly_areas_draw_points_es(evt : UpdateStageInfoRenderDebug;
       add_debug_text_mark(transform[3], "{capzone__areaId}: {capzone_area_polygon_point__id} -> {capzone_area_polygon_point__nextId}",
                           -1, 0., color)
 
-[es(tag=(server, dev), on_event=CmdInitPolyCapzoneAreas, after=poly_capzone_area_create_on_load_es, REQUIRE=capzone_area_polygon_point__drawDebug)]
+[es(tag=(server, dev), on_event=CmdInitPolyCapzoneAreas, after=poly_capzone_area_create_init, REQUIRE=capzone_area_polygon_point__drawDebug)]
 def poly_capzone_area_check_points_orientation_es(evt : Event;
                                                   capzone__areaPoints : ecs::Point2List;
                                                   capzone__areaId : string)
