@@ -49,6 +49,7 @@ def abandon_shot_loop(var sound_event : SoundEvent&; turret__owner : EntityId)
   if sound_event.handle != invalid_sound_event_handle()
     query(turret__owner) <| $ [es] (var gun_owner_sound_event_group : SoundEventGroup&)
       remove_sound(gun_owner_sound_event_group, sound_event.handle)
+    keyoff(sound_event.handle)
     abandon(sound_event.handle)
 
 

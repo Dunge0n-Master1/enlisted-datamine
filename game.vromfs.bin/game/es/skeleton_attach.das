@@ -125,3 +125,20 @@ def skeleton_attach_remap_es(evt : Event;
         addSubTemplate(eid, "base_skeleton_attach") <| $(var init)
           set(init, "skeleton_attach__skeletonRemap", outSkeletonRemap)
           set(init, "skeleton_attach__skeletonRecalcBranch", outSkeletonRecalcBranch)
+
+[es(tag=server, after=animchar__updater_es, before=after_animchar_update_sync, on_event=UpdateAnimcharEvent, REQUIRE=animchar, REQUIRE_NOT=skeletonAttachInited)]
+def skeleton_attach_server_init_es(evt : Event;
+                                   eid : EntityId;
+                                   skeleton_attach__attached : bool;
+                                   skeleton_attach__attachedTo : EntityId)
+  if !skeleton_attach__attached
+    return
+  query(skeleton_attach__attachedTo) <| $ [es(REQUIRE=animchar)] ()
+    addSubTemplate(eid, "skeleton_attach_inited")
+
+[es(tag=server, on_appear, on_disappear, track=skeleton_attach__attached, REQUIRE=skeletonAttachInited)]
+def skeleton_attach_clear_server_es(evt : Event;
+                                    eid : EntityId;
+                                    skeleton_attach__attached : bool)
+  if !skeleton_attach__attached
+    removeSubTemplate(eid, "skeleton_attach_inited")

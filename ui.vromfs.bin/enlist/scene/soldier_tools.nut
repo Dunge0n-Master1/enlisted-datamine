@@ -414,7 +414,7 @@ let function createSoldier(
       canBeRecreated = true
       comp.guid = guid
       comp.guid_hash = guid_hash
-      comp.human_weap__weapInfo = [weapInfo, ecs.TYPE_ARRAY]
+      comp.human_weap__weapInfo = weapInfo
       comp.animchar__scale = bodyHeight
       comp.animchar__depScale = Point3(bodyWidth, bodyHeight, bodyWidth)
       comp.animchar__transformScale = Point3(bodyWidth, 1.0, bodyWidth)

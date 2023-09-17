@@ -52,6 +52,22 @@ let toolboxModes = Watched({
   rebuildingNavMesh = false
 })
 
+let function resetToolbox() {
+  // keep toolboxShown
+  toolboxModes.value.dev = false
+  toolboxModes.value.coll = false
+  // keep .nav (still shown after new level load)
+  toolboxModes.value.polyAreas = false
+  toolboxModes.value.capZones = false
+  toolboxModes.value.capZonesPoly = false
+  toolboxModes.value.respawns = 0
+  // keep .showGroups
+  // keep .showCommands
+  toolboxModes.value.rebuildNavMeshState = ""
+  toolboxModes.value.rebuildingNavMesh = false
+  toolboxModes.trigger()
+}
+
 let function setToolboxMode(mode, val) {
   toolboxModes.value[mode] = val
   toolboxModes.trigger()
@@ -486,6 +502,7 @@ riToolSelected.subscribe(function(v) {
 
 return {
   setToolboxShowMsgbox
+  resetToolbox
   toolboxShown
   toolboxPopup
 }

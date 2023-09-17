@@ -5,14 +5,9 @@ let fontTactical = freeze({
   fontSize = hdpxi(21)
 })
 
-let fontTiny = freeze({
-  font = Fonts.trebuchet
-  fontSize = max(13, hdpxi(13))
-})
-
 let fontSub = freeze({
   font = Fonts.trebuchet
-  fontSize = max(15, hdpxi(16))
+  fontSize = hdpxi(16)
 })
 
 let fontBody = freeze({
@@ -47,4 +42,4 @@ let fontawesome = freeze({
 })
 
 return {
-  fontGiant, fontTitle, fontHeading1, fontHeading2, fontBody, fontSub, fontTiny, fontawesome, fontTactical}
+  fontGiant, fontTitle, fontHeading1, fontHeading2, fontBody, fontSub, fontawesome, fontTactical}

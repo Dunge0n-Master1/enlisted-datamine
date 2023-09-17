@@ -170,8 +170,7 @@ let function mkShopState() {
     wpack_silver_rifle_group = 1
     wpack_silver_submachine_gun_group = 2
     wpack_silver_special_group = 3
-    wpack_group = 4
-    item_group = 5
+    item_group = 4
   }
 
 

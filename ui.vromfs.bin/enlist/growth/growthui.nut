@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontSub, fontTiny } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { largePadding, smallPadding, titleTxtColor, defTxtColor, midPadding, accentColor,
   brightAccentColor, darkTxtColor, panelBgColor, defBdColor, squadSlotBgHoverColor, defItemBlur,
   fullTransparentBgColor, inventoryItemDetailsWidth,commonBtnHeight, hoverSlotBgColor, contentOffset
@@ -40,8 +40,8 @@ let squadIconSize = [hdpxi(24), hdpxi(15)]
 let relationIconSize = [hdpxi(24), hdpxi(24)]
 
 let detailsTitleStyle = freeze({ color = titleTxtColor }.__update(fontSub))
-let progressTitleStyle = freeze({ color = titleTxtColor }.__update(fontTiny))
-let progressValueStyle = freeze({ color = titleTxtColor }.__update(fontTiny))
+let progressTitleStyle = freeze({ color = titleTxtColor }.__update(fontSub))
+let progressValueStyle = freeze({ color = titleTxtColor }.__update(fontSub))
 
 let selectedWithBorder = [hdpx(1), hdpx(1), hdpx(4), hdpx(1)]
 let selectedNonBorder = [0,0, hdpx(4), 0]
@@ -357,7 +357,7 @@ let function mkElem(id, item, squad, curItemRelations, status, back, isSelected,
           color = isCurrent.value || status == GrowthStatus.COMPLETED ? brightAccentColor
             : isSelected.value || (sf & S_ACTIVE) ? titleTxtColor
             : defTxtColor
-        }.__update(fontTiny)
+        }.__update(fontSub)
         {
           rendObj = ROBJ_WORLD_BLUR_PANEL
           size = flex()

@@ -54,6 +54,9 @@ def update_gun_tm_info_for_render(info : UpdateStageInfoAct;
                                   animchar : AnimcharBaseComponent;
                                   weapon_rearsight_node__nodeIdx : int;
                                   var weapon_rearsight_node__nodeTm : mat44f&)
+  if weapon_rearsight_node__nodeIdx < 0
+    return
+
   var newTm : float3x4;
   geomtree_getNodeWtmScalar(*animchar.nodeTree, weapon_rearsight_node__nodeIdx, newTm)
   weapon_rearsight_node__nodeTm = mat44f(newTm)

@@ -2,6 +2,7 @@ require ecs
 require GeomNodeTree
 require AnimV20
 require enlisted.events_enlisted
+require game.es.events
 
 [es(tag=render, REQUIRE=animchar__physSymDependence, before=(start_async_phys_sim_es, motion_matching_job_es), parallel_for=1)]
 def animchar_phys_dependency_es(info : ParallelUpdateFrameDelayed;
@@ -29,4 +30,13 @@ def animchar_phys_dependency_es(info : ParallelUpdateFrameDelayed;
     animchar__accumDt = 0.f
   else
     animchar |> animchar_recalc_wtm()
+  animchar_copy_nodes(animchar, animchar_node_wtm, animchar_render__root_pos)
+
+[es(before=grid_obj_update_with_animchar_evt_es)]
+def animchar_update_on_teleport_es(evt : EventOnEntityTeleported;
+                                   var animchar : AnimcharBaseComponent;
+                                   var animchar_node_wtm : AnimcharNodesMat44;
+                                   var animchar_render__root_pos : vec4f&)
+  animchar_set_tm(animchar, evt.newtm, true)
+  animchar_act(animchar, 0.0, true)
   animchar_copy_nodes(animchar, animchar_node_wtm, animchar_render__root_pos)

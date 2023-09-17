@@ -6,6 +6,7 @@ let {
 } = require("%enlist/mainMenu/defMainMenuItems.nut")
 let { openChangelog } = require("%enlist/openChangelog.nut")
 let { isInQueue } = require("%enlist/state/queueState.nut")
+let isChineseVersion = require("%enlSqGlob/isChineseVersion.nut")
 let { customGamesOpen } = require("%enlist/mpRoom/customGamesWnd.nut")
 let debugProfileWnd = require("%enlist/mainMenu/debugProfileWnd.nut")
 let debugConfigsWnd = require("%enlist/mainMenu/debugConfigsWnd.nut")
@@ -152,12 +153,14 @@ let function buttons(){
     res.append(btnChangeCampaign)
   if (hasBattlePass.value)
     res.append(btnBattlePass)
-  res.append(btnOptions, btnControls, btnSupport, btnForum, btnFeedback, btnGSS, btnCBR, btnLegals)
-  if (is_xbox){
+  res.append(btnOptions, btnControls, btnSupport, btnForum, btnFeedback, btnGSS)
+  if (!isChineseVersion)
+    res.append(btnCBR)
+  res.append(btnLegals)
+  if (is_xbox)
     res.append(btnLogout)
-  } else if (!is_sony){
+  else if (!is_sony)
     res.append(btnExit)
-  }
   if (canDebugProfile.value)
     res.append(SEPARATOR, btnDebugProfile, btnDebugConfigs)
   return res.filter(@(v) v!=null)

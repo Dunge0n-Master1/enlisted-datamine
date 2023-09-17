@@ -1348,7 +1348,6 @@ custom_marker{
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 
   _group{
-    _tags:t="ui"
     _track:b=yes
     custom_marker__active:b=no
     custom_marker__showForTeam:i=-1
@@ -3809,4 +3808,8 @@ voxel_grid_init_manager{
 
   "voxel_grid_init__inProgress:tag"{
   }
+}
+
+animated_attaches_update_disabler{
+  animchar_attaches__disableAnimDistance:r=0.0
 }

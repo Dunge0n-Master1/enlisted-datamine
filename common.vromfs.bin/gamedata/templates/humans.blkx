@@ -746,6 +746,7 @@ human_ladder_interaction{
   _replicated:t="human_ladder__attached"
   _replicated:t="human_ladder__numSteps"
   _tracked:t="human_ladder__attached"
+  _skipInitialReplication:t="human_on_ladder__animation"
   human_ladder__curLadderTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   human_ladder__curNumSteps:i=0
 

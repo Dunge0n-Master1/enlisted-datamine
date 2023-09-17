@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontTiny } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {
   gap, bigPadding, slotBaseSize, disabledTxtColor, blockedTxtColor,
   deadTxtColor, defTxtColor, listCtors
@@ -82,7 +82,7 @@ let mkDropSoldierInfoBlock = @(soldierInfo, squadInfo, nameColor, textColor, gro
         behavior = Behaviors.TextArea
         text = loc(squadInfo.titleLocId)
         color = textColor
-      }.__update(fontTiny)
+      }.__update(fontSub)
     }
     autoscrollText({
       text = getObjectName(soldierInfo)

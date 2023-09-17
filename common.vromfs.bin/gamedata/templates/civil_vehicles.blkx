@@ -174,6 +174,8 @@ base_vehicle{
   hitmarks_victim__group:t="vehicle"
   hitmarks_victim__groupId:i=-1
   transform_lastFrame:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  vehicle_phys__defTrackedNormSuspForceLerp:r=0.0
+  vehicle_phys__deTrackedSideFricProjLerp:r=0.0
   battle_area__timeToDamageType:t="vehicle"
   net__controlsTickDelta:i=0
   phys__maxMassRatioForPushOnCollision:r=4.0

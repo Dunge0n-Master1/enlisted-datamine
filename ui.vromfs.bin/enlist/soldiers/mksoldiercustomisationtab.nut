@@ -2,7 +2,8 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let textInput = require("%ui/components/textInput.nut")
-let { defTxtColor, commonBtnHeight } = require("%enlSqGlob/ui/viewConst.nut")
+let { defTxtColor, activeTxtColor, smallPadding, commonBtnHeight
+} = require("%enlSqGlob/ui/viewConst.nut")
 let { curCampItems, curCampItemsCount } = require("model/state.nut")
 let { configs } = require("%enlist/meta/configs.nut")
 let { mkItemCurrency } = require("%enlist/shop/currencyComp.nut")
@@ -13,7 +14,6 @@ let {
   use_appearance_change_order, buy_appearance_change
 } = require("%enlist/meta/clientApi.nut")
 let { clearBorderSymbols } = require("%sqstd/string.nut")
-let colorize = require("%ui/components/colorize.nut")
 let { localizeSoldierName } = require("%enlSqGlob/ui/itemsInfo.nut")
 let {
   canUseOrder, mkCurrencyButton
@@ -81,17 +81,32 @@ let function callnameChangeAction(soldier, prevCallname, callname) {
   })
 }
 
-let stdText = @(text){
+let stdText = @(text) {
   rendObj = ROBJ_TEXT
   hplace = ALIGN_CENTER
   color = defTxtColor
   text
 }.__update(fontSub)
 
-let soldierNameColorized = function(soldier, callname){
+let function mkSoldierNameColorized(soldier, callname) {
   let { name, surname } = localizeSoldierName(soldier)
-  callname = callname != "" ? colorize(0xFFFFFF, $"\"{callname}\"") : null
-  return " ".join([name, callname, surname], true)
+  return function() {
+    let callnameText = (callname.value ?? "") == "" ? null : {
+      rendObj = ROBJ_TEXT
+      color = activeTxtColor
+      text = $"\"{callname.value}\""
+    }
+    return {
+      watch = callname
+      flow = FLOW_HORIZONTAL
+      gap = smallPadding
+      children = [
+        stdText(name)
+        callnameText
+        stdText(surname)
+      ]
+    }
+  }
 }
 
 let function filterAndSetCallname(callNameToSet, soldier, prevCallname){
@@ -142,13 +157,7 @@ let function mkCallnameBlock(soldier){
           onEscape = @() callnameEditWatch(prevCallname)
           onReturn = @() filterAndSetCallname(callnameCleaned.value, soldier, prevCallname)
         }))
-      @() {
-        watch = callnameCleaned
-        rendObj = ROBJ_TEXTAREA
-        behavior = Behaviors.TextArea
-        color = defTxtColor
-        text = soldierNameColorized(soldier, callnameCleaned.value)
-      }
+      mkSoldierNameColorized(soldier, callnameCleaned)
       isWaitingObsceneFilter.value
         ? {
             size =[flex(), SIZE_TO_CONTENT]
@@ -168,7 +177,7 @@ let function mkCallnameBlock(soldier){
                 valign = ALIGN_BOTTOM
                 gap = hdpx(5)
                 children = [
-                  stdText(loc( ordersAvailable == 0
+                  stdText(loc(ordersAvailable == 0
                     ? "shop/noOrdersAvailable"
                     : "shop/youHave"
                   ))

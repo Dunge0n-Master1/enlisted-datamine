@@ -56,8 +56,9 @@ def paratroopers_target_icons_lifetime_es(info : ParallelUpdateFrameDelayed;
   if info.curTime < paratroopers_target_points__checkTime
     return
   paratroopers_target_points__checkTime = info.curTime + paratroopers_target_points__checkPeriod
-  for index in iter_range(paratroopers_target_points)
-    let reverseIndex = length(paratroopers_target_points) - 1 - index
+  let startLength = length(paratroopers_target_points)
+  for index in range(startLength)
+    let reverseIndex = startLength - 1 - index
     if paratroopers_target_points__disappearanceTime[reverseIndex] < info.curTime
       erase(paratroopers_target_points__disappearanceTime, reverseIndex)
       erase(paratroopers_target_points, reverseIndex)

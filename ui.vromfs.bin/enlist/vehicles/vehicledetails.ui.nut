@@ -199,7 +199,7 @@ let function mkDisposeBtn(item) {
 }
 
 let function mkChooseButton(curVehicle, selVehicle) {
-  if (curVehicle == selVehicle || curVehicle == null)
+  if (curVehicle.basetpl == selVehicle.basetpl || curVehicle == null)
     return null
 
   let { status } = curVehicle

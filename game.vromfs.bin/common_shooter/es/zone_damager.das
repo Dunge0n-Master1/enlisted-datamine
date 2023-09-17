@@ -52,7 +52,8 @@ def burn_damage(cur_time, dt : float; victim_eid, offender_eid : EntityId; victi
 def dmgzone_check_visitor(zone_eid, visitor_eid, offender_eid : EntityId;
                           curTime, dt, dmgzone_damage, dmgzone_fireAffect, fire_source__startTime : float;
                           gun_props_id, shell_id, team_to_damage, damage_type_id : int;
-                          damage_in_vehicle : bool; dmgzone__doNotDamageUnderwater : Tag const?;
+                          damage_in_vehicle : bool; ignore_fire_resistance : bool;
+                          dmgzone__doNotDamageUnderwater : Tag const?;
                           var eids_in_zone : EidList?)
   ecs::query(visitor_eid) <| $ [es(REQUIRE=dmgzoneVulnerable, REQUIRE_NOT=deadEntity)] (transform : float3x4;
                                                                                         isInVehicleHidden : bool = false;
@@ -85,10 +86,10 @@ def dmgzone_check_visitor(zone_eid, visitor_eid, offender_eid : EntityId;
       ddesc.shellId = int16(shell_id)
       damage_entity(visitor_eid, offender_eid, ddesc)
 
-    if dmgzone_fireAffect > 0.0 && dmgzone_fire_resistance__currentTicks >= 0 //check is human dry
+    if ignore_fire_resistance || dmgzone_fireAffect > 0.0 && dmgzone_fire_resistance__currentTicks >= 0 //check is human dry
       dmgzone_fire_resistance__currentTicks += 1
       dmgzone_fire_resistance__lastTickAt = curTime
-      let shouldDamage = dmgzone_fire_resistance__maxTicks < dmgzone_fire_resistance__currentTicks
+      let shouldDamage = ignore_fire_resistance || dmgzone_fire_resistance__maxTicks < dmgzone_fire_resistance__currentTicks
 
       if shouldDamage
         burn_damage(curTime, dt, visitor_eid, offender_eid, team, transform[3],
@@ -142,6 +143,7 @@ def dmgzone_es(info : UpdateStageInfoAct;
                dmgzone__damage : float;
                var dmgzone__lastUpdate : float&;
                var dmgzone__eidsInZone : EidList?;
+               dmgzone__igniteEntitiesInitially : Tag const?;
                dmgzone__doNotDamageUnderwater : Tag const?;
                dmgzone__updateInterval : float = 1.0;
                dmgzone__teamToDamage : int = TEAM_UNASSIGNED;
@@ -155,6 +157,8 @@ def dmgzone_es(info : UpdateStageInfoAct;
                sphere_zone__radius : float;
                sphere_zone__inverted : bool = false)
   var dt : float
+  var ignoreFireResistance = false
+
   if dmgzone__lastUpdate > 0.f
     dt = info.curTime - dmgzone__lastUpdate
     if dt < dmgzone__updateInterval
@@ -162,7 +166,11 @@ def dmgzone_es(info : UpdateStageInfoAct;
     dmgzone__lastUpdate = info.curTime
   else // initial update
     dmgzone__lastUpdate = info.curTime + dmgzone__updateInterval * eid_frnd(eid)
-    return
+    if dmgzone__igniteEntitiesInitially != null
+      ignoreFireResistance = true
+      dt = 0.001 // this causes fire damage to be greater than 0
+    else
+      return
 
   if dmgzone__eidsInZone != null
     *dmgzone__eidsInZone |> clear()
@@ -173,7 +181,7 @@ def dmgzone_es(info : UpdateStageInfoAct;
       dmgzone_check_visitor(zone_eid, visitorEid, offenderEid,
                             info.curTime, dt, dmgzone__damage, dmgzone__fireAffect, fire_source__startTime,
                             dmgzone__gunPropsId, dmgzone__shellId, dmgzone__teamToDamage, dm__damageTypeId,
-                            dmgzone__damageInVehicle, dmgzone__doNotDamageUnderwater, dmgzone__eidsInZone)
+                            dmgzone__damageInVehicle, ignoreFireResistance, dmgzone__doNotDamageUnderwater, dmgzone__eidsInZone)
   else
     let invTm = inverse(transform)
     let zoneRadiusSq = square(sphere_zone__radius)
@@ -183,7 +191,7 @@ def dmgzone_es(info : UpdateStageInfoAct;
       dmgzone_check_visitor(zone_eid, eid, offenderEid,
                             info.curTime, dt, dmgzone__damage, dmgzone__fireAffect, fire_source__startTime,
                             dmgzone__gunPropsId, dmgzone__shellId, dmgzone__teamToDamage, dm__damageTypeId,
-                            dmgzone__damageInVehicle, dmgzone__doNotDamageUnderwater, dmgzone__eidsInZone)
+                            dmgzone__damageInVehicle, ignoreFireResistance, dmgzone__doNotDamageUnderwater, dmgzone__eidsInZone)
 
 
 [es(tag=server, tag=dev, on_appear, REQUIRE=box_zone, REQUIRE=dmgzone__damage)]

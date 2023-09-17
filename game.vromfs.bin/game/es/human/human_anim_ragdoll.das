@@ -106,8 +106,9 @@ def stop_ragdoll(var ragdoll : PhysRagdoll;
   ragdoll |> ragdoll_endRagdoll()
   animchar |> animchar_resetPostController()
 
-[es(tag=render, before=ragdoll_start_es)]
+[unused_argument(animchar), es(tag=render, before=ragdoll_start_es)]
 def human_anim_ragdoll_start_es(info : ParallelUpdateFrameDelayed;
+                                var animchar : AnimcharBaseComponent;
                                 var ragdoll : PhysRagdoll;
                                 ragdoll__applyParams : bool;
                                 human_net_phys__locationPos : DPoint3;
@@ -121,9 +122,14 @@ def human_anim_ragdoll_start_es(info : ParallelUpdateFrameDelayed;
   if (human_anim__dynamicRagdollClipoutTimeout > 0.0f)
     let toPos = pos + human_anim__dynamicRagdollClipoutOffset
     ragdoll |> ragdoll_setDynamicClipout(toPos, human_anim__dynamicRagdollClipoutTimeout)
-  ragdoll |> ragdoll_startRagdoll(int(PhysLayer EPL_CHARACTER),
-                                  int(PhysLayer EPL_ALL & (~(PhysLayer EPL_KINEMATIC | PhysLayer EPL_CHARACTER))))
   ragdoll |> ragdoll_setOverrideVel(vel)
+  static_if typeinfo(builtin_function_exists @@ < (var arg0 : PhysDecl::PhysRagdoll implicit; arg1 : int const; arg2 : int const; arg3 : GeomNodeTree::GeomNodeTree const ? const implicit) : void > PhysDecl::ragdoll_startRagdoll)
+    ragdoll |> ragdoll_startRagdoll(int(PhysLayer EPL_CHARACTER),
+                                    int(PhysLayer EPL_ALL & (~(PhysLayer EPL_KINEMATIC | PhysLayer EPL_CHARACTER))),
+                                    animchar.nodeTree)
+  else
+    ragdoll |> ragdoll_startRagdoll(int(PhysLayer EPL_CHARACTER),
+                                    int(PhysLayer EPL_ALL & (~(PhysLayer EPL_KINEMATIC | PhysLayer EPL_CHARACTER))))
 
 
 [es(tag=render, before=human_anim_ragdoll_start_es)]

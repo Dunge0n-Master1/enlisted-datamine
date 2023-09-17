@@ -50,6 +50,7 @@ ps4{
   max_genmip_tex_sz:i=0
   mem_reserve_mb:i=0
   enable_defrag:b=yes
+  defrag_threshold:i=80
   emergency_buffer_pages:i=64
   resolution_config:b=yes
   min_res:t="1920x1080"

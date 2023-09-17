@@ -309,7 +309,7 @@ Human.NextBuildingType{
   btn:i=82
 }
 
-Human.BuildingAction{
+Human.DestroyBuilding{
   dev:i=1
   btn:i=36
 }

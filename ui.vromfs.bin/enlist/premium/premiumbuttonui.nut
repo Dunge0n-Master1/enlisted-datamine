@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontTiny } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { panelBgColor, midPadding, bigPadding, hoverSlotBgColor } = require("%enlSqGlob/ui/designConst.nut")
 let cursors = require("%ui/style/cursors.nut")
 let tooltipBox = require("%ui/style/tooltipBox.nut")
@@ -68,7 +68,7 @@ let premiumWidget = watchElemState(@(sf) {
         : mkNotifierBlink(loc("shop/discountNotify"), {
             size = SIZE_TO_CONTENT,
             vplace = ALIGN_BOTTOM
-          }, {}, fontTiny)
+          }, {}, fontSub)
       hasPremium.value ? null : glareAnim
     ]
   }

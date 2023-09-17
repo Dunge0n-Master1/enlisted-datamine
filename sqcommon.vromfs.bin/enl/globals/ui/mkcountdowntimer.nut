@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
-let { fontSub, fontTiny } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { secondsToHoursLoc } = require("%ui/helpers/time.nut")
 let {
   smallPadding, accentTitleTxtColor, defTxtColor
@@ -18,7 +18,6 @@ let function mkTimer(timestamp, prefixLocId = "", expiredLocId = "timeExpired",
   let prefixTxt = loc(prefixLocId)
   let expiredTxt = loc(expiredLocId)
   let expireSec = Computed(@() max(timestamp - serverTime.value, 0))
-  let txtStyle = isSmall ? fontTiny : fontSub
   let timerSize = isSmall ? smallTimerSize : defTimerSize
 
   return function() {
@@ -36,7 +35,7 @@ let function mkTimer(timestamp, prefixLocId = "", expiredLocId = "timeExpired",
               rendObj = ROBJ_TEXT
               text = prefixTxt
               color = prefixColor
-            }.__update(txtStyle)
+            }.__update(fontSub)
         hasExpired ? null
           : {
               rendObj = ROBJ_IMAGE
@@ -48,7 +47,7 @@ let function mkTimer(timestamp, prefixLocId = "", expiredLocId = "timeExpired",
           rendObj = ROBJ_TEXT
           text = hasExpired ? expiredTxt : secondsToHoursLoc(expireSecVal)
           color
-        }.__update(txtStyle)
+        }.__update(fontSub)
       ]
     }.__update(override)
   }

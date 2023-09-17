@@ -1743,7 +1743,7 @@ entity{
   team__briefing:t="invasion/defenders_goals"
   team__winSubtitle:t="debriefing/won_defence_subtitle"
   team__loseSubtitle:t="debriefing/lost_defence_subtitle"
-  team__winTitle:t="debriefing/britain_won_defence"
+  team__winTitle:t="debriefing/britain_won_defence_title"
   team__spawnBotArmy:t="tunisia_allies"
 }
 

@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontSub, fontTiny } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let faComp = require("%ui/components/faComp.nut")
 let {
   msgHighlightedTxtColor, smallPadding, hoverTxtColor
@@ -55,7 +55,7 @@ let mkLevelBlock = @(level) mkBackBlock({
   halign = ALIGN_CENTER
   text = level
   color = hoverTxtColor
-}.__update(fontTiny))
+}.__update(fontSub))
 
 let statusIconCtor = @(demands) demands?.classLimit != null ? iconBlocked
   : demands == null ? null

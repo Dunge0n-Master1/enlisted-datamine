@@ -40,7 +40,7 @@ let function login_live(state, cb) {
 let function check_priveleges(_state, cb) {
   let failure_loc_key = "permission_check_failure_mp" // Multiplayer is not permited
   let error_callback = error_cb(cb, failure_loc_key, false)
-  privileges.retrieve_current_state(privileges.Privilege.Multiplayer, true, function(success, state, reason) {
+  privileges.retrieve_current_state(privileges.Privilege.Multiplayer, function(success, state, reason) {
     if (state == privileges.State.ResolutionRequired) {
       // if privilege was denied, check reason. If it requires resolution for Gold membership, allow login
       if (reason == privileges.DenyReason.PurchaseRequired)

@@ -138,7 +138,7 @@ let function card(item, onClick = @(_item) null, onDoubleClick = @(_item) null) 
         {
           children = [
             mkUnseenSign(item)
-            item == selectedVehicle.value
+            item.basetpl == selectedVehicle.value.basetpl
               ? statusIconChosen
               : itemStatusIcon(item)
           ]

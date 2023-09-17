@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontTiny } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { accentColor, mkTimerIcon, transpBgColor, defItemBlur, smallPadding
 } = require("%enlSqGlob/ui/designConst.nut")
 let { secondsToHoursLoc } = require("%ui/helpers/time.nut")
@@ -8,7 +8,7 @@ let { rewardsPresentation } = require("%enlist/items/itemsPresentation.nut")
 let { taskSlotPadding } = require("%enlSqGlob/ui/tasksPkg.nut")
 
 
-let accentTxtStyle = { color = accentColor }.__update(fontTiny)
+let accentTxtStyle = { color = accentColor }.__update(fontSub)
 let timerSize = hdpxi(13)
 let rewardIconWidth = hdpxi(42)
 

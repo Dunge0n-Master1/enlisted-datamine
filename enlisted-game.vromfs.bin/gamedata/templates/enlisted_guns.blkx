@@ -365,7 +365,7 @@ ger_building_tool_gun{
     template:t="barbedwire_engineer_a_preview"
     template:t="sandbags_wall_2_preview"
     template:t="cannon_germ_20mm_flak38_preview"
-    template:t="cannon_germ_towed_at_pak40_preview"
+    template:t="cannon_germ_towed_at_pak38_no_camo_preview"
     template:t="sandbags_wall_mg_34_preview"
     template:t="sandbags_wall_mg_131_preview"
     template:t="sandbags_wall_ampulomet_preview"

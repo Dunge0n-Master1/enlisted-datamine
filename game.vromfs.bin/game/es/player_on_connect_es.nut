@@ -1,7 +1,6 @@
 import "%dngscripts/ecs.nut" as ecs
 let { TEAM_UNASSIGNED } = require("team")
 let debug = require("%enlSqGlob/library_logs.nut").with_prefix("[PLAYER]")
-let {get_team_eid} = require("%dngscripts/common_queries.nut")
 let assign_team = require("%scripts/game/utils/team.nut")
 let {INVALID_CONNECTION_ID, add_entity_in_net_scope, get_sync_time} = require("net")
 let {INVALID_USER_ID} = require("matching.errors")
@@ -92,16 +91,7 @@ let function onPlayerConnected(evt, eid, comp) {
       add_entity_in_net_scope(teamEid, comp.connid)
   }
 
-  if (reconnected && ecs.g_entity_mgr.doesEntityExist(possessed)) {
-    if (!ecs.obsolete_dbg_get_comp_val(possessed, "isAlive", false)) {
-      ecs.g_entity_mgr.destroyEntity(possessed)
-      comp.possessed = ecs.INVALID_ENTITY_ID
-    }
-    if (team == TEAM_UNASSIGNED
-        || ecs.obsolete_dbg_get_comp_val(get_team_eid(team),"team__allowRebalance", false))
-      comp.team = wishTeam
-  }
-  else
+  if (!reconnected && team == TEAM_UNASSIGNED)
     comp.team = wishTeam
 
   if (comp.team == team)

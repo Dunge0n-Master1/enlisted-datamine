@@ -1053,6 +1053,9 @@ fire_spot_5m_big_effect{
   dmgzone__maxRadius:r=3.2
   effect__emit_range_limit:r=400.0
 
+  "dmgzone__igniteEntitiesInitially:tag"{
+  }
+
   _group{
     _tags:t="render"
     effect__name:t="fire_spot_5m_big_cmps_fx"

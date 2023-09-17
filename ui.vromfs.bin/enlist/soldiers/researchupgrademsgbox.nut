@@ -46,7 +46,7 @@ let function gotoResearchUpgradeMsgBox(soldier, slotType, _slotId) {
   else
     buttons.append({ text = loc("GoToEquipment"),
       action = function() {
-        setAutoChapter("wpack_group")
+        setAutoChapter("item_group")
         setCurSection("SHOP")
       }
     })

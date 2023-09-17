@@ -549,6 +549,20 @@ entity{
 }
 
 entity{
+  _template:t="germ_pzkpfw_vi_ausf_b_tiger_iih_berlin"
+  transform:m=[[-0.231714, 0.125854, 0.964608] [0.00342918, 0.991695, -0.128565] [-0.972778, -0.0264824, -0.230221] [-221.578, 13.465, 435.287]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="germ_pzkpfw_vi_ausf_b_tiger_iih_berlin"
+  transform:m=[[-0.983163, -0.0152114, -0.182094] [-0.0158048, 0.999873, 0.00180779] [0.182044, 0.0046553, -0.983279] [-18.3893, 16.9772, 402.58]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
   _template:t="gaz_67"
   transform:m=[[-0.451933, 0.0270005, 0.891643] [0.0270005, 0.999498, -0.0165812] [-0.891643, 0.0165812, -0.452435] [-543.52, 9.74066, 171.357]]
 }

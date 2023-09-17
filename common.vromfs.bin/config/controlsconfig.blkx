@@ -493,7 +493,7 @@ actionSets{
       group_tag:t="Other"
     }
 
-    Human.BuildingAction{
+    Human.DestroyBuilding{
       type:t="digital_button"
       group_tag:t="Other"
     }

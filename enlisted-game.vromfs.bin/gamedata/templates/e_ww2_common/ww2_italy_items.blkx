@@ -486,9 +486,19 @@ attachable_wear_grigio_verde_m40_item{
   animchar__res:t="grigio_verde_m40_char"
   collres__res:t="grigio_verde_m40_collision"
   animchar_fast_phys__res:t="grigio_verde_m40_fastphys"
+  _tracked:t="attaches_list"
 
   animchar_fast_phys{
     _tags:t="gameClient"
+  }
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="front_belt_l"
+    slot:t="bag_l"
   }
 }
 
@@ -498,9 +508,19 @@ attachable_wear_grigio_verde_m40_pistoia_item{
   animchar__res:t="grigio_verde_m40_pistoia_char"
   collres__res:t="grigio_verde_m40_pistoia_collision"
   animchar_fast_phys__res:t="grigio_verde_m40_pistoia_fastphys"
+  _tracked:t="attaches_list"
 
   animchar_fast_phys{
     _tags:t="gameClient"
+  }
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="front_belt_l"
+    slot:t="bag_l"
   }
 }
 

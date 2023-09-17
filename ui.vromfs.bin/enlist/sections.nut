@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontTiny } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { buildShopUi } = require("shop/mkShopUi.nut")
 let { buildResearchesUi } = require("researches/mkResearchesUi.nut")
 let { mkMainSceneContent } = require("%enlist/mainScene/mainScene.nut")
@@ -92,7 +92,6 @@ let mkShopAlertUi = @(sf) function() {
   return {
     watch = watchShopAlert
     size = [flex(), SIZE_TO_CONTENT]
-    pos = [0, hdpx(5)]
     margin = hdpx(11)
     halign = ALIGN_RIGHT
     children = percents > 0
@@ -100,7 +99,7 @@ let mkShopAlertUi = @(sf) function() {
             rendObj = ROBJ_TEXT
             text = $"-{percents}%"
             color = sf & S_HOVER ? titleTxtColor : darkTxtColor
-          }.__update(fontTiny), true, sf & S_HOVER ? darkTxtColor : brightAccentColor)
+          }.__update(fontSub), true, sf & S_HOVER ? darkTxtColor : brightAccentColor)
       : alertSign
   }
 }
@@ -160,7 +159,6 @@ let campaignTabData = {
     return {
       watch = campaignWatched
       size = [flex(), SIZE_TO_CONTENT]
-      pos = [0, hdpx(5)]
       margin = hdpx(11)
       halign = ALIGN_RIGHT
       children = hasLevelDiscount.value
@@ -168,7 +166,7 @@ let campaignTabData = {
               rendObj = ROBJ_TEXT
               text = $"-{curLevelDiscount.value}%"
               color = sf & S_HOVER ? titleTxtColor : darkTxtColor
-            }.__update(fontTiny), true, sf & S_HOVER ? darkTxtColor : brightAccentColor)
+            }.__update(fontSub), true, sf & S_HOVER ? darkTxtColor : brightAccentColor)
         : hasUnseenArmyProgress.value ? notifier.__merge({
             color = sf & S_HOVER ? darkTxtColor : brightAccentColor
           })

@@ -63,7 +63,6 @@ germ_pzkpfw_VI_ausf_B_tiger_IIP_common{
       receiveDamageFromDMPart:t="commander"
       cameraNodeName:t="bone_turret"
       cockpitTemplate:t="germ_pzkpfw_vi_ausf_b_tiger_iip_commander_cockpit"
-      isHoldGunModeAllowed:b=no
 
       "hatchNodes:array"{
         node:t="hatch_01"

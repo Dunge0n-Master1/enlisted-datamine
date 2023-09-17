@@ -171,6 +171,8 @@ if (viewVehicle.value != null) {
   viewVehicle(new ?? selectedVehicle.value)
 }
 
+selectedVehicle.subscribe(@(v) viewVehicle(v))
+
 let function selectVehicle(vehicle) {
   let { statusText = null } = vehicle?.status
   if ((statusText ?? "") != "")
@@ -185,7 +187,7 @@ let function selectVehicle(vehicle) {
 let hasSquadVehicle = @(squadCfg) (squadCfg?.vehicleType ?? "") != ""
 
 let squadsWithVehicles = Computed(function() {
-  let armyId = selectVehParams.value?.armyId
+  let { armyId = null } = selectVehParams.value
   if (!armyId)
     return null
 
@@ -198,7 +200,8 @@ let curSquadId = Computed(@()
   selectVehParams.value?.squadId ?? squadsWithVehicles.value?[0].squadId)
 
 let function setCurSquadId(id) {
-  if (selectVehParams.value != null && selectVehParams.value.squadId != id)
+  let { squadId = null } = selectVehParams.value
+  if (squadId != null && squadId != id)
     selectVehParams.mutate(@(params) params.__update({ squadId = id }))
 }
 

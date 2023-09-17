@@ -15,7 +15,7 @@ def reset(var human_input__nextBuildingType : int&;
 def init(var human_input__nextBuildingType : int&;
          var human_input__buildingAction : int&)
   human_input__nextBuildingType = int(get_action_handle("Human.NextBuildingType", TYPEGRP_DIGITAL))
-  human_input__buildingAction = int(get_action_handle("Human.BuildingAction", TYPEGRP_DIGITAL))
+  human_input__buildingAction = int(get_action_handle("Human.DestroyBuilding", TYPEGRP_DIGITAL))
 
 [es(tag=input, on_appear)]
 def building_input_appear_es(evt : Event;

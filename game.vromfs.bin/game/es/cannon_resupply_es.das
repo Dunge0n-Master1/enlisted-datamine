@@ -1,25 +1,9 @@
 require ecs
 require DngNet
-require DagorMath
 require enlisted.events_enlisted
 require danetlibs.native_dasevents.main.native_events
+require game.es.cannon_resupply_common
 
-struct CannonShellInfo
-  max : int
-  current : int
-
-def private get_turrets_shell_info(gunEids)
-  var info = [[CannonShellInfo max=0, current=0]]
-  for gunEid in gunEids
-    query(gunEid) <| $ [es] (gun__shellsAmmo : Array; gun__ammo_by_shell : IntList)
-      for ammoByShell, shellsAmmo in gun__ammo_by_shell, gun__shellsAmmo
-        info.max += get_int(shellsAmmo) ?? 0
-        info.current += ammoByShell
-  return info
-
-def private calculate_resupply_cost(shell_info; building_cost; resupply_cost_percent)
-  let percent = (1f - safediv(float(shell_info.current), float(shell_info.max)))
-  return building_cost * percent * resupply_cost_percent
 
 [es(tag=server, before=fortification_repair_finish_es)]
 def cannon_resupply_finish_es(evt : EventRepairFortificationFinish;

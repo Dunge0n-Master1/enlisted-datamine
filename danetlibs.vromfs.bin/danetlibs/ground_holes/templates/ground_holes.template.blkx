@@ -62,6 +62,7 @@ ground_holes_zones_updater{
   _extends:t="replicating"
   _singleton:b=yes
   _tags:t="render"
+  should_update_ground_holes_zones:b=yes
 
   "hmapHolesZonesBuf:UniqueBufHolder"{
   }

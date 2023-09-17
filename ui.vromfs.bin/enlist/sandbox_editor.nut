@@ -49,7 +49,7 @@ let infoBox = @(text) showMsgbox({text})
 let {openPlayConfigDialog, backupSaveEnabled} = require("sandbox_playconfig.nut")
 let {showHints, hintShown, hintWindow} = require("sandbox_hints.nut")
 let {isPrefabTool} = require("prefabEditorState.nut")
-let {setToolboxShowMsgbox, toolboxShown, toolboxPopup} = require("sandbox_toolbox.nut")
+let {setToolboxShowMsgbox, resetToolbox, toolboxShown, toolboxPopup} = require("sandbox_toolbox.nut")
 let prefabEditor = require("prefabEditor.nut")
 setToolboxShowMsgbox(showMsgbox)
 
@@ -445,6 +445,7 @@ let function openScenesIfNeeded(...){
       scenesOpened(true)
     else {
       scenesOpened(false)
+      resetToolbox()
       showHints()
     }
   }

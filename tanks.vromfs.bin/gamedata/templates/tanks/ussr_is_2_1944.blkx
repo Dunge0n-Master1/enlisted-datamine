@@ -108,7 +108,6 @@ ussr_is_2_1944_common{
       receiveDamageFromDMPart:t="commander"
       cockpitTemplate:t="ussr_is_2_1944_commander_cockpit"
       cameraNodeName:t="bone_turret"
-      isHoldGunModeAllowed:b=no
 
       "hatchNodes:array"{
         node:t="hatch_01"

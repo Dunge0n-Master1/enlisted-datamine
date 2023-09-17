@@ -4182,6 +4182,13 @@ attachable_wear_belt_1_tanker_ger_summer_item{
   collres__res:t="belt_1_tanker_ger_summer_collision"
 }
 
+attachable_wear_belt_1_tanker_ger_winter_item{
+  _extends:t="attachable_belt1"
+  item__uniqueName:t="attachable_wear_belt_1_tanker_ger_winter_item"
+  animchar__res:t="belt_1_tanker_ger_winter_char"
+  collres__res:t="belt_1_tanker_ger_winter_collision"
+}
+
 attachable_wear_belt_1_tanker_m44_camo_item{
   _extends:t="attachable_belt1"
   item__uniqueName:t="attachable_wear_belt_1_tanker_m44_camo_item"

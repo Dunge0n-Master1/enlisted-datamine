@@ -7,7 +7,7 @@ let mkGlare = require("%enlist/components/mkGlareAnim.nut")
 let getEquipClasses = require("%enlist/soldiers/model/equipClassSchemes.nut")
 let allowedVehicles = require("%enlist/vehicles/allowedVehicles.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
-let { fontTiny, fontSub, fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontSub, fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { defTxtColor, titleTxtColor, panelBgColor, midPadding, darkTxtColor, largePadding,
   leftAppearanceAnim, defItemBlur, defSlotBgColor, hoverSlotBgColor, attentionTxtColor,
   accentColor, smallPadding, highlightLineBottom, brightAccentColor
@@ -47,7 +47,7 @@ let activeTxtStyle = { color = darkTxtColor }.__update(fontSub)
 let titleTxtStyle = { color = titleTxtColor }.__update(fontSub)
 let titleFeaturedTxtStyle = { color = titleTxtColor }.__update(fontHeading2)
 let discountInfoStyle = { color = darkTxtColor }.__update(fontHeading2)
-let discountDescStyle = { color = darkTxtColor }.__update(fontTiny)
+let discountDescStyle = { color = darkTxtColor }.__update(fontSub)
 let alertTxtStyle = { color = attentionTxtColor }.__update(fontSub)
 
 let lockIcon = faComp("lock", { fontSize = hdpx(20), color = titleTxtColor })

@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { doesLocTextExist } = require("dagor.localize")
-let { fontTitle, fontSub, fontTiny } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontTitle, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { withTooltip } = require("%ui/style/cursors.nut")
 let tooltipBox = require("%ui/style/tooltipBox.nut")
 let {
@@ -189,7 +189,7 @@ let mkHeaderName = @(category) {
           rendObj = ROBJ_TEXT
           text = loc(category.locId)
           color = defTxtColor
-        }.__update(fontTiny)
+        }.__update(fontSub)
       : withTooltip({
             rendObj = ROBJ_IMAGE
             color = defTxtColor

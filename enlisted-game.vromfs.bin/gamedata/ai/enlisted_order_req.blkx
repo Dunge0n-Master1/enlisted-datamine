@@ -483,12 +483,54 @@ orderedSelector{
       state:t="move"
     }
 
-    moveToTarget{
-      targetUnitParam:t="ammoRequester"
-      stopDistRange:p2=1.5, 1.5
-      aimToTarget:b=yes
-      maxStanceParam:t="maxStance"
-      jumpOver:b=no
+    orderedSelector{
+
+      moveToTarget{
+        targetUnitParam:t="ammoRequester"
+        stopDistRange:p2=1.5, 1.5
+        aimToTarget:b=yes
+        maxStanceParam:t="maxStance"
+        jumpOver:b=no
+      }
+
+      sequencer{
+
+        setPosFromEntity{
+          to:t="tempPos"
+          from:t="ammoRequester"
+        }
+
+        moveToPos{
+          posParam:t="tempPos"
+          sprintTimerRange:p2=10.0, 20.0
+          minDistToSprint:r=10.0
+          distThreshold:r=1.5
+          avoidAiObstacles:b=no
+          incObstacles:b=no
+          tryClimbing:b=no
+          maxStanceParam:t="maxStance"
+          timeToStuck:r=5.0
+        }
+      }
+
+      sequencer{
+
+        setPosFromEntity{
+          to:t="tempPos"
+          from:t="ammoRequester"
+        }
+
+        moveToPos{
+          posParam:t="tempPos"
+          sprintTimerRange:p2=10.0, 20.0
+          minDistToSprint:r=10.0
+          distThreshold:r=2.0
+          avoidAiObstacles:b=yes
+          incObstacles:b=no
+          tryClimbing:b=yes
+          timeToStuck:r=7.0
+        }
+      }
     }
 
     giveAmmo{
@@ -581,12 +623,54 @@ orderedSelector{
       state:t="move"
     }
 
-    moveToTarget{
-      targetUnitParam:t="healRequester"
-      stopDistRange:p2=1.5, 1.5
-      aimToTarget:b=yes
-      maxStanceParam:t="maxStance"
-      jumpOver:b=no
+    orderedSelector{
+
+      moveToTarget{
+        targetUnitParam:t="healRequester"
+        stopDistRange:p2=1.5, 1.5
+        aimToTarget:b=yes
+        maxStanceParam:t="maxStance"
+        jumpOver:b=no
+      }
+
+      sequencer{
+
+        setPosFromEntity{
+          to:t="tempPos"
+          from:t="healRequester"
+        }
+
+        moveToPos{
+          posParam:t="tempPos"
+          sprintTimerRange:p2=10.0, 20.0
+          minDistToSprint:r=10.0
+          distThreshold:r=1.5
+          avoidAiObstacles:b=no
+          incObstacles:b=no
+          tryClimbing:b=no
+          maxStanceParam:t="maxStance"
+          timeToStuck:r=5.0
+        }
+      }
+
+      sequencer{
+
+        setPosFromEntity{
+          to:t="tempPos"
+          from:t="healRequester"
+        }
+
+        moveToPos{
+          posParam:t="tempPos"
+          sprintTimerRange:p2=10.0, 20.0
+          minDistToSprint:r=10.0
+          distThreshold:r=2.0
+          avoidAiObstacles:b=yes
+          incObstacles:b=no
+          tryClimbing:b=yes
+          timeToStuck:r=7.0
+        }
+      }
     }
 
     wait{

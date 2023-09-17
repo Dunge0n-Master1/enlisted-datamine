@@ -21,7 +21,7 @@ let { perkLevelsGrid } = require("%enlist/meta/perks/perksExp.nut")
 
 
 let itemSizeShort = [3.4 * unitSize, 2.5 * unitSize]
-let itemSizeLong = [6.0 * unitSize, 2.5 * unitSize]
+let itemSizeLong = [8.0 * unitSize, 2.5 * unitSize]
 let boosterHeight = (rewardBgSizePx[1] * 0.9).tointeger()
 let itemSizeBooster = [(boosterWidthToHeight * boosterHeight).tointeger(), boosterHeight]
 let itemSizeByTypeMap = {

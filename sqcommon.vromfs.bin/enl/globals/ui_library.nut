@@ -31,7 +31,7 @@ let function screenScaleUpdate(safeAreaScale) {
 let getScreenScale = @() screenScale
 
 let hdpx = @(pixels) darg_library.hdpx(pixels) * screenScale
-let hdpxi = @(pixels) (hdpx(pixels) * screenScale).tointeger()
+let hdpxi = @(pixels) hdpx(pixels).tointeger()
 let fsh = @(v) darg_library.fsh(v) * screenScale
 
 let enlistedLibrary = darg_library.__merge({

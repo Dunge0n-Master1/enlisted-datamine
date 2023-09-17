@@ -20,3 +20,20 @@ def animated_visible_attachments_act_animchar_es(info : ParallelUpdateFrameDelay
     let attachRenderPos = animchar_render__root_pos.xyz
     if length_sq(attachRenderPos - camPos) < square(animchar_attaches__disableAnimDistance)
       animchar_act(animchar, info.dt, true)
+
+
+[es(tag=(server, gameClient), REQUIRE=animchar_attaches__animated, on_appear, track=slot_attach__attachedTo)]
+def menu_attach_update_tag(evt : Event;
+                           slot_attach__attachedTo : EntityId;
+                           eid : EntityId;
+                           animchar__menuDisableUpdateDistance = 1000.f;
+                           var animchar_attaches__disableAnimDistance : float?)
+  let parentInMenu = get_bool(slot_attach__attachedTo, "menuChar") ?? false
+  if !parentInMenu
+    return
+
+  if animchar_attaches__disableAnimDistance != null
+    *animchar_attaches__disableAnimDistance = animchar__menuDisableUpdateDistance
+  else
+    addSubTemplate(eid, "animated_attaches_update_disabler") <| $(var init)
+      set(init, "animchar_attaches__disableAnimDistance", animchar__menuDisableUpdateDistance)

@@ -150,9 +150,10 @@ local function show(price, currencyId, purchase, fullPrice = null, title = "", p
         customStyle = {
           textCtor = function(textComp, params, handler, group, sf) {
             textComp = buyCurrencyText(currency, sf)
-            params = fontHeading2
+            params = params.__merge(fontHeading2)
             return textButtonTextCtor(textComp, params, handler, group, sf)
           }
+          hotkeys = [[ "^J:Y | Enter" ]]
         },
         action = function() {
           purchaseCurrency()

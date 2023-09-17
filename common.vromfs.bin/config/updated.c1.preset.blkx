@@ -308,7 +308,7 @@ Human.SupplyMenu{
   btn:i=9
 }
 
-Human.BuildingAction{
+Human.DestroyBuilding{
   dev:i=3
   btn:i=7
   type:i=1

@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontBody, fontSub, fontTiny } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let faComp = require("%ui/components/faComp.nut")
 let msgbox = require("%ui/components/msgbox.nut")
 let textButtonTextCtor = require("%ui/components/textButtonTextCtor.nut")
@@ -326,7 +326,7 @@ let mkSubtitle = @(text) text == "" ? null : {
   size = [flex(), SIZE_TO_CONTENT]
   behavior = Behaviors.TextArea
   text
-}.__update(fontTiny)
+}.__update(fontSub)
 
 let function getMaxCount(shopItem) {
   let { limit = 0, premiumDays = 0, squads = [] } = shopItem

@@ -70,7 +70,7 @@ def enter_vehicle_interrupt_on_gun_move(evt : Event;
   if dotval < cos(angleThres)
     enter_vehicle__atTime = -1.0
 
-[es(on_event=CmdPostPhysUpdate)]
+[es(on_event=(CmdPostPhysUpdate, EventOnEntityTeleported))]
 def enter_vehicle_interrupt_on_pos_change(evt : Event;
                                           transform aka visitor_transform : float3x4;
                                           enter_vehicle__vehicleEid : EntityId;

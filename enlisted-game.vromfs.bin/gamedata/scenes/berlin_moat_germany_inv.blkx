@@ -782,38 +782,6 @@ entity{
 }
 
 entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-124.628, 1.54604, 330.294]]
-  battle_area_polygon_point__forBattleAreaId:t="3_area2"
-  battle_area_polygon_point__id:t="point1"
-  battle_area_polygon_point__nextId:t="point2"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-261.825, 3.29925, 334.324]]
-  battle_area_polygon_point__forBattleAreaId:t="3_area2"
-  battle_area_polygon_point__id:t="point2"
-  battle_area_polygon_point__nextId:t="point3"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-360.608, 3.29863, 337.81]]
-  battle_area_polygon_point__forBattleAreaId:t="3_area2"
-  battle_area_polygon_point__id:t="point3"
-  battle_area_polygon_point__nextId:t="point4"
-}
-
-entity{
-  _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-352.825, 3.29864, 26.4125]]
-  battle_area_polygon_point__forBattleAreaId:t="3_area2"
-  battle_area_polygon_point__id:t="point4"
-  battle_area_polygon_point__nextId:t="point5"
-}
-
-entity{
   _template:t="aircraft_box_battle_area"
   transform:m=[[24897.4, 0.0, 108.785] [0.0, 7716.09, 0.0] [-107.866, 0.0, 24897.1] [-219.516, 241.569, 427.881]]
   battle_area__team:i=-1

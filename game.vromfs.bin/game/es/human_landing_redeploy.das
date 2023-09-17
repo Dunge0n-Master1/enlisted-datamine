@@ -54,3 +54,9 @@ def destroy_left_vehicle_after_redeploy(evt : Event;
 [es(tag=server, on_appear, track=isOutsideBattleArea, REQUIRE_NOT=human__awaitsRedeploy)]
 def reset_battle_area_warning(evt : Event; isOutsideBattleArea : bool; var redeploy__hideBattleAreaWarning : bool&)
   redeploy__hideBattleAreaWarning &&= isOutsideBattleArea
+
+[es(tag=server, REQUIRE=vehicle_seats__seats)]
+def cancel_redeploy_after_landing_es(evt : CmdAcquireVehicleSeat)
+  ecs::query(evt.requester) <| $ [es] (eid : EntityId; var redeploy__atTime : float&)
+    redeploy__atTime = -1.0
+    removeSubTemplate(eid, "landing_outside_battle_area_redeploy")

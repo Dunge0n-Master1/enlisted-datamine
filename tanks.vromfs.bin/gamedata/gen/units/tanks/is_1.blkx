@@ -13,7 +13,7 @@ VehiclePhys{
   }
 
   tracks{
-    animationMultiplier:r=0.73
+    animationMultiplier:r=-0.73
     height:r=0.07
     width:r=0.7
     fricSideRot:p4=5.0, 0.0, 0.6, 0.3

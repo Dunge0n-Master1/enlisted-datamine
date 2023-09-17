@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontSub, fontTiny, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontSub, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { titleTxtColor, smallPadding, bigPadding, defTxtColor, defBdColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let { kindIcon } = require("%enlSqGlob/ui/soldiersUiComps.nut")
@@ -12,7 +12,7 @@ let { newSquadBlock, starterPerkBlock, primePerkBlock
 let { mkViewItemDetails } = require("%enlist/soldiers/components/itemDetailsComp.nut")
 let { mkShopItem } = require("%enlist/soldiers/model/items_list_lib.nut")
 
-let detailsDescStyle = freeze({ color = defTxtColor }.__update(fontTiny))
+let detailsDescStyle = freeze({ color = defTxtColor }.__update(fontSub))
 let headerTitleStyle = freeze({ color = titleTxtColor }.__update(fontBody))
 let scrollStyle = styling.__merge({ Bar = styling.Bar(false) })
 

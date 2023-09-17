@@ -11,7 +11,8 @@ PhysMats{
     color:c=255, 162, 0, 100
     damage_k:r=0.3
     deformable_width:r=0.05
-    resistanceK:r=0.0006
+    tankTracksTexId:i=0
+    resistanceK:r=0.0
 
     bulletHole{
       type:t="bullet_hole"
@@ -101,7 +102,9 @@ PhysMats{
     bf_class:t="concrete"
     color:c=255, 255, 0, 200
     damage_k:r=0.3
+    resistanceK:r=0.0
     is_solid:b=yes
+    tankTracksTexId:i=3
 
     vehicleSound{
       concrete:r=1.0
@@ -158,8 +161,10 @@ PhysMats{
   stone{
     bf_class:t="stone"
     color:c=255, 255, 0, 200
+    resistanceK:r=0.0
     damage_k:r=0.3
     is_solid:b=yes
+    tankTracksTexId:i=3
 
     vehicleSound{
       concrete:r=1.0
@@ -195,6 +200,7 @@ PhysMats{
   wood{
     bf_class:t="wood"
     damage_k:r=0.3
+    resistanceK:r=0.0
 
     vehicleSound{
       concrete:r=0.5
@@ -493,6 +499,7 @@ PhysMats{
   steel{
     bf_class:t="steel"
     color:c=0, 0, 255, 200
+    resistanceK:r=0.0003
     is_solid:b=yes
 
     vehicleSound{
@@ -612,6 +619,7 @@ PhysMats{
     bf_class:t="soil"
     deformable_width:r=0.2
     resistanceK:r=0.0008
+    tankTracksTexId:i=0
 
     billboardDecal{
       type:t="soil_bullet_hole"
@@ -630,6 +638,7 @@ PhysMats{
     bf_class:t="soil"
     deformable_width:r=0.2
     resistanceK:r=0.0008
+    tankTracksTexId:i=0
 
     billboardDecal{
       type:t="soil_bullet_hole"
@@ -648,6 +657,7 @@ PhysMats{
     bf_class:t="leaves"
     deformable_width:r=0.1
     resistanceK:r=0.0008
+    tankTracksTexId:i=0
 
     billboardDecal{
       type:t="soil_bullet_hole"
@@ -665,7 +675,8 @@ PhysMats{
   mud{
     bf_class:t="mud"
     deformable_width:r=0.2
-    resistanceK:r=0.0008
+    tankTracksTexId:i=0
+    resistanceK:r=0.001
 
     billboardDecal{
       type:t="soil_bullet_hole"
@@ -684,6 +695,7 @@ PhysMats{
     bf_class:t="dirt"
     deformable_width:r=0.3
     resistanceK:r=0.001
+    tankTracksTexId:i=0
 
     billboardDecal{
       type:t="soil_bullet_hole"
@@ -694,7 +706,8 @@ PhysMats{
   roadSoil{
     bf_class:t="roadSoil"
     deformable_width:r=0.05
-    resistanceK:r=0.0002
+    tankTracksTexId:i=0
+    resistanceK:r=0.0
 
     vehicleSound{
       concrete:r=1.0
@@ -709,7 +722,8 @@ PhysMats{
   roadmud{
     bf_class:t="roadmud"
     deformable_width:r=0.05
-    resistanceK:r=0.0008
+    tankTracksTexId:i=0
+    resistanceK:r=0.0
 
     billboardDecal{
       type:t="soil_bullet_hole"
@@ -727,6 +741,8 @@ PhysMats{
   sand{
     bf_class:t="sand"
     deformable_width:r=0.2
+    tankTracksTexId:i=1
+    resistanceK:r=0.0
 
     billboardDecal{
       type:t="soil_bullet_hole"
@@ -737,6 +753,8 @@ PhysMats{
   moon_sand{
     bf_class:t="moon_sand"
     deformable_width:r=0.2
+    tankTracksTexId:i=1
+    resistanceK:r=0.0
 
     billboardDecal{
       type:t="moon_sand_bullet_hole"
@@ -748,6 +766,7 @@ PhysMats{
     bf_class:t="quarrySand"
     deformable_width:r=0.05
     resistanceK:r=0.0002
+    tankTracksTexId:i=1
 
     vehicleSound{
       concrete:r=1.0
@@ -763,6 +782,7 @@ PhysMats{
     bf_class:t="sand_slope"
     deformable_width:r=0.05
     resistanceK:r=0.0002
+    tankTracksTexId:i=1
 
     vehicleSound{
       concrete:r=1.0
@@ -777,7 +797,8 @@ PhysMats{
   roadSand{
     bf_class:t="roadSand"
     deformable_width:r=0.1
-    resistanceK:r=0.0002
+    tankTracksTexId:i=1
+    resistanceK:r=0.0
 
     vehicleSound{
       concrete:r=1.0
@@ -792,6 +813,7 @@ PhysMats{
   quickSand{
     bf_class:t="sand"
     deformable_width:r=0.6
+    tankTracksTexId:i=1
 
     vehicleSound{
       concrete:r=1.0
@@ -800,17 +822,22 @@ PhysMats{
 
   snow{
     bf_class:t="snow"
+    tankTracksTexId:i=2
     deformable_width:r=0.3
+    resistanceK:r=0.001
   }
 
   hardSnow{
     bf_class:t="snow"
+    tankTracksTexId:i=2
     deformable_width:r=0.3
   }
 
   ice{
     bf_class:t="ice"
+    resistanceK:r=0.0
     is_solid:b=yes
+    tankTracksTexId:i=2
 
     billboardDecal{
       type:t="metal_bullet_hole"
@@ -820,12 +847,15 @@ PhysMats{
 
   snowLower{
     bf_class:t="snow"
+    tankTracksTexId:i=2
     deformable_width:r=0.2
   }
 
   roadSnow{
     bf_class:t="roadSnow"
+    tankTracksTexId:i=2
     deformable_width:r=0.05
+    resistanceK:r=0.0
   }
 
   lava{
@@ -855,7 +885,9 @@ PhysMats{
 
   rocks{
     bf_class:t="rocks"
+    resistanceK:r=0.0
     is_solid:b=yes
+    tankTracksTexId:i=3
 
     vehicleSound{
       concrete:r=1.0
@@ -881,7 +913,9 @@ PhysMats{
 
   rocksSlippery{
     bf_class:t="rocksSlippery"
+    resistanceK:r=0.0
     is_solid:b=yes
+    tankTracksTexId:i=3
 
     vehicleSound{
       concrete:r=1.0
@@ -895,7 +929,9 @@ PhysMats{
 
   gravel{
     bf_class:t="gravel"
+    resistanceK:r=0.0
     is_solid:b=yes
+    tankTracksTexId:i=3
 
     vehicleSound{
       concrete:r=1.0
@@ -1387,7 +1423,7 @@ InteractPropsList{
 
     default{
       fk:r=1.0
-      rollingFrictionK:r=0.045
+      rollingFrictionK:r=0.055
     }
 
     horLandMesh{
@@ -1396,48 +1432,48 @@ InteractPropsList{
     }
 
     concrete{
-      fk:r=0.8
+      fk:r=0.95
       rollingFrictionK:r=0.05
     }
 
     stone{
-      fk:r=0.8
+      fk:r=0.75
       rollingFrictionK:r=0.05
     }
 
     steel{
-      fk:r=0.8
-      rollingFrictionK:r=0.05
+      fk:r=0.6
+      rollingFrictionK:r=0.02
     }
 
     soil{
       fk:r=1.0
-      rollingFrictionK:r=0.12
+      rollingFrictionK:r=0.07
     }
 
     leaves{
       fk:r=1.0
-      rollingFrictionK:r=0.12
+      rollingFrictionK:r=0.07
     }
 
     dirt{
-      fk:r=0.8
-      rollingFrictionK:r=0.13
+      fk:r=0.85
+      rollingFrictionK:r=0.08
     }
 
     roadSoil{
       fk:r=1.0
-      rollingFrictionK:r=0.06
+      rollingFrictionK:r=0.055
     }
 
     roadmud{
       fk:r=0.9
-      rollingFrictionK:r=0.08
+      rollingFrictionK:r=0.055
     }
 
     sand{
-      fk:r=0.8
-      rollingFrictionK:r=0.08
+      fk:r=0.9
+      rollingFrictionK:r=0.06
     }
 
     moon_sand{
@@ -1446,38 +1482,38 @@ InteractPropsList{
     }
 
     sand_slope{
-      fk:r=0.8
-      rollingFrictionK:r=0.08
+      fk:r=0.9
+      rollingFrictionK:r=0.06
     }
 
     quarrySand{
-      fk:r=0.8
-      rollingFrictionK:r=0.08
+      fk:r=0.9
+      rollingFrictionK:r=0.06
     }
 
     roadSand{
-      fk:r=0.5
-      rollingFrictionK:r=0.04
+      fk:r=0.9
+      rollingFrictionK:r=0.06
     }
 
     snow{
-      fk:r=0.8
-      rollingFrictionK:r=0.09
+      fk:r=0.9
+      rollingFrictionK:r=0.06
     }
 
     mud{
-      fk:r=0.8
-      rollingFrictionK:r=0.11
+      fk:r=0.85
+      rollingFrictionK:r=0.08
     }
 
     ice{
-      fk:r=0.3
-      rollingFrictionK:r=0.2
+      fk:r=0.1
+      rollingFrictionK:r=0.045
     }
 
     roadSnow{
-      fk:r=0.7
-      rollingFrictionK:r=0.1
+      fk:r=0.9
+      rollingFrictionK:r=0.06
     }
 
     rocks{
@@ -1507,7 +1543,7 @@ InteractPropsList{
 
     wood{
       fk:r=0.8
-      rollingFrictionK:r=0.0166
+      rollingFrictionK:r=0.02
     }
 
     bushes{
@@ -1519,7 +1555,7 @@ InteractPropsList{
 
     default{
       fk:r=1.0
-      rollingFrictionK:r=0.03
+      rollingFrictionK:r=0.045
     }
 
     horLandMesh{
@@ -1528,78 +1564,73 @@ InteractPropsList{
     }
 
     concrete{
-      fk:r=0.8
-      rollingFrictionK:r=0.014
+      fk:r=0.95
+      rollingFrictionK:r=0.0166
     }
 
     stone{
-      fk:r=0.8
-      rollingFrictionK:r=0.014
-    }
-
-    wood{
-      fk:r=0.8
-      rollingFrictionK:r=0.01
+      fk:r=0.7
+      rollingFrictionK:r=0.07
     }
 
     steel{
-      fk:r=0.9
-      rollingFrictionK:r=0.014
+      fk:r=0.6
+      rollingFrictionK:r=0.02
     }
 
     soil{
       fk:r=1.0
-      rollingFrictionK:r=0.08
+      rollingFrictionK:r=0.15
     }
 
     leaves{
       fk:r=1.0
-      rollingFrictionK:r=0.1
+      rollingFrictionK:r=0.2
     }
 
     dirt{
       fk:r=0.8
-      rollingFrictionK:r=0.4
+      rollingFrictionK:r=0.2
     }
 
     roadSoil{
       fk:r=1.0
-      rollingFrictionK:r=0.014
+      rollingFrictionK:r=0.0166
     }
 
     roadmud{
-      fk:r=0.9
-      rollingFrictionK:r=0.1
+      fk:r=0.95
+      rollingFrictionK:r=0.0166
     }
 
     sand{
-      fk:r=0.8
-      rollingFrictionK:r=0.12
+      fk:r=0.95
+      rollingFrictionK:r=0.0166
     }
 
     moon_sand{
-      fk:r=0.9
-      rollingFrictionK:r=0.01
+      fk:r=0.95
+      rollingFrictionK:r=0.0166
     }
 
     sand_slope{
-      fk:r=0.8
-      rollingFrictionK:r=0.12
+      fk:r=0.95
+      rollingFrictionK:r=0.0166
     }
 
     quarrySand{
-      fk:r=0.8
-      rollingFrictionK:r=0.12
+      fk:r=0.95
+      rollingFrictionK:r=0.0166
     }
 
     roadSand{
       fk:r=1.0
-      rollingFrictionK:r=0.014
+      rollingFrictionK:r=0.0166
     }
 
     snow{
-      fk:r=0.8
-      rollingFrictionK:r=0.11
+      fk:r=0.9
+      rollingFrictionK:r=0.02
     }
 
     mud{
@@ -1608,13 +1639,13 @@ InteractPropsList{
     }
 
     ice{
-      fk:r=0.35
-      rollingFrictionK:r=0.25
+      fk:r=0.15
+      rollingFrictionK:r=0.02
     }
 
     roadSnow{
-      fk:r=0.7
-      rollingFrictionK:r=0.014
+      fk:r=0.95
+      rollingFrictionK:r=0.0166
     }
 
     rocks{
@@ -1628,8 +1659,8 @@ InteractPropsList{
     }
 
     gravel{
-      fk:r=0.75
-      rollingFrictionK:r=0.05
+      fk:r=0.7
+      rollingFrictionK:r=0.014
     }
 
     fabric{
@@ -1639,6 +1670,11 @@ InteractPropsList{
 
     glass{
       fk:r=0.6
+      rollingFrictionK:r=0.02
+    }
+
+    wood{
+      fk:r=0.8
       rollingFrictionK:r=0.02
     }
 

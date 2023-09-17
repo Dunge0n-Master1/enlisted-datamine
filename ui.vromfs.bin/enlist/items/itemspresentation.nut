@@ -1191,6 +1191,34 @@ let rewardsPresentation = {
     cardImage = "!ui/skin#/currency/event_order.svg"
     mkImage = mkImageCtor([72, 100])
   },
+  ["454"] = {
+    name = loc("items/luftfaust_b")
+    description = loc("items/luftfaust_b/desc")
+    icon = "ui/skin#/currency/event_order.svg"
+    cardImage = "!ui/shop/weapons/luftfaust_b.avif"
+    mkImage = mkImageCtor([350, 200], [0, 0])
+  },
+  ["455"] = {
+    name = loc("squad/axis_pacific_event_pilot_fighter_1")
+    description = loc("squadannounce/axis_pacific_event_pilot_fighter_1")
+    icon = "ui/skin#/research/squad_points_icon.svg"
+    cardImage = "!ui/soldiers/japan/axis_pacific_event_pilot_fighter_1_image.avif"
+    mkImage = mkImageCtor([300, 225], [0, 0])
+  },
+  ["456"] = {
+    name = loc("squad/allies_pacific_event_pilot_fighter_1")
+    description = loc("squadannounce/allies_pacific_event_pilot_fighter_1")
+    icon = "ui/skin#/research/squad_points_icon.svg"
+    cardImage = "!ui/soldiers/usa/allies_pacific_event_pilot_fighter_1_image.avif"
+    mkImage = mkImageCtor([300, 225], [0, 0])
+  },
+  ["457"] = {
+    name = loc("decals/uk_no_2_sqn_fox_head")
+    description = loc("decals/uk_no_2_sqn_fox_head/desc")
+    icon = "ui/uiskin/currency/decal_order_event.svg"
+    cardImage = "!ui/skin#/battlepass/silver_weapons.avif"
+    mkImage = mkImageCtor([170, 170], [0, 17])
+  },
 
 
 

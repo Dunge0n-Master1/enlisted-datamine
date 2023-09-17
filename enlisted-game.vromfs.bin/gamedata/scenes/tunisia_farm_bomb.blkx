@@ -159,7 +159,7 @@ entity{
 
 entity{
   _template:t="bomb_site_zone_chained_sphere+defend_zone_respawnbase"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [487.801, 26.4493, -890.207]]
+  transform:m=[[0.996086, 0.0, -0.0883913] [0.0, 1.0, 0.0] [0.0883913, -0.0, 0.996086] [486.977, 26.6003, -890.119]]
   groupName:t="sector_2"
   capzone__capRewardPartCap:r=1.8
   capzone__mustBeCapturedByTeam:i=1
@@ -180,7 +180,7 @@ entity{
   capzone__timeToDefuse:r=30.0
   capzone__timeToExplosion:r=40.0
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_03_without_antenna"
-  capzone__bombTransformLocalPos:m=[[0.725936, 0.0, -0.687764] [0.0, 1.0, 0.0] [0.687764, 0.0, 0.725936] [-0.266724, -1.99732, -0.177734]]
+  capzone__bombTransformLocalPos:m=[[0.136623, 0.0, 0.990624] [0.0, 1.0, -0.0] [-0.990624, 0.0, 0.136622] [-0.281403, -1.99732, -0.153442]]
 
   "capzone__activateChoice:object"{
     sector_3:r=1.0
@@ -373,7 +373,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam2"
-  transform:m=[[-0.829842, 0.0, -0.557998] [0.0, 1.0, 0.0] [0.557998, 0.0, -0.829842] [486.027, 25.0902, -889.773]]
+  transform:m=[[-0.716423, 0.0, -0.697666] [0.0, 1.0, 0.0] [0.697666, 0.0, -0.716423] [490.079, 24.9441, -886.937]]
   groupName:t="sector_1"
   active:b=no
 }

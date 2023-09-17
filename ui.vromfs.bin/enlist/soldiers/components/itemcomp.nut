@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontBody, fontSub, fontTiny } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let faComp = require("%ui/components/faComp.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let { unitSize, gap, bigGap, bigPadding, smallPadding, fadedTxtColor,
@@ -68,7 +68,7 @@ let defSlotnameCtor = function(slotType, group, selected) {
       color = listTxtColor(sf, selected.value)
       text
       opacity = 0.5
-    }.__update(fontTiny))
+    }.__update(fontSub))
 }
 
 let mkSlotName = @(text, isSelected, group) watchElemState(@(sf) {
@@ -376,7 +376,7 @@ let hintWithIcon = @(icon, locId) {
       rendObj = ROBJ_TEXT
       text = loc(locId)
       color = fadedTxtColor
-    }.__update(fontTiny)
+    }.__update(fontSub)
   ]
 }
 
@@ -477,7 +477,7 @@ let lockedSlotCtor = @(children, group, isLocked, hasWarningSign) watchElemState
           color = listTxtColor(sf)
           text = loc("slot/locked")
           opacity = 0.5
-        }.__update(fontTiny)
+        }.__update(fontSub)
         hasWarningSign ? statusBadgeWarning : null
         {
           flow = FLOW_HORIZONTAL

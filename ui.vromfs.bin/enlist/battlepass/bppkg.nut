@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let {
-  fontTitle, fontHeading2, fontSub, fontBody, fontTiny, fontHeading1
+  fontTitle, fontHeading2, fontSub, fontBody, fontHeading1
 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {
   activeTxtColor, defBgColor
@@ -203,7 +203,7 @@ let endSeasonAlert = {
       size = [flex(), SIZE_TO_CONTENT]
       text = loc("bp/endSeasonMsgShort")
       color = attentionTxtColor
-    }.__update(fontTiny)
+    }.__update(fontSub)
   ]
 }
 

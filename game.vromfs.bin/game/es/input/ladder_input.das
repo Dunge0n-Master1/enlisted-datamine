@@ -26,10 +26,9 @@ def restrict_on_ladder_movement(info : UpdateStageUpdateInput;
   let checkedDir = human_ladder__curLadderTm[3] - humanPos
   let dir = basis_aware_x0z(checkedDir, checkedUp)
   let pos = humanPos + human_anim__ladder__handToLegsOffset + length(human_ladder__curLadderTm[0]) * normalize(dir)
-  let toNextLadder = human_ladder__ladderTm[3] - human_ladder__curLadderTm[3]
-  let lastLadder = length_sq(toNextLadder) < FLT_EPSILON
   let up = (get_analog_stick_action_state(uint16(human_input__move)).y > 0f ||
             get_stick_value(uint16(human_input__move)).y > 0f)
-  if ((inverse(human_ladder__curLadderTm) * pos).y > IDENT_BBOX.boxMax.y && lastLadder && up)
+  if ((inverse(human_ladder__curLadderTm) * pos).y > IDENT_BBOX.boxMax.y &&
+      (inverse(human_ladder__ladderTm) * pos).y > IDENT_BBOX.boxMax.y && up)
     // out of ladder
     ct |> human_control_state_set_walk_dir(float2(0))

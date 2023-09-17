@@ -449,10 +449,8 @@ quit_after_load{
 
 slot_attachable_no_slotname{
   _tracked:t="slot_attach__attachedTo"
-  _tracked:t="slot_attach__inAttachedList"
   _tracked:t="slot_attach__slotId"
   _replicated:t="slot_attach__attachedTo"
-  _replicated:t="slot_attach__inAttachedList"
   _replicated:t="slot_attach__slotId"
   slot_attach__slotId:i=-1
 

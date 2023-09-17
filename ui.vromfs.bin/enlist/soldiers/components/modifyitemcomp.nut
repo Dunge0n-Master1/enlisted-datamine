@@ -138,6 +138,7 @@ let function mkUpgradeItemInfo(currentItem, upgradedItem, upgradesList,
 
 let mkUpgradeItemButtons = function(guids, priceOptions, count) {
   local payData = []
+  let hotkeysList = [ [["^J:X"]], [["^J:Y"]] ]
   foreach (option in priceOptions){
     local ordersGuids = getPayItemsData({ [option.orderTpl] = option.orderReq * count },
       curCampItems.value)
@@ -145,12 +146,12 @@ let mkUpgradeItemButtons = function(guids, priceOptions, count) {
       payData.append(option.__merge({ordersGuids}))
   }
 
-  let buttons = payData.map(@(order) {
+  let buttons = payData.map(@(order, idx) {
     text = ""
     action = @() upgradeItem(mkGuidsCountTbl(guids, count),
       order.ordersGuids, @(_) markUpgradesUsed())
     customStyle = {
-      hotkeys = [["^J:X"]]
+      hotkeys = hotkeysList?[idx]
       textCtor = @(_textField, params, handler, group, sf)
         textButtonTextCtor({
           children = {

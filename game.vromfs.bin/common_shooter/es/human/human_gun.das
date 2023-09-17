@@ -26,6 +26,7 @@ require DagorMath
 require math.base
 require ecs.safe
 require strings
+require GeomNodeTree
 require PhysMat
 
 [es(on_appear)]
@@ -161,7 +162,10 @@ def human_gun_detach_es(evt : CmdWeapDetach;
   transform = rootTm
 
   if distance_sq(transform[3], get_hidden_pos()) > 1.0
-    ragdoll |> ragdoll_startRagdoll(1, -1)
+    static_if typeinfo(builtin_function_exists @@ < (var arg0 : PhysDecl::PhysRagdoll implicit; arg1 : int const; arg2 : int const; arg3 : GeomNodeTree::GeomNodeTree const ? const implicit) : void > _::ragdoll_startRagdoll)
+      ragdoll |> ragdoll_startRagdoll(1, -1, animchar.nodeTree)
+    else
+      ragdoll |> ragdoll_startRagdoll(1, -1)
     animchar |> animchar_setPostController(ragdoll)
 
 def reset_reload_anim(gun_anim__reloadVarId : int;

@@ -54,6 +54,7 @@ let function chatItem(item, params = {}) {
     behavior = Behaviors.TextArea
     color
     text = item.text
+    preformatted = FMT_IGNORE_TAGS
   })
 
   return {
@@ -113,13 +114,11 @@ let function chatContent() {
     key = "chatContent"
     size = [flex(), flex()]
     clipChildren = true
-    children = children
     valign = ALIGN_BOTTOM
     gap = itemGap
     flow = FLOW_VERTICAL
     watch = [chatState.lines, localPlayerTeam]
-//    behavior = Behaviors.SmoothScrollStack
-//    speed = fsh(8)
+    children
   }
 }
 
@@ -148,8 +147,10 @@ let function inputBox() {
           }
           function onReturn() {
             if (chatState.outMessage.value.len()>0) {
-              chatState.sendMessage({mode = chatState.sendMode.value,
-                                      text = chatState.outMessage.value})
+              chatState.sendMessage({
+                mode = chatState.sendMode.value,
+                text = chatState.outMessage.value
+              })
             }
             chatState.outMessage("")
             showChatInput(false)

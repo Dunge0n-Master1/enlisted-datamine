@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let fa = require("%ui/components/fontawesome.map.nut")
-let { fontSub, fontTiny, fontawesome } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontSub, fontawesome } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { round } = require("math")
 
 let darkColor = 0xFF113322
@@ -44,7 +44,7 @@ let mkInfoText = @(text) "" == (text ?? "") ? null
       rendObj = ROBJ_TEXT
       color = darkColor
       text
-    }.__update(fontTiny)
+    }.__update(fontSub)
 
 let mkBoosterMark = @(expMul, expPenalty = 0.0, infoText = null, override = {}) {
   size = [SIZE_TO_CONTENT, hdpxi(60)]

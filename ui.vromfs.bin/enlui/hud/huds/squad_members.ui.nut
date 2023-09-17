@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontSub, fontTiny } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { fabs } = require("math")
 let {
   watchedHeroSquadMembers, selectedBotForOrderEid, isPersonalContextCommandMode,
@@ -74,25 +74,29 @@ let splitOnce = memoize(function(name) {
     idx = name.indexof(" ", idx + 1)
   }
   return found == null
-    ? name
-    : $"{name.slice(0, found)}\n{name.slice(found + 1)}"
+    ? [name]
+    : [name.slice(0, found), name.slice(found + 1)]
 })
 
 let memberNameAnimations = freeze([
   { prop = AnimProp.translate, from = [-hdpx(100), 0], to = [0, 0], duration = 0.2, easing = OutCubic, play = true }
 ])
 
+let mkNamePart = @(text) {
+  rendObj = ROBJ_TEXT
+  text
+  color = SUCCESS_TEXT_COLOR
+  indent = gap
+  transform = {}
+  animations = memberNameAnimations
+}.__update(fontSub)
+
 let memberName = function(name) {
   let nameC = @() {
-     rendObj = ROBJ_TEXTAREA
-     behavior = Behaviors.TextArea
-     text = splitOnce(name.value)
-     color = SUCCESS_TEXT_COLOR
-     indent = gap
-     transform = {}
-     animations = memberNameAnimations
-     watch = name
-   }.__update(fontTiny)
+    watch = name
+    flow = FLOW_VERTICAL
+    children = splitOnce(name.value).map(mkNamePart)
+  }
 
   return {
     size = [SIZE_TO_CONTENT, iconSize]
@@ -141,7 +145,7 @@ let killRow = @(eid, kills) {
 
           animations = [{ prop = AnimProp.color, from = SUCCESS_TEXT_COLOR, to = DEFAULT_TEXT_COLOR,
             duration = 5, easing = InOutCubic, trigger = $"member_kill_{eid}" }]
-        }.__update(fontTiny)
+        }.__update(fontSub)
       ]
     }
   ]

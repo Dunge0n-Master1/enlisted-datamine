@@ -133,7 +133,7 @@ tutorial_engineer_destroy_sandbags{
   tutor_stage__destroyFortication:t="building_tool/sandbags"
 
   "tutor_stage__hintKeys:array"{
-    key:t="Human.BuildingAction"
+    key:t="Human.DestroyBuilding"
   }
 
   "tutor_stage__forticationStartBuild:tag"{

@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontHeading2, fontTiny } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontHeading2, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {defTxtColor, noteTxtColor, bigPadding, textBgBlurColor, smallPadding,
   hoverBgColor, defBgColor, hoverTxtColor, activeTxtColor} = require("%enlSqGlob/ui/viewConst.nut")
 
@@ -12,14 +12,14 @@ let txt = @(text) {
 let note = @(text) {
   rendObj = ROBJ_TEXT
   color = noteTxtColor
-}.__update(typeof text != "table" ? { text = text } : text, fontTiny)
+}.__update(typeof text != "table" ? { text = text } : text, fontSub)
 
 let noteTextArea = @(text) {
   size = [flex(), SIZE_TO_CONTENT]
   rendObj = ROBJ_TEXTAREA
   behavior = Behaviors.TextArea
   color = noteTxtColor
-}.__update(typeof text != "table" ? { text } : text, fontTiny)
+}.__update(typeof text != "table" ? { text } : text, fontSub)
 
 let function bigTextWithNote(noteText, mainText) {
   let mainTextParams = (typeof mainText == "table") ? mainText : { text = mainText }

@@ -359,12 +359,21 @@ def mouted_gun_died_es(evt : EventEntityDied;
 
     let interactLayer = PhysLayer EPL_CHARACTER
     let interactMask = PhysLayer EPL_ALL & (~(PhysLayer EPL_KINEMATIC | PhysLayer EPL_CHARACTER))
-    *ragdoll |> ragdoll_startRagdoll(int(interactLayer),
-                                     int(interactMask))
-    let vel = float3(0.0, 0.0, 0.0)
-    *ragdoll |> ragdoll_setOverrideVel(vel)
-    ragdoll__applyParams = true
-    sendEvent(eid, [[CmdApplyRagdollParameters  cur_time=get_sync_time()]])
 
-    animchar |> animchar_setPostController(*ragdoll)
-    animchar |> animchar_act(0.0, true)
+    static_if typeinfo(builtin_function_exists @@ < (var arg0 : PhysDecl::PhysRagdoll implicit; arg1 : int const; arg2 : int const; arg3 : GeomNodeTree::GeomNodeTree const ? const implicit) : void > PhysDecl::ragdoll_startRagdoll)
+      let vel = float3(0.0, 0.0, 0.0)
+      *ragdoll |> ragdoll_setOverrideVel(vel)
+      *ragdoll |> ragdoll_startRagdoll(int(interactLayer), int(interactMask), animchar.nodeTree)
+      ragdoll__applyParams = true
+      sendEvent(eid, [[CmdApplyRagdollParameters  cur_time=get_sync_time()]])
+      animchar |> animchar_setPostController(*ragdoll)
+    else
+      *ragdoll |> ragdoll_startRagdoll(int(interactLayer),
+                                       int(interactMask))
+      let vel = float3(0.0, 0.0, 0.0)
+      *ragdoll |> ragdoll_setOverrideVel(vel)
+      ragdoll__applyParams = true
+      sendEvent(eid, [[CmdApplyRagdollParameters  cur_time=get_sync_time()]])
+
+      animchar |> animchar_setPostController(*ragdoll)
+      animchar |> animchar_act(0.0, true)

@@ -69,7 +69,7 @@ let function destroyStructure() {
   return res.__update({
     children = tipCmp({
       text = "{0} : {1}".subst(loc("hud/destroy_building"), loc(selectedDestroyableObjectName.value))
-      inputId = "Human.BuildingAction"
+      inputId = "Human.DestroyBuilding"
       textColor = DEFAULT_TEXT_COLOR
     })
   })

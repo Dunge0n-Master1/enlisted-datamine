@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontTiny } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { curHeroGrenadeEid } = require("%ui/hud/state/hero_weapons.nut")
 let { grenades, grenadesEids } = require("%ui/hud/state/inventory_grenades_es.nut")
 let {blurBack, notSelectedItemColor, HUD_ITEMS_COLOR, iconSize, itemAppearing} = require("style.nut")
@@ -19,7 +19,7 @@ let small_count = @(count, color) {
   vplace = ALIGN_BOTTOM
   pos = [0, hdpx(2)]
   animations = itemAppearing
-}.__update(fontTiny)
+}.__update(fontSub)
 
 
 let currentGrenadeType = Computed(@() grenadesEids.value?[curHeroGrenadeEid.value])

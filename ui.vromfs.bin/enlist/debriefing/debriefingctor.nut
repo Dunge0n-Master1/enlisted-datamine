@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let JB = require("%ui/control/gui_buttons.nut")
-let { fontHeading2, fontBody, fontSub, fontTiny } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontHeading2, fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { get_log_directory, DBGLEVEL } = require("dagor.system")
 let { is_pc } = require("%dngscripts/platform.nut")
 let { normal, setTooltip } = require("%ui/style/cursors.nut")
@@ -973,7 +973,7 @@ let mkSessionIdText = @(debriefing) (debriefing?.sessionId ?? INVALID_SESSION_ID
   hplace = ALIGN_LEFT
   rendObj = ROBJ_TEXT
   color = Color(120,120,120, 50)
-}.__update(fontTiny)
+}.__update(fontSub)
 
 let debriefingAutosavePath = "".concat(get_log_directory() ?? "", "debriefing_enlisted.json")
 let canDebugDebriefing = hasClientPermission("debug_debriefing")

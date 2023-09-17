@@ -103,11 +103,7 @@ def human_ladder_update_animation(info : ParallelUpdateFrameDelayed;
 def human_ladder_end_animation(evt : Event;
                                game_effect__attachedTo : EntityId)
   assume attachedTo = game_effect__attachedTo
-  query(attachedTo) <| $ [es(REQUIRE_NOT=deadEntity)] (animchar__visible = true;
-                                                       animchar__actWhenInvisible = false;
-                                                       var animchar_effectors__effectorsState : Object)
-    if !animchar__visible && !animchar__actWhenInvisible
-      return
+  query(attachedTo) <| $ [es] (var animchar_effectors__effectorsState : Object)
     var rightHandEffector = getNullableRW_EffectorData(animchar_effectors__effectorsState, "r.hand")
     var leftHandEffector = getNullableRW_EffectorData(animchar_effectors__effectorsState, "l.hand")
 

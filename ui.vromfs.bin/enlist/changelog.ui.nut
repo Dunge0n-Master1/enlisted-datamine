@@ -28,25 +28,28 @@ let function onTabClicked(v) {
 
 let function mkVersionTab(v) {
   let isCurrent = Computed(@() curPatchnote.value == v)
+  let group = ElemGroup()
   return watchElemState(@(sf) {
     watch = isCurrent
     rendObj = ROBJ_BOX
     size = flex()
+    valign = ALIGN_CENTER
+    group
     behavior = Behaviors.Button
     fillColor = sf & S_HOVER ? hoverSlotBgColor
       : isCurrent.value ? selectedPanelBgColor
       : fullTransparentBgColor
     borderWidth = isCurrent.value ? [0, 0, hdpx(4), 0] : 0
     borderColor = accentColor
+    onClick = @() onTabClicked(v)
+    skipDirPadNav = false // TODO disable in future to support consistent behavior with top menu
     children = {
       rendObj = ROBJ_TEXTAREA
-      size = flex()
+      size = [flex(), SIZE_TO_CONTENT]
       maxWidth = hdpx(150)
-      behavior = [Behaviors.Button, Behaviors.TextArea]
-      onClick = @() onTabClicked(v)
-      skipDirPadNav = false
+      group
+      behavior = [Behaviors.TextArea]
       halign = ALIGN_CENTER
-      valign = ALIGN_CENTER
       margin = [0, midPadding]
       color = sf & S_HOVER ? darkTxtColor
         : isCurrent.value ? titleTxtColor

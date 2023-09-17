@@ -353,6 +353,11 @@ def build_fortification_es(evt : CmdBuildFortification;
     if nextBuildingAtTime > curTime
       sendEvent(eid, [[CmdHeroLogEvent event="building_blocked_by_time", text="building_blocked_by_time"]])
       return
+
+    if is_conflict_with_server_preview(evt.tm, BBox3(evt.boxMin, evt.boxMax))
+      sendEvent(eid, [[CmdHeroLogEvent event="building_cannot_confirm_when_objects_in", text="building_cannot_confirm_when_objects_in"]])
+      return
+
     let fortificationTemplate = get_verified_fortification_template_name(string(previewTemplate[currentPreviewId]),
                                                                          previewTm,
                                                                          human__aimTm[3],

@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontSub, fontTiny } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { smallPadding, titleTxtColor, defTxtColor, defItemBlur, transpPanelBgColor, darkTxtColor,
   hoverSlotBgColor, midPadding
 } = require("%enlSqGlob/ui/designConst.nut")
@@ -244,7 +244,7 @@ let mkTaskContentReward = @(unlockDesc, sf = 0)
           halign = ALIGN_RIGHT
           color = bpColor
           text = loc("completeTaskReward")
-        }.__update(fontTiny)
+        }.__update(fontSub)
       ]
     }
   }

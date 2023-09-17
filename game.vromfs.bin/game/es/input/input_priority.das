@@ -3,6 +3,7 @@ require ecs.safe
 require ecs.common
 require game.es.input.input_events
 require game.es.input.input_common
+require game.es.cannon_resupply_common
 require game.es.human_use_action_common
 require game.es.events
 require game.utils.hero
@@ -17,6 +18,26 @@ let INPUT_COLUMN = 1
 struct ActionDesc
   handle : int
   index : int
+
+
+def get_action_event_type(action : int)
+  let binding = get_digital_action_binding(uint16(action), INPUT_COLUMN)
+  return (binding != null
+          ? int(digital_action_binding_get_eventType(*binding))
+          : -1)
+
+
+def retain_only_actions_on_same_event_type(var conflictedActionDescs : array<ActionDesc>)
+  let conflictedActionDescsLen = length(conflictedActionDescs)
+  if conflictedActionDescsLen < 2
+    return
+
+  let mainEventType = get_action_event_type(conflictedActionDescs[0].handle)
+  for i in range(0, conflictedActionDescsLen)
+    let revI = conflictedActionDescsLen - i - 1
+    let curEventType = get_action_event_type(conflictedActionDescs[revI].handle)
+    if curEventType != mainEventType
+      erase(conflictedActionDescs, revI)
 
 
 def init(eid : EntityId;
@@ -55,6 +76,8 @@ def init(eid : EntityId;
     for actionHandleToProcess, actionIndexToProcess in keys(actionsToProcess), values(actionsToProcess)
       if actionHandle == actionHandleToProcess || check_bindings_conflicts_one(uint16(actionHandle), INPUT_COLUMN, uint16(actionHandleToProcess), INPUT_COLUMN)
         push(conflictedActionDescs, [[ActionDesc handle=actionHandleToProcess, index=actionIndexToProcess]])
+
+    retain_only_actions_on_same_event_type(conflictedActionDescs)
 
     for conflictedActionDesc in conflictedActionDescs
       erase(actionsToProcess, conflictedActionDesc.handle)
@@ -219,7 +242,8 @@ def input_priority_update(info : UpdateStageUpdateInput;
                                    bipod__placeable : bool;
                                    human_weap__throwMode : bool;
                                    grenade_rethrow__grenadeEid : EntityId;
-                                   human_weap__mortarMode : bool)
+                                   human_weap__mortarMode : bool;
+                                   stockOfBuilderCapabilities : float)
     let isHumanUseEnabled = !!human_use_object__selectedObject && !human_vehicle__isHoldingGunPassenger
     let isHumanExitVehicleAloneEnabled = isHumanUseEnabled && isInVehicle
     let isHumanPushObjectEnabled = push_object__canPush
@@ -229,16 +253,13 @@ def input_priority_update(info : UpdateStageUpdateInput;
     let isMortarSwitchShellType = human_weap__mortarMode
     let isHumanMaintenanceEnabled = maintenance__isExtinguishAvailable || maintenance__isRepairAvailable
 
-    var isHumanRepairBuilding = false
-    query(human_use_object__selectedBuilding) <| $ [es(REQUIRE=fortification_repair__costPercent)] (additiveBuildNeedRepair : bool)
-      isHumanRepairBuilding = additiveBuildNeedRepair
-
     var isHumanBuildingActionEnabled = false
     query(human_use_object__selectedBuilding) <| $ [es(REQUIRE=building__canDismantle, REQUIRE_NOT=undestroyableBuilding)] ()
       isHumanBuildingActionEnabled = true
 
     var isHumanReloadEnabled = false
     var isHumanMeleeEnabled = false
+    var isHumanRepairBuilding = false
     query(human_weap__currentGunEid) <| $ [es] (gun__ammo : int = 0;
                                                 gun__maxAmmo : int = 0;
                                                 gun__totalAmmo : int = 0;
@@ -246,6 +267,17 @@ def input_priority_update(info : UpdateStageUpdateInput;
                                                 buildingTool : Tag const?)
       isHumanReloadEnabled = gun__ammo < gun__maxAmmo && gun__totalAmmo > 0 || buildingTool != null
       isHumanMeleeEnabled = (disableMelee == null)
+
+      if buildingTool != null
+        query(human_use_object__selectedBuilding) <| $ [es] (fortification_repair__costPercent : float;
+                                                             additiveBuildNeedRepair : bool = true;
+                                                             buildingCost : float const?;
+                                                             turret_control__gunEids : EidList const?)
+          isHumanRepairBuilding = additiveBuildNeedRepair
+          if turret_control__gunEids != null && buildingCost != null
+            let shellInfo = get_turrets_shell_info(*turret_control__gunEids)
+            let repairCost = calculate_resupply_cost(shellInfo, *buildingCost, fortification_repair__costPercent)
+            isHumanRepairBuilding &&= shellInfo.current < shellInfo.max && repairCost <= stockOfBuilderCapabilities
 
     var isHumanRotateBuilding = false
     query() <| $ [es(REQUIRE=builder_preview, REQUIRE_NOT=(builder_server_preview, builder_additive_preview))] (semi_transparent__visible : bool)

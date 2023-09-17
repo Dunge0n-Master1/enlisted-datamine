@@ -1,7 +1,7 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontTiny } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let scrollbar = require("%ui/components/scrollbar.nut")
 let { INVALID_GROUP_ID, INVALID_SESSION_ID } = require("matching.errors")
 let { setTooltip } = require("%ui/style/cursors.nut")
@@ -32,7 +32,7 @@ let crossPlayInfo = @(){
   text = crossnetworkPlay.value == CrossplayState.OFF ?  loc("crossplay/off")
     : crossnetworkPlay.value == CrossplayState.CONSOLES ? loc("crossplay/consoles")
     : null
-}.__update(fontTiny)
+}.__update(fontSub)
 
 local function playerElem(columns, params, idx, playerData = null, borderColor = 0x00000000, slots=null, isMyTeam = false) {
   playerData = clone(playerData ?? {})

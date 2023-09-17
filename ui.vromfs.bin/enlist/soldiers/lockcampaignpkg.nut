@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontBody, fontSub, fontTiny } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { defTxtColor, bigPadding, blurBgColor, blurBgFillColor, bigGap
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { textarea } = require("%enlist/components/text.nut")
@@ -70,7 +70,7 @@ let function unlockCampaignPromo(override = {}) {
         textarea(loc("campaign/lockedProgress/desc/short")).__update({
           size = [flex(), SIZE_TO_CONTENT]
           color = defTxtColor
-        }, fontTiny)
+        }, fontSub)
         FAButton("shopping-cart",
           @() buyShopItem({ shopItem = sItem.value }),
           { borderWidth = 0, borderRadius = 0 })

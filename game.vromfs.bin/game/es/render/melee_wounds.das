@@ -4,6 +4,7 @@ require enlisted.events_enlisted
 require Grid
 require DngWounds
 require PhysDecl
+require Dacoll
 require AnimV20
 require ecs.common
 require math.base
@@ -14,6 +15,7 @@ require CollisionTraces
 require danetlibs.native_dasevents.main.native_events
 require common_shooter.events_common_shooter
 require common_shooter.es.hit_result_common
+require GeomNodeTree
 require DngDm
 
 def apply_melee_wounds(owner : EntityId; attach_eid : EntityId; break_param : int)
@@ -37,10 +39,17 @@ def hero_melee_wounds_apply_es(evt : EventOnEntityHit;
   if validDamage && gun__owner == evt.offender
     if melee_wounds__boneBreakOwner == evt.victim
       apply_melee_wounds(melee_wounds__boneBreakOwner, melee_wounds__boneBreakEid, melee_wounds__boneBreakParam)
-      query(melee_wounds__boneBreakOwner) <| $ [es(REQUIRE=deadEntity)] (var animchar__updatable : bool&;
-                                                                         var ragdoll : PhysRagdoll)
+      query(melee_wounds__boneBreakOwner) <| $ [unused_argument(animchar), es(REQUIRE=deadEntity)] (var animchar__updatable : bool&;
+                                                                                                    animchar : AnimcharBaseComponent;
+                                                                                                    var ragdoll : PhysRagdoll)
         animchar__updatable = true
-        ragdoll |> ragdoll_wakeUp()
+        static_if typeinfo(builtin_function_exists @@ < (var arg0 : PhysDecl::PhysRagdoll implicit; arg1 : int const; arg2 : int const; arg3 : GeomNodeTree::GeomNodeTree const ? const implicit) : void > PhysDecl::ragdoll_startRagdoll)
+          if ! ragdoll |> ragdoll_wakeUp()
+            ragdoll |> ragdoll_startRagdoll(int(PhysLayer EPL_CHARACTER),
+                                            int(PhysLayer EPL_ALL & (~(PhysLayer EPL_KINEMATIC | PhysLayer EPL_CHARACTER))),
+                                            animchar.nodeTree)
+        else
+          ragdoll |> ragdoll_wakeUp()
 
     else
       melee_wounds__boneBreakLatencyTarget = evt.victim

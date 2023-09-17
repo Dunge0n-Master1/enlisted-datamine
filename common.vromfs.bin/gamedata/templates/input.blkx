@@ -21,7 +21,7 @@ input_priority{
 
   "input_priority__actionsOrder:list<t>"{
     action:t="Human.ThrowBack"
-    action:t="Human.BuildingAction"
+    action:t="Human.DestroyBuilding"
     action:t="Mortar.SwitchShellType"
     action:t="Human.RepairBuilding"
     action:t="Human.VehicleMaintenance && Human.LeaveVehicleAlone && Human.Use"

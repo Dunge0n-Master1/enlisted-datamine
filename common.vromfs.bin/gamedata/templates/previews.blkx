@@ -28,7 +28,7 @@ base_builder_preview{
   buildingNorm:p3=0.0, 0.0, 0.0
   additionalBuildingTemplate:t="base_fortification_build"
   buildingSoundTag:t="fortification"
-  previewCollobjOffset:r=0.3
+  previewCollobjOffset:r=0.5
   yawRotationSpeed:r=90.0
   additionalYawRotation:r=0.0
   _tracked:t="additionalYawRotation"

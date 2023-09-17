@@ -215,14 +215,19 @@ def vehicle_input_gunner_es(info : ParallelUpdateFrameDelayed;
   var isGyroAimEnabled = false
   var humanInputAim = int(BAD_ACTION_HANDLE)
   var humanInputAimDelta = int(BAD_ACTION_HANDLE)
+  var isHumanInAim = false
+  var isHumanInZoomView = false
   query() <| $ [es(REQUIRE=hero)] (human_vehicle__isShootingPassenger : bool;
                                    human_input__isGyroAimEnabled : bool;
                                    human_input__aim : int;
-                                   human_input__aimDelta : int)
+                                   human_input__aimDelta : int;
+                                   human_net_phys : HumanActor)
     isShootingPassenger = human_vehicle__isShootingPassenger
     isGyroAimEnabled = human_input__isGyroAimEnabled
     humanInputAim = human_input__aim
     humanInputAimDelta = human_input__aimDelta
+    isHumanInAim = human_net_phys.phys.appliedCT |> is_control_bit_set(HumanPhysControlType HCT_AIM)
+    isHumanInZoomView = human_net_phys.phys.appliedCT |> is_control_bit_set(HumanPhysControlType HCT_ZOOM_VIEW)
 
   for gunEid in turret_control__gunEids
     query(gunEid) <| $ [es(REQUIRE=resolvedTurret)] (turret__triggerGroup : int;
@@ -239,9 +244,15 @@ def vehicle_input_gunner_es(info : ParallelUpdateFrameDelayed;
   let touchAim = get_stick_value(inputAim)
   aAim.x = clamp(aAim.x + touchAim.x, -1.0, 1.0)
   aAim.y = clamp(aAim.y + touchAim.y, -1.0, 1.0)
+
   assume sens_scale = get_sens_scale()
-  aAim.x *= isShootingPassenger ? sens_scale.humanFpsCam : sens_scale.vehicleCam
-  aAim.y *= isShootingPassenger ? sens_scale.humanFpsCam : sens_scale.vehicleCam
+  if isShootingPassenger
+    let sensMult = isHumanInAim || isHumanInZoomView ? sens_scale.humanAiming : sens_scale.humanFpsCam
+    aAim.x *= sensMult
+    aAim.y *= sensMult
+  else
+    aAim.x *= sens_scale.vehicleCam
+    aAim.y *= sens_scale.vehicleCam
 
   if isShootingPassenger && isGyroAimEnabled
     let asAimDelta = get_analog_stick_action_state(uint16(humanInputAimDelta))

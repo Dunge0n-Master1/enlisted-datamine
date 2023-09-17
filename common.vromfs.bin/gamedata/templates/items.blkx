@@ -347,6 +347,12 @@ base_collres_vis_item{
   }
 }
 
+skeleton_attach_inited{
+
+  "skeletonAttachInited:tag"{
+  }
+}
+
 base_skeleton_attach{
 
   "skeleton_attach__skeletonRemap:list<u16>"{
