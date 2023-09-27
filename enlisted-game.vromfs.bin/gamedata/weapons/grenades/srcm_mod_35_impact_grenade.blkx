@@ -10,6 +10,7 @@ logCCD:b=no
 frictionGround:r=2.0
 entityTemplate:t="srcm_mod_35_impact_grenade"
 entityPhysTemplate:t="srcm_mod_35_impact_grenade_phys"
+ccdClipVelocityMult:r=0.0
 explosiveType:t="tnt"
 explosiveMass:r=0.18
 

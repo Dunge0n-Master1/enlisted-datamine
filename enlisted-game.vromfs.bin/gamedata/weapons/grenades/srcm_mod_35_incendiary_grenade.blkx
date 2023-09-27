@@ -11,6 +11,7 @@ frictionGround:r=1.0
 noSleepAtTheSlopeCos:r=0.766
 entityTemplate:t="srcm_mod_35_incendiary_grenade"
 entityPhysTemplate:t="srcm_mod_35_incendiary_grenade_phys"
+ccdClipVelocityMult:r=0.0
 
 collisionResource{
 

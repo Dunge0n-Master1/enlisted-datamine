@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 from "%darg/laconic.nut" import *
-from "modFiles.nut" import USER_MODS_FOLDER, MODS_EXT, BASE_URL, statusText, isStrHash
+from "modFiles.nut" import USER_MODS_FOLDER, MODS_EXT, statusText, isStrHash
 
 let { debounce } = require("%sqstd/timers.nut")
 let eventbus = require("eventbus")
@@ -32,6 +32,7 @@ let spinner = require("%ui/components/spinner.nut")
 let {getBaseFromManifestUrl, getHashesFromManifest, requestModFiles} = require("%enlSqGlob/game_mods.nut")
 let { send_counter } = require("statsd")
 let {nestWatched} = require("%dngscripts/globalState.nut")
+let { MOD_FILE_URL } = require("%enlSqGlob/game_mods_constant.nut")
 
 const EVENT_MOD_VROM_INFO = "mod_info_vrom_loaded"
 let playersAmountList = [1, 2, 4, 8, 12, 16, 20, 24, 32, 40, 50, 64, 70, 80, 100, 128]
@@ -130,7 +131,7 @@ const WAITING = "WAITING"
 const SUCCESS = "SUCCESS"
 
 let function reqFileHeaders(hash){
-  let url = $"{BASE_URL}{hash}"
+  let url = MOD_FILE_URL.subst(hash)
   http.request({
     method = "HEAD"
     url

@@ -38,6 +38,7 @@ let { isXboxOne, isPS4, is_console } = require("%dngscripts/platform.nut")
 let msgbox = require("%enlist/components/msgbox.nut")
 let { premiumImage } = require("%enlist/currency/premiumComp.nut")
 let premiumWnd = require("%enlist/currency/premiumWnd.nut")
+let modsDownloadInfo = require("%enlist/gameModes/sandbox/modsDownloadInfo.ui.nut")
 
 enum TabsIds {
   EVENT_ID
@@ -750,7 +751,10 @@ let function open() {
     size = flex()
     valign = ALIGN_CENTER
     halign = ALIGN_CENTER
-    children = createRoomWnd
+    children = [
+      createRoomWnd
+      modsDownloadInfo
+    ]
     onClick = @() null
   })
 }

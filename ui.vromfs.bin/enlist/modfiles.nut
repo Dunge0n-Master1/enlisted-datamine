@@ -4,11 +4,11 @@ let eventbus = require("eventbus")
 let {scan_folder, file_exists} = require("dagor.fs")
 let {file} = require("io")
 let { send_counter } = require("statsd")
+let { MOD_FILE_URL } = require("%enlSqGlob/game_mods_constant.nut")
 
 const USER_MODS_FOLDER = "userGameMods"
 const MODS_EXT =".vromfs.bin"
 const RECEIVE_FILE_MOD = "RECEIVE_FILE_MOD"
-const BASE_URL = "https://enlisted-sandbox.gaijin.net/file/"
 
 const FILE_REQUESTED = 0
 const FILE_ERROR = 1
@@ -99,7 +99,7 @@ let function requestFilesByHashes(hashes){
     }
     if (checkModFileByHash(hash))
       receivedFiles(receivedFiles.value.__merge({ [hash] = true }))
-    let url = $"{BASE_URL}{hash}"
+    let url = MOD_FILE_URL.subst(hash)
     if (requestedFiles.value ?[hash] == FILE_REQUESTED)
       continue
     requestedFiles.mutate(@(v) v[hash]<-FILE_REQUESTED)
@@ -120,7 +120,6 @@ return {
   receivedFiles
   requestedFiles
   requestFilesByHashes
-  BASE_URL
   statusText
   isStrHash
 }

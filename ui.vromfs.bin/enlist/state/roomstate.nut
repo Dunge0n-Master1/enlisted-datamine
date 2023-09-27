@@ -32,6 +32,9 @@ let { pushNotification, removeNotify, subscribeGroup, InvitationsStyle, Invitati
 let { showMsgbox } = require("%enlist/components/msgbox.nut")
 let { remap_others } = require("%enlSqGlob/remap_nick.nut")
 let { nestWatched } = require("%dngscripts/globalState.nut")
+let { requestModManifest } = require("%enlist/gameModes/sandbox/customMissionState.nut")
+let { getModStartInfo } = require("%enlSqGlob/modsDownloadManager.nut")
+let { MOD_BY_VERSION_URL } = require("%enlSqGlob/game_mods_constant.nut")
 
 const INVITE_ACTION_ID = "room_invite_action"
 let LobbyStatus = {
@@ -374,6 +377,8 @@ let function connectToHost() {
     authKey = getRoomMember(userInfo.value?.userId)?.private?.auth_key
     modManifestUrl = room.value.public?.modManifestUrl ?? ""
     modHash = room.value.public?.modHash ?? ""
+    modId = room.value.public?.modId ?? ""
+    modVersion = room.value.public?.modVersion ?? 0
     baseModsFilesUrl = room.value.public?.baseModsFilesUrl ?? ""
   }
 
@@ -389,7 +394,13 @@ let function connectToHost() {
   })
   room.mutate(@(v) v.gameStarted <- true)
   lastRoomResult(null)
-  startGame(launchParams)
+  if (launchParams.modId != "") {
+    requestModManifest(MOD_BY_VERSION_URL.subst(launchParams.modId, launchParams.modVersion), function(manifest, contents) {
+      startGame(launchParams.__merge(getModStartInfo(manifest, contents)))
+    })
+  }
+  else
+    startGame(launchParams)
 }
 
 let function onDisconnectedFromServer(evt, _eid, _comp) {

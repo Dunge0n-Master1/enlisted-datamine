@@ -50,8 +50,9 @@ let { memberName, mkStatusImg } = require("components/memberComps.nut")
 let { getPenaltyExpiredTime } = require("%enlSqGlob/client_user_rights.nut")
 let { secondsToHoursLoc } = require("%ui/helpers/time.nut")
 let { curArmy } = require("%enlist/soldiers/model/state.nut")
-let { requestModManifest, MOD_DOWNLOAD_URL, receivedModInfos
+let { requestModManifest, receivedModInfos
 } = require("%enlist/gameModes/sandbox/customMissionState.nut")
+let { MOD_BY_VERSION_URL } = require("%enlSqGlob/game_mods_constant.nut")
 let modsDownloadInfo = require("%enlist/gameModes/sandbox/modsDownloadInfo.ui.nut")
 let { is_console } = require("%dngscripts/platform.nut")
 
@@ -639,7 +640,7 @@ let function rightBlock() {
           needModDownloadButton.value
             ? Bordered(loc("mods/downloadFromLobby"), function() {
                 let { modId, modVersion } = room.value.public
-                let urlToDownload = MOD_DOWNLOAD_URL.subst(modId, modVersion)
+                let urlToDownload = MOD_BY_VERSION_URL.subst(modId, modVersion)
                 requestModManifest(urlToDownload)
               }, { size = [flex(), commonBtnHeight], margin = 0})
             : null

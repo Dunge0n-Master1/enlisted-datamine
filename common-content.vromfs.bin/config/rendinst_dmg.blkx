@@ -55936,6 +55936,7 @@ riExtra{
 
   frame_horsehouse_window_1200_a_l{
     hp:r=6.0
+    destructionImpulse:r=8.0
     material:t="window_wood"
     fxTemplate:t="envir_destr_wood_window_small_effect"
     fxScale:r=1.0
@@ -55944,6 +55945,7 @@ riExtra{
 
   frame_horsehouse_window_1200_a_r{
     hp:r=6.0
+    destructionImpulse:r=8.0
     material:t="window_wood"
     fxTemplate:t="envir_destr_wood_window_small_effect"
     fxScale:r=1.0
@@ -55952,6 +55954,7 @@ riExtra{
 
   frame_horsehouse_window_big_a{
     hp:r=6.0
+    destructionImpulse:r=8.0
     material:t="window_wood"
     fxTemplate:t="envir_destr_wood_window_small_effect"
     fxScale:r=1.0
@@ -55960,6 +55963,7 @@ riExtra{
 
   frame_horsehouse_window_small_a{
     hp:r=6.0
+    destructionImpulse:r=8.0
     material:t="window_wood"
     fxTemplate:t="envir_destr_wood_window_small_effect"
     fxScale:r=1.0
@@ -55968,6 +55972,7 @@ riExtra{
 
   frame_house_window_1200_a_l{
     hp:r=6.0
+    destructionImpulse:r=8.0
     material:t="window_wood"
     fxTemplate:t="envir_destr_wood_window_small_effect"
     fxScale:r=1.0
@@ -55976,6 +55981,7 @@ riExtra{
 
   frame_house_window_1200_a_r{
     hp:r=6.0
+    destructionImpulse:r=8.0
     material:t="window_wood"
     fxTemplate:t="envir_destr_wood_window_small_effect"
     fxScale:r=1.0
@@ -55984,6 +55990,7 @@ riExtra{
 
   frame_house_window_1200_b_l{
     hp:r=6.0
+    destructionImpulse:r=8.0
     material:t="window_wood"
     fxTemplate:t="envir_destr_wood_no_glass_window_small_effect"
     fxScale:r=1.0
@@ -55992,6 +55999,7 @@ riExtra{
 
   frame_house_window_1200_b_r{
     hp:r=6.0
+    destructionImpulse:r=8.0
     material:t="window_wood"
     fxTemplate:t="envir_destr_wood_no_glass_window_small_effect"
     fxScale:r=1.0
@@ -56000,6 +56008,7 @@ riExtra{
 
   frame_house_window_1200_c_l{
     hp:r=6.0
+    destructionImpulse:r=8.0
     material:t="window_wood"
     fxTemplate:t="envir_destr_wood_window_small_effect"
     fxScale:r=1.0
@@ -56008,6 +56017,7 @@ riExtra{
 
   frame_house_window_1200_c_r{
     hp:r=6.0
+    destructionImpulse:r=8.0
     material:t="window_wood"
     fxTemplate:t="envir_destr_wood_window_small_effect"
     fxScale:r=1.0
@@ -56016,6 +56026,7 @@ riExtra{
 
   frame_house_window_1200_c_l_damaged{
     hp:r=6.0
+    destructionImpulse:r=8.0
     material:t="window_wood"
     fxTemplate:t="envir_destr_wood_window_small_effect"
     fxScale:r=1.0
@@ -56024,6 +56035,7 @@ riExtra{
 
   frame_house_window_1200_c_r_damaged{
     hp:r=6.0
+    destructionImpulse:r=8.0
     material:t="window_wood"
     fxTemplate:t="envir_destr_wood_window_small_effect"
     fxScale:r=1.0
@@ -56032,6 +56044,7 @@ riExtra{
 
   frame_house_window_1200_b_l_damaged{
     hp:r=6.0
+    destructionImpulse:r=8.0
     material:t="window_wood"
     fxTemplate:t="envir_destr_wood_window_small_effect"
     fxScale:r=1.0
@@ -56040,6 +56053,7 @@ riExtra{
 
   frame_house_window_1200_b_r_damaged{
     hp:r=6.0
+    destructionImpulse:r=8.0
     material:t="window_wood"
     fxTemplate:t="envir_destr_wood_window_small_effect"
     fxScale:r=1.0
@@ -56048,6 +56062,7 @@ riExtra{
 
   frame_house_window_2400_a_l{
     hp:r=6.0
+    destructionImpulse:r=8.0
     material:t="window_wood"
     fxTemplate:t="envir_destr_wood_window_small_effect"
     fxScale:r=1.0
@@ -56056,6 +56071,7 @@ riExtra{
 
   frame_house_window_2400_a_r{
     hp:r=6.0
+    destructionImpulse:r=8.0
     material:t="window_wood"
     fxTemplate:t="envir_destr_wood_window_small_effect"
     fxScale:r=1.0
@@ -56064,6 +56080,7 @@ riExtra{
 
   frame_house_window_2400_b_l{
     hp:r=6.0
+    destructionImpulse:r=8.0
     material:t="window_wood"
     fxTemplate:t="envir_destr_wood_window_small_effect"
     fxScale:r=1.0
@@ -56072,6 +56089,7 @@ riExtra{
 
   frame_house_window_2400_b_r{
     hp:r=6.0
+    destructionImpulse:r=8.0
     material:t="window_wood"
     fxTemplate:t="envir_destr_wood_window_small_effect"
     fxScale:r=1.0
@@ -56080,6 +56098,7 @@ riExtra{
 
   frame_house_window_2400_c_l{
     hp:r=6.0
+    destructionImpulse:r=8.0
     material:t="window_wood"
     fxTemplate:t="envir_destr_wood_window_small_effect"
     fxScale:r=1.0
@@ -56088,6 +56107,7 @@ riExtra{
 
   frame_house_window_2400_c_r{
     hp:r=6.0
+    destructionImpulse:r=8.0
     material:t="window_wood"
     fxTemplate:t="envir_destr_wood_window_small_effect"
     fxScale:r=1.0
@@ -56255,6 +56275,7 @@ riExtra{
 
   northeuropean_village_building_brick_a_window_4000_a_l_bottom{
     hp:r=6.0
+    destructionImpulse:r=8.0
     material:t="window_wood"
     fxTemplate:t="envir_destr_wood_window_small_effect"
     fxScale:r=1.0
@@ -56263,6 +56284,7 @@ riExtra{
 
   northeuropean_village_building_brick_a_window_4000_a_r_bottom{
     hp:r=6.0
+    destructionImpulse:r=8.0
     material:t="window_wood"
     fxTemplate:t="envir_destr_wood_window_small_effect"
     fxScale:r=1.0
@@ -56271,6 +56293,7 @@ riExtra{
 
   northeuropean_village_building_brick_a_window_4000_a_l_top{
     hp:r=6.0
+    destructionImpulse:r=8.0
     material:t="window_wood"
     fxTemplate:t="envir_destr_wood_window_small_effect"
     fxScale:r=1.0
@@ -56279,6 +56302,7 @@ riExtra{
 
   northeuropean_village_building_brick_a_window_4000_a_r_top{
     hp:r=6.0
+    destructionImpulse:r=8.0
     material:t="window_wood"
     fxTemplate:t="envir_destr_wood_window_small_effect"
     fxScale:r=1.0

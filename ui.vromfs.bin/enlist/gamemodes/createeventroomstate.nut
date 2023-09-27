@@ -17,7 +17,8 @@ let { isCrossplayOptionNeeded, crossnetworkPlay, availableCrossplayOptions, Cros
 } = require("%enlSqGlob/crossnetwork_state.nut")
 let saveCrossnetworkPlayValue = require("%enlist/options/crossnetwork_save.nut")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
-let { receivedModInfos, modPath, getModPathToStart } = require("sandbox/customMissionState.nut")
+let { receivedModInfos, modPath, fetchLocalModById } = require("sandbox/customMissionState.nut")
+let { getModStartInfo } = require("%enlSqGlob/modsDownloadManager.nut")
 let { set_matching_invite_data } = require("app")
 let gameLauncher = require("%enlist/gameLauncher.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
@@ -478,9 +479,13 @@ let function createEventRoom() {
 
   isEditInProgress(true)
   if (modPath.value != "" && optMaxPlayers.curValue.value <= 1) {
-    set_matching_invite_data({ mode_info = roomParams.public })
-    gameLauncher.startGame({ scene = getModPathToStart(), modId = modId })
-    isEditInProgress(false)
+    fetchLocalModById(modId, function(manifest, contents) {
+      set_matching_invite_data({ mode_info = roomParams.public })
+      gameLauncher.startGame({ modId }.__merge(getModStartInfo(manifest, contents)))
+      isEditInProgress(false)
+    }, function() {
+      isEditInProgress(false)
+    })
     return
   }
 

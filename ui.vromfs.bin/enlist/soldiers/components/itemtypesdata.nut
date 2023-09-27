@@ -11,6 +11,10 @@ let itemTypesData = {
     svg = "rifle.svg"
     isWeapon = true
   }
+  rifle_at_grenade_launcher = {
+    svg = "rifle.svg"
+    isWeapon = true
+  }
   antitank_rifle = {
     svg = "launcher.svg"
     isWeapon = true

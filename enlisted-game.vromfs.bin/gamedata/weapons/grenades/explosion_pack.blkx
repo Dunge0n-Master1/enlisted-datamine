@@ -12,6 +12,7 @@ angularDamping:r=0.85
 noSleepAtTheSlopeCos:r=0.766
 entityTemplate:t="explosion_pack"
 entityPhysTemplate:t="explosion_pack_phys"
+ccdClipVelocityMult:r=0.0
 explodeHitPower:r=250.0
 explodeArmorPower:r=35.0
 explodeRadius:p2=1.0, 2.5

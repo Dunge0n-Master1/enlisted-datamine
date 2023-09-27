@@ -278,8 +278,32 @@ attachable_wear_pants_dak_brown_01_ger_tropic_item{
   _extends:t="attachable_wear_pants_01_ger_tropic_item"
 
   "animchar__objTexReplace:object"{
-    "ger_shorts_tex_d*":t="ger_shorts_dak_tex_d*"
-    "ger_shorts_tex_n*":t="ger_shorts_dak_tex_n*"
+    "ger_dak_shorts_tex_d*":t="ger_dak_brown_shorts_tex_d*"
+  }
+}
+
+attachable_wear_pants_dak_khaki_01_ger_tropic_item{
+  _extends:t="attachable_pants"
+  _extends:t="attachable_wear_pants_01_ger_tropic_item"
+
+  "animchar__objTexReplace:object"{
+    "ger_dak_shorts_tex_d*":t="ger_dak_khaki_shorts_tex_d*"
+  }
+}
+
+attachable_wear_ger_shorts_w_highboots_01_tropic_item{
+  _extends:t="attachable_pants"
+  item__uniqueName:t="attachable_wear_ger_shorts_w_highboots_01_tropic_item"
+  animchar__res:t="ger_shorts_w_highboots_01_tropic_char"
+  collres__res:t="ger_shorts_w_highboots_01_tropic_collision"
+}
+
+attachable_wear_ger_shorts_khaki_w_highboots_01_tropic_item{
+  _extends:t="attachable_pants"
+  _extends:t="attachable_wear_ger_shorts_w_highboots_01_tropic_item"
+
+  "animchar__objTexReplace:object"{
+    "ger_dak_shorts_tex_d*":t="ger_dak_khaki_shorts_tex_d*"
   }
 }
 
@@ -2138,6 +2162,13 @@ attachable_wear_cap_w_elite_mask_anorak_m42_item{
   item__uniqueName:t="attachable_wear_cap_w_elite_mask_anorak_m42_item"
 }
 
+attachable_wear_cap_w_branch_camo_anorak_m42_item{
+  _extends:t="attachable_skined_helmet"
+  animchar__res:t="cap_w_branch_camo_anorak_m42_char"
+  collres__res:t="medkit_collision"
+  item__uniqueName:t="attachable_wear_cap_w_branch_camo_anorak_m42_item"
+}
+
 werchmaht_cap_01_ger_summer_item{
   _extends:t="helmet_item"
   animchar__res:t="werchmaht_cap_01_ger_summer_char"
@@ -2988,6 +3019,23 @@ gasmask_m38_01_ger_summer_item{
   animchar__res:t="gasmask_m38_01_ger_summer_char"
   collres__res:t="medkit_collision"
   item__uniqueName:t="gasmask_m38_01_ger_summer_item"
+
+  _group{
+    _tags:t="render"
+
+    "animchar_node_collapser__nodes:object"{
+      "Bip01 Neck":t=""
+      "Bip01 Head":t=""
+    }
+  }
+}
+
+ger_elite_mask_anorak_m42_item{
+  _extends:t="attachable_face_equipment"
+  _extends:t="node_collapser"
+  animchar__res:t="ger_elite_mask_anorak_m42_char"
+  collres__res:t="medkit_collision"
+  item__uniqueName:t="ger_elite_mask_anorak_m42_item"
 
   _group{
     _tags:t="render"

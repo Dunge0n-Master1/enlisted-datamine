@@ -157,7 +157,6 @@ ussr_su_100_gunner_cockpit{
   "cockpit__slitZoom:array"{
 
     "slit:list<r>"{
-      zoom:r=1.9
       zoom:r=4.0
     }
 

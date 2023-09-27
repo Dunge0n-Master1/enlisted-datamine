@@ -8,6 +8,7 @@ physMat:t="grenadeRay"
 useFutureContacts:b=yes
 frictionGround:r=0.5
 bullets:i=1
+ccdClipVelocityMult:r=0.0
 logCCD:b=no
 entityTemplate:t="smle_2_5_inch_rifle_grenade_phys"
 entityPhysTemplate:t="smle_2_5_inch_rifle_grenade_phys"

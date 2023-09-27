@@ -15,7 +15,7 @@ let colorize = require("%ui/components/colorize.nut")
 let openUrl = require("%ui/components/openUrl.nut")
 let { is_pc } = require("%dngscripts/platform.nut")
 let JB = require("%ui/control/gui_buttons.nut")
-
+let { MOD_BY_VERSION_URL, MOD_LATEST_URL } = require("%enlSqGlob/game_mods_constant.nut")
 
 let featuredMods = Watched([])
 let featuredModsRoomsList = Watched([])
@@ -33,8 +33,6 @@ let isFeaturedRequestNeeded = keepref(Computed(@() isFeaturedAvailable && isEven
 
 const FEATURED_MODS_TAB_ID = "featured_mod"
 const URL = "https://sandbox.enlisted.net/api/feed/get_featured/"
-const MOD_DOWNLOAD_URL = "https://sandbox.enlisted.net/post/{0}/manifest/{1}/"
-const MOD_URL = "https://sandbox.enlisted.net/post/{0}"
 
 let function getfeaturedModInfo(mod) {
   try{
@@ -43,7 +41,7 @@ let function getfeaturedModInfo(mod) {
       return null
     let { description, preview, title, author, id, version } = mod
     let imageToShow = preview.split("?")[0]
-    let modUrl = MOD_URL.subst(id)
+    let modUrl = MOD_LATEST_URL.subst(id)
     return {
       description
       imageToShow
@@ -100,7 +98,7 @@ let function offersModMsgbox(mod) {
         text = loc("downloadMission")
         action = function() {
           isEditEventRoomOpened(true)
-          requestModManifest(MOD_DOWNLOAD_URL.subst(id, version))
+          requestModManifest(MOD_BY_VERSION_URL.subst(id, version))
           openCustomMissionWnd()
         }
       }

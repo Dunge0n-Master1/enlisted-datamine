@@ -11,7 +11,7 @@ p_40e_1{
       seatOwnsEntityControl:b=yes
       attachNode:t="pilot1"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.05, -0.15]]
+      attachTm:m=[[0.969641, -0.241741, 9.30677e-09] [0.241742, 0.969643, 2.32028e-09] [-9.59289e-09, 0.0, 0.99945] [0.03, 0.19, -0.15]]
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="pilot_dm"
       cameraNodeName:t=""
@@ -372,12 +372,12 @@ p_40e_1_driver_cockpit{
   }
 
   "move_cockpit_node__offset:list<p3>"{
-    offset:p3=0.0, 0.0, 0.0
-    offset:p3=0.0, 0.01, 0.0
+    item:p3=0.004, 0.02, -0.003
+    item:p3=0.0065, -0.024, -0.05
   }
 
   "move_cockpit_node__rotation:list<p2>"{
-    rot:p2=0.0, 0.0
-    rot:p2=0.0, 0.0
+    item:p2=9.2, 13.5
+    item:p2=-36.5, -26.7
   }
 }

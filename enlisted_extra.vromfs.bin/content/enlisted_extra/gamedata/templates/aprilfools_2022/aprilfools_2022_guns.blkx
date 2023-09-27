@@ -711,11 +711,6 @@ plasma_shell_phys{
       dmgMult:r=1.0
       armor:r=0.0
     }
-
-    "volumeBox_002:object"{
-      dmgMult:r=1.0
-      armor:r=0.0
-    }
   }
 }
 
@@ -803,6 +798,16 @@ plasma_cannon_germany_gun{
   _extends:t="grb_39_gun"
   _extends:t="plasma_cannon_base"
   _extends:t="plasma_cannon_germany"
+  weapon_frontsight_node__nodeName:t="frontsight_aim"
+
+  "sightPresets:array"{
+
+    "preset:object"{
+      distance:r=0.0
+      frontsightNode:t="frontsight_aim"
+      loc:t="sight/0m"
+    }
+  }
 }
 
 plasma_cannon_usa{

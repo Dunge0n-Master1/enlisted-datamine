@@ -247,7 +247,7 @@ muzzle_shotgun_flash_effect{
 
   _group{
     _tags:t="render"
-    effect__name:t="fire_muzzle_carbine_cmps_fx"
+    effect__name:t="fire_muzzle_shotgun_cmps_fx"
     effect__distance_scale:r=1.0
   }
 }

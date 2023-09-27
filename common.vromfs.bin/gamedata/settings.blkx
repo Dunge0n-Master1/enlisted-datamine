@@ -114,6 +114,7 @@ folders{
   online_storage:t="{downloads}/online_storage"
   pubcfg:t="{downloads}/pubcfg"
   records:t="{downloads}/replays"
+  mods:t="{downloads}/mods"
 }
 
 network{

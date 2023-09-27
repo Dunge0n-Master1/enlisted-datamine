@@ -113,6 +113,7 @@ let bigWeapons = {
   semiauto_sniper = true
   semiauto = true
   rifle_grenade_launcher = true
+  rifle_at_grenade_launcher = true
   mortar = true
   launcher = true
   antitank_rifle = true

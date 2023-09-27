@@ -38,7 +38,7 @@ let itemTypesOrder = ["medkits", "medic_medkits", "medbox", "repair_kit",
   "backpack", "small_backpack", "radio", "parachute", "medpack",
   "binoculars_usable", "flask_usable",
   "semiauto", "carbine_tanker", "shotgun", "boltaction", "semiauto_sniper",
-  "boltaction_noscope", "rifle_grenade_launcher", "antitank_rifle",
+  "boltaction_noscope", "rifle_grenade_launcher", "rifle_at_grenade_launcher", "antitank_rifle",
   "infantry_launcher", "launcher", "mgun", "submgun", "carbine_pistol", "assault_rifle",
   "assault_rifle_stl", "flaregun", "mortar", "flamethrower", "sideweapon",
   "bayonet", "scope", "grenade_launcher"

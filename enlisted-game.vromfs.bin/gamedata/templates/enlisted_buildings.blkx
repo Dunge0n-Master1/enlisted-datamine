@@ -2240,6 +2240,9 @@ ammunition_box_base{
   "ammunitionBox:tag"{
   }
 
+  "useful_box__destroyEmpty:tag"{
+  }
+
   "useful_box__anyTeam:tag"{
   }
 }

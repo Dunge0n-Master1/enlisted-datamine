@@ -20,10 +20,10 @@ let { noteTextArea } = require("%enlSqGlob/ui/defcomps.nut")
 let modsDownloadInfo = require("modsDownloadInfo.ui.nut")
 let { get_clipboard_text } = require("dagor.clipboard")
 let { formatText } = require("%enlist/components/formatText.nut")
+let { MOD_LATEST_URL, MOD_BASE_URL } = require("%enlSqGlob/game_mods_constant.nut")
 
 const WND_UID = "CUSTOM_MISSION_WND"
 let sceneName = Watched("")
-let sandboxUrl = "https://enlisted-sandbox.gaijin.net/"
 let maxWndContentWidth = min(maxContentWidth, sw(100)) - localPadding * 2
 let isInputFocused = Watched(false)
 
@@ -111,7 +111,7 @@ let topBlock = @(){
   watch = sceneName
   valign = ALIGN_CENTER
   children = [
-    Bordered(loc("MissionsListOnWeb"), @() openUrl(sandboxUrl), btnStyle)
+    Bordered(loc("MissionsListOnWeb"), @() openUrl(MOD_BASE_URL), btnStyle)
     urlInputBlock
   ]
 }
@@ -151,7 +151,7 @@ let function mkOptions(modInfo, option, needPrefix = false){
   return ", ".join(info)
 }
 
-let getLinkToMod = @(modInfo) $"{sandboxUrl}post/{modInfo.id}"
+let getLinkToMod = @(modInfo) MOD_LATEST_URL.subst(modInfo.id)
 
 let modLinkButton = @(modInfo)
   formatText([{ t="url", url = getLinkToMod(modInfo), v = loc("mods/modOnSite")}])

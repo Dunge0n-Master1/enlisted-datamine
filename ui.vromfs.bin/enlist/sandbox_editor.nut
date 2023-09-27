@@ -185,7 +185,7 @@ let function loadScene(modAndScene) {
     return
   let {mod, scene} = convertToModAndScene(modAndScene)
   console_command("daEd4.open 0")
-  switch_scene($"?*?{mod}?{scene}", null, null, null, "sandboxEditor")
+  switch_scene($"{MODS_TO_EDIT_FOLDER}/{mod}/{scene}", null, null, mod)
 }
 let function loadSceneWithSavingUnsavedChanges(modAndScene) {
   if (modAndScene==null)

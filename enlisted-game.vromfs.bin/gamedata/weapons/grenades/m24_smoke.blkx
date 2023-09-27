@@ -4,11 +4,12 @@ caliber:r=0.04
 speed:r=18.5
 speedPitch:r=5.0
 maxDistance:r=5.0
-physMat:t="walkRay"
+physMat:t="grenadeRay"
 useFutureContacts:b=yes
 logCCD:b=no
 frictionGround:r=2.0
 noSleepAtTheSlopeCos:r=0.766
+ccdClipVelocityMult:r=0.0
 entityTemplate:t="m24_smoke_grenade"
 entityPhysTemplate:t="m24_smoke_grenade_phys"
 

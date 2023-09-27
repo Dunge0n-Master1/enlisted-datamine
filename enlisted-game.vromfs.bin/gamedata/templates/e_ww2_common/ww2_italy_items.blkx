@@ -426,8 +426,12 @@ attachable_wear_sahariani_trousers_green_windings_01_ita_tropic_item{
 attachable_wear_sahariani_trousers_ita_windings_green_item{
   _extends:t="attachable_pants"
   _extends:t="attachable_wear_sahariani_trousers_ita_mar_item"
-  paintColor:p4=0.16, 0.219, 0.192, 0.9
-  _tracked:t="paintColor"
+
+  "animchar__objTexReplace:object"{
+    "ita_sahariani_mar_m40_trousers_tex_d*":t="ita_sahariani_tropical_m40_green_trousers_tex_d*"
+    "ita_sahariani_mar_m40_trousers_tex_n*":t="ita_sahariani_tropical_m40_green_trousers_tex_n*"
+    "ita_windings_mar_tex_d*":t="ita_windings_mar_green_tex_d*"
+  }
 }
 
 attachable_wear_pilot_pants_ita_tropic_item{

@@ -137,7 +137,7 @@ def human_pickup_item_request_es_event_handler(evt : HumanPickupItemRequest; eid
   pickup_item_impl2(eid, evt.itemEid, evt.usefulOnly)
 
 
-[es(on_appear)]
+[es(on_appear, tag=server)]
 def drop_item_cb(evt : Event;
                  eid : EntityId;
                  drop_item_cb__lootCleanupTime : float;
@@ -156,7 +156,7 @@ def drop_item_cb(evt : Event;
   removeSubTemplate(eid, "drop_item_cb")
 
 
-[es(on_appear)]
+[es(on_appear, tag=server)]
 def item_mod_creation_cb(evt : Event;
                          eid : EntityId;
                          slot_attach__attachedTo : EntityId;

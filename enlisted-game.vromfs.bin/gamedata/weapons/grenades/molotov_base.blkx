@@ -8,6 +8,7 @@ physMat:t="grenadeRay"
 useFutureContacts:b=yes
 logCCD:b=no
 frictionGround:r=2.0
+ccdClipVelocityMult:r=0.0
 
 collisionResource{
 

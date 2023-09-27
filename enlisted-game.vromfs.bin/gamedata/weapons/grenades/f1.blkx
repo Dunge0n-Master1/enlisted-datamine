@@ -8,6 +8,7 @@ physMat:t="grenadeRay"
 useFutureContacts:b=yes
 frictionGround:r=2.0
 noSleepAtTheSlopeCos:r=0.766
+ccdClipVelocityMult:r=0.0
 logCCD:b=no
 entityTemplate:t="f1_grenade"
 entityPhysTemplate:t="f1_grenade_phys"

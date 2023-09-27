@@ -59,3 +59,10 @@ def apply_amimvars_for_empty_box_es(evt : Event; eid : ecs::EntityId; useful_box
 [es(tag=gameClient, on_event=CmdUsefulBoxCompleteUse, REQUIRE=human)]
 def useful_box_play_complete_animation_es(evt : Event; eid : EntityId)
   run_action(eid, "pickup")
+
+[es(tag=server, track=useful_box__useCount, REQUIRE=useful_box__destroyEmpty)]
+def destroy_useful_box_on_no_uses_left(evt : Event;
+                                       eid : EntityId;
+                                       useful_box__useCount : int)
+  if useful_box__useCount <= 0
+    destroyEntity(eid)
