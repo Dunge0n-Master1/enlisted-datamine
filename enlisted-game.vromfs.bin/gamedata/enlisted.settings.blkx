@@ -881,3 +881,7 @@ countriesProhibitingLootbox{
 replay{
   storageLimitMB:i=2048
 }
+
+rawAddons{
+  folder:t="content/cdk"
+}

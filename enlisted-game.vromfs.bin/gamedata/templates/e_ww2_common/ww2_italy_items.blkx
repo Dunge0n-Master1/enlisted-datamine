@@ -673,6 +673,43 @@ attachable_wear_sahariani_tunic_brown_01_ita_tropic_item{
   }
 }
 
+attachable_wear_ita_paratrooper_smock_item{
+  _extends:t="attachable_tunic"
+  item__uniqueName:t="attachable_wear_ita_paratrooper_smock_item"
+  animchar__res:t="ita_paratrooper_smock_char"
+  collres__res:t="ita_paratrooper_smock_collision"
+  _tracked:t="attaches_list"
+
+  "item__additionalSlotTemplates:object"{
+    chest:t="attachable_wear_samurai_vest_ita_tropic_02_item"
+  }
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="front_belt_l"
+  }
+}
+
+attachable_wear_ita_paratrooper_smock_w_parachute_item{
+  _extends:t="attachable_tunic"
+  item__uniqueName:t="attachable_wear_ita_paratrooper_smock_w_parachute_item"
+  animchar__res:t="ita_paratrooper_smock_w_parachute_char"
+  collres__res:t="ita_paratrooper_smock_w_parachute_collision"
+  item__replaceOnSpawnOnGround:t="attachable_wear_ita_paratrooper_smock_item"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="front_belt_r"
+    slot:t="front_belt_l"
+  }
+}
+
 attachable_wear_ita_pilot_gloves_tropic_item{
   _extends:t="attachable_gloves"
   item__uniqueName:t="attachable_wear_ita_pilot_gloves_tropic_item"
@@ -1017,6 +1054,35 @@ attachable_wear_ita_parachute_grigio_verde_item{
 
   "item__unequipAfterParachuteLanding:tag"{
   }
+}
+
+attachable_wear_ita_salvator_d39_parachute_item{
+  _extends:t="attachable_parachute"
+  item__uniqueName:t="attachable_wear_ita_salvator_d39_parachute_item"
+  animchar__res:t="ita_salvator_d39_parachute_char"
+  collres__res:t="ita_salvator_d39_parachute_collision"
+  animchar_fast_phys__res:t="ita_salvator_d39_parachute_fastphys"
+  item__replaceOnParachuteOpen:t="attachable_wear_ita_salvator_d39_parachute_nobug_item"
+  item__replaceOnSpawnOnGround:t=""
+
+  _group{
+    _tags:t="server"
+    parachute_backpack__canopyTemplate:t="parachute_canopy_item"
+
+    "parachute_backpack__canopyEid:eid"{
+    }
+  }
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_ita_salvator_d39_parachute_nobug_item{
+  _extends:t="attachable_parachute"
+  item__uniqueName:t="attachable_wear_ita_salvator_d39_parachute_item"
+  animchar__res:t="ita_salvator_d39_parachute_nobug_char"
+  collres__res:t="ita_salvator_d39_parachute_nobug_collision"
 }
 
 attachable_wear_belt_01_ita_tanker_coverall_item{

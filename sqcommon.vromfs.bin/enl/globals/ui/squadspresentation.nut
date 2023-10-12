@@ -304,6 +304,8 @@ return freeze({
     axis_stalingrad_pilot_fighter_3 = genSquadGer("axis_stalingrad_pilot_fighter_3")
 
 //prems
+    squad_it_paratrooper_2_event_2 = genSquadGer("squad_it_paratrooper_2_event_2", {premIcon = ICON_EVENT})
+
     ger_moscow_prem_assault_1 = genSquadGer("ger_moscow_prem_assault_1")
     ger_moscow_prem_assault_1_ch = genSquadGer("ger_moscow_prem_assault_1")
     ger_moscow_prem_mgun_1 = genSquadGer("ger_moscow_prem_mgun_1")
@@ -472,6 +474,8 @@ return freeze({
     allies_pacific_tank_3 = genSquadUsa("allies_pacific_tank_3")
 
 //prems
+    squad_uk_paratrooper_2_event_2 = genSquadUsa("squad_uk_paratrooper_2_event_2", {premIcon = ICON_EVENT})
+
     usa_normandy_prem_assault_1 = genSquadUsa("usa_normandy_prem_assault_1")
     usa_normandy_prem_assault_1_ch = genSquadUsa("usa_normandy_prem_assault_1")
     usa_normandy_prem_assault_2 = genSquadUsa("usa_normandy_prem_assault_2")
@@ -912,6 +916,8 @@ return freeze({
   }
 
   tunisia_allies = {
+    squad_uk_paratrooper_2_event_2 = genSquadUsa("squad_uk_paratrooper_2_event_2", {premIcon = ICON_EVENT})
+
     allies_tunisia_rifle_1 = genSquadUsa("allies_tunisia_rifle_1")
     allies_tunisia_radioman_1 = genSquadUsa("allies_tunisia_radioman_1")
     allies_tunisia_tank_1 = genSquadUsa("allies_tunisia_tank_1")
@@ -958,6 +964,8 @@ return freeze({
 
 
   tunisia_axis = {
+    squad_it_paratrooper_2_event_2 = genSquadGer("squad_it_paratrooper_2_event_2", {premIcon = ICON_EVENT})
+
     axis_tunisia_rifle_1 = genSquadGer("axis_tunisia_rifle_1")
     axis_tunisia_tank_1 = genSquadGer("axis_tunisia_tank_1")
     axis_tunisia_sniper_1 = genSquadGer("axis_tunisia_sniper_1")

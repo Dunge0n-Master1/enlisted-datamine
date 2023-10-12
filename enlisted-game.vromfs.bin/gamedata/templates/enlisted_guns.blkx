@@ -97,6 +97,8 @@ network_fortification_preview{
   building_builder__maxTimeToBuild:r=30.0
   building_builder__timeToBuild:r=0.0
   building_builder__distanceVerifyThreshold:r=1.5
+  grid_obj__gridType:t="vehicles"
+  grid_obj__fixedTmScale:r=-1.0
 
   "onlyForEngineer:tag"{
   }
@@ -107,6 +109,12 @@ network_fortification_preview{
   _group{
     _tags:t="server"
     obstacle__initialStillTimeout:r=0.0
+  }
+
+  grid_obj{
+  }
+
+  "blockTerraform:tag"{
   }
 }
 

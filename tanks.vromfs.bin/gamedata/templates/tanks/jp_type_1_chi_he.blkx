@@ -171,6 +171,7 @@ jp_type_1_chi_he_gunner_cockpit{
   "cockpit__slitZoom:array"{
 
     "slit:list<r>"{
+      zoom:r=3.5
       zoom:r=4.0
     }
   }

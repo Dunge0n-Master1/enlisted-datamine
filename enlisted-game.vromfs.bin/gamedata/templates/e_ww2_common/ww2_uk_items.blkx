@@ -348,6 +348,13 @@ attachable_wear_serge_battle_dress_pants_uk_item{
   collres__res:t="serge_battle_dress_pants_uk_collision"
 }
 
+attachable_wear_serge_battle_dress_pants_w_knife_item{
+  _extends:t="attachable_pants"
+  item__uniqueName:t="attachable_wear_serge_battle_dress_pants_w_knife_item"
+  animchar__res:t="serge_battle_dress_pants_w_knife_char"
+  collres__res:t="serge_battle_dress_pants_w_knife_collision"
+}
+
 attachable_wear_serge_battle_dress_pants_holster_uk_item{
   _extends:t="attachable_pants"
   item__uniqueName:t="attachable_wear_serge_battle_dress_pants_holster_uk_item"
@@ -575,6 +582,17 @@ attachable_wear_uk_denison_smock_2nd_pattern_stroke_c_w_parachute_item{
 
   "animchar__objTexReplace:object"{
     "denison_smock_2nd_pattern_tex_d*":t="denison_smock_2nd_pattern_stroke_c_tex_d*"
+  }
+}
+
+attachable_wear_uk_denison_smock_2nd_pattern_stroke_d_w_parachute_item{
+  _extends:t="attachable_tunic"
+  _extends:t="attachable_wear_uk_denison_smock_2nd_pattern_w_parachute_item"
+  item__replaceOnParachuteOpen:t="attachable_wear_uk_denison_smock_2nd_pattern_stroke_c_item"
+  item__replaceOnSpawnOnGround:t="attachable_wear_uk_denison_smock_2nd_pattern_stroke_c_item"
+
+  "animchar__objTexReplace:object"{
+    "denison_smock_2nd_pattern_tex_d*":t="denison_smock_2nd_pattern_stroke_d_tex_d*"
   }
 }
 
@@ -1016,6 +1034,20 @@ khaki_beret_01_uk_summer_item{
   animchar__res:t="khaki_beret_01_uk_summer_char"
   collres__res:t="medkit_collision"
   item__uniqueName:t="khaki_beret_01_uk_summer_item"
+  item__armorAmount:r=0.1
+
+  "disabledFaceGenParams:shared:array"{
+    param:t="forehead_pos_y"
+    param:t="forehead_hor_scale"
+    param:t="forehead_scale"
+  }
+}
+
+paratroopers_beret_01_uk_summer_item{
+  _extends:t="helmet_item"
+  animchar__res:t="paratroopers_beret_01_uk_summer_char"
+  collres__res:t="medkit_collision"
+  item__uniqueName:t="paratroopers_beret_01_uk_summer_item"
   item__armorAmount:r=0.1
 
   "disabledFaceGenParams:shared:array"{

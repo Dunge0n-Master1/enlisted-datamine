@@ -36,7 +36,7 @@ def human_dig_es(evt : EventDigRequest;
                                                               dig_tool__radius : float;
                                                               dig_tool__depth : float;
                                                               dig_tool__checkDistanceMul : float = 1.5;
-                                                              dig_tool__checkRadiusMul : float = 1.25;
+                                                              dig_tool__checkRadiusMul : float = 1.75;
                                                               [[shared_comp]] dig_tool__allowedMaterials : Object)
     query() <| $ [es] (var terraform : TerraformComponent)
       query() <| $ [es] (digging_config__traceHeight : float; digging_config__queryRIHalfHeight : float)

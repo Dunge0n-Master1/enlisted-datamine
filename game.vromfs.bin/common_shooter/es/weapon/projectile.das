@@ -25,10 +25,10 @@ def projectile_init_created_es(evt : Event;
     logerr("Removed bad projectile entity {eid} created not by gun of template {getEntityTemplateName(eid)}")
     destroyEntity(eid)
     return
-  if (length_sq(launch_desc.tm[3]) < 1e10)
+  if (length_sq(launch_desc.tm[3]) < 1e10 && length_sq(launch_desc.vel) < 1e10)
     projectile__prevPos = launch_desc.tm[3]
   else
-    logerr("invalid data in projectile info {eid} {getEntityTemplateName(eid)} {launch_desc.tm[3]}")
+    logerr("invalid data in projectile info {eid} {getEntityTemplateName(eid)} {launch_desc}")
     destroyEntity(eid)
 
 

@@ -71,13 +71,15 @@ let function initPlayerRespawner(comp) {
   comp["respawner__canRespawnWaitNumber"] = -1
 }
 
-let function rejectSpawn(reason, team, playerEid, comp) {
+let function rejectSpawn(reason, team, playerEid, comp, needCooldown = true) {
   debug($"RejectSpawn: '{reason}' for team {team} and player {playerEid}")
   ecs.server_send_event(playerEid, mkEventOnSpawnError({reason=reason}), [ecs.obsolete_dbg_get_comp_val(playerEid, "connid", -1)])
 
+  let time = get_sync_time()
   comp["respawner__enabled"] = true
-  comp["respawner__respEndTime"] = 300 + get_sync_time() // TODO: see initPlayerRespawner
-  comp["respawner__canRespawnTime"] = 10 + get_sync_time() // TODO: see initPlayerRespawner
+  comp["respawner__respStartTime"] = needCooldown ? time : time - comp["respawner__respTime"]
+  comp["respawner__respEndTime"] = needCooldown ? 300 + time : time // TODO: see initPlayerRespawner
+  comp["respawner__canRespawnTime"] = needCooldown ? 10 + time : time // TODO: see initPlayerRespawner
   comp["respawner__canRespawnWaitNumber"] = -1
 }
 
@@ -244,7 +246,7 @@ let function trySpawnVehicleSquad(ctx, comp) {
     // In theory this situation is migh be an error (bug), but in practice no one is going to fix it anytime soon
     // (and its' kind hard to due to eventual consistency of replication) so report it as ordinary log message
     debug($"Spawn {vehicle} squad [{squadId}, {memberId}] for team {team} is forbidden by limit")
-    rejectSpawn("The vehicle is not ready for this squad", team, eid, comp)
+    rejectSpawn("The vehicle is not ready for this squad", team, eid, comp, false)
     let teamEid = get_team_eid(team) ?? ecs.INVALID_ENTITY_ID
     debugTableData(ecs.obsolete_dbg_get_comp_val(teamEid, "team__spawnPending")?.getAll() ?? {})
     return false
@@ -429,6 +431,7 @@ let comps = {
     ["respawner__nextSpawnOnVehicleTimeBySquad", ecs.TYPE_INT_LIST],
     ["respawner__respToBot", ecs.TYPE_BOOL],
     ["respawner__isFirstSpawn", ecs.TYPE_BOOL],
+    ["respawner__respStartTime", ecs.TYPE_FLOAT],
     ["respawner__respEndTime", ecs.TYPE_FLOAT],
     ["respawner__canRespawnTime", ecs.TYPE_FLOAT],
     ["respawner__canRespawnWaitNumber", ecs.TYPE_INT],
@@ -446,6 +449,7 @@ let comps = {
     ["shouldValidateSpawnRules", ecs.TYPE_BOOL],
     ["playerIsBot", ecs.TYPE_TAG, null],
     ["respawner__scorePricePerSquad", ecs.TYPE_INT_LIST, null],
+    ["respawner__respTime", ecs.TYPE_FLOAT, 10.0],
   ]
 }
 

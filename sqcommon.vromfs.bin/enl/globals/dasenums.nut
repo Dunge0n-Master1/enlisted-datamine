@@ -69,8 +69,9 @@ enum CanTerraformCheckResult {  // terraform_common::CanTerraformCheckResult
   OutOfHeightMap = 1
   DisallowedMaterials = 2
   NearByObjects = 3
+  NearByBuildingPreview = 4
 }
-let CanTerraformCheckResult_COUNT = 4
+let CanTerraformCheckResult_COUNT = 5
 
 return {
   ContextCommand

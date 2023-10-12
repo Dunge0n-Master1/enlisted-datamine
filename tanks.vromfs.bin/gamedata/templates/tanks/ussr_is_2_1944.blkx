@@ -187,7 +187,7 @@ ussr_is_2_1944_gunner_cockpit{
   }
 
   "cockpit__slitForwardOffset:list<r>"{
-    slit:r=0.22
+    slit:r=0.19
     slit:r=0.19
   }
 
@@ -209,6 +209,7 @@ ussr_is_2_1944_gunner_cockpit{
   "cockpit__slitZoom:array"{
 
     "slit:list<r>"{
+      zoom:r=3.5
       zoom:r=4.0
     }
 

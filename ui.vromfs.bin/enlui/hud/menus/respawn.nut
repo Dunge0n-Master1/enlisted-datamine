@@ -1,4 +1,5 @@
 from "%enlSqGlob/ui_library.nut" import *
+let { isGamepad } = require("%ui/control/active_controls.nut")
 
 let {
   needSpawnMenu, updateSpawnSquadId, canChangeRespawnParams, respawnsInBot
@@ -12,8 +13,9 @@ needSpawnMenu.subscribe(function(v) {
 })
 
 let respawnBlock = @() {
+  watch = [canChangeRespawnParams, needSpawnMenu, respawnsInBot, isGamepad]
   size = flex()
-  watch = [canChangeRespawnParams, needSpawnMenu, respawnsInBot]
+  padding = isGamepad.value ? [0, 0, hdpx(30), 0] : 0
   children = !needSpawnMenu.value || !canChangeRespawnParams.value ? null
     : respawnsInBot.value ? respawn_member
     : respawn_squad

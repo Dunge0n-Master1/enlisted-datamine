@@ -24,6 +24,7 @@ require ecs
 require app
 require DngNet
 require common_shooter.events_common_shooter
+require terraform
 
 [es(on_appear)]
 def building_preview_collobj_init_es(evt : Event;
@@ -39,9 +40,45 @@ def building_preview_collobj_init_es(evt : Event;
 def building_preview_collobj_cleanup_es(evt : Event; var previewCollobj : CollisionObject)
   destroy_dynamic_collision(previewCollobj)
 
-def is_pitch_in_range(vec, limits)
+
+def is_pitch_in_range(vec : float3; limits : float2)
   let angle = 90.0 - rad_to_deg(dir_to_angles(vec).y)
   return angle > limits.x && angle < limits.y
+
+
+def check_inclination_angles(normal : float3;
+                             angle_limits : float2;
+                             pos : float3;
+                             check_grid_radius : float;
+                             check_grid_width : int;
+                             terraformed_available_angles_mult : float;
+                             modifiedHeightEpsilon : float;
+                             maxAllowedHeightDelta : float)
+  if is_pitch_in_range(normal, angle_limits)
+    return true
+
+  if is_pitch_in_range(normal, angle_limits * terraformed_available_angles_mult)
+    return find_query() <| $ [es] (terraform : TerraformComponent)
+      let cellRadius = check_grid_radius / float(check_grid_width)
+      let startPos = pos.xz - float2(check_grid_radius) + float2(cellRadius)
+
+      var hasTerraformedCells = false
+      var minHeight = FLT_MAX
+      var maxHeight = FLT_MIN
+      for z in range(0, check_grid_width)
+        for x in range(0, check_grid_width)
+          let cellPos = startPos + float2(x, z) * cellRadius * 2.0
+          let height = traceht_hmap(cellPos)
+          let origHeight = terraform_getHmapHeightOrigValAtPos(terraform, cellPos)
+          hasTerraformedCells ||= abs(height - origHeight) >= modifiedHeightEpsilon
+          minHeight = min(minHeight, height)
+          maxHeight = max(maxHeight, height)
+
+      let heightDelta = maxHeight - minHeight
+      return hasTerraformedCells && heightDelta < maxAllowedHeightDelta
+
+  return false
+
 
 [es(tag=server, on_appear, before=building_preview_inactive_destroyes_es)]
 def building_preview_destroy_timer_create_es(evt : Event;
@@ -127,6 +164,10 @@ def build_ability_update_transform_es(info : UpdateStageInfoAct;
                                       previewCollobj : CollisionObject;
                                       previewCollobjOffset : float;
                                       buildingCost : float;
+                                      building_inclination_angle__gridWidth : int;
+                                      building_inclination_angle__terraformedAvailableAnglesMult : float;
+                                      building_inclination_angle__modifiedHeightEpsilon : float;
+                                      building_inclination_angle__maxAllowedHeightDelta : float;
                                       preview_render__enabled : bool = true;
                                       var buildingNorm : float3&;
                                       var nextCheckGridObjectsTime : float&;
@@ -202,7 +243,15 @@ def build_ability_update_transform_es(info : UpdateStageInfoAct;
       norm = -norm
     build_position.y += additionalHeight
     buildingNorm = norm
-    isAngleValid = is_pitch_in_range(norm, avaliableAngles)
+    let buildingRadius = length(buildingBoxMax - buildingBoxMin) * 0.5
+    isAngleValid = check_inclination_angles(norm,
+                                            avaliableAngles,
+                                            build_position,
+                                            buildingRadius,
+                                            building_inclination_angle__gridWidth,
+                                            building_inclination_angle__terraformedAvailableAnglesMult,
+                                            building_inclination_angle__modifiedHeightEpsilon,
+                                            building_inclination_angle__maxAllowedHeightDelta)
     return true
 
   if !semi_transparent__visible || length_sq(aimTm[0]) == 0.f
@@ -247,7 +296,7 @@ def build_ability_update_transform_es(info : UpdateStageInfoAct;
       semi_transparent__placingColor = blockedColor
     nextCheckGridObjectsTime = syncTime + checkGridObjectsTimeInterval
 
-def get_verified_fortification_template_name(templateName, fortificationTm, builderPos, notificationEid, buildingTeam, builder_resources, squad_eid, preview_id)
+def get_verified_fortification_template_name(templateName, fortificationTm, builderPos, notificationEid, buildingTeam, buildingRadius, builder_resources, squad_eid, preview_id)
   let tpl = getTemplateByName(templateName)
   if tpl == null
     logerr("template {templateName} doesn't exist")
@@ -266,8 +315,31 @@ def get_verified_fortification_template_name(templateName, fortificationTm, buil
   if avaliableAngles == null
     logerr("Angle limits aren't specified in template {templateName}")
     return ""
+  let checkGridWidth = getTemplateComponent(*tpl, "building_inclination_angle__gridWidth") ?as int
+  if checkGridWidth == null
+    logerr("'building_inclination_angle__gridWidth' isn't specified in the template '{templateName}'")
+    return ""
+  let terraformedAvailableAnglesMult = getTemplateComponent(*tpl, "building_inclination_angle__terraformedAvailableAnglesMult") ?as float
+  if terraformedAvailableAnglesMult == null
+    logerr("'building_inclination_angle__terraformedAvailableAnglesMult' isn't specified in the template '{templateName}'")
+    return ""
+  let modifiedHeightEpsilon = getTemplateComponent(*tpl, "building_inclination_angle__modifiedHeightEpsilon") ?as float
+  if modifiedHeightEpsilon == null
+    logerr("'building_inclination_angle__modifiedHeightEpsilon' isn't specified in the template '{templateName}'")
+    return ""
+  let maxAllowedHeightDelta = getTemplateComponent(*tpl, "building_inclination_angle__maxAllowedHeightDelta") ?as float
+  if maxAllowedHeightDelta == null
+    logerr("'building_inclination_angle__maxAllowedHeightDelta' isn't specified in the template '{templateName}'")
+    return ""
   let norm = fortificationTm[1]
-  if !is_pitch_in_range(norm, *avaliableAngles)
+  if !check_inclination_angles(norm,
+                               *avaliableAngles,
+                               fortificationTm[3],
+                               buildingRadius,
+                               *checkGridWidth,
+                               *terraformedAvailableAnglesMult,
+                               *modifiedHeightEpsilon,
+                               *maxAllowedHeightDelta)
     return ""
   let buildingCost = getTemplateComponent(*tpl, "buildingCost") ?? 0.0
   if buildingCost > builder_resources
@@ -358,11 +430,13 @@ def build_fortification_es(evt : CmdBuildFortification;
       sendEvent(eid, [[CmdHeroLogEvent event="building_cannot_confirm_when_objects_in", text="building_cannot_confirm_when_objects_in"]])
       return
 
+    let buildingRadius = max(length(evt.boxMax - evt.boxMin) * 0.5, minBuildingRadius)
     let fortificationTemplate = get_verified_fortification_template_name(string(previewTemplate[currentPreviewId]),
                                                                          previewTm,
                                                                          human__aimTm[3],
                                                                          eid,
                                                                          team,
+                                                                         buildingRadius,
                                                                          stockOfBuilderCapabilities,
                                                                          squad_member__squad,
                                                                          currentPreviewId)
@@ -375,7 +449,6 @@ def build_fortification_es(evt : CmdBuildFortification;
     if count == 0 && !existBuildingEid
       return
     nextBuildingAtTime = curTime + buildingInterval
-    let buildingRadius = max(length(evt.boxMax - evt.boxMin) * 0.5, minBuildingRadius)
     let attachToRi = trace_ri_under_building(previewTm[3], buildingRadius, fortification__rayMatId)
     createEntity("{additionalBuildingTemplate}+{previewTemplate[currentPreviewId]}") <| $(var init : ComponentsInitializer)
       set(init, "transform", previewTm)
@@ -473,6 +546,10 @@ def try_build_fortification_es(evt : Event;
                                buildingBoxMin : float3;
                                buildingBoxMax : float3;
                                buildingCost : float;
+                               building_inclination_angle__gridWidth : int;
+                               building_inclination_angle__terraformedAvailableAnglesMult : float;
+                               building_inclination_angle__modifiedHeightEpsilon : float;
+                               building_inclination_angle__maxAllowedHeightDelta : float;
                                building_builder__minDistanceToMissionRespawns = -1.0;
                                building_builder__minDistanceToCapturePoints = -1.0;
                                building_builder__maxUnderwaterDistance = -1.0;
@@ -497,7 +574,16 @@ def try_build_fortification_es(evt : Event;
     return
   if !equipped || actionWithObj != INVALID_ENTITY_ID
     return
-  if !is_pitch_in_range(buildingNorm, avaliableAngles)
+
+  let buildingRadius = length(buildingBoxMax - buildingBoxMin) * 0.5
+  if !check_inclination_angles(buildingNorm,
+                               avaliableAngles,
+                               transform[3],
+                               buildingRadius,
+                               building_inclination_angle__gridWidth,
+                               building_inclination_angle__terraformedAvailableAnglesMult,
+                               building_inclination_angle__modifiedHeightEpsilon,
+                               building_inclination_angle__maxAllowedHeightDelta)
     sendEvent(hero, [[CmdHeroLogEvent event="building_blocked_by_angle", text="building_blocked_by_angle"]])
     return
   let baseCollres = get_building_collres(previewCollres, ri_preview__name)
@@ -505,7 +591,6 @@ def try_build_fortification_es(evt : Event;
     sendEvent(hero, [[CmdHeroLogEvent event="building_gun_not_attachable", text="building_gun_not_attachable"]])
     return
   let buildingPos = transform[3]
-  let buildingRadius = length(buildingBoxMax - buildingBoxMin) * 0.5
   let isConflictObjectsInBuildingBox = is_conflict_objects_in_building_box(transform, BBox3(buildingBoxMin, buildingBoxMax), previewCollobj, previewCollobjOffset, eid, baseCollres)
   let isAboveOtherBuilding = is_above_other_building(buildingPos, buildingRadius)
   if isConflictObjectsInBuildingBox || isAboveOtherBuilding

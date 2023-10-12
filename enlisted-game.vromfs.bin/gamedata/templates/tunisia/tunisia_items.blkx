@@ -315,6 +315,26 @@ tz_45_gun_item{
   collres__res:t="tz_45_collision"
 }
 
+og_43_gun_item{
+  _extends:t="item_gun"
+  _extends:t="og_43"
+  collres__res:t="og_43_collision"
+}
+
+og_43_magazine{
+  _extends:t="item_magazine"
+  animchar__res:t="beretta_m38_ammo_char"
+  item__template:t="og_43_magazine"
+  item__proto:t="og_43_magazine"
+  item__locDetails:t=""
+  ammo_holder__templateName:t="og_43_magazine"
+  ammo_holder__ammoCount:i=20
+  item__weight:r=0.5
+  item__volume:r=0.35
+  item__name:t="items/og_43_magazine"
+  collres__res:t="beretta_m38_ammo_collision"
+}
+
 thompson_m1921_28_box_gun_item{
   _extends:t="item_gun"
   _extends:t="thompson_m1921_28_box"

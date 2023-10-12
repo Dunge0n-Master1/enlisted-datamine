@@ -4479,6 +4479,7 @@ placed_medic_box_item{
 
 medic_box_item{
   _extends:t="placed_medic_box_item"
+  _extends:t="disable_item_drop"
   _extends:t="melee_weapon"
   gun__locName:t="medic_box"
   gun__reloadable:b=no
@@ -6480,6 +6481,29 @@ lanciafiamme_m35_gun_item{
   collres__res:t="lanciafiamme_mod_35_collision"
 }
 
+lanciafiamme_m41_dassalto_gun_item{
+  _extends:t="item_gun"
+  _extends:t="lanciafiamme_m41_dassalto_gun"
+  collres__res:t="lanciafiamme_m41_dassalto_collision"
+}
+
+lanciafiamme_m41_dassalto_fuel_tank_light{
+  _extends:t="item_magazine"
+  animchar__res:t="roks_3_ammo_char"
+  collres__res:t="roks_3_ammo_collision"
+  item__template:t="lanciafiamme_m41_dassalto_fuel_tank_light"
+  item__proto:t="lanciafiamme_m41_dassalto_fuel_tank_light"
+  item__locDetails:t=""
+  ammo_holder__templateName:t="lanciafiamme_m41_dassalto_fuel_tank_light"
+  ammo_holder__ammoCount:i=100
+  item__weight:r=6.5
+  item__volume:r=2.2
+  item__name:t="items/lanciafiamme_m41_dassalto_fuel_tank_light"
+
+  "flamethrowerFuelTank:tag"{
+  }
+}
+
 flammenwerfer_41_gun_item{
   _extends:t="item_gun"
   _extends:t="flammenwerfer_41_gun"
@@ -7942,6 +7966,12 @@ coenders_smg_beltfed_magazine{
   item__volume:r=1.0
   item__name:t="items/coenders_smg_beltfed_magazine"
   collres__res:t="mg_42_handheld_ammo_collision"
+}
+
+bsa_welgun_gun_item{
+  _extends:t="item_gun"
+  _extends:t="bsa_welgun"
+  collres__res:t="bsa_welgun_collision"
 }
 
 dp_42_beltfed_magazine{

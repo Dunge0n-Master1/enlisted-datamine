@@ -340,6 +340,13 @@ let currencyPresentation = freeze({
     icon  = "!ui/uiskin/currency/event_order.svg"
     hideIfZero = true
   }
+  italyParatroopers_event_order = {
+    order = 0
+    group = ticketGroups.temporarily_and_uniq
+    color = Color(180,180,180)
+    icon  = "!ui/uiskin/currency/event_order.svg"
+    hideIfZero = true
+  }
 
 })
 

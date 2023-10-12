@@ -742,9 +742,20 @@ stationary_hmg_hign_tripod_building_attachable{
   }
 }
 
+dead_stationary_gun_building_after_dead{
+  _extends:t="dead_stationary_gun"
+
+  "dependsOnBuildingEid:eid"{
+  }
+
+  "refundForDependsBuilding:tag"{
+  }
+}
+
 builded_stationary_mg42_with_autodetach{
   _extends:t="stationary_mg42_with_autodetach"
   _extends:t="fortification_builder_info"
+  entity__recreateToOnDeath:t="dead_stationary_gun_building_after_dead"
 
   "building__destructionAwardStat:t"{
     _tags:t="server"
@@ -855,6 +866,7 @@ builded_stationary_maxim_no_shield_with_autodetach{
   _extends:t="stationary_maxim_no_shield_with_autodetach"
   _extends:t="fortification_builder_info"
   mounted_gun__horz_limits:p2=-40.0, 40.0
+  entity__recreateToOnDeath:t="dead_stationary_gun_building_after_dead"
 
   "building__destructionAwardStat:t"{
     _tags:t="server"
@@ -956,6 +968,7 @@ builded_stationary_mg_34_with_autodetach{
   _extends:t="stationary_mg_34_with_autodetach"
   _extends:t="fortification_builder_info"
   mounted_gun__horz_limits:p2=-40.0, 40.0
+  entity__recreateToOnDeath:t="dead_stationary_gun_building_after_dead"
 
   "building__destructionAwardStat:t"{
     _tags:t="server"
@@ -1057,6 +1070,7 @@ builded_stationary_browning_m1919a4_with_autodetach{
   _extends:t="stationary_browning_m1919a4_with_autodetach"
   _extends:t="fortification_builder_info"
   mounted_gun__horz_limits:p2=-40.0, 40.0
+  entity__recreateToOnDeath:t="dead_stationary_gun_building_after_dead"
 
   "building__destructionAwardStat:t"{
     _tags:t="server"
@@ -1158,6 +1172,7 @@ builded_stationary_browning_m2_with_autodetach{
   _extends:t="stationary_browning_m2_with_autodetach"
   _extends:t="fortification_builder_info"
   mounted_gun__horz_limits:p2=-40.0, 40.0
+  entity__recreateToOnDeath:t="dead_stationary_gun_building_after_dead"
 
   "building__destructionAwardStat:t"{
     _tags:t="server"
@@ -1278,6 +1293,7 @@ builded_stationary_mg_131_with_autodetach{
   _extends:t="stationary_mg_131_with_autodetach"
   _extends:t="fortification_builder_info"
   mounted_gun__horz_limits:p2=-50.0, 50.0
+  entity__recreateToOnDeath:t="dead_stationary_gun_building_after_dead"
 
   "building__destructionAwardStat:t"{
     _tags:t="server"
@@ -1379,6 +1395,7 @@ builded_stationary_type_92_hmg_with_autodetach{
   _extends:t="stationary_type_92_hmg_with_autodetach"
   _extends:t="fortification_builder_info"
   mounted_gun__horz_limits:p2=-40.0, 40.0
+  entity__recreateToOnDeath:t="dead_stationary_gun_building_after_dead"
 
   "building__destructionAwardStat:t"{
     _tags:t="server"
@@ -1480,6 +1497,7 @@ builded_stationary_type_93_hmg_with_autodetach{
   _extends:t="stationary_type_93_hmg_with_autodetach"
   _extends:t="fortification_builder_info"
   mounted_gun__horz_limits:p2=-40.0, 40.0
+  entity__recreateToOnDeath:t="dead_stationary_gun_building_after_dead"
 
   "building__destructionAwardStat:t"{
     _tags:t="server"
@@ -1582,6 +1600,7 @@ builded_stationary_dshk_1942_with_autodetach{
   _extends:t="stationary_dshk_1942_with_autodetach"
   _extends:t="fortification_builder_info"
   mounted_gun__horz_limits:p2=-40.0, 40.0
+  entity__recreateToOnDeath:t="dead_stationary_gun_building_after_dead"
 
   "building__destructionAwardStat:t"{
     _tags:t="server"

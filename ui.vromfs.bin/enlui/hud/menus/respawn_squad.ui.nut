@@ -26,7 +26,6 @@ let { mkHotkey } = require("%ui/components/uiHotkeysHint.nut")
 let paratroopersButtonBlock = require("%ui/hud/huds/troopers_button.nut")
 let { attentionTxtColor, panelBgColor } = require("%enlSqGlob/ui/designConst.nut")
 
-
 let vehicleIconSize = hdpxi(28)
 
 let bgConfig = {
@@ -248,7 +247,7 @@ let squadRespawn = panel(@() {
         : loc($"squad/{spawnSquadId.value}")).__update(bgConfig)
       squadSpawnList
     ]
-  }
+  },
   {
     rendObj = null
     size = [SIZE_TO_CONTENT, flex()]

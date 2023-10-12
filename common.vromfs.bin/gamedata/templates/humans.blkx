@@ -1129,14 +1129,16 @@ human_swimsplash_fx{
 
 human_cam{
   human_cam__weaponOffset:p3=0.0, 0.15, 0.1
-  human_cam__standPos:p3=0.0, 1.4, 0.0
+  human_cam__standPos:p3=0.0, 1.5, 0.0
   human_cam__crouchPos:p3=0.0, 1.0, 0.0
-  human_cam__crawlPos:p3=0.8, 0.22, 0.0
+  human_cam__crawlPos:p3=0.8, 0.32, 0.0
   human_cam__downedPos:p3=0.0, 0.3, 0.0
   human_cam__leftLeanOffs:p3=0.0, 0.0, 0.2
   human_cam__rightLeanOffs:p3=0.0, 0.0, -0.2
-  human_cam__lookDownOffs:p3=0.0, -0.05, 0.0
-  human_cam__lookUpOffs:p3=0.0, 0.0, 0.0
+  human_cam__lookDownOffs:p3=0.0, -0.1, 0.0
+  human_cam__lookUpOffs:p3=0.0, 0.1, 0.0
+  human_cam__crawlLookDownOffs:p3=0.0, -0.4, 0.0
+  human_cam__crawlLookUpOffs:p3=0.0, 0.32, 0.0
   human_cam__swimPos:p3=0.8, 0.3, 0.0
   human_cam__camNodeName:t="reye"
   human_cam__camNodeId:i=-1

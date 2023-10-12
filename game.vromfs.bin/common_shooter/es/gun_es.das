@@ -81,16 +81,21 @@ def private gun_launch(var gun : Gun&;
       shellStartProps.pitch + input.zeroingAngle)
     let vel = dir * shellStartProps.speed * (1.f + _srnd(state.randSeed) * shellStartProps.speedDispersion) * input.projectileVelocityMult + input.pointVel
     var evt = [[EventShot]]
-    evt.launchDesc.shellId = ammoSetSize > 0 ? (*gun__shell_prop_ids)[ammo_set_indices[input.shellIndexInSet % ammoSetSize]] : curShellId
-    evt.launchDesc.gunPropsId = int16(input.curGunPropsId)
-    evt.launchDesc.atTime = shot_time
-    evt.launchDesc.initialLifeTime = correction_time
-    evt.launchDesc.tm = launchTm
-    evt.launchDesc.vel = vel
-    evt.launchDesc.firingMode = uint(state.firingMode)
-    evt.launchDesc.bombBayHeight = state.bombBayHeight
-    if gun_launch(evt.launchDesc, input.gunEid, input.offenderEid)
-      sendEventImmediate(input.gunEid, evt);
+    if (length_sq(launchTm[3]) < 1e10 && length_sq(vel) < 1e10)
+      evt.launchDesc.shellId = ammoSetSize > 0 ? (*gun__shell_prop_ids)[ammo_set_indices[input.shellIndexInSet % ammoSetSize]] : curShellId
+      evt.launchDesc.gunPropsId = int16(input.curGunPropsId)
+      evt.launchDesc.atTime = shot_time
+      evt.launchDesc.initialLifeTime = correction_time
+      evt.launchDesc.tm = launchTm
+      evt.launchDesc.vel = vel
+      evt.launchDesc.firingMode = uint(state.firingMode)
+      evt.launchDesc.bombBayHeight = state.bombBayHeight
+      if gun_launch(evt.launchDesc, input.gunEid, input.offenderEid)
+        sendEventImmediate(input.gunEid, evt);
+    else
+      logerr("gun_launch try to start projectile with invalid data.
+              {launchTm[3]} {vel} {dir} {shellStartProps.speed} {shellStartProps.speedDispersion}
+              {input.projectileVelocityMult} {input.pointVel}")
   return true
 
 def private gun_schedule_next_shot(var gun : Gun&; at_time : float; var rand_seed : int&)

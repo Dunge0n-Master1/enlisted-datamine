@@ -223,6 +223,7 @@ germ_panzerjager_IV_L_48_gunner_cockpit{
   "cockpit__slitZoom:array"{
 
     "slit:list<r>"{
+      zoom:r=4.5
       zoom:r=5.0
     }
   }

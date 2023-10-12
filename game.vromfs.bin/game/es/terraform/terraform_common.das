@@ -15,6 +15,7 @@ enum CanTerraformCheckResult : int
   OutOfHeightMap
   DisallowedMaterials
   NearByObjects
+  NearByBuildingPreview
 
 
 def check_material_valid_to_dig(matId : int;
@@ -91,12 +92,17 @@ def can_terraform_at_pos(terraform : TerraformComponent;
   if has_query_ri_in_radius(posWithOrigHeight, radius, query_ri_half_height, trace_handle)
     return CanTerraformCheckResult NearByObjects
 
-  var isTerraformingBlocked = false
+  var checkResult = CanTerraformCheckResult Successful
   find_entity_in_grid([[uint[] ecs_hash("vehicles")]], BSphere3(posWithOrigHeight, radius), GridEntCheck BOUNDING) <| $(eid : EntityId)
-    isTerraformingBlocked ||= has(eid, "blockTerraform")
-    return isTerraformingBlocked
+    if has(eid, "blockTerraform")
+      if has(eid, "builder_server_preview")
+        checkResult = CanTerraformCheckResult NearByBuildingPreview
+      else
+        checkResult = CanTerraformCheckResult NearByObjects
 
-  return isTerraformingBlocked ? CanTerraformCheckResult NearByObjects : CanTerraformCheckResult Successful
+    return checkResult != CanTerraformCheckResult Successful
+
+  return checkResult
 
 def clean_loot_in_radius(pos : float3; radius : float)
   let sphere = BSphere3(pos, radius)

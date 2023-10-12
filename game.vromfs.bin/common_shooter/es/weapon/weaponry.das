@@ -265,7 +265,7 @@ def launch_projectile_es(evt : CmdLaunchProjectile;
                          var human_weap__lastShotAtTime : float?)
   assume launchDesc = evt.launchDesc
   let gunEid = evt.gunEid
-  if (length_sq(launchDesc.tm[3]) < 1e10)
+  if (length_sq(launchDesc.tm[3]) < 1e10 && length_sq(launchDesc.vel) < 1e10)
     query(gunEid) <| $ [es] (gun__projectileTemplate : string;
                              gun__projectileDebugTemplate : string = "";
                              gun__projectileDebug : bool = false;
@@ -325,7 +325,7 @@ def launch_projectile_es(evt : CmdLaunchProjectile;
               init |> set("shell__shell_id__ballistics_id", int(launchDesc.shellId.ballisticsId))
               init |> set("projectile__traceRayMatId", gun__projectileRayMatId)
   else
-    logerr("invalid Launch projectile options for eid {eid}<{getEntityTemplateName(eid)}> {launchDesc.tm[3]}
+    logerr("invalid Launch projectile options for eid {eid}<{getEntityTemplateName(eid)}> {launchDesc}
             for gun {gunEid}<{getEntityTemplateName(gunEid)}>")
     destroyEntity(eid)
     return
@@ -504,7 +504,7 @@ def trace_scene_after_update_projectile_es(info : ParallelUpdateFrameDelayed;
                                              projectile_trace_info__lastIntersectedPos,
                                              projectile_trace_info__lastriDescIdx, projectilePenetrateInfo)
     else
-      logerr("invalid data in projectile info {projectile__prevPos} {projectile_ballistics.state.pos} {eid} {getEntityTemplateName(eid)} {projectile__stopped}")
+      logerr("invalid data in projectile info {projectile__prevPos} {projectile_ballistics} {eid} {getEntityTemplateName(eid)} {projectile__stopped}")
       destroyEntity(eid)
       return
 
@@ -825,12 +825,19 @@ def after_update_projectile_es(info : ParallelUpdateFrameDelayed;
 
           if (isIntersectedWithCrew || isect.eid == turretOwnerEid)
             continue
-          let hitRes = projectile_on_hit_entity(eid, isect, projectileOwnerTeam,
-                                                projectile_ballistics.state.vel, prevPos,
-                                                dir, projectile_trace_info__waterLen,
-                                                info.curTime, projectile_trace_info__prevProjectileDistance,
-                                                sortedIntersectedList,
-                                                allowDetonation, true)
+          var hitRes = ProjectileHitResult Ignore
+          if length_sq(projectile_ballistics.state.vel) < 1e10
+            hitRes = projectile_on_hit_entity(eid, isect, projectileOwnerTeam,
+                                              projectile_ballistics.state.vel, prevPos,
+                                              dir, projectile_trace_info__waterLen,
+                                              info.curTime, projectile_trace_info__prevProjectileDistance,
+                                              sortedIntersectedList,
+                                              allowDetonation, true)
+          else
+            logerr("incorrect velocity when trying hit entity projectile_ballistics -{projectile_ballistics}.
+                    launch_desc - {launch_desc}. Destroy projectile")
+            destroyEntity(eid)
+            return
           if hitRes == ProjectileHitResult Ignore
             continue
           broadcastEvent([[ProjectileOnIntersectEntityWithHp victim=isect.eid, offender=ownerEid]])

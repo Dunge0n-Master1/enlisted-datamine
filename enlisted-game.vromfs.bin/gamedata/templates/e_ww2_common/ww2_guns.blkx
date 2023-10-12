@@ -36541,6 +36541,40 @@ lanciafiamme_m35_gun{
   }
 }
 
+lanciafiamme_m41_dassalto{
+  _extends:t="flamethrower_base"
+  animchar__res:t="lanciafiamme_m41_dassalto_char"
+  gun__blk:t="content/enlisted/gamedata/weapons/lanciafiamme_m41_dassalto.blk"
+  gun__locName:t="Flamethrower"
+  item__name:t="items/lanciafiamme_m41_dassalto"
+  item__template:t="lanciafiamme_m41_dassalto_gun_item"
+  item__weapTemplate:t="lanciafiamme_m41_dassalto_gun"
+  item__proto:t="content/enlisted_pkg_dev/gamedata/weapons/lanciafiamme_m41_dassalto.blk"
+  item__locDetails:t="RoF: 600; .30-06;"
+  item__weight:r=17.0
+  gun__reloadTime:r=6.0
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="lanciafiamme_m41_dassalto_fuel_tank_light"
+  }
+}
+
+lanciafiamme_m41_dassalto_gun{
+  _extends:t="flamethrower_gun_base"
+  _extends:t="antivehicle_gun_aim_sound"
+  _extends:t="lanciafiamme_m41_dassalto"
+  flamethrower__streamEffectTemplate:t="flamethrower_flame_stream_long_effect"
+  flamethrower__maxFlameLength:r=32.0
+  flamethrower__flameCloudRadius:r=0.5
+  flamethrower__streamDamagePerSecond:r=60.0
+  meleeSoundType:t="rifle"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/misc/flamethrower"
+  }
+}
+
 flammenwerfer_41{
   _extends:t="flamethrower_base"
   animchar__res:t="flammenwerfer_41_char"
@@ -43028,6 +43062,118 @@ coenders_smg_gun{
       type:t="rest"
       recoil:r=0.7
       offset:p3=0.32, -0.16, 0.0
+    }
+  }
+}
+
+bsa_welgun{
+  _extends:t="main_weap_slots"
+  _extends:t="ironsights_open_smg"
+  animchar__res:t="bsa_welgun_char"
+  gun__blk:t="content/enlisted/gamedata/weapons/bsa_welgun.blk"
+  item__template:t="bsa_welgun_gun_item"
+  item__proto:t="content/enlisted/gamedata/weapons/bsa_welgun.blk"
+  item__locDetails:t="RoF: 600; 9x19mm;"
+  item__weapTemplate:t="bsa_welgun_gun"
+  item__name:t="items/bsa_welgun"
+  item__weapType:t="submachine_gun"
+  item__weight:r=5.2
+  gun__locName:t="Lanchester"
+  gun__statName:t="submachine_gun"
+  gun__sightsDistance:r=0.05
+  gun__shotFreq:r=8.333
+  gun_spread__maxDeltaAngle:r=0.77
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.07, 0.5
+  gun_deviation__movementRange:p2=2.1, 4.0
+  gun_deviation__movementDevInc:p2=0.0, 15.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.2
+  gun_deviation__maxDeviation:r=20.0
+  gun__reloadTime:r=2.5
+  gun__altReloadTime:r=1.8
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="sten_mk2_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons/bullets/9x19_parabellum_smg.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="automatic"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="full_auto"
+  }
+}
+
+bsa_welgun_gun{
+  _extends:t="equipable_gun"
+  _extends:t="mp_ww2_preset"
+  _extends:t="bsa_welgun"
+  _extends:t="smg_muzzle_preset"
+  _extends:t="hit_effect_group_8_12mm"
+  _extends:t="mgun_gun_aim_sound"
+  gun__standOffset:p3=0.2, 0.05, 0.15
+  gun__crouchOffset:p3=0.2, -0.07, 0.25
+  gun__length:r=0.4
+  gun__recoilAmount:r=0.052
+  gun__recoilDirAmount:r=0.8
+  gun__recoilDir:r=0.1
+  gun__visualRecoilMult:r=1.1
+  meleeSoundType:t="mgun"
+  gun__recoilControlMult:r=0.3
+  gun__recoilOffsMult:r=0.3
+  gun__rotationSpringMult:p3=1.0, 3.7, 3.7
+  gun__rotInertia:p3=0.1, 2.0, 2.0
+  gun_anim_var__fpsGunOffsetAlong:r=0.13
+  gun_anim_var__fpsGunOffsetAcross:r=0.045
+  gun_anim_var__fpsGunOffsetUp:r=-0.03
+
+  _group{
+    _tags:t="sound"
+    gun_sound__forceOneshot:b=yes
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/mgun/mp18"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload1:object"{
+      path:t="/weapon/mgun/sten_mk2/reload1/change_ammo"
+    }
+
+    "reload2:object"{
+      path:t="/weapon/mgun/sten_mk2/reload2/change_ammo"
+    }
+
+    "reload3:object"{
+      path:t="/weapon/mgun/sten_mk2/reload3/change_ammo"
+    }
+  }
+
+  "gun__mountPoints:shared:array"{
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.65
+      offset:p3=0.4, -0.01, 0.0
     }
   }
 }

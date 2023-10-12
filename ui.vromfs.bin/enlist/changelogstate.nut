@@ -62,7 +62,7 @@ let chosenPatchnoteTitle = nestWatched("chosenPatchnoteTitle", "")
 let patchnotesReceived = nestWatched("patchnotesReceived", false)
 let versions = nestWatched("versions", [])
 
-const maxVersionsAmount = 10
+const MAX_TAB_INDEX = 7
 
 // FIXME legacy block should be removed after next major update
 // >>> LEGACY
@@ -117,20 +117,20 @@ let function mkVersion(v){
   }
 }
 
-let function filterVersions(vers){
+let function filterVersions(vers) {
   let res = []
   local foundMajor = false
-  foreach (idx, version in vers){
-    if (idx >= maxVersionsAmount && foundMajor)
+  foreach (idx, version in vers) {
+    if (idx >= MAX_TAB_INDEX && foundMajor)
       break
     else if (maxVersionInt.value > 0 && maxVersionInt.value < version.iVersion) {
       continue
     }
     else if (version.versionType=="major"){
       res.append(version)
-      foundMajor=true
+      foundMajor = true
     }
-    else if (idx < maxVersionsAmount && !foundMajor){
+    else if (idx < MAX_TAB_INDEX && !foundMajor){
       res.append(version)
     }
   }

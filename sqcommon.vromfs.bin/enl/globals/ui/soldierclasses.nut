@@ -996,6 +996,12 @@ let soldierClasses = freeze({
     rank = 10
     kind = "paratrooper"
   }.__update(eventCfg)
+  paratrooper_2_event_2 = {
+    locId = "soldierClass/paratrooper"
+    getGlyph = @(_) null
+    sClass = "paratrooper"
+    kind = "paratrooper"
+  }.__update(eventCfg)
 })
 
 const GLYPHS_TAG = "t"

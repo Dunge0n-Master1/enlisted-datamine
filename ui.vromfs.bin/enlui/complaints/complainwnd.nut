@@ -81,6 +81,8 @@ let function complainWnd(sessionId, userId, name) {
     : null)
 
   let trySubmit = function() {
+    set_kb_focus(null)
+
     if (cantSubmitReason.value != null) {
       msgbox.show({ text = cantSubmitReason.value })
       return

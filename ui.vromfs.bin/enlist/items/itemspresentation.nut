@@ -1219,6 +1219,28 @@ let rewardsPresentation = {
     cardImage = "!ui/skin#/battlepass/silver_weapons.avif"
     mkImage = mkImageCtor([170, 170], [0, 17])
   },
+  ["458"] = {
+    name = loc("squad/squad_uk_paratrooper_2_event_2")
+    description = loc("squadannounce/squad_uk_paratrooper_2_event_2")
+    icon = "ui/skin#/research/squad_points_icon.svg"
+    cardImage = "!ui/soldiers/usa/squad_uk_paratrooper_2_event_2_image.avif"
+    mkImage = mkImageCtor([300, 225], [0, 0])
+  },
+  ["459"] = {
+    name = loc("squad/squad_it_paratrooper_2_event_2")
+    description = loc("squadannounce/squad_it_paratrooper_2_event_2")
+    icon = "ui/skin#/research/squad_points_icon.svg"
+    cardImage = "!ui/soldiers/germany/squad_it_paratrooper_2_event_2_image.avif"
+    mkImage = mkImageCtor([300, 225], [0, 0])
+  },
+  ["460"] = {
+    name = loc("items/italyParatroopers_event_order")
+    description = loc("items/italyParatroopers_event_order/desc")
+    icon = "ui/skin#/currency/event_order.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.avif"
+    cardImage = "!ui/skin#/currency/event_order.svg"
+    mkImage = mkImageCtor([72, 100])
+  },
 
 
 

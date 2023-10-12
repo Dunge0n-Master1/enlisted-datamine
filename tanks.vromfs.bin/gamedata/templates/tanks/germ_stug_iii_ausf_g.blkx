@@ -239,6 +239,7 @@ germ_stug_III_ausf_G_gunner_cockpit{
   "cockpit__slitZoom:array"{
 
     "slit:list<r>"{
+      zoom:r=4.5
       zoom:r=5.0
     }
   }

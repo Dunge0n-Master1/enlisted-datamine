@@ -228,6 +228,7 @@ germ_jagdpanther_gunner_cockpit{
   "cockpit__slitZoom:array"{
 
     "slit:list<r>"{
+      zoom:r=4.5
       zoom:r=5.0
     }
   }

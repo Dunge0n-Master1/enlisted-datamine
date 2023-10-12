@@ -10,10 +10,11 @@ def turret_recoil_init_es(evt : Event;
                           turret__id : int;
                           var turret_recoil__duration : float&)
   query(turret__owner) <| $ [es] ([[shared_comp]] turret_control__turretInfo : Array)
-    let turretObj = get_ecs_object(turret_control__turretInfo, turret__id)
-    if turretObj == null
-      return
-    turret_recoil__duration = get_float(*turretObj, "gunRecoilDuration") ?? 0.5f
+    if turret__id < length(turret_control__turretInfo)
+      let turretObj = get_ecs_object(turret_control__turretInfo, turret__id)
+      if turretObj == null
+        return
+      turret_recoil__duration = get_float(*turretObj, "gunRecoilDuration") ?? 0.5f
 
 [es(tag=gameClient, REQUIRE_NOT=deadEntity)]
 def turret_recoil_move_barrel_es(info : ParallelUpdateFrameDelayed; turret_control__gunEids : EidList; var phys_vars : PhysVars)

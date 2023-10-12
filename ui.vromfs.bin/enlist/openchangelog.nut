@@ -15,6 +15,12 @@ let {chosenPatchnote, curPatchnoteIdx, nextPatchNote, prevPatchNote, updateVersi
 } = require("changeLogState.nut")
 let { transpPanelBgColor } = require("%enlSqGlob/ui/designConst.nut")
 
+let btnStyle = {
+  size = [flex(), SIZE_TO_CONTENT]
+  textMargin = hdpx(11)
+  margin = 0
+}
+
 let close = function() {
   markLastSeen()
   isOpened(false)
@@ -22,8 +28,10 @@ let close = function() {
 let open = @() isOpened(true)
 
 let gap = hdpx(10)
-let btnNext  = textButton(loc("shop/nextItem"), nextPatchNote, {hotkeys=[[$"^J:Y | Enter"]], margin=0})
-let btnClose = textButton(loc("mainmenu/btnClose"), close, {hotkeys=[[$"^{JB.B} | Esc"]], margin=0})
+let btnNext  = textButton(loc("shop/nextItem"), nextPatchNote,
+  btnStyle.__merge({hotkeys = [["Enter"]]}))
+let btnClose = textButton(loc("mainmenu/btnClose"), close,
+  btnStyle.__merge({hotkeys=[[$"^{JB.B} | Esc"]]}))
 let closeBtn = fontIconButton("close", {
   skipDirPadNav = true
   onClick = close
@@ -33,6 +41,7 @@ let closeBtn = fontIconButton("close", {
 
 let nextButton = @() {
   size = SIZE_TO_CONTENT
+  minWidth = hdpxi(155)
   children = curPatchnoteIdx.value != 0 ? btnNext : btnClose
   watch = curPatchnoteIdx
   hplace = ALIGN_RIGHT
@@ -77,11 +86,11 @@ let changelogRoot = {
         closeBtn
         currentPatchnote
         @() {
+          watch = isGamepad
           size = [flex(), SIZE_TO_CONTENT]
           flow = FLOW_HORIZONTAL
           gap = gap
           valign = ALIGN_CENTER
-          watch = isGamepad
           children = [
             patchnoteSelector
             isGamepad.value ? null : nextButton

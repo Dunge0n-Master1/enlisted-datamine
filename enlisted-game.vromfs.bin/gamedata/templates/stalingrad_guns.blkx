@@ -1849,6 +1849,7 @@ sandbags_wall_ampulomet{
 builded_stationary_ampulomet_with_autodetach{
   _extends:t="stationary_ampulomet_with_autodetach"
   _extends:t="fortification_builder_info"
+  entity__recreateToOnDeath:t="dead_stationary_gun_building_after_dead"
 
   "building__destructionAwardStat:t"{
     _tags:t="server"
@@ -1950,6 +1951,7 @@ builded_stationary_maxim_with_autodetach{
   _extends:t="stationary_maxim_with_autodetach"
   _extends:t="fortification_builder_info"
   mounted_gun__horz_limits:p2=-30.0, 30.0
+  entity__recreateToOnDeath:t="dead_stationary_gun_building_after_dead"
 
   "building__destructionAwardStat:t"{
     _tags:t="server"

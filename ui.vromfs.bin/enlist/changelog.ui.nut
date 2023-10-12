@@ -11,9 +11,10 @@ let { curPatchnote, chosenPatchnoteContent, selectPatchnote,
   chosenPatchnoteTitle, chosenPatchnoteLoaded, versions, patchnotesReceived, extNewsUrl
 } = require("changeLogState.nut")
 let spinner = require("%ui/components/spinner.nut")
-let { smallPadding, midPadding, titleTxtColor, defTxtColor, transpBgColor, weakTxtColor,
+let { smallPadding, titleTxtColor, defTxtColor, transpBgColor, weakTxtColor,
   accentColor, hoverSlotBgColor, darkTxtColor, fullTransparentBgColor, selectedPanelBgColor
 } = require("%enlSqGlob/ui/designConst.nut")
+let {isGamepad} = require("%ui/control/active_controls.nut")
 
 let waitingSpinner = spinner()
 
@@ -43,14 +44,14 @@ let function mkVersionTab(v) {
     borderColor = accentColor
     onClick = @() onTabClicked(v)
     skipDirPadNav = false // TODO disable in future to support consistent behavior with top menu
+    maxWidth = hdpx(200)
     children = {
       rendObj = ROBJ_TEXTAREA
       size = [flex(), SIZE_TO_CONTENT]
-      maxWidth = hdpx(150)
+      maxWidth = hdpx(200)
       group
-      behavior = [Behaviors.TextArea]
+      behavior = Behaviors.TextArea
       halign = ALIGN_CENTER
-      margin = [0, midPadding]
       color = sf & S_HOVER ? darkTxtColor
         : isCurrent.value ? titleTxtColor
         : defTxtColor
@@ -63,8 +64,10 @@ let missedPatchnoteText = formatText([loc("NoUpdateInfo", "Oops... No informatio
 let isVersionsExists = Computed(@() versions.value.len() > 0)
 
 let patchnoteSelector = @() {
+  watch = [versions, patchnotesReceived, isVersionsExists, isGamepad]
   size = [flex(), fsh(6)]
   flow = FLOW_HORIZONTAL
+  halign = isGamepad.value ? ALIGN_CENTER : ALIGN_LEFT
   onAttach = function(){
     if (patchnotesReceived.value && curPatchnote.value!=null)
       selectPatchnote(curPatchnote.value)
@@ -72,7 +75,6 @@ let patchnoteSelector = @() {
   children = patchnotesReceived.value && isVersionsExists.value
     ? (clone versions.value).reverse().map(mkVersionTab)
     : missedPatchnoteText
-  watch = [versions, patchnotesReceived, isVersionsExists]
 }
 
 let seeMoreUrl = {
@@ -119,7 +121,7 @@ let function currentPatchnote(){
           }].append(formatText(text))
         : patchnoteLoading
     }, { scrollHandler })
-    size = [sw(80), sh(75)]
+    size = [sw(55), sh(75)]
   }
 }
 

@@ -59,6 +59,7 @@ ussr_tsh_15{
   vehicle_sight__useGunDir:b=yes
 
   "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=3.5
     zoom:r=4.0
   }
 }
@@ -69,6 +70,7 @@ ussr_tsh_16{
   vehicle_sight__useGunDir:b=yes
 
   "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=3.5
     zoom:r=4.0
   }
 }
@@ -79,6 +81,7 @@ ussr_tsh_17{
   vehicle_sight__useGunDir:b=yes
 
   "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=3.5
     zoom:r=4.0
   }
 }
@@ -89,6 +92,7 @@ ussr_tsh_19{
   vehicle_sight__useGunDir:b=yes
 
   "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=3.5
     zoom:r=4.0
   }
 }
@@ -352,8 +356,8 @@ germ_sfl_zf_1a{
   vehicle_sight__useGunDir:b=yes
 
   "vehicle_sight__slitZoom:list<r>"{
-    zoom:r=1.9
     zoom:r=3.5
+    zoom:r=4.0
   }
 }
 

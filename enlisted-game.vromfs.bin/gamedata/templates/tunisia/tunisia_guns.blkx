@@ -2669,6 +2669,122 @@ tz_45_gun{
   }
 }
 
+og_43{
+  _extends:t="main_weap_slots"
+  _extends:t="ironsights_open_smg"
+  animchar__res:t="og_43_char"
+  gun__blk:t="content/enlisted/gamedata/weapons/og_43.blk"
+  item__template:t="og_43_gun_item"
+  item__proto:t="content/enlisted/gamedata/weapons/og_43.blk"
+  item__locDetails:t="RoF: 500; 9x19mm;"
+  item__weapTemplate:t="og_43_gun"
+  item__name:t="items/og_43"
+  item__weapType:t="submachine_gun"
+  item__weight:r=3.0
+  gun__locName:t="OG-43"
+  gun__statName:t="submachine_gun"
+  gun__shotFreq:r=8.33
+  gun_spread__maxDeltaAngle:r=0.72
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.07, 0.5
+  gun_deviation__movementRange:p2=2.1, 4.0
+  gun_deviation__movementDevInc:p2=0.0, 5.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.05
+  gun_deviation__extraDeviationTau:r=0.12
+  gun_deviation__maxDeviation:r=15.0
+  gun__reloadTime:r=2.6
+  gun__altReloadTime:r=2.1
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="og_43_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons/bullets/9x19_parabellum_smg.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="automatic"
+    }
+
+    "mode:object"{
+      modeType:t="burst"
+      burstSize:i=1
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="full_auto"
+    mode:t="semi_auto"
+  }
+}
+
+og_43_gun{
+  _extends:t="equipable_gun"
+  _extends:t="mp_ww2_preset"
+  _extends:t="og_43"
+  _extends:t="smg_muzzle_break_preset"
+  _extends:t="hit_effect_group_8_12mm"
+  _extends:t="gun_switch_firing_mode_sound"
+  _extends:t="rifle_gun_aim_sound"
+  gun__standOffset:p3=0.2, 0.05, 0.15
+  gun__crouchOffset:p3=0.2, -0.07, 0.25
+  gun__length:r=0.4
+  gun__recoilAmount:r=0.032
+  gun__recoilControlMult:r=0.3
+  gun__recoilDirAmount:r=0.75
+  gun__recoilDir:r=0.0
+  gun__visualRecoilMult:r=1.6
+  gun__crawlRecoilMult:r=0.8
+  meleeSoundType:t="mgun"
+  gun_anim_var__fpsGunOffsetAlong:r=0.11
+  gun_anim_var__fpsGunOffsetAcross:r=-0.01
+  gun_anim_var__fpsGunOffsetUp:r=0.09
+
+  _group{
+    _tags:t="sound"
+    gun_sound__forceOneshot:b=yes
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/mgun/m38"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload1:object"{
+      path:t="/weapon/mgun/m38/reload1/change_ammo"
+    }
+
+    "reload2:object"{
+      path:t="/weapon/mgun/m38/reload2/change_ammo"
+    }
+
+    "reload3:object"{
+      path:t="/weapon/mgun/m38/reload3/change_ammo"
+    }
+  }
+
+  "gun__mountPoints:shared:array"{
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.5
+      offset:p3=0.07, -0.155, -0.012
+    }
+  }
+}
+
 thompson_m1921_28_box{
   _extends:t="main_weap_slots"
   _extends:t="ironsights_open_smg"

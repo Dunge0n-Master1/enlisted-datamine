@@ -25,8 +25,8 @@ ecs.register_es("on_event_dig_es",
 )
 
 let cannotDigAtPosTip = @(last_dig_result) tipCmp({
-  text = loc(last_dig_result == CanTerraformCheckResult.NearByObjects
-             ? "hint/cannotDigAtPosNearByObjects"
+  text = loc(last_dig_result == CanTerraformCheckResult.NearByObjects ? "hint/cannotDigAtPosNearByObjects" :
+             last_dig_result == CanTerraformCheckResult.NearByBuildingPreview ? "hint/cannotDigAtPosNearByBuildingPreview"
              : "hint/cannotDigAtPos")
 }.__update(fontBody))
 

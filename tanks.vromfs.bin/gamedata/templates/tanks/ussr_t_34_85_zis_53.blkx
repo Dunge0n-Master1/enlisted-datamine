@@ -152,7 +152,7 @@ ussr_t_34_85_zis_53_gunner_cockpit{
   }
 
   "cockpit__slitForwardOffset:list<r>"{
-    slit:r=0.22
+    slit:r=0.19
     slit:r=0.19
   }
 
@@ -174,6 +174,7 @@ ussr_t_34_85_zis_53_gunner_cockpit{
   "cockpit__slitZoom:array"{
 
     "slit:list<r>"{
+      zoom:r=3.5
       zoom:r=4.0
     }
 
