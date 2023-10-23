@@ -160,6 +160,12 @@ rd_44_gun_item{
   collres__res:t="rd_44_collision"
 }
 
+gorov_mg_gun_item{
+  _extends:t="item_gun"
+  _extends:t="gorov_mg"
+  collres__res:t="gorov_machine_gun_collision"
+}
+
 rd_44_magazine{
   _extends:t="item_magazine"
   animchar__res:t="rd_44_ammo_char"
@@ -1411,6 +1417,26 @@ tk_magazine{
   item__weight:r=0.2
   item__volume:r=0.1
   item__name:t="items/tk_magazine"
+  collres__res:t="p38_walther_ammo_collision"
+}
+
+voevodin_pistol_gun_item{
+  _extends:t="item_gun"
+  _extends:t="voevodin_pistol"
+  collres__res:t="voevodin_pistol_collision"
+}
+
+voevodin_pistol_magazine{
+  _extends:t="item_magazine"
+  animchar__res:t="p38_walther_ammo_char"
+  item__template:t="voevodin_pistol_magazine"
+  item__proto:t="voevodin_pistol_magazine"
+  item__locDetails:t=""
+  ammo_holder__templateName:t="voevodin_pistol_magazine"
+  ammo_holder__ammoCount:i=18
+  item__weight:r=0.4
+  item__volume:r=0.15
+  item__name:t="items/voevodin_pistol_magazine"
   collres__res:t="p38_walther_ammo_collision"
 }
 
@@ -6971,6 +6997,26 @@ m1e5_garand_gun_item{
   collres__res:t="m1e5_garand_collision"
 }
 
+t20_rifle_gun_item{
+  _extends:t="item_gun"
+  _extends:t="t20_rifle"
+  collres__res:t="t20_rifle_collision"
+}
+
+t20_rifle_magazine{
+  _extends:t="item_magazine"
+  animchar__res:t="browning_m1918_ammo_char"
+  item__template:t="t20_rifle_magazine"
+  item__proto:t="t20_rifle_magazine"
+  item__locDetails:t=""
+  ammo_holder__templateName:t="t20_rifle_magazine"
+  ammo_holder__ammoCount:i=20
+  item__weight:r=0.5
+  item__volume:r=0.35
+  item__name:t="items/t20_rifle_magazine"
+  collres__res:t="browning_m1918_ammo_collision"
+}
+
 two_inch_mortar_gun_item{
   _extends:t="item_gun"
   _extends:t="two_inch_mortar_gun"
@@ -7553,6 +7599,12 @@ type_hei_rifle_extended_magazine{
   item__volume:r=0.2
   item__name:t="items/type_hei_rifle_extended_magazine"
   collres__res:t="browning_m1918_ammo_collision"
+}
+
+type_hei_rifle_late_gun_item{
+  _extends:t="item_gun"
+  _extends:t="type_hei_rifle_late"
+  collres__res:t="type_hei_rifle_late_collision"
 }
 
 type_ko_rifle_gun_item{

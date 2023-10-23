@@ -214,7 +214,9 @@ let function selectSlot(dir) {
   let availableSlotTypes = equipSlotTbl
     .keys()
     .filter(@(sType) sType in equipScheme
-      && !equipScheme[sType]?.isDisabled && !lockedSlotList.contains(sType))
+      && !equipScheme[sType]?.isDisabled
+      && !equipScheme[sType]?.isLocked
+      && !lockedSlotList.contains(sType))
     .sort(@(a, b)
       (equipScheme[a]?.uiOrder ?? 0) <=> (equipScheme[b]?.uiOrder ?? 0)) //warning disable: -unwanted-modification
 

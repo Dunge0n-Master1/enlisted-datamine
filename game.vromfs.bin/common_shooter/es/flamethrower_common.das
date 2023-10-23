@@ -268,7 +268,7 @@ struct FlameTraceResult
   norm : float3
   len : float
 
-def private do_sphere_trace(start, dir : float3; trace_len, radius : float; num_traces : int)
+def private do_sphere_trace(start, dir : float3; trace_len, radius : float; num_traces : int; rayMatId : int)
   var res : FlameTraceResult
   var transform : float3x4
   identity(transform)
@@ -285,7 +285,9 @@ def private do_sphere_trace(start, dir : float3; trace_len, radius : float; num_
     let from = start + rotate(transform, float3(0., cos(TWOPI * invNumCasts * float(i)), sin(TWOPI * invNumCasts * float(i)))) * radius
     var norm : float3
     var outT = trace_len
-    if traceray_normalized(from, dir, outT, norm)
+    var pmid : int
+    var riDesc = RendInstDesc()
+    if traceray_normalized(from, dir, outT, pmid, norm, ETF_DEFAULT, riDesc, rayMatId)
       if outT < minT
         minT = outT
         res.pos = from + dir * outT
@@ -295,16 +297,17 @@ def private do_sphere_trace(start, dir : float3; trace_len, radius : float; num_
 
   return res
 
-def private do_trace(start, dir : float3; trace_len, radius, min_radius_sphere_cast : float; sphere_cast_num_traces : int)
+def private do_trace(start, dir : float3; trace_len, radius, min_radius_sphere_cast : float; sphere_cast_num_traces : int; rayMatId : int)
   var res : FlameTraceResult
   res.len = trace_len
   res.pos = start + dir * trace_len
-
-  if traceray_normalized(start, dir, res.len, res.norm)
+  var pmid : int
+  var riDesc = RendInstDesc()
+  if traceray_normalized(start, dir, res.len, pmid, res.norm, ETF_DEFAULT, riDesc, rayMatId)
     res.pos = start + dir * res.len
     res.hit = true
   if radius >= min_radius_sphere_cast
-    let sphereResult = do_sphere_trace(start, dir, res.len, radius, sphere_cast_num_traces)
+    let sphereResult = do_sphere_trace(start, dir, res.len, radius, sphere_cast_num_traces, rayMatId)
     if sphereResult.hit
       return sphereResult
   return res
@@ -329,7 +332,8 @@ def shoot_fire(dt : float;
                var flamethrower__hitAnything : bool?;
                excludeDamageEid = INVALID_ENTITY_ID;
                flamethrower__minRadiusForSphereCast : float = 0.011;
-               flamethrower__numTracesSphereCast : int = 5)
+               flamethrower__numTracesSphereCast : int = 5;
+               gun__projectileRayMatId : int = -1)
   flamethrower__flameCurrentLength = clamp(flamethrower__flameCurrentLength + flamethrower__flameSpeed * dt, 0.0, flamethrower__maxFlameLength)
   if flamethrower__hitAnything != null
     *flamethrower__hitAnything = false
@@ -342,7 +346,7 @@ def shoot_fire(dt : float;
     let fireCloudStart = start + gunDir * flamethrower__cloudStartOffset
     apply_fire_cloud_damage(fireCloudStart, gunDir, max(0.0, flamethrower__flameCurrentLength - cloud_radius), cloud_radius, damage)
 
-  let out = do_trace(start, gunDir, flamethrower__flameCurrentLength, radius, flamethrower__minRadiusForSphereCast, flamethrower__numTracesSphereCast)
+  let out = do_trace(start, gunDir, flamethrower__flameCurrentLength, radius, flamethrower__minRadiusForSphereCast, flamethrower__numTracesSphereCast, gun__projectileRayMatId)
 
   flamethrower__flameCurrentLength = out.len
 

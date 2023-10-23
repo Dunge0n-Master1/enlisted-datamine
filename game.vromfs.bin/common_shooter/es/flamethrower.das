@@ -17,6 +17,7 @@ def flamethrower_phys(evt : CmdWeapPhysUpdate;
                       var flamethrower__hitAnything : bool?;
                       gun__owner : EntityId;
                       gun__propsId : int = -1;
+                      gun__projectileRayMatId : int = -1;
                       gun__isOverheat : bool = false;
                       flamethrower__fireTemplate : string;
                       flamethrower__flameStreamRadius : float;
@@ -73,7 +74,7 @@ def flamethrower_phys(evt : CmdWeapPhysUpdate;
                  flamethrower__maxFlameLength, flamethrower__flameSpeed,
                  dropletsSpread, flamethrower__addFullForceTimePerSec, flamethrower__maxFiresToReignite,
                  flamethrower__flameCurrentLength, flamethrower__hitAnything, gun__owner,
-                 flamethrower__minRadiusForSphereCast, flamethrower__numTracesSphereCast)
+                 flamethrower__minRadiusForSphereCast, flamethrower__numTracesSphereCast, gun__projectileRayMatId)
 
   flamethrower__active = evt.gctrl.shoot && canShoot
   using() <| $(var gctrl : GunControls#)

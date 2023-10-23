@@ -472,7 +472,7 @@ gunsound_75mm_kwk44{
 }
 
 gunsound_75mm_pak39_l48{
-  _extends:t="gunsound_76mm_pak36_r"
+  _extends:t="gunsound_75mm_kwk40_l48"
 }
 
 gunsound_75mm_pak40_3_l46{

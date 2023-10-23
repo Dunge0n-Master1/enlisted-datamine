@@ -284,6 +284,11 @@ let respawnBlockedReason = Computed(function() {
   return {}
 })
 
+let respawnSelectedEid = Computed(@() spawnZonesState.value.findindex(@(zone)
+  localPlayerTeam.value == zone.forTeam &&
+  canUseRespawnbaseByType.value == zone.iconType &&
+  (selectedRespawnGroupId.value?[zone.iconType] ?? -1) == zone.selectedGroup) ?? ecs.INVALID_ENTITY_ID)
+
 let canSpawnCurrentSoldier = Computed(@() soldiersList.value?[curSoldierIdx.value]?.canSpawn ?? true)
 let canSpawnCurrentSquadAndSoldier = Computed(@() (curSquadData.value?.canSpawn ?? false) && canSpawnCurrentSoldier.value)
 let canSpawnCurrent = Computed(@() !respawnBlockedReason.value?.reason && canSpawnCurrentSquadAndSoldier.value)
@@ -501,6 +506,7 @@ let state = {
   curSoldierIdx
   spawnScore
   respawnBlockedReason
+  respawnSelectedEid
   // functions
   updateSpawnSquadId
   requestRespawnToEntity

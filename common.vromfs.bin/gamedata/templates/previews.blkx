@@ -33,9 +33,9 @@ base_builder_preview{
   additionalYawRotation:r=0.0
   _tracked:t="additionalYawRotation"
   building_inclination_angle__gridWidth:i=2
-  building_inclination_angle__terraformedAvailableAnglesMult:r=3.0
+  building_inclination_angle__terraformedAvailableAnglesMult:r=2.0
   building_inclination_angle__modifiedHeightEpsilon:r=0.1
-  building_inclination_angle__maxAllowedHeightDelta:r=0.6
+  building_inclination_angle__maxAllowedHeightDelta:r=1.0
 
   "build_attach__riexHandle:u64"{
     value:i64=-1

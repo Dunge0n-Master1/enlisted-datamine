@@ -239,6 +239,46 @@ scotti_model_x_gun_item{
   collres__res:t="scotti_model_x_collision"
 }
 
+breda_m1935_pg_gun_item{
+  _extends:t="item_gun"
+  _extends:t="breda_m1935_pg"
+  collres__res:t="breda_m1935_pg_collision"
+}
+
+breda_m1935_pg_magazine{
+  _extends:t="item_magazine"
+  animchar__res:t="stg_44_ammo_char"
+  item__template:t="breda_m1935_pg_magazine"
+  item__proto:t="breda_m1935_pg_magazine"
+  item__locDetails:t=""
+  ammo_holder__templateName:t="breda_m1935_pg_magazine"
+  ammo_holder__ammoCount:i=20
+  item__weight:r=0.5
+  item__volume:r=0.35
+  item__name:t="items/breda_m1935_pg_magazine"
+  collres__res:t="stg_44_ammo_collision"
+}
+
+breda_m1935_pg_carcano_gun_item{
+  _extends:t="item_gun"
+  _extends:t="breda_m1935_pg_carcano"
+  collres__res:t="breda_m1935_pg_carcano_collision"
+}
+
+breda_m1935_pg_carcano_magazine{
+  _extends:t="item_magazine"
+  animchar__res:t="stg_44_ammo_char"
+  item__template:t="breda_m1935_pg_carcano_magazine"
+  item__proto:t="breda_m1935_pg_carcano_magazine"
+  item__locDetails:t=""
+  ammo_holder__templateName:t="breda_m1935_pg_carcano_magazine"
+  ammo_holder__ammoCount:i=20
+  item__weight:r=0.5
+  item__volume:r=0.35
+  item__name:t="items/breda_m1935_pg_carcano_magazine"
+  collres__res:t="stg_44_ammo_collision"
+}
+
 beretta_m1918_30_gun_item{
   _extends:t="item_gun"
   _extends:t="beretta_m1918_30"

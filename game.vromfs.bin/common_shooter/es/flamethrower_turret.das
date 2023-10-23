@@ -22,6 +22,7 @@ def flamethrower_turret_phys(evt : CmdGunUpdate;
                              gun__owner : EntityId;
                              turret__owner : EntityId;
                              gun__propsId : int = -1;
+                             gun__projectileRayMatId : int = -1;
                              flamethrower__fireTemplate : string;
                              flamethrower__flameStreamRadius : float;
                              flamethrower__flameCloudRadius : float;
@@ -78,7 +79,7 @@ def flamethrower_turret_phys(evt : CmdGunUpdate;
                    flamethrower__maxFlameLength, flamethrower__flameSpeed,
                    dropletsSpread, flamethrower__addFullForceTimePerSec, flamethrower__maxFiresToReignite,
                    flamethrower__flameCurrentLength, flamethrower__hitAnything, turret__owner,
-                   flamethrower__minRadiusForSphereCast, flamethrower__numTracesSphereCast)
+                   flamethrower__minRadiusForSphereCast, flamethrower__numTracesSphereCast, gun__projectileRayMatId)
     flamethrower__active = evt.gctrl.shoot && canShoot
 
 [es(tag=server, track=gun__owner)]

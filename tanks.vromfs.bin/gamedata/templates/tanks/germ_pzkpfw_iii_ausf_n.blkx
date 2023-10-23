@@ -19,6 +19,25 @@ germ_pzkpfw_III_ausf_N_tunis_premium{
   }
 }
 
+germ_pzkpfw_III_ausf_N_rgt_1_kursk_battlepass_premium{
+  _extends:t="germ_pzkpfw_III_ausf_N_common"
+
+  "animchar__objTexReplace:object"{
+    "ger_camo_dunkelgelb*":t="ger_camo_dots*"
+  }
+
+  "animchar__objTexSet:object"{
+
+    "pzkpfw_iii_ausf_m_addarmor_c*:object"{
+      "pzkpfw_iii_ausf_m_rgt_1_kursk_addarmor_c*":t="camo_skin_tex"
+    }
+
+    "pzkpfw_iii_ausf_m_body_c*:object"{
+      "pzkpfw_iii_ausf_m_rgt_1_kursk_body_c*":t="camo_skin_tex"
+    }
+  }
+}
+
 germ_pzkpfw_III_ausf_N_stalingrad{
   _extends:t="germ_pzkpfw_III_ausf_N_common"
 

@@ -261,6 +261,15 @@ local portraits = {
   armory2_bonus_portrait_ger = {
     icon = "ui/portraits/event/armory2_bonus_portrait_ger.avif"
   }
+  battlepass_11_portrait = {
+    icon = "ui/portraits/event/battlepass_11_portrait.avif"
+  }
+  armory3_bonus_portrait_italy = {
+    icon = "ui/portraits/event/armory3_bonus_portrait_italy.avif"
+  }
+  armory3_bonus_portrait_britain = {
+    icon = "ui/portraits/event/armory3_bonus_portrait_britain.avif"
+  }
 
 
   common_china_portrait_1 = {

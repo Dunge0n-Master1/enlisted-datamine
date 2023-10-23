@@ -1703,6 +1703,249 @@ scotti_model_x_gun{
   }
 }
 
+breda_m1935_pg{
+  _extends:t="main_weap_slots"
+  _extends:t="ironsights_open_semiauto"
+  animchar__res:t="breda_m1935_pg_char"
+  gun__blk:t="content/enlisted/gamedata/weapons/breda_m1935_pg.blk"
+  item__template:t="breda_m1935_pg_gun_item"
+  item__proto:t="content/enlisted/gamedata/weapons/breda_m1935_pg.blk"
+  item__locDetails:t="7x57 Mauser"
+  item__weapTemplate:t="breda_m1935_pg_gun"
+  item__name:t="items/breda_m1935_pg"
+  item__weapType:t="semiauto"
+  item__weight:r=5.2
+  gun__locName:t="Breda PG"
+  gun__statName:t="semiauto"
+  gun__sightsDistance:r=0.05
+  gun__shotFreq:r=5.333
+  gun__boltFreq:r=10.0
+  gun__automaticReload:b=no
+  gun_spread__maxDeltaAngle:r=0.34
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.1, 0.6
+  gun_deviation__movementRange:p2=2.1, 4.0
+  gun_deviation__movementDevInc:p2=0.0, 15.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.15
+  gun_deviation__maxDeviation:r=30.0
+  gun__reloadTime:r=2.5
+  gun__altReloadTime:r=2.2
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="breda_m1935_pg_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons/bullets/7x57_mauser_semiauto.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="burst"
+      burstSize:i=4
+      shotFreqMult:r=0.53
+    }
+
+    "mode:object"{
+      modeType:t="burst"
+      burstSize:i=1
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="semi_auto_4_shots"
+    mode:t="semi_auto"
+  }
+}
+
+breda_m1935_pg_gun{
+  _extends:t="equipable_gun"
+  _extends:t="semiauto_ww2_preset"
+  _extends:t="breda_m1935_pg"
+  _extends:t="assault_rifle_rapid_muzzle_preset"
+  _extends:t="hit_effect_group_12_14mm"
+  _extends:t="rifle_gun_aim_sound"
+  _extends:t="visual_magazine_fullness"
+  gun_shell_ejection__timeMult:r=0.35
+  gun__standOffset:p3=0.2, 0.05, 0.15
+  gun__crouchOffset:p3=0.2, -0.07, 0.25
+  gun__length:r=0.4
+  gun__recoilAmount:r=0.094
+  gun__recoilDirAmount:r=0.73
+  gun__recoilDir:r=0.35
+  gun__visualRecoilMult:r=1.3
+  gun_attach__slot:t="weapon"
+  gun__adsSpeedMult:r=0.7
+  meleeSoundType:t="rifle"
+  gun__recoilControlMult:r=0.25
+  gun__recoilOffsMult:r=0.3
+  gun_anim_var__fpsGunOffsetAlong:r=0.06
+  gun_anim_var__fpsGunOffsetAcross:r=0.035
+  gun_anim_var__fpsGunOffsetUp:r=0.02
+
+  "anim_irq__eventNames:object"{
+
+    "newMagazineShown:object"{
+      irqName:t="ammo_refresh"
+      irqId:i=-1
+    }
+  }
+
+  anim_irq_to_event_converter{
+  }
+
+  _group{
+    _tags:t="sound"
+    gun_sound__forceOneshot:b=yes
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/rifle/breda_m1935_pg"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload:object"{
+      path:t="/weapon/rifle/breda_m1935_pg/reload"
+    }
+
+    "reload_alt:object"{
+      path:t="/weapon/rifle/breda_m1935_pg/reload_alt"
+    }
+  }
+
+  "gun__mountPoints:shared:array"{
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.65
+      offset:p3=0.62, 0.0, -0.014
+    }
+  }
+}
+
+breda_m1935_pg_carcano{
+  _extends:t="main_weap_slots"
+  _extends:t="ironsights_open_semiauto"
+  animchar__res:t="breda_m1935_pg_carcano_char"
+  gun__blk:t="content/enlisted/gamedata/weapons/breda_m1935_pg_carcano.blk"
+  item__template:t="breda_m1935_pg_carcano_gun_item"
+  item__proto:t="content/enlisted/gamedata/weapons/breda_m1935_pg_carcano.blk"
+  item__locDetails:t="6.5x52 Carcano"
+  item__weapTemplate:t="breda_m1935_pg_carcano_gun"
+  item__name:t="items/breda_m1935_pg_carcano"
+  item__weapType:t="semiauto"
+  item__weight:r=5.2
+  gun__locName:t="Breda PG"
+  gun__statName:t="semiauto"
+  gun__sightsDistance:r=0.05
+  gun__shotFreq:r=5.333
+  gun__boltFreq:r=10.0
+  gun__automaticReload:b=no
+  gun_spread__maxDeltaAngle:r=0.31
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.1, 0.6
+  gun_deviation__movementRange:p2=2.1, 4.0
+  gun_deviation__movementDevInc:p2=0.0, 15.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.15
+  gun_deviation__maxDeviation:r=30.0
+  gun__reloadTime:r=2.5
+  gun__altReloadTime:r=2.2
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="breda_m1935_pg_carcano_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons/bullets/6.5x52_carcano_semiauto.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="burst"
+      burstSize:i=1
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="semi_auto"
+  }
+}
+
+breda_m1935_pg_carcano_gun{
+  _extends:t="equipable_gun"
+  _extends:t="semiauto_ww2_preset"
+  _extends:t="breda_m1935_pg_carcano"
+  _extends:t="assault_rifle_rapid_muzzle_preset"
+  _extends:t="hit_effect_group_12_14mm"
+  _extends:t="rifle_gun_aim_sound"
+  gun_shell_ejection__timeMult:r=0.35
+  gun__standOffset:p3=0.2, 0.05, 0.15
+  gun__crouchOffset:p3=0.2, -0.07, 0.25
+  gun__length:r=0.4
+  gun__recoilAmount:r=0.082
+  gun__recoilDirAmount:r=0.7
+  gun__recoilDir:r=0.28
+  gun__visualRecoilMult:r=1.3
+  gun_attach__slot:t="weapon"
+  gun__adsSpeedMult:r=0.7
+  meleeSoundType:t="rifle"
+  gun__recoilControlMult:r=0.25
+  gun__recoilOffsMult:r=0.3
+  gun_anim_var__fpsGunOffsetAlong:r=0.06
+  gun_anim_var__fpsGunOffsetAcross:r=0.035
+  gun_anim_var__fpsGunOffsetUp:r=0.02
+
+  _group{
+    _tags:t="sound"
+    gun_sound__forceOneshot:b=yes
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/rifle/breda_m1935_pg"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload:object"{
+      path:t="/weapon/rifle/breda_m1935_pg/reload"
+    }
+
+    "reload_alt:object"{
+      path:t="/weapon/rifle/breda_m1935_pg/reload_alt"
+    }
+  }
+
+  "gun__mountPoints:shared:array"{
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.65
+      offset:p3=0.62, 0.0, -0.014
+    }
+  }
+}
+
 beretta_m1918_30{
   _extends:t="main_weap_slots"
   _extends:t="ironsights_open_smg"
@@ -4569,6 +4812,18 @@ smle_mk3_grenade_launcher_gun{
 
     "boltAction:object"{
       path:t="/weapon/rifle/lee_enfield/bolt_action"
+    }
+
+    "modActivate:object"{
+      path:t="/weapon/antivehicle/mortyr_grenade_launcher/mod_activate"
+    }
+
+    "modDeactivate:object"{
+      path:t="/weapon/antivehicle/mortyr_grenade_launcher/mod_deactivate"
+    }
+
+    "modReload:object"{
+      path:t="/weapon/antivehicle/mortyr_grenade_launcher/mod_reload"
     }
   }
 

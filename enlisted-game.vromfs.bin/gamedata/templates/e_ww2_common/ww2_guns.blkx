@@ -3036,6 +3036,94 @@ nagant_m1895_bramit_gun{
   }
 }
 
+voevodin_pistol{
+  _extends:t="pistol_weap_slots"
+  _extends:t="ironsights_open_pistol"
+  animchar__res:t="voevodin_pistol_char"
+  gun__blk:t="content/enlisted/gamedata/weapons/voevodin_pistol.blk"
+  item__template:t="voevodin_pistol_gun_item"
+  item__proto:t="content/enlisted/gamedata/weapons/voevodin_pistol.blk"
+  item__locDetails:t="7.62x25mm;"
+  item__weapTemplate:t="voevodin_pistol_gun"
+  item__name:t="items/voevodin_pistol"
+  item__weapType:t="pistol"
+  item__weight:r=0.96
+  gun__locName:t="Voevodin pistol"
+  gun__statName:t="pistol"
+  gun__shotFreq:r=6.0
+  gun__automaticReload:b=no
+  gun_spread__maxDeltaAngle:r=0.76
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.1, 0.7
+  gun_deviation__movementRange:p2=2.1, 4.0
+  gun_deviation__movementDevInc:p2=0.0, 15.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.15
+  gun_deviation__maxDeviation:r=15.0
+  gun__reloadTime:r=2.3
+  gun__altReloadTime:r=1.7
+  gun__kineticDamageMult:r=0.9623
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="voevodin_pistol_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons/bullets/7.62x25_tokarev_pistol.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="burst"
+      burstSize:i=1
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="semi_auto"
+  }
+}
+
+voevodin_pistol_gun{
+  _extends:t="equipable_gun"
+  _extends:t="pistol_ww2_preset"
+  _extends:t="voevodin_pistol"
+  _extends:t="pistol_muzzle_preset"
+  _extends:t="hit_effect_group_6_8mm"
+  gun__recoilAmount:r=0.048
+  gun__recoilDirAmount:r=0.64
+  gun__recoilDir:r=0.0
+  gun__visualRecoilMult:r=1.0
+  meleeSoundType:t="pistol"
+  gun_anim_var__fpsGunOffsetAlong:r=0.23
+  gun_anim_var__fpsGunOffsetAcross:r=0.02
+  gun_anim_var__fpsGunOffsetUp:r=0.06
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/pistol/tt"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload:object"{
+      path:t="/weapon/pistol/voevodin_pistol/reload"
+    }
+
+    "reload_alt:object"{
+      path:t="/weapon/pistol/voevodin_pistol/reload_alt"
+    }
+  }
+}
+
 winchester_1895{
   _extends:t="main_weap_slots"
   _extends:t="reload_not_empty_single_bullet"
@@ -9713,6 +9801,148 @@ rd_44_gun{
   }
 }
 
+gorov_mg{
+  _extends:t="main_weap_slots"
+  _extends:t="ironsights_open_machinegun"
+  animchar__res:t="gorov_machine_gun_char"
+  gun__blk:t="content/enlisted/gamedata/weapons/gorov_mg.blk"
+  item__template:t="gorov_mg_gun_item"
+  item__proto:t="content/enlisted/gamedata/weapons/gorov_mg.blk"
+  item__locDetails:t="RoF: 550; 7.62x54mm;"
+  item__weapTemplate:t="gorov_mg_gun"
+  item__name:t="items/gorov_mg"
+  item__weapType:t="machine_gun"
+  item__weight:r=7.4
+  gun__inertialMass:r=7.0
+  gun__locName:t="Gorov LMG"
+  gun__statName:t="machine_gun"
+  gun__sightsDistance:r=0.3
+  gun__shotFreq:r=13.33
+  gun_spread__maxDeltaAngle:r=0.35
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.04, 0.3
+  gun_deviation__movementRange:p2=0.1, 4.0
+  gun_deviation__movementDevInc:p2=8.0, 15.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.15
+  gun_deviation__maxDeviation:r=20.0
+  gun__reloadTime:r=2.9
+  gun__altReloadTime:r=2.6
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="lahti_saloranta_m26_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons/bullets/7.62x54_r_tracer.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="automatic"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="full_auto"
+  }
+}
+
+gorov_mg_gun{
+  _extends:t="equipable_gun"
+  _extends:t="mg_ww2_preset"
+  _extends:t="gorov_mg"
+  _extends:t="mg_rapid_muzzle_preset"
+  _extends:t="hit_effect_group_12_14mm"
+  _extends:t="gun_switch_firing_mode_sound"
+  _extends:t="mgun_gun_aim_sound"
+  _extends:t="visual_magazine_fullness"
+  gun_shell_ejection__timeMult:r=0.93
+  gun__standOffset:p3=0.2, 0.05, 0.15
+  gun__crouchOffset:p3=0.2, -0.07, 0.25
+  gun__length:r=0.4
+  gun__recoilAmount:r=0.064
+  gun__recoilDirAmount:r=0.74
+  gun__recoilDir:r=0.0
+  gun__visualRecoilMult:r=1.0
+  gun__recoilOriMultInAim:p3=0.55, 0.25, 0.1
+  gun_attach__slot:t="weapon"
+  weap__sprintLerpFactor:r=0.8
+  gun__adsSpeedMult:r=0.7
+  meleeSoundType:t="rifle"
+  gun__recoilControlMult:r=0.55
+  gun__recoilOffsMult:r=0.3
+  gun__rotationSpringMult:p3=1.0, 3.7, 3.7
+  gun__rotInertia:p3=0.1, 2.0, 2.0
+  gun_anim_var__fpsGunOffsetAlong:r=0.08
+  gun_anim_var__fpsGunOffsetAcross:r=0.02
+  gun_anim_var__fpsGunOffsetUp:r=0.12
+
+  "anim_irq__eventNames:object"{
+
+    "newMagazineShown:object"{
+      irqName:t="ammo_refresh"
+      irqId:i=-1
+    }
+  }
+
+  anim_irq_to_event_converter{
+  }
+
+  _group{
+    _tags:t="sound"
+    gun_sound__forceOneshot:b=yes
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/mgun/lahti_saloranta_m26"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload:object"{
+      path:t="/weapon/mgun/gorov_mg/reload"
+    }
+
+    "reload_alt:object"{
+      path:t="/weapon/mgun/gorov_mg/reload_alt"
+    }
+  }
+
+  "gun__mountPoints:shared:array"{
+
+    "point:object"{
+      type:t="bipod"
+      recoil:r=0.45
+      offset:p3=0.615, -0.05, 0.0
+      forceOffset:b=yes
+      angle:r=29.0
+      length:r=0.28
+    }
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.65
+      offset:p3=0.485, -0.035, 0.0
+    }
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.65
+      offset:p3=0.65, -0.005, 0.0
+    }
+  }
+}
+
 ptrs_41{
   _extends:t="main_weap_slots"
   _extends:t="ironsights_open_at_rifle"
@@ -13616,6 +13846,148 @@ m1e5_garand_gun{
   }
 
   "gun__mountPoints:shared:array"{
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.65
+      offset:p3=0.64, -0.02, 0.0
+    }
+  }
+}
+
+t20_rifle{
+  _extends:t="main_weap_slots"
+  _extends:t="ironsights_open_semiauto"
+  animchar__res:t="t20_rifle_char"
+  gun__blk:t="content/enlisted/gamedata/weapons/t20_rifle.blk"
+  item__template:t="t20_rifle_gun_item"
+  item__proto:t="content/enlisted/gamedata/weapons/t20_rifle.blk"
+  item__locDetails:t=".30-06 Springfield"
+  item__weapTemplate:t="t20_rifle_gun"
+  item__name:t="items/t20_rifle"
+  item__weapType:t="semiauto"
+  item__weight:r=4.3
+  gun__locName:t="M1 Garand"
+  gun__statName:t="semiauto"
+  gun__sightsDistance:r=0.05
+  gun__shotFreq:r=10.83
+  gun__boltFreq:r=10.83
+  gun__automaticReload:b=no
+  gun_spread__maxDeltaAngle:r=0.28
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.1, 0.6
+  gun_deviation__movementRange:p2=2.1, 4.0
+  gun_deviation__movementDevInc:p2=0.0, 15.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.3
+  gun_deviation__maxDeviation:r=30.0
+  gun__reloadTime:r=2.5
+  gun__altReloadTime:r=2.2
+  gun__kineticDamageMult:r=1.06
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="t20_rifle_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons/bullets/30_06_springfield_semiauto.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="automatic"
+    }
+
+    "mode:object"{
+      modeType:t="burst"
+      burstSize:i=1
+      shotFreqMult:r=2.03
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="full_auto"
+    mode:t="semi_auto"
+  }
+}
+
+t20_rifle_gun{
+  _extends:t="equipable_gun"
+  _extends:t="semiauto_ww2_preset"
+  _extends:t="t20_rifle"
+  _extends:t="rifle_rapid_muzzle_break_2_preset"
+  _extends:t="hit_effect_group_12_14mm"
+  _extends:t="rifle_gun_aim_sound"
+  _extends:t="visual_magazine_fullness"
+  gun_shell_ejection__timeMult:r=0.35
+  gun__standOffset:p3=0.2, 0.05, 0.15
+  gun__crouchOffset:p3=0.2, -0.07, 0.25
+  gun__length:r=0.4
+  gun__recoilAmount:r=0.114
+  gun__recoilDirAmount:r=0.78
+  gun__recoilDir:r=0.35
+  gun__visualRecoilMult:r=0.3
+  gun_attach__slot:t="weapon"
+  gun__adsSpeedMult:r=0.65
+  meleeSoundType:t="rifle"
+  gun__recoilControlMult:r=0.25
+  gun__recoilOffsMult:r=0.3
+  gun_anim_var__fpsGunOffsetAlong:r=0.06
+  gun_anim_var__fpsGunOffsetAcross:r=0.025
+  gun_anim_var__fpsGunOffsetUp:r=0.045
+  gun__rotationSpringMult:p3=1.0, 3.7, 3.7
+  gun__rotInertia:p3=0.1, 2.0, 2.0
+
+  "anim_irq__eventNames:object"{
+
+    "newMagazineShown:object"{
+      irqName:t="ammo_refresh"
+      irqId:i=-1
+    }
+  }
+
+  anim_irq_to_event_converter{
+  }
+
+  _group{
+    _tags:t="sound"
+    gun_sound__forceOneshot:b=yes
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/rifle/m1"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload:object"{
+      path:t="/weapon/rifle/t20_rifle/reload"
+    }
+
+    "reload_alt:object"{
+      path:t="/weapon/rifle/t20_rifle/reload_alt"
+    }
+  }
+
+  "gun__mountPoints:shared:array"{
+
+    "point:object"{
+      type:t="bipod"
+      recoil:r=0.35
+      offset:p3=0.7, 0.0, 0.01
+      forceOffset:b=yes
+      angle:r=34.0
+      length:r=0.22
+    }
 
     "point:object"{
       type:t="rest"
@@ -36549,7 +36921,7 @@ lanciafiamme_m41_dassalto{
   item__name:t="items/lanciafiamme_m41_dassalto"
   item__template:t="lanciafiamme_m41_dassalto_gun_item"
   item__weapTemplate:t="lanciafiamme_m41_dassalto_gun"
-  item__proto:t="content/enlisted_pkg_dev/gamedata/weapons/lanciafiamme_m41_dassalto.blk"
+  item__proto:t="content/enlisted/gamedata/weapons/lanciafiamme_m41_dassalto.blk"
   item__locDetails:t="RoF: 600; .30-06;"
   item__weight:r=17.0
   gun__reloadTime:r=6.0
@@ -36563,8 +36935,8 @@ lanciafiamme_m41_dassalto_gun{
   _extends:t="flamethrower_gun_base"
   _extends:t="antivehicle_gun_aim_sound"
   _extends:t="lanciafiamme_m41_dassalto"
-  flamethrower__streamEffectTemplate:t="flamethrower_flame_stream_long_effect"
-  flamethrower__maxFlameLength:r=32.0
+  flamethrower__streamEffectTemplate:t="flamethrower_flame_stream_effect"
+  flamethrower__maxFlameLength:r=18.0
   flamethrower__flameCloudRadius:r=0.5
   flamethrower__streamDamagePerSecond:r=60.0
   meleeSoundType:t="rifle"
@@ -39427,6 +39799,123 @@ type_hei_rifle_extended_gun{
 
     "boltAction:object"{
       path:t="/weapon/rifle/m1/bolt_action"
+    }
+  }
+
+  "gun__mountPoints:shared:array"{
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.65
+      offset:p3=0.7, 0.02, 0.0
+    }
+  }
+}
+
+type_hei_rifle_late{
+  _extends:t="main_weap_slots"
+  _extends:t="ironsights_open_semiauto"
+  animchar__res:t="type_hei_rifle_late_char"
+  gun__blk:t="content/enlisted/gamedata/weapons/type_hei_rifle_late.blk"
+  item__template:t="type_hei_rifle_late_gun_item"
+  item__proto:t="content/enlisted/gamedata/weapons/type_hei_rifle_late.blk"
+  item__locDetails:t="6.5 Arisaka"
+  item__weapTemplate:t="type_hei_rifle_late_gun"
+  item__name:t="items/type_hei_rifle_late"
+  item__weapType:t="semiauto"
+  item__weight:r=4.6
+  gun__locName:t="Type Hei Rifle"
+  gun__statName:t="semiauto"
+  gun__sightsDistance:r=0.05
+  gun__shotFreq:r=5.333
+  gun__boltFreq:r=10.0
+  gun__automaticReload:b=no
+  gun_spread__maxDeltaAngle:r=0.22
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.1, 0.6
+  gun_deviation__movementRange:p2=2.1, 4.0
+  gun_deviation__movementDevInc:p2=0.0, 15.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.3
+  gun_deviation__maxDeviation:r=30.0
+  gun__reloadTime:r=2.93
+  gun__altReloadTime:r=2.52
+  gun__quickReloadTime:r=2.52
+  gun__kineticDamageMult:r=1.1
+
+  "item__id:i"{
+    value:i=0
+    _hide:b=yes
+  }
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="type_hei_rifle_extended_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons/bullets/6.5x50_arisaka_semiauto.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="burst"
+      burstSize:i=1
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="semi_auto"
+  }
+}
+
+type_hei_rifle_late_gun{
+  _extends:t="equipable_gun"
+  _extends:t="semiauto_ww2_preset"
+  _extends:t="type_hei_rifle_late"
+  _extends:t="rifle_muzzle_preset"
+  _extends:t="hit_effect_group_12_14mm"
+  _extends:t="rifle_gun_aim_sound"
+  gun_shell_ejection__timeMult:r=0.35
+  gun__standOffset:p3=0.2, 0.05, 0.15
+  gun__crouchOffset:p3=0.2, -0.07, 0.25
+  gun__length:r=0.4
+  gun__recoilAmount:r=0.057
+  gun__recoilDirAmount:r=0.68
+  gun__recoilDir:r=0.28
+  gun__visualRecoilMult:r=1.0
+  gun__adsSpeedMult:r=0.78
+  gun_attach__slot:t="weapon"
+  meleeSoundType:t="rifle"
+  gun_anim_var__fpsGunOffsetAlong:r=0.08
+  gun_anim_var__fpsGunOffsetAcross:r=0.025
+  gun_anim_var__fpsGunOffsetUp:r=0.03
+  gun__rotationSpringMult:p3=1.0, 3.7, 3.7
+  gun__rotInertia:p3=0.1, 2.0, 2.0
+
+  "gun_mods__slots:object"{
+
+    "bayonet:object"{
+      type_30_bayonet:t="type_30_bayonet"
+      type_2_bayonet:t="type_2_bayonet"
+    }
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/rifle/type_hei"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload:object"{
+      path:t="/weapon/rifle/type_hei_late/reload"
+    }
+
+    "reload_alt:object"{
+      path:t="/weapon/rifle/type_hei_late/reload_alt"
     }
   }
 

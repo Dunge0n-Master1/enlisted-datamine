@@ -5,6 +5,7 @@ let { getZoneWatch, visibleCurrentCapZonesEids, capZones } = require("%ui/hud/st
 let { TEAM1_COLOR_FG, DEFAULT_TEXT_COLOR } = require("%ui/hud/style.nut")
 let {safeAreaHorPadding, safeAreaVerPadding} = require("%enlSqGlob/safeArea.nut")
 let { isReplay } = require("%ui/hud/state/replay_state.nut")
+let { showSquadSpawn, respawnSelectedEid } = require("%ui/hud/state/respawnState.nut")
 
 
 let { watchedHeroEid, watchedTeam } = require("%ui/hud/state/watched_hero.nut")
@@ -28,7 +29,7 @@ let visibleZoneEids = Computed(function(prev) {
 
 let isZonesInReplayHidden = Computed(@() isReplay.value && !canShowGameHudInReplay.value)
 
-let distanceText = memoize(function(eid) {
+let distanceText = memoize(function(eid, fromEid = ecs.INVALID_ENTITY_ID) {
   return freeze({
     rendObj = ROBJ_TEXT
     color = DEFAULT_TEXT_COLOR
@@ -39,6 +40,7 @@ let distanceText = memoize(function(eid) {
 
     behavior = Behaviors.DistToEntity
     targetEid = eid
+    fromEid
     minDistance = 3.0
   })
 })
@@ -84,8 +86,7 @@ let mkZonePointer = function(eid) {
   let capzone = capzoneWidget(eid, capzoneSettings)
   let zoneWatch = getZoneWatch(eid)
   let {title=null, icon=null, iconOffsetY=0.0} = zoneWatch.value
-  let watch = [watchedTeam, zoneWatch]
-  let distance = distanceText(eid)
+  let watch = [watchedTeam, zoneWatch, showSquadSpawn, respawnSelectedEid]
   let childData = {
     eid
     priorityOffset = 10000
@@ -108,9 +109,10 @@ let mkZonePointer = function(eid) {
     let zoneIcon = mkZoneIcon(eid, title, icon, isDefendZone)
     let showCapturing = isCapturing
       && (attackTeam == heroTeam || (curTeamCapturingZone != heroTeam && attackTeam!=heroTeam))
-
+    let distance = showSquadSpawn.value ?
+      (respawnSelectedEid.value != ecs.INVALID_ENTITY_ID ? distanceText(eid, respawnSelectedEid.value) : null) : distanceText(eid)
     return {
-      watch = zoneWatch
+      watch = [zoneWatch, showSquadSpawn, respawnSelectedEid]
       halign = ALIGN_CENTER
       valign = ALIGN_CENTER
       size

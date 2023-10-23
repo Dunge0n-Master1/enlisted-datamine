@@ -244,3 +244,18 @@ ussr_t_70_defender_twitch_drop_premium{
     }
   }
 }
+
+ussr_t_70_tambov_farmers_battlepass_premium{
+  _extends:t="ussr_t_70_common"
+
+  "animchar__objTexReplace:object"{
+    "ussr_camo_green*":t="ussr_camo_winter*"
+  }
+
+  "animchar__objTexSet:object"{
+
+    "t_70_body_c*:object"{
+      "t_70_tambov_farmers_body_c*":t="camo_skin_tex"
+    }
+  }
+}

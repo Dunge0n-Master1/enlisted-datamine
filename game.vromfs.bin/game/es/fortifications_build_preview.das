@@ -243,7 +243,8 @@ def build_ability_update_transform_es(info : UpdateStageInfoAct;
       norm = -norm
     build_position.y += additionalHeight
     buildingNorm = norm
-    let buildingRadius = length(buildingBoxMax - buildingBoxMin) * 0.5
+    let minBuildingRadius = get_float(human_weap__currentGunEid, "minBuildingRadius") ?? 0.0
+    let buildingRadius = max(length(buildingBoxMax - buildingBoxMin) * 0.5, minBuildingRadius)
     isAngleValid = check_inclination_angles(norm,
                                             avaliableAngles,
                                             build_position,
@@ -575,7 +576,8 @@ def try_build_fortification_es(evt : Event;
   if !equipped || actionWithObj != INVALID_ENTITY_ID
     return
 
-  let buildingRadius = length(buildingBoxMax - buildingBoxMin) * 0.5
+  let minBuildingRadius = get_float(builderGunEid, "minBuildingRadius") ?? 0.0
+  let buildingRadius = max(length(buildingBoxMax - buildingBoxMin) * 0.5, minBuildingRadius)
   if !check_inclination_angles(buildingNorm,
                                avaliableAngles,
                                transform[3],

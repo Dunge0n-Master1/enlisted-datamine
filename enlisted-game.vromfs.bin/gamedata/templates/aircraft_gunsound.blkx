@@ -131,7 +131,7 @@ gunsound_12_7mm_browning50_m2_late_aircraft{
 }
 
 gunsound_12_7mm_ubk_aircraft{
-  _extends:t="gunsound_12_7mm_browning50_aircraft"
+  _extends:t="gunsound_12_7mm_ub_aircraft"
 }
 
 gunsound_12_7mm_bredasafat127_aircraft{

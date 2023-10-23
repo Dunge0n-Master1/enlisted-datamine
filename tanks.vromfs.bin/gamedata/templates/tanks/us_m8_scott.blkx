@@ -262,3 +262,18 @@ us_m8_scott_laxative_premium_skin{
     }
   }
 }
+
+us_m8_scott_stars_battlepass_premium{
+  _extends:t="us_m8_scott"
+
+  "animchar__objTexSet:object"{
+
+    "m8a1_body_c*:object"{
+      "m8a1_stars_body_c*":t="camo_skin_tex"
+    }
+
+    "m8a1_turret_c*:object"{
+      "m8a1_stars_turret_c*":t="camo_skin_tex"
+    }
+  }
+}

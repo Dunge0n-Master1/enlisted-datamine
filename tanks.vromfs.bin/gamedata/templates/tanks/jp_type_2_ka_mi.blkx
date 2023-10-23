@@ -2,6 +2,25 @@ jp_type_2_ka_mi_pacific{
   _extends:t="jp_type_2_ka_mi_common"
 }
 
+jp_type_2_ka_mi_1st_yokosuka_battlepass_premium{
+  _extends:t="jp_type_2_ka_mi_common"
+
+  "animchar__objTexReplace:object"{
+    "jp_camo_warship_grey*":t="jp_camo_lt_grey*"
+  }
+
+  "animchar__objTexSet:object"{
+
+    "type_2_ka_mi_body_c*:object"{
+      "type_2_ka_mi_1st_yokosuka_body_c*":t="camo_skin_tex"
+    }
+
+    "type_2_ka_mi_turret_c*:object"{
+      "type_2_ka_mi_1st_yokosuka_turret_c*":t="camo_skin_tex"
+    }
+  }
+}
+
 jp_type_2_ka_mi_common{
   _extends:t="base_type_2_ka_mi"
   _extends:t="tank_m10_engine_sound"

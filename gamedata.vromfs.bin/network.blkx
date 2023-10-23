@@ -822,6 +822,7 @@ jinxing{
   battlePassUrl:t="https://cj.zhanhuo.com/eshop-test/battlepass"
   squadCashUrl:t="https://cj.zhanhuo.com/eshop-test/echogenic"
   promoUrl:t="https://api.zhanhuo.com/unify/cjGamePop"
+  replayPortalUrl:t="https://act.zhanhuo.com/cj/replay"
 
   matching{
     server:t="allinone-jinxing.zhanhuo.com:7853"
@@ -875,6 +876,7 @@ mingwangxing{
   battlePassUrl:t="https://cj.zhanhuo.com/eshop-test/battlepass"
   squadCashUrl:t="https://cj.zhanhuo.com/eshop-test/echogenic"
   promoUrl:t="https://api.zhanhuo.com/unify/cjGamePop"
+  replayPortalUrl:t="https://act.zhanhuo.com/cj/replay"
 
   matching{
     server:t="allinone-mingwangxing.zhanhuo.com:7853"
@@ -928,6 +930,7 @@ muxing{
   battlePassUrl:t="https://cj.zhanhuo.com/eshop/battlepass"
   squadCashUrl:t="https://cj.zhanhuo.com/eshop/echogenic"
   promoUrl:t="https://api.zhanhuo.com/unify/cjGamePop"
+  replayPortalUrl:t="https://act.zhanhuo.com/cj/replay"
 
   matching{
     server:t="mgate-muxing-01.zhanhuo.com:7853"
@@ -996,6 +999,7 @@ douyu{
   battlePassUrl:t="https://cj.zhanhuo.com/eshop/battlepass?channelCode=DYU"
   squadCashUrl:t="https://cj.zhanhuo.com/eshop/echogenic?channelCode=DYU"
   promoUrl:t="https://api.zhanhuo.com/unify/cjGamePop?channelCode=DYU"
+  replayPortalUrl:t="https://act.zhanhuo.com/cj/replay?channelCode=DYU"
 
   matching{
     server:t="match-muxing.zhanhuo.com:7853"
@@ -1053,6 +1057,7 @@ lianxiang{
   battlePassUrl:t="https://cj.zhanhuo.com/eshop/battlepass"
   squadCashUrl:t="https://cj.zhanhuo.com/eshop/echogenic"
   promoUrl:t="https://api.zhanhuo.com/unify/cjGamePop"
+  replayPortalUrl:t="https://act.zhanhuo.com/cj/replay"
 
   matching{
     server:t="match-muxing.zhanhuo.com:7853"
@@ -1110,6 +1115,7 @@ huya{
   battlePassUrl:t="https://cj.zhanhuo.com/eshop/battlepass?channelCode=HYA"
   squadCashUrl:t="https://cj.zhanhuo.com/eshop/echogenic?channelCode=HYA"
   promoUrl:t="https://api.zhanhuo.com/unify/cjGamePop?channelCode=HYA"
+  replayPortalUrl:t="https://act.zhanhuo.com/cj/replay?channelCode=HYA"
 
   matching{
     server:t="match-muxing.zhanhuo.com:7853"
@@ -1167,6 +1173,7 @@ huya{
   battlePassUrl:t="https://cj.zhanhuo.com/eshop/battlepass"
   squadCashUrl:t="https://cj.zhanhuo.com/eshop/echogenic"
   promoUrl:t="https://api.zhanhuo.com/unify/cjGamePop"
+  replayPortalUrl:t="https://act.zhanhuo.com/cj/replay"
 
   matching{
     server:t="match-muxing.zhanhuo.com:7853"
@@ -1224,6 +1231,7 @@ TXruanguan{
   battlePassUrl:t="https://cj.zhanhuo.com/eshop/battlepass"
   squadCashUrl:t="https://cj.zhanhuo.com/eshop/echogenic"
   promoUrl:t="https://api.zhanhuo.com/unify/cjGamePop"
+  replayPortalUrl:t="https://act.zhanhuo.com/cj/replay"
 
   matching{
     server:t="match-muxing.zhanhuo.com:7853"
@@ -1281,6 +1289,7 @@ yilewan{
   battlePassUrl:t="https://cj.zhanhuo.com/eshop/battlepass?channelCode=LYD"
   squadCashUrl:t="https://cj.zhanhuo.com/eshop/echogenic?channelCode=LYD"
   promoUrl:t="https://api.zhanhuo.com/unify/cjGamePop?channelCode=LYD"
+  replayPortalUrl:t="https://act.zhanhuo.com/cj/replay?channelCode=LYD"
 
   matching{
     server:t="match-muxing.zhanhuo.com:7853"
@@ -1338,6 +1347,7 @@ shunwang{
   battlePassUrl:t="https://cj.zhanhuo.com/eshop/battlepass?channelCode=LYA"
   squadCashUrl:t="https://cj.zhanhuo.com/eshop/echogenic?channelCode=LYA"
   promoUrl:t="https://api.zhanhuo.com/unify/cjGamePop?channelCode=LYA"
+  replayPortalUrl:t="https://act.zhanhuo.com/cj/replay?channelCode=LYA"
 
   matching{
     server:t="match-muxing.zhanhuo.com:7853"
@@ -1395,6 +1405,7 @@ feihuo{
   battlePassUrl:t="https://cj.zhanhuo.com/eshop/battlepass?channelCode=LYC"
   squadCashUrl:t="https://cj.zhanhuo.com/eshop/echogenic?channelCode=LYC"
   promoUrl:t="https://api.zhanhuo.com/unify/cjGamePop?channelCode=LYC"
+  replayPortalUrl:t="https://act.zhanhuo.com/cj/replay?channelCode=LYC"
 
   matching{
     server:t="match-muxing.zhanhuo.com:7853"
@@ -1452,6 +1463,181 @@ wyy{
   battlePassUrl:t="https://cj.zhanhuo.com/eshop/battlepass"
   squadCashUrl:t="https://cj.zhanhuo.com/eshop/echogenic"
   promoUrl:t="https://api.zhanhuo.com/unify/cjGamePop"
+  replayPortalUrl:t="https://act.zhanhuo.com/cj/replay"
+
+  matching{
+    server:t="match-muxing.zhanhuo.com:7853"
+  }
+
+  char{
+
+    servers{
+      url:t="https://charlike-muxing-01.zhanhuo.com:7443/json"
+      url:t="https://charlike-muxing-02.zhanhuo.com:7443/json"
+    }
+  }
+
+  userstats{
+
+    servers{
+      url:t="https://charlike-muxing-01.zhanhuo.com:9443/char"
+      url:t="https://charlike-muxing-02.zhanhuo.com:9443/char"
+    }
+  }
+
+  profile_server{
+
+    servers{
+      url:t="https://profile-muxing-01.zhanhuo.com:8443/json-rpc"
+      url:t="https://profile-muxing-02.zhanhuo.com:8443/json-rpc"
+      url:t="https://profile-muxing-03.zhanhuo.com:8443/json-rpc"
+    }
+  }
+
+  onlineStorage{
+
+    servers{
+      url:t="https://charlike-muxing-01.zhanhuo.com:7443/char"
+    }
+  }
+
+  message_queue{
+    port:i=11300
+    host:t="127.0.0.1"
+  }
+}
+
+TGB{
+  environment:t="production"
+  chanceOfFatalOnLogerrOnExit:i=0
+  marketplaceURL:t=""
+  eventUrl:t="https://cj.zhanhuo.com/acts"
+  storeUrl:t="https://cj.zhanhuo.com/eshop"
+  shopUrl:t="https://cj.zhanhuo.com/eshop"
+  shopGuidUrl:t="https://cj.zhanhuo.com/eshop"
+  shopCategoryUrl:t="https://cj.zhanhuo.com/eshop"
+  webLoginUrl:t="https://act.zhanhuo.com/cj/obt_login/login_tgb/index.html"
+  premiumUrl:t="https://cj.zhanhuo.com/eshop/account"
+  battlePassUrl:t="https://cj.zhanhuo.com/eshop/battlepass"
+  squadCashUrl:t="https://cj.zhanhuo.com/eshop/echogenic"
+  promoUrl:t="https://api.zhanhuo.com/unify/cjGamePop"
+  replayPortalUrl:t="https://act.zhanhuo.com/cj/replay"
+
+  matching{
+    server:t="match-muxing.zhanhuo.com:7853"
+  }
+
+  char{
+
+    servers{
+      url:t="https://charlike-muxing-01.zhanhuo.com:7443/json"
+      url:t="https://charlike-muxing-02.zhanhuo.com:7443/json"
+    }
+  }
+
+  userstats{
+
+    servers{
+      url:t="https://charlike-muxing-01.zhanhuo.com:9443/char"
+      url:t="https://charlike-muxing-02.zhanhuo.com:9443/char"
+    }
+  }
+
+  profile_server{
+
+    servers{
+      url:t="https://profile-muxing-01.zhanhuo.com:8443/json-rpc"
+      url:t="https://profile-muxing-02.zhanhuo.com:8443/json-rpc"
+      url:t="https://profile-muxing-03.zhanhuo.com:8443/json-rpc"
+    }
+  }
+
+  onlineStorage{
+
+    servers{
+      url:t="https://charlike-muxing-01.zhanhuo.com:7443/char"
+    }
+  }
+
+  message_queue{
+    port:i=11300
+    host:t="127.0.0.1"
+  }
+}
+
+MaTi{
+  environment:t="production"
+  chanceOfFatalOnLogerrOnExit:i=0
+  marketplaceURL:t=""
+  eventUrl:t="https://cj.zhanhuo.com/acts"
+  storeUrl:t="https://cj.zhanhuo.com/eshop"
+  shopUrl:t="https://cj.zhanhuo.com/eshop"
+  shopGuidUrl:t="https://cj.zhanhuo.com/eshop"
+  shopCategoryUrl:t="https://cj.zhanhuo.com/eshop"
+  webLoginUrl:t="https://www.zhanhuo.com/transfer/?gamecode=101&adcode=9gxfzgez"
+  premiumUrl:t="https://cj.zhanhuo.com/eshop/account"
+  battlePassUrl:t="https://cj.zhanhuo.com/eshop/battlepass"
+  squadCashUrl:t="https://cj.zhanhuo.com/eshop/echogenic"
+  promoUrl:t="https://api.zhanhuo.com/unify/cjGamePop"
+  replayPortalUrl:t="https://act.zhanhuo.com/cj/replay"
+
+  matching{
+    server:t="match-muxing.zhanhuo.com:7853"
+  }
+
+  char{
+
+    servers{
+      url:t="https://charlike-muxing-01.zhanhuo.com:7443/json"
+      url:t="https://charlike-muxing-02.zhanhuo.com:7443/json"
+    }
+  }
+
+  userstats{
+
+    servers{
+      url:t="https://charlike-muxing-01.zhanhuo.com:9443/char"
+      url:t="https://charlike-muxing-02.zhanhuo.com:9443/char"
+    }
+  }
+
+  profile_server{
+
+    servers{
+      url:t="https://profile-muxing-01.zhanhuo.com:8443/json-rpc"
+      url:t="https://profile-muxing-02.zhanhuo.com:8443/json-rpc"
+      url:t="https://profile-muxing-03.zhanhuo.com:8443/json-rpc"
+    }
+  }
+
+  onlineStorage{
+
+    servers{
+      url:t="https://charlike-muxing-01.zhanhuo.com:7443/char"
+    }
+  }
+
+  message_queue{
+    port:i=11300
+    host:t="127.0.0.1"
+  }
+}
+
+LX2{
+  environment:t="production"
+  chanceOfFatalOnLogerrOnExit:i=0
+  marketplaceURL:t=""
+  eventUrl:t="https://cj.zhanhuo.com/acts"
+  storeUrl:t="https://cj.zhanhuo.com/eshop"
+  shopUrl:t="https://cj.zhanhuo.com/eshop"
+  shopGuidUrl:t="https://cj.zhanhuo.com/eshop"
+  shopCategoryUrl:t="https://cj.zhanhuo.com/eshop"
+  webLoginUrl:t="https://www.zhanhuo.com/transfer/?gamecode=101&adcode=bs5g4xlj"
+  premiumUrl:t="https://cj.zhanhuo.com/eshop/account"
+  battlePassUrl:t="https://cj.zhanhuo.com/eshop/battlepass"
+  squadCashUrl:t="https://cj.zhanhuo.com/eshop/echogenic"
+  promoUrl:t="https://api.zhanhuo.com/unify/cjGamePop"
+  replayPortalUrl:t="https://act.zhanhuo.com/cj/replay"
 
   matching{
     server:t="match-muxing.zhanhuo.com:7853"
