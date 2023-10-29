@@ -5,8 +5,7 @@ require RiDestr
 require Dacoll
 require DagorMath
 
-def is_nearly_same_float3(a, b)
-  let eps = 0.005
+def is_nearly_same_float3(a, b, eps)
   if abs(a.x - b.x) > eps
     return false
   if abs(a.y - b.y) > eps
@@ -16,13 +15,13 @@ def is_nearly_same_float3(a, b)
   return true
 
 def is_nearly_same_ri_tm(a, b)
-  if !is_nearly_same_float3(a[0], b[0])
+  if !is_nearly_same_float3(a[0], b[0], 0.001)
     return false
-  if !is_nearly_same_float3(a[1], b[1])
+  if !is_nearly_same_float3(a[1], b[1], 0.001)
     return false
-  if !is_nearly_same_float3(a[2], b[2])
+  if !is_nearly_same_float3(a[2], b[2], 0.001)
     return false
-  if !is_nearly_same_float3(a[3], b[3])
+  if !is_nearly_same_float3(a[3], b[3], 0.025)
     return false
   return true
 

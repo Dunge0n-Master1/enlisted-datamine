@@ -207,15 +207,17 @@ climbThroughState{
   sprintSpeed:r=5.0
   rotateAngles:p2=-90.0, 90.0
   rotateSpeed:r=180.0
+  ccdPos:p3=0.0, 1.05, 0.0
+  collisionCenterPos:p3=0.0, 1.1, 0.0
 
   collisionLinks{
     paramMult:r=0.0
-    offset:p3=0.0, 0.45, 0.0
+    offset:p3=0.0, 1.0, 0.0
     haveCollision:b=no
 
     body{
       paramMult:r=0.0
-      offset:p3=0.0, 0.3, 0.0
+      offset:p3=0.0, 0.05, 0.0
       haveCollision:b=yes
     }
   }

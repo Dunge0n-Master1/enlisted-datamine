@@ -25,8 +25,9 @@ def remove_rendinsts(rmv_list : Array)
     if tm == null
       continue
     let name = get_string(*obj, "name", "")
-    if remove_rendinst(*tm, name)
+    if !remove_rendinst(*tm, name)
       print("rirmv_log: failed to remove {name} at {(*tm)[3]}")
+    else
       ++count
 
   rirmv_log(startTime, "removed {count}/{length(rmv_list)} instances")

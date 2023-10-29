@@ -270,6 +270,9 @@ local portraits = {
   armory3_bonus_portrait_britain = {
     icon = "ui/portraits/event/armory3_bonus_portrait_britain.avif"
   }
+  portrait_opendev_23 = {
+    icon = "ui/portraits/event/portrait_opendev_23.avif"
+  }
 
 
   common_china_portrait_1 = {
